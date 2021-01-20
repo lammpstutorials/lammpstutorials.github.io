@@ -1,0 +1,60 @@
+LAMMPS (20 Nov 2019)
+# Initialization
+
+units		lj
+dimension 	2
+atom_style	atomic
+boundary	p p p
+
+# System definition
+
+region		myreg block -30 30 -30 30 -0.5 0.5
+create_box	2 myreg
+Created orthogonal box = (-30 -30 -0.5) to (30 30 0.5)
+  1 by 1 by 1 MPI processor grid
+create_atoms	1 random 1500 341341 myreg
+Created 1500 atoms
+  create_atoms CPU = 0.000368178 secs
+create_atoms	2 random 100 127569 myreg
+Created 100 atoms
+  create_atoms CPU = 1.919e-05 secs
+
+# Simulation settings
+
+mass		1 1
+mass		2 1
+pair_style	lj/cut 2.5
+pair_coeff	1 1 1.0 1.0
+pair_coeff	2 2 0.5 3.0
+neigh_modify	every 1 delay 5 check yes
+dump 		mydmp all atom 1000 dump.lammpstrj
+
+
+# Run
+
+#thermo		10
+#minimize	1.0e-4 1.0e-6 1000 10000
+
+fix		mynve all nve
+fix		mylgv all langevin 1.0 1.0 0.1 1530917
+fix		myefn all enforce2d
+timestep	0.005
+thermo		1000
+run		10000
+Neighbor list info ...
+  update every 1 steps, delay 5 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.8
+  ghost atom cutoff = 2.8
+  binsize = 1.4, bins = 43 43 1
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/2d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.131 | 4.131 | 4.131 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0 5.8997404e+14            0 5.8997404e+14 1.5732641e+15 
+ERROR: Lost atoms: original 1600 current 156 (src/thermo.cpp:438)
+Last command: run		10000

@@ -1,0 +1,292 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic - Phantom by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<a href="../index.html" class="logo">
+								<span class="title">Back to the main page</span>
+							</a>
+						</div>
+					</header>
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+						
+<h1>Simple 2D simulation</h1>
+<br>
+<span class="image main"><img src="lammps_tuto01.jpg" alt="" /></span>
+
+<p>							
+The purpose of this tutorial is to show you how to use LAMMPS to perform a simple simulation of molecular dynamics.
+To follow this tutorial, you don't need to know any computer language, and you don't need to have any previous experience with simulation. I will be using Ubuntu, but any OS is fine. 
+<br><br>
+The simulation consists in a binary fluid in a 2D box (see the image above), with atoms on the fluid interacting through a simple Lennard-Potential. Even if this simulation may seems overly simple, it is in fact extremely instructive as it use many ingredients that are fundamental to molecular dynamics simulations.
+<br><br>
+If you already have a good grasp on LAMMPS, you can download directly the input script that will be written following this tutorial <a href="input.lammps" target="_blank">here</a>.
+ 
+</p>
+
+<h2>Step 1 -- Software installation</h2>
+<br>
+<p>
+First, you need to download and install LAMMPS. You can do it from the <a href="https://lammps.sandia.gov" target="_blank" class="removelinkdefault">LAMMPS website</a>. Alternatively, if you are using Ubuntu, you can simply execute the following command in the terminal: 
+<pre><code>sudo apt-get install lammps</code></pre>
+</p><p>
+You can verify that LAMMPS is indeed installed on you computer by typing in a terminal :
+<pre><code>lmp</code></pre>
+</p><p>
+And you should see the version of LAMMPS that has been installed. On my computer I see
+<pre><code>LAMMPS (20 Nov 2019)</code></pre>
+</p>
+
+<p>
+LAMMPS is the code that will allow us to perform our molecular simulations, but to use it we also need: 
+<ul>
+<li> a	basic text editing software. I personally use  
+<a href="https://help.gnome.org/users/gedit/stable/" target="_blank" class="removelinkdefault">gedit</a>, 
+but any text editor will do,</li>
+<li> a visualisation software, here I will use
+<a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank" class="removelinkdefault">VMD</a> (note that you will have to register in order to download VMD. If you don't want to, you can also use Ovito),</li>
+<li> and a plotting tool, for example 
+<a href="http://exciting-code.org/xmgrace-quickstart" target="_blank" class="removelinkdefault">Xmgrace</a>.</li>
+</ul>
+</p>
+
+<br><br>
+<h2>Step 2 -- Your first LAMMPS script</h2>
+<br>
+<p>
+In order to run a simulation using LAMMPS, we just need to write a series of commands in an input script, which is simply a text file. Lammps will read the text file one line at a time. A typical input script contains four categories, which we are going to fill right now. Create a folder, and create a text file in it. Call it <i>input.lammps</i> and copy the following lines in it: 
+<pre><code># Initialization
+
+# System definition
+
+# Simulation settings
+
+# Run
+</code></pre>
+</p><p>
+A line starting with a # is a comment that will be ignored by LAMMPS. In the first part of the script, called <i>Initialization</i>, we are going to indicate to LAMMPS what kind of simulation we are going to execute, by specifying the boundary conditions, the type of atoms (e.g. uncharged single dot, molecule, etc), etc. Enter the following lines:
+<pre><code># Initialization
+
+units		lj
+dimension 	2
+atom_style	atomic
+pair_style	lj/cut 2.5
+boundary	p p p 
+</code></pre></p><p>
+The five new lines are respectively four commands that will be understood by LAMMPS. The first line indicates that we want to use the system of unit called <i>lj</i> for which all quantities are unitless. The second line indicates that the simulation is 2D, the third line that the atomic style will be used (therefore atoms are just a dot with a mass). The fourth line indicates that atoms are going to interact through a Lennard-Jones potential with a cut-off equal to 2.5, and the last line indicates that the periodic boundary conditions are used along all three direction of space. It may seems strange to define periodic boundary condition along the third dimension since we are performing 2D simulation, but it is a LAMMPS requirement. At this point, you have a LAMMPS script that does nothing. You can execute it to verify that there is no mistake by running the following command in the terminal:
+<pre><code>lmp -in input.lammps
+</code></pre></p><p>
+Which should return something like
+<pre><code>LAMMPS (20 Nov 2019)
+Total wall time: 0:00:00
+</code></pre></p><p>
+If you have a mistake in your code, for example if you wrote <i>atom_stile</i> instead of <i>atom_style</i>, LAMMPS will give you a warning:
+<pre><code>LAMMPS (20 Nov 2019)
+ERROR: Unknown command: atom_stile	atomic (src/input.cpp:232)
+Last command: atom_stile	atomic
+</code></pre></p><p>
+Let us fill the second part the of the input script:
+<pre><code># System definition
+
+region            myreg block -30 30 -30 30 -0.5 0.5
+create_box        2 myreg
+create_atoms      1 random 1500 341341 myreg
+create_atoms      2 random 100 127569 myreg
+</code></pre></p><p>
+The first line creates a region of space named <i>myreg</i> that goes from -30 to 30 along x, -30 to 30 along y, and -0.5 to 0.5 along z, and the second line creates a simulation box based on the region <i>myreg</i>. The argument '2' corresponds to number of atom types that will be used in the simulation. The third command specifies that 1500 atoms of type 1 must be created randomly in the region <i>myreg</i>. <i>341341</i> is a seed, you can give it different values to create different initial conditions for your simulations. The fourth line creates 100 atoms of type 2. If you run LAMMPS, you should see the following in the terminal:
+<pre><code>LAMMPS (20 Nov 2019)
+Created orthogonal box = (-30 -30 -0.5) to (30 30 0.5)
+  1 by 1 by 1 MPI processor grid
+Created 1500 atoms
+  create_atoms CPU = 0.000807692 secs
+Created 100 atoms
+  create_atoms CPU = 4.097e-05 secs
+Total wall time: 0:00:00
+</code></pre></p><p>
+From what is printed in the terminal, it is clear that LAMMPS understood the commands and created the box, then the atoms. We can fill the simulation settings section of the input script:
+<pre><code># Simulation settings
+
+mass              1 1
+mass              2 1
+pair_coeff        1 1 1.0 1.0
+pair_coeff        2 2 0.5 3.0
+</code></pre></p><p>
+The two first commands give a mass equal to 1 (unitless) to atoms of type 1 and 2 respectively. The third line sets the Lennard-Jones coefficients (respectively the depth of the potential well ε and the distance at which the particle-particle potential energy is zero σ) for the interactions between atoms of type 1. The last line sets the Lennard-Jones coefficients for the interactions between atoms of type 2. By default, LAMMPS will calculate the Lennards coefficients for the interactions between atoms of type 1 and 2 by using geometric average (i.e. ε_ij = (ε_ii ε_jj)^0.5 and σ_ij = (σ_ii σ_jj)^0.5). We are ready to start the simulation, and can start to fill the Run section of the input script. Let us first perform a minimisation of energy:
+<pre><code># Run
+
+thermo		10
+minimize	1.0e-4 1.0e-6 1000 10000
+</code></pre></p><p>
+The first line simply commands LAMMPS to print thermodynamic info, like the temperature or the energy, in the terminal every 10 timestep. The second line asks LAMMPS to perform an energy minimization of the system. An energy minimization consist in adjusting the coordinates of the atoms until a stopping criteria is reached. Here the stopping criteria are, respectively, the change in energy between two iterations is less than 1.0e-4, the maximum force between two atoms in the system is lower than 1.0e-6, the maximum number of iteration is 1000, of the maximum number of times force and energy have been evaluated is 10000. If you run the simulation, and if there is no error in the input file, you should have many information printed in you terminal. For example, you should see the following lines in the middle (with different values eventually):
+<pre><code>Step Temp E_pair E_mol TotEng Press 
+       0            0 5.8997404e+14            0 5.8997404e+14 1.5732641e+15 
+      10            0     56275037            0     56275037 1.5007118e+08 
+      20            0    17731.329            0    17731.329    47458.738 
+      30            0    350.68529            0    350.68529    972.14134 
+      40            0    13.745948            0    13.745948    48.748312 
+      50            0    0.5033657            0    0.5033657    8.3398718 
+      60            0   -1.4427524            0   -1.4427524    1.1131474 
+      70            0   -1.7136665            0   -1.7136665 -0.038162464 
+      80            0   -1.7516642            0   -1.7516642  -0.15686171 
+      81            0   -1.7518285            0   -1.7518285  -0.15730928 
+</code></pre></p><p>
+These lines give us many information concerning the progress of the energy minimisation step. First, at a the start of the simulation (step 0), the energy in the system is huge: 5.8997404e+14 (unitless). This is normal because the atoms have been created randomly within the simulation box, and some of them are probably too close to each others at the beginning, resulting in a huge initial energy. As the energy minimisation progresses, the energy rapidly decreases and reaches a negative, more acceptable value, indicating that atoms have been displaced at a reasonable distance from each others. Still in the terminal, you can find other interesting information, for example, LAMMPS tells us that the first of the fiur criteria to be satisfied was the energy:
+<pre><code>Minimization stats:
+  Stopping criterion = energy tolerance
+</code></pre></p><p>
+You may also see the following warning:
+<pre><code>WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization
+</code></pre></p><p>
+There is nothing to be worry about at this stage, the message is simply indicating that LAMMPS will be building the pairwise neighbor lists (that are used by LAMMPS to evaluate the interaction between atoms) more frequently than usual during the minimisation. The system is now ready and the molecular dynamics simulation can be launched. After the minimisation command, add the following lines:
+<pre><code>fix		mynve all nve
+fix		mylgv all langevin 1.0 1.0 0.1 1530917
+fix		myefn all enforce2d
+timestep	0.005
+thermo		1000
+run		10000
+</code></pre></p><p>
+For LAMMPS, a `fix' is an operation applied to a group of atoms. The first fix performs constant NVE integration (micro-canonical ensemble with constant number of atom N, constant volume V, and constant energy E) to update position and velocity for atoms in the group `all'. The second fix applies a Langevin thermostat to the atoms of group `all', with a desired temperature of 1, a damping parameter of 0.1. The number 1530917 is a seed, you can change it to perform different simulation with the same system. The third fix ensures that the atoms remain within the 2D plan. Finally we choose the timestep, ask LAMMPS to print information in the terminal every 1000 timsteps (instead of 10 during the minimisation step), and ask LAMMPS to run for 10000 timesteps. After running the simulation, you should see the following information in the terminal:
+<pre><code>Step Temp E_pair E_mol TotEng Press 
+      81            0   -1.7518285            0   -1.7518285  -0.15730928 
+    1000    1.0001038   -1.2883573            0  -0.28887856    1.0156263 
+    2000    1.0281454   -1.3280807            0   -0.3005779    0.8047188 
+    3000    1.0254482   -1.3054918            0  -0.28068451   0.88795845 
+    4000   0.99949105   -1.3460791            0  -0.34721269   0.76839631 
+    5000    1.0169355   -1.3255802            0  -0.30928026    0.7867611 
+    6000     1.022756   -1.3368899            0  -0.31477316   0.67073269 
+    7000   0.99475526   -1.3264244            0  -0.33229089   0.82847903 
+    8000    1.0027712   -1.3422586            0  -0.34011418   0.73362563 
+    9000   0.97476289   -1.3287238            0  -0.35457015   0.76153916 
+   10000   0.97759346   -1.3218996            0  -0.34491712   0.72232437 
+   10081    1.0136339   -1.2913059            0  -0.27830551    0.8433209 
+</code></pre></p><p>
+It shows that the temperature oscillates near T=1, as expected. Note that the temperature starts from 0, but rapidly reaches the expected value thanks to the applied Langevin thermostat. In the terminal, you may also see
+<pre><code>Total # of neighbors = 8560
+Ave neighs/atom = 5.35
+Neighbor list builds = 999
+Dangerous builds = 998
+Total wall time: 0:00:02
+</code></pre></p><p>
+During the simulation, they have been 998 dangerous builds. This is an indication that something is wrong with the simulation, and that some atoms have moved more than expected in between two calculations of the neighbor lists. Let us add the following command in the Simulation settings Section:
+<pre><code>neigh_modify 	every 1 delay 5 check yes
+</code></pre></p><p>
+With this command, LAMMPS will rebuild the neighbor lists more often. Re-run the simulation, and you should see a more positive outcome:
+<pre><code>Total # of neighbors = 8514
+Ave neighs/atom = 5.32125
+Neighbor list builds = 1152
+Dangerous builds = 0
+Total wall time: 0:00:02
+</code></pre></p>
+
+<br><br>
+<h2>Step 3 -- Trajectories visualisation</h2>
+<br>
+<p>
+Good. We have a simulation that is running well, but we would like to visualise the trajectories of the atoms. To do so, we are going to print the positions of the atoms in a file at a regular interval. Add the following command in the Simulation settings Section:
+<pre><code>dump		mydmp all atom 1000 dump.lammpstrj
+</code></pre></p><p>
+In you run LAMMPS again, a file named dump.lammpstrj should appear in the same folder as your input. This file can be opened using VMD, Ovito, etc. In Ubuntu, you can simply execute in the terminal:
+<pre><code>vmd dump.lammpstrj
+</code></pre></p><p>
+Otherwise, you can open VMD and open dump.lammpstrj manually using file -> molecule. You should see a cloud of lines. You can improve the representation using Graphics -> Representation, and replace Lines by Points or VDW in drawing method. It should resemble this: </p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bN2VV2gOLAw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br><br>
+<blockquote>
+Video/Image tips: If you want your simulation to resemble the video above, increase the frequency of the dump command in the input.lammps file to smooth the trajectories. You can also increase the size of the region and the number of atoms created. In VMD, change the color of the atoms in Graphics -> Color. You can also control each type of atom separately by replacing 'all' by 'type 1' in Graphics -> Representation, in the Selected Atoms box. 
+</blockquote>
+</p>
+
+<br><br>
+<h2>Step 4 -- Going further</h2>
+<br>
+<p>
+A good way to master LAMMPS and molecular dynamics simulations is to play around with a script that is already working, and observe the differences and potential error occurring. For example, from the current input file, we may wonder what appends if we don't perform an minimisation step. To do so, comment the two following lines:
+<pre><code># thermo	10
+# minimize	1.0e-4 1.0e-6 1000 10000
+</code></pre></p><p>
+If you run LAMMPS again, you should get something like:
+<pre><code>Step Temp E_pair E_mol TotEng Press 
+       0            0 5.8997404e+14            0 5.8997404e+14 1.5732641e+15 
+ERROR: Lost atoms: original 1600 current 272 (src/thermo.cpp:438)
+Last command: run		10000
+</code></pre></p><p>
+LAMMPS lost some of the atoms, and stops. This is one of the most common error message that you will see when constructing your system. It is usually the consequence of badly constructed system or inappropriate dynamics. In the present case, atoms are too close to each others initially, so they apply forces on each others that are huge, leading to enormous acceleration. As a consequence, atoms are moving by large distances during the firsts timesteps, and LAMMPS loses them. </p>
+<blockquote><p>
+Dealing with lost atoms error:
+They are several ways of dealing with the lost atoms error, such as performing minimisation of energy (as we did), or using a smaller timestep together with a thermostat with strong damping. If you have trouble understanding why this error is occurring in your system, you can use 
+<pre><code>thermo		1
+</code></pre></p><p>
+and 
+</code></pre></p><p>
+<pre><code>dump		mydmp all atom 1 dump.lammpstrj
+</code></pre></p><p>
+This way you may be able to visualise the very first steps, and may be identify the error.
+</p></blockquote>
+
+
+
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+							
+								<h2>Get in touch </h2>
+								
+									<br><br>
+								
+									<ul class="contact">
+										<li class="icon solid fa-envelope">  s.gravelle at qmul.ac.uk</li>
+										<!--<li class="icon solid fa-phone">(000) 000-0000</li>-->
+										<li class="icon solid fa-home"> Queen Mary University of London <br> Mile End Rd <br> Bethnal Green <br>London E1 4NS</li>
+									</ul>
+							
+							</section>
+							<section>
+								<h2>Follow</h2>
+								<ul class="icons">
+									<li><a href="https://twitter.com/GravelleSimon" target="_blank" class="removelinkdefault"><strong class="fab fa-twitter"></strong></a></li>
+									<li><a href="https://github.com/simongravelle" target="_blank" class="removelinkdefault"><strong class="fab fa-github"></strong></a></li>
+									<li><a href="https://scholar.google.com/citations?user=9fD2JlYAAAAJ&hl=fr" target="_blank" class="removelinkdefault"><strong class="fa fa-graduation-cap"></strong></a></li>
+									<li><a href="https://orcid.org/0000-0003-2149-6706" target="_blank" class="removelinkdefault"><strong>iD</strong></a></li>
+									<li><a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank" class="removelinkdefault"><strong class="fab fa-youtube"></strong></a></li>
+									
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
