@@ -1,4 +1,3 @@
-# lammpstutorials.github.io
 
 This is the script of my webpage "LAMMPS : Tutorials, Tips, and Scripts" : 
 https://simongravelle.github.io/
