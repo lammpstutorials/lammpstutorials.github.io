@@ -9,16 +9,16 @@ boundary	p p p
 # System definition
 
 read_data	data.min.lammps
-region		mycylin cylinder z 0 0 15 INF INF side in # new
-region		mycylou cylinder z 0 0 15 INF INF side out # new
-group		mytype1 type 1 # new
-group		mytype2 type 2 # new
-group		incyl region mycylin # new
-group		oucyl region mycylou # new
-group		type1in intersect mytype1 incyl # new
-group		type2ou intersect mytype2 oucyl # new
-delete_atoms	group type1in # new
-delete_atoms	group type2ou # new
+region		mycylin cylinder z 0 0 15 INF INF side in 
+region		mycylou cylinder z 0 0 15 INF INF side out 
+group		mytype1 type 1 
+group		mytype2 type 2 
+group		incyl region mycylin 
+group		oucyl region mycylou 
+group		type1in intersect mytype1 incyl 
+group		type2ou intersect mytype2 oucyl 
+delete_atoms	group type1in 
+delete_atoms	group type2ou 
 
 # Simulation settings
 
@@ -39,7 +39,7 @@ fix		myat2 all ave/time 1000 1 1000 v_Ntype2in v_Ntype2ou file population2vstime
 
 velocity 	all create 1.0 4928459 mom yes rot yes dist gaussian
 fix		mynve all nve
-fix		mylgv all langevin 1.0 1.0 0.1 1530917 zero yes # changed
+fix		mylgv all langevin 1.0 1.0 0.1 1530917 zero yes
 fix		myefn all enforce2d
 timestep	0.005
 thermo		50000

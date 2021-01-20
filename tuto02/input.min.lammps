@@ -8,10 +8,10 @@ boundary	p p p
 
 # System definition
 
-region		mybox block -30 30 -30 30 -0.5 0.5 # changed
-create_box	2 mybox # changed
-region		mycylin cylinder z 0 0 15 INF INF side in # new
-region		mycylou cylinder z 0 0 15 INF INF side out # new
+region		mybox block -30 30 -30 30 -0.5 0.5
+create_box	2 mybox
+region		mycylin cylinder z 0 0 15 INF INF side in
+region		mycylou cylinder z 0 0 15 INF INF side out
 create_atoms	1 random 1000 341341 mycylou
 create_atoms	2 random 150 127569 mycylin
 
@@ -28,4 +28,4 @@ dump 		mydmp all atom 10 dump.min.lammpstrj
 
 thermo		10
 minimize	1.0e-4 1.0e-6 1000 10000
-write_data	data.min.lammps # new
+write_data	data.min.lammps
