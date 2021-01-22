@@ -1,0 +1,59 @@
+# Initialization
+
+units		lj
+pair_style	lj/cut 2.5
+atom_style	atomic
+boundary	p p p
+
+# System definition
+
+read_data	data.porous.lammps
+read_data	data.fluid.lammps add append
+
+# Simulation settings
+
+group		sol type 1
+group		liqinit type 2
+mass		* 1
+pair_coeff	* * 1.0 1.0
+# move solid
+variable	solhi equal -1*(bound(sol,xmax)+0.5)
+displace_atoms	sol move ${solhi} 0 0
+# move liquid
+variable	liqlo equal -1*(bound(liqinit,xmin)-0.5)
+displace_atoms	liqinit move ${liqlo} 0 0
+# define piston
+variable	pstlo equal bound(liqinit,xmax)-4
+region		myblock block ${pstlo} INF INF INF INF INF
+group		pst region myblock
+set		group pst type 3
+group		liq type 2
+
+neigh_modify	every 1 delay 5 check yes
+neigh_modify	exclude group sol sol
+neigh_modify	exclude group pst pst
+
+# Run
+# piston
+fix		mynve1 pst nve
+fix		mysfr pst setforce NULL 0 0
+variable	npst equal count(pst)
+variable	areaYZ equal ly*lz
+variable	press equal 1
+variable	fpa equal ${press}*${areaYZ}/${npst}
+fix		myafr pst aveforce -${fpa} NULL NULL
+velocity	pst set 0 0 0
+
+# liquid
+velocity 	liq create 1.0 4928459 mom yes rot yes dist gaussian
+fix		mynve2 liq nve
+compute	tliq liq temp
+fix		mylgv liq langevin 1.0 1.0 0.1 1530917 zero yes
+fix_modify	mylgv temp tliq
+
+dump 		mydmp all atom 1000 dump.filling.lammpstrj
+thermo		10000
+run		1000000
+write_data	data.equilibrium
+
+

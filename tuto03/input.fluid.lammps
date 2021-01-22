@@ -1,0 +1,33 @@
+# Initialisation
+
+units		lj
+pair_style	lj/cut 2.5
+atom_style	atomic
+boundary	p p p
+
+# System definition
+
+region		mybox block -17 17 -10 10 -10 10
+create_box	3 mybox
+create_atoms	2 random 10000 341341 mybox
+
+# Simulation settings
+
+mass		* 1
+pair_coeff	* * 1.0 1.0
+neigh_modify	every 1 delay 4 check yes
+dump 		mydmp all atom 1000 dump.fluid.lammpstrj
+
+# Run
+
+thermo		100
+minimize	1.0e-4 1.0e-6 1000 10000
+reset_timestep	0
+
+thermo		1000
+velocity 	all create 1.0 4928459 mom yes rot yes dist gaussian
+fix		mynpt all npt temp 1.0 1.0 0.1 x 1.0 1.0 1.0
+run		10000
+write_data	data.fluid.lammps
+
+

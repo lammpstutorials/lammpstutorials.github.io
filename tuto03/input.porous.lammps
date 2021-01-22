@@ -1,0 +1,37 @@
+# Initialization
+
+units		lj
+pair_style	lj/cut 2.5
+atom_style	atomic
+boundary	p p p
+
+# System definition
+
+region		mybox block -30 30 -10 10 -10 10
+create_box	3 mybox
+region		myblk1 block -30 30 -10 10 -10 10
+create_atoms	1 random 7000 151522 myblk1
+
+# Simulation settings
+
+mass		* 1
+pair_coeff	* * 1.0 1.0
+neigh_modify	every 1 delay 4 check yes
+dump 		mydmp all atom 1000 dump.porous.lammpstrj
+
+# Run
+
+thermo		100
+minimize	1.0e-4 1.0e-6 1000 10000
+reset_timestep	0
+
+thermo		100
+velocity 	all create 1.0 4928459 mom yes rot yes dist gaussian
+fix		mynve all nve
+fix		mylgv all langevin 1.0 0.0 0.1 1530917 zero yes
+run		10000
+
+change_box 	all x final -65 65
+
+write_data	data.porous.lammps
+
