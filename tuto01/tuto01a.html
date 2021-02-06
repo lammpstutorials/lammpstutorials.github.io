@@ -257,8 +257,8 @@ If you run LAMMPS again, you should get something like:
 ERROR: Lost atoms: original 1600 current 272 (src/thermo.cpp:438)
 Last command: run		10000
 </code></pre></p><p>
-The message indicates that LAMMPS did lost some of the atoms, then stoped. This is one of the most common error message that you will see. It is usually the consequence of badly constructed system or inappropriate dynamics. In the present case, atoms are too close to each others initially, so they apply forces on each others that are huge, leading to enormous acceleration. As a consequence, atoms are moving by large distances during the firsts timesteps, and LAMMPS loses them. </p>
-<blockquote><p>
+The message indicates that LAMMPS did lost some of the atoms, then stoped. This is one of the most common error message that you will see. It is usually the consequence of badly constructed system or inappropriate dynamics. In the present case, atoms are too close to each others initially, so they apply forces on each others that are huge, leading to enormous acceleration. As a consequence, atoms are moving by large distances during the firsts timesteps, and LAMMPS loses them.
+<blockquote>
 <b>Dealing with lost atoms error:</b>
 They are several ways of dealing with the lost atoms error, such as performing minimisation of energy (as we did), or using a smaller timestep together with a thermostat with strong damping. If you have trouble understanding why this error is occurring in your system, you can use 
 <pre><code>thermo		1
@@ -268,8 +268,18 @@ and
 <pre><code>dump		mydmp all atom 1 dump.lammpstrj
 </code></pre></p><p>
 This way you may be able to visualise the very first steps, and identify the location of the error.
-</p></blockquote>
+</blockquote>
+</p>
 
+<br><br>
+<h2>Bonus -- Exercise</h2>
+<br>
+<p>
+Use the 'addforce' command to generate a flow of particles in one direction:
+<pre><code>fix ID group-ID addforce fx fy fz
+</code></pre></p><p>
+where fx,fy, and fz are the force component values. It should resemble this: </p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/J-skFWlemto" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 				</div>
