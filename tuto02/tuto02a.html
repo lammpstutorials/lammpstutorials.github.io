@@ -120,7 +120,12 @@ Now instead of creating a new region, we simply add the following command:
 
 read_data	data.min.lammps
 </code></pre></p><p>
-By visualising the previously generated dump.min.lammpstrj file, you may have noticed that some atoms have moved from one region to the other during minimisation. In order to start the simulation from a clean state, with only atoms of type 2 within the cylinder and atoms of type 1 outside the cylinder, let us delete the misplaced atoms:
+By visualising the previously generated dump.min.lammpstrj file, you may have noticed that some atoms have moved from one region to the other during minimisation: </p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gfJ_n33-F6A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<p>In order to start the simulation from a clean state, with only atoms of type 2 within the cylinder and atoms of type 1 outside the cylinder, let us delete the misplaced atoms:
 <pre><code>region		mycylin cylinder z 0 0 15 INF INF side in
 region		mycylou cylinder z 0 0 15 INF INF side out
 group		mytype1 type 1
@@ -132,7 +137,7 @@ group		type2ou intersect mytype2 oucyl
 delete_atoms	group type1in
 delete_atoms	group type2ou
 </code></pre></p><p>
-These commands will respectively recreate the previously defined regions (regions are not saved by the write_data command), create groups, and finally delete the atoms of type 1 and located within the cylinder, as well as atoms of type 2 located outside the cylinder. If you run LAMMPS, you can see in the terminal how many atoms are in each group, and how many atoms have been deleted:
+These commands will respectively recreate the previously defined regions (regions are not saved by the write_data command), create groups, and finally delete the atoms of type 1 that are located within the cylinder, as well as the atoms of type 2 that are located outside the cylinder. If you run LAMMPS, you can see in the terminal how many atoms are in each group, and how many atoms have been deleted:
 <pre><code>1000 atoms in group mytype1
 150 atoms in group mytype2
 120 atoms in group incyl
@@ -171,10 +176,15 @@ timestep	0.005
 thermo		50000
 run		1500000
 </code></pre></p><p>
-There are a few differences with <a href="../tuto01/tuto01a.html">tutorial 1</a>. First, the 'velocity create' command attributes and initial velocity to all the atoms. The initial velocity is chosen so that the initial temperature is equal to 1 (unitless). The additional keywords ensure that no linear momentum and no angular momentum are given to the system, and that the generated velocities are distributed as a gaussian. Another difference is the 'zero yes' keyword in the langevin thermostat, that ensures that the total random force is equal to zero. 
+There are a few differences with <a href="../tuto01/tuto01a.html">tutorial 1</a>. First, the 'velocity create' command attributes and initial velocity to all the atoms. The initial velocity is chosen so that the initial temperature is equal to 1 (unitless). The additional keywords ensure that no linear momentum and no angular momentum are given to the system, and that the generated velocities are distributed as a Gaussian. Another difference is the 'zero yes' keyword in the langevin thermostat, that ensures that the total random force is equal to zero. 
 
 <br><br>
-After running the simulation, you can observe the number of atoms in each region from the generated data files, using for example xmgrace. The curves indicate that the system slowly reach equilibrium after a duration of about 500000 steps. It should look like that: </p>
+After running the simulation, you can observe the number of atoms in each region from the generated data files, using for example xmgrace: </p>
+
+
+<span class="image"><img src="curve.jpg" alt="" /></span>
+
+<p>The system looks like that: </p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-ouevxQ6-Jw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br><br>
 
