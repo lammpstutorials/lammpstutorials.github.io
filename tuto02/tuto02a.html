@@ -34,22 +34,22 @@
 <span class="image main"><img src="lammps_tuto02.jpg" alt="" /></span>
 
 <p>
-This tutorial is meant as a follow up for tutorial 1, and if you are new to LAMMPS and molecular dynamics, I highly recommand that you follow <a href="../tuto01/tuto01a.html">tutorial 1</a> first. 
+<b>Objective:</b> This tutorial is a follow up to <a href="../tuto01/tuto01a.html">tutorial 1</a>. Here are going to improve the script previously written and perform slightly more advanced operations, but the simulation will still consists in a 2D box with atoms on the fluid interacting through a simple Lennard-Jones potential (see the image above). 
 
 <br><br>
 
-Here we are going to improve the script previously written and perform slightly more advanced operations, but the simulation will still consists in a 2D box with atoms on the fluid interacting through a simple Lennard-Potential (see the image above). 
+<b>Prerequisite:</b> It is assumed that you followed <a href="../tuto01/tuto01a.html">tutorial 1</a> first. 
 
 <br><br>
 
-If you already have a good grasp on LAMMPS, you can download directly the input scripts that will be written following this tutorial, respectively <a href="input.min.lammps" target="_blank">input.min.lammps</a> and <a href="input.run.lammps" target="_blank">input.run.lammps</a>.
+<b>Shortcut:</b> If you already have a good grasp on LAMMPS, you can download directly the input scripts that will be written following this tutorial, respectively <a href="input.min.lammps" target="_blank">input.min.lammps</a> and <a href="input.run.lammps" target="_blank">input.run.lammps</a>.
  
 </p>
 
 <h2>Step 1 -- Atoms creation and minimisation </h2>
 <br>
 <p>
-Let us build a system that is slightly different from the one of <a href="../tuto01/tuto01a.html">tutorial 1</a>, with with atoms initially created in separate region (see the figure above). Create a new folder, and inside the folder create an input script and call it input.min.lammps (as you can anticipate, this simulation will be separated in multiple input scripts, which is better for clarity). Like in <a href="../tuto01/tuto01a.html">tutorial 1</a>, copy the following first lines into the input script:
+Let us build a system that is slightly different from <a href="../tuto01/tuto01a.html">tutorial 1</a>, and create the atoms of type 1 and 2 in two separate regions, respectively (see the figure above). Create a new folder, and inside the folder create an input script and call it input.min.lammps (as you can anticipate, this simulation will be separated in multiple input scripts). Like in <a href="../tuto01/tuto01a.html">tutorial 1</a>, copy the following first lines into the input script:
 <pre><code># Initialization
 
 units		lj
@@ -57,7 +57,7 @@ dimension 	2
 pair_style	lj/cut 2.5
 atom_style	atomic
 boundary	p p p</code></pre></p><p>
-Again, like in <a href="../tuto01/tuto01a.html">tutorial 1</a>, let us create a box from a predefined region. However this time, let us also create two additional regions and create atoms of type 1 and 2 in each region respectively. 
+Like in <a href="../tuto01/tuto01a.html">tutorial 1</a>, let us create a box from a predefined region. However this time, let us also create two additional regions and create atoms of type 1 and 2 in each region respectively. 
 <pre><code># System definition
 
 region		mybox block -30 30 -30 30 -0.5 0.5
@@ -66,7 +66,7 @@ region		mycylin cylinder z 0 0 15 INF INF side in
 region		mycylou cylinder z 0 0 15 INF INF side out 
 create_atoms	1 random 1000 341341 mycylou
 create_atoms	2 random 150 127569 mycylin</code></pre></p><p>
-The 'side in' and 'side out' keywords allow us to define regions that are respectively a cylinder, and 'everything that is not inside the cylinder'. We can write the remaining of the input script as follow:
+The 'side in' and 'side out' keywords allow us to define regions that are respectively 'inside the cylinder', and 'everything that is not inside the cylinder'. We can write the remaining of the input script as follow:
 <pre><code># Simulation settings
 
 mass		1 1
@@ -81,9 +81,9 @@ dump 		mydmp all atom 10 dump.min.lammpstrj
 thermo		10
 minimize	1.0e-4 1.0e-6 1000 10000
 write_data	data.min.lammps</code></pre></p><p>
-The only novelty with respect to <a href="../tuto01/tuto01a.html">tutorial 1</a> is the command 'write_data'. This command will print the final state of the simulation in the file named 'data.min.lammps'. This file will be used later to restart the simulation from a configuration with an energy that is already minimised.
+The only novelty with respect to <a href="../tuto01/tuto01a.html">tutorial 1</a> is the command 'write_data'. This command asks LAMMPS to print the final state of the simulation in a file named 'data.min.lammps'. This file will be used later to restart the simulation from the final state of the energy minimisation step.
 <br><br>
-Run LAMMPS with the input.min.lammps script. If everything went well, a dump file named dump.min.lammpstrj should appear in the folder, allowing you to visualise the atoms trajectories during the minimisation step using VMD. In addition, a file named data.min.lammps should have been created. If you open this file, you will see that it contains all the information necesary to restart the simulation, such as the number of atoms and the size of the box:
+Run LAMMPS with the input.min.lammps script. If everything went well, a dump file named dump.min.lammpstrj should appear in the folder, allowing you to visualise the atoms trajectories during minimisation using VMD or Ovito. In addition, a file named data.min.lammps should have been created. If you open this file, you will see that it contains all the information necesary to restart the simulation, such as the number of atoms and the size of the box:
 <pre><code>1150 atoms
 2 atom types
 
@@ -107,7 +107,7 @@ Each column corresponds respectively to the atom identity (from 1 to 1150), the 
 <h2>Step 2 -- Restarting from a saved configuration </h2>
 <br>
 <p>
-We are going to create a new input file and start a molecular dynamics simulation directly from the previously saved configuration. In the same folder, create a new file, call it data.run.lammps, and copy the same lines as previously:
+We are going to create a new input file and start a molecular dynamics simulation directly from the previously saved configuration. In the same folder, create a new file, call it input.run.lammps, and copy the same lines as previously:
 <pre><code># Initialization
 
 units		lj
@@ -115,7 +115,7 @@ dimension 	2
 pair_style	lj/cut 2.5
 atom_style	atomic
 boundary	p p p</code></pre></p><p>
-Now instead of creating a new region, we simply add the following command
+Now instead of creating a new region, we simply add the following command:
 <pre><code># System definition
 
 read_data	data.min.lammps
