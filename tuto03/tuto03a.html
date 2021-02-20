@@ -16,6 +16,8 @@
 
 		  gtag('config', 'G-W1WGEC5GQ8');
 		</script>
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 	</head>
 	<body class="is-preload">
 		<div id="wrapper">
@@ -29,243 +31,201 @@
 			<div id="main">
 				<div class="inner">
 						
-<h1>Capillary filling in a disordered porous medium</h1>
+<h1>A simple free energy calculation using LAMMPS and WHAM</h1>
 <br>
 <span class="image main"><img src="lammps_tuto03.jpg" alt="" /></span>
 
-<p>
 
-In this tutorial, we are going to simulate the capillary filling of a LJ fluid in a disordered porous medium. If you are not already familiar with LAMMPS and molecular dynamics, I suggest you to follow <a href="../tuto01/tuto01a.html">tutorial 1</a> and <a href="../tuto02/tuto02a.html">tutorial 2</a> first. 
+<p>
+<b>Objective:</b> In this tutorial we are going to measure the free energy profile across a barrier potential using two methods: free sampling and umbrella sampling. For the sake of simplicity and in order to reduce computation time, the barrier potential will be imposed artificially to the atoms, but the procedure is valid for more complex systems. 
 
 <br><br>
 
-If you already have a good grasp on LAMMPS, you can download directly the input scripts that will be written following this tutorial, respectively <a href="input.fluid.lammps" target="_blank">input.fluid.lammps</a>, <a href="input.porous.lammps" target="_blank">input.porous.lammps</a>, and <a href="input.filling.lammps" target="_blank">input.filling.lammps</a>.
+<b>Prerequisite:</b> If you are new to LAMMPS, I recommend you to follow <a href="../tuto01/tuto01a.html">tutorial 1</a> and <a href="../tuto02/tuto02a.html">2</a> first. 
 
 <br><br>
 
 </p>
 
-<h2>Step 1 -- Equilibrated fluid </h2>
+<h2>Method 1 -- Free sampling </h2>
 <br>
 <p>
-We are going to create the fluid and the solid separately. Let us first create a block of LJ fluid at equilibrium pressure and temperature. In a folder, create a new input script called input.fluid.lammps, and copy the following lines in it:
-<pre><code># Initialisation
+The first method for calculating the free energy profile is to extract the partition function from a classic (unbiased) molecular dynamics simulation, and then to estimate the Gibbs free energy using
+\[\Delta G = -RT \ln(p),\]
+where \(\Delta G\) is the free energy difference, \(R\) the gas constant,  \(T\) the temperature, and \(p\) the partition function.
 
-units		lj
-pair_style	lj/cut 2.5
-atom_style	atomic
-boundary	p p p
+<br><br>
+
+As an illustration, let us apply this method to an extremely simple configuration that consists in a few particles diffusing in a box. Thanks to a additional force applied to the particles, they are repelled from the centre of the box. Create an input script, and copy the following lines:
+
+<br>
+
+<pre><code># Initialization
+
+variable		sigma equal 3.405 # Angstrom
+variable		epsilon equal 0.238 # Kcal/mol
+variable		U0 equal ${epsilon} # Kcal/mol
+variable		dlt equal 1.0 # Angstrom
+variable		x0 equal 30  # Angstrom
+
+units			real
+atom_style		atomic
+pair_style		lj/cut 10
+boundary		p p p
 
 # System definition
 
-region		mybox block -17 17 -8 8 -8 8
-create_box	3 mybox
-create_atoms	2 random 6500 341341 mybox
+region			myreg block -100 100 -20 20 -20 20
+create_box		1 myreg
+create_atoms		1 random 6 341341 myreg
 
 # Simulation settings
 
-mass		* 1
-pair_coeff	* * 1.0 1.0
-neigh_modify	every 1 delay 4 check yes
-dump 		mydmp all atom 1000 dump.fluid.lammpstrj
-
-# Run
-
-thermo		100
-minimize	1.0e-4 1.0e-6 1000 10000
-reset_timestep	0
-
-thermo		1000
-velocity 	all create 1.0 4928459 mom yes rot yes dist gaussian
-fix		mynpt all npt temp 1.0 1.0 0.1 x 1.0 1.0 1.0
-run		10000
-write_data	data.fluid.lammps
+mass			* 39.95
+pair_coeff		* * ${epsilon} ${sigma}
+neigh_modify		every 1 delay 4 check yes
 </code></pre></p><p>
-If you followed tutorials <a href="../tuto01/tuto01a.html">1</a> and <a href="../tuto02/tuto02a.html">2</a>, you may notice 3 novelties here. First, the absence of the command 'dimension 2' in the 'Initialisation' section. Implicitly, we are using 'dimension 3' but we don't have to specify it because it is the default value. Another novelty is that we use the '*' in the mass and pair_coeff command, therefore the commands apply to all three atom types of the simulation. Finally we are using the npt command. This command replaces the 'nve' and 'langevin' previously used. This command performs a time integration that is consistent with the isothermal-isobaric ensemble, and updates the position and velocity for atoms each timestep. Here, the npt command is used to impose a temperature of 1 (unitless) to all of the atom (there are only atoms of type 2 in the present simulation) as well as a pressure of 1 (unitless). In order to impose the pressure, only the 'x' dimension of the box is adjusted until the desired pressure is reached. This way the dimensions of the box along y and z remain unchanged, which will be practical later. You can run this script using LAMMPS. You should see the following in the terminal: 
+If you followed <a href="../tuto01/tuto01a.html">tutorial 1</a> and <a href="../tuto02/tuto02a.html">2</a>, you must be familiar with this code. The main novelty is the use of the system of unit 'real'. I made this choice for practical reason, as the WHAM algorithm we are going to use in the second part of the tutorial assumes the energy to be in kcal/mol. I choose Argon as the gas of interest, which explains the values of the Lennard-Jones parameter sigma and epsilon, as well as the mass of 39.95 grams/mole. The variables \(U_0\), \(\delta\), and \(x_0\) are used to create the potential. I have chosen it to be of the form:
+\[U(x)=U_0 ( \arctan((x+x_0)/\delta)- \arctan((x-x_0)/\delta)),\]
+which looks like that:
 </p>
-<pre><code>Step Temp E_pair E_mol TotEng Press Volume 
-       0            1   -6.4715435            0   -4.9716935  -0.51399353        13600 
-    1000    1.0025491   -4.8593782            0    -3.355705   0.93808457    13292.385 
-    2000   0.99512986   -4.8340084            0   -3.3414629     1.044646    13300.877 
-    3000    1.0088986   -4.8128487            0   -3.2996522      1.02219    13348.089 
-    4000   0.97984829   -4.8186744            0   -3.3490489    1.0048355    13352.191 
-    5000   0.98472311   -4.8288724            0   -3.3519354    1.0501592    13277.938 
-    6000   0.99288505   -4.8539184            0   -3.3647398    1.0186574    13245.773 
-    7000    1.0014122   -4.8317086            0   -3.3297405   0.94891429    13346.852 
-    8000    1.0162722   -4.8468695            0   -3.3226136    0.9611104     13312.45 
-    9000    1.0035962   -4.8534009            0   -3.3481571   0.97707932    13278.277 
-   10000     1.013074   -4.8239762            0   -3.3045172    1.0228241    13328.918 
-</code></pre></p><p>
-Due to the use of the npt command, the volume of the box is adjusting, and both pressure and temperature oscillate near 1. The final configuration of the simulation has been saved in 'data.fluid.lammps' and will be usefull later. 
-</p>
-
-<h2>Step 2 -- Equilibrated porous medium </h2>
-<br>
+<span class="image"><img src="potential.jpg" alt="" /></span>
 <p>
-
-Let us create a porous medium. Do to so, we are going to first create a fluid with a density slightly lower than the density of a liquid. We are going to let the atoms reorganise slightly (they are going to form some cluster). Then we are going to freeze them (by reducing the temperature). By doing so, the following structure will be generated, and this structure will then be used as a porous medium:
-
-<br><br>
-
-<span class="image main"><img src="porousmedia.jpg" alt="" /></span>
-
-<br><br>
-
-Create a new input file, name it input.porous.lammps, and copy the following lines:
-<pre><code># Initialization
-
-units		lj
-pair_style	lj/cut 2.5
-atom_style	atomic
-boundary	p p p
-
-# System definition
-
-region		mybox block -30 30 -8 8 -8 8
-create_box	3 mybox
-region		myblk1 block -30 30 -8 8 -8 8
-create_atoms	1 random 6500 151522 myblk1
-
-# Simulation settings
-
-mass		* 1
-pair_coeff	* * 1.0 1.0
-neigh_modify	every 1 delay 4 check yes
-dump 		mydmp all atom 1000 dump.porous.lammpstrj
-
-# Run
-
-thermo		100
-minimize	1.0e-4 1.0e-6 1000 10000
-reset_timestep	0
-
-thermo		100
-velocity 	all create 1.0 4928459 mom yes rot yes dist gaussian
-fix		mynve all nve
-fix		mylgv all langevin 1.0 0.0 0.1 1530917 zero yes
-run		10000
-
-change_box 	all x final -65 65
-
-write_data	data.porous.lammps
-</code></pre></p><p>
-At this point you should be familiar with all the commands in this script. There is one subtility however, in the Langevin command, the initial temperature (=1) is different from the final temperature (0), therefore the imposed temperature will gradually decrease from 1 to 0 during the 10000 steps. In addition, just before writing the data in data.porous.lammps, the dimensions of the box are changed along the x direction. This way, the box will be large enough for the liquid to be added in the next step. The command 'change_box' does not affect the present calculation, because it appears after our last 'run' command. Run LAMMPS with the input.porous.lammps script to generate the data.porous.lammps.
-
+From the derivative of the potential with respect to \(x\), we obtain the expression for the force that we are going to impose to the particles in the simulation,
+\[F(x)=U_0/((x-x_0)^2/\delta^2+1)/\delta-U_0/((x+x_0)^2/\delta^2+1)/\delta,\]
+which looks like that:
 </p>
-
-<h2>Step 3 -- Capillary filling simulation </h2>
-<br>
+<span class="image"><img src="force.jpg" alt="" /></span>
 <p>
-We now want to perform the simulation of capillary filling. Do to so, we need to put into contact our previously generated fluid with our previously generated porous medium. In addition, we want the pressure in the LJ liquid to be maintained at 1 (unitless), for which we are going to use a piston to press on it. If we don't, the pressure in the fluid will decrease to 0, and it will ressemble a gas and not a liquid. You can observe this phenomena by running the input.fluid.lammps script with a pressure of 0.  
-
-<br><br>Let us proceed step-by-step. Create a new script, call it input.filling.lammps, and copy the following lines:
-<pre><code># Initialization
-
-units		lj
-pair_style	lj/cut 2.5
-atom_style	atomic
-boundary	p p p
-
-# System definition
-
-read_data	data.porous.lammps
-read_data	data.fluid.lammps add append
-</code></pre></p><p>
-LAMMPS allows you to read multiple data file. Here we start by opening data.porous.lammps, then we open data.fluid.lammps with the additional keywords 'add append' indicating that the ids of the atoms from data.fluid.lammps will be shifted (each atom has a number that must be unique, you must avoid overlap) . If you run this script you will see:
-<pre><code>Reading data file ...
-  orthogonal box = (-65 -10 -10) to (65 10 10)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  7000 atoms
-  reading velocities ...
-  7000 velocities
-  read_data CPU = 0.0152357 secs
-Reading data file ...
-  orthogonal box = (-65 -10 -10) to (65 10 10)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  10000 atoms
-  reading velocities ...
-  10000 velocities
-  read_data CPU = 0.0173977 secs
-Total wall time: 0:00:00
-</code></pre></p><p>
-LAMMPS reads the two data files, and uses the box dimension of data.porous.lammps, and not the one of data.fluid.lammps, as anticipated. We still need to shift the positions of the atoms (the positions of the fluid and solid atoms are currently overlapping).
-<pre><code># Simulation settings
-
-group		sol type 1
-group		liqinit type 2
-mass		* 1
-pair_coeff	* * 1.0 1.0
-
-# move solid
-variable	solhi equal -1*(bound(sol,xmax)+0.5)
-displace_atoms	sol move ${solhi} 0 0
-
-# move liquid
-variable	liqlo equal -1*(bound(liqinit,xmin)-0.5)
-displace_atoms	liqinit move ${liqlo} 0 0
-
-# define piston
-variable	pstlo equal bound(liqinit,xmax)-4
-region		myblock block ${pstlo} INF INF INF INF INF
-group		pst region myblock
-set		group pst type 3
-group		liq type 2
-
-neigh_modify	every 1 delay 5 check yes
-neigh_modify	exclude group sol sol
-neigh_modify	exclude group pst pst
-</code></pre></p><p>
-In the 'move solid' subsection, the location of the solid atoms with the maximum coordinate along x is detected, and used to shift the position of the entire solid along x. The solid is now located in x<0. 
-
-<br><br>
-
-The same is done for the liquid in the 'move liquid' subsection, so the liquid is located in x>0 with no overlap with the solid. 
-
-<br><br>
-
-Then, in the 'define piston' section, a layer of width = 4 (unitless) is identified (corresponding to the atoms that are far from the porous media). The atoms in this layer are labelled as pst for piston, and their type is changed from 2 to 3. Then the atoms that still have the id '2' are put in the group named liq. We have now three groups of atoms: sol, liq, and pst (the group liqinit contains the atoms of groups liq + pst, and will not be used in the following). To give you an idea, the system currently looks like that, with the piston on the right, the solid on the left, and the liquid in between:
-
-<br><br>
-
-<span class="image main"><img src="system.jpg" alt="" /></span>
-
-We can write the last part of the code. The groups liq and pst will be treated separately, as we want the atoms of the liquid to move freely (except for the constant temperature), and the atoms of the piston to move as a block, and to apply a force on the liquid (the force will be along x and will push from right to left, so that the liquid will be maintained as a constant pressure). During this simulation, the atoms of the solid will be kept immobile, to do so, we simply don't perform a time integration for these atoms (i.e. we do not apply any fix nve of npt to these atoms). Copy the next lines:
+In order to impose \(F(x)\) to all of the atoms in the simulation, let us use the 'addforce' command, and define an 'atom' variable as follows:</code></pre></p><p>
 <pre><code># Run
-# piston
-fix		mynve1 pst nve
-fix		mysfr pst setforce NULL 0 0
-variable	npst equal count(pst)
-variable	areaYZ equal ly*lz
-variable	press equal 1
-variable	fpa equal ${press}*${areaYZ}/${npst}
-fix		myafr pst aveforce -${fpa} NULL NULL
-velocity	pst set 0 0 0
 
-# liquid
-velocity 	liq create 1.0 4928459 mom yes rot yes dist gaussian
-fix		mynve2 liq nve
-compute	tliq liq temp
-fix		mylgv liq langevin 1.0 1.0 0.1 1530917 zero yes
-fix_modify	mylgv temp tliq
-
-dump 		mydmp all atom 1000 dump.filling.lammpstrj
-thermo		10000
-run		1000000
-write_data	data.equilibrium
+variable		F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
+fix 			myadf all addforce v_F 0.0 0.0
 </code></pre></p><p>
-For the atoms of the piston to move as a block, we use the fixes 'setforce' and 'aveforce'. First, the fix setforce ensures that all the forces along y and z applied on the atoms of the group pst are cancelled during the simulation (no force -> no change in velocity -> no change in position). The fix aveforce averages all the forces along x applied on the atoms of group pst, therefore all the atoms of the group always feel the same force. As a consequence, they move as a block along x. In addition, the fix aveforce also adds a force equal to -fpa to the atoms of the group, where fpa as been calculated to correspond to a pressure of 1 (unitless). 
+Finally, let us make a classical nve simulation with a Langevin thermostat. After an equilibration step, the density profile of the atoms along the \(x\) axis is recorded using an 'ave/chunk' command.
+
+<pre><code>fix			mynve all nve
+fix			mylgv all langevin 119.8 119.8 100 1530917
+timestep		2.0
+thermo			100000
+run			1000000
+reset_timestep		0
+
+compute 		cc1 all chunk/atom bin/1d x 0.0 2.0
+fix 			myac all ave/chunk 100 10000000 1000000000 cc1 density/number file density.dat
+dump 			mydmp all atom 100000000 dump.lammpstrj
+
+run			1000000000
+</code></pre></p><p>
+We can extract the partition function from the density.dat file,
+</p>
+<span class="image"><img src="partitionfunction.jpg" alt="" /></span>
+<p>
+from which it is possible to calculate the free energy profile (black disk) and compare it to the imposed potential (red line). 
+</p>
+<span class="image"><img src="potential2.jpg" alt="" /></span>
+<p>
+The results confirm that we indeed recover the imposed potential \(U(x)\). I did run the simulation five times with different seeds to improve the quality of the curve. 
 
 <br><br>
 
-It is very important to cancel the initial velocities of the atoms of the piston using 'velocity set', because 'setforce' and 'addforce' only affect the acceleration (if its not clear, you can try to run a simulation without the 'set velocity', the issue should be visible).
+If we increase the value of \(U_0\), the number of times the particles will explore the central region during the simulation will decrease, making it difficult to obtain a good resolution for the free energy profile. This is why it is sometimes necessary to use slightly more evolved methods, such as umbrella sampling, to extract free energy profiles. This is what we are going to do next.
+</p>
+
+<h2>Method 2 -- Umbrella sampling </h2>
+
+<br>
+
+<p>Umbrella sampling is a 'biased molecular dynamics' method, i.e a method in which the interactions of the system are modified in order to make the 'unfavourable states' more favourable. With our present system, we are going to add a potential \(V\) to one of the particle, and force it to move along the axe of \(x\). The chosen path is called the axe of reaction. The final simulation will be analysed using the weighted histogram analysis method (WHAM), which allows to remove the effect of the bias. In a different folder, create a new script and copy the following lines:
+<pre><code># Initialization
+
+variable		sigma equal 3.405 # Angstrom
+variable		epsilon equal 0.238 # Kcal/mol
+variable		U0 equal ${epsilon} # Kcal/mol
+variable		dlt equal 1.0 # Angstrom
+variable		x0 equal 30  # Angstrom
+variable		k equal 0.0205 # Kcal/mol/Angstrom^2
+
+units			real
+atom_style		atomic
+pair_style		lj/cut 10
+boundary		p p p
+
+# System definition
+
+region			myreg block -100 100 -20 20 -20 20
+create_box		2 myreg
+create_atoms		2 single 0 0 0
+create_atoms		1 random 5 341341 myreg
+
+# Simulation settings
+
+mass			* 39.948
+pair_coeff		* * ${epsilon} ${sigma}
+neigh_modify		every 1 delay 4 check yes
+group			topull type 2
+
+# Run
+
+variable		F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
+fix 			pot all addforce v_F 0.0 0.0
+
+fix			mynve all nve
+fix			mylgv all langevin 119.8 119.8 100 1530917
+timestep		2.0
+thermo			100000
+run			200000
+reset_timestep		0
+
+dump 			mydmp all atom 1000000 dump.lammpstrj
+</code></pre></p><p>
+So far the code resembles the one of Method 1, except for that we create one single particle of type 2. This particle is identical to the particles of type 1, and will be the only one to feel the additional potential. We are going to create a loop with 67 steps, and we are going to move progressively the centre of the bias potential by increment of 0.3 nm. 
+<pre><code>variable 		a loop 67
+label 			loop
+variable		xdes equal ${a}*3-102
+variable		xave equal xcm(topull,x)
+fix			mytth topull spring tether ${k} ${xdes} 0 0 0
+run			200000
+fix			myat1 all ave/time 10 10 100 v_xave v_xdes file position.${a}.dat
+run			50000000
+unfix			myat1
+next 			a
+jump 			input.lammps loop
+</code></pre></p><p>
+The spring command serves to impose the additional harmonic potential with spring constant \(k\). The centre of the harmonic potential \(x_\text{des}\) goes from -99 to 99. For each value of \(x_\text{des}\), an equilibration step of 400 ps is performed, followed by a step of 100 ns during which the position along x of the particle is saved in data files (one data file per value of \(x_\text{des}\)).
 
 <br><br>
 
-The atoms of the liquid are treated as usual (i.e. nve + langevin), except that we have to use a fix_modify to ensure that the fix langevin uses the temperature of the liquid as an input, and not the temperature of the whole system (because the atoms of the solid have a temperature of 0).
+In order to treat the data, we are going to use the WHAM algorithm. You can download and compile the version of <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank" class="removelinkdefault">Alan Grossfield</a>. In order to apply the WHAM algorithm to our simulation, we first need to create a metadata file. This file simply contain the paths of the data file, the value of \(x_\text{des}\), and the value of value of \(k\). To generate the file more easily, you can run this script using Octave or Matlab (assuming that the wham algorithm is located in the same folder as the LAMMPS simulations)
+<pre><code>file=fopen('metadata.dat','wt');
+for a=1:67
+	X=['./position.',num2str(a),'.dat ',num2str(a*3-102),' 0.0205'];
+	fprintf(file,X);
+	fprintf(file,'\n');
+end
+</code></pre></p><p>
+The generated file named metadata.dat looks like that (alternatively you can download it <a href="metadata.dat" target="_blank" class="removelinkdefault">here</a>):
+<pre><code>./position.1.dat -99 0.0205
+./position.2.dat -96 0.0205
+./position.3.dat -93 0.0205
+./position.4.dat -90 0.0205
+./position.5.dat -87 0.0205
+(...)
+./position.66.dat 96 0.0205
+./position.67.dat 99 0.0205
+</code></pre></p><p>
+Then, simply run the following command
+<pre><code>./wham -100 100 160 1e-8 119.8 0 metadata.dat PMF.dat
+</code></pre></p><p>
+where -100 and 100 are the boundaries, 160 the number of bins, 1e-8 the tolerance, and 119.8 the temperature. A file named PMF.dat has been created, and contains the free energy profile in Kcal/mol. We can compare the PMF we the imposed potential, and the agreement in again quite good:
+</p>
+<span class="image"><img src="PMF.jpg" alt="" /></span>
+<p>
+Again, five independent simulations where run to improve the curve. 
 
 </p>
+
 				</div>
 			</div>
 			<footer id="footer">
