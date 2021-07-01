@@ -1,6 +1,5 @@
-
-This is the script of my webpage "LAMMPS : Tutorials, Tips, and Scripts" : 
+This is the script of my webpage "LAMMPS Turorials"
 https://lammpstutorials.github.io/
 
-The template is from html5 up: https://html5up.net/
+The html/css template is from html5 up: https://html5up.net/
 
