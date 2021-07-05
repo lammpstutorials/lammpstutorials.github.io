@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Graphene under deformation</title>
+
+<link rel="shortcut icon" type="image/jpg" href="favicon-32x32.png"/>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets_internalpages/css/main.css" />
+	
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-W1WGEC5GQ8');
+</script>	
+	
+<!-- Latex formula -->
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body class="is-preload">
+
+<!-- Header -->
+<section id="header">
+<header>
+<span class="image avatar"><a href="index.html"><img src="Figures/avatar_larger.png" alt="" /></a></span>
+<h1 id="logo"><a href="index.html">LAMMPS tutorials</a></h1>
+<p>by Simon Gravelle</p>
+</header>
+<nav id="nav">
+<ul>
+<li><a href="#welcome" class="active">Welcome</a></li>
+<li><a href="#generation">System generation</a></li>
+<li><a href="#input">LAMMPS input script</a></li>
+</ul>
+</nav>
+<footer>
+<ul class="icons">
+<li><a href="https://twitter.com/GravelleSimon" target="_blank" class="icon brands fa-twitter"><span class="label"></span></a></li>
+<li><a href="https://github.com/simongravelle" target="_blank" class="icon brands fa-github"><span class="label"></span></a></li>
+<li><a href="https://scholar.google.com/citations?user=9fD2JlYAAAAJ&hl=fr" target="_blank"  class="fa fa-graduation-cap"><span class="label"></span></a></li>
+<li><a href="https://orcid.org/0000-0003-2149-6706" target="_blank"><span class="label">iD</span></a></li>
+<li><a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank" class="fab fa-youtube"><span class="label"></span></a></li>
+</ul>
+
+</footer>
+</section>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<section id="welcome">
+<div class="image main" data-position="center">
+<img src="Figures/banner_tutorial04.jpg" alt="" />
+</div>
+<div class="container">
+<header class="major">
+<h2>Graphene under deformation</h2>
+<p>Generation of graphene sheet and carbon nanotube (CNT) and imposed deformation.</p>
+</header>
+</section>
+
+<section>
+<div class="container">
+
+
+<p>
+<b>Objective:</b> In this tutorial, we are going to use molecular dynamics and simulate the deformation of a single layer of graphene. If you already have a good grasp on LAMMPS, you can download directly the input scripts that will be written following this tutorial by clicking <a href="Inputs/GrapheneUnderDeformation.zip" target="_blank" class="removelinkdefault">here</a>.
+
+<br><br>
+
+<b>Prerequisite:</b> If you are new to LAMMPS, I recommend you to follow <a href="tutorial01.html">tutorial 01</a> first. 
+
+<blockquote>
+<b><i>Note 1 - </i></b> If you have any suggestion about these tutorials, please contact me by email at simon.gravelle at live.fr.
+
+<br><br>
+
+<b><i>Note 2 - </i></b> If you want to support me and help me publish more content, well, you are awesome. You can do it <a href=" https://www.patreon.com/molecularsimulations" target="_blank">by visiting my patreon page</a>, and leaving me a comment (or more).
+</a>
+</blockquote>
+
+</div>
+</section>
+
+
+<section id="generation">
+<div class="container"> 
+
+
+<h2>Generation of the graphene sheet</h2>
+
+<p>
+The initial configuration (atoms positions, bonds, angles, etc) is generated using VMD. Open VMD, go to extensions, modeling, nanotube builder. A window will open, and from this window it is possible to generate a sheet of graphene (note that it is also possible to generate a nanotube). For this tutorial, we are going to generate a 4 nm per nm sheet of graphene. Simply change the values of "Edge length along x" and "Edge length along y" to 4 (its in nanometer), and click on "Generate Sheet". You shoud see this:<br> <br>
+<a href="#" class="image"><img src="./Figures/tutorial04_generatedgraphene.png" alt="" /></a>
+<br> <br>
+At this point, this is not a molecular dynamics simulations, but just a cloud of dots that looks like graphene. We are going to deduce which dots must be connected by bonds (using a distance criteria), then export this information. It will later be used as the initial LAMMPS data file. In the VMD terminal, enter the following command:
+<pre><code>topo writelammpsdata data.lammps full
+</code></pre></p><p>
+More details about this command can be found on the personal page of <a href="https://sites.google.com/site/akohlmey/software/topotools" target="_blank">Axel Kohlmeyer</a>. In short, Topotool deduces the location of bonds, angles, dihedrals, and impropers from the positions of the atoms, and generates a file that can be read by LAMMPS. The keyword "full" corresponds to the LAMMPS atom full style (other possibilities include atomic, bond, charge, etc). A new file named "data.lammps" has been created. It starts like that (alternatively you can download the file <a href="Inputs/GrapheneUnderDeformation.zip" target="_blank" class="removelinkdefault">here</a>):
+<pre><code>LAMMPS data file. CGCMM style. atom_style full generated by VMD/TopoTools v1.7 on Tue Jan 12 19:39:40 GMT 2021
+ 680 atoms
+ 983 bonds
+ 1894 angles
+ 3665 dihedrals
+ 608 impropers
+ 1 atom types
+ 1 bond types
+ 1 angle types
+ 1 dihedral types
+ 1 improper types
+ -0.5 0.5  xlo xhi
+ -0.5 0.5  ylo yhi
+ -0.5 0.5  zlo zhi
+
+# Pair Coeffs
+#
+# 1  CA
+</code></pre></p><p>
+As you can see, the data.lammps file contains informations about the positions of the carbons atoms, but also about the bonds, angles, dihedrals, and impropers interactions between the carbon atoms. Note that it does not contain the force field (for example the value of the energy of the bond number 1 is not specified), but it contains the identify of the atoms that are linked toghether. <br><br>
+There is only one issue with the file as generated with topotool, the box coordinates are "-0.5 0.5", and if we use units "real" it means that the box goes from -0.5 Angstrom to 0.5 Angtrom in X, Y, and Z, which is of course too short. Let us change it to:
+<pre><code> -20 60  xlo xhi
+ -20 60  ylo yhi
+ -20 60  zlo zhi
+</code></pre></p><p>
+Save the "data.lammps" file in the same folder as your future LAMMPS input script. We are done with the system generation, we can start the molecular dynamics simulations.	
+</p>
+
+<br>
+
+</div>
+</section>
+
+
+<section id="input">
+<div class="container"> 
+
+<h2>LAMMPS input script</h2>
+
+<p>
+Create a new text file and name it "input.lammps". Copy the following lines:
+<pre><code># Initialisation
+
+variable	T equal 300
+
+units		real
+atom_style	full
+boundary	p p p
+pair_style	lj/cut 14
+
+bond_style	harmonic
+angle_style	harmonic
+dihedral_style	opls
+improper_style	harmonic
+
+special_bonds	lj 0.0 0.0 0.5
+
+# System definition
+read_data	data.lammps
+</code></pre></p><p>
+Most of these command lines have been seen already in previous tutorials (see <a href="tutorial01.html">tutorial 01</a> and see <a href="tutorial03.html">tutorial 03</a>), with a few differences: first, the pair style here is lj/cut with parameter 14, which means that the atoms closer than 14 Angstroms from each others interact through a Lennard-Jones potential. Notice that there is no Coulombic interaction, because all the atoms in pure graphene have a charge of 0. The bond, angle, dihedral, and improper styles specify the potential, you can refer to the LAMMPS website (see for example the <a href="https://lammps.sandia.gov/doc/dihedral_opls.html" class="removelinkdefault">OPLS dihedral style</a>). The three numbers of the special bonds command are weighting factors for the Lennard-Jones interaction between atoms connected by bond (respectively directly bounded, separated by two bonds, etc.). The first weighting factor, with a value of 0, means that two atoms connected by a bond do not interact through LJ potential. Then the read data command opens the data.lammps file previously generated with VMD, which contains the information about the box size, atoms positions, etc. 
+									
+<br><br>
+									
+What we need now is a force field. Create a new text file and name it "PARM.lammps". Copy the following lines in it:
+<pre><code>pair_coeff 	1 1 0.066047 3.4
+bond_coeff 	1 469 1.4
+angle_coeff 	1 63 120
+dihedral_coeff	1 0 7.25 0 0
+improper_coeff	1 5 180
+</code></pre></p><p>
+The pair_coeff indicates the Lennard-jones parameters for the only type of atom of the simulation, carbon (of index 1). The bond_coeff (respectively angle_coeff, dihedral_coeff, improper_coeff) indicates the energy and equilibrium distance of the only type of bond (respectively angle, dihedral, improper) in the simulation: C-C (or 1-1). The file PARM.file can be included in the simulation by adding the following line to input.lammps:
+<pre><code>include	PARM.lammps					
+</code></pre></p><p>
+The goal of the present simulation is to impose a deformation to the sheet. To do so, add the following lines to the input script :
+<pre><code># Simulation settings
+
+group		gcar type 1
+variable	xmax equal bound(gcar,xmax)-0.5
+variable	xmin equal bound(gcar,xmin)+0.5
+region		rtop block ${xmax} INF INF INF INF INF
+region		rbot block INF ${xmin} INF INF INF INF
+region		rmid block ${xmin} ${xmax} INF INF INF INF
+</code></pre></p><p>
+The first command includes all of the atoms of type one (i.e. all of our atoms here) in a group named gcar. Then, two variables are defined: \(x_\mathrm{max}\) corresponds to the coordinate of the last atoms along \(x\) minus 0.5 Angstroms, and \(x_\mathrm{min}\) to the coordinate of the first atoms along \(x\) plus 0.5 Angstroms. Then, 3 regions are defined , and correspond respectively to \(x < x_\mathrm{min}\), \(x_\mathrm{min} > x > x_\mathrm{max} \) and \(x > x_\mathrm{max}\). Then groups of atoms corresponding to the atoms located in each regions respectively can be defined:
+<pre><code>group		gtop region rtop
+group		gbot region rbot
+group		gmid region rmid
+</code></pre></p><p>
+When running the simulation, the number of atoms in each group is printed in the terminal, you can control there that you did not make any mistake:
+<pre><code>680 atoms in group gcar
+20 atoms in group gtop
+20 atoms in group gbot
+640 atoms in group gmid
+</code></pre>
+Let us specify the thermalisation and the dynamics of the system. Add the following lines to input.lammps:
+<pre><code>velocity	gmid create ${T} 48455 mom yes rot yes
+fix		mynve all nve
+compute		Tmid gmid temp
+fix		myber gmid temp/berendsen ${T} ${T} 100
+fix_modify	myber temp Tmid
+</code></pre></p><p>
+The "velocity create" command gives initial velocities to the atoms of the group gmid, assuring an initial temperature of \(300\,\)K for these atoms. NVE integration is applied to all atoms, and a Berendsen thermostat is applied to the atoms of the group gmid only. The "fix modify" ensures that the fix Berendsten use the temperature of the group gmid as an input, instead of the temperature of whole system. The atoms of the edges are not thermalised because their motion will be restrained.
+
+<br><br>
+
+To restrain the motion of the atoms at the edges, add the following commands:
+<pre><code>fix 		mysf1 gtop setforce 0 NULL 0
+fix 		mysf2 gbot setforce 0 NULL 0
+velocity	gtop set 0 NULL 0
+velocity	gbot set 0 NULL 0
+</code></pre></p><p>
+The setforce commands cancel the forces applied on the atoms of both edges during the whole simulation along \(x\) and \(z\), and the velocity commands cancel the initial velocities along \(x\) and \(z\). Therefore, the atoms of the edges will remain immobile during the simulation (if no other command is applied to them). 
+
+<br><br>
+
+All the important commands have been written. In order to measure the strain and stress in the graphene sheet, let us extract the distance \(L\) between the two edges as well as the force applied on the edges. Let us also create a dump file containing the trajectories (for VMD).
+<pre><code>variable	L equal xcm(gtop,x)-xcm(gbot,x)
+fix 		at1 all ave/time 10 100 1000 v_L file length.dat
+fix 		at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
+dump 		mydmp all atom 1000 dump.lammpstrj
+</code></pre></p><p>
+
+Notice that the values of the forces on each edge are extracted from the fixes mysf1 and mysf2. These fixes cancel the force on a group of atoms, but allow to extract the values of the force before its cancelation. This is what we are doing here. Let us run a small equilibration step.
+<pre><code>thermo		100
+thermo_modify 	temp Tmid
+
+# Run
+
+timestep	1.0
+run		5000
+</code></pre></p><p>
+When using the thermo_modify command, we specify to LAMMPS that we want the temperature \(T_\mathrm{mid}\) to be printed in the terminal, not the total temperature. Then, we perform a loop. At each step of the loop, the edges are slightly displaced, and the simulation runs for a short time. 
+<pre><code>variable 	var loop 10
+label 		loop
+displace_atoms	gtop move 0.1 0 0
+displace_atoms	gbot move -0.1 0 0
+run		1000
+next		var
+jump 		input.lammps loop
+</code></pre></p><p>
+
+
+What you observe should resemble <a href="https://www.youtube.com/embed/o5IoCVWpPKg" target="_blank">this video</a>.
+
+</p>										
+
+<ul class="actions fit">
+	<li><a href="index.html" class="button primary fit">Back to the main page</a></li>
+	<li><a href="#welcome" class="button primary fit">Back to top</a></li>
+</ul>
+
+
+
+
+
+</div>
+</section>
+
+</div>
+
+
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="container">
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets_internalpages/js/jquery.min.js"></script>
+			<script src="assets_internalpages/js/jquery.scrollex.min.js"></script>
+			<script src="assets_internalpages/js/jquery.scrolly.min.js"></script>
+			<script src="assets_internalpages/js/browser.min.js"></script>
+			<script src="assets_internalpages/js/breakpoints.min.js"></script>
+			<script src="assets_internalpages/js/util.js"></script>
+			<script src="assets_internalpages/js/main.js"></script>
+
+	</body>
+</html>
