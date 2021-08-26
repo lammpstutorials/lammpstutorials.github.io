@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Swelling of cellulose</title>
+
+<link rel="shortcut icon" type="image/jpg" href="favicon-32x32.png"/>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets_internalpages/css/main.css" />
+	
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-W1WGEC5GQ8');
+</script>	
+	
+<!-- Latex formula -->
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body class="is-preload">
+
+<!-- Header -->
+<section id="header">
+<header>
+<span class="image avatar"><a href="index.html"><img src="Figures/avatar_larger.png" alt="" /></a></span>
+<h1 id="logo"><a href="index.html">LAMMPS tutorials</a></h1>
+<p>by Simon Gravelle</p>
+</header>
+<nav id="nav">
+<ul>
+<li><a href="#welcome" class="active">Welcome</a></li>
+<li><a href="#generation">System generation</a></li>
+<li><a href="#input">LAMMPS input script</a></li>
+</ul>
+</nav>
+<footer>
+<ul class="icons">
+<li><a href="https://twitter.com/GravelleSimon" target="_blank" class="icon brands fa-twitter"><span class="label"></span></a></li>
+<li><a href="https://github.com/simongravelle" target="_blank" class="icon brands fa-github"><span class="label"></span></a></li>
+<li><a href="https://scholar.google.com/citations?user=9fD2JlYAAAAJ&hl=fr" target="_blank"  class="fa fa-graduation-cap"><span class="label"></span></a></li>
+<li><a href="https://orcid.org/0000-0003-2149-6706" target="_blank"><span class="label">iD</span></a></li>
+<li><a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank" class="fab fa-youtube"><span class="label"></span></a></li>
+</ul>
+
+</footer>
+</section>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<section id="welcome">
+<div class="image main" data-position="center">
+<img src="Figures/banner_tutorial04.jpg" alt="" />
+</div>
+<div class="container">
+<header class="major">
+<h2>Water induced swelling of cellulose</h2>
+<p>Adsorption of water in cellulose using the grand canonical Monte Carlo method.</p>
+</header>
+</section>
+
+<section>
+<div class="container">
+
+
+<p>
+<b>Objective:</b> The purpose of this tutorial is to use molecular dynamics and simulate the adsorption of water molecule in a block of cellulose, and measure the water induced swelling of the cellulose. If you already have a good grasp on LAMMPS, you can download directly the input scripts that will be written following this tutorial by clicking <a href="Inputs/" target="_blank" class="removelinkdefault">here</a>.
+
+<br><br>
+
+<b>Prerequisite:</b> If you are new to LAMMPS, I recommend you to follow <a href="tutorial01.html">tutorial 01</a> first. 
+
+<blockquote>
+<b><i>Note 1 - </i></b> If you have any suggestion about these tutorials, please contact me by email at simon.gravelle at live.fr.
+
+<br><br>
+
+<b><i>Note 2 - </i></b> You can support me for 1 euro per month by clicking  <a href=" https://www.patreon.com/molecularsimulations" target="_blank">here</a>. For a larger amount, I offer you <b>personal assistance</b> with you LAMMPS scripts.
+</a>
+</blockquote>
+
+</div>
+</section>
+
+<section id="generation">
+<div class="container"> 
+
+<h2>Generation of the cellulose block</h2>
+
+<p>Let us generate a block of cellulose. To do so, we are going to replicate a single cellulose Iβ molecule. The data file for the cellulose molecule can be downloaded by clicking <a href="Data/tutorial05_celluloseIB.data" target="_blank" class="removelinkdefault">here</a>. This data file contains the coordinates of the atoms as well as the constraints between atoms (bonds, angles and dihedrals), and can be directly read by LAMMPS using the read_file command. The molecule looks like this,
+
+<span class="image fit"><img src="Figures/tutorial05_celluloseIB.jpg" alt="" /></span>
+
+where the carbon atoms are in pink, the oxygen in red, and the hydrogen in white. Let us replicate this molecule using LAMMPS, and equilibrate the structure to obtain a block of cellulose. To do so, we are going to first thermalise the system at large pressure and large temperature, which will allow for the mixing of the cellulose molecules, before cooling down the system to ambient atmospheric conditions.
+
+<br><br>
+
+Create a new input file in the same folder as the downloaded tutorial05_celluloseIB.data, and copy the following line in it. <pre><code>##################
+# Initialization #
+##################
+
+units           real
+boundary        p p p 
+atom_style      full
+bond_style      harmonic
+angle_style     harmonic
+dihedral_style  harmonic
+pair_style	lj/cut/tip4p/long 7 8 7 13 0.1546 12.0
+pair_modify     mix arithmetic tail yes
+kspace_style 	pppm/tip4p 1.0e-4
+</code></pre></p><p>
+Note that, even though there are no water molecules in the system, we are anticipating by using the lj/cut/tip4p/long fix, with water oxygen and hydrogen atoms having the indexes 7 and 8, respectively. For this first step, we could have used
+<pre><code>pair_style 	lj/cut/coul/long 12.0
+kspace_style 	pppm 1.0e-4
+</code></pre></p><p>
+and obtained the same results, but modifications would have been required later. 
+
+<br><br>
+
+Then, let us read the data file and replicate the system by adding the following lines to the input.lammps file
+
+<pre><code>#####################
+# System definition #
+#####################
+
+read_data	tutorial05_celluloseIB.data
+replicate	4 4 2
+</code></pre></p><p>
+and then also add the parameters 
+<pre><code>#######################
+# Simulation settings #
+#######################
+
+include 	tutorial05_PARM
+
+dump 		dp1 all atom 10000 dump.lammpstrj
+</code></pre></p><p>
+where the tutorial05_PARM file can be downloaded by clicking <a href="Data/tutorial05_PARM" target="_blank" class="removelinkdefault">here</a>. Finally, let us perform multiple molecular dynamics steps in order to obtain a dense block of cellulose, and write the final state in a data file named tutorial05_equilibrium.data. 
+
+<pre><code>#######
+# Run #
+#######
+
+velocity	all create 1000 542121 mom yes rot yes dist gaussian
+
+fix		mynve all nve
+fix		myber all temp/berendsen 1000.0 1000.0 100
+
+timestep	0.1
+thermo		1000
+run		5000
+unfix		mynve
+unfix		myber
+
+fix 		mynpt all npt temp 1000 1000 100 aniso 100.0 100.0 1000.0
+
+run		200000
+
+fix             mynpt all npt temp 1000 300 100 aniso 100.0 1.0 1000.0
+
+run		200000
+
+fix             mynpt all npt temp 300 300 100 aniso 1.0 1.0 1000.0
+
+run		200000
+
+write_data 	tutorial05_equilibrium.data
+</code></pre></p><p>
+The first step of 5000 timesteps is performed in the NVT ensemble (constant number of molecules, volume, and temperature), obtained by combining a fix nve with a Berendsten thermostat. This step allows the system to relax relatively gently. Then, 3 successive steps of 200000 timesteps each are performed in the NPT ensemble (constant number of molecules, pressure, and temperature), allowing the system to relax in volume. The final configuration looks like this:
+
+<span class="image fit"><img src="Figures/tutorial05_blockcellulose.jpg" alt="" /></span>
+
+Alternatively, you can download the final data file by clicking <a href="Data/tutorial05_equilibrium.data" target="_blank" class="removelinkdefault">here</a>.
+
+</div>
+</section>
+
+<section id="generation">
+<div class="container"> 
+
+<h2>Addition of water</h2>
+
+In order to add the water molecules, we are going to use the Monte Carlo method in the grand canonical ensemble (GCMC). In short, the system is put in contact with a virtual reservoir of given chemical potential, and multiple attempts to insert water molecules at random positions are made. Attemps are either accepted or rejected based on an acceptance rule. 
+
+<br><br>
+
+<blockquote>
+<b><i>Note 3 - </i></b> Cellulose is a hygroscopic material that swell with water. However, GCMC simulations are performed at constant volume (ie they do not allow the volume of the box to adjust). Therefore, we are going to alternate between GCMC steps and NPT steps. This method is sometimes called hybrid GCMC-NPT. 
+</blockquote>
+
+In a different folder, copy the <a href="Data/tutorial05_equilibrium.data" target="_blank" class="removelinkdefault">data</a> file previously generated as well as the <a href="Data/tutorial05_PARM" target="_blank" class="removelinkdefault">parameters</a> file previously used. Also copy the <a href="Data/TIP4P2005.txt" target="_blank" class="removelinkdefault">TIP4P2005.txt</a> file which contains the information concerning the water model. Create a new input file, and copy the following lines into it:
+
+
+
+</div>
+</section>
+
+<section id="generation">
+<div class="container"> 
+
+</div>
+</section>
+
+</div>
+
+
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="container">
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets_internalpages/js/jquery.min.js"></script>
+			<script src="assets_internalpages/js/jquery.scrollex.min.js"></script>
+			<script src="assets_internalpages/js/jquery.scrolly.min.js"></script>
+			<script src="assets_internalpages/js/browser.min.js"></script>
+			<script src="assets_internalpages/js/breakpoints.min.js"></script>
+			<script src="assets_internalpages/js/util.js"></script>
+			<script src="assets_internalpages/js/main.js"></script>
+
+	</body>
+</html>
