@@ -1,0 +1,50 @@
+ffmpeg -r 60 -i untitled.%05d.ppm -vcodec libx264 -crf 10  -pix_fmt yuv420p test.mp4
+ffmpeg -r 60 -i filename_%04d.jpg -vcodec libx264 -crf 10  -pix_fmt yuv420p curve.mp4
+
+
+convert -delay 1 -loop 0 ou*.ppm gifHR.gif
+convert -resize 60% -delay 5 -loop 0 *.ppm myimage.gif
+convert -resize 736x512 -delay 5 -loop 0 *.ppm myimage.gif
+ffmpeg -i myimage.gif animation.mp4
+ffmpeg -i myimage.gif animation.webm
+
+
+
+
+
+# cropping:
+identify untitled.00000.ppm
+convert untitled.00000.ppm -crop 1600x800+125+100 output.jpg
+
+for file in un*.ppm; do convert $file -crop 1386x886+0+0 output-$file; done
+
+
+# video with no lost:
+ffmpeg -r 30 -i output-untitled.%05d.ppm -vcodec libx264 -crf 0  -pix_fmt yuv420p foryoutube.mp4
+or 
+ffmpeg -r 30 -i untitled.%05d.ppm -vcodec libx264 -crf 0  -pix_fmt -x265-params lossless=1 yuv420p foryoutube.mp4
+
+ffmpeg -r 60 -i untitled.%05d.ppm -vcodec libx264 -crf 0  -pix_fmt yuv420p foryoutube.mp4
+
+
+# reencodage:
+ffmpeg -i foryoutube.mp4 -c:v libx264 -preset slow -crf 10 -c:a copy -pix_fmt yuv420p output.mkv
+
+
+# open the gif in kdenlive, but before create a super HR project
+
+
+
+
+# VMD 
+set cell [pbc set {250 250 40000} -all]
+pbc box -center origin -color black -width 1
+
+
+
+
+
+
+
+# if ressource issues , modify in etc/ImageMagick-6
+Change <policy domain="resource" name="disk" value="1GiB"/> to <policy domain="resource" name="disk" value="4GiB"/> in the policy.xml file.
