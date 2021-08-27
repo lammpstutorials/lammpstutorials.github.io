@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Swelling of cellulose</title>
+<title>GCMC water silica</title>
 
 <link rel="shortcut icon" type="image/jpg" href="favicon-32x32.png"/>
 
@@ -60,8 +60,8 @@ gtag('config', 'G-W1WGEC5GQ8');
 </div>
 <div class="container">
 <header class="major">
-<h2>Water induced swelling of cellulose</h2>
-<p>Adsorption of water in cellulose using the grand canonical Monte Carlo method.</p>
+<h2>Adsorption of water in a crack</h2>
+<p>Adsorption of water in a silica crack using the grand canonical Monte Carlo method.</p>
 </header>
 </section>
 
@@ -70,7 +70,7 @@ gtag('config', 'G-W1WGEC5GQ8');
 
 
 <p>
-<b>Objective:</b> The purpose of this tutorial is to use molecular dynamics and simulate the adsorption of water molecule in a block of cellulose, and measure the water induced swelling of the cellulose. If you already have a good grasp on LAMMPS, you can download directly the input scripts that will be written following this tutorial by clicking <a href="Inputs/" target="_blank" class="removelinkdefault">here</a>.
+<b>Objective:</b> The purpose of this tutorial is to combine molecular dynamics and grand canonical Monte Carlo and simulate the adsorption of water molecules in a block of silica that contains a crack. If you already have a good grasp on LAMMPS, you can download directly the input scripts that will be written following this tutorial by clicking <a href="Inputs/" target="_blank" class="removelinkdefault">here</a>.
 
 <br><br>
 
@@ -91,92 +91,69 @@ gtag('config', 'G-W1WGEC5GQ8');
 <section id="generation">
 <div class="container"> 
 
-<h2>Generation of the cellulose block</h2>
+<h2>Generation of the silica block</h2>
 
-<p>Let us generate a block of cellulose. To do so, we are going to replicate a single cellulose Iβ molecule. The data file for the cellulose molecule can be downloaded by clicking <a href="Data/tutorial05_celluloseIB.data" target="_blank" class="removelinkdefault">here</a>. This data file contains the coordinates of the atoms as well as the constraints between atoms (bonds, angles and dihedrals), and can be directly read by LAMMPS using the read_file command. The molecule looks like this,
-
-<span class="image fit"><img src="Figures/tutorial05_celluloseIB.jpg" alt="" /></span>
-
-where the carbon atoms are in pink, the oxygen in red, and the hydrogen in white. Let us replicate this molecule using LAMMPS, and equilibrate the structure to obtain a block of cellulose. To do so, we are going to first thermalise the system at large pressure and large temperature, which will allow for the mixing of the cellulose molecules, before cooling down the system to ambient atmospheric conditions.
+<p>Let us generate a block of amorphous silica (SiO2). To do so, we are going to replicate a building block containing 3 Si and 6 O atoms. The data file for the SiO atoms can be downloaded by clicking <a href="Data/tutorial05/dataSiO.data" target="_blank" class="removelinkdefault">here</a>. This data file contains the coordinates of the atoms, their masses, and their charges, and can be directly read by LAMMPS using the read_file command. Let us replicate this molecule using LAMMPS, and apply an annealing procedure to obtain a block of amorphous silica.
 
 <br><br>
 
-Create a new input file in the same folder as the downloaded tutorial05_celluloseIB.data, and copy the following line in it. <pre><code>##################
+Create a new input file in the same folder as the downloaded dataSiO.data, and copy the following line in it. <pre><code>##################
 # Initialization #
 ##################
 
-units           real
-boundary        p p p 
-atom_style      full
-bond_style      harmonic
-angle_style     harmonic
-dihedral_style  harmonic
-pair_style	lj/cut/tip4p/long 7 8 7 13 0.1546 12.0
-pair_modify     mix arithmetic tail yes
-kspace_style 	pppm/tip4p 1.0e-4
-</code></pre></p><p>
-Note that, even though there are no water molecules in the system, we are anticipating by using the lj/cut/tip4p/long fix, with water oxygen and hydrogen atoms having the indexes 7 and 8, respectively. For this first step, we could have used
-<pre><code>pair_style 	lj/cut/coul/long 12.0
-kspace_style 	pppm 1.0e-4
-</code></pre></p><p>
-and obtained the same results, but modifications would have been required later. 
+units		    	metal
+boundary            	p p p
+atom_style          	full
+pair_style 		vashishta
+neighbor	    	1.0 bin
+neigh_modify	    	delay 1
 
-<br><br>
-
-Then, let us read the data file and replicate the system by adding the following lines to the input.lammps file
-
-<pre><code>#####################
+#####################
 # System definition #
 #####################
 
-read_data	tutorial05_celluloseIB.data
-replicate	4 4 2
+read_data           	data.SiO
+replicate		4 4 4
 </code></pre></p><p>
-and then also add the parameters 
+Metalic units are used as required by the Vashishta potential. The <a href="https://pubmed.ncbi.nlm.nih.gov/9993674/" target="_blank" class="removelinkdefault">Vashishta</a> potential is a bond-angle energy based potential. This family of potential deduces which atoms are bonded together from their relative positions. Therefore we don't need to provide bond and angle information as we do with classic force field. These kind of potential are more computationally heavy than classical force field and require the use of a smaller timestep, but allow for the modelling of bond formation/breaking, which is what we need here as we want to create a crack in the silica. You can download it by clicking <a href="Data/tutorial05/SiO.1990.vashishta" target="_blank" class="removelinkdefault">here</a>
+
+The system is then replicated four times in all three directions of space. Then add the pair coeff, where we indicate that the first atom is Si, and the second is O, and add a dump for printing atoms trajectories:
 <pre><code>#######################
 # Simulation settings #
 #######################
 
-include 	tutorial05_PARM
-
-dump 		dp1 all atom 10000 dump.lammpstrj
+pair_coeff		* *  SiO.1990.vashishta Si O
+dump 			dmp all atom 5000 dump.lammpstrj
 </code></pre></p><p>
-where the tutorial05_PARM file can be downloaded by clicking <a href="Data/tutorial05_PARM" target="_blank" class="removelinkdefault">here</a>. Finally, let us perform multiple molecular dynamics steps in order to obtain a dense block of cellulose, and write the final state in a data file named tutorial05_equilibrium.data. 
-
+Finally, let us create the run part of our script. We first start with a small phase at 6000 K, then cool down the system to 4000 K using a pressure of 100 atm. Then we cool down the system further while also reducing the pressure, then perform a small equilibration step at the final desired condition, 3 00K and 1 atm.
 <pre><code>#######
 # Run #
 #######
 
-velocity	all create 1000 542121 mom yes rot yes dist gaussian
+velocity 		all create 6000 4928459 rot yes dist gaussian
+fix 			nvt1 all nvt temp 6000 6000 0.1
 
-fix		mynve all nve
-fix		myber all temp/berendsen 1000.0 1000.0 100
+timestep		0.001
+thermo          	1000
+run			5000
+unfix			nvt1
 
-timestep	0.1
-thermo		1000
-run		5000
-unfix		mynve
-unfix		myber
+fix 			npt1 all npt temp 6000 4000 0.1 aniso 100 100 1
 
-fix 		mynpt all npt temp 1000 1000 100 aniso 100.0 100.0 1000.0
+run			50000
 
-run		200000
+fix 			npt1 all npt temp 4000 300 0.1 aniso 100 1 1
 
-fix             mynpt all npt temp 1000 300 100 aniso 100.0 1.0 1000.0
+run			200000
 
-run		200000
+fix 			npt1 all npt temp 300 300 0.1 aniso 1 1 1
 
-fix             mynpt all npt temp 300 300 100 aniso 1.0 1.0 1000.0
+run			4000
 
-run		200000
-
-write_data 	tutorial05_equilibrium.data
+write_data 		data.amorphousSiO
 </code></pre></p><p>
-The first step of 5000 timesteps is performed in the NVT ensemble (constant number of molecules, volume, and temperature), obtained by combining a fix nve with a Berendsten thermostat. This step allows the system to relax relatively gently. Then, 3 successive steps of 200000 timesteps each are performed in the NPT ensemble (constant number of molecules, pressure, and temperature), allowing the system to relax in volume. The final configuration looks like this:
+Note the use of the anisotropic pressure, so that all three directions of space are managed independently, which is better for a solid phase like here. For a liquid of a gas, use iso instead.
 
-<span class="image fit"><img src="Figures/tutorial05_blockcellulose.jpg" alt="" /></span>
-
-Alternatively, you can download the final data file by clicking <a href="Data/tutorial05_equilibrium.data" target="_blank" class="removelinkdefault">here</a>.
 
 </div>
 </section>
