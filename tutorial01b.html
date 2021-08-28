@@ -1,105 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-<head> 
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
-<link href="favicon-32x32.png" rel="icon" />
-<title>Lennard jones mixture</title>
-<meta name="description" content="Simple molecualar dynamics simulation">
-<meta name="author" content="Simon Gravelle">
-<link rel="stylesheet" type="text/css" href="assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="assets_tutorials/vendor/font-awesome/css/all.min.css" /> <!-- Font Awesome Icon -->
-<link rel="stylesheet" type="text/css" href="assets_tutorials/css/stylesheet.css" />
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Lennard-Jones mixture</title>
+
+<link rel="shortcut icon" type="image/jpg" href="favicon-32x32.png"/>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets_internalpages/css/main.css" />
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-W1WGEC5GQ8');
-</script>	
-	
+</script>
+
 <!-- Latex formula -->
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
-<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
-<div id="main-wrapper"> 
+<body class="is-preload">
 
-
-
-  <header id="header" class="sticky-top"> 
-    <nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
-      <div class="container-fluid">
-        <a class="logo ml-md-3" href="index.html" title="LAMMPS tutorials"> <img src="Figures/logo.png" alt="LAMMPS tutorials" height="60"/> </a> 
-		<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#header-nav"><span></span><span></span><span></span></button>
-		<div id="header-nav" class="collapse navbar-collapse justify-content-end">
-          <ul class="navbar-nav">
-            <li class="dropdown"> <a class="dropdown-toggle" href="#">All tutorials</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="tutorial01.html">Tutorial 01</a></li>
-                <li><a class="dropdown-item" href="tutorial02.html">Tutorial 02</a></li>
-                <li><a class="dropdown-item" href="tutorial03.html">Tutorial 03</a></li>
-                <li><a class="dropdown-item" href="tutorial04.html">Tutorial 04</a></li>
-                <li><a class="dropdown-item" href="tutorial05.html">Tutorial 05</a></li>
-              </ul>
-            </li>
-            <li><a target="_blank" href="https://simongravelle.github.io/">About me</a></li>
-            <li><a target="_blank" href="https://www.patreon.com/molecularsimulations">Get help with your script</a></li>
-          </ul>
-        </div>
-        <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
-          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://twitter.com/GravelleSimon" target="_blank" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
-          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://gitlab.com/sgravelle" target="_blank" title="" data-original-title="Gitlab"><i class="fab fa-gitlab"></i></i></a></li>
-          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://github.com/simongravelle" target="_blank" title="" data-original-title="Github"><i class="fab fa-github"></i></i></a></li>
-          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank" title="" data-original-title="Youtube"><i class="fab fa-youtube"></i></i></a></li>         
-        </ul>
-      </div>
-    </nav>
-  </header>
- 
-
-	<div class="idocs-navigation bg-light">
-      <ul class="nav flex-column ">
-	<li class="nav-item"><a class="nav-link active" href="#intro">Getting Started</a></li>
-	<li class="nav-item"><a class="nav-link active" href="#installation">Installation</a></li>
-        <li class="nav-item"><a class="nav-link active" href="#input">The input script</a></li>
-	<li class="nav-item"><a class="nav-link" href="#improved">Improving the script</a></li>
-	<li class="nav-item"><a class="nav-link" href="#restarting">Restarting</a></li>
-      </ul>
-    </div>
-
-
-
-    <div class="idocs-content">
-      <div class="container">  
-        <section id="intro">
-        
-<h1>Simple molecular dynamics</h1>
-<h3>The very basics of molecular dynamics through a simple example: a Lennard-Jones binary gas.</h3>
-
-<br>
-<p><img src="Figures/tutorial01/binary.png" width="500" class="img-fluid" alt="Responsive image"></p>
-<br>
-
-<p><b>The objective of this tutorial</b> is to use the open-source code named LAMMPS (acronym for Large-scale Atomic/Molecular Massively Parallel Simulator) to perform a simple molecular dynamics simulation. The simulation consists in a binary fluid in a 2D box (see the image bwlow), with atoms of the fluid interacting through a simple Lennard-Jones potential. This tutorial illustrates the use of many fundamental ingredients of molecular dynamics simulations, such as system initialisation, energy minimisation, integration of the equations of motion, and trajectories visualisation. There are several parts to this tutorial:
+<!-- Header -->
+<section id="header">
+<header>
+<span class="image avatar"><a href="index.html"><img src="Figures/avatar_larger.png" alt="" /></a></span>
+<h1 id="logo"><a href="index.html">LAMMPS tutorials</a></h1>
+<p>by Simon Gravelle</p>
+</header>
+<nav id="nav">
 <ul>
-	<li> <a href="#installation">Software installation - </a> Look at the required software.</li>
-        <li> <a href="#input">The input script - </a> Description of the LAMMPS input file.</li>
-        <li> <a href="#trajectories">Trajectories visualisation - </a> How to visualise atoms and trajectories using LAMMPS.</li>
-        <li> <a href="#improved">Improving the script - </a> Making slightly more advanced script.</li>
-	<li> <a href="#restarting">Restarting from a saved configuration - </a> How to restart a simulation from a previously save state.</li>
+<li><a href="#welcome" class="active">Welcome</a></li>
+<li><a href="#software">Software</a></li>
+<li><a href="#input">The input file</a></li>
+<li><a href="#trajectories">Trajectories visualisation</a></li>
+<li><a href="#improved">Improving the script</a></li>
+<li><a href="#restarting">Restarting a simulation</a></li>
+<li><a href="#goingfurther">Going further</a></li>
 </ul>
-</p>
-<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or becoming a <a href="https://www.patreon.com/molecularsimulations" target="_blank">patreon</a> for 1 euro/month.</p>
+</nav>
+<footer>
+<ul class="icons">
+<li><a href="https://twitter.com/GravelleSimon" target="_blank" class="icon brands fa-twitter"><span class="label"></span></a></li>
+<li><a href="https://github.com/simongravelle" target="_blank" class="icon brands fa-github"><span class="label"></span></a></li>
+<li><a href="ttps://scholar.google.com/citations?user=9fD2JlYAAAAJ&hl=fr" target="_blank"  class="fa fa-graduation-cap"><span class="label"></span></a></li>
+<li><a href="https://orcid.org/0000-0003-2149-6706" target="_blank"><span class="label">iD</span></a></li>
+<li><a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank" class="fab fa-youtube"><span class="label"></span></a></li>
+</ul>
 
-If you have any suggestion about these tutorials, please contact me by email at simon.gravelle at live.fr.</p>
-
-
+</footer>
 </section>
-<br><br><br>
-<section id="installation">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<section id="welcome">
+<div class="image main" data-position="center">
+<img src="Figures/banner_tutorial01.jpg" alt="" />
+</div>
+<div class="container">
+<header class="major">
+<h2>Simple molecular dynamics</h2>
+<p>The very basics of molecular dynamics through a simple example: a Lennard-Jones binary gas.</p>
+</header>
+</section>
+
+<section>
+<div class="container">
+
+<p>					
+<b>Objective:</b> The purpose of this tutorial is to use the open-source code named LAMMPS (acronym for Large-scale Atomic/Molecular Massively Parallel Simulator) to perform a simple molecular dynamics simulation. The simulation consists in a binary fluid in a 2D box (see the image bwlow), with atoms of the fluid interacting through a simple Lennard-Jones potential. This tutorial illustrates the use of many fundamental ingredients of molecular dynamics simulations, such as system initialisation, energy minimisation, integration of the equations of motion, and trajectories visualisation.</p>
+
+<span class="image fit"><img src="Figures/tutorial01_system.jpg" alt="" /></span>
+
+<p>
+<b>Prerequisite:</b> To follow this tutorial, you don't need to know any computer language, and you don't need to have any previous experience with simulation.
+
+<br><br>
+<b>Shortcut:</b> If you already have a good grasp on LAMMPS, you can download directly the input scripts that will be written following this tutorial <a href="Inputs/Simplemoleculardynamics.zip" target="_blank">by clicking here</a>.</p>
+
+<blockquote>
+<b><i>Note 1 - </i></b> If you have any suggestion about these tutorials, please contact me by email at simon.gravelle at live.fr.
+
+<br><br>
+
+<b><i>Note 2 - </i></b> You can support me for 1 euro per month by clicking  <a href=" https://www.patreon.com/molecularsimulations" target="_blank">here</a>. For a larger amount, I offer you <b>personal assistance</b> with you LAMMPS scripts.
+</a>
+</blockquote>
+
+</div>
+</section>
+
+<section id="software">
+<div class="container">
+
 <h2>Software installation</h2>
+
 <p>
 You need to download and install LAMMPS, the code that will allow us to perform molecular simulations. You can do it following the instructions of the <a href="https://lammps.sandia.gov" target="_blank" class="removelinkdefault">LAMMPS website</a>. Alternatively, if you are using Ubuntu OS, you can simply execute the following command in the terminal: 
 <pre><code>sudo apt-get install lammps</code></pre>
@@ -110,16 +110,23 @@ You can verify that LAMMPS is indeed installed on you computer by typing in a te
 And you should see the version of LAMMPS that has been installed. On my computer I see
 <pre><code>LAMMPS (20 Nov 2019)</code></pre>
 </p>
+
 <p>
-In addition to LAMMPS, you will also need:
+In addition to LAMMPS, you will also need: 
 <ul>
-<li> <a href="https://help.gnome.org/users/gedit/stable/" target="_blank" class="removelinkdefault">A	basic text editing software.</a> I personally use gedit, but any text editor will do.</li>
-<li> <a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank" class="removelinkdefault">A visualisation software.</a> Here I will use VMD, its free but you have to register in order to download it. If you don't want to, you can also use Ovito.</li>
-<li> <a href="https://plasma-gate.weizmann.ac.il/Grace/" target="_blank" class="removelinkdefault">A plotting tool.</a> I like XmGrace.</li>
+<li> a	basic text editing software. I personally use  
+<a href="https://help.gnome.org/users/gedit/stable/" target="_blank" class="removelinkdefault">gedit</a>, 
+but any text editor will do,</li>
+<li> a visualisation software, here I will use
+<a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank" class="removelinkdefault">VMD</a> (note that you will have to register in order to download VMD. If you don't want to, you can also use <a href="https://www.ovito.org/" target="_blank" class="removelinkdefault">Ovito</a>),</li>
+<li> and a plotting tool, for example 
+<a href="https://plasma-gate.weizmann.ac.il/Grace/" target="_blank" class="removelinkdefault">Grace</a>.</li>
 </ul>
 </p>
+
+</div>
 </section>
-<br><br><br>
+
 <section id="input">
 <div class="container">
 
@@ -201,12 +208,12 @@ minimize	1.0e-4 1.0e-6 1000 10000
 </code></pre></p><p>
 The first line asks LAMMPS to print thermodynamic information (e.g. temperature, energy) in the terminal (as well as in the log file) every 10 timesteps. The second line asks LAMMPS to perform an energy minimisation of the system. An energy minimisation consists in adjusting the coordinates of the atoms until one of the stopping criteria is reached. Here there are four stopping criteria: 
 <ul>
-<li><b>1 - </b>The change in energy between two iterations is less than 1.0e-4,
-<li><b>2 - </b>the maximum force between two atoms in the system is lower than 1.0e-6,
-<li><b> 3 - </b>the maximum number of iterations is 1000, 
-<li><b>4 - </b>the maximum number of times the force and the energy have been evaluated is 10000. 
+<li>the change in energy between two iterations is less than 1.0e-4,
+<li>the maximum force between two atoms in the system is lower than 1.0e-6,
+<li>the maximum number of iterations is 1000, 
+<li>the maximum number of times the force and the energy have been evaluated is 10000. 
 </ul>
-<p>Now running the simulation, you should see numerous information printed in you terminal. For example, you should see the following lines (with slightly different values eventually):
+Now running the simulation, you should see numerous information printed in you terminal. For example, you should see the following lines (with slightly different values eventually):
 <pre><code>Step Temp E_pair E_mol TotEng Press 
        0            0 5.8997404e+14            0 5.8997404e+14 1.5732641e+15 
       10            0     56275037            0     56275037 1.5007118e+08 
@@ -238,7 +245,7 @@ timestep	0.005
 thermo		1000
 run		10000
 </code></pre></p><p>
-For LAMMPS, a `fix' is an operation applied to a group of atoms. The first fix performs constant NVE integration (micro-canonical ensemble with constant number of atom \(N\), constant volume \(V\), and constant energy \(E\)) to update the positions and the velocities of the atoms in the group `all'. The second fix applies a Langevin thermostat to the atoms of group `all', with a desired temperature of 1 and a damping parameter of 0.1. The number '1530917' is a seed, you can change it to perform statistically independent simulations with the same system. The third fix ensures that the atoms remain within the 2D plan. Finally we choose the timestep, we ask LAMMPS to print information in the terminal every 1000 timesteps (instead of 10 during the minimisation step), and we ask LAMMPS to run for 10000 timesteps. After running the simulation, you should see the following information in the terminal:
+For LAMMPS, a `fix' is an operation applied to a group of atoms. The first fix performs constant NVE integration (micro-canonical ensemble with constant number of atom \(N\), constant volume \(V\), and constant energy \(E\)) to update the positions and the velocities of the atoms in the group `all'. The second fix applies a Langevin thermostat to the atoms of group `all', with a desired temperature of 1 and a damping parameter of 0.1. The number '1530917' is a seed, you can change it to perform different simulations with the same system. The third fix ensures that the atoms remain within the 2D plan. Finally we choose the timestep, we ask LAMMPS to print information in the terminal every 1000 timesteps (instead of 10 during the minimisation step), and we ask LAMMPS to run for 10000 timesteps. After running the simulation, you should see the following information in the terminal:
 <pre><code>Step Temp E_pair E_mol TotEng Press 
       81            0   -1.7518285            0   -1.7518285  -0.15730928 
     1000    1.0001038   -1.2883573            0  -0.28887856    1.0156263 
@@ -290,7 +297,7 @@ Otherwise, you can open VMD and open dump.lammpstrj manually using file -> molec
 </div>
 </section>
 
-<br><br><br>
+
 <section id="improved">
 <div class="container">
 
@@ -309,7 +316,7 @@ dimension 	2
 pair_style	lj/cut 2.5
 atom_style	atomic
 boundary	p p p</code></pre></p><p>
-Let us create a box from a predefined region, and create two additional regions and generate atoms of type 1 and 2 in each region respectively. 
+Let us create a box from a predefined region, and create two additional regions and geenrate atoms of type 1 and 2 in each region respectively. 
 <pre><code># System definition
 
 region		mybox block -30 30 -30 30 -0.5 0.5
@@ -437,19 +444,23 @@ There are a few differences with the previous input script. First, the 'velocity
 <br><br>
 After running the simulation, you can observe the number of atoms in each region from the generated data files, using for example Xmgrace: </p>
 
-<p><img src="Graph/tutorial01_curve01.jpg" class="img-fluid" alt="Responsive image"></p>
+<span class="image fit"><img src="Graph/tutorial01_curve01.jpg" alt="" /></span>
 
 <p>The final simulation should resemble <a href="https://www.youtube.com/embed/-ouevxQ6-Jw" target="_blank">this video</a>.</p>
 
-<p>You can download the input scripts that have been written in this tutorial by clicking <a href="Inputs/tutorial01.zip" target="_blank" class="removelinkdefault">here</a>.</p>
-
 </div>
 </section>
-<br><br><br>
-<section id="further">
+
+
+
+<section id="goingfurther">
 <div class="container">
+
+<br><br>
 <h2>Going further</h2>
-<p><b>Playing around.</b> A good way to master LAMMPS and molecular dynamics simulations is to play around with a script that is already working, and observe the differences and/or errors occurring. For example, with our current input file, we can explore what appends if we don't perform a minimisation step and start the molecular dynamics directly. To do so, comment the two following lines:
+<br>
+<p>
+A good way to master LAMMPS and molecular dynamics simulations is to play around with a script that is already working, and observe the differences and/or errors occurring. For example, with our current input file, what appends if we don't perform a minimisation step and start the molecular dynamics directly? To do so, comment the two following lines:
 <pre><code># thermo	10
 # minimize	1.0e-4 1.0e-6 1000 10000
 </code></pre></p><p>
@@ -459,11 +470,10 @@ If you run LAMMPS again, you should get something like:
 ERROR: Lost atoms: original 1600 current 272 (src/thermo.cpp:438)
 Last command: run		10000
 </code></pre></p><p>
-The message indicates that LAMMPS lost some of the atoms, then stopped. This is one of the most common error message that you will see. It is usually the consequence of badly constructed system or inappropriate dynamics. In the present case, atoms are too close to each others initially, so they apply forces on each others that are huge, leading to enormous acceleration. As a consequence, atoms are moving by large distances during the firsts timesteps, and LAMMPS loses them.
-
-<br><br>
-
-<p> <b>Dealing with the <i>Lost atoms</i> error.</b> They are several ways of dealing with the lost atoms error, such as performing minimisation of energy (as we did), or using a smaller timestep together with a thermostat with strong damping. If you have trouble understanding why this error is occurring in your system, you can use 
+The message indicates that LAMMPS did lost some of the atoms, then stopped. This is one of the most common error message that you will see. It is usually the consequence of badly constructed system or inappropriate dynamics. In the present case, atoms are too close to each others initially, so they apply forces on each others that are huge, leading to enormous acceleration. As a consequence, atoms are moving by large distances during the firsts timesteps, and LAMMPS loses them.
+<blockquote>
+<b>Dealing with the <i>Lost atoms</i> error:</b>
+<p>They are several ways of dealing with the lost atoms error, such as performing minimisation of energy (as we did), or using a smaller timestep together with a thermostat with strong damping. If you have trouble understanding why this error is occurring in your system, you can use 
 <pre><code>thermo		1
 </code></pre></p><p>
 and 
@@ -471,52 +481,55 @@ and
 <pre><code>dump		mydmp all atom 1 dump.lammpstrj
 </code></pre></p><p>
 This way you may be able to visualise the very first steps, and identify the location of the error.
+</blockquote>
 </p>
 
 <br><br>
-<p> <b>Bonus exercise.</b> Use the 'addforce' command to generate a flow of particles in one direction:
+<p> <b>Bonus exercise: </b> 
+Use the 'addforce' command to generate a flow of particles in one direction:
 <pre><code>fix ID group-ID addforce fx fy fz
 </code></pre></p><p>
 where \(f_x\), \(f_y\), and \(f_z\) are the force component values. The final simulation should resemble <a href="https://www.youtube.com/embed/J-skFWlemto" target="_blank">this video</a>.
 
-<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or becoming a <a href="https://www.patreon.com/molecularsimulations" target="_blank">patreon</a> for 1 euro/month.</p>
+
+
+<ul class="actions fit">
+	<li><a href="index.html" class="button primary fit">Back to the main page</a></li>
+	<li><a href="#welcome" class="button primary fit">Back to top</a></li>
+</ul>
+
+
 
 </div>
 </section>
 
 
-      </div>
-    </div>
-	
-  </div>
-  <!-- Content end --> 
-  
-  <!-- Footer
-  ============================ -->
-  <footer id="footer" class="section">
-    <div class="container">
-	  <p class="text-2 text-center mb-0">This template has been adapted from <a class="btn-link" target="_blank" href="http://www.harnishdesign.net/">HarnishDesign</a>.</p>
-    </div>
-  </footer>
-  <!-- Footer end -->
-  
+
+
+
 </div>
-<!-- Document Wrapper end --> 
 
-<!-- Back To Top --> 
-<a id="back-to-top" data-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a> 
 
-<!-- JavaScript
-============================ -->
-<script src="assets_tutorials/vendor/jquery/jquery.min.js"></script> 
-<script src="assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
-<!-- Highlight JS -->
-<script src="assets_tutorials/vendor/highlight.js/highlight.min.js"></script> 
-<!-- Easing --> 
-<script src="assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script> 
-<!-- Magnific Popup --> 
-<script src="assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
-<!-- Custom Script -->
-<script src="assets_tutorials/js/theme.js"></script>
-</body>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="container">
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets_internalpages/js/jquery.min.js"></script>
+			<script src="assets_internalpages/js/jquery.scrollex.min.js"></script>
+			<script src="assets_internalpages/js/jquery.scrolly.min.js"></script>
+			<script src="assets_internalpages/js/browser.min.js"></script>
+			<script src="assets_internalpages/js/breakpoints.min.js"></script>
+			<script src="assets_internalpages/js/util.js"></script>
+			<script src="assets_internalpages/js/main.js"></script>
+
+	</body>
 </html>
