@@ -78,7 +78,7 @@ gtag('config', 'G-W1WGEC5GQ8');
 <h3>A simple free energy calculation using LAMMPS and WHAM.</h3>
 
 <br>
-<p><img src="Figures/tutorial02/tutorial02_largerRes.jpg" width="300" class="img-fluid" alt="Responsive image"></p>
+<p><img src="Figures/tutorial02/largerRes.jpg" width="300" class="img-fluid" alt="Responsive image"></p>
 <br>
 
 <p><b>The objective of this tutorial</b> is to measure the free energy profile across a barrier potential using two methods: free sampling and umbrella sampling. For the sake of simplicity and in order to reduce computation time, the barrier potential will be imposed artificially to the atoms, but the procedure is valid for more complex systems. There are two main parts to this tutorial:
@@ -135,13 +135,13 @@ If you followed <a href="tutorial01.html">tutorial 1</a>, you must be familiar w
 \[U(x) / U_0 = \arctan \left( \dfrac{x+x_0}{\delta} \right)- \arctan \left( \dfrac{x-x_0}{\delta} \right),\]
 which looks like that:
 </p>
-<p><img src="Figures/tutorial02_potential.jpg" class="img-fluid" alt="Responsive image"></p>
+<p><img src="Figures/tutorial02/potential.jpg" class="img-fluid" alt="Responsive image"></p>
 <p>
 From the derivative of the potential with respect to \(x\), we obtain the expression for the force that we are going to impose to the particles in the simulation,
 \[F(x)=U_0/((x-x_0)^2/\delta^2+1)/\delta-U_0/((x+x_0)^2/\delta^2+1)/\delta,\]
 which looks like that:
 </p>
-<p><img src="Figures/tutorial02_force.jpg" class="img-fluid" alt="Responsive image"></p>
+<p><img src="Figures/tutorial02/force.jpg" class="img-fluid" alt="Responsive image"></p>
 <p>
 In order to impose \(F(x)\) to all of the atoms in the simulation, let us use the 'addforce' command, and define an 'atom' variable as follows:</code></pre></p><p>
 <pre><code># Run
@@ -166,11 +166,11 @@ run			1000000000
 </code></pre></p><p>
 We can extract the partition function from the density.dat file,
 </p>
-<p><img src="Figures/tutorial02_partitionfunction.jpg" class="img-fluid" alt="Responsive image"></p>
+<p><img src="Figures/tutorial02/partitionfunction.jpg" class="img-fluid" alt="Responsive image"></p>
 <p>
 from which it is possible to calculate the free energy profile using the formula given at the top of this page (black disk) and compare it to the imposed potential (red line):
 </p>
-<p><img src="Figures/tutorial02_potential2.jpg" class="img-fluid" alt="Responsive image"><
+<p><img src="Figures/tutorial02/potential2.jpg" class="img-fluid" alt="Responsive image"><
 <p>
 The results confirm that we indeed recover the imposed potential \(U(x)\). I did run the simulation five times with different seeds to improve the quality of the curve. 
 
@@ -260,7 +260,7 @@ for a=1:67
 	fprintf(file,'\n');
 end
 </code></pre></p><p>
-The generated file named metadata.dat looks like that (alternatively you can download it <a href="Data/tutorial02_metadata.dat" target="_blank" class="removelinkdefault">here</a>):
+The generated file named metadata.dat looks like that (alternatively you can download it <a href="Data/tutorial02/metadata.dat" target="_blank" class="removelinkdefault">here</a>):
 <pre><code>./position.1.dat -99 0.0205
 ./position.2.dat -96 0.0205
 ./position.3.dat -93 0.0205
@@ -275,7 +275,7 @@ Then, simply run the following command
 </code></pre></p><p>
 where -100 and 100 are the boundaries, 160 the number of bins, 1e-8 the tolerance, and 119.8 the temperature. A file named PMF.dat has been created, and contains the free energy profile in Kcal/mol. We can compare the PMF we the imposed potential, and the agreement in again quite good:
 </p>
-<p><img src="Figures/tutorial02_PMF.jpg" class="img-fluid" alt="Responsive image"></p>
+<p><img src="Figures/tutorial02/PMF.jpg" class="img-fluid" alt="Responsive image"></p>
 <p>
 Again, five independent simulations where run to improve the curve. </p>
 

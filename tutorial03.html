@@ -1,14 +1,16 @@
-<!DOCTYPE HTML>
-<html>
-<head>
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+<link href="favicon-32x32.png" rel="icon" />
 <title>Nanoconfined electrolyte</title>
-
-<link rel="shortcut icon" type="image/jpg" href="favicon-32x32.png"/>
-
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="assets_internalpages/css/main.css" />
-	
+<meta name="description" content="Nanoconfined electrolyte">
+<meta name="author" content="Simon Gravelle">
+<link rel="stylesheet" type="text/css" href="assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="assets_tutorials/vendor/font-awesome/css/all.min.css" /> <!-- Font Awesome Icon -->
+<link rel="stylesheet" type="text/css" href="assets_tutorials/css/stylesheet.css" />
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -21,85 +23,84 @@ gtag('config', 'G-W1WGEC5GQ8');
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
-<body class="is-preload">
-
-<!-- Header -->
-<section id="header">
-<header>
-<span class="image avatar"><a href="index.html"><img src="Figures/avatar_larger.png" alt="" /></a></span>
-<h1 id="logo"><a href="index.html">LAMMPS tutorials</a></h1>
-<p>by Simon Gravelle</p>
-</header>
-<nav id="nav">
-<ul>
-<li><a href="#welcome" class="active">Welcome</a></li>
-<li><a href="#generation">System generation</a></li>
-<li><a href="#minimisation">Energy minimisation</a></li>
-<li><a href="#equilibration">System equilibration</a></li>
-</ul>
-</nav>
-<footer>
-<ul class="icons">
-<li><a href="https://twitter.com/GravelleSimon" target="_blank" class="icon brands fa-twitter"><span class="label"></span></a></li>
-<li><a href="https://github.com/simongravelle" target="_blank" class="icon brands fa-github"><span class="label"></span></a></li>
-<li><a href="https://scholar.google.com/citations?user=9fD2JlYAAAAJ&hl=fr" target="_blank"  class="fa fa-graduation-cap"><span class="label"></span></a></li>
-<li><a href="https://orcid.org/0000-0003-2149-6706" target="_blank"><span class="label">iD</span></a></li>
-<li><a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank" class="fab fa-youtube"><span class="label"></span></a></li>
-</ul>
-
-</footer>
-</section>
-
-<!-- Wrapper -->
-<div id="wrapper">
-
-<!-- Main -->
-<div id="main">
-<section id="welcome">
-<div class="image main" data-position="center">
-<img src="Figures/banner_tutorial03.jpg" alt="" />
-</div>
-<div class="container">
-<header class="major">
-<h2>Nanoconfined electrolyte</h2>
-<p>Molecular dynamics simulation of water and salt between two walls.</p>
-</header>
-</section>
-
-<section>
-<div class="container">
+<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
+<div id="main-wrapper"> 
 
 
-<p>
-<b>Objective:</b> In this tutorial, we are going to use molecular dynamics and simulate an electrolyte confined between two rigid carbon walls. If you already have a good grasp on LAMMPS, you can download directly the input scripts that will be written following this tutorial by clicking <a href="Inputs/NanoconfinedElectrolyte.zip" target="_blank" class="removelinkdefault">here</a>.
 
-<br><br>
+  <header id="header" class="sticky-top"> 
+    <nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+      <div class="container-fluid">
+        <a class="logo ml-md-3" href="index.html" title="LAMMPS tutorials"> <img src="Figures/logo.png" alt="LAMMPS tutorials" height="60"/> </a> 
+		<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#header-nav"><span></span><span></span><span></span></button>
+		<div id="header-nav" class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav">
+            <li class="dropdown"> <a class="dropdown-toggle" href="#">All tutorials</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="tutorial01.html">Tutorial 01</a></li>
+                <li><a class="dropdown-item" href="tutorial02.html">Tutorial 02</a></li>
+                <li><a class="dropdown-item" href="tutorial03.html">Tutorial 03</a></li>
+                <li><a class="dropdown-item" href="tutorial04.html">Tutorial 04</a></li>
+                <li><a class="dropdown-item" href="tutorial05.html">Tutorial 05</a></li>
+              </ul>
+            </li>
+            <li><a target="_blank" href="https://simongravelle.github.io/">About me</a></li>
+            <li><a target="_blank" href="https://www.patreon.com/molecularsimulations">Get help with your script</a></li>
+          </ul>
+        </div>
+        <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://twitter.com/GravelleSimon" target="_blank" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
+          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://gitlab.com/sgravelle" target="_blank" title="" data-original-title="Gitlab"><i class="fab fa-gitlab"></i></i></a></li>
+          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://github.com/simongravelle" target="_blank" title="" data-original-title="Github"><i class="fab fa-github"></i></i></a></li>
+          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank" title="" data-original-title="Youtube"><i class="fab fa-youtube"></i></i></a></li>         
+        </ul>
+      </div>
+    </nav>
+  </header>
+ 
+	<div class="idocs-navigation bg-light">
+      <ul class="nav flex-column ">
+	<li class="nav-item"><a class="nav-link active" href="#intro">Getting Started</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#generation">System generation</a></li>
+        <li class="nav-item"><a class="nav-link" href="#minimisation">Energy minimisation</a></li>
+	<li class="nav-item"><a class="nav-link" href="#equilibration">System equilibration</a></li>
+<li class="nav-item"><a class="nav-link" href="#density">Density profile</a></li>
+      </ul>
+    </div>
 
-<b>Prerequisite:</b> If you are new to LAMMPS, I recommend you to follow <a href="tutorial01.html">tutorial 01</a> first. 
-
-<blockquote>
-<b><i>Note 1 - </i></b> If you have any suggestion about these tutorials, please contact me by email at simon.gravelle at live.fr.
-
-<br><br>
-
-<b><i>Note 2 - </i></b> You can support me for 1 euro per month by clicking  <a href=" https://www.patreon.com/molecularsimulations" target="_blank">here</a>. For a larger amount, I offer you <b>personal assistance</b> with you LAMMPS scripts.
-</a>
-</blockquote>
-
-</div>
-</section>
-
-
-<section id="generation">
-<div class="container"> 
-
-<h2>System generation</h2>
+    <div class="idocs-content">
+      <div class="container">  
+        <section id="intro">
+        
+<h1>Nanoconfined electrolyte</h1>
+<h3>Molecular dynamics simulation of water and salt between two walls.</h3>
 
 <br>
+<p><img src="Figures/tutorial03/nanoconfinedwater.png" width="250" class="img-fluid" alt="Responsive image"></p>
+<br>
+
+<p><b>The objective of this tutorial</b> is to use molecular dynamics and simulate an electrolyte confined between two rigid carbon walls. There are four main parts to this tutorial:
+<ul>
+	<li> <a href="#Generation">System generation - </a> First, we are going to generate the elecrolyte and the two walls.</li>
+        <li> <a href="#minimisation">Minimisation - </a>Seconds, an energy minimisation will be done to bring the system in a more favorable configuration.</li>
+        <li> <a href="#equilibration">System equilibration - </a> Third, the system will be equilibrated at a pressure of 1 atm.</li>
+	<li> <a href="#density">Density profile measurement - </a> Finally, the density profile will be extracted using MAICoS.</li>		
+</ul>
+</p>
+<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or becoming a <a href="https://www.patreon.com/molecularsimulations" target="_blank">patreon</a> for 1 euro/month.</p>
+
+If you are new to LAMMPS, I recommend you to follow <a href="tutorial01.html">this simpler tutorial</a> first. 
+If you have any suggestion about these tutorials, please contact me by email at simon.gravelle at live.fr.</p>
+
+
+</section>
+<br><br><br>
+<section id="generation">
+<h2>System generation</h2>
+
+
 <p>Create a new folder that will contain all the files. Open a blank page using the text editor, and save it in the new folder using the name 'input.01.lammps'. Note that the '.lammps' extension has no importance. Copy the following lines into input.01.lammps.
-<pre><code>##################
-# Initialisation #
-##################
+<pre><code># Initialisation 
 
 units		real
 atom_style	full
@@ -109,32 +110,25 @@ pair_style	lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
 kspace_style	pppm/tip4p 1.0e-4
 </code></pre></p><p>
 There are many differences with respect to <a href="tutorial01.html">tutorial 01</a>. With the unit style 'real', masses are in grams per mole, distance in Ångstroms, time in femtoseconds, energy in Kcal/mole. With the atom style 'full', each atom is a dot with a mass and a charge. In addition, each atom can be linked by bonds, angles, dihedrals and impropers to form molecules. The 'bond_style' and 'angle_style' commands define what style of bond and angle to use in the simulation, and the 'harmonic' keyword imposes the potential to use. 
-
-<br>
-<blockquote>
-<b><i>Note 3 - </i></b> With a rigid water model, the bond and angle styles are not really relevant, but LAMMPS requires them to be specified. 
-</blockquote>
-
-With the 'pair_style' named 'lj/cut/tip4p/long', atoms interact through both a Lennard-Jones (LJ) potential and through Coulombic interactions. This style is specific to four points water model, and automatically accounts for the additional massless site. The six numbers are, respectively,
- <ul>
-  <li>the atom type for the oxygen O of the tip4p water,</li>
-  <li>the atom type for the hydrogen H of the tip4p water,</li>
-  <li>the OH bond type,</li>
-  <li>the HOH angle type,</li>
-  <li>the distance from O atom to massless charge,</li>
-  <li>the cutoff in Ångstroms.</li>
-</ul> 
-The cutoff applies to both LJ and Coulombic interactions, but in a different way. For LJ 'cut' interactions, atoms interact with each other only if they are separated by a distance smaller than the cutoff. For Coulombic 'long', interaction between atoms closer than the cutoff are computed directly, and interaction between atoms outside that cutoff are computed in reciprocal space. Finally the kspace defines the long-range solver for Coulombic interactions. The pppm style refers to particle-particle particle-mesh. From <a href="https://doi.org/10.1021/jp9518623" target="_blank">Luty and van Gunsteren</a>:
-
 <br><br>
+Note. With a rigid water model, the bond and angle styles are not really relevant, but LAMMPS requires them to be specified. 
+<br><br>
+With the 'pair_style' named 'lj/cut/tip4p/long', atoms interact through both a Lennard-Jones (LJ) potential and through Coulombic interactions. This style is specific to four points water model, and automatically accounts for the additional massless site. The six numbers are, respectively,</p>
+ <ul>
+  <li><b>1 - </b>the atom type for the oxygen O of the tip4p water,</li>
+  <li>2 - </b>the atom type for the hydrogen H of the tip4p water,</li>
+  <li>3 - </b>the OH bond type,</li>
+  <li>4 - </b>the HOH angle type,</li>
+  <li>5 - </b>the distance from O atom to massless charge,</li>
+  <li>6 - </b>the cutoff in Ångstroms.</li>
+</ul> 
+<p>The cutoff applies to both LJ and Coulombic interactions, but in a different way. For LJ 'cut' interactions, atoms interact with each other only if they are separated by a distance smaller than the cutoff. For Coulombic 'long', interaction between atoms closer than the cutoff are computed directly, and interaction between atoms outside that cutoff are computed in reciprocal space. Finally the kspace defines the long-range solver for Coulombic interactions. The pppm style refers to particle-particle particle-mesh. From <a href="https://doi.org/10.1021/jp9518623" target="_blank">Luty and van Gunsteren' paper</a>:</p>
 
-<blockquote>The PPPM method is based on separating the total interaction between particles into the sum of short-range interactions, which are computed by direct particle−particle summation, and long-range interactions, which are calculated by solving Poisson's equation using periodic boundary conditions (PBCs).</blockquote></p>
+<blockquote><i>The PPPM method is based on separating the total interaction between particles into the sum of short-range interactions, which are computed by direct particle−particle summation, and long-range interactions, which are calculated by solving Poisson's equation using periodic boundary conditions (PBCs).</i></blockquote></p>
 										
 <p>Now that the parameters of the simulation have been specified, let us create the box. Copy the following lines into input.01.lammps, below the 'kspace_style' command.
 
-<pre><code>#####################
-# System definition #
-#####################
+<pre><code># System definition
 
 lattice		diamond 3.57
 region		box block -5 5 -5 5 -13 13
@@ -160,7 +154,7 @@ region		rtopwall block -5 5 -5 5 10 12
 create_atoms 	5 region rtopwall
 create_atoms 	6 region rbotwall
 </code></pre></p><p>
-In order to add the water molecules, we first need to download the file <a href="Data/TIP4P2005.txt" target="_blank" class="removelinkdefault">TIP4P2005.txt</a> and place it in the same folder. It contains all the necessary information about the water molecule, such as positions, bonds, and angle. Then, add the following lines to input.01.lammps:
+In order to add the water molecules, we first need to download the file <a href="Data/tutorial03/TIP4P2005.txt" target="_blank" class="removelinkdefault">TIP4P2005.txt</a> and place it in the same folder. It contains all the necessary information about the water molecule, such as positions, bonds, and angle. Then, add the following lines to input.01.lammps:
 <pre><code># create the fluid
 
 region		rliquid block -5 5 -5 5 -9 9
@@ -177,9 +171,7 @@ Each 'fix deposit' will add an ion at a random position within the 'rliquid' reg
 <br><br>
 
 We need to define the parameters of the simulation: the mass of the 6 atoms (O, H, Na, Cl, C, C), the pairwise interaction parameters (here the parameters for the Lennard-Jones potential), and the bond and angle parameters. Copy the following line into input.01.lammps:
-<pre><code>#######################
-# Simulation settings #
-#######################
+<pre><code># Simulation settings
 
 include		PARM.lammps
 </code></pre></p><p>
@@ -215,9 +207,7 @@ Finally, add the following line to input.01.lammps:
 set 		type 4 charge -1.0
 dump 		mydmp all image 10 dump.*.jpg type type
 
-#######
-# Run #
-#######
+# Run
 
 run		10
 write_data	data.01.lammps
@@ -250,13 +240,12 @@ Total wall time: 0:00:02
 If the simulation is successfully, a file named 'data01.lammps' should be in the folder, as well as the following snapshot of the system:
 <br>
 <br>
-<span class="image"><img src="Figures/tutorial_03_snapshot01.jpg" alt="" /></span>
+<p><img src="Figures/tutorial03/snapshot01.jpg" class="img-fluid" alt="Responsive image"></p>
 <br><br></p>
 
 </div>
 </section>
-
-
+<br><br><br>
 <section id="minimisation">
 <div class="container"> 
 
@@ -264,9 +253,8 @@ If the simulation is successfully, a file named 'data01.lammps' should be in the
 <h2>Energy minimisation</h2>
 
 It is clear from the way the system has been created that the atoms are not at equilibrium distances from each others. Indeed, some of the atoms of salt added using the 'fix deposit' command are very close to the water molecules. If we were to start a 'normal' molecular dynamics simulation now (i.e. solve the equations of motion) with a 'normal' timestep (1  or 2 femto-seconds), the atoms would exert huge forces on each others, as a consequence they would accelerate brutally, and the simulation would most probably fail. Therefore we need to find a way to move the atoms and place them in a more favourable position before starting the simulation. This step is called 'energy minimisation', and is often necessary. To do so, let us open a new blank sheet in the same folder, and rename it input.02.lammps. The first lines will be very similar to the previous input file:
-<pre><code>##################
-# Initialisation #
-##################
+<pre><code># Initialisation
+
 
 boundary	p p p
 units		real
@@ -276,15 +264,11 @@ angle_style	harmonic
 pair_style	lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
 kspace_style	pppm/tip4p 1.0e-4
 
-#####################
-# System definition #
-#####################
+# System definition 
 
 read_data	data.01.lammps
 
-#######################
-# Simulation settings #
-#######################
+# Simulation settings
 
 include	PARM.lammps
 </code></pre></p><p>
@@ -304,9 +288,7 @@ Creating groups allows us to apply different dynamics to the liquid and to the w
 <br><br>
 
 Let us force the carbon walls to remain rigid during the simulation. 
-<pre><code>#######
-# Run #
-#######
+<pre><code># Run
 
 # Walls
 
@@ -328,9 +310,8 @@ fix_modify	myber temp tliq
 The fix 'nve', which we apply to all atoms, performs constant NVE integration to update position and velocity of the atoms at each timestep. The 'temp/berendsen' fix rescales the velocities of the atoms of the group liquid (ions + water) every timestep in order to reset the temperature. Since we want to perform a minimisation step, I've set both initial and final temperatures equal to 1K. The third parameter is the damping factor, in time units, which determines how rapidly the temperature is relaxed. A damping factor of 1 fs would be too small for a molecular dynamics simulation, but is acceptable for a minimisation step during which we just want the atoms to move slightly from their initial positions. The 'fix_modify' is used to assign the temperature of the group 'gliquid' as calculated by the compute 'tliq' to the thermostating. 
 
 <br>
-<blockquote>
-<b><i>Note 4 - </i></b> Without this 'fix_modify', LAMMPS would use the measured temperature of group 'all' as the reference temperature when rescaling the  velocity of the atoms of group 'gliquid', which is inconsistent. The simulation would still work without error message, but the temperature of your atoms would be different from what you want.
-</blockquote></p>
+<p class="alert alert-info">Without this 'fix_modify', LAMMPS would use the measured temperature of group 'all' as the reference temperature when rescaling the  velocity of the atoms of group 'gliquid', which is inconsistent. The simulation would still work without error message, but the temperature of your atoms would be different from what you want.</p>
+<br>
 
 <p>If we were to run the simulation as it is, it would fail, because nothing maintains the shape of the water molecules with time (the bond and angle energies are equal to 0). Therefore we need to use the shake algorithm in order to apply bond and angle constraints to the water molecules. In addition, we will also add a fix 'recenter' in order to maintain the system centred in the middle of the box in the z direction. This fix recenter has no influence on the dynamics. 
 <pre><code>fix		myshk gH2O shake 1.0e-4 200 0 b 1 a 1
@@ -357,19 +338,15 @@ What you observe by opening the dump file using VMD of Ovito should resemble <a 
 
 </div>
 </section>
-
-
+<br><br><br>
 <section id="equilibration">
 <div class="container"> 
-
 <h2>System equilibration</h2>
 
 <p>
 Starting from the final configuration of the minisation step, we can now run the molecular dynamics simulation. Here we are going to let the system evolve freely until it reaches an equilibrium. Let us create a new input file and call it input.03.lammps. Add the following lines:
 										
-<pre><code>##################
-# Initialisation #
-##################
+<pre><code># Initialisation
 
 boundary	p p p
 units		real
@@ -379,15 +356,11 @@ angle_style	harmonic
 pair_style	lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
 kspace_style	pppm/tip4p 1.0e-4
 
-#####################
-# System definition #
-#####################
+# System definition 
 
 read_data	data.02.lammps
 
-#######################
-# Simulation settings #
-#######################
+# Simulation settings
 
 include	PARM.lammps
 group		gH2O type 1 2
@@ -398,9 +371,7 @@ group		gtopwall type 5
 group		gbotwall type 6
 dump 		mydmp all atom 1000 dump.03.lammpstrj
 
-#######
-# Run #
-#######
+# Run
 
 fix		mysf1 gtopwall setforce 0 0 NULL
 fix		mysf2 gbotwall setforce 0 0 NULL
@@ -423,45 +394,114 @@ write_data	data.03.lammps
 
 The two main differences with the previous step are the timestep (1fs instead of 0.1fs) and the thermostating. With a temperature of 300 K, the fluid is expected to behave as a liquid. A timestep of 1 fs is classic for these force field. Never use a larger timestep except if you have a good reason to do so. What you observe should resemble <a href="https://www.youtube.com/embed/ZEVhTeR5tCQ" target="_blank">this video</a>.
 
-<br><br>						
+</div>
+</section>
+<br><br><br>
+<section id="density">
+<div class="container"> 
+<h2>Density profile measurement</h2>
+
+<p>We are going to take advantage of our equilibrated configuration and measure the density profiles of nanoconfined fluid. First, let us create another input file and call it input.04.lammps. Its the same as input.03.lammps, except that it start from the equilibrated configuration data.03.lammps:
 										
-The fluid quickly forms a dense liquid. The final state of the simulation can be used as the starting point for more interesting simulations. It may take a few hours to run the full simulation. Alternatively, you can download the <a href="Inputs/NanoconfinedElectrolyte.zip" target="_blank" class="removelinkdefault">final files here</a>.
+<pre><code># Initialisation
+
+boundary	p p p
+units		real
+atom_style	full
+bond_style	harmonic
+angle_style	harmonic
+pair_style	lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style	pppm/tip4p 1.0e-4
+
+# System definition 
+
+read_data	data.03.lammps
+
+# Simulation settings
+
+include	PARM.lammps
+group		gH2O type 1 2
+group		gNa type 3
+group		gCl type 4
+group		gliquid type 1 2 3 4
+group		gtopwall type 5
+group		gbotwall type 6
+dump 		mydmp all atom 1000 dump.04.lammpstrj
+
+# Run
+
+fix		mysf1 gtopwall setforce 0 0 NULL
+fix		mysf2 gbotwall setforce 0 0 NULL
+fix		myaf1 gtopwall aveforce NULL NULL 0
+fix		myaf2 gbotwall aveforce NULL NULL 0
+neigh_modify 	exclude group gtopwall gtopwall
+neigh_modify 	exclude group gbotwall gbotwall
+fix		mynve all nve
+compute	tliq gliquid temp
+fix		myber gliquid temp/berendsen 300 300 100
+fix_modify	myber temp tliq
+fix		myshk gH2O shake 1.0e-4 200 0 b 1 a 1
+fix		myrct all recenter NULL NULL INIT
+timestep	1.0
+thermo		5000
+thermo_modify 	temp tliq
+run		50000
+write_data	data.04.lammps
+</code></pre></p><p>		 
+Then, we are going to read the trajectories using MDAnalysis, and extract the density profiles using MAICoS. To do so we are going to need Python3. See the documentations for MDAnalysis and MAICoS for installation. Open a python script, and type
+<pre><code>[This part is in construction]
+</code></pre></p><p>
+<br><br>
+You can download the input and data files by clicking <a href="Inputs/tutorial03.zip" target="_blank" class="removelinkdefault">here</a>.
 </p>
-
-
-<ul class="actions fit">
-	<li><a href="index.html" class="button primary fit">Back to the main page</a></li>
-	<li><a href="#welcome" class="button primary fit">Back to top</a></li>
-</ul>
-
-
+</div>
+</section>
+<br><br><br>
+<section id="further">
+<h2>Going further</h2>
+<p>
+<b>Non equilibrium measurement.</b> You can measure the transport properties of the nanoconfined elecrolyte by applying a force to the fluid, and measuring the flux in the direction of the force.
+<br><br>
+</p>
+<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or becoming a <a href="https://www.patreon.com/molecularsimulations" target="_blank">patreon</a> for 1 euro/month.</p>
 
 </div>
 </section>
 
+
+        </section>
+      </div>
+    </div>
+	
+  </div>
+  <!-- Content end --> 
+  
+  <!-- Footer
+  ============================ -->
+  <footer id="footer" class="section">
+    <div class="container">
+	  <p class="text-2 text-center mb-0">This template has been adapted from <a class="btn-link" target="_blank" href="http://www.harnishdesign.net/">HarnishDesign</a>.</p>
+    </div>
+  </footer>
+  <!-- Footer end -->
+  
 </div>
+<!-- Document Wrapper end --> 
 
+<!-- Back To Top --> 
+<a id="back-to-top" data-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a> 
 
-
-				<!-- Footer -->
-					<section id="footer">
-						<div class="container">
-							<ul class="copyright">
-								<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-							</ul>
-						</div>
-					</section>
-
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets_internalpages/js/jquery.min.js"></script>
-			<script src="assets_internalpages/js/jquery.scrollex.min.js"></script>
-			<script src="assets_internalpages/js/jquery.scrolly.min.js"></script>
-			<script src="assets_internalpages/js/browser.min.js"></script>
-			<script src="assets_internalpages/js/breakpoints.min.js"></script>
-			<script src="assets_internalpages/js/util.js"></script>
-			<script src="assets_internalpages/js/main.js"></script>
-
-	</body>
+<!-- JavaScript
+============================ -->
+<script src="assets_tutorials/vendor/jquery/jquery.min.js"></script> 
+<script src="assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
+<!-- Highlight JS -->
+<script src="assets_tutorials/vendor/highlight.js/highlight.min.js"></script> 
+<!-- Easing --> 
+<script src="assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script> 
+<!-- Magnific Popup --> 
+<script src="assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<!-- Custom Script -->
+<script src="assets_tutorials/js/theme.js"></script>
+</body>
 </html>
