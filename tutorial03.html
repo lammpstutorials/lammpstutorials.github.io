@@ -76,7 +76,7 @@ gtag('config', 'G-W1WGEC5GQ8');
 <h3>Molecular dynamics simulation of water and salt between two walls.</h3>
 
 <br>
-<p><img src="Figures/tutorial03/nanoconfinedwater.png" width="250" class="img-fluid" alt="Responsive image"></p>
+<p><img src="Figures/tutorial03/nanoconfinedwater.png" class="img-fluid" alt="Responsive image"></p>
 <br>
 
 <p><b>The objective of this tutorial</b> is to use molecular dynamics and simulate an electrolyte confined between two rigid carbon walls. There are four main parts to this tutorial:
@@ -449,7 +449,25 @@ run		50000
 write_data	data.04.lammps
 </code></pre></p><p>		 
 Then, we are going to read the trajectories using MDAnalysis, and extract the density profiles using MAICoS. To do so we are going to need Python3. See the documentations for MDAnalysis and MAICoS for installation. Open a python script, and type
-<pre><code>[This part is in construction]
+<pre><code>import MDAnalysis as mda
+import maicos
+import matplotlib.pyplot as plt
+#u = mda.Universe('dump.04.lammpstrj', format='LAMMPSDUMP')
+u = mda.Universe("dump.04.lammpstrj", topology_format='LAMMPSDUMP') # format="LAMMPS")
+grp_Na = u.select_atoms('type 3')
+grp_Cl = u.select_atoms('type 4')
+print('There are '+str(grp_Cl.atoms.n_atoms)+' Cl atoms')
+print('There are '+str(grp_Na.atoms.n_atoms)+' Na atoms')
+dplanCl = maicos.density_planar(grp_Cl)
+dplanCl.run()
+zcoorCl = dplanCl.results['z']
+densCl = dplanCl.results['dens_mean']
+dplanNa = maicos.density_planar(grp_Na)
+dplanNa.run()
+zcoorNa = dplanNa.results['z']
+densNa = dplanNa.results['dens_mean']
+plt.plot(zcoorCl,densCl)
+plt.plot(zcoorNa,densNa)
 </code></pre></p><p>
 <br><br>
 You can download the input and data files by clicking <a href="Inputs/tutorial03.zip" target="_blank" class="removelinkdefault">here</a>.
