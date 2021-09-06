@@ -74,7 +74,7 @@ gtag('config', 'G-W1WGEC5GQ8');
       <div class="container">
 
 <section id="intro">
-<h1>Molecular simulations checklist</h1>
+<h1>Molecular simulation checklist</h1>
 
 <p><b>The objective of this page</b> is to provide a non-exhaustive list of criteria that must be validated for your molecular simulation to be reliable, and for your work to be trusted by your pairs. This page contains 3 categories:
 <ul>
@@ -121,14 +121,33 @@ There are plenty of ensembles that can be simulated, from the more classics like
 
 <br><br><br><section id="during">
 <h2>During the run</h2>
+<h4><b>Does the system look good?</b></h4>
+<p>
+At the start of a new simulation, open your trajectory file with VMD to see if the system resembles what you think you imposed. Check that atoms are 'not moving too much', that molecules have the expected shape, etc. Using the periodic image option in representation is often useful and can help you spot misplaced atoms. 
+</p>
 
+<h4><b>Does the system behave well?</b></h4>
+<p>
+From the thermodynamic values printed in the terminal, make sure that the temperature, pressure, volume, etc. are not behaving erratically, and that they have values oscillating near the desired values. The total energy is also a good indicator if you are doing NVT or NPT simulation: if your system started in a 'non-natural' configuration (for example with the molecules of your fluid disposed on a square lattice), then the energy should decrease at the start, then reach a certain equilibrium.
+</p>
 
+<h4><b>What are the warnings?</b></h4>
+<p>
+Your simulation can run fine even if you have some warnings at the beginning of the simulation. If its the case, try to understand why you have these warnings. Sometimes, warnings are normal and can ignored, but other times they can be of great help to spot an issue with your code. 
+</p>
 </section>
 
 <br><br><br><section id="after">
 <h2>After the simulation is over</h2>
-
-
+<p>
+<h4><b>Do you have a non-zero number of dangerous builds?</b></h4>
+<p>
+If its the case, some atoms move too close to each other during the simulation. You may want to try a smaller timestep, at least at the start of the simulation. You can also play with the calculations of the neighbour lists, as in <a href="tutorial01.html">this tutorial</a>.
+</p>
+<h4><b>Did your system reach equilibrium?</b></h4>
+<p>
+If you are performing equilibrium measurements (for example diffusion coefficient measurement from MSD), make sure that your system was indeed at equilibrium before the data acquisition started. You can make sure of that by extracting some data over time, and evaluating the time at which these data reached their final value. If they never seem to reach a plateau, you need longer simulations. 
+</p>
 </section>
 
       </div>
