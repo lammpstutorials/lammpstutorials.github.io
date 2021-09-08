@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
 <link href="favicon-32x32.png" rel="icon" />
-<title>Tips for molecular dynamics</title>
+<title>Tips for VMD</title>
 <meta name="description" content="Molecular simulation checklist">
 <meta name="author" content="Simon Gravelle">
 <link rel="stylesheet" type="text/css" href="assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
@@ -74,9 +74,9 @@ gtag('config', 'G-W1WGEC5GQ8');
       <div class="container">
 
 <section id="intro">
-<h1>Molecular simulation checklist</h1>
+<h1>Generate good looking image/movie with VMD</h1>
 
-<p><b>The objective of this page</b> is to provide a non-exhaustive list of task that must be validated for your molecular simulation to be reliable, and for your work to be trusted by your pairs. This page contains 3 categories:
+<p><b>The objective of this page</b> is to give a few tips to improve the representation of molecular system using VMD. The examples that are showed have been made using the version 1.9.3 of VMD. This page contains 6 categories:
 <ul>
 	<li> <a href="#before">Before-</a> What to do when preparing a simulation. </li>
         <li> <a href="#while">During - </a> What to look at when the simulation is running.</li>
@@ -90,69 +90,52 @@ gtag('config', 'G-W1WGEC5GQ8');
 Please feel free to contact me by email at simon.gravelle at live.fr, I always answer to molecular dynamics questions.</p>
 </section>
 <br><br><br><section id="before">
-<h2>Before starting the simulation</h2>
+<h2>Practical example</h2>
 <p>
-<h4><b>What is your physical question?</b></h4> 
-<p>
-It is probably an obvious one, but it is much better to have a clear physical question in mind before starting your simulations, as it will help you designing your system, choose what observable to extract, etc. Of course, <u>sometimes you don't have a clear question</u> from the start, and its OK too. In this case you can just run the molecular dynamics simulation and analyse the trajectories post-mortem to decide what data you want to use.
+If you want to test the tips, you can download this lammps trajectory file, and play with it using VMD. The trajectory file corresponds to a mixture between water and toluene. 
 </p>
-
-
-<h4><b>Do you have the right force field?</b></h4> 
-
+</section>
+<br><br><br><section id="before">
+<h2>The representation</h2>
 <p>
-The force field is a crutial aspect of a molecular simulation. It governs how the atoms interact with each others, how a molecule deforms, what crystal structure a solid adopts, etc. Reviewers often ask you to justify your choice of force field, and you better have an answer. You will have to read a few publications to identify the best choice for you. Generally, you choose a force field because it reproduces a relevant experimental result. If you can't find a force field calibrated from an experimental result that is relevant for you, try to find one calibrated from quantum mechanics. Alternatively, you can create a new force field, or re-calibrate an existing one, but that's a lot of work.
-<br><br>
-<i><u>Example</i></u>. If you want to simulate the dielectric properties of water near an interface, the four point model TIP4P/\(\epsilon\) is probably a good choice for the water molecules, as it has been specifically calibrated to reproduce the dielectric constant of water. Still, keep in mind that TIP4P/\(\epsilon\) was calibrated for bulk water, and you have no guaranty that it will work at interfaces. Sometimes, polarisable water model are a better choice, but they are also more computationally expensive, and will make it difficult for you to simulate the system you want (see the part about computational power below).
+
 </p>
-<h4><b>Is your timestep suitable?</b></h4> 
+</section>
+<br><br><br><section id="before">
+<h2>The colours</h2>
 <p>
-The timestep if the time interval for which the simulation progresses. The proper value for the timestep usually comes with the force field. For traditional all-atoms molecular dynamics its usually 1 femto second, sometimes 2 fs. For complex force field such as reaxff, for which bonds can break and  form, the  force  between  interacting atoms is nonlinear and a smaller timestep is needed, typically 0.1 fs. If needed, you can use smaller values, but never use a larger value for your timestep except if you have a good reason for that.
-</p>
-<h4><b>Do you have enough computational power?</b></h4>
-<p>
-Before starting your simulations, it is good to have an idea of the CPU time (duration of the simulation x number of CPU) that is needed. To make the estimate, you can run your simulation for a few timesteps, and make a 'rule of 3' to estimate the full duration. Then, whether to run the full simulation or not depends on the infrastructure you have. If you only run simulations on your PC, it will be difficult to simulate systems larger than a few nanometers for more than 1-10 nanoseconds. If you have access to a super computer, you can probably go up to tens of nanometers and hundred of nanoseconds. If you don't have enough computational power, you better compromise, for example try to use a smaller system, or try a less demanding force field.
-</p>
-<h4><b>What thermodynamic ensemble is the more adapted?</b></h4>
-<p>
-There are plenty of ensembles that can be simulated, from the more classics like NVE (constant number of atoms, volume, and energy), NVT (constant number of atoms, volume, and temperature), and NPT (constant number of atoms, pressure, and temperature) to more exotic like \(\mu\)VT (constant chemical potential, volume, and temperature). To choose the best ensemble, it mostly comes to logic, and should arise from your physical question and systems. For instance, if what you want to measure is the pressure in your system, then NPT is probably not the best choice since with NPT you impose the pressure. If you have doubt, just look for systems similar as yours in the literature, or have a look at the great book by Frenkel and Smit : <a href="https://www.sciencedirect.com/book/9780122673511/understanding-molecular-simulation" target="_blank">Understanding Molecular Simulation</a>.
 
+</p>
+</section>
+<br><br><br><section id="before">
+<h2>The materials</h2>
+<p>
 
+</p>
+</section>
+<br><br><br><section id="before">
+<h2>The view</h2>
+<p>
+
+</p>
+</section>
+<br><br><br><section id="before">
+<h2>The light</h2>
+<p>
 
 </p>
 </section>
 
-<br><br><br><section id="during">
-<h2>During the run</h2>
-<h4><b>Does the system look good?</b></h4>
-<p>
-At the start of a new simulation, open your trajectory file with VMD to see if the system resembles what you think you imposed. Verify that atoms are 'not moving too much', that molecules have the expected shape, etc. Using the periodic image option in representation is often useful and can help you spot misplaced atoms if your system is periodic. 
-</p>
 
-<h4><b>Does the system behave well?</b></h4>
+<br><br><br><section id="before">
+<h2>Rendering</h2>
 <p>
-From the thermodynamic values printed in the terminal, make sure that the temperature, pressure, volume, etc. are not behaving erratically, and that they have values oscillating near the desired values. The total energy is also a good indicator if you are doing NVT or NPT simulations: if your system started in a 'non-natural' configuration (for example with the molecules of your fluid disposed on a square lattice), then the energy should decrease at the start, then reach a certain equilibrium.
+<h4><b>Image</b></h4>
 </p>
-
-<h4><b>What are the warnings?</b></h4>
 <p>
-Your simulation can run fine even if you have some warnings at the beginning of the simulation. If it is the case, try to understand why you have these warnings. Sometimes, warnings are normal and can ignored, but other times they can be of great help to spot an issue with your code. 
+<h4><b>Movie</b></h4>
 </p>
 </section>
-
-<br><br><br><section id="after">
-<h2>After the simulation is over</h2>
-<p>
-<h4><b>Do you have a non-zero number of dangerous builds?</b></h4>
-<p>
-If its the case, some atoms moved too close to each other during the simulation. You may want to try a smaller timestep, at least at the start of the simulation. You can also play with the calculations of the neighbour lists, as in <a href="tutorial01.html">this tutorial</a>.
-</p>
-<h4><b>Did your system reach equilibrium?</b></h4>
-<p>
-If you are performing equilibrium measurements (for example diffusion coefficient measurement from MSD), make sure that your system was indeed at equilibrium before the data acquisition started. You can make sure of that by extracting some data over time, and evaluating the time at which these data reached their final value. If they never seem to reach a plateau, you need longer simulations. 
-</p>
-</section>
-
 <br><br><br><section id="further">
 <p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or becoming a <a href="https://www.patreon.com/molecularsimulations" target="_blank">patreon</a> for 1 euro/month.</p>
 </div>
