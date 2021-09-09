@@ -62,9 +62,11 @@ gtag('config', 'G-W1WGEC5GQ8');
 	<div class="idocs-navigation bg-light">
       <ul class="nav flex-column ">
 	<li class="nav-item"><a class="nav-link active" href="#intro">Getting Started</a></li>
-        <li class="nav-item"><a class="nav-link" href="#before">Before</a></li>
-	<li class="nav-item"><a class="nav-link" href="#during">During</a></li>
-	<li class="nav-item"><a class="nav-link" href="#after">After</a></li>
+        <li class="nav-item"><a class="nav-link" href="#representation">Representation</a></li>
+	<li class="nav-item"><a class="nav-link" href="#colours">Colours</a></li>
+	<li class="nav-item"><a class="nav-link" href="#materials">Materials</a></li>
+	<li class="nav-item"><a class="nav-link" href="#view">View</a></li>
+	<li class="nav-item"><a class="nav-link" href="#rendering">Rendering</a></li>
       </ul>
     </div>
 
@@ -74,14 +76,12 @@ gtag('config', 'G-W1WGEC5GQ8');
       <div class="container">
 
 <section id="intro">
-<h1>Generate good looking image/movie with VMD</h1>
+<h1>Visual representation</h1>
+<h3>Generate good looking image/movie with VMD</h3>
 
-<p><b>The objective of this page</b> is to give a few tips to improve the representation of molecular system using VMD. The examples that are showed have been made using the version 1.9.3 of VMD. This page contains 6 categories:
-<ul>
-	<li> <a href="#before">Before-</a> What to do when preparing a simulation. </li>
-        <li> <a href="#while">During - </a> What to look at when the simulation is running.</li>
-        <li> <a href="#after">After - </a> What at the indication that the simulations ran smoothly, or not.</li>		
-</ul>
+<p><img src="Figures/vmd/FIGURE5.png" class="img-fluid" alt="Responsive image"></p>
+
+<p><b>The objective of this page</b> is to give a few tips to improve the representation of molecular system using VMD. The examples that are showed have been made using the version 1.9.4a51 of VMD.
 </p>
 
 <p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or becoming a <a href="https://www.patreon.com/molecularsimulations" target="_blank">patreon</a> for 1 euro/month.</p>
@@ -96,49 +96,58 @@ If you want to test the tips, you can download this <a href="Inputs/vmd.zip">LAM
 </pre></code>
 </p>
 </section>
-<br><br><br><section id="before">
+<br><br><br><section id="representation">
 <h2>The representation</h2>
 <p>
-You can change the representation of the atoms by going in <b>Graphics</b>, <b>Representations</b>, and changing the <b>Drawing Method</b>. My favorite representations are <b>dynamic bonds</b> for large molecules or graphene, and <b>VDW</b> for single atoms or small molecules like water. You can select to apply a representation only to a group of atoms, by choosing a group in the windows <b>Selected Atoms</b>. To obtain the same result as me, replace <b>All</b> by <b>type 1</b> in the windows, it will select the oxygen of the water molecules. You can also tune the radius, and the resolution. 
+You can change the representation of the atoms by going in <b>Graphics</b>, <b>Representations</b>, and changing the <b>Drawing Method</b>. My favorite representations are <b>dynamic bonds</b> for large molecules or graphene, and <b>VDW</b> for single atoms or small molecules like water. You can select to apply a representation only to a group of atoms, by choosing a group in the windows <b>Selected Atoms</b>. To obtain the same result as me, replace <b>All</b> by <b>type 1</b> in the windows to select the oxygen of the water molecules, tune the radius (0.8), and the resolution (>32 at least). Then, click on <b>Create Rep</b> to create a second representation for the hydrogen of water (type 2), and change the radius to 0.4. Create a third representation for the toluene, enter <b>type 3 4 5</b> to select the carbon, the oxygen, and the hydrogen atoms of toluene. Choose <b>DynamicBonds</b> and increase the resolution. 'DynamicBonds' is not really good looking by itself. To smooth the representation, let us create the fourth and last representation (VDW, radius 0.2) for types 3, 4, and 5.
 
 
-
+<p><img src="Figures/vmd/FIGURE1.png" class="img-fluid" alt="Responsive image"></p>
 
 </p>
 </section>
-<br><br><br><section id="before">
+<br><br><br><section id="colours">
 <h2>The colours</h2>
-<p>
+<p>To change the colours, go to <b>Graphics</b>, <b>Colors</b>. Click on <b>Display</b>, then <b>Background</b>, and choose white instead of black. Then click on <b>Name</b>, and <b>5</b> (this is the oxygen atoms), and choose red. Do the same for 4 (carbon, pink), 3 (hydrogen, white), 2 (hydrogen, white). These three colours are standar for oxygen, carbon, and hydrogen. To mark the difference between the water and the toluene, let us choose a different colour for 1. Enter manually the values 0 0.6, 0.88 in the RGB boxes. 
+
+<p><img src="Figures/vmd/FIGURE2.png" class="img-fluid" alt="Responsive image"></p>
 
 </p>
 </section>
-<br><br><br><section id="before">
+<br><br><br><section id="materials">
 <h2>The materials</h2>
-<p>
+<p>An important parameter is the texture of the material, and finding the right degree of shininess is often difficult. In the <b>Representations</b> windows, you can choose among several materials. You can also create your own. Go in <b>Graphics</b>, <b>Materials</b>. Click on <b>Opaque</b> (the one used by default), then <b>Create New</b>. Hit <b>Create New</b> again. Two new materials should have appeared, called Material23 and Material24. Rename them to MWater and MToluene. For MWater, change <b>Diffuse</b>, <b>Specular</b>, and <b>Shininess</b>, to 0.43, 0.48, and 0.35, respectively. Then, from the <b>Representations</b> windows, change the <b>Material</b> from <b>Opaque</b> to <b>MWater</b>. Do the same for toluene, with values of 0.78, 0.33, and 0.32 for MToluene.
+
+<p><img src="Figures/vmd/FIGURE3.png" class="img-fluid" alt="Responsive image"></p>
 
 </p>
 </section>
-<br><br><br><section id="before">
+<br><br><br><section id="view">
 <h2>The view</h2>
 <p>
+Finally we are going to change the view. Go in <b>Display</b>, and click <b>Orthographic</b>. You can zoom with the mouse wheel. The system is ready to be rendered in high resolution. 
+
+<p><img src="Figures/vmd/FIGURE4.png" class="img-fluid" alt="Responsive image"></p>
 
 </p>
 </section>
-<br><br><br><section id="before">
-<h2>The light</h2>
-<p>
 
-</p>
-</section>
-
-
-<br><br><br><section id="before">
+<br><br><br><section id="rendering">
 <h2>Rendering</h2>
-<p>
 <h4><b>Image</b></h4>
-</p>
 <p>
+To generate high resolution image, go in <b>File</b>, <b>Render</b>. Choose <b>Tachyon</b>, add <b>-res 1000 1000</b> in the <b>Render command</b> cell, and hit <b>Start Rendering</b>.
+</p>
+
 <h4><b>Movie</b></h4>
+<p>
+To generate high resolution movie, go in <b>Extension</b>, <b>Vizualisation</b>, and <b>Movie Maker</b>. If you hit <b>Make Movie</b> directly, the movie generated by VMD will be of poor quality. Instead, we are going to generate a sequence of image, and assemble these images ourselves. Go in <b>Movie Settings</b>, hit <b>Trajectory</b>, and uncheck <b>Delete image files</b>. In <b>Rendered</b>, choose <b>Tachyon</b>, then <b>Make Movie</b>. When its done, you can close VMD. If you don't want do redo these steps every time, you can save the VMD state by clicking <b>File</b> and <b>Save vizualisation state</b>. From the terminal, assemble the image into a movie by typing:
+<pre><code>ffmpeg -r 60 -i untitled.%05d.ppm -vcodec libx264 -crf 0  -pix_fmt yuv420p myvideo.mp4
+</pre></code>
+You may receive the following error <b>width not divisible by 2 (1363x1134)</b>. If that's the case, you can remove one line of pixel with the command:
+<pre><code>for file in untitled.*.ppm; do convert $file -crop 1362x1134+0+0 output-$file; done
+</pre></code>
+The result should look like <a href="https://www.youtube.com/watch?v=BSE9Vf6KhRo&ab_channel=LAMMPStutorials" target="_blank">this video</a>. 
 </p>
 </section>
 <br><br><br><section id="further">
