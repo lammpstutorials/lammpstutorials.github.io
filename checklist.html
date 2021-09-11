@@ -143,13 +143,13 @@ Your simulation can run fine even if you have some warnings at the beginning of 
 <br><br><br><section id="after">
 <h2>After the simulation is over</h2>
 <p>
-<h4><b>Do you have a non-zero number of dangerous builds?</b></h4>
+<h4><b>Was there dangerous builds?</b></h4>
 <p>
-If its the case, some atoms moved too close to each other during the simulation. You may want to try a smaller timestep, at least at the start of the simulation. You can also play with the calculations of the neighbour lists, as in <a href="tutorial01.html">this tutorial</a>.
+If you see in the terminal or in the log file that there have been dangerous builds during the simulation, it means that some atoms moved too close to each other during the simulation. Either your timestep is too large, or your system is too far from equilibrium, resulting in large velocities of the atoms. You can try to understand the origin of the issue by having a look at the simulation trajectory using VMD. One solution can be to reduce the timestep, at least at the beginning of the simulation. Another solution is to make the recalculations of the neighbour lists more frequent, as in <a href="tutorial01.html">this tutorial</a>.
 </p>
 <h4><b>Did your system reach equilibrium?</b></h4>
 <p>
-If you are performing equilibrium measurements (for example diffusion coefficient measurement from MSD), make sure that your system was indeed at equilibrium before the data acquisition started. You can make sure of that by extracting some data over time, and evaluating the time at which these data reached their final value. If they never seem to reach a plateau, you need longer simulations. 
+If you are performing equilibrium measurements (for example diffusion coefficient measurement from MSD), make sure that your system was indeed at equilibrium before the data acquisition started. You can make sure of that by extracting some data over time (for example the density in a bulk liquid simulation, or the RDF in a bulk solid simulation). These data usually converge following an exponential-like curve versus the time, from which you can evaluate the duration required for your system to reach the equilibrium. If your data never seem to reach a plateau, may be longer simulations are needed, or smaller system, or may be there is something really wrong in the dynamics of the atoms, like an unexpected external force, or a thermostat that is not doing what its supposed to do. 
 </p>
 </section>
 
