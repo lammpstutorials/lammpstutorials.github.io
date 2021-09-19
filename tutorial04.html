@@ -219,14 +219,14 @@ The setforce commands cancel the forces applied on the atoms of both edges durin
 
 <br><br>
 
-All the important commands have been written. In order to measure the strain and stress in the graphene sheet, let us extract the distance \(L\) between the two edges as well as the force applied on the edges. Let us also create a dump file containing the trajectories (for VMD).
+All the important commands have been written. In order to measure the strain and stress in the graphene sheet, let us extract the distance \(L\) between the two edges as well as the force applied on the edges. Let us also create a lammpstrj file containing the trajectories.
 <pre><code>variable	L equal xcm(gtop,x)-xcm(gbot,x)
 fix 		at1 all ave/time 10 100 1000 v_L file length.dat
 fix 		at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
 dump 		mydmp all atom 1000 dump.lammpstrj
 </code></pre></p><p>
 
-Notice that the values of the forces on each edge are extracted from the fixes mysf1 and mysf2. These fixes cancel the force on a group of atoms, but allow to extract the values of the force before its cancelation. This is what we are doing here. Let us run a small equilibration step.
+Notice that the values of the forces on each edge are extracted from the fixes mysf1 and mysf2. These fixes cancel all the forces on a group of atoms every timestep, but allow one to extract the values of the force before its cancellation. This is what we are doing here. Let us run a small equilibration step.
 <pre><code>thermo		100
 thermo_modify 	temp Tmid
 
@@ -254,7 +254,7 @@ What you observe should resemble <a href="https://www.youtube.com/embed/o5IoCVWp
 <section id="further">
 <h2>Going further</h2>
 <p>
-<b>Carbon nanotube.</b> Using a similar procedure, you can generate a carbon nanotube (CNT).
+<b>Carbon nanotube.</b> Using a similar procedure, you can generate a carbon nanotube (CNT) using VMD. 
 </p>
 <p>
 <b>Graphite.</b> Graphite is made of multiple layers of graphene separated by a distance of about 0.34 nm. You can use LAMMPS to replicate a graphene layer multiple times, and then impose deformation on a graphite. Deformations can be imposed both in the direction of the sheets, and normal to the sheets. You can then explore how the staking affects the mechanical properties of the graphene. 
