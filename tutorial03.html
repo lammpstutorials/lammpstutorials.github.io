@@ -448,17 +448,17 @@ thermo_modify 	temp tliq
 run		50000
 write_data	data.04.lammps
 </code></pre></p><p>		 
-Then, we are going to read the trajectories using MDAnalysis, and extract the density profiles using MAICoS. To do so we are going to need Python3. See the documentations for MDAnalysis and MAICoS for installation. Open a python script, and type
+Then, we are going to read the trajectories using MDAnalysis, and extract the density profiles using MAICoS. To do so we are going to need Python3. See the documentations for <a href="https://www.mdanalysis.org/" target="_blank">MDAnalysis</a> and <a href="https://maicos-devel.gitlab.io/maicos/index.html" target="_blank">MAICoS</a> for installation. Open a python script, and first import the modules:
 <pre><code>import MDAnalysis as mda
 import maicos
 import matplotlib.pyplot as plt
-#u = mda.Universe('dump.04.lammpstrj', format='LAMMPSDUMP')
-u = mda.Universe("dump.04.lammpstrj", topology_format='LAMMPSDUMP') # format="LAMMPS")
+</code></pre></p><p>Then, let us import a MDAnalysis universe, and isolate the Na and Cl ions by creating groups.
+<pre><code>u = mda.Universe("dump.04.lammpstrj", topology_format='LAMMPSDUMP')
 grp_Na = u.select_atoms('type 3')
 grp_Cl = u.select_atoms('type 4')
-print('There are '+str(grp_Cl.atoms.n_atoms)+' Cl atoms')
-print('There are '+str(grp_Na.atoms.n_atoms)+' Na atoms')
-dplanCl = maicos.density_planar(grp_Cl)
+</code></pre></p><p>
+Then, let us use the density_planar module of MAICoS to extract the density profiles, and finally plot it.
+<pre><code>dplanCl = maicos.density_planar(grp_Cl)
 dplanCl.run()
 zcoorCl = dplanCl.results['z']
 densCl = dplanCl.results['dens_mean']
