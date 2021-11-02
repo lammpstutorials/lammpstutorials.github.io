@@ -401,7 +401,7 @@ The two main differences with the previous step are the timestep (1fs instead of
 <div class="container"> 
 <h2>Density profile measurement</h2>
 
-<p>We are going to take advantage of our equilibrated configuration and measure the density profiles of nanoconfined fluid. First, let us create another input file and call it input.04.lammps. Its the same as input.03.lammps, except that it start from the equilibrated configuration data.03.lammps:
+<p>We are going to take advantage of our equilibrated configuration and measure the density profiles of Na and Cl. First, let us create another input file and call it input.04.lammps. It is the same input file as input.03.lammps, but it starts from the equilibrated configuration data.03.lammps:
 										
 <pre><code># Initialisation
 
@@ -448,11 +448,11 @@ thermo_modify 	temp tliq
 run		50000
 write_data	data.04.lammps
 </code></pre></p><p>		 
-Then, we are going to read the trajectories using MDAnalysis, and extract the density profiles using MAICoS. To do so we are going to need Python3. See the documentations for <a href="https://www.mdanalysis.org/" target="_blank">MDAnalysis</a> and <a href="https://maicos-devel.gitlab.io/maicos/index.html" target="_blank">MAICoS</a> for installation. Open a python script, and first import the modules:
+Then, we are going to read the atom trajectories using MDAnalysis, and extract the density profiles using MAICoS. To do so we are going to need Python3. See the documentations for <a href="https://www.mdanalysis.org/" target="_blank">MDAnalysis</a> and <a href="https://maicos-devel.gitlab.io/maicos/index.html" target="_blank">MAICoS</a> for installation. Open a python script, and import the following modules:
 <pre><code>import MDAnalysis as mda
 import maicos
 import matplotlib.pyplot as plt
-</code></pre></p><p>Then, let us import a MDAnalysis universe, and isolate the Na and Cl ions by creating groups.
+</code></pre></p><p>Then, create a MDAnalysis universe, and isolate the Na and Cl ions by creating groups.
 <pre><code>u = mda.Universe("dump.04.lammpstrj", topology_format='LAMMPSDUMP')
 grp_Na = u.select_atoms('type 3')
 grp_Cl = u.select_atoms('type 4')
