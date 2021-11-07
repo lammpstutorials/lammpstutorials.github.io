@@ -256,7 +256,6 @@ If the simulation is successfully, a file named 'data01.lammps' should be in the
 It is clear from the way the system has been created that the atoms are not at equilibrium distances from each others. Indeed, some of the atoms of salt added using the 'fix deposit' command are very close to the water molecules. If we were to start a 'normal' molecular dynamics simulation now (i.e. solve the equations of motion) with a 'normal' timestep (1  or 2 femto-seconds), the atoms would exert huge forces on each others, as a consequence they would accelerate brutally, and the simulation would most probably fail. Therefore we need to find a way to move the atoms and place them in a more favourable position before starting the simulation. This step is called 'energy minimisation', and is often necessary. To do so, let us open a new blank sheet in the same folder, and rename it input.02.lammps. The first lines will be very similar to the previous input file:
 <pre><code># Initialisation
 
-
 boundary	p p p
 units		real
 atom_style	full
