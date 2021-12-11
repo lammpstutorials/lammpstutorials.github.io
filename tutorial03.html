@@ -42,6 +42,7 @@ gtag('config', 'G-W1WGEC5GQ8');
                 <li><a class="dropdown-item" href="tutorial03.html">Tutorial 03</a></li>
                 <li><a class="dropdown-item" href="tutorial04.html">Tutorial 04</a></li>
                 <li><a class="dropdown-item" href="tutorial05.html">Tutorial 05</a></li>
+                <li><a class="dropdown-item" href="tutorial06.html">Tutorial 06</a></li>
               </ul>
             </li>
             <li><a target="_blank" href="https://simongravelle.github.io/">About me</a></li>
@@ -88,7 +89,7 @@ gtag('config', 'G-W1WGEC5GQ8');
 	<li> <a href="#density">Density profile measurement - </a> Finally, the density profile will be extracted using MAICoS.</li>		
 </ul>
 </p>
-<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or making a small <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">donation here</a>, any amount would be really appreciated and would highly encourage me to improve this page.</p>
+<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or making a small <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">donation here</a>, any amount is appreciated and highly encourages me to improve this page.</p>
 
 <p>If you are new to LAMMPS, I recommend you to follow <a href="tutorial01.html">this simpler tutorial</a> first. 
 If you have any suggestion about these tutorials, please contact me by email at simon.gravelle at live.fr.</p>
@@ -307,11 +308,9 @@ compute		tliq gliquid temp
 fix		myber gliquid temp/berendsen 1 1 1
 fix_modify	myber temp tliq
 </code></pre></p><p>
-The fix 'nve', which we apply to all atoms, performs constant NVE integration to update position and velocity of the atoms at each timestep. The 'temp/berendsen' fix rescales the velocities of the atoms of the group liquid (ions + water) every timestep in order to reset the temperature. Since we want to perform a minimisation step, I've set both initial and final temperatures equal to 1K. The third parameter is the damping factor, in time units, which determines how rapidly the temperature is relaxed. A damping factor of 1 fs would be too small for a molecular dynamics simulation, but is acceptable for a minimisation step during which we just want the atoms to move slightly from their initial positions. The 'fix_modify' is used to assign the temperature of the group 'gliquid' as calculated by the compute 'tliq' to the thermostating. 
+The fix 'nve', which we apply to all atoms, performs constant NVE integration to update position and velocity of the atoms at each timestep. The 'temp/berendsen' fix rescales the velocities of the atoms of the group liquid (ions + water) every timestep in order to reset the temperature. Since we want to perform a minimisation step, I've set both initial and final temperatures equal to 1K. The third parameter is the damping factor, in time units, which determines how rapidly the temperature is relaxed. A damping factor of 1 fs would be too small for a molecular dynamics simulation, but is acceptable for a minimisation step during which we just want the atoms to move slightly from their initial positions. The 'fix_modify' is used to assign the temperature of the group 'gliquid' as calculated by the compute 'tliq' to the thermostating. </p>
 
-<br>
 <p class="alert alert-info">Without this 'fix_modify', LAMMPS would use the measured temperature of group 'all' as the reference temperature when rescaling the  velocity of the atoms of group 'gliquid', which is inconsistent. The simulation would still work without error message, but the temperature of your atoms would be different from what you want.</p>
-<br>
 
 <p>If we were to run the simulation as it is, it would fail, because nothing maintains the shape of the water molecules with time (the bond and angle energies are equal to 0). Therefore we need to use the shake algorithm in order to apply bond and angle constraints to the water molecules. In addition, we will also add a fix 'recenter' in order to maintain the system centred in the middle of the box in the z direction. This fix recenter has no influence on the dynamics. 
 <pre><code>fix		myshk gH2O shake 1.0e-4 200 0 b 1 a 1
@@ -483,7 +482,7 @@ You can download the input and data files by clicking <a href="Inputs/tutorial03
 <b>Hydrogen bond analysis.</b> Using MDAnalysis, you can measure the number and duration of the hydrogen bonds.
 <br><br>
 </p>
-<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or making a small <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">donation here</a>, any amount would be really appreciated and would highly encourage me to improve this page.</p>
+<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or making a small <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">donation here</a>, any amount is appreciated and highly encourages me to improve this page.</p>
 
 </div>
 </section>
