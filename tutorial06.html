@@ -63,11 +63,11 @@ gtag('config', 'G-W1WGEC5GQ8');
 	<div class="idocs-navigation bg-light">
       <ul class="nav flex-column ">
 	<li class="nav-item"><a class="nav-link active" href="#intro">Getting Started</a></li>
-        <li class="nav-item"><a class="nav-link active" href="#Download">Downloading molecule information</a></li>
-        <li class="nav-item"><a class="nav-link" href="#initial_configuration">Creating initial configuration</a></li>
-	<li class="nav-item"><a class="nav-link" href="#equilibrium">Equilibrating system</a></li>
-	<li class="nav-item"><a class="nav-link" href="#umbrellasampling">Performing umbrella sampling</a></li>
-	<li class="nav-item"><a class="nav-link" href="#freeenergyprofiles">Calculating free energy profile</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#Download">Molecule topology</a></li>
+        <li class="nav-item"><a class="nav-link" href="#initial_configuration">Initial configuration</a></li>
+	<li class="nav-item"><a class="nav-link" href="#equilibrium">Equilibration</a></li>
+	<li class="nav-item"><a class="nav-link" href="#umbrellasampling">Umbrella sampling</a></li>
+	<li class="nav-item"><a class="nav-link" href="#freeenergyprofiles">Free energy</a></li>
 	<li class="nav-item"><a class="nav-link" href="#further">Going further</a></li>
       </ul>
     </div>
@@ -82,16 +82,18 @@ gtag('config', 'G-W1WGEC5GQ8');
 <h3>Free energy profile of ethanol near a flat surface</h3>
 <br>
 <p><img src="Figures/tutorial06/ethanol-in-nacl.png" class="img-fluid" alt="Responsive image">
-<small style="color:#6B6B6B">Figure: Ethanol molecules in between two flat surface of NaCl at three different times. 
+<small style="color:#6B6B6B">Figure: Ethanol molecules in between two flat surface of NaCl at three different times.</small>
 </p>
-<p><b>The objective of this tutorial</b> is to build a LAMMPS structure using ethanol molecules downloaded from the <a href="https://atb.uq.edu.au/" target="_blank">ATB repository</a>. There are three main parts to this tutorial:
+<p><b>The objective of this tutorial</b> is to build a molecular dynamics system made of a flat crystal wall (NaCl) and ethanol molecules, using a molecule topology downloaded from the <a href="https://atb.uq.edu.au/" target="_blank">ATB repository</a>. There are three main parts to this tutorial:
 <ul>
-	<li> <a href="#Generation">System equiliration - </a> First, equilibrated system is created using NPT.</li>
-        <li> <a href="#Cracking">Probing of the surface - </a>Seconds, an harmonic potentiel is applied to one ethanol molecule to probe the direction normal to the surface.</li>
-        <li> <a href="#Water">Constructing profile - </a> And third, umbrella sampling is used to reconstruct the free energy profile.</li>		
+	<li> <a href="#Download">System construction - </a> First, the initial configuration will be generated.</li>
+        <li> <a href="#equilibrium">Molecular dynamics- </a>Seconds, molecular dynamics simulations will be perform to equilibrate the system and then generate data for free energy profile calculation.</li>
+        <li> <a href="#freeenergyprofiles">Free energy profile - </a> And third, the wham algorithm is used to construct the free energy profile.</li>		
 </ul>
 </p>
-<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or making a small <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">donation here</a>, any amount is appreciated and highly encourages me to improve this page.</p>
+<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, making a small <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">donation here</a>, any amount is appreciated and highly encourages me to improve this page.</p>
+
+<p class="alert alert-info">Become a <a target="_blank" href="https://www.patreon.com/molecularsimulations">patreon</a> and get help with your LAMMPS project. I try to answer all questions I receive by email, but priority is given to patreons.</p>
 
 <p>If you are new to LAMMPS, I recommend you to follow <a href="tutorial01.html">this simpler tutorial</a> first. 
 If you have any suggestion about these tutorials, please contact me by email at simon.gravelle at live.fr.</p>
@@ -384,7 +386,9 @@ The profile indicates that it is more energetically favorable for an ethanol mol
 <b>Add water.</b> Add water to the system. With two molecule types, there is competitive adsorption. Who will win? Water or ethanol? It depends on the relative interaction between NaCl, water, and ethanol. 
 <br><br>
 </p>
-<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, or making a small <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">donation here</a>, any amount is appreciated and highly encourages me to improve this page.</p>
+<p class="alert alert-info">Support the creation of material for LAMMPS by subscribing to my <a href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank">youtube</a> channel, making a small <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">donation here</a>, any amount is appreciated and highly encourages me to improve this page.</p>
+
+<p class="alert alert-info">Become a <a target="_blank" href="https://www.patreon.com/molecularsimulations">patreon</a> and get help with your LAMMPS project. I try to answer all questions I receive by email, but priority is given to patreons.</p>
 </div>
 </section>
 
