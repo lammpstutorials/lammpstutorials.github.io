@@ -136,7 +136,7 @@ to generate several LAMMPS input files corresponding to a single molecule in vac
 <pre><code>
 lmp -in system.in
 </code></pre></p><p>
-Let us arrange the data (currently the files contain all bonds, angles, etc. information of the force field, which makes it unplesant to read), and isolate only the data concerning directly the molecule of interest. Create four files, named it Positions.dat, Bonds.dat, Angles.dat, and Dihedrals.dat, and copy the information in it. Then renumber the atoms types, bonds, angles starting from 1. For the ethanol molecule, the Bonds.dat file looks like that: 
+Let us arrange the data (currently the files contain all bonds, angles, etc. information of the force field, which makes it unpleasant to read), and isolate only the data concerning directly the molecule of interest. Create four files, named it Positions.dat, Bonds.dat, Angles.dat, and Dihedrals.dat, and copy the information in it. Then renumber the atoms types, bonds, angles starting from 1. For the ethanol molecule, the Bonds.dat file looks like that: 
 <pre><code>1 5 1 2
 2 2 2 3
 3 4 3 4
@@ -154,7 +154,7 @@ bond_coeff 	5 442.161 0.9720
 </code></pre></p><p>
 The third and fourth columns of the Bonds.dat file are the indexes of the atoms linked by the bond. 
 
-<p class="alert alert-info">Sorting out these file is a tedious task, to follow this tutorial, you can download these files for ethanol by clicking <a href="Data/tutorial06/ethanol_molecule.tar.gz" target="_blank" class="removelinkdefault">here</a>. Alternatively, you can use <a href="https://github.com/simongravelle/atb2lammps" target="_blank" class="removelinkdefault">the atb2lammps</a>code to create a clean initial configuration.</p>
+<p class="alert alert-info">Sorting out these file is a tedious task, to follow this tutorial, you can download these files for ethanol by clicking <a href="Data/tutorial06/ethanol_molecule.tar.gz" target="_blank" class="removelinkdefault">here</a>. Alternatively, you can use <a href="https://github.com/simongravelle/atb2lammps" target="_blank" class="removelinkdefault">the atb2lammps</a> code to create a clean initial configuration.</p>
 
 
 <p class="alert alert-info">If you choose another molecule, you may have additional impropers, or may not have dihedrals constraints. In that case you will have to make a few adjustment to the following codes.</p>
@@ -181,7 +181,7 @@ The third and fourth columns of the Bonds.dat file are the indexes of the atoms 
 Then, download this <a href="Data/tutorial06/generatedata.py" target="_blank" class="removelinkdefault">Python script </a>, and run it using 
 <pre><code>python3 generatedata.py
 </code></pre></p><p>
-to generate the data.lammps file containing the initial configuration. This home-made Python script reads the position and molecule information for both NaCl and ethanol, replciate them, and write a lammps data file. Feel free to modify it and add more molecules (or a different molecule).</p>
+to generate the data.lammps file containing the initial configuration. This home-made Python script reads the position and molecule information for both NaCl and ethanol, replicate them, and write a LAMMPS data file. Feel free to modify it and add more molecules (or a different molecule).</p>
 
 <p class="alert alert-info">To properly insert molecules within a structure using a custom script, it is important to detect the positions of the neighbor atoms before inserting a molecule, otherwise atoms will overlap and LAMMPS will crash. </p>
 
@@ -334,7 +334,7 @@ run		500000
 unfix		myat1
 next		cpt
 jump		loop.lammps loop
-</code></pre></p><p>As compared with the previous step, the first difference is the definition of two spring constants k1 and k2 that will be used respectively to maintain the ethanol molecule, and the nacl wall near given positions. A second difference is that new groups have been defined, with the group 'topull' being made of one single oxygen atom of the ethanol molecule. This group is itself build from the intersection between the group 'oxy' made of all the oxygen atoms of type 7, and the group 'mol2' made of all the atom of the molecule of index 2 (the wall is index 1, and the ethanol molecules are indexes 2, 3, 4 etc). Finally, a loop made of 24 iterations is defined, the variable 'zdes' is the desired position we want to imposed to the atom of group 'topull', it goes from -20 Å (very close to the bottom wall) to -8 Å (far from the wall). The fix 'mytth2' is used to add the harmonic potential to the atom 'topull', note that the fix 'mytth1' had been defined previouly and is used to prevent the NaCl wall for drifting from its original position 'zini'. </p>
+</code></pre></p><p>As compared with the previous step, the first difference is the definition of two spring constants k1 and k2 that will be used respectively to maintain the ethanol molecule, and the nacl wall near given positions. A second difference is that new groups have been defined, with the group 'topull' being made of one single oxygen atom of the ethanol molecule. This group is itself build from the intersection between the group 'oxy' made of all the oxygen atoms of type 7, and the group 'mol2' made of all the atom of the molecule of index 2 (the wall is index 1, and the ethanol molecules are indexes 2, 3, 4 etc). Finally, a loop made of 24 iterations is defined, the variable 'zdes' is the desired position we want to imposed to the atom of group 'topull', it goes from -20 Å (very close to the bottom wall) to -8 Å (far from the wall). The fix 'mytth2' is used to add the harmonic potential to the atom 'topull', note that the fix 'mytth1' had been defined previously and is used to prevent the NaCl wall for drifting from its original position 'zini'. </p>
 
 <p>Run the script using LAMMPS. 24 files named position.1.dat, position.2.dat, etc. must appear inside the folder. If you visualize the dump file with VMD, you see one molecule being progressively moved out from the wall. The other molecules remain unperturbed and free to diffuse and adsorb.
 </p>
