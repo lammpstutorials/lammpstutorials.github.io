@@ -151,6 +151,9 @@ To generate a high resolution movie, go in <b>Extension &#x2192; Vizualisation</
 You may receive the following error <b>width not divisible by 2 (1363x1134)</b>. If that's the case, you can remove one line of pixel with the command:
 <pre><code>for file in untitled.*.ppm; do convert $file -crop 1362x1134+0+0 output-$file; done
 </pre></code></p><p>
+To convert the video in webm, for web integration, use:
+<pre><code>ffmpeg -i myvideo.mp4 -c:v libvpx-vp9 -crf 30 -b:v 0 -b:a 128k -c:a libopus myvideo.webm
+</pre></code></p><p>
 The result should look like <a href="https://www.youtube.com/watch?v=BSE9Vf6KhRo&ab_channel=LAMMPStutorials" target="_blank">this video</a>. 
 </p>
 </section>
