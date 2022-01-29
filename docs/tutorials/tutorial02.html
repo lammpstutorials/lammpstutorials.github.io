@@ -1,113 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
-<link href="favicon-32x32.png" rel="icon" />
-<title>Simple free energy calculation</title>
-<meta name="description" content="Simple free energy calculation tutorial">
-<meta name="author" content="Simon Gravelle">
-<link rel="stylesheet" type="text/css" href="assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="assets_tutorials/vendor/font-awesome/css/all.min.css" /> <!-- Font Awesome Icon -->
-<link rel="stylesheet" type="text/css" href="assets_tutorials/css/stylesheet.css" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-W1WGEC5GQ8');
-</script>	
-	
-<!-- Latex formula -->
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,
+  initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+  <link href="../figures/favicon-32x32.png" rel="icon" />
+  <title>Simple free energy calculation</title>
+  <meta name="description" content="Simple molecular
+  dynamics simulation">
+  <meta name="author" content="Simon Gravelle">
+  <link rel="stylesheet" type="text/css"
+  href="../assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css"
+  href="../assets_tutorials/vendor/font-awesome/css/all.min.css" />
+  <link rel="stylesheet" type="text/css"
+  href="../assets_tutorials/css/stylesheet.css" />
+  <script async
+  src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-W1WGEC5GQ8');
+  </script>
+  <script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
-<div id="main-wrapper"> 
-
-
-
-  <header id="header" class="sticky-top"> 
-    <nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
-      <div class="container-fluid">
-        <a class="logo ml-md-3" href="index.html" title="LAMMPS tutorials"> <img src="Figures/logo.png" alt="LAMMPS tutorials" height="60"/> </a> 
-		<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#header-nav"><span></span><span></span><span></span></button>
-		<div id="header-nav" class="collapse navbar-collapse justify-content-end">
-          <ul class="navbar-nav">
-            <li class="dropdown"> <a class="dropdown-toggle" href="#">All tutorials</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="tutorial01.html">Tutorial 01</a></li>
-                <li><a class="dropdown-item" href="tutorial02.html">Tutorial 02</a></li>
-                <li><a class="dropdown-item" href="tutorial03.html">Tutorial 03</a></li>
-                <li><a class="dropdown-item" href="tutorial04.html">Tutorial 04</a></li>
-                <li><a class="dropdown-item" href="tutorial05.html">Tutorial 05</a></li>
-                <li><a class="dropdown-item" href="tutorial06.html">Tutorial 06</a></li>
-              </ul>
-            </li>
-            <li><a target="_blank" href="contact.html">Contact / Get help with your project</a></li>
+  <div id="main-wrapper">
+    <!-- ======================================================= -->
+    <!-- ======================================================= -->
+    <!-- ======================================================= -->
+    <header id="header" class="sticky-top">
+      <nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+        <div class="container-fluid">
+          <a class="logo ml-md-3" href="../index.html" title="LAMMPS tutorials">
+            <img src="../figures/logo.png"
+            alt="LAMMPS tutorials" height="60"/>
+          </a>
+          <!--<button class="navbar-toggler ml-auto" type="button"
+          data-toggle="collapse" data-target="#header-nav">
+          <span></span>
+          <span></span>
+          <span></span>
+          </button>-->
+          <div id="header-nav" class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+              <li class="dropdown"> <a class="dropdown-toggle" href="#">All tutorials</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item"
+                    href="tutorial01.html">Tutorial 1</a>
+                  </li>
+                  <li><a class="dropdown-item"
+                    href="tutorial02.html">Tutorial 2</a>
+                  </li>
+                  <li><a class="dropdown-item"
+                    href="tutorial03.html">Tutorial 3</a>
+                  </li>
+                  <li><a class="dropdown-item"
+                    href="tutorial04.html">Tutorial 4</a>
+                  </li>
+                  <li><a class="dropdown-item"
+                    href="tutorial05.html">Tutorial 5</a>
+                  </li>
+                  <li><a class="dropdown-item"
+                    href="tutorial06.html">Tutorial 6</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a target="_blank"
+                href="../miscellaneous/contact.html">Contact / Get help
+                with your project</a>
+              </li>
+            </ul>
+          </div>
+          <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+            <li class="social-icons-twitter"><a data-toggle="tooltip"
+              href="https://twitter.com/GravelleSimon" target="_blank"
+              title="" data-original-title="Twitter">
+              <i class="fab fa-twitter"></i></a></li>
+            <li class="social-icons-twitter"><a data-toggle="tooltip"
+              href="https://gitlab.com/sgravelle" target="_blank"
+              title="" data-original-title="Gitlab">
+              <i class="fab fa-gitlab"></i></i></a></li>
+            <li class="social-icons-twitter"><a data-toggle="tooltip"
+              href="https://github.com/simongravelle" target="_blank"
+              title="" data-original-title="Github">
+              <i class="fab fa-github"></i></i></a></li>
+            <li class="social-icons-twitter"><a data-toggle="tooltip"
+              href="https://www.youtube.com/c/SimonGravelle"
+              target="_blank" title="" data-original-title="Youtube">
+              <i class="fab fa-youtube"></i></i></a></li>
           </ul>
         </div>
-        <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
-          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://twitter.com/GravelleSimon" target="_blank" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
-          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://gitlab.com/sgravelle" target="_blank" title="" data-original-title="Gitlab"><i class="fab fa-gitlab"></i></i></a></li>
-          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://github.com/simongravelle" target="_blank" title="" data-original-title="Github"><i class="fab fa-github"></i></i></a></li>
-          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://www.youtube.com/channel/UCLmK_9wpyLVpcP7BPgN6BIw?view_as=subscriber" target="_blank" title="" data-original-title="Youtube"><i class="fab fa-youtube"></i></i></a></li>         
-        </ul>
-      </div>
-    </nav>
-  </header>
- 
-
-	<div class="idocs-navigation bg-light">
+      </nav>
+    </header>
+	   <div class="idocs-navigation bg-light">
       <ul class="nav flex-column ">
-	<li class="nav-item"><a class="nav-link active" href="#intro">Getting Started</a></li>
-        <li class="nav-item"><a class="nav-link active" href="#freesampling">Free sampling</a></li>
-        <li class="nav-item"><a class="nav-link" href="#Umbrellasampling">Umbrella sampling</a></li>
-	<li class="nav-item"><a class="nav-link" href="#further">Going further</a></li>
+	       <li class="nav-item"><a class="nav-link active" href="#intro">Getting Started</a></li>
+         <li class="nav-item"><a class="nav-link active" href="#freesampling">Free sampling</a></li>
+         <li class="nav-item"><a class="nav-link" href="#Umbrellasampling">Umbrella sampling</a></li>
+	       <li class="nav-item"><a class="nav-link" href="#further">Going further</a></li>
+       </ul>
+     </div>
+     <div class="idocs-content">
+       <div class="container">
+         <section id="intro">
+          <h1>Free energy calculation</h1>
+          <h3>A simple free energy calculation using LAMMPS and WHAM</h3>
+          <br>
+          <p><img src="Figures/tutorial02/largerRes.jpg" width="300" class="img-fluid" alt="Responsive image"></p>
+          <br>
+          <p><b>The objective of this tutorial</b> is to measure the free energy profile across a barrier potential using two methods: free sampling and umbrella sampling. For the sake of simplicity and in order to reduce computation time, the barrier potential will be imposed artificially to the atoms, but the procedure is valid for more complex systems. There are two main parts to this tutorial:
+            <ul>
+              <li> <a href="#freesampling">Free sampling - </a>First, the free energy will be calculated using the relatively intuitive free sampling method.</li>
+              <li> <a href="#Umbrellasampling">Umbrella sampling - </a> Second, the more advanced method called umbrella sampling wil be use.</li>
+            </ul>
+          </p>
+          <p>If you are new to LAMMPS, I recommend you to follow <a href="tutorial01.html">this simpler tutorial</a> first.</p>
 
-
-      </ul>
-    </div>
-
-    <div class="idocs-content">
-      <div class="container">  
-        <section id="intro">
-        
-<h1>Free energy calculation</h1>
-<h3>A simple free energy calculation using LAMMPS and WHAM.</h3>
-
-<br>
-<p><img src="Figures/tutorial02/largerRes.jpg" width="300" class="img-fluid" alt="Responsive image"></p>
-<br>
-
-<p><b>The objective of this tutorial</b> is to measure the free energy profile across a barrier potential using two methods: free sampling and umbrella sampling. For the sake of simplicity and in order to reduce computation time, the barrier potential will be imposed artificially to the atoms, but the procedure is valid for more complex systems. There are two main parts to this tutorial:
-<ul>
-        <li> <a href="#freesampling">Free sampling - </a>First, the free energy will be calculated using the relatively intuitive free sampling method.</li>
-        <li> <a href="#Umbrellasampling">Umbrella sampling - </a> Second, the more advanced method called umbrella sampling wil be use.</li>		
-</ul>
-</p>
-
-
-<p>If you are new to LAMMPS, I recommend you to follow <a href="tutorial01.html">this simpler tutorial</a> first.</p>
-
-<p class="alert alert-info"> <a href="contact.html">Click here</a> if you are looking for help with your project, if you want to support me (for free or not), or if you have any suggestions for these tutorials.</p>
-
-<section id="freesampling">
-<div class="container"> 
-
-<h2>Method 1: Free sampling </h2>
-
-<p>
-One way to calculate the free energy profile is to extract the partition function from a classic (unbiased) molecular dynamics simulation, and then to estimate the Gibbs free energy using
-\[\Delta G = -RT \ln(p),\]
-where \(\Delta G\) is the free energy difference, \(R\) the gas constant,  \(T\) the temperature, and \(p\) the partition function.
-
-<br><br>
-
-As an illustration, let us apply this method to an extremely simple configuration that consists in a few particles diffusing in a box in presence of a position-dependent repealing force that make the centre of the box a relatively unfavourable area to explore. Create an input script, and copy the following lines:
-
-<pre><code># Initialization
+          <p class="alert alert-info"> <a href="contact.html">Click here</a> if you are looking for help with your project, if you want to support me (for free or not), or if you have any suggestions for these tutorials.</p>
+        </section>
+        <section id="freesampling">
+          <h2>Method 1: Free sampling </h2>
+          <p>
+            One way to calculate the free energy profile is to extract the partition function from a classic (unbiased) molecular dynamics simulation, and then to estimate the Gibbs free energy using
+            \[\Delta G = -RT \ln(p),\]
+            where \(\Delta G\) is the free energy difference, \(R\) the gas constant,  \(T\) the temperature, and \(p\) the partition function.
+            <br><br>
+            As an illustration, let us apply this method to an extremely simple configuration that consists in a few particles diffusing in a box in presence of a position-dependent repealing force that make the centre of the box a relatively unfavourable area to explore. Create an input script, and copy the following lines:
+            <pre><code># Initialization
 
 variable		sigma equal 3.405 # Angstrom
 variable		epsilon equal 0.238 # Kcal/mol
@@ -173,7 +196,7 @@ from which it is possible to calculate the free energy profile using the formula
 </p>
 <p><img src="Figures/tutorial02/potential2.jpg" class="img-fluid" alt="Responsive image"><
 <p>
-The results confirm that we indeed recover the imposed potential \(U(x)\). I did run the simulation five times with different seeds to improve the quality of the curve. 
+The results confirm that we indeed recover the imposed potential \(U(x)\). I did run the simulation five times with different seeds to improve the quality of the curve.
 
 <br><br>
 
@@ -236,7 +259,7 @@ reset_timestep		0
 
 dump 			mydmp all atom 1000000 dump.lammpstrj
 </code></pre></p><p>
-This code resembles the one of Method 1, except that we created one single particle of type 2. This particle is identical to the particles of type 1, and will be the only one to feel the biasing potential. Let us create a loop with 67 steps, aand move progressively the centre of the bias potential by increment of 0.3 nm. 
+This code resembles the one of Method 1, except that we created one single particle of type 2. This particle is identical to the particles of type 1, and will be the only one to feel the biasing potential. Let us create a loop with 67 steps, aand move progressively the centre of the bias potential by increment of 0.3 nm.
 <pre><code>variable 		a loop 67
 label 			loop
 variable		xdes equal ${a}*3-102
@@ -285,11 +308,11 @@ Again, five independent simulations where run to improve the curve. </p>
 
 <br><br><br><section id="further">
 <h2>Going further</h2>
-<p><b>Realistic system.</b> You can apply the same two methods to a more realistic and interesting system. For example, you can measure the free energy profile normal to a water-vapour interface, or normal to a solid liquid interface. 
+<p><b>Realistic system.</b> You can apply the same two methods to a more realistic and interesting system. For example, you can measure the free energy profile normal to a water-vapour interface, or normal to a solid liquid interface.
 <br><br>
 <p><b>Channel selectivity.</b> Umbrella sampling method can be used to evaluate the barrier potential that a channel, for example a protein, oppose to a molecule or an ion. In this case, the procedure is to force the molecule/ion to cross the channel, and then reconstruct the free energy profile as we did here. </p>
 
-<br><br> 
+<br><br>
 
 <p class="alert alert-info"> <a href="contact.html">Click here</a> if you are looking for help with your project, if you want to support me (for free or not), or if you have any suggestions for these tutorials.</p>
 </div>
@@ -299,10 +322,10 @@ Again, five independent simulations where run to improve the curve. </p>
         </section>
       </div>
     </div>
-	
+
   </div>
-  <!-- Content end --> 
-  
+  <!-- Content end -->
+
   <!-- Footer
   ============================ -->
   <footer id="footer" class="section">
@@ -311,24 +334,24 @@ Again, five independent simulations where run to improve the curve. </p>
     </div>
   </footer>
   <!-- Footer end -->
-  
-</div>
-<!-- Document Wrapper end --> 
 
-<!-- Back To Top --> 
-<a id="back-to-top" data-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a> 
+</div>
+<!-- Document Wrapper end -->
+
+<!-- Back To Top -->
+<a id="back-to-top" data-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a>
 
 <!-- JavaScript
 ============================ -->
-<script src="assets_tutorials/vendor/jquery/jquery.min.js"></script> 
-<script src="assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
+<script src="../assets_tutorials/vendor/jquery/jquery.min.js"></script>
+<script src="../assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Highlight JS -->
-<script src="assets_tutorials/vendor/highlight.js/highlight.min.js"></script> 
-<!-- Easing --> 
-<script src="assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script> 
-<!-- Magnific Popup --> 
-<script src="assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="../assets_tutorials/vendor/highlight.js/highlight.min.js"></script>
+<!-- Easing -->
+<script src="../assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script>
+<!-- Magnific Popup -->
+<script src="../assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 <!-- Custom Script -->
-<script src="assets_tutorials/js/theme.js"></script>
+<script src="../assets_tutorials/js/theme.js"></script>
 </body>
 </html>
