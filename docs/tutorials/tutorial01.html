@@ -180,6 +180,9 @@
 								</p>
 						</section>
 						<br><br>
+						<!-- ======================================================= -->
+						<!-- ======================================================= -->
+						<!-- ======================================================= -->
 						<section id="installation">
 								<h2>Software installation</h2>
 								<p>
@@ -218,6 +221,9 @@
 								</p>
 						</section>
 						<br><br>
+						<!-- ======================================================= -->
+						<!-- ======================================================= -->
+						<!-- ======================================================= -->
 						<section id="input">
 							<h2>The input script</h2>
 								<p>
@@ -488,226 +494,333 @@ Total wall time: 0:00:02</code></pre>
 									</code></pre>
 								</p>
 							</section>
+							<br><br>
+							<!-- ======================================================= -->
+							<!-- ======================================================= -->
+							<!-- ======================================================= -->
+							<section id="trajectories">
+								<h2>Trajectories visualisation</h2>
+								<p>
+									The simulation is running well, but we would like
+									to visualise the trajectories of the atoms. To do so, we are
+									going to dump the positions of the atoms in a file at a
+									regular interval. Add the following command in the
+									'simulation settings' section:
+									<pre><code>dump		mydmp all atom 1000 dump.lammpstrj</code></pre>
+								</p>
+								<p>
+									If you run LAMMPS again, a file named dump.lammpstrj will appear
+									in the same folder as your input. This file can be opened using VMD, Ovito, etc. In Ubuntu, you can simply execute in the terminal:
+									<pre><code>vmd dump.lammpstrj</code></pre>
+								</p>
+								<p>
+								Otherwise, you can open VMD and open dump.lammpstrj manually using file -> molecule. You should see a cloud of lines. You can improve the representation using Graphics -> Representation, and replace Lines by Points or VDW in drawing method. What you observe should resemble <a href="https://www.youtube.com/embed/bN2VV2gOLAw" target="_blank">this video</a>.</p>
+							</section>
+							<br><br>
+							<!-- ======================================================= -->
+							<!-- ======================================================= -->
+							<!-- ======================================================= -->
+							<section id="improved">
+								<h2>Improving the script</h2>
+								<p>
+									Let us improve our input file and perform slightly more
+									advanced operations.
+									<br><br>
+									Let us create the atoms of type 1 and 2 in two separate
+									regions, respectively. Create a new input script. As
+									previously, copy the following lines into the input script:
+									<pre><code># -------------	Initialization
+units		lj
+dimension 	2
+atom_style	atomic
+pair_style	lj/cut 2.5
+boundary	p p p</code></pre>
+								</p>
+								<p>
+									Let us create a box from a predefined region, and create two
+									additional regions and generate atoms of type 1 and 2 in each
+									region respectively.
+									<pre><code># ------------- System definition
+region		mybox block -30 30 -30 30 -0.5 0.5
+create_box	2 mybox
+region		mycylin cylinder z 0 0 15 INF INF side in
+region		mycylou cylinder z 0 0 15 INF INF side out
+create_atoms	1 random 1000 341341 mycylou
+create_atoms	2 random 150 127569 mycylin</code></pre>
+								</p>
+								<p>
+									<b>Explanations:</b> The 'side in' and 'side out' keywords
+									allow us to define regions that are respectively 'inside the
+									cylinder', and 'everything that is not inside the cylinder'.
+									<br><br>
+									We can write the remaining of the input script as follow:
+									<pre><code># ------------- Simulation settings
+mass		1 1
+mass		2 1
+pair_coeff	1 1 1.0 1.0
+pair_coeff	2 2 0.5 3.0
+neigh_modify	every 1 delay 5 check yes
+dump 		mydmp all atom 10 dump.min.lammpstrj
 
-		<section id="trajectories">
-		<div class="container">
+# ------------- Run
+thermo		10
+minimize	1.0e-4 1.0e-6 1000 10000
+write_data	data.min.lammps</code></pre>
+									</p>
+									<p>
+										<b>Explanations:</b> The novelty with respect to the previous
+										input script is the command 'write_data'. This command asks
+										LAMMPS to print the final state of the simulation in a file
+										named 'data.min.lammps'. This file will be used later to
+										restart the simulation from the final state of the energy
+										minimisation step.
+										<br><br>
+										Run LAMMPS using the input.min.lammps script. If everything
+										goes well, a dump file named dump.min.lammpstrj will appear
+										in the folder, allowing you to visualise the atoms
+										trajectories during minimisation using VMD or Ovito.
+										In addition, a file named data.min.lammps will be created.
+										If you open this file, you will see that it contains all
+										the information necessary to restart the simulation, such
+										as the number of atoms and the size of the box:
+										<pre><code>1150 atoms
+2 atom types
 
-		<h2>Trajectories visualisation</h2>
+-3.0000000000000000e+01 3.0000000000000000e+01 xlo xhi
+-3.0000000000000000e+01 3.0000000000000000e+01 ylo yhi
+-5.0000000000000000e-01 5.0000000000000000e-01 zlo zhi</code></pre>
+										</p>
+										<p>
+											The file also contains the final positions and velocities
+											of all the atoms:
+											<pre><code>Atoms # atomic
 
-		<p>
-		We have a simulation that is running well, but we would like to visualise the trajectories of the atoms. To do so, we are going to dump the positions of the atoms in a file at a regular interval. Add the following command in the 'simulation settings' section:
-		<pre><code>dump		mydmp all atom 1000 dump.lammpstrj
-		</code></pre></p><p>
-		In you run LAMMPS again, a file named dump.lammpstrj should appear in the same folder as your input. This file can be opened using VMD, Ovito, etc. In Ubuntu, you can simply execute in the terminal:
-		<pre><code>vmd dump.lammpstrj
-		</code></pre></p><p>
-		Otherwise, you can open VMD and open dump.lammpstrj manually using file -> molecule. You should see a cloud of lines. You can improve the representation using Graphics -> Representation, and replace Lines by Points or VDW in drawing method. What you observe should resemble <a href="https://www.youtube.com/embed/bN2VV2gOLAw" target="_blank">this video</a>.</p>
-		</div>
-		</section>
-
-		<br><br><br>
-		<section id="improved">
-		<div class="container">
-
-		<h2>Improving the script</h2>
-
-		<p>
-		Let us improve our input file and perform slightly more advanced operations.
-
-		<br><br>
-
-		Let us create the atoms of type 1 and 2 in two separate regions, respectively. Create a new input script and call it input.min.lammps where min refers to minimisation. As previously, copy the following first lines into the input script:
-		<pre><code># Initialization
-
-		units		lj
-		dimension 	2
-		pair_style	lj/cut 2.5
-		atom_style	atomic
-		boundary	p p p</code></pre></p><p>
-		Let us create a box from a predefined region, and create two additional regions and generate atoms of type 1 and 2 in each region respectively.
-		<pre><code># System definition
-
-		region		mybox block -30 30 -30 30 -0.5 0.5
-		create_box	2 mybox
-		region		mycylin cylinder z 0 0 15 INF INF side in
-		region		mycylou cylinder z 0 0 15 INF INF side out
-		create_atoms	1 random 1000 341341 mycylou
-		create_atoms	2 random 150 127569 mycylin</code></pre></p><p>
-		The 'side in' and 'side out' keywords allow us to define regions that are respectively 'inside the cylinder', and 'everything that is not inside the cylinder'. We can write the remaining of the input script as follow:
-		<pre><code># Simulation settings
-
-		mass		1 1
-		mass		2 1
-		pair_coeff	1 1 1.0 1.0
-		pair_coeff	2 2 0.5 3.0
-		neigh_modify	every 1 delay 5 check yes
-		dump 		mydmp all atom 10 dump.min.lammpstrj
-
-		# Run
-
-		thermo		10
-		minimize	1.0e-4 1.0e-6 1000 10000
-		write_data	data.min.lammps</code></pre></p><p>
-		A novelty with respect to the previous input script is the command 'write_data'. This command asks LAMMPS to print the final state of the simulation in a file named 'data.min.lammps'. This file will be used later to restart the simulation from the final state of the energy minimisation step.
-		<br><br>
-		Run LAMMPS using the input.min.lammps script. If everything goes well, a dump file named dump.min.lammpstrj should appear in the folder, allowing you to visualise the atoms trajectories during minimisation using VMD or Ovito. In addition, a file named data.min.lammps should be created. If you open this file, you will see that it contains all the information necessary to restart the simulation, such as the number of atoms and the size of the box:
-		<pre><code>1150 atoms
-		2 atom types
-
-		-3.0000000000000000e+01 3.0000000000000000e+01 xlo xhi
-		-3.0000000000000000e+01 3.0000000000000000e+01 ylo yhi
-		-5.0000000000000000e-01 5.0000000000000000e-01 zlo zhi
-		</code></pre></p><p>
-		It also contains the final positions and velocities of all the atoms:
-		<pre><code>Atoms # atomic
-
-		345 1 -2.8836527978635523e+01 -2.9323791349242530e+01 0.0000000000000000e+00 0 0 0
-		979 1 -2.9382597284003467e+01 -2.8335352105920894e+01 0.0000000000000000e+00 0 0 0
-		435 1 -2.5412729704650008e+01 -2.9697644643809667e+01 0.0000000000000000e+00 0 0 0
-		533 1 -2.5033422381244598e+01 -2.8519424750144708e+01 0.0000000000000000e+00 0 0 0
-		347 1 -2.4330866813628781e+01 -2.9373591404712414e+01 0.0000000000000000e+00 0 0 0
-		448 1 -2.3610197298718113e+01 -2.8518785172533800e+01 0.0000000000000000e+00 0 0 0
-		(...)
-		</code></pre></p><p>
-		Each column corresponds respectively to the atom index (from 1 to the total number of atoms, 1150), the atom type (1 or 2 here), the atom positions (\(x\), \(y\), \(z\)) and the atom velocities (\(v_x\), \(v_y\), \(v_z\)).
-		</div>
-		</section>
-
-
-		<section id="restarting">
-		<div class="container">
-
-		<h2>Restarting from a saved configuration </h2>
-		<br>
-		<p>
-		We are going to create a new input file and start a molecular dynamics simulation directly from the previously saved configuration. In the same folder, create a new file, call it input.run.lammps, and copy the same lines as previously:
-		<pre><code># Initialization
-
-		units		lj
-		dimension 	2
-		pair_style	lj/cut 2.5
-		atom_style	atomic
-		boundary	p p p</code></pre></p><p>
-		Now instead of creating a new region, we simply add the following command:
-		<pre><code># System definition
-
-		read_data	data.min.lammps
-		</code></pre></p><p>
-		By visualising the previously generated dump.min.lammpstrj file, you may have noticed that some atoms have moved from one region to the other during minimisation, as seen in <a href="https://www.youtube.com/embed/gfJ_n33-F6A" target="_blank">this video</a>.</p>
-
-
-		<p>In order to start the simulation from a clean state, with only atoms of type 2 within the cylinder and atoms of type 1 outside the cylinder, let us delete the misplaced atoms by adding the following commands:
-		<pre><code>region		mycylin cylinder z 0 0 15 INF INF side in
-		region		mycylou cylinder z 0 0 15 INF INF side out
-		group		mytype1 type 1
-		group		mytype2 type 2
-		group		incyl region mycylin
-		group		oucyl region mycylou
-		group		type1in intersect mytype1 incyl
-		group		type2ou intersect mytype2 oucyl
-		delete_atoms	group type1in
-		delete_atoms	group type2ou
-		</code></pre></p><p>
-		These commands will respectively recreate the previously defined regions (regions are not saved by the write_data command), create groups, and finally delete the atoms of type 1 that are located within the cylinder, as well as the atoms of type 2 that are located outside the cylinder. If you run LAMMPS, you can see in the terminal how many atoms are in each group, and how many atoms have been deleted:
-		<pre><code>1000 atoms in group mytype1
-		150 atoms in group mytype2
-		120 atoms in group incyl
-		1030 atoms in group oucyl
-		1 atoms in group type1in
-		31 atoms in group type2ou
-		Deleted 1 atoms, new total = 1149
-		Deleted 31 atoms, new total = 1118
-		</code></pre></p><p>
-		Similarly to previously, add the following simulation settings:
-		<pre><code># Simulation settings
-
-		mass		1 1
-		mass		2 1
-		pair_coeff	1 1 1.0 1.0
-		pair_coeff	2 2 0.5 3.0
-		neigh_modify	every 1 delay 5 check yes
-		dump 		mydmp all atom 500 dump.run.lammpstrj
-		</code></pre></p><p>
-		In addition, it would be great to extract data directly from the simulation. For example, let us extract the number of atoms of each type in each region, by adding the following commands:
-		<pre><code>variable	Ntype1in equal count(mytype1,mycylin)
-		variable	Ntype1ou equal count(mytype1,mycylou)
-		variable	Ntype2in equal count(mytype2,mycylin)
-		variable	Ntype2ou equal count(mytype2,mycylou)
-		fix		myat1 all ave/time 1000 1 1000 v_Ntype1in v_Ntype1ou file population1vstime.dat
-		fix		myat2 all ave/time 1000 1 1000 v_Ntype2in v_Ntype2ou file population2vstime.dat
-		</code></pre></p><p>
-		The fixes ave/times allow to evaluate previously defined variables and print the values (here every 1000 steps) into data file. Here each variable simply counts the number of atoms of a specific group in a specific region. Finally, let us terminate the script by adding:
-		<pre><code># Run
-
-		velocity 	all create 1.0 4928459 mom yes rot yes dist gaussian
-		fix		mynve all nve
-		fix		mylgv all langevin 1.0 1.0 0.1 1530917 zero yes
-		fix		myefn all enforce2d
-		timestep	0.005
-		thermo		50000
-		run		1500000
-		</code></pre></p><p>
-		There are a few differences with the previous input script. First, the 'velocity create' command attributes and initial velocity to all the atoms. The initial velocity is chosen so that the initial temperature is equal to 1 (unitless). The additional keywords ensure that no linear momentum and no angular momentum are given to the system, and that the generated velocities are distributed as a Gaussian. Another difference is the 'zero yes' keyword in the langevin thermostat, that ensures that the total random force is equal to zero.
-
-		<br><br>
-		After running the simulation, you can observe the number of atoms in each region from the generated data files, using for example Xmgrace: </p>
-
-		<p><img src="Graph/tutorial01_curve01.jpg" class="img-fluid" alt="Responsive image"></p>
-
-		<p>The final simulation should resemble <a href="https://www.youtube.com/embed/-ouevxQ6-Jw" target="_blank">this video</a>.</p>
-
-		<p>You can download the input scripts that have been written in this tutorial by clicking <a href="Inputs/tutorial01.zip" target="_blank" class="removelinkdefault">here</a>.</p>
-
-		</div>
-		</section>
-		<br><br><br>
-		<section id="further">
-		<div class="container">
-		<h2>Going further</h2>
-		<p><b>Playing around.</b> A good way to master LAMMPS and molecular dynamics simulations is to play around with a script that is already working, and observe the differences and/or errors occurring. For example, with our current input file, we can explore what appends if we don't perform a minimisation step and start the molecular dynamics directly. To do so, comment the two following lines:
-		<pre><code># thermo	10
-		# minimize	1.0e-4 1.0e-6 1000 10000
-		</code></pre></p><p>
-		If you run LAMMPS again, you should get something like:
-		<pre><code>Step Temp E_pair E_mol TotEng Press
-		       0            0 5.8997404e+14            0 5.8997404e+14 1.5732641e+15
-		ERROR: Lost atoms: original 1600 current 272 (src/thermo.cpp:438)
-		Last command: run		10000
-		</code></pre></p><p>
-		The message indicates that LAMMPS lost some of the atoms, then stopped. This is one of the most common error message that you will see. It is usually the consequence of badly constructed system or inappropriate dynamics. In the present case, atoms are too close to each others initially, so they apply forces on each others that are huge, leading to enormous acceleration. As a consequence, atoms are moving by large distances during the firsts timesteps, and LAMMPS loses them.
-
-		<br><br>
-
-		<p> <b>Dealing with the <i>Lost atoms</i> error.</b> They are several ways of dealing with the lost atoms error, such as performing minimisation of energy (as we did), or using a smaller timestep together with a thermostat with strong damping. If you have trouble understanding why this error is occurring in your system, you can use
-		<pre><code>thermo		1
-		</code></pre></p><p>
-		and
-		</code></pre></p><p>
-		<pre><code>dump		mydmp all atom 1 dump.lammpstrj
-		</code></pre></p><p>
-		This way you may be able to visualise the very first steps, and identify the location of the error.
-		</p>
-
-		<br><br>
-		<p> <b>Bonus exercise.</b> Use the 'addforce' command to generate a flow of particles in one direction:
-		<pre><code>fix ID group-ID addforce fx fy fz
-		</code></pre></p><p>
-		where \(f_x\), \(f_y\), and \(f_z\) are the force component values. The final simulation should resemble <a href="https://www.youtube.com/embed/J-skFWlemto" target="_blank">this video</a>.</p>
-
-		<br><br>
-
-		<p class="alert alert-info"> <a href="../miscellaneous/contact.html">Click here</a> if you are looking for help with your project, if you want to support me (for free or not), or if you have any suggestions for these tutorials.</p>
-
-		</div>
-		</section>
-
-
-		      </div>
-		    </div>
-
-		  </div>
-		  <!-- Content end -->
-
+345 1 -2.8836527978635523e+01 -2.9323791349242530e+01 0.0000000000000000e+00 0 0 0
+979 1 -2.9382597284003467e+01 -2.8335352105920894e+01 0.0000000000000000e+00 0 0 0
+435 1 -2.5412729704650008e+01 -2.9697644643809667e+01 0.0000000000000000e+00 0 0 0
+533 1 -2.5033422381244598e+01 -2.8519424750144708e+01 0.0000000000000000e+00 0 0 0
+347 1 -2.4330866813628781e+01 -2.9373591404712414e+01 0.0000000000000000e+00 0 0 0
+448 1 -2.3610197298718113e+01 -2.8518785172533800e+01 0.0000000000000000e+00 0 0 0
+(...)</code></pre>
+										</p>
+										<p>
+											<b>Explanations:</b> Each column corresponds respectively
+											to the atom index (from 1 to the total number of atoms,
+											1150), the atom type (1 or 2 here), the atoms positions
+											(\(x\), \(y\), \(z\)) and the atoms velocities
+											(\(v_x\), \(v_y\), \(v_z\)).
+										</p>
+									</section>
+									<br><br>
+									<!-- ======================================================= -->
+									<!-- ======================================================= -->
+									<!-- ======================================================= -->
+									<section id="restarting">
+										<h2>Restarting from a saved configuration </h2>
+										<p>
+											We are going to create a new input file and start a
+											molecular dynamics simulation directly from the previously
+											saved configuration. In the same folder, create a new file
+											and copy the same lines as previously:
+											<pre><code># -------------	Initialization
+units		lj
+dimension 	2
+atom_style	atomic
+pair_style	lj/cut 2.5
+boundary	p p p</code></pre>
+										</p>
+										<p>
+											Now instead of creating a new region and adding atoms,
+											we simply add the following command:
+											<pre><code># ------------- System definition
+read_data	data.min.lammps</code></pre>
+										</p>
+										<p>
+											By visualising the previously generated dump.min.lammpstrj
+											file, you may have noticed that some atoms have moved
+											from one region to the other during minimisation,
+											as seen in <a href="https://www.youtube.com/embed/gfJ_n33-F6A"
+											target="_blank">this video</a>.
+											<br><br>
+											In order to start the simulation from a clean state, with
+											only atoms of type 2 within the cylinder and atoms of
+											type 1 outside the cylinder, let us delete the misplaced
+											atoms by adding the following commands:
+											<pre><code>region		mycylin cylinder z 0 0 15 INF INF side in
+region		mycylou cylinder z 0 0 15 INF INF side out
+group		mytype1 type 1
+group		mytype2 type 2
+group		incyl region mycylin
+group		oucyl region mycylou
+group		type1in intersect mytype1 incyl
+group		type2ou intersect mytype2 oucyl
+delete_atoms	group type1in
+delete_atoms	group type2ou</code></pre>
+										</p>
+										<p>
+											<b>Explanations:</b> These commands will respectively
+											recreate the previously defined regions (regions are not
+											saved by the write_data command), create groups, and
+											finally delete the atoms of type 1 that are located
+											within the cylinder, as well as the atoms of type 2 that
+											are located outside the cylinder. If you run LAMMPS, you
+											can see in the terminal how many atoms are in each group,
+											and how many atoms have been deleted:
+											<pre><code>1000 atoms in group mytype1
+150 atoms in group mytype2
+120 atoms in group incyl
+1030 atoms in group oucyl
+1 atoms in group type1in
+31 atoms in group type2ou
+Deleted 1 atoms, new total = 1149
+Deleted 31 atoms, new total = 1118</code></pre>
+										</p>
+										<p>
+											Similarly to previously, add the following simulation settings:
+											<pre><code># ------------- Simulation settings
+mass		1 1
+mass		2 1
+pair_coeff	1 1 1.0 1.0
+pair_coeff	2 2 0.5 3.0
+neigh_modify	every 1 delay 5 check yes
+dump 		mydmp all atom 500 dump.RUN.lammpstrj</code></pre>
+										</p>
+										<p>
+											In addition, it would be great to extract data directly
+											from the simulation. For example, let us extract the number
+											of atoms of each type in each region, by adding the
+											following commands:
+											<pre><code>variable	Ntype1in equal count(mytype1,mycylin)
+variable	Ntype1ou equal count(mytype1,mycylou)
+variable	Ntype2in equal count(mytype2,mycylin)
+variable	Ntype2ou equal count(mytype2,mycylou)
+fix		myat1 all ave/time 1000 1 1000 v_Ntype1in v_Ntype1ou file population1vstime.dat
+fix		myat2 all ave/time 1000 1 1000 v_Ntype2in v_Ntype2ou file population2vstime.dat</code></pre>
+										</p>
+										<p>
+											<b>Explanations:</b> The fixes ave/times allow to evaluate
+											previously defined
+											variables and print the values (here every 1000 steps)
+											into data file. Here each variable simply counts the number
+											of atoms of a specific group in a specific region.
+											<br><br>
+											Finally, let us terminate the script by adding:
+											<pre><code># ------------- Run
+velocity 	all create 1.0 4928459 mom yes rot yes dist gaussian
+fix		mynve all nve
+fix		mylgv all langevin 1.0 1.0 0.1 1530917 zero yes
+fix		myefn all enforce2d
+timestep	0.005
+thermo		50000
+run		1500000</code></pre>
+										</p>
+										<p>
+											<b>Explanations:</b> There are a few differences with the
+											previous input script. First, the 'velocity create' command
+											attributes and initial velocity to all the atoms.
+											The initial velocity is chosen so that the initial temperature
+											is equal to 1 (unitless). The additional keywords ensure
+											that no linear momentum and no angular momentum are given
+											to the system, and that the generated velocities are
+											distributed as a Gaussian. Another novelty is the
+											'zero yes' keyword in the langevin thermostat,
+											that ensures that the total random force is equal to zero.
+											<br><br>
+											After running the simulation, you can observe the number
+											of atoms in each region from the generated data files,
+											using for example XmGrace:
+										</p>
+										<p><img src="Graph/tutorial01_curve01.jpg"
+											class="img-fluid" alt="Responsive image">
+										</p>
+										<p>The final simulation should resemble
+											<a href="https://www.youtube.com/embed/-ouevxQ6-Jw"
+											target="_blank">this video</a>.
+										</p>
+									<p>You can access the input scripts that have been written
+										in this tutorial from the
+										<a href="https://github.com/lammpstutorials/lammpstutorials.github.io"
+										target="_blank" class="removelinkdefault">Github repository</a>.
+									</p>
+								</section>
+								<br><br>
+								<!-- ======================================================= -->
+								<!-- ======================================================= -->
+								<!-- ======================================================= -->
+								<section id="further">
+									<h2>Going further</h2>
+									<h4>Playing around</h4>
+									<p>
+										A good way to master LAMMPS and
+										molecular dynamics simulations is to play around with a
+										script that is already working, and observe the differences
+										and/or errors occurring. For example, with our current input
+										file, we can explore what appends if we don't perform a
+										minimisation step and start the molecular dynamics directly.
+										To do so, comment the two following lines:
+										<pre><code># thermo	10
+# minimize	1.0e-4 1.0e-6 1000 10000</code></pre>
+									</p>
+									<p>
+										If you run LAMMPS again, you should get something like:
+										<pre><code>Step Temp E_pair E_mol TotEng Press
+0 5.8997404e+14            0 5.8997404e+14 1.5732641e+15
+ERROR: Lost atoms: original 1600 current 272 (src/thermo.cpp:438)
+Last command: run		10000</code></pre>
+									</p>
+									<p>
+										<b>Explanations:</b> The message indicates that LAMMPS lost
+										some of the atoms, then stopped. This is one of the most
+										common error message that you will see. It is usually the
+										consequence of badly constructed system or inappropriate
+										dynamics. In the present case, atoms are too close to
+										each others initially, so they apply forces on each others
+										that are huge, leading to enormous acceleration. As a
+										consequence, atoms are moving by large distances during
+										the firsts timesteps, and LAMMPS loses them.
+									</p>
+									<h4>Dealing with the <i>Lost atoms</i> error</h4>
+									<p>
+										They are several ways of dealing with the lost atoms error,
+										such as performing minimisation of energy (as we did),
+										or using a smaller timestep together with a thermostat
+										with strong damping. If you have trouble understanding why
+										this error is occurring in your system, you can use
+										<pre><code>thermo		1</code></pre>
+									</p>
+									<p>
+										and
+										<pre><code>dump		mydmp all atom 1 dump.lammpstrj</code></pre>
+									</p>
+									<p>
+										This way you may be able to visualise the very first steps,
+										and may be identify the location of the error.
+									</p>
+									<h4>Bonus exercise</h4>
+									<p>Use the 'addforce' command to generate a flow of particles
+										in one direction:
+										<pre><code>fix ID group-ID addforce fx fy fz</code></pre>
+									</p>
+									<p>
+										where \(f_x\), \(f_y\), and \(f_z\) are the force component
+										values. The final simulation should resemble
+										<a href="https://www.youtube.com/embed/J-skFWlemto"
+										target="_blank">this video</a>.
+									</p>
+									<br><br>
+									<p class="alert alert-info">
+										<a href="../miscellaneous/contact.html">Click here</a>
+										if you are looking for help with your project, if you
+										want to support me (for free or not), or if you have
+										any suggestions for these tutorials.
+									</p>
+								</section>
+								<!-- ======================================================= -->
+								<!-- ======================================================= -->
+								<!-- ======================================================= -->
+		      		</div>
+		    		</div>
+		  		</div>
 		  <!-- Footer
 		  ============================ -->
 		  <footer id="footer" class="section">
