@@ -143,7 +143,8 @@
 							<p>If you are new to LAMMPS, I recommend you to follow
 								<a href="tutorial01.html">this simpler tutorial</a> first.
 							</p>
-							<p class="alert alert-info"> <a href="contact.html">Click here</a>
+							<p class="alert alert-info"> <a
+                href="../miscellaneous/contact.html">Click here</a>
 								if you are looking for help with your project, if you want to
 								support me (for free or not), or if you have any suggestions
 								for these tutorials.
@@ -435,23 +436,23 @@ Total wall time: 0:00:02</code></pre>
 								<!-- ======================================================= -->
 								<section id="minimisation">
 									<h2>Energy minimisation</h2>
-										<p>
-											It is clear from the way the system has been created that
-											the atoms are not at equilibrium distances from each others.
-											Indeed, some of the ions added using the 'fix deposit'
-											commands are too close to the water molecules. If we were
-											to start a 'normal' molecular dynamics simulation now
-											(i.e. solve the equations of motion) with a 'normal'
-											timestep (1  or 2 femto-seconds), the atoms would exert
-											huge forces on each others, as a consequence they would
-											accelerate brutally, and the simulation would most probably
-											fail. Therefore we need to find a way to move the atoms
-											and place them in a more favorable position before starting
-											the simulation. This step is called 'energy minimisation',
-											and is often necessary. To do so, let us open a new blank
-											sheet in the same folder, and rename it input.02.lammps.
-											The first lines will be very similar to the previous input file:
-											<pre><code># ------------- Initialisation
+									<p>
+										It is clear from the way the system has been created that
+										the atoms are not at equilibrium distances from each others.
+										Indeed, some of the ions added using the 'fix deposit'
+										commands are too close to the water molecules. If we were
+										to start a 'normal' molecular dynamics simulation now
+										(i.e. solve the equations of motion) with a 'normal'
+										timestep (1  or 2 femto-seconds), the atoms would exert
+										huge forces on each others, as a consequence they would
+										accelerate brutally, and the simulation would most probably
+										fail. Therefore we need to find a way to move the atoms
+										and place them in a more favorable position before starting
+										the simulation. This step is called 'energy minimisation',
+										and is often necessary. To do so, let us open a new blank
+										sheet in the same folder, and rename it input.02.lammps.
+										The first lines will be very similar to the previous input file:
+										<pre><code># ------------- Initialisation
 boundary	p p p
 units		real
 atom_style	full
@@ -465,15 +466,15 @@ read_data	data.01.lammps
 
 # ------------- settings
 include		PARM.lammps</code></pre>
-										</p>
-										<p>
-											The only difference with input.01.lammps is that, instead
-											of creating a box and atoms, we open and read the
-											previously created file 'data.01.lammps' which contains
-											the definition of the simulation box and the positions
-											of the atoms. Next, we are going to create some groups
-											with the different atom types:
-											<pre><code>group		gH2O type 1 2
+									</p>
+									<p>
+										The only difference with input.01.lammps is that, instead
+										of creating a box and atoms, we open and read the
+										previously created file 'data.01.lammps' which contains
+										the definition of the simulation box and the positions
+										of the atoms. Next, we are going to create some groups
+										with the different atom types:
+										<pre><code>group		gH2O type 1 2
 group		gNa type 3
 group		gCl type 4
 group		gliquid type 1 2 3 4
@@ -482,280 +483,319 @@ group		gbotwall type 6
 neigh_modify 	exclude group gtopwall gtopwall
 neigh_modify 	exclude group gbotwall gbotwall
 dump 		mydmp all atom 1000 dump.02.lammpstrj</code></pre>
-										</p>
-										<p>
-											Creating groups allows us to apply different dynamics
-											to the liquid and to the walls. The 'neigh_modify'
-											commands ask to LAMMPS not
-											to evaluate interactions between the atoms of a wall,
-											because internal deformations are not permitted.
-											The 'neigh_modify' commands are not necessary, but save
-											computation time. The last line asks LAMMPS to generate
-											a dump file with the atoms positions.
-											<br><br>
-											Let us force the carbon walls to remain rigid
-											during the simulation:
-											<pre><code># ------------- run
+									</p>
+									<p>
+										Creating groups allows us to apply different dynamics
+										to the liquid and to the walls. The 'neigh_modify'
+										commands ask to LAMMPS not
+										to evaluate interactions between the atoms of a wall,
+										because internal deformations are not permitted.
+										The 'neigh_modify' commands are not necessary, but save
+										computation time. The last line asks LAMMPS to generate
+										a dump file with the atoms positions.
+										<br><br>
+										Let us force the carbon walls to remain rigid
+										during the simulation:
+										<pre><code># ------------- run
 # ------------- walls
 fix		mysf1 gtopwall setforce 0 0 NULL
 fix		mysf2 gbotwall setforce 0 0 NULL
 fix		myaf1 gtopwall aveforce NULL NULL 0
 fix		myaf2 gbotwall aveforce NULL NULL 0</code></pre>
-										</p>
-										<p>
-											The first fix 'setforce' applies to the group
-											'gtopwall', which contains all of the atoms of type 5.
-											This fix cancels the x and y components of the forces
-											applied on the atoms of the group at each timestep.
-											Therefore, given that these atoms have no initial
-											velocity (which is the case here), they wont move along
-											x anf y. This fix does nothing to the z component
-											thanks to the 'NULL' keyword. The first fix 'aveforce'
-											applies to the group 'gtopwall', and averages all the force
-											exerted on the atoms of the group over z. As a consequence,
-											the atoms of the group 'gtopwall' move as a block along z.
-											<br><br>
-											Now we can include the most important commands for the minimisation:
-											<pre><code>fix		mynve all nve
+									</p>
+									<p>
+										The first fix 'setforce' applies to the group
+										'gtopwall', which contains all of the atoms of type 5.
+										This fix cancels the x and y components of the forces
+										applied on the atoms of the group at each timestep.
+										Therefore, given that these atoms have no initial
+										velocity (which is the case here), they wont move along
+										x anf y. This fix does nothing to the z component
+										thanks to the 'NULL' keyword. The first fix 'aveforce'
+										applies to the group 'gtopwall', and averages all the force
+										exerted on the atoms of the group over z. As a consequence,
+										the atoms of the group 'gtopwall' move as a block along z.
+										<br><br>
+										Now we can include the most important commands for the minimisation:
+										<pre><code>fix		mynve all nve
 compute		tliq gliquid temp
 fix		myber gliquid temp/berendsen 1 1 1
 fix_modify	myber temp tliq</code></pre>
-										</p>
-										<p>
-											The fix 'nve', which we apply to all atoms, performs
-											constant NVE integration to update position and velocity
-											of the atoms at each timestep. The 'temp/berendsen' fix
-											rescales the velocities of the atoms of the group liquid
-											(ions + water) every timestep in order to reset
-											the temperature. Since we want to perform a minimisation
-											step, Both initial and final temperatures have been chosen
-											equal to 1K. The third parameter is the damping factor,
-											in time units, which determines how rapidly the temperature
-											is relaxed. A damping factor of 1 fs would be too small
-											for a molecular dynamics simulation, but is acceptable
-											for a minimisation step during which we just want the
-											atoms to move slightly from their initial positions.
-											The 'fix_modify' is used to assign the temperature of
-											the group 'gliquid' as calculated by the compute 'tliq'
-											to the Berendsen thermostat.
-										</p>
-										<p class="alert alert-info">Without this 'fix_modify',
-											LAMMPS would use the measured temperature of group 'all'
-											as the reference temperature when rescaling the  velocity
-											of the atoms of group 'gliquid', which is inconsistent. The simulation would still work without error message, but the temperature of your atoms would be different from what you want.</p>
+									</p>
+									<p>
+										The fix 'nve', which we apply to all atoms, performs
+										constant NVE integration to update position and velocity
+										of the atoms at each timestep. The 'temp/berendsen' fix
+										rescales the velocities of the atoms of the group liquid
+										(ions + water) every timestep in order to reset
+										the temperature. Since we want to perform a minimisation
+										step, Both initial and final temperatures have been chosen
+										equal to 1K. The third parameter is the damping factor,
+										in time units, which determines how rapidly the temperature
+										is relaxed. A damping factor of 1 fs would be too small
+										for a molecular dynamics simulation, but is acceptable
+										for a minimisation step during which we just want the
+										atoms to move slightly from their initial positions.
+										The 'fix_modify' is used to assign the temperature of
+										the group 'gliquid' as calculated by the compute 'tliq'
+										to the Berendsen thermostat.
+									</p>
+									<p class="alert alert-info">Without this 'fix_modify',
+										LAMMPS would use the measured temperature of group 'all'
+										as the reference temperature when rescaling the velocities
+										of the atoms of group 'gliquid', which is inconsistent.
+                    The simulation would still work without error message,
+                    but the temperature of the atoms would be different from
+                    the desired value.
+                  </p>
+	                <p>
+                    If we were to run the simulation as it is, it would fail
+                    because nothing maintains the shape of the water molecules
+                    (the bond and angle energies are equal to 0). Let us
+                    use the shake algorithm in order to apply bond and angle
+                    constraints to the water molecules. In addition, let us
+                    add a fix 'recenter' in order to maintain the system
+                    centered in the middle of the box in the \(z\) direction.
+                    The fix recenter has no influence on the dynamics.
+	                  <pre><code>fix		myshk gH2O shake 1.0e-4 200 0 b 1 a 1
+fix		myrct all recenter NULL NULL INIT</code></pre>
+	                </p>
+                  <p>
+                    Finally, let us choose a very small timestep
+                    (because we anticipate that the atoms are initially too
+                    close to each others) and run for 1000 timesteps (with
+                    the command thermo 1000, thermodynamic info are printed
+                    in the terminal every 1000 timesteps).
+	                  <pre><code>timestep	0.1
+thermo		1000
+run		5000
+write_data	data.02.lammps</code></pre>
+	                </p>
+                  <p>
+                    In the terminal, you should see that the total energy of
+                    the system (fifth column) decreases during the energy minimisation:
+	                  <pre><code>Step Temp E_pair E_mol TotEng Press
+ 0            0    19656.737            0    19656.737    49529.333
+1000    1.4484887   -3987.5314            0   -3960.0149    -2521.241
+2000    1.0369954   -5479.6652            0   -5459.9657   -3672.1658
+3000   0.96110033   -6295.8493            0   -6277.5916    -4294.163
+4000    1.0598138   -6836.0972            0   -6815.9642   -4685.2421
+5000    1.2657801   -7268.4856            0   -7244.4399   -4955.0044</code></pre>
+	                </p>
+	                <p>
+                    What you observe by opening the dump file using VMD should
+                    resemble <a href="https://youtu.be/JWGZnFN4TOo"
+                    target="_blank">this video</a>.
+                  </p>
+								</section>
+                <br><br>
+								<!-- ======================================================= -->
+								<!-- ======================================================= -->
+								<!-- ======================================================= -->
+		            <section id="equilibration">
+  		            <h2>System equilibration</h2>
+  		            <p>
+  		                Starting from the final configuration of the minisation
+                      step, we can now run the molecular dynamics simulation.
+                      Here we are going to let the system evolve freely until it
+                      reaches an equilibrium. Let us create a new input file
+                      and call it input.03.lammps. Add the following lines:
+  		                <pre><code># Initialisation
 
-		<p>If we were to run the simulation as it is, it would fail, because nothing maintains the shape of the water molecules with time (the bond and angle energies are equal to 0). Therefore we need to use the shake algorithm in order to apply bond and angle constraints to the water molecules. In addition, we will also add a fix 'recenter' in order to maintain the system centred in the middle of the box in the z direction. This fix recenter has no influence on the dynamics.
-		<pre><code>fix		myshk gH2O shake 1.0e-4 200 0 b 1 a 1
-		fix		myrct all recenter NULL NULL INIT
-		</code></pre></p><p>
-		Finally, let us choose a very small timestep (because we anticipate that the atoms are initially too close to each others) and run for 1000 timesteps (with the command thermo 1000, thermodynamic info are printed in the terminal every 1000 timesteps).
-		<pre><code>timestep	0.1
-		thermo		1000
-		run		5000
-		write_data	data.02.lammps
-		</code></pre></p><p>
-		In the terminal, you should see that the total energy of the system (fifth column) decreases during the energy minimisation:
-		<pre><code>Step Temp E_pair E_mol TotEng Press
-		       0            0    19656.737            0    19656.737    49529.333
-		    1000    1.4484887   -3987.5314            0   -3960.0149    -2521.241
-		    2000    1.0369954   -5479.6652            0   -5459.9657   -3672.1658
-		    3000   0.96110033   -6295.8493            0   -6277.5916    -4294.163
-		    4000    1.0598138   -6836.0972            0   -6815.9642   -4685.2421
-		    5000    1.2657801   -7268.4856            0   -7244.4399   -4955.0044
-		</code></pre></p>
+  boundary	p p p
+  units		real
+  atom_style	full
+  bond_style	harmonic
+  angle_style	harmonic
+  pair_style	lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+  kspace_style	pppm/tip4p 1.0e-4
 
-		<p>
-		What you observe by opening the dump file using VMD of Ovito should resemble <a href="https://youtu.be/JWGZnFN4TOo" target="_blank">this video</a>.</p>
+  # System definition
 
-		</div>
-		</section>
-		<br><br><br>
-		<section id="equilibration">
-		<div class="container">
-		<h2>System equilibration</h2>
+  read_data	data.02.lammps
 
-		<p>
-		Starting from the final configuration of the minisation step, we can now run the molecular dynamics simulation. Here we are going to let the system evolve freely until it reaches an equilibrium. Let us create a new input file and call it input.03.lammps. Add the following lines:
+  # Simulation settings
 
-		<pre><code># Initialisation
+  include	PARM.lammps
+  group		gH2O type 1 2
+  group		gNa type 3
+  group		gCl type 4
+  group		gliquid type 1 2 3 4
+  group		gtopwall type 5
+  group		gbotwall type 6
+  dump 		mydmp all atom 1000 dump.03.lammpstrj
 
-		boundary	p p p
-		units		real
-		atom_style	full
-		bond_style	harmonic
-		angle_style	harmonic
-		pair_style	lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
-		kspace_style	pppm/tip4p 1.0e-4
+  # Run
 
-		# System definition
+  fix		mysf1 gtopwall setforce 0 0 NULL
+  fix		mysf2 gbotwall setforce 0 0 NULL
+  fix		myaf1 gtopwall aveforce NULL NULL 0
+  fix		myaf2 gbotwall aveforce NULL NULL 0
+  neigh_modify 	exclude group gtopwall gtopwall
+  neigh_modify 	exclude group gbotwall gbotwall
+  fix		mynve all nve
+  compute	tliq gliquid temp
+  fix		myber gliquid temp/berendsen 300 300 100
+  fix_modify	myber temp tliq
+  fix		myshk gH2O shake 1.0e-4 200 0 b 1 a 1
+  fix		myrct all recenter NULL NULL INIT
+  timestep	1.0
+  thermo		5000
+  thermo_modify 	temp tliq
+  run		50000
+  write_data	data.03.lammps</code></pre>
+  		            </p>
+                  <p>
+  		                The two main differences with the previous step are the
+                      timestep (1fs instead of 0.1fs) and the thermostating. With
+                      an imposed temperature of 300 K, the fluid is expected to
+                      behave as a liquid. A timestep of 1 fs is classic for these
+                      force fields. Never use a larger timestep except if you have
+                      a good reason to do so. What you observe should resemble
+                      <a href="https://www.youtube.com/embed/ZEVhTeR5tCQ"
+                      target="_blank">this video</a>.
+                  </p>
+		            </section>
+		            <br><br>
+		            <!-- ======================================================= -->
+		            <!-- ======================================================= -->
+		            <!-- ======================================================= -->
+		            <section id="density">
+		              <h2>Density profile measurement</h2>
+		              <p>
+                    We are going to take advantage of our equilibrated
+                    configuration and measure the density profiles of
+                    Na and Cl ions. First, let us create another input file and
+                    call it input.04.lammps. It is the same input file as
+                    input.03.lammps, but it starts from the equilibrated
+                    configuration data.03.lammps:
+                    <pre><code># Initialisation
 
-		read_data	data.02.lammps
+boundary	p p p
+units		real
+atom_style	full
+bond_style	harmonic
+angle_style	harmonic
+pair_style	lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style	pppm/tip4p 1.0e-4
 
-		# Simulation settings
+# System definition
 
-		include	PARM.lammps
-		group		gH2O type 1 2
-		group		gNa type 3
-		group		gCl type 4
-		group		gliquid type 1 2 3 4
-		group		gtopwall type 5
-		group		gbotwall type 6
-		dump 		mydmp all atom 1000 dump.03.lammpstrj
+read_data	data.03.lammps
 
-		# Run
+# Simulation settings
 
-		fix		mysf1 gtopwall setforce 0 0 NULL
-		fix		mysf2 gbotwall setforce 0 0 NULL
-		fix		myaf1 gtopwall aveforce NULL NULL 0
-		fix		myaf2 gbotwall aveforce NULL NULL 0
-		neigh_modify 	exclude group gtopwall gtopwall
-		neigh_modify 	exclude group gbotwall gbotwall
-		fix		mynve all nve
-		compute	tliq gliquid temp
-		fix		myber gliquid temp/berendsen 300 300 100
-		fix_modify	myber temp tliq
-		fix		myshk gH2O shake 1.0e-4 200 0 b 1 a 1
-		fix		myrct all recenter NULL NULL INIT
-		timestep	1.0
-		thermo		5000
-		thermo_modify 	temp tliq
-		run		50000
-		write_data	data.03.lammps
-		</code></pre></p><p>
+include	PARM.lammps
+group		gH2O type 1 2
+group		gNa type 3
+group		gCl type 4
+group		gliquid type 1 2 3 4
+group		gtopwall type 5
+group		gbotwall type 6
+dump 		mydmp all atom 1000 dump.04.lammpstrj
 
-		The two main differences with the previous step are the timestep (1fs instead of 0.1fs) and the thermostating. With a temperature of 300 K, the fluid is expected to behave as a liquid. A timestep of 1 fs is classic for these force field. Never use a larger timestep except if you have a good reason to do so. What you observe should resemble <a href="https://www.youtube.com/embed/ZEVhTeR5tCQ" target="_blank">this video</a>.
+# Run
 
-		</div>
-		</section>
-		<br><br><br>
-		<section id="density">
-		<div class="container">
-		<h2>Density profile measurement</h2>
-
-		<p>We are going to take advantage of our equilibrated configuration and measure the density profiles of Na and Cl. First, let us create another input file and call it input.04.lammps. It is the same input file as input.03.lammps, but it starts from the equilibrated configuration data.03.lammps:
-
-		<pre><code># Initialisation
-
-		boundary	p p p
-		units		real
-		atom_style	full
-		bond_style	harmonic
-		angle_style	harmonic
-		pair_style	lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
-		kspace_style	pppm/tip4p 1.0e-4
-
-		# System definition
-
-		read_data	data.03.lammps
-
-		# Simulation settings
-
-		include	PARM.lammps
-		group		gH2O type 1 2
-		group		gNa type 3
-		group		gCl type 4
-		group		gliquid type 1 2 3 4
-		group		gtopwall type 5
-		group		gbotwall type 6
-		dump 		mydmp all atom 1000 dump.04.lammpstrj
-
-		# Run
-
-		fix		mysf1 gtopwall setforce 0 0 NULL
-		fix		mysf2 gbotwall setforce 0 0 NULL
-		fix		myaf1 gtopwall aveforce NULL NULL 0
-		fix		myaf2 gbotwall aveforce NULL NULL 0
-		neigh_modify 	exclude group gtopwall gtopwall
-		neigh_modify 	exclude group gbotwall gbotwall
-		fix		mynve all nve
-		compute	tliq gliquid temp
-		fix		myber gliquid temp/berendsen 300 300 100
-		fix_modify	myber temp tliq
-		fix		myshk gH2O shake 1.0e-4 200 0 b 1 a 1
-		fix		myrct all recenter NULL NULL INIT
-		timestep	1.0
-		thermo		5000
-		thermo_modify 	temp tliq
-		run		50000
-		write_data	data.04.lammps
-		</code></pre></p><p>
-		Then, we are going to read the atom trajectories using MDAnalysis, and extract the density profiles using MAICoS. To do so we are going to need Python3. See the documentations for <a href="https://www.mdanalysis.org/" target="_blank">MDAnalysis</a> and <a href="https://maicos-devel.gitlab.io/maicos/index.html" target="_blank">MAICoS</a> for installation. Open a python script, and import the following modules:
-		<pre><code>import MDAnalysis as mda
-		import maicos
-		import matplotlib.pyplot as plt
-		</code></pre></p><p>Then, create a MDAnalysis universe, and isolate the Na and Cl ions by creating groups.
-		<pre><code>u = mda.Universe("dump.04.lammpstrj", topology_format='LAMMPSDUMP')
-		grp_Na = u.select_atoms('type 3')
-		grp_Cl = u.select_atoms('type 4')
-		</code></pre></p><p>
-		Then, let us use the density_planar module of MAICoS to extract the density profiles, and finally plot it.
-		<pre><code>dplanCl = maicos.density_planar(grp_Cl)
-		dplanCl.run()
-		zcoorCl = dplanCl.results['z']
-		densCl = dplanCl.results['dens_mean']
-		dplanNa = maicos.density_planar(grp_Na)
-		dplanNa.run()
-		zcoorNa = dplanNa.results['z']
-		densNa = dplanNa.results['dens_mean']
-		plt.plot(zcoorCl,densCl)
-		plt.plot(zcoorNa,densNa)
-		</code></pre></p><p>
-		<br><br>
-		You can download the input and data files by clicking <a href="Inputs/tutorial03.zip" target="_blank" class="removelinkdefault">here</a>.
-		</p>
-		</div>
-		</section>
-		<br><br><br>
-		<section id="further">
-		<h2>Going further</h2>
-		<p>
-		<b>Non equilibrium measurement.</b> You can measure the transport properties of the nanoconfined elecrolyte by applying a force to the fluid, and measuring the flux in the direction of the force.
-		<br><br>
-		<b>Hydrogen bond analysis.</b> Using MDAnalysis, you can measure the number and duration of the hydrogen bonds.
-		<br><br>
-		</p>
-
-		<br><br>
-
-		<p class="alert alert-info"> <a href="contact.html">Click here</a> if you are looking for help with your project, if you want to support me (for free or not), or if you have any suggestions for these tutorials.</p>
-
-		</div>
-		</section>
-
-
+fix		mysf1 gtopwall setforce 0 0 NULL
+fix		mysf2 gbotwall setforce 0 0 NULL
+fix		myaf1 gtopwall aveforce NULL NULL 0
+fix		myaf2 gbotwall aveforce NULL NULL 0
+neigh_modify 	exclude group gtopwall gtopwall
+neigh_modify 	exclude group gbotwall gbotwall
+fix		mynve all nve
+compute	tliq gliquid temp
+fix		myber gliquid temp/berendsen 300 300 100
+fix_modify	myber temp tliq
+fix		myshk gH2O shake 1.0e-4 200 0 b 1 a 1
+fix		myrct all recenter NULL NULL INIT
+timestep	1.0
+thermo		5000
+thermo_modify 	temp tliq
+run		50000
+write_data	data.04.lammps</code></pre>
+		              </p>
+                  <p>
+		                  Then, with a Python script, we are going to read
+                      the atom trajectories using
+                      MDAnalysis, and extract the density profiles using MAICoS.
+                      See the documentations for
+                      <a href="https://www.mdanalysis.org/"
+                      target="_blank">MDAnalysis</a> and
+                      <a href="https://maicos-devel.gitlab.io/maicos/index.html"
+                      target="_blank">MAICoS</a> for installation.
+                      Open a python script, and import the following modules:
+		                  <pre><code>import MDAnalysis as mda
+import maicos
+import matplotlib.pyplot as plt</code></pre>
+                  </p>
+                  <p>Then, create a MDAnalysis universe, and isolate the Na
+                    and Cl ions by creating groups.
+		                <pre><code>u = mda.Universe("dump.04.lammpstrj", topology_format='LAMMPSDUMP')
+grp_Na = u.select_atoms('type 3')
+grp_Cl = u.select_atoms('type 4')</code></pre>
+                  </p>
+                  <p>
+		                  Then, let us use the density_planar module of MAICoS to
+                      extract the density profiles, and finally plot it.
+		                  <pre><code>dplanCl = maicos.density_planar(grp_Cl)
+dplanCl.run()
+zcoorCl = dplanCl.results['z']
+densCl = dplanCl.results['dens_mean']
+dplanNa = maicos.density_planar(grp_Na)
+dplanNa.run()
+zcoorNa = dplanNa.results['z']
+densNa = dplanNa.results['dens_mean']
+plt.plot(zcoorCl,densCl)
+plt.plot(zcoorNa,densNa)</code></pre>
+                  </p>
+                  <!--<p>
+		                  You can download the input and data files by clicking
+                      <a href="Inputs/tutorial03.zip" target="_blank"
+                      class="removelinkdefault">here</a>.
+                  </p>-->
+                </section>
+		            <br><br>
+		            <!-- ======================================================= -->
+		            <!-- ======================================================= -->
+		            <!-- ======================================================= -->
+		            <section id="further">
+		            <h2>Going further</h2>
+                <h4>Non equilibrium measurement</h4>
+		            <p>
+	                You can measure the transport properties of the nanoconfined
+                  elecrolyte by applying a force to the fluid, and measuring
+                  the flux in the direction of the force.
+		            </p>
+		            <h4>Hydrogen bond analysis</h4>
+		            <p>
+                  Using MDAnalysis, you can measure the number and
+                  duration of the hydrogen bonds.
+		            </p>
+                <br><br>
+                <p class="alert alert-info"> <a
+                  href="../miscellaneous/contact.html">Click here</a>
+                  if you are looking for help with your project, if you want to
+                  support me (for free or not), or if you have any suggestions
+                  for these tutorials.
+                </p>
 		        </section>
-		      </div>
-		    </div>
-
-		  </div>
-		  <!-- Content end -->
-
-		  <!-- Footer
-		  ============================ -->
-		  <footer id="footer" class="section">
-		    <div class="container">
-			  <p class="text-2 text-center mb-0">This template has been adapted from <a class="btn-link" target="_blank" href="https://github.com/harnishdesign/iDocs/">HarnishDesign</a>.</p>
-		    </div>
-		  </footer>
-		  <!-- Footer end -->
-
-		</div>
-		<!-- Document Wrapper end -->
-
-		<!-- Back To Top -->
-		<a id="back-to-top" data-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a>
-
-		<!-- JavaScript
-		============================ -->
-		<script src="assets_tutorials/vendor/jquery/jquery.min.js"></script>
-		<script src="assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- Highlight JS -->
-		<script src="assets_tutorials/vendor/highlight.js/highlight.min.js"></script>
-		<!-- Easing -->
-		<script src="assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script>
-		<!-- Magnific Popup -->
-		<script src="assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-		<!-- Custom Script -->
-		<script src="assets_tutorials/js/theme.js"></script>
-	</body>
+        </div>
+      </div>
+      <footer id="footer" class="section">
+        <div class="container">
+      	  <p class="text-2 text-center mb-0">This template has been adapted from
+            <a class="btn-link" target="_blank"
+            href="https://github.com/harnishdesign/iDocs/">HarnishDesign</a>.
+          </p>
+        </div>
+      </footer>
+    </div>
+    <a id="back-to-top" data-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a>
+    <script src="../assets_tutorials/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets_tutorials/vendor/highlight.js/highlight.min.js"></script>
+    <script src="../assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="../assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="../assets_tutorials/js/theme.js"></script>
+  </body>
 </html>
