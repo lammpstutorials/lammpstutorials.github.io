@@ -3,24 +3,32 @@
 This is the script of the webpage [LAMMPS Tutorials](https://lammpstutorials.github.io/). 
 Some LAMMPS inputs can be found in the Inputs folder. 
 
-The html/css templates are from [html5 up](https://html5up.net/) 
-and [harnishdesign](http://www.harnishdesign.net/).
-
 ### Tutorials ###
 
 <p float="left">
-  <a href="https://lammpstutorials.github.io/tutorials/tutorial01.html/">
+  <a href="https://lammpstutorials.github.io/tutorials/tutorial01.html">
   <img src="docs/figures/tutorial01/avatar.jpg" width="32%" /></a>
   <a href="https://lammpstutorials.github.io/tutorials/tutorial02.html">
   <img src="docs/figures/tutorial02/avatar.jpg" width="32%" /></a>
   <a href="https://lammpstutorials.github.io/tutorials/tutorial03.html">
   <img src="docs/figures/tutorial03/avatar.jpg" width="32%" /></a>
-  <a href="https://lammpstutorials.github.io/tutorials/tutorial04.html/">
+  <a href="https://lammpstutorials.github.io/tutorials/tutorial04.html">
   <img src="docs/figures/tutorial04/avatar.jpg" width="32%" /></a>
   <a href="https://lammpstutorials.github.io/tutorials/tutorial05.html">
   <img src="docs/figures/tutorial05/avatar.jpg" width="32%" /></a>
   <a href="https://lammpstutorials.github.io/tutorials/tutorial06.html">
   <img src="docs/figures/tutorial06/avatar.jpg" width="32%" /></a>
+</p>
+
+### Miscellaneous ###
+
+<p float="left">
+  <a href="https://lammpstutorials.github.io/miscellaneous/checklist.html">
+  <img src="docs/figures/checklist/avatar.jpg" width="32%" /></a>
+  <a href="https://lammpstutorials.github.io/miscellaneous/vmd.html">
+  <img src="docs/figures/vmd/avatar.jpg" width="32%" /></a>
+  <a href="https://lammpstutorials.github.io/miscellaneous/LAMMPSscripts.html">
+  <img src="docs/figures/scripts/avatar.jpg" width="32%" /></a>
 </p>
 
 ### About the author ###
@@ -34,3 +42,8 @@ in nanoporous materials. You can find more information on my
 
 All the LAMMPS materials given here are open source and released under the 
 GNU general public license v3.0.
+
+### Template ###
+
+The html/css templates are from [html5 up](https://html5up.net/) 
+and [harnishdesign](http://www.harnishdesign.net/).
