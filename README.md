@@ -1,4 +1,5 @@
-# LAMMPS tutorials #
+<a href="https://lammpstutorials.github.io">
+<img src="docs/figures/welcome.png" width="32%" /></a>
 
 This is the script of the webpage [LAMMPS Tutorials](https://lammpstutorials.github.io/). 
 Some LAMMPS inputs can be found in the Inputs folder. 
