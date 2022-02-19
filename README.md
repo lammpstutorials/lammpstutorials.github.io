@@ -28,7 +28,7 @@ Some LAMMPS inputs can be found in the Inputs folder.
   <a href="https://lammpstutorials.github.io/miscellaneous/vmd.html">
   <img src="docs/figures/vmd/avatar.jpg" width="32%" /></a>
   <a href="https://lammpstutorials.github.io/miscellaneous/LAMMPSscripts.html">
-  <img src="docs/figures/scripts/avatar.jpg" width="32%" /></a>
+  <img src="docs/figures/scripts/lammps-input-files.png" width="32%" /></a>
 </p>
 
 ### About the author ###
