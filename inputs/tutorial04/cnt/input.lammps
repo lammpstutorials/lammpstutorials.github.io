@@ -1,0 +1,52 @@
+# Initialisation
+
+variable	T equal 300
+
+units		metal
+atom_style	full
+boundary	p p p
+pair_style  	airebo 2.5 1 1
+
+# System definition
+read_data	data.lammps
+pair_coeff 	* * CH.airebo C
+mass 		* 12.01
+
+# Simulation settings
+
+group		gcar type 1
+variable	zmax equal bound(gcar,zmax)-0.5
+variable	zmin equal bound(gcar,zmin)+0.5
+region		rtop block INF INF INF INF ${zmax} INF
+region		rbot block INF INF INF INF INF ${zmin}
+region		rmid block INF INF INF INF ${zmin} ${zmax}
+
+group		gtop region rtop
+group		gbot region rbot
+group		gmid region rmid
+
+velocity	gmid create ${T} 48455 mom yes rot yes
+fix		mynve all nve
+compute		Tmid gmid temp
+fix		myber gmid temp/berendsen ${T} ${T} 0.1
+fix_modify	myber temp Tmid
+
+fix 		mysf gbot setforce 0 0 0
+velocity	gbot set 0 0 0
+
+variable	pos equal xcm(gtop,y)
+fix 		at1 all ave/time 10 100 1000 v_pos file cnt_deflection.dat
+dump 		mydmp all atom 1000 dump.lammpstrj
+
+thermo		100
+thermo_modify 	temp Tmid
+
+# Run
+
+timestep	0.0005
+run		5000
+
+# 0.05 eV/A = 80 pN
+fix		myadf gtop addforce 0 0.05 0
+
+run		50000
