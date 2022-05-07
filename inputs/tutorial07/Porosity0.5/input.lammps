@@ -1,4 +1,6 @@
-# LAMMPS input script
+# ------------- LAMMPS input script
+# ------------- author : Simon Gravelle
+# ------------- lammpstutorials.github.io
 
 boundary	s p p
 pair_style	lj/cut 2.5
@@ -6,8 +8,6 @@ pair_style	lj/cut 2.5
 read_data	../Equilibrium/data.lammps
 
 region		right block 0 INF INF INF INF INF
-
-region		membrane block -0.25 0.25 INF INF INF INF
 
 group		solid type 1 2 3
 group		piston_right type 3
@@ -19,6 +19,7 @@ group		solute type 5
 
 neigh_modify 	exclude group solid solid
 
+region		membrane block -0.25 0.25 INF INF INF INF
 delete_atoms 	porosity membrane 0.5 482793
 
 fix		mynve all nve
@@ -50,5 +51,3 @@ dump		mydmp all atom 10000 dump.lammpstrj
 
 thermo		10000
 run		100000000
-
-write_data	data.lammps pair ij
