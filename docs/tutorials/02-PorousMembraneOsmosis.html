@@ -128,14 +128,17 @@ occurs.
 <b>The objective of this tutorial</b> is to build a molecular
 dynamics system made of a rigid porous membrane, two reservoirs containing
 a solute and a solvent, and two pistons.
-There are X main parts to this tutorial:
+There are three main parts to this tutorial:
 <ul>
-<li> <a href="#SystemCreation">System creation- </a> First,
+<li> <a href="#SystemCreation">System creation- </a> First, the system will be
+generated using build-in LAMMPS commands, and the energy of the system will be 
+minimised. 
 </li>
-<li> <a href="#Equilibrium">System equilibration - </a>Then,
+<li> <a href="#Equilibrium">System equilibration - </a>Then, the system will
+be equilibrated using molecular dynamics.
 </li>
-<li> <a href="#Run">Production run - </a>
-Third,
+<li> <a href="#Run">Production run - </a> Finally, long production run will be performed 
+and the flux of solvent though the membrane will be measured. 
 </li>
 </ul>
 </p>
@@ -156,14 +159,15 @@ LAMMPS input file called input.lammps.</p>
 <br>
 <h2>Simulation initialisation</h2>
 <p>
-Let us define some general parameters:
+Let us define some general parameters by adding these two lines to the 
+input.lammps file:
 <pre><code>boundary	s p p
 pair_style	lj/cut 2.5</code></pre></p>
 <p> Here we impose that the boundary conditions along the \(x\), \(y\), and \(z\)
-axis are non-periodic shrink-wrapped, periodic, and periodic, respectively. With
-style "s", the position of the face is set so as to integrate the atoms in that
-dimension (shrink-wrapping), no matter how far they move. Then we set the pair style
-as Lennard-Jones, with a cut-off.
+axis are non-periodic shrink-wrapped ("s"), periodic ("p"), and periodic "p", respectively. With the
+style "shrink-wrapped", the position of the box faces along \(x\) are set so as to integrate the atoms in that
+dimension, no matter how far they move. Then we set the pair style
+as Lennard-Jones, with a cut-off of 2.5 (no unit).
 <br><br>
 Note that we did not set the units, atom_style, or dimension of the simulation,
 as is common to do, because we are using the default value of LAMMPS,
@@ -194,7 +198,7 @@ create_box	5 simulation_box</code></pre></p>
 <p>
 The "5" in create_box indicates that the simulation will contain 5 types of
 atoms (solute, solvent, membrane, and pistons (x2)), see below. Then, let us
-define 5 regions that will be use to place the atoms.
+define 5 regions that will be used to place the atoms.
 <br><br>
 <img src="../figures/tutorial07/LAMMPS_regions.png"
 class="img-fluid" alt="Responsive image">
@@ -239,39 +243,43 @@ will induce the flow of solvent.
 Let us define the simulation settings.
 <pre><code># ------------- Simulation settings
 mass		* 1
-pair_coeff	1*4 1*4 1.0 1.0
-pair_coeff	5 5 2.0 3.0</code></pre></p>
+pair_coeff	1*3 1*3 1.0 1.0 # solid-solid 
+pair_coeff	4 4 1.0 1.0 # solvent-solvent
+pair_coeff	5 5 2.0 3.0 # solute-solute</code></pre></p>
 <p> The mass of all the atoms are set to 1 (unitless). The Lennard-Jones pair coefficient
 between atoms of types 1 to 4 are set to 1 for both the depth of the potential
 well  \(\epsilon\) and the distance at which the particle-particle potential
 energy is zero \(\sigma\) (i.e. the size of the particle).  For the solute (type 5),
 both \(\epsilon\) and \(\sigma\) are set to larger values, thus making the particles
-of the solute effectively larger and more attractive.
+of the solute effectively larger, as well as slightly more attractive to
+the solute (in order to enhance the osmotic flow).
 <br><br>
 By default, the cross-parameters (i.e. between species \(i\) and \(j\)) are automatically calculated by LAMMPS.
 Here, let us tune slightly these cross- parameters. First, let us
 reduce slightly the affinity between the solvent and the walls (to reduce
-unnecessarily large adsorption), and reduce even more the affinity between
-the solute and the wall, and also increase the value of \(\sigma\):
-<pre><code>pair_coeff	1*3 4 0.8 1
-pair_coeff	1*3 5 0.1 3.0</code></pre></p>
+unnecessarily large adsorption of the fluid at the walls), and reduce even more the affinity between
+the solute and the wall. Let us also further increase the the value of \(\sigma\) (for fluid-solute):
+<pre><code>pair_coeff	1*3 4 0.8 1 # fluid-solvent
+pair_coeff	1*3 5 0.1 3.0 # fluid-solute</code></pre></p>
 <p>
-The second line will help prevent the solute to cross the porous membrane too easily.
+The second line will help prevent the solute to cross the porous membrane too easily,
+by making the solute "as seen by the solid wall" appear larger (large \(\sigma\)) and 
+not very attractive energetically (small \(\epsilon\)). 
 </p>
 <br><br>
 <h2>Output and run</h2>
 <p>
-Let us dump the atom position for visualisation purpose,
+Let us dump the atom positions for visualisation purpose,
 <pre><code># ------------- Output
 dump		mydmp all atom 1 dump.lammpstrj
 thermo		10</code></pre></p>
 <p>
-and finally minimise the energy of the system, and print the final position of
-the atoms.
+and finally minimise the energy of the system, and print the final positions of
+the atoms (which we will use as a starting configuration for the next simulation).
 <pre><code># ------------- Run
 minimize	1.0e-4 1.0e-6 1000 10000
 write_data	data.lammps pair ij</code></pre></p>
-<p> With the pair ij keyword, LAMMPS will print the simulation settings (mass and pair_coeff)
+<p> With the pair "ij keyword", LAMMPS will print the simulation settings (mass and pair_coeff)
 in the data.lammps file.
 </p>
 </section>
@@ -296,7 +304,8 @@ read_data	../SystemCreation/data.lammps</code></pre>
 </p>
 <h2>Region and groups</h2>
 <p>Let us define a region corresponding to the right side of the porous membrane,
-which will be used later for recording which atoms are crossing the membrane.
+which will be used later for recording the number of solute and solvent atoms on
+the right side of the membrane (and thus deduce the flux).
 <pre><code>region		right block 0 INF INF INF INF INF</code></pre></p>
 <p>Then, let us group the atoms into groups, which will allow us to control them
 more easily later:
@@ -318,12 +327,11 @@ This command will slightly speeds up the simulation, but won't influence the res
 <p> Now, let us address the molecular dynamics of the atoms. First, let us
 give an initial temperature of 1 (unitless) to the atoms of the fluid:
 <pre><code>velocity 	fluid create 1.0 4928459 mom yes rot yes dist gaussian</code></pre></p>
-<p>Then, let us apply the fix nve to all the atoms in order to the molecular dynamics
-(i.e. the update of the atom positions from the force calculation) to be
-performed:
+<p>Then, let us apply the fix nve to all the atoms in order to perform the molecular dynamics
+(i.e. update the atom positions from the force calculation):
 <pre><code>fix		mynve all nve</code></pre></p>
 <p>
-Note that nve is applied to all atoms, even to solid atoms, even though they
+Note that nve is applied to all atoms, including solid atoms, even though they
 will be maintained frozen (they will be maintained frozen thanks to setforce and addforce fixes, see below).
 For the next step, let us control the temperature of the atoms of the fluid using a Langevin thermostat:
 <pre><code>compute		temperature_fluid fluid temp
@@ -386,11 +394,11 @@ write_data	data.lammps pair ij</code></pre></p>
 <section id="Run">
 <h1>Production run</h1>
 <br>
-<p>Create a thidr folder alongside the two current folders, and call it
+<p>Create a third folder alongside the two current folders, and call it
 Porosity0.5. Create a new LAMMPS input file called input.lammps in it.</p>
 <br>
 <h2>Initialisation and membrane drilling</h2>
-<p>Let us start by copy-pasting similar commands as previously:
+<p>Let us start by copy-pasting similar commands as previously in the input.lammps file:
 <pre><code># LAMMPS input script
 
 boundary	s p p
@@ -419,7 +427,7 @@ porosity can be obtained by changing the fraction of deleted atoms:
 <img src="../figures/tutorial07/membranes.png"
 class="img-fluid" alt="Responsive image">
 <br>
-<small style="color:#6B6B6B">Figure: Membranes with different degree of deleted atoms
+<small style="color:#6B6B6B">Figure: Membranes with different amount of deleted atoms
 </small>
 </p>
 <h2>Dynamics and data printing</h2>
