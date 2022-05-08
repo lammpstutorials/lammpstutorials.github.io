@@ -115,8 +115,7 @@ href="#further">Going further</a>
 <section id="intro">
 <h1>Graphene sheet and carbon nanotube (CNT)</h1>
 <h3>Generation of a graphene sheet and CNT with VMD, and imposed
-deformation using LAMMPS
-</h3>
+deformation using LAMMPS</h3>
 <br>
 <p><img src="../figures/tutorial04/3_graphene.png"
 class="img-fluid" alt="Responsive image">
@@ -125,7 +124,7 @@ class="img-fluid" alt="Responsive image">
 <p>
 <b>The objective of this tutorial</b> is to use molecular
 dynamics and simulate the deformation of simple carbon-based
-structure. There are three main parts to this tutorial:
+structures. There are two main parts to this tutorial:
 <ul>
 <li> <a href="#Generation">System generation - </a> First, a
 graphene sheet will be genetated using VMD and topotool.
@@ -155,14 +154,14 @@ for these tutorials.
 <!-- ======================================================= -->
 <!-- ======================================================= -->
 <section id="Generation">
-<h2>Generation of the graphene sheet</h2>
-<p>
-The initial configuration (atoms positions, bonds, angles, etc.) is
+<h1>Graphene sheet</h1>
+<h2>Generation of the system</h2>
+<p>The initial configuration (atoms positions, bonds, angles, etc.) is
 generated using <a href="https://www.ks.uiuc.edu/Research/vmd/"
 target="_blank" class="removelinkdefault">VMD</a>. Open VMD,
 and go to Extensions, Modeling, Nanotube Builder. A window named
 Carbon Nanostructures opens, and from this window it is possible to
-generate a sheet of graphene or BN, as well as a nanotube. For this
+generate a sheet of graphene or BN, as well as a nanotube. For now
 tutorial, we are going to generate a 4 nm per 4 nm sheet of graphene.
 Simply change the values of "Edge length along x" and "Edge length
 along y" to 4, and click on "Generate Sheet(s)". You shoud see
@@ -223,16 +222,11 @@ Save the "data.lammps" file in the same folder as your future
 LAMMPS input script. We are done with the system generation, we can
 start the molecular dynamics simulations.
 </p>
-</section>
 <br><br>
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<section id="input">
 <h2>LAMMPS input script</h2>
 <p>
 Create a new text file and name it "input.lammps". Copy the
-following lines:
+following lines in it:
 <pre><code># Initialisation
 
 variable	T equal 300
@@ -262,7 +256,7 @@ through a Lennard-Jones potential. Notice that there is no
 Coulombic interaction because all the atoms in pure graphene have
 a charge of 0. The bond, angle, dihedral, and improper styles
 specify the different potentials used to restrain the positions
-of the atoms, you can refer to the LAMMPS website (see for example
+of the atoms For more details, have a look at the LAMMPS website (see for example
 the <a href="https://lammps.sandia.gov/doc/dihedral_opls.html"
 class="removelinkdefault">OPLS dihedral style</a>). The three
 numbers of the special bonds command are weighting factors for the
@@ -270,7 +264,8 @@ Lennard-Jones interaction between atoms connected by bond
 (respectively directly bounded, separated by two bonds, etc.).
 For instance, the first weighting factor, with a value of 0, imposes
 that two atoms connected by a bond do not interact through a LJ
-potential. Then the read data command opens the data.lammps
+potential (therefore they only interact through bonded potentials).
+Then the read data command opens the data.lammps
 file previously generated with VMD, which contains the information
 about the box size, atoms positions, etc.
 <br><br>
@@ -343,7 +338,7 @@ atoms of the group gmid, assuring an initial temperature of
 \(300\,\)K for these atoms. NVE integration is applied to all
 atoms, and a Berendsen thermostat is applied to the atoms of
 the group gmid only. The "fix modify" ensures that the fix
-Berendsten use the temperature of the group gmid as an input,
+Berendsten uses the temperature of the group gmid as an input,
 instead of the temperature of whole system. The atoms of the
 edges are not thermalised because their motion will be restrained.
 <br><br>
@@ -361,7 +356,8 @@ of the two edges, respectively, during the whole simulation along
 \(x\) and \(z\), and the velocity commands set the initial velocities
 along \(x\) and \(z\) to 0 for the atoms of the edges. Therefore,
 the atoms of the edges will remain immobile during the simulation
-(if no other command is applied to them).
+(if no other command is applied to them, of course in order to generate
+the deformation, we will impose a motion to them, see below).
 <br><br>
 Next, in order to
 measure the strain and stress in the graphene sheet, let us
@@ -374,7 +370,7 @@ fix 		at1 all ave/time 10 100 1000 v_L file length.dat
 fix 		at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
 dump 		mydmp all atom 1000 dump.lammpstrj</code></pre>
 <p>
-Notice that the values of the forces on each edge are extracted
+Notice that the values of the force on each edge are extracted
 from the fixes mysf1 and mysf2. These fixes cancel all the forces
 on a group of atoms every timestep, but allow one to extract the
 values of the force before its cancellation. Let us run a small
@@ -394,14 +390,13 @@ terminal, not the temperature of the entire system. Then, we
 perform a loop.
 At each step of the loop, the edges are slightly displaced,
 and the simulation runs for a short time.
-</p>
 <pre><code>variable 	var loop 10
 label 		loop
 displace_atoms	gtop move 0.1 0 0
 displace_atoms	gbot move -0.1 0 0
 run		1000
 next		var
-jump 		input.lammps loop</code></pre>
+jump 		input.lammps loop</code></pre></p>
 <p>
 What you observe should resemble
 <a href="https://www.youtube.com/embed/o5IoCVWpPKg"
@@ -414,14 +409,96 @@ target="_blank" class="removelinkdefault">here</a>.-->
 Always remember that what you measure
 and observe is only as good as your force field.
 </p>
+
+<p>
+Whis this force field, no matter how large is the imposed deformation,
+the bond will never break. To study such bond breaking, one has to use
+a reactive force field, which is done in the next part.
+</p>
 </section>
 <br><br>
 <!-- ======================================================= -->
 <!-- ======================================================= -->
 <!-- ======================================================= -->
 <section id="cnt">
-<h2>Carbon nanotube</h2>
+<h1>Carbon nanotube</h1>
+<p>Using the same protocol as previously, generate a carbon nanotube (just
+untick "bonds" since we dont need them here). Create a LAMMPS input file,
+and as previously, type in it:
+<pre><code># Initialisation
+
+variable	T equal 300
+
+units		metal
+atom_style	full
+boundary	p p p
+pair_style  	airebo 2.5 1 1
+
+# System definition
+read_data	data.lammps</code></pre></p>
+<p>The first difference with the previous case are the units (metal instead of real, because its
+required by the force field we are going to use (carefull, the time is in ps with metal
+instead of fs for real style)). The second difference is the pair_style. We use
+airebo, which is a reactive force field. With reactive force field, bonds between atoms are
+deduced in real time according to the distance between atoms.
+<br><br>
+Then, let us include the LAMMPS data file, and set the pair_coeff:
+
+<pre><code>read_data	data.lammps
+pair_coeff 	* * CH.airebo C</code></pre></p>
 <p>
+The CH.airebo file can be downloaded
+<a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials.github.io/main/inputs/tutorial04/cnt/CH.airebo
+" target="_blank">here</a>. The rest of the script is very similar to the previous one.
+For a change, let us impose a constant velocity to the atoms of one edge, while
+maintaing the other edge fix:
+<pre><code># Simulation settings
+
+group		gcar type 1
+variable	zmax equal bound(gcar,zmax)-0.5
+variable	zmin equal bound(gcar,zmin)+0.5
+region		rtop block INF INF INF INF ${zmax} INF
+region		rbot block INF INF INF INF INF ${zmin}
+region		rmid block INF INF INF INF ${zmin} ${zmax}
+
+group		gtop region rtop
+group		gbot region rbot
+group		gmid region rmid
+
+velocity	gmid create ${T} 48455 mom yes rot yes
+fix		mynve all nve
+compute		Tmid gmid temp
+fix		myber gmid temp/berendsen ${T} ${T} 0.1
+fix_modify	myber temp Tmid
+
+fix 		mysf1 gbot setforce NULL NULL 0
+fix 		mysf2 gtop setforce NULL NULL 0
+velocity	gbot set NULL NULL 0
+velocity	gtop set NULL NULL 0
+
+variable	pos equal xcm(gtop,z)
+fix 		at1 all ave/time 10 100 1000 v_pos file cnt_deflection.dat
+fix 		at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
+dump 		mydmp all atom 1000 dump.lammpstrj
+
+thermo		100
+thermo_modify 	temp Tmid
+
+# Run
+
+timestep	0.0005
+run		5000
+
+# 0.05 A/ps = 10 m/s
+velocity	gtop set NULL NULL 0.05
+
+run		150000</code></pre></p>
+<p>
+Looking at the dump file using VMD, you will see the bonds break,
+similar to <a href="https://www.youtube.com/watch?v=f1ve1j3yA6w"
+target="_blank">this video</a>.
+
+
 </p>
 </section>
 <br><br>
