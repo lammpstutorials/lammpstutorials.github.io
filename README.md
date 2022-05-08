@@ -7,18 +7,27 @@ Some LAMMPS inputs can be found in the Inputs folder.
 ### Tutorials ###
 
 <p float="left">
-  <a href="https://lammpstutorials.github.io/tutorials/tutorial01.html">
+  <a href="https://lammpstutorials.github.io/tutorials/01-SimpleMolecularSimulation.html">
   <img src="docs/figures/tutorial01/avatar.jpg" width="32%" /></a>
-  <a href="https://lammpstutorials.github.io/tutorials/tutorial02.html">
-  <img src="docs/figures/tutorial02/avatar.jpg" width="32%" /></a>
-  <a href="https://lammpstutorials.github.io/tutorials/tutorial03.html">
+
+  <a href="https://lammpstutorials.github.io/tutorials/02-PorousMembraneOsmosis.html">
+  <img src="docs/figures/tutorial07/avatar.jpg" width="32%" /></a>
+
+  <a href="https://lammpstutorials.github.io/tutorials/03-NanoconfinedElectrolyte.html">
   <img src="docs/figures/tutorial03/avatar.jpg" width="32%" /></a>
-  <a href="https://lammpstutorials.github.io/tutorials/tutorial04.html">
+  
+  <a href="https://lammpstutorials.github.io/tutorials/04-Graphene.html">
   <img src="docs/figures/tutorial04/avatar.jpg" width="32%" /></a>
-  <a href="https://lammpstutorials.github.io/tutorials/tutorial05.html">
+  
+  <a href="https://lammpstutorials.github.io/tutorials/05-FluidCrack.html">
   <img src="docs/figures/tutorial05/avatar.jpg" width="32%" /></a>
-  <a href="https://lammpstutorials.github.io/tutorials/tutorial06.html">
+  
+  <a href="https://lammpstutorials.github.io/tutorials/06-FreeEnergy.html">
+  <img src="docs/figures/tutorial02/avatar.jpg" width="32%" /></a>
+  
+  <a href="https://lammpstutorials.github.io/tutorials/07-AdsorptionInterface.html">
   <img src="docs/figures/tutorial06/avatar.jpg" width="32%" /></a>
+ 
 </p>
 
 ### Miscellaneous ###
