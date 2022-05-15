@@ -322,7 +322,10 @@ LAMMPS to try to built neighbor list between the solid atoms.
 <pre><code>neigh_modify 	exclude group solid solid</code></pre></p>
 <p>
 This command will slightly speeds up the simulation, but won't influence the result.
-</p>
+Let us also slightly change the default parameters for the default neighbor
+search, and this avoid having dangerous builds (like we did in this <a href="01-SimpleMolecularSimulation.html">tutorial</a> )
+<pre><code>neigh_modify 	every 1 delay 5 check yes</code></pre></p>
+
 <h2>Dynamics</h2>
 <p> Now, let us address the molecular dynamics of the atoms. First, let us
 give an initial temperature of 1 (unitless) to the atoms of the fluid:
@@ -416,7 +419,8 @@ group		fluid type 4 5
 group		solvent type 4
 group		solute type 5
 
-neigh_modify 	exclude group solid solid</code></pre></p>
+neigh_modify 	exclude group solid solid
+neigh_modify 	every 1 delay 5 check yes</code></pre></p>
 <p>
 Then, let us delete randomly \(50\%\) of the atoms of the membrane:
 <pre><code>region		membrane block -0.25 0.25 INF INF INF INF
