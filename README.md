@@ -2,9 +2,7 @@
 <img src="docs/figures/welcome.png" width="80%" /></a>
 
 This is the script of the webpage [LAMMPS Tutorials](https://lammpstutorials.github.io/). 
-Some LAMMPS inputs can be found in the Inputs folder. 
-
-### Tutorials ###
+Some LAMMPS inputs can be found in the inputs folder. 
 
 <p float="left">
   <a href="https://lammpstutorials.github.io/tutorials/01-SimpleMolecularSimulation.html">
@@ -28,17 +26,20 @@ Some LAMMPS inputs can be found in the Inputs folder.
   <a href="https://lammpstutorials.github.io/tutorials/07-AdsorptionInterface.html">
   <img src="docs/figures/tutorial06/avatar.jpg" width="32%" /></a>
  
-</p>
-
-### Miscellaneous ###
-
-<p float="left">
   <a href="https://lammpstutorials.github.io/miscellaneous/checklist.html">
   <img src="docs/figures/checklist/avatar.jpg" width="32%" /></a>
+  
   <a href="https://lammpstutorials.github.io/miscellaneous/vmd.html">
   <img src="docs/figures/vmd/avatar.jpg" width="32%" /></a>
+  
   <a href="https://lammpstutorials.github.io/miscellaneous/LAMMPSscripts.html">
-  <img src="docs/figures/scripts_avatar.jpg" width="32%" /></a>
+  <img src="docs/figures/scripts/avatar.jpg" width="32%" /></a>
+  
+  <a href="https://maicos-devel.gitlab.io/maicos/index.html">
+  <img src="docs/figures/maicos/avatar.jpg" width="32%" /></a>
+  
+  <a href="https://nmrformd.readthedocs.io/en/latest/">
+  <img src="docs/figures/nmrformd/avatar.jpg" width="32%" /></a>
 </p>
 
 ### About the author ###
