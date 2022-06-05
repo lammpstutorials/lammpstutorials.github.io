@@ -21,7 +21,8 @@ neigh_modify 	exclude group solid solid
 neigh_modify 	every 1 delay 5 check yes
 
 region		membrane block -0.25 0.25 INF INF INF INF
-delete_atoms 	porosity membrane 0.5 482793
+#delete_atoms 	porosity membrane 0.5 482793 # for older LAMMPS version
+delete_atoms 	random fraction 0.5 no all membrane 482793 # for newer LAMMPS version
 
 fix		mynve all nve
 compute		temperature_fluid fluid temp

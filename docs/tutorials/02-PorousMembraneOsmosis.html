@@ -193,12 +193,15 @@ of the solid wall atoms, define the simulation_box region, and use it to
 create the initial box:
 <pre><code># ------------- System definition
 lattice 	fcc 1
-region		simulation_box block -50 50 -15 15 -15 15
+region		simulation_box block -50 50 -5 5 -5 5
 create_box	5 simulation_box</code></pre></p>
 <p>
 The "5" in create_box indicates that the simulation will contain 5 types of
-atoms (solute, solvent, membrane, and pistons (x2)), see below. Then, let us
-define 5 regions that will be used to place the atoms.
+atoms (solute, solvent, membrane, and pistons (x2)), see below. 
+Here, a box of dimension 100 by 10 by 10 (unitless) is used, while a box of 100 
+by 30 by 30 was used to generate the figures used in this page. This choice was
+made to speed-up the calculation. If you have a good computer, feel free to increase 
+the system size. Then, let us define 5 regions that will be used to place the atoms.
 <br><br>
 <img src="../figures/tutorial07/LAMMPS_regions.png"
 class="img-fluid" alt="Responsive image">
@@ -280,7 +283,9 @@ the atoms (which we will use as a starting configuration for the next simulation
 minimize	1.0e-4 1.0e-6 1000 10000
 write_data	data.lammps pair ij</code></pre></p>
 <p> With the pair "ij keyword", LAMMPS will print the simulation settings (mass and pair_coeff)
-in the data.lammps file.
+in the data.lammps file. The dump file can be opened with VMD. If you do so, 
+you will notice that some atoms are moving slightly as they were to close from 
+each other.
 </p>
 </section>
 <br><br>
@@ -380,15 +385,16 @@ thermo_modify	temp temperature_fluid</code></pre></p>
 <p>
 </p>
 <h2>Run</h2>
-<p>Finally, let us run the equilibration for 1 million timesteps and save the final state
+<p>Finally, let us run the equilibration for 20000 timesteps and save the final state
 of the simulation:
 <pre><code># ------------- Run
-run		1000000
+run		20000
 
 write_data	data.lammps pair ij</code></pre></p>
 <p>
-
-</p>
+This equilibration time is too short and has been chosen in order to keep the computational 
+cost as low as possible. If you are planning to study the osmosis using molecular 
+dynamics, you may want to increase it to at least 1 million timesteps. 
 </section>
 <br><br>
 <!-- ======================================================= -->
@@ -425,7 +431,10 @@ neigh_modify 	every 1 delay 5 check yes</code></pre></p>
 Then, let us delete randomly \(50\%\) of the atoms of the membrane:
 <pre><code>region		membrane block -0.25 0.25 INF INF INF INF
 delete_atoms 	porosity membrane 0.5 482793</code></pre></p>
-<p> This command deletes \(50\%\) of the atoms of the membrane region. The last
+<p>or 
+<pre><code>delete_atoms 	random fraction 0.5 no all membrane 482793 # for newer LAMMPS version</code></pre></p>
+<p> if you are using the most recent LAMMPS version. This command deletes \(50\%\) 
+of the atoms of the membrane region. The last
 number is a seed, change its value to generate different pattern, and different
 porosity can be obtained by changing the fraction of deleted atoms:
 <img src="../figures/tutorial07/membranes.png"
@@ -468,7 +477,15 @@ dump		mydmp all atom 10000 dump.lammpstrj
 thermo		10000
 run		100000000</code></pre></p>
 
-<p> Here I plot the number of solvent atoms in the right reservoir as a function
+<p> This simulation may take several hours to complete, depending on the
+number of processors you use: you can use more that one processor for your simulation
+by using :
+<pre><code>mpirun -np 4 lmp -in input.lammps</code></pre></p>
+<p>where 4 is the number of desired processors. 
+
+<br><br>
+
+Here I plot the number of solvent atoms in the right reservoir as a function
 of time for different membrane porosity:
 <br>
 <img src="../figures/tutorial07/solvent_left.png"
