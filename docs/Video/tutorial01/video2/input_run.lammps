@@ -1,0 +1,47 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# lammpstutorials.github.io
+
+# -------------	Initialization
+units		lj
+dimension 	2
+atom_style	atomic
+pair_style	lj/cut 2.5
+boundary	p p p
+
+# ------------- System definition
+read_data	data.min.lammps
+region		mycylin cylinder z 0 0 15 INF INF side in
+region		mycylou cylinder z 0 0 15 INF INF side out
+group		mytype1 type 1
+group		mytype2 type 2
+group		incyl region mycylin
+group		oucyl region mycylou
+group		type1in intersect mytype1 incyl
+group		type2ou intersect mytype2 oucyl
+delete_atoms	group type1in
+delete_atoms	group type2ou
+
+# ------------- Simulation settings
+mass		1 1
+mass		2 1
+pair_coeff	1 1 1.0 1.0
+pair_coeff	2 2 0.5 3.0
+neigh_modify	every 1 delay 5 check yes
+dump 		mydmp all atom 10000 dump.lammpstrj
+
+variable	Ntype1in equal count(mytype1,mycylin)
+variable	Ntype1ou equal count(mytype1,mycylou)
+variable	Ntype2in equal count(mytype2,mycylin)
+variable	Ntype2ou equal count(mytype2,mycylou)
+fix		myat1 all ave/time 1000 1 1000 v_Ntype1in v_Ntype1ou file population1vstime.dat
+fix		myat2 all ave/time 1000 1 1000 v_Ntype2in v_Ntype2ou file population2vstime.dat
+
+# ------------- Run
+velocity 	all create 1.0 4928459 mom yes rot yes dist gaussian
+fix		mynve all nve
+fix		mylgv all langevin 1.0 1.0 0.1 1530917 zero yes
+fix		myefn all enforce2d
+timestep	0.005
+thermo		50000
+run		1000000
