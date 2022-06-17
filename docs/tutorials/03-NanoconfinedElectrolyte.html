@@ -318,8 +318,8 @@ pair_coeff 	1 1 0.185199 3.1589
 pair_coeff 	2 2 0.0 0.0
 pair_coeff	3 3 0.04690 2.4299
 pair_coeff	4 4 0.1500 4.04470
-pair_coeff	5 5 11.697 3.55
-pair_coeff	6 6 11.697 3.55
+pair_coeff	5 5 11.697 2.574
+pair_coeff	6 6 11.697 2.574
 
 bond_coeff 	1 0 0.9572
 
@@ -434,6 +434,9 @@ class="img-fluid" alt="Responsive image">
 <!-- ======================================================= -->
 <section id="minimisation">
 <h2>Energy minimisation</h2>
+
+<h4><b>Why is this step necessary?</b></h4>
+
 <p>
 It is clear from the way the system has been created that
 the atoms are not at equilibrium distances from each others.
@@ -446,17 +449,21 @@ huge forces on each others, as a consequence they would
 accelerate brutally, and the simulation would fail. 
 </p>
 <p>
-<blockquote><i>MD simulations failling due to overlapping atoms
+<blockquote><i>MD simulations failing due to overlapping atoms
 is extremely common. If it occurs, you can either (1) 
 delete the overlapping atoms or (2) move the atoms to more 
-resonable distances (here we do the second one).</i>
+reasonable distances (here we do the second one).</i>
 </blockquote>
 </p>
 <p>
 Here we need to find a way to move the atoms
 and place them in a more favorable position before starting
-the simulation. This step is called 'energy minimisation',
-and is often necessary. To do so, let us open a new blank
+the simulation. This step is called 'energy minimization',
+and is often necessary. 
+</p>
+<h4><b>Implementation</b></h4>
+<p>
+To perform the energy minimization on our system, let us open a new blank
 sheet in the same folder, and rename it input.02.lammps.
 The first lines will be very similar to the previous input file:
 <pre><code># ------------- Initialisation
@@ -525,7 +532,7 @@ exerted on the atoms of the group over \(z\). As a consequence,
 the atoms of the group 'gtopwall' move as a block along \(z\) 
 (and the same for the bottom wall).
 <br><br>
-Now, we can include the most important commands for the minimisation:
+Now, we can include the most important commands for the minimization:
 <pre><code>fix		mynve all nve
 compute		tliq gliquid temp
 fix		myber gliquid temp/berendsen 1 1 1
@@ -537,13 +544,13 @@ constant NVE integration to update positions and velocities
 of the atoms at each timestep. The 'temp/berendsen' fix
 rescales the velocities of the atoms of the group liquid
 (ions + water) every timestep in order to reset
-the temperature. Since we want to perform a minimisation
+the temperature. Since we want to perform a minimization
 step, both initial and final temperatures have been chosen
 equal to 1K. The third parameter is the damping factor,
 in time units, which determines how rapidly the temperature
 is relaxed. A damping factor of 1 fs would be too small
 for a molecular dynamics simulation, but is acceptable
-for a minimisation step during which we just want the
+for a minimization step during which we just want the
 atoms to move slightly from their initial positions.
 The 'fix_modify' is used to assign the temperature of
 the group 'gliquid' as calculated by the compute 'tliq'
@@ -580,9 +587,10 @@ thermo		500
 run		5000
 write_data	data.02.lammps</code></pre>
 </p>
+<h4><b>Result</b></h4>
 <p>
-In the terminal, you should see that the total energy of
-the system (fifth column) decreases during the energy minimisation:
+When running the input.02.lammps file, you should see that the total energy of
+the system (fifth column) decreases toward negative values:
 <pre><code>Step Temp E_pair E_mol TotEng Press 
        0            0    105943.88            0    105943.88    178061.22 
      500     3.161202   -7033.8737            0   -6979.0416   -3364.4997 
@@ -597,8 +605,9 @@ the system (fifth column) decreases during the energy minimisation:
     5000    4.3296591   -13339.374            0   -13264.275   -6393.1841 </code></pre>
 </p>
 <p>
-What you observe by opening the dump file using VMD should
-resemble <a href="https://youtu.be/JWGZnFN4TOo"
+If you look at the trajectory using VMD, you will see some of the atoms (the
+one that where initially in a problematic position) slightly move from each others,
+as seen in <a href="https://youtu.be/JWGZnFN4TOo"
 target="_blank">this video</a>.
 </p>
 </section>
@@ -609,7 +618,7 @@ target="_blank">this video</a>.
 <section id="equilibration">
 <h2>System equilibration</h2>
 <p>
-Starting from the final configuration of the minisation
+Starting from the final configuration of the minimization
 step, we can now run the molecular dynamics simulation.
 Here we are going to let the system evolve freely until it
 reaches an equilibrium. Let us create a new input file
@@ -673,7 +682,12 @@ target="_blank">this video</a>.
 The 'thermo_modify' ensures that the printed temperature 
 is the temperature of the liquid, and not the temperature 
 of the whole system which is lower (because the walls are frozen 
-and have an effective temperure of 0 K)
+and have an effective temperature of 0 K)
+</p>
+
+<p>
+Running the last input script is likely to take time (more than 30 minutes). You
+can speed up the calculation by running LAMMPS on multiple cores using mpirun. 
 </p>
 
 <p class="alert alert-info"> 
@@ -719,7 +733,7 @@ frozen walls. Flexible walls can be thermalised, and are therefore more
 realistic.
 </p>
 
-<h4><b>Exercise 3: Simulate the transport properties </b></h4>
+<h4><b>Exercise 3 : Simulate the transport properties </b></h4>
 
 <p>
 Starting from the equilibrated configuration (data.03.lammps), induce 
@@ -728,13 +742,19 @@ the velocity profile.
 </p>
 
 <blockquote><i>
-Advice: when inducing a flow in a direction \(i\), one need to exclude 
-the degree of freedom in the direction \(i\) from the thermalisation, 
+Advice 1: when inducing a flow in a direction \(i\), one needs to exclude 
+the degrees of freedom in the direction \(i\) from the thermalisation, 
 otherwise the resulting temperature is likely to be wrong.
 </blockquote></i>
 
+<blockquote><i>
+Advice 2: the forcing must be chosen with care. If too large, the system will
+be strongly out-of-equilibrium. If too small, no net velocity will be measured
+because of the noise.
+</blockquote></i>
+
 <p>
-Is the velocity profile consistent with Poiseuille's predictions?
+Is the velocity profile you obtain consistent with Poiseuille's predictions?
 </p>
 
 
