@@ -38,27 +38,8 @@ src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <img src="../figures/logo.png"
 alt="LAMMPS tutorials" height="60"/>
 </a>
-<!--<button class="navbar-toggler ml-auto" type="button"
-data-toggle="collapse" data-target="#header-nav">
-<span></span>
-<span></span>
-<span></span>
-</button>-->
 <div id="header-nav" class="collapse navbar-collapse justify-content-end">
 <ul class="navbar-nav">
-<!--
-<li class="dropdown"> <a class="dropdown-toggle" href="#">All tutorials</a>
-<ul class="dropdown-menu">
-<li><a class="dropdown-item" href="tutorial01.html">Tutorial 1</a></li>
-<li><a class="dropdown-item" href="tutorial02.html">Tutorial 2</a></li>
-<li><a class="dropdown-item" href="tutorial03.html">Tutorial 3</a></li>
-<li><a class="dropdown-item" href="tutorial04.html">Tutorial 4</a></li>
-<li><a class="dropdown-item" href="tutorial05.html">Tutorial 5</a></li>
-<li><a class="dropdown-item" href="tutorial06.html">Tutorial 6</a></li>
-<li><a class="dropdown-item" href="tutorial07.html">Tutorial 7</a></li>
-</ul>
-</li>
--->
 <li>
 <a href="../index.html">
 All tutorials
@@ -101,8 +82,6 @@ href="#minimisation">Energy minimisation</a></li>
 <li class="nav-item"><a class="nav-link"
 href="#equilibration">System equilibration</a></li>
 <li class="nav-item"><a class="nav-link"
-href="#density">Density profile</a></li>
-<li class="nav-item"><a class="nav-link"
 href="#further">Going further</a></li>
 </ul>
 </div>
@@ -110,7 +89,7 @@ href="#further">Going further</a></li>
 <div class="container">
 <section id="intro">
 <h1>Nanoconfined electrolyte</h1>
-<h3>Molecular dynamics simulation of water liquid with and salt
+<h3>Molecular dynamics simulation of an aqueous NaCl solution confined
 between two solid walls</h3>
 <br>
 <p><img src="../figures/tutorial03/nanoconfinedwater.png"
@@ -119,20 +98,21 @@ class="img-fluid" alt="Responsive image">
 <br>
 <p><b>The objective of this tutorial</b> is to use molecular
 dynamics and simulate an electrolyte confined between two rigid
-carbon walls. There are four main parts to this tutorial:
+carbon walls. There are several main parts to this tutorial:
 <ul>
 <li> <a href="#generation">System generation - </a>
-First, we are going to generate the electrolyte and the
-two walls.</li>
+First, the electrolyte and the
+two walls are generated using LAMMPS internal commands.</li>
 <li> <a href="#minimisation">Minimisation -
-</a>Seconds, an energy minimisation will be done to
+</a>Seconds, an energy minimisation is performed to
 bring the system in a more favorable configuration.</li>
 <li> <a href="#equilibration">System equilibration -
-</a> Third, the system will be equilibrated at a
-pressure of 1 atm.</li>
-<li> <a href="#density">Density profile measurement - </a>
-Finally, the density profile will be extracted using
-the python library MAICoS.</li>
+</a> Third, the system is equilibrated at a
+pressure of 1 atm and temperature of 300 K.</li>
+<li> <a href="#further">Going further with exercice - </a>
+Finally, some exercices are proposed (just send me an email
+if you want the solutions, or register <a target="_blank"
+href="https://www.patreon.com/molecularsimulations">here</a>).</li>
 </ul>
 </p>
 <p>If you are new to LAMMPS, I recommend you to follow
@@ -152,7 +132,7 @@ for these tutorials.
 <section id="generation">
 <h2>System generation</h2>
 <p>Create a new folder that will contain all the files. Open a
-blank page using the text editor, and save it in the new
+blank page using a text editor, and save it in the new
 folder using the name 'input.01.lammps'. Note that the '.lammps'
 extension has no importance. Copy the following lines
 into input.01.lammps:
@@ -167,18 +147,21 @@ kspace_style	pppm/tip4p 1.0e-4</code></pre>
 <p>
 <b>Explanations:</b> There are many differences with respect to
 <a href="tutorial01.html">tutorial 01</a>. With the unit
-style 'real', a masse in in grams per mole, a distance in
-Ångstroms, the time in femtoseconds,the energy in Kcal/mole.
+style 'real', masses are in grams per mole, distances in
+Ångstroms, time in femtoseconds, energies in Kcal/mole.
 With the atom style 'full', each atom is a dot with a mass
 and a charge. In addition, each atom can be linked by bonds,
-angles, dihedrals and impropers to form molecules. The
-'bond_style' and 'angle_style' commands define what style
-of bond and angle to use in the simulation, and the 'harmonic'
-keyword imposes the potential to use.
-<br><br>
-Note: with a rigid water model, the bond and angle styles are
-not really relevant, but LAMMPS requires them to be specified.
-<br><br>
+angles, dihedrals and impropers potentials (for example to 
+form molecules). The
+'bond_style' and 'angle_style' commands define the styles
+of bond and angle used in the simulation, respectively, 
+and the 'harmonic' keyword imposes the potential to use.
+<blockquote><i>
+Note: with the rigid water model that is used here, the bond 
+and angle styles are not relevant, but LAMMPS requires them 
+to be specified.
+</blockquote></i>
+</p><p>
 With the 'pair_style' named 'lj/cut/tip4p/long', atoms
 interact through both a Lennard-Jones (LJ) potential and
 through Coulombic interactions. This style is specific to
@@ -217,28 +200,27 @@ by solving Poisson's equation using periodic boundary
 conditions (PBCs).</i>
 </blockquote>
 </p>
-<p>Now that the parameters of the simulation have been
-specified, let us create the box. Copy the following lines
-into input.01.lammps, below the 'kspace_style' command.
+<p>Let us create the box: copy the following lines
+into input.01.lammps, after the 'kspace_style' command:
 <pre><code># ------------- System definition
-lattice		diamond 3.57
+lattice 	fcc 4.04
 region		box block -5 5 -5 5 -13 13
 create_box	6 box &
-bond/types 1 &
-angle/types 1 &
-extra/bond/per/atom 2 &
-extra/angle/per/atom 1 &
-extra/special/per/atom 2</code></pre>
+		bond/types 1 &
+		angle/types 1 &
+		extra/bond/per/atom 2 &
+		extra/angle/per/atom 1 &
+		extra/special/per/atom 2</code></pre>
 </p>
 <p>
 <b>Explanations:</b> The 'lattice' command defines the
-unit cell. Here 'diamond'
-with a scale factor of 3.57 has been chosen for the future
-positioning of the carbon atoms in a diamond cubic lattice.
+unit cell. Here 'fcc'
+with a scale factor of 4.04 has been chosen for the future
+positioning of the carbon atoms in a cubic crystal lattice.
 The 'region' command defines a geometric region of space,
 and by choosing 'xlo=-5' and 'xhi=5', and because we have
-previously chosen a lattice with scale factor of 3.57,
-the region 'box' extends from -17.86 to 17.86 Ångström
+previously chosen a lattice with scale factor of 4.04,
+the region 'box' extends from -20.2 to 20.2 Ångström
 (units of lengths are in Ångstrom because we have chosen the
 unit style 'real'). Finally, the 'create_box' command creates
 a simulation box with 6 types of atoms in the simulation:
@@ -276,7 +258,7 @@ positions, bonds, and angle. Then, add the following
 lines to input.01.lammps:
 <pre><code># ------------- create the fluid
 region		rliquid block -5 5 -5 5 -9 9
-lattice		sc 4.0
+lattice		sc 4.04
 molecule 	h2omol TIP4P2005.txt
 create_atoms 	0 region rliquid mol h2omol 482793</code></pre>
 </p>
@@ -284,13 +266,15 @@ create_atoms 	0 region rliquid mol h2omol 482793</code></pre>
 <b>Explanations:</b> With the last four lines,
 a region used to deposit the
 water is created on the last defined lattice, which is
-'lattice diamond 3.57'. Then, on the next line, we define
+'fcc 4.04'. Then, on the next line, we define
 a new simple cubic lattice in order to position the water
-molecules on it, with a distance of 4 Ångstroms between
-each water molecule. Note that 4 Ångstroms is larger than
+molecules on it, with a distance of 4.04 Ångstroms between
+each water molecule (note: the new lattice replaces the 
+previous one, LAMMPS reads a script from top to bottom). Note 
+that 4.04 Ångstroms is larger than
 the typical equilibrium distance between water molecules
 in a liquid, but this will allow us to insert ions more
-safely. Then, the 'molecule' command open the 'TIP4P2005.txt'
+safely. Then, the 'molecule' command opens the 'TIP4P2005.txt'
 file, and name the associated molecule 'h2omol'.
 Finally, molecules are created on the sc lattice by the
 'create_atoms' command. The first parameter is '0' because
@@ -306,11 +290,13 @@ fix		mydep2 all deposit 10 4 1 58613 region rliquid near 0.3</code></pre>
 Each 'fix deposit' will add one ion at a random position
 within the 'rliquid' region every timestep. So we can just
 make a very short simulation of 10 timesteps and export
-the generated configuration. Note that 'mydep1' and 'mydep2'
+the generated configuration. Feel free to increase the salt
+concentration by increasing both number of steps and number of 
+desired ions in the 'deposit' fixes. Note that 'mydep1' and 'mydep2'
 are the name I choose to give to the fix.
 <br><br>
 We need to define the parameters of the simulation: the mass
-of the 6 atoms (O, H, Na, Cl, C, C), the pairwise interaction
+of the 6 atoms (O, H, Na, Cl, Al, Al), the pairwise interaction
 parameters (here the parameters for the Lennard-Jones
 potential), and the bond and angle parameters. Copy the
 following line into input.01.lammps:
@@ -325,15 +311,15 @@ the following lines into PARM.lammps:
 mass 		2 1.008
 mass		3 28.990
 mass		4 35.453
-mass		5 12.011
-mass		6 12.011
+mass		5 26.9815
+mass		6 26.9815
 
 pair_coeff 	1 1 0.185199 3.1589
 pair_coeff 	2 2 0.0 0.0
 pair_coeff	3 3 0.04690 2.4299
 pair_coeff	4 4 0.1500 4.04470
-pair_coeff	5 5 0.07 3.55
-pair_coeff	6 6 0.07 3.55
+pair_coeff	5 5 11.697 2.574
+pair_coeff	6 6 11.697 2.574
 
 bond_coeff 	1 0 0.9572
 
@@ -343,11 +329,11 @@ angle_coeff 	1 0 104.52</code></pre>
 <b>Explanations:</b> The parameters for water (mass 1,
 mass 2, pair_coeff 1 1, pair coeff 2 2, bond_coeff 1 and
 angle_coeff 1) are given by the TIP4P/2005 force field,
-the parameters for Na and Cl (mass 3, mass 4, pair_coeff 3 3,
+the parameters for Na\(^+\) and Cl\(^-\) (mass 3, mass 4, pair_coeff 3 3,
 pair_coeff 4 4) are given by the CHARMM-27 force field,
-and the parameters for the carbon atoms (mass 5, mass 6,
-pair_coeff 5 5, pair coeff 6 6) are given by the AMBER force
-field. Each 'mass' command assigns a mass in grams/mole to
+and the parameters for the wall (mass 5, mass 6,
+pair_coeff 5 5, pair coeff 6 6) are parameters for Al atoms. 
+Each 'mass' command assigns a mass in grams/mole to
 an atom type. Each 'pair_coeff' assigns respectively
 the depth of the potential in Kcal/mole, and the distance
 at which the particle-particle potential energy in Ångstrom.
@@ -358,61 +344,78 @@ and j by using the geometrical rule. Other rules can be
 set with the 'pair_modify' command, but for the sake of
 simplicity, we are going to keep the default option here.
 <br><br>
-The bond coefficients (here for the O-H bond of the water
-molecule) set respectively the energy of the harmonic
+The bond coefficient (here for the O-H bond of the water
+molecule) sets respectively the energy of the harmonic
 potential and the equilibrium distance in Ångstrom.
 The value is '0' for the energy, because we are going
 to use a rigid model for the water molecule. The shape of
 the molecule will be preserved by the shake algorithm
 (see later). Similarly, the angle coefficient (here for
-the H-O-H angle of the water molecule) set the energy of
-the harmonic potential (also 0) and the equilibrium angle in degree.
+the H-O-H angle of the water molecule) sets the energy of
+the harmonic potential (also 0) and the equilibrium angle 
+is in degree.
 <br><br>
 Finally, add the following line to input.01.lammps:
-<pre><code>set 		type 3 charge 1.0
-set 		type 4 charge -1.0
+<pre><code>
 dump 		mydmp all image 10 dump.*.jpg type type
 
 # ------------- run
 run		10
+
+set 		type 3 charge 1.0
+set 		type 4 charge -1.0
+
 write_data	data.01.lammps</code></pre>
 </p>
 <p>
-<b>Explanations:</b> The 'run 10' indicates that the
-simulation must run for 10 timesteps. The value of the
+<b>Explanations:</b> The 'run 10' requires the
+simulation to run for 10 timesteps. The value of the
 timestep (1 fs by default) does not matter yet because
 the atoms are not moving. We also need to specify the charge
-of the newly added ion, which is done using the 'set'
-commands. The write 'data_file' will create a file named
+of the newly added ions, which is done using the 'set'
+commands. The write 'data_file' finally creates a file named
 'data.01.lammps' containing all the information
 required to restart the simulation from the final configuration
-generated by input.01.lammps. The 'dump' command with the '
-image' image option will generate images of the system.
+generated by input.01.lammps. The 'dump' command with the 
+'image' option will save 'jpg' images of the system.
 <br><br>
 The first input script is ready to be executed with LAMMPS.
 In the terminal
 windows, you should see something like that:
 <pre><code>LAMMPS (20 Nov 2019)
-Lattice spacing in x,y,z = 3.57 3.57 3.57
-Created orthogonal box = (-17.85 -17.85 -46.41) to (17.85 17.85 46.41)
-1 by 1 by 1 MPI processor grid
-Created 1800 atoms
-create_atoms CPU = 0.00362534 secs
-Created 1800 atoms
-create_atoms CPU = 0.000742934 secs
+Lattice spacing in x,y,z = 4.04 4.04 4.04
+Created orthogonal box = (-20.2 -20.2 -52.52) to (20.2 20.2 52.52)
+  1 by 1 by 1 MPI processor grid
+Created 1000 atoms
+  create_atoms CPU = 0.00466238 secs
+Created 1000 atoms
+  create_atoms CPU = 0.000538191 secs
 Lattice spacing in x,y,z = 4 4 4
-Read molecule h2omol:
-3 atoms with max type 2
-2 bonds with max type 1
-1 angles with max type 1
-0 dihedrals with max type 0
-0 impropers with max type 0
-Created 4131 atoms
-create_atoms CPU = 0.0022682 secs
 
 (...)
 
-Total wall time: 0:00:02</code></pre>
+Per MPI rank memory allocation (min/avg/max) = 35.92 | 35.92 | 35.92 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0 8.5279913e+20            0 8.5279913e+20 1.3643111e+21 
+      10            0 8.5279913e+20            0 8.5279913e+20 1.3643111e+21 
+Loop time of 1.65591 on 1 procs for 10 steps with 8917 atoms
+
+Performance: 0.522 ns/day, 45.998 hours/ns, 6.039 timesteps/s
+99.2% CPU use with 1 MPI tasks x no OpenMP threads
+
+(...)
+
+Neighbor list builds = 10
+Dangerous builds = 0
+Setting atom values ...
+  10 settings made for charge
+Setting atom values ...
+  10 settings made for charge
+System init for write_data ...
+
+(...)
+
+Total wall time: 0:00:01</code></pre>
 </p>
 <p>
 If the simulation is successfully, a file named 'data01.lammps'
@@ -431,6 +434,9 @@ class="img-fluid" alt="Responsive image">
 <!-- ======================================================= -->
 <section id="minimisation">
 <h2>Energy minimisation</h2>
+
+<h4><b>Why is this step necessary?</b></h4>
+
 <p>
 It is clear from the way the system has been created that
 the atoms are not at equilibrium distances from each others.
@@ -440,11 +446,24 @@ to start a 'normal' molecular dynamics simulation now
 (i.e. solve the equations of motion) with a 'normal'
 timestep (1  or 2 femto-seconds), the atoms would exert
 huge forces on each others, as a consequence they would
-accelerate brutally, and the simulation would most probably
-fail. Therefore we need to find a way to move the atoms
+accelerate brutally, and the simulation would fail. 
+</p>
+<p>
+<blockquote><i>MD simulations failing due to overlapping atoms
+is extremely common. If it occurs, you can either (1) 
+delete the overlapping atoms or (2) move the atoms to more 
+reasonable distances (here we do the second one).</i>
+</blockquote>
+</p>
+<p>
+Here we need to find a way to move the atoms
 and place them in a more favorable position before starting
-the simulation. This step is called 'energy minimisation',
-and is often necessary. To do so, let us open a new blank
+the simulation. This step is called 'energy minimization',
+and is often necessary. 
+</p>
+<h4><b>Implementation</b></h4>
+<p>
+To perform the energy minimization on our system, let us open a new blank
 sheet in the same folder, and rename it input.02.lammps.
 The first lines will be very similar to the previous input file:
 <pre><code># ------------- Initialisation
@@ -475,17 +494,18 @@ group		gCl type 4
 group		gliquid type 1 2 3 4
 group		gtopwall type 5
 group		gbotwall type 6
-neigh_modify 	exclude group gtopwall gtopwall
-neigh_modify 	exclude group gbotwall gbotwall
+group		gwall type 5 6
+neigh_modify 	exclude group gwall gwall
 dump 		mydmp all atom 1000 dump.02.lammpstrj</code></pre>
 </p>
 <p>
 Creating groups allows us to apply different dynamics
 to the liquid and to the walls. The 'neigh_modify'
-commands ask to LAMMPS not
-to evaluate interactions between the atoms of a wall,
-because internal deformations are not permitted.
-The 'neigh_modify' commands are not necessary, but save
+command asks to LAMMPS not
+to evaluate interactions between the atoms of the walls. 
+This command is used here because internal 
+deformations of the walls will not be permitted (rigid walls).
+The 'neigh_modify' command is not necessary, but save
 computation time. The last line asks LAMMPS to generate
 a dump file with the atoms positions.
 <br><br>
@@ -501,17 +521,18 @@ fix		myaf2 gbotwall aveforce NULL NULL 0</code></pre>
 <p>
 The first fix 'setforce' applies to the group
 'gtopwall', which contains all of the atoms of type 5.
-This fix cancels the x and y components of the forces
+This fix cancels the \(x\) and \(y\) components of the forces
 applied on the atoms of the group at each timestep.
-Therefore, given that these atoms have no initial
+Therefore, if these atoms have no initial
 velocity (which is the case here), they wont move along
-x anf y. This fix does nothing to the z component
+\(x\) anf \(y\). These fixes do nothing to the \(z\) components
 thanks to the 'NULL' keyword. The first fix 'aveforce'
 applies to the group 'gtopwall', and averages all the force
-exerted on the atoms of the group over z. As a consequence,
-the atoms of the group 'gtopwall' move as a block along z.
+exerted on the atoms of the group over \(z\). As a consequence,
+the atoms of the group 'gtopwall' move as a block along \(z\) 
+(and the same for the bottom wall).
 <br><br>
-Now we can include the most important commands for the minimisation:
+Now, we can include the most important commands for the minimization:
 <pre><code>fix		mynve all nve
 compute		tliq gliquid temp
 fix		myber gliquid temp/berendsen 1 1 1
@@ -519,17 +540,17 @@ fix_modify	myber temp tliq</code></pre>
 </p>
 <p>
 The fix 'nve', which we apply to all atoms, performs
-constant NVE integration to update position and velocity
+constant NVE integration to update positions and velocities
 of the atoms at each timestep. The 'temp/berendsen' fix
 rescales the velocities of the atoms of the group liquid
 (ions + water) every timestep in order to reset
-the temperature. Since we want to perform a minimisation
-step, Both initial and final temperatures have been chosen
+the temperature. Since we want to perform a minimization
+step, both initial and final temperatures have been chosen
 equal to 1K. The third parameter is the damping factor,
 in time units, which determines how rapidly the temperature
 is relaxed. A damping factor of 1 fs would be too small
 for a molecular dynamics simulation, but is acceptable
-for a minimisation step during which we just want the
+for a minimization step during which we just want the
 atoms to move slightly from their initial positions.
 The 'fix_modify' is used to assign the temperature of
 the group 'gliquid' as calculated by the compute 'tliq'
@@ -562,24 +583,31 @@ close to each others) and run for 1000 timesteps (with
 the command thermo 1000, thermodynamic info are printed
 in the terminal every 1000 timesteps).
 <pre><code>timestep	0.1
-thermo		1000
+thermo		500
 run		5000
 write_data	data.02.lammps</code></pre>
 </p>
+<h4><b>Result</b></h4>
 <p>
-In the terminal, you should see that the total energy of
-the system (fifth column) decreases during the energy minimisation:
-<pre><code>Step Temp E_pair E_mol TotEng Press
-0            0    19656.737            0    19656.737    49529.333
-1000    1.4484887   -3987.5314            0   -3960.0149    -2521.241
-2000    1.0369954   -5479.6652            0   -5459.9657   -3672.1658
-3000   0.96110033   -6295.8493            0   -6277.5916    -4294.163
-4000    1.0598138   -6836.0972            0   -6815.9642   -4685.2421
-5000    1.2657801   -7268.4856            0   -7244.4399   -4955.0044</code></pre>
+When running the input.02.lammps file, you should see that the total energy of
+the system (fifth column) decreases toward negative values:
+<pre><code>Step Temp E_pair E_mol TotEng Press 
+       0            0    105943.88            0    105943.88    178061.22 
+     500     3.161202   -7033.8737            0   -6979.0416   -3364.4997 
+    1000    2.2057861   -8866.4103            0   -8828.1502   -4212.2734 
+    1500    1.7782626   -10038.926            0   -10008.081   -4763.0287 
+    2000    1.6006587   -10847.999            0   -10820.235   -5152.8961 
+    2500    1.5852741   -11446.485            0   -11418.988     -5447.37 
+    3000    1.7011608   -11917.953            0   -11888.445   -5681.5579 
+    3500    1.9695876   -12329.433            0    -12295.27   -5891.3157 
+    4000     2.445561   -12722.314            0   -12679.894   -6098.0218 
+    4500    3.2010334   -13037.534            0   -12982.011   -6250.5859 
+    5000    4.3296591   -13339.374            0   -13264.275   -6393.1841 </code></pre>
 </p>
 <p>
-What you observe by opening the dump file using VMD should
-resemble <a href="https://youtu.be/JWGZnFN4TOo"
+If you look at the trajectory using VMD, you will see some of the atoms (the
+one that where initially in a problematic position) slightly move from each others,
+as seen in <a href="https://youtu.be/JWGZnFN4TOo"
 target="_blank">this video</a>.
 </p>
 </section>
@@ -590,13 +618,12 @@ target="_blank">this video</a>.
 <section id="equilibration">
 <h2>System equilibration</h2>
 <p>
-Starting from the final configuration of the minisation
+Starting from the final configuration of the minimization
 step, we can now run the molecular dynamics simulation.
 Here we are going to let the system evolve freely until it
 reaches an equilibrium. Let us create a new input file
 and call it input.03.lammps. Add the following lines:
-<pre><code># Initialisation
-
+<pre><code># ------------- Initialisation
 boundary	p p p
 units		real
 atom_style	full
@@ -605,35 +632,37 @@ angle_style	harmonic
 pair_style	lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
 kspace_style	pppm/tip4p 1.0e-4
 
-# System definition
-
+# ------------- System definition
 read_data	data.02.lammps
 
-# Simulation settings
-
-include	PARM.lammps
+# ------------- Simulation settings
+include		PARM.lammps
 group		gH2O type 1 2
 group		gNa type 3
 group		gCl type 4
 group		gliquid type 1 2 3 4
 group		gtopwall type 5
 group		gbotwall type 6
+group		gwall type 5 6
 dump 		mydmp all atom 1000 dump.03.lammpstrj
 
-# Run
+# ------------- Run
 
+# ------------- To maintain the wall rigid
 fix		mysf1 gtopwall setforce 0 0 NULL
 fix		mysf2 gbotwall setforce 0 0 NULL
 fix		myaf1 gtopwall aveforce NULL NULL 0
 fix		myaf2 gbotwall aveforce NULL NULL 0
-neigh_modify 	exclude group gtopwall gtopwall
-neigh_modify 	exclude group gbotwall gbotwall
+neigh_modify 	exclude group gwall gwall
+
+# ------------- Dynamics
 fix		mynve all nve
-compute	tliq gliquid temp
+compute		tliq gliquid temp
 fix		myber gliquid temp/berendsen 300 300 100
 fix_modify	myber temp tliq
 fix		myshk gH2O shake 1.0e-4 200 0 b 1 a 1
 fix		myrct all recenter NULL NULL INIT
+
 timestep	1.0
 thermo		5000
 thermo_modify 	temp tliq
@@ -642,131 +671,95 @@ write_data	data.03.lammps</code></pre>
 </p>
 <p>
 The two main differences with the previous step are the
-timestep (1fs instead of 0.1fs) and the thermostating. With
+timestep (1 fs instead of 0.1 fs) and the thermostating. With
 an imposed temperature of 300 K, the fluid is expected to
 behave as a liquid. A timestep of 1 fs is classic for these
 force fields. Never use a larger timestep except if you have
-a good reason to do so. What you observe should resemble
+a good reason to do so. What you observe should resembles
 <a href="https://www.youtube.com/embed/ZEVhTeR5tCQ"
 target="_blank">this video</a>.
-</p>
-</section>
 <br><br>
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<section id="density">
-<h2>Density profile measurement</h2>
+The 'thermo_modify' ensures that the printed temperature 
+is the temperature of the liquid, and not the temperature 
+of the whole system which is lower (because the walls are frozen 
+and have an effective temperature of 0 K)
+</p>
+
 <p>
-We are going to take advantage of our equilibrated
-configuration and measure the density profiles of
-Na and Cl ions. First, let us create another input file and
-call it input.04.lammps. It is the same input file as
-input.03.lammps, but it starts from the equilibrated
-configuration data.03.lammps:
-<pre><code># Initialisation
-
-boundary	p p p
-units		real
-atom_style	full
-bond_style	harmonic
-angle_style	harmonic
-pair_style	lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
-kspace_style	pppm/tip4p 1.0e-4
-
-# System definition
-
-read_data	data.03.lammps
-
-# Simulation settings
-
-include	PARM.lammps
-group		gH2O type 1 2
-group		gNa type 3
-group		gCl type 4
-group		gliquid type 1 2 3 4
-group		gtopwall type 5
-group		gbotwall type 6
-dump 		mydmp all atom 1000 dump.04.lammpstrj
-
-# Run
-
-fix		mysf1 gtopwall setforce 0 0 NULL
-fix		mysf2 gbotwall setforce 0 0 NULL
-fix		myaf1 gtopwall aveforce NULL NULL 0
-fix		myaf2 gbotwall aveforce NULL NULL 0
-neigh_modify 	exclude group gtopwall gtopwall
-neigh_modify 	exclude group gbotwall gbotwall
-fix		mynve all nve
-compute	tliq gliquid temp
-fix		myber gliquid temp/berendsen 300 300 100
-fix_modify	myber temp tliq
-fix		myshk gH2O shake 1.0e-4 200 0 b 1 a 1
-fix		myrct all recenter NULL NULL INIT
-timestep	1.0
-thermo		5000
-thermo_modify 	temp tliq
-run		50000
-write_data	data.04.lammps</code></pre>
+Running the last input script is likely to take time (more than 30 minutes). You
+can speed up the calculation by running LAMMPS on multiple cores using mpirun. 
 </p>
-<p>
-Then, with a Python script, we are going to read
-the atom trajectories using
-MDAnalysis, and extract the density profiles using MAICoS.
-See the documentations for
-<a href="https://www.mdanalysis.org/"
-target="_blank">MDAnalysis</a> and
-<a href="https://maicos-devel.gitlab.io/maicos/index.html"
-target="_blank">MAICoS</a> for installation.
-Open a python script, and import the following modules:
-<pre><code>import MDAnalysis as mda
-import maicos
-import matplotlib.pyplot as plt</code></pre>
+
+<p class="alert alert-info"> 
+All the scripts and data files generated during this tutorial are available
+<a target="_blank"
+href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs">here</a>.
 </p>
-<p>Then, create a MDAnalysis universe, and isolate the Na
-and Cl ions by creating groups.
-<pre><code>u = mda.Universe("dump.04.lammpstrj", topology_format='LAMMPSDUMP')
-grp_Na = u.select_atoms('type 3')
-grp_Cl = u.select_atoms('type 4')</code></pre>
-</p>
-<p>
-Then, let us use the density_planar module of MAICoS to
-extract the density profiles, and finally plot it.
-<pre><code>dplanCl = maicos.density_planar(grp_Cl)
-dplanCl.run()
-zcoorCl = dplanCl.results['z']
-densCl = dplanCl.results['dens_mean']
-dplanNa = maicos.density_planar(grp_Na)
-dplanNa.run()
-zcoorNa = dplanNa.results['z']
-densNa = dplanNa.results['dens_mean']
-plt.plot(zcoorCl,densCl)
-plt.plot(zcoorNa,densNa)</code></pre>
-</p>
-<!--<p>
-You can download the input and data files by clicking
-<a href="Inputs/tutorial03.zip" target="_blank"
-class="removelinkdefault">here</a>.
-</p>-->
 </section>
 <br><br>
 <!-- ======================================================= -->
 <!-- ======================================================= -->
 <!-- ======================================================= -->
 <section id="further">
-<h2>Going further</h2>
-<h4>Non equilibrium measurement</h4>
-<p>
-You can measure the transport properties of the nanoconfined
-elecrolyte by applying a force to the fluid, and measuring
-the flux in the direction of the force.
+<h2>Going further with exercises</h2>
+
+<br>
+<p class="alert alert-info"> 
+Request the solutions by email, or register <a target="_blank"
+href="https://www.patreon.com/molecularsimulations">here</a> and access all the solutions
++ additional LAMMPS content.
 </p>
-<h4>Hydrogen bond analysis</h4>
+<br>
+
+<h4><b>Exercise 1 : Extract data from the simulation</b></h4>
+
 <p>
-Using MDAnalysis, you can measure the number and
-duration of the hydrogen bonds.
+Starting from the equilibrated configuration (data.03.lammps), extract the 
+density profiles (for Na\(^+\), Cl\(^-\), and water) along the axis normal to 
+the solid walls.
+
+<blockquote><i>
+Hint: data extraction can in general be done (1) using the internal LAMMPS 
+command, and (2) using a post-processing analysis tool (e.g. Python). 
+</blockquote></i>
 </p>
+
+<h4><b>Exercise 2 : Use fully flexible walls</b></h4>
+
+<p>
+Starting from the equilibrated configuration (data.03.lammps), or 
+starting from scratch, do the same using fully flexible wall instead of 
+frozen walls. Flexible walls can be thermalised, and are therefore more 
+realistic.
+</p>
+
+<h4><b>Exercise 3 : Simulate the transport properties </b></h4>
+
+<p>
+Starting from the equilibrated configuration (data.03.lammps), induce 
+a flow of the liquid in the direction tangential to wall, and measure 
+the velocity profile. 
+</p>
+
+<blockquote><i>
+Advice 1: when inducing a flow in a direction \(i\), one needs to exclude 
+the degrees of freedom in the direction \(i\) from the thermalisation, 
+otherwise the resulting temperature is likely to be wrong.
+</blockquote></i>
+
+<blockquote><i>
+Advice 2: the forcing must be chosen with care. If too large, the system will
+be strongly out-of-equilibrium. If too small, no net velocity will be measured
+because of the noise.
+</blockquote></i>
+
+<p>
+Is the velocity profile you obtain consistent with Poiseuille's predictions?
+</p>
+
+
 <br><br>
+
 <p class="alert alert-info"> <a
 href="../miscellaneous/contact.html">Click here</a>
 if you are looking for help with your project, if you want to
