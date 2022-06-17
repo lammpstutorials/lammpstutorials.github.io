@@ -1,0 +1,186 @@
+LAMMPS (29 Sep 2021 - Update 1)
+# ------------- LAMMPS input script
+# ------------- author : Simon Gravelle
+# ------------- lammpstutorials.github.io
+
+# ------------- Initialisation
+boundary		p p p
+units			real
+atom_style		full
+bond_style		harmonic
+angle_style		harmonic
+pair_style		lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style	pppm/tip4p 1.0e-4
+
+# ------------- System definition
+read_data		data.02.lammps
+Reading data file ...
+  orthogonal box = (-20.200000 -20.200000 -52.520000) to (20.200000 20.200000 52.520000)
+  1 by 1 by 4 MPI processor grid
+  reading atoms ...
+  7760 atoms
+  reading velocities ...
+  7760 velocities
+  scanning bonds ...
+  2 = max bonds/atom
+  scanning angles ...
+  1 = max angles/atom
+  reading bonds ...
+  3800 bonds
+  reading angles ...
+  1900 angles
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0       
+  special bond factors coul:  0        0        0       
+     2 = max # of 1-2 neighbors
+     1 = max # of 1-3 neighbors
+     1 = max # of 1-4 neighbors
+     2 = max # of special neighbors
+  special bonds CPU = 0.001 seconds
+  read_data CPU = 0.087 seconds
+
+# ------------- Simulation settings
+include			PARM.lammps
+# --------- LAMMPS parameter script
+# --------- author : Simon Gravelle
+# --------- lammpstutorials.github.io
+
+mass 		1 15.9994
+mass 		2 1.008
+mass		3 28.990
+mass		4 35.453
+mass		5 26.9815
+mass		6 26.9815
+
+pair_coeff 	1 1 0.185199 3.1589
+pair_coeff 	2 2 0.0 0.0
+pair_coeff	3 3 0.04690 2.4299
+pair_coeff	4 4 0.1500 4.04470
+pair_coeff	5 5 11.697 3.55
+pair_coeff	6 6 11.697 3.55
+
+bond_coeff 	1 0 0.9572
+
+angle_coeff 1 0 104.52
+group			gH2O type 1 2
+5700 atoms in group gH2O
+group			gNa type 3
+30 atoms in group gNa
+group			gCl type 4
+30 atoms in group gCl
+group			gliquid type 1 2 3 4
+5760 atoms in group gliquid
+group			gtopwall type 5
+1000 atoms in group gtopwall
+group			gbotwall type 6
+1000 atoms in group gbotwall
+group			gwall type 5 6
+2000 atoms in group gwall
+dump 			mydmp all atom 1000 dump.03.lammpstrj
+
+# ------------- Run
+
+# ------------- To maintain the wall rigid
+fix				mysf1 gtopwall setforce 0 0 NULL
+fix				mysf2 gbotwall setforce 0 0 NULL
+fix				myaf1 gtopwall aveforce NULL NULL 0
+fix				myaf2 gbotwall aveforce NULL NULL 0
+neigh_modify 	exclude group gwall gwall
+
+# ------------- Dynamics
+fix				mynve all nve
+compute			tliq gliquid temp
+fix				myber gliquid temp/berendsen 300 300 100
+fix_modify		myber temp tliq
+fix				myshk gH2O shake 1.0e-4 200 0 b 1 a 1
+       0 = # of size 2 clusters
+       0 = # of size 3 clusters
+       0 = # of size 4 clusters
+    1900 = # of frozen angles
+  find clusters CPU = 0.001 seconds
+fix				myrct all recenter NULL NULL INIT
+
+timestep		1.0
+thermo			5000
+thermo_modify 	temp tliq
+WARNING: Temperature for thermo pressure is not for group all (../thermo.cpp:482)
+run				50000
+PPPM initialization ...
+  extracting TIP4P info from pair style
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.21535857
+  grid = 18 18 36
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.033546564
+  estimated relative force accuracy = 0.00010102448
+  using double precision KISS FFT
+  3d grid and FFT values/proc = 8750 2916
+WARNING: Neighbor exclusions used with KSpace solver may give inconsistent Coulombic energies (../neighbor.cpp:627)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 14.3092
+  ghost atom cutoff = 14.3092
+  binsize = 7.1546, bins = 6 6 15
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/tip4p/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 11.68 | 12.06 | 12.44 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0    1.5577489   -16148.568            0    -16130.65   -4941.8822 
+    5000    303.99633   -30827.922            0   -27331.069   -696.69283 
+   10000    303.19726   -32453.706            0   -28966.044    565.44509 
+   15000    304.16521   -32415.899            0   -28917.103   -274.92078 
+   20000    300.84077   -32511.607            0   -29051.052     -340.151 
+   25000    298.70204   -32520.674            0   -29084.721   -443.58204 
+   30000    304.53222   -32578.691            0   -29075.674   -54.325109 
+   35000    303.25683   -32537.873            0   -29049.526    -371.5186 
+   40000    302.53595   -32551.721            0   -29071.666   -151.11914 
+   45000    299.18752   -32495.234            0   -29053.696   -339.31059 
+   50000    301.47624   -32481.854            0   -29013.989   -240.62886 
+Loop time of 2014.24 on 4 procs for 50000 steps with 7760 atoms
+
+Performance: 2.145 ns/day, 11.190 hours/ns, 24.823 timesteps/s
+99.5% CPU use with 4 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 27.228     | 767.52     | 1703.3     |2688.7 | 38.10
+Bond    | 0.017117   | 0.030609   | 0.039681   |   5.4 |  0.00
+Kspace  | 100.23     | 1017.4     | 1738.1     |2277.5 | 50.51
+Neigh   | 176.49     | 176.64     | 176.9      |   1.2 |  8.77
+Comm    | 11.458     | 29.004     | 46.483     | 322.6 |  1.44
+Output  | 0.092841   | 0.096026   | 0.097866   |   0.6 |  0.00
+Modify  | 21.036     | 22.594     | 25.102     |  35.3 |  1.12
+Other   |            | 0.97       |            |       |  0.05
+
+Nlocal:        1940.00 ave        3866 max           0 min
+Histogram: 2 0 0 0 0 0 0 0 0 2
+Nghost:        10087.2 ave       14574 max        5630 min
+Histogram: 2 0 0 0 0 0 0 0 0 2
+Neighs:        929419.0 ave 2.12132e+06 max           0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 3717676
+Ave neighs/atom = 479.08196
+Ave special neighs/atom = 1.4690722
+Neighbor list builds = 2396
+Dangerous builds = 0
+write_data		data.03.lammps
+System init for write_data ...
+PPPM initialization ...
+  extracting TIP4P info from pair style
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.21535857
+  grid = 18 18 36
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.033546564
+  estimated relative force accuracy = 0.00010102448
+  using double precision KISS FFT
+  3d grid and FFT values/proc = 8750 2916
+WARNING: Neighbor exclusions used with KSpace solver may give inconsistent Coulombic energies (../neighbor.cpp:627)
+Total wall time: 0:33:34
