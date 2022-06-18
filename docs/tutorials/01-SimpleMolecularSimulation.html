@@ -146,7 +146,7 @@ fluid interacting through a simple Lennard-Jones potential.
 This tutorial illustrates the use of several ingredients of
 molecular dynamics simulations, such as system initialisation,
 energy minimisation, integration of the equations of motion,
-and trajectories visualisation.
+and trajectory visualisation.
 </p>
 <p>
 There are several parts to this tutorial:
@@ -164,7 +164,7 @@ Atoms and trajectories visualisation using VMD
 Toward better and slightly more advanced LAMMPS scripts
 </li>
 <li> <a href="#restarting">Restarting from a saved
-configuration - </a> Saving a configugation and using it
+configuration - </a> Saving a configuration and using it
 as a new starting point
 </li>
 </ul>
@@ -261,7 +261,7 @@ Lennard-Jones potential with a cut-off equal to 2.5
 (unitless), and the last line indicates that the periodic
 boundary conditions are used along all three directions
 of space. It may seems strange to define the periodic
-boundary condition along the third dimension since we are
+boundary conditions along the third dimension since we are
 performing 2D simulation, but it is a LAMMPS requirement.
 <br><br>
 At this point, you have a LAMMPS script that does nothing.
@@ -414,7 +414,7 @@ You may also see the following warning:
 <p>
 There is nothing to worry about at this stage,
 the message is simply an indication that LAMMPS is
-building the pairwise neighbour lists (that are used by
+building the pairwise neighbor lists (that are used by
 LAMMPS to evaluate the interaction between atoms) more
 frequently than the default value during the minimisation.
 <br><br>
@@ -474,7 +474,7 @@ Total wall time: 0:00:02</code></pre>
 During the simulation, they have been 998 dangerous builds.
 This is an indication that something is wrong with the
 simulation, and that some atoms have moved more than expected
-in between two calculations of the neighbour lists.
+in between two calculations of the neighbor lists.
 Let us add the following command in the 'Simulation
 settings' section:
 <pre><code>neigh_modify 	every 1 delay 5 check yes</code></pre>
@@ -506,7 +506,8 @@ regular interval. Add the following command in the
 </p>
 <p>
 If you run LAMMPS again, a file named dump.lammpstrj will appear
-in the same folder as your input. This file can be opened using VMD, Ovito, etc. In Ubuntu, you can simply execute in the terminal:
+in the same folder as your input. This file can be opened using VMD, Ovito, 
+etc. In Ubuntu, you can simply execute in the terminal:
 <pre><code>vmd dump.lammpstrj</code></pre>
 </p>
 <p>
@@ -744,8 +745,17 @@ target="_blank" class="removelinkdefault">Github repository</a>.
 <!-- ======================================================= -->
 <!-- ======================================================= -->
 <section id="further">
-<h2>Going further</h2>
-<h4>Playing around</h4>
+<h2>Going further with exercises</h2>
+
+<br>
+<p class="alert alert-info"> 
+Request the solutions by email, or register <a target="_blank"
+href="https://www.patreon.com/molecularsimulations">here</a> and access all the solutions
++ additional LAMMPS content.
+</p>
+<br>
+
+<h4><b>Preamble : on the importance of energy minimisation</b></h4>
 <p>
 A good way to master LAMMPS and
 molecular dynamics simulations is to play around with a
@@ -775,6 +785,55 @@ that are huge, leading to enormous acceleration. As a
 consequence, atoms are moving by large distances during
 the firsts timesteps, and LAMMPS loses them.
 </p>
+<h4><b>Exercise 1 : perform a minimisation using fix langevin only</b></h4>
+<p>
+Perform an energy minimisation without using the the minimize command (this is sometimes 
+usefull, particularly for rigid water models). 
+
+<blockquote><i>
+Hint 1: play with both timestep and damping factor of the fix langevin.
+</blockquote></i>
+
+<blockquote><i>
+Hint 2: perform several consecutive steps.
+</blockquote></i>
+
+<blockquote><i>
+Hint 3: have a look at fix nve/limit.
+</blockquote></i>
+</p>
+<h4><b>Exercise 2a : make the same simulation in 3D</b></h4>
+<p>
+Does the system reaches equilibrium (i.e. a fully mixed state) faster? or slower?
+</p>
+
+<h4><b>Exercise 2b : perform an actual NVE simulation</b></h4>
+<p>
+Despite using the NVE fix, simulations here are not performed in 
+the NVE ensemble. Starting from the system of the Exercise 2a,
+perform a simulation in the NVE ensemble and 
+extract the energy over time. Is it conserved as expected?
+What if you do the same with a 2D simulation?
+
+<blockquote><i>
+Hint: smaller timestep gives better energy conservation.
+</blockquote></i>
+
+</p>
+
+<h4><b>Exercise 3 : induce a net flow</b></h4>
+<p>
+So far, atoms were freely diffusing. Add an acceleration to them to 
+force a flow of the atom in a direction. The value for the
+acceleration must be chosen so that the system is not 'too
+out-of-equilibrium'.
+<br><br>
+The final simulation should resembles
+<a href="https://www.youtube.com/embed/J-skFWlemto"
+target="_blank">this video</a>.
+</p>
+
+<!--
 <h4>Dealing with the <i>Lost atoms</i> error</h4>
 <p>
 They are several ways of dealing with the lost atoms error,
@@ -792,6 +851,7 @@ and
 This way you may be able to visualise the very first steps,
 and may be identify the location of the error.
 </p>
+
 <h4>Bonus exercise</h4>
 <p>Use the 'addforce' command to generate a flow of particles
 in one direction:
@@ -799,11 +859,12 @@ in one direction:
 </p>
 <p>
 where \(f_x\), \(f_y\), and \(f_z\) are the force component
-values. The final simulation should resembles
-<a href="https://www.youtube.com/embed/J-skFWlemto"
-target="_blank">this video</a>.
-</p>
+values. 
 <br><br>
+
+-->
+
+
 <p class="alert alert-info">
 <a href="../miscellaneous/contact.html">Click here</a>
 if you are looking for help with your project, if you
