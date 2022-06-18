@@ -546,7 +546,7 @@ href="https://www.patreon.com/molecularsimulations">here</a> and access all the 
 </p>
 <br>
 
-<h4><b>Exercise 1 : Measure the bond lenght as a function of time</b></h4>
+<h4><b>Exercise 1 : Measure the bond length as a function of time</b></h4>
 
 <p>
 Using the sheet script, extract histograms of the bond length and bond energy 
@@ -556,6 +556,16 @@ as a function of the time.
 Hint: data extraction can in general be done (1) using the internal LAMMPS 
 command, and (2) using a post-processing analysis tool (e.g. Python). 
 </blockquote></i>
+</p>
+
+<p><img src="../figures/tutorial04/Bond_length.jpg"
+class="img-fluid" alt="Responsive image">
+<small style="color:#6B6B6B">
+Left: snapshots of the deformed and undeformed graphene sheet. Middle: probability
+distribution of the bond length. Right: occurrence of bond length as a function of the simulation time. 
+50 steps, each increasing the length of the sheet by 0.2 Angstrom have been performed, for 
+a total elongation of 1 nanometer. 
+</small>
 </p>
 
 <h4><b>Exercise 2 : Generate a twisted graphene bilayer</b></h4>
@@ -568,42 +578,42 @@ target="_blank">this video</a>.
 
 <p><img src="../figures/tutorial04/bilayer.png"
 class="img-fluid" alt="Responsive image">
+<small style="color:#6B6B6B">
+Left: top view of the bilayer. Right: side view of the bilayer.
+</small>
+</p>
+
+<h4><b>Exercise 3 : Compress a bulk graphite material</b></h4>
+
+<p>
+Using the sheet script, makes it periodical over \(x\) and \(y\) directions
+(i.e. remove the vacuum), duplicate the sheet multiple times along \(z\) and compress it 
+along along \(z\).
+
+<blockquote><i>
+Hint1: to make the sheet periodical over \(x\) and \(y\), its easier to use
+the reactive force field (the one used here for the CNT).
+</blockquote></i>
+
+<blockquote><i>
+Hint2: for such solid and periodic system, its better to
+use anisotropic npt thermostating to let the box dimension relax
+and adjust to the system size
+</blockquote></i>
+
+<blockquote><i>
+Hint3: use VMD to generate a sheet without bond for use with Airebo
+</blockquote></i>
+</p>
+<p><img src="../figures/tutorial04/graphite_compressed.png"
+class="img-fluid" alt="Responsive image">
+<small style="color:#6B6B6B">
+Left: graphite at ambient pressure. Right: graphite under a large pressure of 100000 atmospheres applied vertically. 
+</small></p>
+
+
 
 </section>
-
-<!-- Compression
-
-
-
-
-
-<section id="further">
-<h2>Going further</h2>
-<h4>Graphite</h4>
-<p>
-Graphite is made of multiple layers of graphene separated by a
-distance of about 0.34 nm. You can use LAMMPS to replicate a
-graphene layer, and then impose deformation on a graphite.
-Deformations can be imposed both in the direction of the sheets,
-and normal to the sheets. You can then explore how the staking
-affects the mechanical properties of the graphene.
-</p>
-<h4>Compression</h4>
-<p>
-Simulating graphene under compression is a bit tricky because it
-bends, but it is still doable. You may have to use a few tricks
-to ensure that the graphene sheet remains aligned with the direction
-of the deformation, which is good training.
-</p>
-<h4>Amorphous carbon</h4>
-<p>
-Using the liquid quench method, you can generate nice amorphous
-structure of carbon. For that, a different force field allowing
-for the formation and breaking of bonds must be used (eg. REAXFF).
-</p>
-<br><br>
-
--->
 
 <p class="alert alert-info"> <a
 href="../miscellaneous/contact.html">Click here</a>
