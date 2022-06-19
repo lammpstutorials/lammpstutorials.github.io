@@ -1,0 +1,2438 @@
+LAMMPS (20 Nov 2019)
+
+# ethanol at a nacl surface
+###############	variables
+variable	pre equal 1 # desired pressure (Atm)
+variable	tem equal 300 # desired temperature (K)
+variable	k1 equal 0.5 # spring constant
+variable	k2 equal 5 # spring constant
+############### main parameters
+units		real # style of units (A, fs, Kcal/mol)
+atom_style	full # molecular + charge
+bond_style	harmonic
+angle_style	harmonic
+dihedral_style	harmonic
+boundary	p p p # periodic boundary conditions
+pair_style  	lj/cut/coul/long 10 # cut-off 1 nm
+kspace_style	pppm 1.0e-4
+pair_modify	mix arithmetic tail yes # eij = sqrt(ei*ej), dij = 0.5*(di+dj)
+############### import positions and parameters
+read_data	data.npt
+  orthogonal box = (-13.7406 -13.7463 -25.68) to (13.7406 13.7463 25.68)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  490 atoms
+  reading velocities ...
+  490 velocities
+  scanning bonds ...
+  3 = max bonds/atom
+  scanning angles ...
+  6 = max angles/atom
+  scanning dihedrals ...
+  9 = max dihedrals/atom
+  reading bonds ...
+  80 bonds
+  reading angles ...
+  130 angles
+  reading dihedrals ...
+  120 dihedrals
+  4 = max # of 1-2 neighbors
+  4 = max # of 1-3 neighbors
+  7 = max # of 1-4 neighbors
+  8 = max # of special neighbors
+  special bonds CPU = 0.000213634 secs
+  read_data CPU = 0.00410707 secs
+include 	PARM.lammps
+
+############### mass parameters
+mass		1 22.99000
+mass		2 35.45000
+mass 		3 12.011
+mass 		4 1.008
+mass 		5 1.008
+mass 		6 12.011
+mass 		7 15.9994
+############### pair coeffs
+pair_coeff 	1 1 0.0552 2.31
+pair_coeff	2 2 0.1004 4.3
+pair_coeff 	3 3 0.0663 3.5812
+pair_coeff 	4 4 0.0281 2.3734
+pair_coeff 	5 5 0.0000 0.0000
+pair_coeff 	6 6 0.2450 2.8114
+pair_coeff 	7 7 0.1195 3.1000
+############### bond coeffs
+bond_coeff 	1 349.274 1.0900
+bond_coeff 	2 399.792 1.4300
+bond_coeff 	3 299.844 1.5200
+bond_coeff 	4 349.928 1.1000
+bond_coeff 	5 442.161 0.9720
+############### angle coeffs
+angle_coeff 	1 47.694 109.500
+angle_coeff 	2 55.127 109.500
+angle_coeff 	3 55.114 111.000
+angle_coeff 	4 52.477 107.570
+angle_coeff 	5 47.502 108.530
+angle_coeff 	6 54.993 110.300
+############### dihedral coeffs
+dihedral_coeff 	1 0.30115 1 3
+dihedral_coeff 	2 1.415 1 3
+dihedral_coeff 	3 0.0 1 1
+############### groups # descriptions
+group		nacl type 1 2 # nacl wall
+400 atoms in group nacl
+group		eth type 3 4 5 6 7 # ethanol molecules
+90 atoms in group eth
+group		oxy type 7 # ethanol molecules
+10 atoms in group oxy
+group		mol2 molecule 2
+9 atoms in group mol2
+group		topull intersect mol2 oxy
+1 atoms in group topull
+############### dynamics
+timestep	1 # (fs)
+fix		mynpt all npt temp ${tem} ${tem} 100 x ${pre} ${pre} 1000 y ${pre} ${pre} 1000
+fix		mynpt all npt temp 300 ${tem} 100 x ${pre} ${pre} 1000 y ${pre} ${pre} 1000
+fix		mynpt all npt temp 300 300 100 x ${pre} ${pre} 1000 y ${pre} ${pre} 1000
+fix		mynpt all npt temp 300 300 100 x 1 ${pre} 1000 y ${pre} ${pre} 1000
+fix		mynpt all npt temp 300 300 100 x 1 1 1000 y ${pre} ${pre} 1000
+fix		mynpt all npt temp 300 300 100 x 1 1 1000 y 1 ${pre} 1000
+fix		mynpt all npt temp 300 300 100 x 1 1 1000 y 1 1 1000
+variable	zini equal xcm(nacl,z)
+fix		mytth1 nacl spring tether ${k2} NULL NULL ${zini} 0
+fix		mytth1 nacl spring tether 5 NULL NULL ${zini} 0
+fix		mytth1 nacl spring tether 5 NULL NULL 25.6799795943429 0
+############### output
+thermo		1000
+dump		dp1 all atom 50000 dump.lammpstrj
+############### run
+variable	zave equal xcm(topull,z)
+variable	cpt loop 24
+label		loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(1-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -20 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.26387
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263542
+  estimated relative force accuracy = 7.93649e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 12
+  ghost atom cutoff = 12
+  binsize = 6, bins = 5 5 9
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+       0    297.82014   -38689.439    63.448889   -38191.883    70.076077    38804.024 
+      50    288.06381   -38678.352    67.136526   -38191.329     176.6761    38872.149 
+Loop time of 0.108569 on 1 procs for 50 steps with 490 atoms
+
+Performance: 39.790 ns/day, 0.603 hours/ns, 460.536 timesteps/s
+97.6% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.043935   | 0.043935   | 0.043935   |   0.0 | 40.47
+Bond    | 0.00094362 | 0.00094362 | 0.00094362 |   0.0 |  0.87
+Kspace  | 0.028566   | 0.028566   | 0.028566   |   0.0 | 26.31
+Neigh   | 0.0011262  | 0.0011262  | 0.0011262  |   0.0 |  1.04
+Comm    | 0.00060977 | 0.00060977 | 0.00060977 |   0.0 |  0.56
+Output  | 2.2861e-05 | 2.2861e-05 | 2.2861e-05 |   0.0 |  0.02
+Modify  | 0.033117   | 0.033117   | 0.033117   |   0.0 | 30.50
+Other   |            | 0.0002483  |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2798 ave 2798 max 2798 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53980 ave 53980 max 53980 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53980
+Ave neighs/atom = 110.163
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.1.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263824
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.026394
+  estimated relative force accuracy = 7.94848e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+      50    288.06381   -38678.379    67.136526   -38191.356    176.43984    38872.149 
+     550     314.5927   -38698.778    53.213473   -38187.009    272.13329    38828.049 
+Loop time of 1.12563 on 1 procs for 500 steps with 490 atoms
+
+Performance: 38.379 ns/day, 0.625 hours/ns, 444.197 timesteps/s
+99.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.44866    | 0.44866    | 0.44866    |   0.0 | 39.86
+Bond    | 0.0096461  | 0.0096461  | 0.0096461  |   0.0 |  0.86
+Kspace  | 0.28859    | 0.28859    | 0.28859    |   0.0 | 25.64
+Neigh   | 0.02529    | 0.02529    | 0.02529    |   0.0 |  2.25
+Comm    | 0.0068141  | 0.0068141  | 0.0068141  |   0.0 |  0.61
+Output  | 2.5287e-05 | 2.5287e-05 | 2.5287e-05 |   0.0 |  0.00
+Modify  | 0.34407    | 0.34407    | 0.34407    |   0.0 | 30.57
+Other   |            | 0.002533   |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2778 ave 2778 max 2778 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53743 ave 53743 max 53743 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53743
+Ave neighs/atom = 109.68
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 21
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(2-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -19.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263854
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263682
+  estimated relative force accuracy = 7.94071e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+     550     314.5927   -38698.759    53.213473    -38186.99    272.29851    38828.049 
+     600    299.83798   -38692.598    60.353698   -38195.195   -155.50818    38910.196 
+Loop time of 0.115565 on 1 procs for 50 steps with 490 atoms
+
+Performance: 37.382 ns/day, 0.642 hours/ns, 432.657 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.045542   | 0.045542   | 0.045542   |   0.0 | 39.41
+Bond    | 0.0010292  | 0.0010292  | 0.0010292  |   0.0 |  0.89
+Kspace  | 0.029977   | 0.029977   | 0.029977   |   0.0 | 25.94
+Neigh   | 0.0022767  | 0.0022767  | 0.0022767  |   0.0 |  1.97
+Comm    | 0.00075685 | 0.00075685 | 0.00075685 |   0.0 |  0.65
+Output  | 2.2703e-05 | 2.2703e-05 | 2.2703e-05 |   0.0 |  0.02
+Modify  | 0.035688   | 0.035688   | 0.035688   |   0.0 | 30.88
+Other   |            | 0.0002721  |            |       |  0.24
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2782 ave 2782 max 2782 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53652 ave 53652 max 53652 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53652
+Ave neighs/atom = 109.494
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 2
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.2.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263799
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264164
+  estimated relative force accuracy = 7.95521e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+     600    299.83798    -38692.63    60.353698   -38195.228   -155.79024    38910.196 
+    1000    287.45467   -38728.995    54.155977   -38255.841   -23.709511    38813.629 
+    1100    310.24821   -38728.879    51.385162   -38225.271    5.1317507    38880.667 
+Loop time of 1.12354 on 1 procs for 500 steps with 490 atoms
+
+Performance: 38.450 ns/day, 0.624 hours/ns, 445.021 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.44156    | 0.44156    | 0.44156    |   0.0 | 39.30
+Bond    | 0.0096188  | 0.0096188  | 0.0096188  |   0.0 |  0.86
+Kspace  | 0.29155    | 0.29155    | 0.29155    |   0.0 | 25.95
+Neigh   | 0.031458   | 0.031458   | 0.031458   |   0.0 |  2.80
+Comm    | 0.007191   | 0.007191   | 0.007191   |   0.0 |  0.64
+Output  | 7.0763e-05 | 7.0763e-05 | 7.0763e-05 |   0.0 |  0.01
+Modify  | 0.33967    | 0.33967    | 0.33967    |   0.0 | 30.23
+Other   |            | 0.002414   |            |       |  0.21
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2766 ave 2766 max 2766 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53858 ave 53858 max 53858 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53858
+Ave neighs/atom = 109.914
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 26
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(3-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -19 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263819
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263992
+  estimated relative force accuracy = 7.95005e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    1100    310.24821   -38728.866    51.385162   -38225.258    5.2394685    38880.667 
+    1150    291.98135   -38702.262    56.008375   -38220.657   -288.00282    39037.181 
+Loop time of 0.107139 on 1 procs for 50 steps with 490 atoms
+
+Performance: 40.322 ns/day, 0.595 hours/ns, 466.684 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.042218   | 0.042218   | 0.042218   |   0.0 | 39.40
+Bond    | 0.00095011 | 0.00095011 | 0.00095011 |   0.0 |  0.89
+Kspace  | 0.02783    | 0.02783    | 0.02783    |   0.0 | 25.98
+Neigh   | 0.0021986  | 0.0021986  | 0.0021986  |   0.0 |  2.05
+Comm    | 0.00062309 | 0.00062309 | 0.00062309 |   0.0 |  0.58
+Output  | 2.557e-05  | 2.557e-05  | 2.557e-05  |   0.0 |  0.02
+Modify  | 0.033054   | 0.033054   | 0.033054   |   0.0 | 30.85
+Other   |            | 0.0002394  |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2766 ave 2766 max 2766 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53510 ave 53510 max 53510 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53510
+Ave neighs/atom = 109.204
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 2
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.3.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263713
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264937
+  estimated relative force accuracy = 7.97849e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    1150    291.98135   -38702.323    56.008375   -38220.718   -288.53487    39037.181 
+    1650    287.34458   -38667.528    58.969635    -38189.72    132.01967      38971.6 
+Loop time of 1.09768 on 1 procs for 500 steps with 490 atoms
+
+Performance: 39.356 ns/day, 0.610 hours/ns, 455.504 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.43138    | 0.43138    | 0.43138    |   0.0 | 39.30
+Bond    | 0.0093941  | 0.0093941  | 0.0093941  |   0.0 |  0.86
+Kspace  | 0.28578    | 0.28578    | 0.28578    |   0.0 | 26.03
+Neigh   | 0.028335   | 0.028335   | 0.028335   |   0.0 |  2.58
+Comm    | 0.0069037  | 0.0069037  | 0.0069037  |   0.0 |  0.63
+Output  | 2.258e-05  | 2.258e-05  | 2.258e-05  |   0.0 |  0.00
+Modify  | 0.33327    | 0.33327    | 0.33327    |   0.0 | 30.36
+Other   |            | 0.002592   |            |       |  0.24
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2770 ave 2770 max 2770 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53395 ave 53395 max 53395 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53395
+Ave neighs/atom = 108.969
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 23
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(4-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -18.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263758
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264526
+  estimated relative force accuracy = 7.96612e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    1650    287.34458   -38667.501    58.969635   -38189.693    132.25708      38971.6 
+    1700    290.12403   -38687.855    58.995679    -38205.97   -754.67447    39052.671 
+Loop time of 0.108439 on 1 procs for 50 steps with 490 atoms
+
+Performance: 39.838 ns/day, 0.602 hours/ns, 461.087 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.043387   | 0.043387   | 0.043387   |   0.0 | 40.01
+Bond    | 0.00095413 | 0.00095413 | 0.00095413 |   0.0 |  0.88
+Kspace  | 0.027499   | 0.027499   | 0.027499   |   0.0 | 25.36
+Neigh   | 0.0021937  | 0.0021937  | 0.0021937  |   0.0 |  2.02
+Comm    | 0.00064931 | 0.00064931 | 0.00064931 |   0.0 |  0.60
+Output  | 2.2679e-05 | 2.2679e-05 | 2.2679e-05 |   0.0 |  0.02
+Modify  | 0.033497   | 0.033497   | 0.033497   |   0.0 | 30.89
+Other   |            | 0.0002365  |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2770 ave 2770 max 2770 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53153 ave 53153 max 53153 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53153
+Ave neighs/atom = 108.476
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 2
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.4.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263702
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.026504
+  estimated relative force accuracy = 7.98162e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    1700    290.12403   -38687.886    58.995679   -38206.001   -754.95036    39052.671 
+    2000    319.36342   -38693.715    57.641662   -38170.564   -324.82595    39042.992 
+    2200    299.14326   -38714.584    60.371789   -38218.176   -593.73034    39070.709 
+Loop time of 1.09851 on 1 procs for 500 steps with 490 atoms
+
+Performance: 39.326 ns/day, 0.610 hours/ns, 455.164 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.43268    | 0.43268    | 0.43268    |   0.0 | 39.39
+Bond    | 0.0093657  | 0.0093657  | 0.0093657  |   0.0 |  0.85
+Kspace  | 0.28423    | 0.28423    | 0.28423    |   0.0 | 25.87
+Neigh   | 0.026007   | 0.026007   | 0.026007   |   0.0 |  2.37
+Comm    | 0.0066538  | 0.0066538  | 0.0066538  |   0.0 |  0.61
+Output  | 7.0774e-05 | 7.0774e-05 | 7.0774e-05 |   0.0 |  0.01
+Modify  | 0.33709    | 0.33709    | 0.33709    |   0.0 | 30.69
+Other   |            | 0.002417   |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2732 ave 2732 max 2732 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53466 ave 53466 max 53466 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53466
+Ave neighs/atom = 109.114
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 21
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(5-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -18 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263691
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0265129
+  estimated relative force accuracy = 7.98428e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    2200    299.14326    -38714.59    60.371789   -38218.182   -593.78338    39070.709 
+    2250    288.37825   -38707.017    59.936988   -38226.735   -238.81101    39039.127 
+Loop time of 0.111855 on 1 procs for 50 steps with 490 atoms
+
+Performance: 38.622 ns/day, 0.621 hours/ns, 447.008 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.043578   | 0.043578   | 0.043578   |   0.0 | 38.96
+Bond    | 0.0010116  | 0.0010116  | 0.0010116  |   0.0 |  0.90
+Kspace  | 0.029658   | 0.029658   | 0.029658   |   0.0 | 26.51
+Neigh   | 0.0021775  | 0.0021775  | 0.0021775  |   0.0 |  1.95
+Comm    | 0.00063967 | 0.00063967 | 0.00063967 |   0.0 |  0.57
+Output  | 2.2861e-05 | 2.2861e-05 | 2.2861e-05 |   0.0 |  0.02
+Modify  | 0.034524   | 0.034524   | 0.034524   |   0.0 | 30.87
+Other   |            | 0.0002431  |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2734 ave 2734 max 2734 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53284 ave 53284 max 53284 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53284
+Ave neighs/atom = 108.743
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 2
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.5.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263713
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264923
+  estimated relative force accuracy = 7.97809e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    2250    288.37825   -38707.004    59.936988   -38226.722   -238.69592    39039.127 
+    2750    310.10877   -38674.168    58.156541   -38163.992   -49.087993    38904.165 
+Loop time of 1.05768 on 1 procs for 500 steps with 490 atoms
+
+Performance: 40.844 ns/day, 0.588 hours/ns, 472.734 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.42183    | 0.42183    | 0.42183    |   0.0 | 39.88
+Bond    | 0.008899   | 0.008899   | 0.008899   |   0.0 |  0.84
+Kspace  | 0.27078    | 0.27078    | 0.27078    |   0.0 | 25.60
+Neigh   | 0.023202   | 0.023202   | 0.023202   |   0.0 |  2.19
+Comm    | 0.0060376  | 0.0060376  | 0.0060376  |   0.0 |  0.57
+Output  | 5.4593e-05 | 5.4593e-05 | 5.4593e-05 |   0.0 |  0.01
+Modify  | 0.32466    | 0.32466    | 0.32466    |   0.0 | 30.70
+Other   |            | 0.002212   |            |       |  0.21
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2774 ave 2774 max 2774 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53141 ave 53141 max 53141 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53141
+Ave neighs/atom = 108.451
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 20
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(6-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -17.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263802
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264144
+  estimated relative force accuracy = 7.95461e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    2750    310.10877   -38674.116    58.156541    -38163.94   -48.630427    38904.165 
+    2800    312.64628   -38677.475    62.740894   -38159.016   -286.72504    38986.083 
+Loop time of 0.114878 on 1 procs for 50 steps with 490 atoms
+
+Performance: 37.605 ns/day, 0.638 hours/ns, 435.243 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.044472   | 0.044472   | 0.044472   |   0.0 | 38.71
+Bond    | 0.00098111 | 0.00098111 | 0.00098111 |   0.0 |  0.85
+Kspace  | 0.030473   | 0.030473   | 0.030473   |   0.0 | 26.53
+Neigh   | 0.0011386  | 0.0011386  | 0.0011386  |   0.0 |  0.99
+Comm    | 0.00069842 | 0.00069842 | 0.00069842 |   0.0 |  0.61
+Output  | 2.4245e-05 | 2.4245e-05 | 2.4245e-05 |   0.0 |  0.02
+Modify  | 0.036822   | 0.036822   | 0.036822   |   0.0 | 32.05
+Other   |            | 0.0002687  |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2774 ave 2774 max 2774 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53175 ave 53175 max 53175 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53175
+Ave neighs/atom = 108.52
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.6.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263748
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264624
+  estimated relative force accuracy = 7.96907e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    2800    312.64628   -38677.506    62.740894   -38159.047   -286.99327    38986.083 
+    3000     290.6624   -38678.084    58.168399   -38196.242    13.336224    38824.115 
+    3300    293.81498   -38640.806    63.714809   -38148.821    407.81422    39037.187 
+Loop time of 1.06128 on 1 procs for 500 steps with 490 atoms
+
+Performance: 40.705 ns/day, 0.590 hours/ns, 471.127 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.41442    | 0.41442    | 0.41442    |   0.0 | 39.05
+Bond    | 0.0089906  | 0.0089906  | 0.0089906  |   0.0 |  0.85
+Kspace  | 0.27891    | 0.27891    | 0.27891    |   0.0 | 26.28
+Neigh   | 0.021294   | 0.021294   | 0.021294   |   0.0 |  2.01
+Comm    | 0.0060409  | 0.0060409  | 0.0060409  |   0.0 |  0.57
+Output  | 7.0758e-05 | 7.0758e-05 | 7.0758e-05 |   0.0 |  0.01
+Modify  | 0.32926    | 0.32926    | 0.32926    |   0.0 | 31.02
+Other   |            | 0.002296   |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2742 ave 2742 max 2742 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53650 ave 53650 max 53650 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53650
+Ave neighs/atom = 109.49
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 19
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(7-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -17 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263715
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264912
+  estimated relative force accuracy = 7.97774e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    3300    293.81498   -38640.825    63.714809   -38148.841    407.64479    39037.187 
+    3350    312.10687   -38656.975    63.876105   -38138.167   -176.07484    39114.192 
+Loop time of 0.110218 on 1 procs for 50 steps with 490 atoms
+
+Performance: 39.195 ns/day, 0.612 hours/ns, 453.646 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.043698   | 0.043698   | 0.043698   |   0.0 | 39.65
+Bond    | 0.0010302  | 0.0010302  | 0.0010302  |   0.0 |  0.93
+Kspace  | 0.029298   | 0.029298   | 0.029298   |   0.0 | 26.58
+Neigh   | 0.001163   | 0.001163   | 0.001163   |   0.0 |  1.06
+Comm    | 0.00061746 | 0.00061746 | 0.00061746 |   0.0 |  0.56
+Output  | 2.5917e-05 | 2.5917e-05 | 2.5917e-05 |   0.0 |  0.02
+Modify  | 0.034155   | 0.034155   | 0.034155   |   0.0 | 30.99
+Other   |            | 0.0002302  |            |       |  0.21
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2728 ave 2728 max 2728 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53535 ave 53535 max 53535 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53535
+Ave neighs/atom = 109.255
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.7.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263663
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0265375
+  estimated relative force accuracy = 7.9917e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    3350    312.10687   -38657.004    63.876105   -38138.196   -176.32634    39114.192 
+    3850    305.91033   -38669.333    70.627234   -38152.806   -27.316961    38933.427 
+Loop time of 1.04375 on 1 procs for 500 steps with 490 atoms
+
+Performance: 41.389 ns/day, 0.580 hours/ns, 479.040 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.41001    | 0.41001    | 0.41001    |   0.0 | 39.28
+Bond    | 0.0088149  | 0.0088149  | 0.0088149  |   0.0 |  0.84
+Kspace  | 0.2728     | 0.2728     | 0.2728     |   0.0 | 26.14
+Neigh   | 0.02014    | 0.02014    | 0.02014    |   0.0 |  1.93
+Comm    | 0.0059981  | 0.0059981  | 0.0059981  |   0.0 |  0.57
+Output  | 1.9371e-05 | 1.9371e-05 | 1.9371e-05 |   0.0 |  0.00
+Modify  | 0.32374    | 0.32374    | 0.32374    |   0.0 | 31.02
+Other   |            | 0.002237   |            |       |  0.21
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2696 ave 2696 max 2696 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53225 ave 53225 max 53225 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53225
+Ave neighs/atom = 108.622
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 18
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(8-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -16.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263783
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264305
+  estimated relative force accuracy = 7.95948e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    3850    305.91033   -38669.262    70.627234   -38152.735   -26.693046    38933.427 
+    3900    306.73854   -38660.278    63.821901   -38149.349   -71.824736    38911.597 
+Loop time of 0.107063 on 1 procs for 50 steps with 490 atoms
+
+Performance: 40.350 ns/day, 0.595 hours/ns, 467.015 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.042957   | 0.042957   | 0.042957   |   0.0 | 40.12
+Bond    | 0.00092432 | 0.00092432 | 0.00092432 |   0.0 |  0.86
+Kspace  | 0.0282     | 0.0282     | 0.0282     |   0.0 | 26.34
+Neigh   | 0.0010816  | 0.0010816  | 0.0010816  |   0.0 |  1.01
+Comm    | 0.00055341 | 0.00055341 | 0.00055341 |   0.0 |  0.52
+Output  | 2.2275e-05 | 2.2275e-05 | 2.2275e-05 |   0.0 |  0.02
+Modify  | 0.033066   | 0.033066   | 0.033066   |   0.0 | 30.88
+Other   |            | 0.0002589  |            |       |  0.24
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2688 ave 2688 max 2688 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53227 ave 53227 max 53227 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53227
+Ave neighs/atom = 108.627
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.8.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263798
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264172
+  estimated relative force accuracy = 7.95545e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    3900    306.73854    -38660.27    63.821901   -38149.341   -71.749263    38911.597 
+    4000    306.89352   -38665.103    59.024143   -38158.746    84.347379        38859 
+    4400    301.39886   -38662.608    59.752742   -38163.532    5.3556812    38732.809 
+Loop time of 1.10743 on 1 procs for 500 steps with 490 atoms
+
+Performance: 39.009 ns/day, 0.615 hours/ns, 451.497 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.43346    | 0.43346    | 0.43346    |   0.0 | 39.14
+Bond    | 0.0095492  | 0.0095492  | 0.0095492  |   0.0 |  0.86
+Kspace  | 0.2903     | 0.2903     | 0.2903     |   0.0 | 26.21
+Neigh   | 0.019796   | 0.019796   | 0.019796   |   0.0 |  1.79
+Comm    | 0.0064161  | 0.0064161  | 0.0064161  |   0.0 |  0.58
+Output  | 7.2072e-05 | 7.2072e-05 | 7.2072e-05 |   0.0 |  0.01
+Modify  | 0.34531    | 0.34531    | 0.34531    |   0.0 | 31.18
+Other   |            | 0.002529   |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2706 ave 2706 max 2706 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53151 ave 53151 max 53151 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53151
+Ave neighs/atom = 108.471
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 17
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(9-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -16 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263917
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263129
+  estimated relative force accuracy = 7.92404e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    4400    301.39886   -38662.536    59.752742    -38163.46       5.9849    38732.809 
+    4450     319.3865   -38669.334     46.48806   -38157.303   -198.83793    38733.568 
+Loop time of 0.106471 on 1 procs for 50 steps with 490 atoms
+
+Performance: 40.574 ns/day, 0.592 hours/ns, 469.612 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.041763   | 0.041763   | 0.041763   |   0.0 | 39.22
+Bond    | 0.00090496 | 0.00090496 | 0.00090496 |   0.0 |  0.85
+Kspace  | 0.028513   | 0.028513   | 0.028513   |   0.0 | 26.78
+Neigh   | 0.0011089  | 0.0011089  | 0.0011089  |   0.0 |  1.04
+Comm    | 0.0006289  | 0.0006289  | 0.0006289  |   0.0 |  0.59
+Output  | 2.533e-05  | 2.533e-05  | 2.533e-05  |   0.0 |  0.02
+Modify  | 0.033264   | 0.033264   | 0.033264   |   0.0 | 31.24
+Other   |            | 0.0002635  |            |       |  0.25
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2720 ave 2720 max 2720 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53099 ave 53099 max 53099 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53099
+Ave neighs/atom = 108.365
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.9.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263916
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263137
+  estimated relative force accuracy = 7.92428e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    4450     319.3865   -38669.334     46.48806   -38157.303   -198.84201    38733.568 
+    4950     294.0051   -38687.995    55.268169    -38204.18   -52.105621    38833.313 
+Loop time of 1.08318 on 1 procs for 500 steps with 490 atoms
+
+Performance: 39.883 ns/day, 0.602 hours/ns, 461.604 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.42253    | 0.42253    | 0.42253    |   0.0 | 39.01
+Bond    | 0.0092728  | 0.0092728  | 0.0092728  |   0.0 |  0.86
+Kspace  | 0.2843     | 0.2843     | 0.2843     |   0.0 | 26.25
+Neigh   | 0.020315   | 0.020315   | 0.020315   |   0.0 |  1.88
+Comm    | 0.0061441  | 0.0061441  | 0.0061441  |   0.0 |  0.57
+Output  | 1.9631e-05 | 1.9631e-05 | 1.9631e-05 |   0.0 |  0.00
+Modify  | 0.33815    | 0.33815    | 0.33815    |   0.0 | 31.22
+Other   |            | 0.002442   |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2692 ave 2692 max 2692 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53100 ave 53100 max 53100 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53100
+Ave neighs/atom = 108.367
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 17
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(10-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -15.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.26385
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263715
+  estimated relative force accuracy = 7.9417e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    4950     294.0051   -38688.036    55.268169   -38204.221   -52.459107    38833.313 
+    5000    296.10891   -38678.822     59.78798   -38187.421   -20.892729     38989.05 
+Loop time of 0.106274 on 1 procs for 50 steps with 490 atoms
+
+Performance: 40.649 ns/day, 0.590 hours/ns, 470.480 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.041573   | 0.041573   | 0.041573   |   0.0 | 39.12
+Bond    | 0.00088653 | 0.00088653 | 0.00088653 |   0.0 |  0.83
+Kspace  | 0.028054   | 0.028054   | 0.028054   |   0.0 | 26.40
+Neigh   | 0.0010698  | 0.0010698  | 0.0010698  |   0.0 |  1.01
+Comm    | 0.00056329 | 0.00056329 | 0.00056329 |   0.0 |  0.53
+Output  | 2.3934e-05 | 2.3934e-05 | 2.3934e-05 |   0.0 |  0.02
+Modify  | 0.033865   | 0.033865   | 0.033865   |   0.0 | 31.87
+Other   |            | 0.0002386  |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2688 ave 2688 max 2688 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52937 ave 52937 max 52937 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52937
+Ave neighs/atom = 108.035
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.10.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263746
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264632
+  estimated relative force accuracy = 7.96932e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    5000    296.10891   -38678.883     59.78798   -38187.482   -21.422585     38989.05 
+    5500    278.92199   -38684.846    55.217239   -38223.068    290.61096    38873.273 
+Loop time of 1.05122 on 1 procs for 500 steps with 490 atoms
+
+Performance: 41.095 ns/day, 0.584 hours/ns, 475.637 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.40785    | 0.40785    | 0.40785    |   0.0 | 38.80
+Bond    | 0.009096   | 0.009096   | 0.009096   |   0.0 |  0.87
+Kspace  | 0.27695    | 0.27695    | 0.27695    |   0.0 | 26.35
+Neigh   | 0.018698   | 0.018698   | 0.018698   |   0.0 |  1.78
+Comm    | 0.0058768  | 0.0058768  | 0.0058768  |   0.0 |  0.56
+Output  | 3.5332e-05 | 3.5332e-05 | 3.5332e-05 |   0.0 |  0.00
+Modify  | 0.33043    | 0.33043    | 0.33043    |   0.0 | 31.43
+Other   |            | 0.002281   |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2740 ave 2740 max 2740 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53021 ave 53021 max 53021 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53021
+Ave neighs/atom = 108.206
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 17
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(11-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -15 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263823
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.026395
+  estimated relative force accuracy = 7.94879e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    5500    278.92199   -38684.796    55.217239   -38223.017    291.04942    38873.273 
+    5550    284.63698   -38696.878    62.601352   -38219.385    162.51703    38830.079 
+Loop time of 0.112078 on 1 procs for 50 steps with 490 atoms
+
+Performance: 38.545 ns/day, 0.623 hours/ns, 446.119 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.044482   | 0.044482   | 0.044482   |   0.0 | 39.69
+Bond    | 0.0010375  | 0.0010375  | 0.0010375  |   0.0 |  0.93
+Kspace  | 0.02993    | 0.02993    | 0.02993    |   0.0 | 26.70
+Neigh   | 0.0012171  | 0.0012171  | 0.0012171  |   0.0 |  1.09
+Comm    | 0.00063628 | 0.00063628 | 0.00063628 |   0.0 |  0.57
+Output  | 2.3154e-05 | 2.3154e-05 | 2.3154e-05 |   0.0 |  0.02
+Modify  | 0.034493   | 0.034493   | 0.034493   |   0.0 | 30.78
+Other   |            | 0.0002595  |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2752 ave 2752 max 2752 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53070 ave 53070 max 53070 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53070
+Ave neighs/atom = 108.306
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.11.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263852
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263697
+  estimated relative force accuracy = 7.94116e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    5550    284.63698    -38696.86    62.601352   -38219.367    162.67741    38830.079 
+    6000    306.56777   -38690.192     57.69934   -38185.634   -247.70125    38859.686 
+    6050    296.97331   -38687.854    64.961239    -38190.02    186.51615    38799.571 
+Loop time of 1.05223 on 1 procs for 500 steps with 490 atoms
+
+Performance: 41.056 ns/day, 0.585 hours/ns, 475.182 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.41619    | 0.41619    | 0.41619    |   0.0 | 39.55
+Bond    | 0.0089659  | 0.0089659  | 0.0089659  |   0.0 |  0.85
+Kspace  | 0.27263    | 0.27263    | 0.27263    |   0.0 | 25.91
+Neigh   | 0.017814   | 0.017814   | 0.017814   |   0.0 |  1.69
+Comm    | 0.0059089  | 0.0059089  | 0.0059089  |   0.0 |  0.56
+Output  | 5.7104e-05 | 5.7104e-05 | 5.7104e-05 |   0.0 |  0.01
+Modify  | 0.32834    | 0.32834    | 0.32834    |   0.0 | 31.20
+Other   |            | 0.002321   |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2736 ave 2736 max 2736 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53227 ave 53227 max 53227 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53227
+Ave neighs/atom = 108.627
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 16
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(12-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -14.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263872
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263521
+  estimated relative force accuracy = 7.93587e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    6050    296.97331   -38687.842    64.961239   -38190.007    186.62578    38799.571 
+    6100    308.10992    -38704.96    61.530004   -38194.324    122.70109    38808.167 
+Loop time of 0.110132 on 1 procs for 50 steps with 490 atoms
+
+Performance: 39.226 ns/day, 0.612 hours/ns, 454.000 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.043361   | 0.043361   | 0.043361   |   0.0 | 39.37
+Bond    | 0.00092935 | 0.00092935 | 0.00092935 |   0.0 |  0.84
+Kspace  | 0.029959   | 0.029959   | 0.029959   |   0.0 | 27.20
+Neigh   | 0.0011252  | 0.0011252  | 0.0011252  |   0.0 |  1.02
+Comm    | 0.00066113 | 0.00066113 | 0.00066113 |   0.0 |  0.60
+Output  | 2.4089e-05 | 2.4089e-05 | 2.4089e-05 |   0.0 |  0.02
+Modify  | 0.033823   | 0.033823   | 0.033823   |   0.0 | 30.71
+Other   |            | 0.0002494  |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2730 ave 2730 max 2730 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53355 ave 53355 max 53355 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53355
+Ave neighs/atom = 108.888
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.12.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263867
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263568
+  estimated relative force accuracy = 7.93728e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    6100    308.10992   -38704.964    61.530004   -38194.328    122.67102    38808.167 
+    6600    297.26012   -38655.926    69.368009   -38153.267    356.21229    38728.378 
+Loop time of 1.04662 on 1 procs for 500 steps with 490 atoms
+
+Performance: 41.276 ns/day, 0.581 hours/ns, 477.731 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.40699    | 0.40699    | 0.40699    |   0.0 | 38.89
+Bond    | 0.0089133  | 0.0089133  | 0.0089133  |   0.0 |  0.85
+Kspace  | 0.27927    | 0.27927    | 0.27927    |   0.0 | 26.68
+Neigh   | 0.018677   | 0.018677   | 0.018677   |   0.0 |  1.78
+Comm    | 0.0058278  | 0.0058278  | 0.0058278  |   0.0 |  0.56
+Output  | 3.6693e-05 | 3.6693e-05 | 3.6693e-05 |   0.0 |  0.00
+Modify  | 0.32465    | 0.32465    | 0.32465    |   0.0 | 31.02
+Other   |            | 0.002256   |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2748 ave 2748 max 2748 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52838 ave 52838 max 52838 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52838
+Ave neighs/atom = 107.833
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 17
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(13-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -14 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263916
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263153
+  estimated relative force accuracy = 7.92478e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    6600    297.26012   -38655.895    69.368009   -38153.236    356.48323    38728.378 
+    6650    308.35727   -38686.421    63.636637   -38173.318   -22.974361    38783.356 
+Loop time of 0.107262 on 1 procs for 50 steps with 490 atoms
+
+Performance: 40.275 ns/day, 0.596 hours/ns, 466.149 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.041602   | 0.041602   | 0.041602   |   0.0 | 38.79
+Bond    | 0.00091616 | 0.00091616 | 0.00091616 |   0.0 |  0.85
+Kspace  | 0.028757   | 0.028757   | 0.028757   |   0.0 | 26.81
+Neigh   | 0.0011153  | 0.0011153  | 0.0011153  |   0.0 |  1.04
+Comm    | 0.00060457 | 0.00060457 | 0.00060457 |   0.0 |  0.56
+Output  | 2.5975e-05 | 2.5975e-05 | 2.5975e-05 |   0.0 |  0.02
+Modify  | 0.033977   | 0.033977   | 0.033977   |   0.0 | 31.68
+Other   |            | 0.0002637  |            |       |  0.25
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2758 ave 2758 max 2758 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52851 ave 52851 max 52851 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52851
+Ave neighs/atom = 107.859
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.13.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263883
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263426
+  estimated relative force accuracy = 7.93299e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    6650    308.35727   -38686.441    63.636637   -38173.338   -23.149839    38783.356 
+    7000    299.94467   -38666.866    64.030438   -38165.631   -303.63426    38937.005 
+    7150    319.66003   -38665.096    57.821055   -38141.333    18.208829    38854.426 
+Loop time of 1.04863 on 1 procs for 500 steps with 490 atoms
+
+Performance: 41.197 ns/day, 0.583 hours/ns, 476.815 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.4099     | 0.4099     | 0.4099     |   0.0 | 39.09
+Bond    | 0.0089376  | 0.0089376  | 0.0089376  |   0.0 |  0.85
+Kspace  | 0.27635    | 0.27635    | 0.27635    |   0.0 | 26.35
+Neigh   | 0.020064   | 0.020064   | 0.020064   |   0.0 |  1.91
+Comm    | 0.0061187  | 0.0061187  | 0.0061187  |   0.0 |  0.58
+Output  | 6.986e-05  | 6.986e-05  | 6.986e-05  |   0.0 |  0.01
+Modify  | 0.32485    | 0.32485    | 0.32485    |   0.0 | 30.98
+Other   |            | 0.002337   |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2808 ave 2808 max 2808 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53099 ave 53099 max 53099 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53099
+Ave neighs/atom = 108.365
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 18
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(14-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -13.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263831
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263905
+  estimated relative force accuracy = 7.94742e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    7150    319.66003   -38665.128    57.821055   -38141.365    17.928642    38854.426 
+    7200    296.22924   -38652.402     64.46854   -38156.145    68.408529    38959.509 
+Loop time of 0.106082 on 1 procs for 50 steps with 490 atoms
+
+Performance: 40.723 ns/day, 0.589 hours/ns, 471.335 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.041848   | 0.041848   | 0.041848   |   0.0 | 39.45
+Bond    | 0.00095835 | 0.00095835 | 0.00095835 |   0.0 |  0.90
+Kspace  | 0.028072   | 0.028072   | 0.028072   |   0.0 | 26.46
+Neigh   | 0.001066   | 0.001066   | 0.001066   |   0.0 |  1.00
+Comm    | 0.00059007 | 0.00059007 | 0.00059007 |   0.0 |  0.56
+Output  | 2.2741e-05 | 2.2741e-05 | 2.2741e-05 |   0.0 |  0.02
+Modify  | 0.033281   | 0.033281   | 0.033281   |   0.0 | 31.37
+Other   |            | 0.000243   |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2786 ave 2786 max 2786 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52867 ave 52867 max 52867 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52867
+Ave neighs/atom = 107.892
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.14.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263766
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264464
+  estimated relative force accuracy = 7.96425e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    7200    296.22924   -38652.441     64.46854   -38156.184    68.070745    38959.509 
+    7700    315.70302   -38668.065    61.360274   -38146.531   -6.5412595     38886.78 
+Loop time of 1.05811 on 1 procs for 500 steps with 490 atoms
+
+Performance: 40.827 ns/day, 0.588 hours/ns, 472.540 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.40903    | 0.40903    | 0.40903    |   0.0 | 38.66
+Bond    | 0.0091796  | 0.0091796  | 0.0091796  |   0.0 |  0.87
+Kspace  | 0.28237    | 0.28237    | 0.28237    |   0.0 | 26.69
+Neigh   | 0.018743   | 0.018743   | 0.018743   |   0.0 |  1.77
+Comm    | 0.0060827  | 0.0060827  | 0.0060827  |   0.0 |  0.57
+Output  | 3.5e-05    | 3.5e-05    | 3.5e-05    |   0.0 |  0.00
+Modify  | 0.33029    | 0.33029    | 0.33029    |   0.0 | 31.22
+Other   |            | 0.002382   |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2800 ave 2800 max 2800 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53117 ave 53117 max 53117 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53117
+Ave neighs/atom = 108.402
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 17
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(15-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -13 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.26381
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.026409
+  estimated relative force accuracy = 7.953e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    7700    315.70302   -38668.039    61.360274   -38146.505   -6.3130967     38886.78 
+    7750    293.10427    -38641.57    64.410255   -38149.926   -296.91639    39039.916 
+Loop time of 0.107362 on 1 procs for 50 steps with 490 atoms
+
+Performance: 40.238 ns/day, 0.596 hours/ns, 465.713 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.04281    | 0.04281    | 0.04281    |   0.0 | 39.87
+Bond    | 0.00099706 | 0.00099706 | 0.00099706 |   0.0 |  0.93
+Kspace  | 0.027476   | 0.027476   | 0.027476   |   0.0 | 25.59
+Neigh   | 0.0010648  | 0.0010648  | 0.0010648  |   0.0 |  0.99
+Comm    | 0.00057508 | 0.00057508 | 0.00057508 |   0.0 |  0.54
+Output  | 2.2844e-05 | 2.2844e-05 | 2.2844e-05 |   0.0 |  0.02
+Modify  | 0.03417    | 0.03417    | 0.03417    |   0.0 | 31.83
+Other   |            | 0.0002457  |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2790 ave 2790 max 2790 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53074 ave 53074 max 53074 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53074
+Ave neighs/atom = 108.314
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.15.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263709
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264982
+  estimated relative force accuracy = 7.97987e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    7750    293.10427   -38641.628    64.410255   -38149.984   -297.42216    39039.916 
+    8000    295.25094   -38699.852    55.724762   -38213.765   -62.190041    38795.692 
+    8250    297.69091   -38656.031    63.321195   -38158.791    103.40934    38898.717 
+Loop time of 1.05382 on 1 procs for 500 steps with 490 atoms
+
+Performance: 40.994 ns/day, 0.585 hours/ns, 474.466 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.40774    | 0.40774    | 0.40774    |   0.0 | 38.69
+Bond    | 0.0091752  | 0.0091752  | 0.0091752  |   0.0 |  0.87
+Kspace  | 0.28194    | 0.28194    | 0.28194    |   0.0 | 26.75
+Neigh   | 0.01853    | 0.01853    | 0.01853    |   0.0 |  1.76
+Comm    | 0.0060734  | 0.0060734  | 0.0060734  |   0.0 |  0.58
+Output  | 7.2849e-05 | 7.2849e-05 | 7.2849e-05 |   0.0 |  0.01
+Modify  | 0.32794    | 0.32794    | 0.32794    |   0.0 | 31.12
+Other   |            | 0.002348   |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2750 ave 2750 max 2750 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52570 ave 52570 max 52570 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52570
+Ave neighs/atom = 107.286
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 17
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(16-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -12.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263806
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264104
+  estimated relative force accuracy = 7.95342e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    8250    297.69091   -38655.973    63.321195   -38158.732    103.91818    38898.717 
+    8300    307.12166   -38662.598    60.796728   -38154.136   -321.18539    39015.343 
+Loop time of 0.111293 on 1 procs for 50 steps with 490 atoms
+
+Performance: 38.817 ns/day, 0.618 hours/ns, 449.266 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.043766   | 0.043766   | 0.043766   |   0.0 | 39.33
+Bond    | 0.00095383 | 0.00095383 | 0.00095383 |   0.0 |  0.86
+Kspace  | 0.029548   | 0.029548   | 0.029548   |   0.0 | 26.55
+Neigh   | 0.0011119  | 0.0011119  | 0.0011119  |   0.0 |  1.00
+Comm    | 0.00065172 | 0.00065172 | 0.00065172 |   0.0 |  0.59
+Output  | 2.7368e-05 | 2.7368e-05 | 2.7368e-05 |   0.0 |  0.02
+Modify  | 0.034893   | 0.034893   | 0.034893   |   0.0 | 31.35
+Other   |            | 0.0003404  |            |       |  0.31
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2732 ave 2732 max 2732 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52425 ave 52425 max 52425 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52425
+Ave neighs/atom = 106.99
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.16.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263728
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264798
+  estimated relative force accuracy = 7.97431e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    8300    307.12166   -38662.642    60.796728    -38154.18   -321.57125    39015.343 
+    8800    301.29041   -38683.067     55.29963   -38188.602    335.48325    38880.479 
+Loop time of 1.14863 on 1 procs for 500 steps with 490 atoms
+
+Performance: 37.610 ns/day, 0.638 hours/ns, 435.300 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.44854    | 0.44854    | 0.44854    |   0.0 | 39.05
+Bond    | 0.0099083  | 0.0099083  | 0.0099083  |   0.0 |  0.86
+Kspace  | 0.30263    | 0.30263    | 0.30263    |   0.0 | 26.35
+Neigh   | 0.019197   | 0.019197   | 0.019197   |   0.0 |  1.67
+Comm    | 0.0068516  | 0.0068516  | 0.0068516  |   0.0 |  0.60
+Output  | 1.8177e-05 | 1.8177e-05 | 1.8177e-05 |   0.0 |  0.00
+Modify  | 0.35899    | 0.35899    | 0.35899    |   0.0 | 31.25
+Other   |            | 0.002497   |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2822 ave 2822 max 2822 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53067 ave 53067 max 53067 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53067
+Ave neighs/atom = 108.3
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 16
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(17-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -12 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263819
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263994
+  estimated relative force accuracy = 7.95011e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    8800    301.29041   -38683.011     55.29963   -38188.546    335.96805    38880.479 
+    8850     310.1903   -38674.138    56.459707   -38165.539   -39.673139    38838.327 
+Loop time of 0.110871 on 1 procs for 50 steps with 490 atoms
+
+Performance: 38.964 ns/day, 0.616 hours/ns, 450.973 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.043955   | 0.043955   | 0.043955   |   0.0 | 39.65
+Bond    | 0.00093364 | 0.00093364 | 0.00093364 |   0.0 |  0.84
+Kspace  | 0.028858   | 0.028858   | 0.028858   |   0.0 | 26.03
+Neigh   | 0.0010791  | 0.0010791  | 0.0010791  |   0.0 |  0.97
+Comm    | 0.00062371 | 0.00062371 | 0.00062371 |   0.0 |  0.56
+Output  | 2.5524e-05 | 2.5524e-05 | 2.5524e-05 |   0.0 |  0.02
+Modify  | 0.035123   | 0.035123   | 0.035123   |   0.0 | 31.68
+Other   |            | 0.0002732  |            |       |  0.25
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2868 ave 2868 max 2868 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52974 ave 52974 max 52974 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52974
+Ave neighs/atom = 108.11
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.17.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263846
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263751
+  estimated relative force accuracy = 7.94278e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    8850     310.1903   -38674.121    56.459707   -38165.523   -39.526794    38838.327 
+    9000    311.01479   -38663.286     63.92568    -38146.02   -176.92929    38760.786 
+    9350      275.348   -38678.544    61.596921   -38215.595   -31.851414    38829.164 
+Loop time of 1.18544 on 1 procs for 500 steps with 490 atoms
+
+Performance: 36.442 ns/day, 0.659 hours/ns, 421.783 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.46786    | 0.46786    | 0.46786    |   0.0 | 39.47
+Bond    | 0.010394   | 0.010394   | 0.010394   |   0.0 |  0.88
+Kspace  | 0.31247    | 0.31247    | 0.31247    |   0.0 | 26.36
+Neigh   | 0.020019   | 0.020019   | 0.020019   |   0.0 |  1.69
+Comm    | 0.0077573  | 0.0077573  | 0.0077573  |   0.0 |  0.65
+Output  | 4.125e-05  | 4.125e-05  | 4.125e-05  |   0.0 |  0.00
+Modify  | 0.36399    | 0.36399    | 0.36399    |   0.0 | 30.71
+Other   |            | 0.00291    |            |       |  0.25
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2868 ave 2868 max 2868 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53233 ave 53233 max 53233 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53233
+Ave neighs/atom = 108.639
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 16
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(18-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -11.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263852
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263698
+  estimated relative force accuracy = 7.94118e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    9350      275.348    -38678.54    61.596921   -38215.592   -31.818999    38829.164 
+    9400    292.22224   -38693.743    62.105786   -38205.689    24.951449    38815.848 
+Loop time of 0.108233 on 1 procs for 50 steps with 490 atoms
+
+Performance: 39.914 ns/day, 0.601 hours/ns, 461.965 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.04184    | 0.04184    | 0.04184    |   0.0 | 38.66
+Bond    | 0.00088508 | 0.00088508 | 0.00088508 |   0.0 |  0.82
+Kspace  | 0.029406   | 0.029406   | 0.029406   |   0.0 | 27.17
+Neigh   | 0.0010766  | 0.0010766  | 0.0010766  |   0.0 |  0.99
+Comm    | 0.00062008 | 0.00062008 | 0.00062008 |   0.0 |  0.57
+Output  | 2.31e-05   | 2.31e-05   | 2.31e-05   |   0.0 |  0.02
+Modify  | 0.034135   | 0.034135   | 0.034135   |   0.0 | 31.54
+Other   |            | 0.0002472  |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2878 ave 2878 max 2878 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53357 ave 53357 max 53357 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53357
+Ave neighs/atom = 108.892
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.18.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263861
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263618
+  estimated relative force accuracy = 7.93879e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    9400    292.22224   -38693.737    62.105786   -38205.684    25.000099    38815.848 
+    9900    287.97594   -38667.542    50.107601   -38197.676    199.76251    38810.755 
+Loop time of 1.1172 on 1 procs for 500 steps with 490 atoms
+
+Performance: 38.668 ns/day, 0.621 hours/ns, 447.548 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.43839    | 0.43839    | 0.43839    |   0.0 | 39.24
+Bond    | 0.0097529  | 0.0097529  | 0.0097529  |   0.0 |  0.87
+Kspace  | 0.29525    | 0.29525    | 0.29525    |   0.0 | 26.43
+Neigh   | 0.018472   | 0.018472   | 0.018472   |   0.0 |  1.65
+Comm    | 0.0064976  | 0.0064976  | 0.0064976  |   0.0 |  0.58
+Output  | 3.6353e-05 | 3.6353e-05 | 3.6353e-05 |   0.0 |  0.00
+Modify  | 0.34625    | 0.34625    | 0.34625    |   0.0 | 30.99
+Other   |            | 0.00256    |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2860 ave 2860 max 2860 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52921 ave 52921 max 52921 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52921
+Ave neighs/atom = 108.002
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 16
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(19-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -11 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263865
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263591
+  estimated relative force accuracy = 7.93796e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    9900    287.97594    -38667.54    50.107601   -38197.674     199.7797    38810.755 
+    9950    289.52828   -38681.289     55.46408   -38203.803    491.70525    38733.904 
+Loop time of 0.115933 on 1 procs for 50 steps with 490 atoms
+
+Performance: 37.263 ns/day, 0.644 hours/ns, 431.285 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.046025   | 0.046025   | 0.046025   |   0.0 | 39.70
+Bond    | 0.0011168  | 0.0011168  | 0.0011168  |   0.0 |  0.96
+Kspace  | 0.030085   | 0.030085   | 0.030085   |   0.0 | 25.95
+Neigh   | 0.0011302  | 0.0011302  | 0.0011302  |   0.0 |  0.97
+Comm    | 0.00063812 | 0.00063812 | 0.00063812 |   0.0 |  0.55
+Output  | 2.4683e-05 | 2.4683e-05 | 2.4683e-05 |   0.0 |  0.02
+Modify  | 0.036612   | 0.036612   | 0.036612   |   0.0 | 31.58
+Other   |            | 0.000301   |            |       |  0.26
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2866 ave 2866 max 2866 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53121 ave 53121 max 53121 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53121
+Ave neighs/atom = 108.41
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.19.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263915
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263156
+  estimated relative force accuracy = 7.92486e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    9950    289.52828   -38681.256     55.46408   -38203.771    491.98947    38733.904 
+   10000    282.65182    -38678.08    60.979866   -38205.103    458.53349    38803.478 
+   10450    307.89178    -38685.33    64.609192   -38171.933    282.14204    38904.694 
+Loop time of 1.0583 on 1 procs for 500 steps with 490 atoms
+
+Performance: 40.820 ns/day, 0.588 hours/ns, 472.457 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.41442    | 0.41442    | 0.41442    |   0.0 | 39.16
+Bond    | 0.0089973  | 0.0089973  | 0.0089973  |   0.0 |  0.85
+Kspace  | 0.28047    | 0.28047    | 0.28047    |   0.0 | 26.50
+Neigh   | 0.017563   | 0.017563   | 0.017563   |   0.0 |  1.66
+Comm    | 0.0063902  | 0.0063902  | 0.0063902  |   0.0 |  0.60
+Output  | 4.4868e-05 | 4.4868e-05 | 4.4868e-05 |   0.0 |  0.00
+Modify  | 0.32806    | 0.32806    | 0.32806    |   0.0 | 31.00
+Other   |            | 0.002355   |            |       |  0.22
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2882 ave 2882 max 2882 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53232 ave 53232 max 53232 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53232
+Ave neighs/atom = 108.637
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 16
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(20-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -10.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263802
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264142
+  estimated relative force accuracy = 7.95455e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   10450    307.89178   -38685.399    64.609192   -38172.002    281.54067    38904.694 
+   10500    297.08618   -38680.377     61.24286   -38186.096     543.6945    38775.373 
+Loop time of 0.110394 on 1 procs for 50 steps with 490 atoms
+
+Performance: 39.132 ns/day, 0.613 hours/ns, 452.922 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.043062   | 0.043062   | 0.043062   |   0.0 | 39.01
+Bond    | 0.00098124 | 0.00098124 | 0.00098124 |   0.0 |  0.89
+Kspace  | 0.029354   | 0.029354   | 0.029354   |   0.0 | 26.59
+Neigh   | 0.0010847  | 0.0010847  | 0.0010847  |   0.0 |  0.98
+Comm    | 0.00066841 | 0.00066841 | 0.00066841 |   0.0 |  0.61
+Output  | 2.362e-05  | 2.362e-05  | 2.362e-05  |   0.0 |  0.02
+Modify  | 0.034968   | 0.034968   | 0.034968   |   0.0 | 31.68
+Other   |            | 0.0002521  |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2886 ave 2886 max 2886 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53307 ave 53307 max 53307 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53307
+Ave neighs/atom = 108.79
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.20.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263888
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263387
+  estimated relative force accuracy = 7.93182e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   10500    297.08618    -38680.32     61.24286    -38186.04    544.18432    38775.373 
+   11000     287.7856   -38653.321     67.44481   -38166.396    386.57328    38700.802 
+Loop time of 1.08257 on 1 procs for 500 steps with 490 atoms
+
+Performance: 39.905 ns/day, 0.601 hours/ns, 461.864 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.42237    | 0.42237    | 0.42237    |   0.0 | 39.02
+Bond    | 0.009234   | 0.009234   | 0.009234   |   0.0 |  0.85
+Kspace  | 0.28613    | 0.28613    | 0.28613    |   0.0 | 26.43
+Neigh   | 0.020503   | 0.020503   | 0.020503   |   0.0 |  1.89
+Comm    | 0.0066009  | 0.0066009  | 0.0066009  |   0.0 |  0.61
+Output  | 3.5682e-05 | 3.5682e-05 | 3.5682e-05 |   0.0 |  0.00
+Modify  | 0.3352     | 0.3352     | 0.3352     |   0.0 | 30.96
+Other   |            | 0.002496   |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2890 ave 2890 max 2890 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53343 ave 53343 max 53343 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53343
+Ave neighs/atom = 108.863
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 17
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(21-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -10 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263938
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0262942
+  estimated relative force accuracy = 7.91842e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   11000     287.7856    -38653.29     67.44481   -38166.364    386.85009    38700.802 
+   11050    297.96379    -38676.37    64.826677   -38177.227    204.48807    38742.328 
+Loop time of 0.10877 on 1 procs for 50 steps with 490 atoms
+
+Performance: 39.717 ns/day, 0.604 hours/ns, 459.687 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.043407   | 0.043407   | 0.043407   |   0.0 | 39.91
+Bond    | 0.0009159  | 0.0009159  | 0.0009159  |   0.0 |  0.84
+Kspace  | 0.028661   | 0.028661   | 0.028661   |   0.0 | 26.35
+Neigh   | 0.0010881  | 0.0010881  | 0.0010881  |   0.0 |  1.00
+Comm    | 0.00067693 | 0.00067693 | 0.00067693 |   0.0 |  0.62
+Output  | 2.2703e-05 | 2.2703e-05 | 2.2703e-05 |   0.0 |  0.02
+Modify  | 0.033729   | 0.033729   | 0.033729   |   0.0 | 31.01
+Other   |            | 0.0002681  |            |       |  0.25
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2884 ave 2884 max 2884 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    53413 ave 53413 max 53413 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 53413
+Ave neighs/atom = 109.006
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.21.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.26391
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263187
+  estimated relative force accuracy = 7.92579e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   11050    297.96379   -38676.388    64.826677   -38177.244    204.33274    38742.328 
+   11550      309.993   -38664.882    57.618027   -38155.413    378.20318     38720.63 
+Loop time of 1.16011 on 1 procs for 500 steps with 490 atoms
+
+Performance: 37.238 ns/day, 0.645 hours/ns, 430.993 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.45541    | 0.45541    | 0.45541    |   0.0 | 39.26
+Bond    | 0.010227   | 0.010227   | 0.010227   |   0.0 |  0.88
+Kspace  | 0.30462    | 0.30462    | 0.30462    |   0.0 | 26.26
+Neigh   | 0.020218   | 0.020218   | 0.020218   |   0.0 |  1.74
+Comm    | 0.0075833  | 0.0075833  | 0.0075833  |   0.0 |  0.65
+Output  | 2.5963e-05 | 2.5963e-05 | 2.5963e-05 |   0.0 |  0.00
+Modify  | 0.35928    | 0.35928    | 0.35928    |   0.0 | 30.97
+Other   |            | 0.002753   |            |       |  0.24
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2880 ave 2880 max 2880 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52690 ave 52690 max 52690 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52690
+Ave neighs/atom = 107.531
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 17
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(22-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -9.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263925
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.026306
+  estimated relative force accuracy = 7.92198e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   11550      309.993   -38664.873    57.618027   -38155.404    378.28297     38720.63 
+   11600    295.09324   -38658.358     58.02989   -38170.196    -119.4044    38924.958 
+Loop time of 0.124111 on 1 procs for 50 steps with 490 atoms
+
+Performance: 34.808 ns/day, 0.690 hours/ns, 402.867 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.048031   | 0.048031   | 0.048031   |   0.0 | 38.70
+Bond    | 0.0011762  | 0.0011762  | 0.0011762  |   0.0 |  0.95
+Kspace  | 0.033577   | 0.033577   | 0.033577   |   0.0 | 27.05
+Neigh   | 0.0012185  | 0.0012185  | 0.0012185  |   0.0 |  0.98
+Comm    | 0.0008078  | 0.0008078  | 0.0008078  |   0.0 |  0.65
+Output  | 2.5557e-05 | 2.5557e-05 | 2.5557e-05 |   0.0 |  0.02
+Modify  | 0.038982   | 0.038982   | 0.038982   |   0.0 | 31.41
+Other   |            | 0.0002922  |            |       |  0.24
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2885 ave 2885 max 2885 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52517 ave 52517 max 52517 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52517
+Ave neighs/atom = 107.178
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.22.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263789
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.026425
+  estimated relative force accuracy = 7.95782e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   11600    295.09324   -38658.436     58.02989   -38170.273   -120.08138    38924.958 
+   12000    300.90894   -38641.291    61.868086   -38140.814    554.41222    38676.384 
+   12100    299.59023   -38640.229    63.380115   -38140.161   -162.31697    38771.839 
+Loop time of 1.08904 on 1 procs for 500 steps with 490 atoms
+
+Performance: 39.668 ns/day, 0.605 hours/ns, 459.119 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.42581    | 0.42581    | 0.42581    |   0.0 | 39.10
+Bond    | 0.0097405  | 0.0097405  | 0.0097405  |   0.0 |  0.89
+Kspace  | 0.28746    | 0.28746    | 0.28746    |   0.0 | 26.40
+Neigh   | 0.019338   | 0.019338   | 0.019338   |   0.0 |  1.78
+Comm    | 0.0065853  | 0.0065853  | 0.0065853  |   0.0 |  0.60
+Output  | 5.6643e-05 | 5.6643e-05 | 5.6643e-05 |   0.0 |  0.01
+Modify  | 0.33758    | 0.33758    | 0.33758    |   0.0 | 31.00
+Other   |            | 0.002474   |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2899 ave 2899 max 2899 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52813 ave 52813 max 52813 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52813
+Ave neighs/atom = 107.782
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 17
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(23-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -9 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263891
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0263357
+  estimated relative force accuracy = 7.93092e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   12100    299.59023   -38640.169    63.380115   -38140.101   -161.79195    38771.839 
+   12150    300.39702   -38651.021    62.945591   -38150.212   -562.60053    38932.655 
+Loop time of 0.111521 on 1 procs for 50 steps with 490 atoms
+
+Performance: 38.737 ns/day, 0.620 hours/ns, 448.346 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.043746   | 0.043746   | 0.043746   |   0.0 | 39.23
+Bond    | 0.001037   | 0.001037   | 0.001037   |   0.0 |  0.93
+Kspace  | 0.030063   | 0.030063   | 0.030063   |   0.0 | 26.96
+Neigh   | 0.0010643  | 0.0010643  | 0.0010643  |   0.0 |  0.95
+Comm    | 0.00070854 | 0.00070854 | 0.00070854 |   0.0 |  0.64
+Output  | 2.5329e-05 | 2.5329e-05 | 2.5329e-05 |   0.0 |  0.02
+Modify  | 0.034623   | 0.034623   | 0.034623   |   0.0 | 31.05
+Other   |            | 0.0002541  |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2880 ave 2880 max 2880 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52607 ave 52607 max 52607 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52607
+Ave neighs/atom = 107.361
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.23.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263784
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264296
+  estimated relative force accuracy = 7.95921e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   12150    300.39702   -38651.081    62.945591   -38150.271   -563.11784    38932.655 
+   12650    294.87103   -38637.974    64.731208   -38143.434   -3.6371297    39023.072 
+Loop time of 1.08651 on 1 procs for 500 steps with 490 atoms
+
+Performance: 39.760 ns/day, 0.604 hours/ns, 460.190 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.42307    | 0.42307    | 0.42307    |   0.0 | 38.94
+Bond    | 0.0094084  | 0.0094084  | 0.0094084  |   0.0 |  0.87
+Kspace  | 0.2879     | 0.2879     | 0.2879     |   0.0 | 26.50
+Neigh   | 0.016144   | 0.016144   | 0.016144   |   0.0 |  1.49
+Comm    | 0.0065618  | 0.0065618  | 0.0065618  |   0.0 |  0.60
+Output  | 1.9927e-05 | 1.9927e-05 | 1.9927e-05 |   0.0 |  0.00
+Modify  | 0.34086    | 0.34086    | 0.34086    |   0.0 | 31.37
+Other   |            | 0.002545   |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2868 ave 2868 max 2868 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52564 ave 52564 max 52564 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52564
+Ave neighs/atom = 107.273
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 14
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+variable	zdes equal -20+0.5*(${cpt}-1)
+variable	zdes equal -20+0.5*(24-1)
+fix		mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 ${zdes} 0
+fix		mytth2 topull spring tether 0.5 0 0 -8.5 0
+run		50#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.26372
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0264879
+  estimated relative force accuracy = 7.97674e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   12650    294.87103    -38638.01    64.731208    -38143.47   -3.9438375    39023.072 
+   12700    317.56721   -38656.176    62.188492   -38131.097   -322.63598    39120.553 
+Loop time of 0.107323 on 1 procs for 50 steps with 490 atoms
+
+Performance: 40.252 ns/day, 0.596 hours/ns, 465.884 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.041472   | 0.041472   | 0.041472   |   0.0 | 38.64
+Bond    | 0.00099072 | 0.00099072 | 0.00099072 |   0.0 |  0.92
+Kspace  | 0.029003   | 0.029003   | 0.029003   |   0.0 | 27.02
+Neigh   | 0.0013244  | 0.0013244  | 0.0013244  |   0.0 |  1.23
+Comm    | 0.00063504 | 0.00063504 | 0.00063504 |   0.0 |  0.59
+Output  | 2.3522e-05 | 2.3522e-05 | 2.3522e-05 |   0.0 |  0.02
+Modify  | 0.033626   | 0.033626   | 0.033626   |   0.0 | 31.33
+Other   |            | 0.0002479  |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2876 ave 2876 max 2876 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52428 ave 52428 max 52428 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52428
+Ave neighs/atom = 106.996
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 1
+Dangerous builds = 0
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.${cpt}.dat
+fix		myat1 all ave/time 10 10 100 v_zave v_zdes file position.24.dat
+run		500#000
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:323)
+  G vector (1/distance) = 0.263659
+  grid = 15 15 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0265407
+  estimated relative force accuracy = 7.99265e-05
+  using double precision FFTW3
+  3d grid and FFT values/proc = 14036 5400
+Per MPI rank memory allocation (min/avg/max) = 13.36 | 13.36 | 13.36 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   12700    317.56721   -38656.211    62.188492   -38131.131   -322.93223    39120.553 
+   13000    292.89182   -38670.936    63.243852   -38180.769   -208.60626     38904.55 
+   13200    293.98997   -38649.661    57.742473   -38163.394   -133.20745    39066.775 
+Loop time of 1.09576 on 1 procs for 500 steps with 490 atoms
+
+Performance: 39.425 ns/day, 0.609 hours/ns, 456.302 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.42742    | 0.42742    | 0.42742    |   0.0 | 39.01
+Bond    | 0.0097469  | 0.0097469  | 0.0097469  |   0.0 |  0.89
+Kspace  | 0.29169    | 0.29169    | 0.29169    |   0.0 | 26.62
+Neigh   | 0.015011   | 0.015011   | 0.015011   |   0.0 |  1.37
+Comm    | 0.0066396  | 0.0066396  | 0.0066396  |   0.0 |  0.61
+Output  | 7.2305e-05 | 7.2305e-05 | 7.2305e-05 |   0.0 |  0.01
+Modify  | 0.34272    | 0.34272    | 0.34272    |   0.0 | 31.28
+Other   |            | 0.002467   |            |       |  0.23
+
+Nlocal:    490 ave 490 max 490 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    2864 ave 2864 max 2864 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    52444 ave 52444 max 52444 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 52444
+Ave neighs/atom = 107.029
+Ave special neighs/atom = 1.34694
+Neighbor list builds = 13
+Dangerous builds = 0
+unfix		myat1
+next		cpt
+jump		SELF loop
+Total wall time: 0:00:29
