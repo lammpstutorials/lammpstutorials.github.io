@@ -30,8 +30,9 @@ neigh_modify			every 1 delay 4 check yes
 minimize				1e-4 1e-6 100 1000
 reset_timestep			0
 
+variable				U atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
 variable				F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
-fix 					myadf all addforce v_F 0.0 0.0
+fix 					myadf all addforce v_F 0.0 0.0 energy v_U
 
 fix						mynve all nve
 fix						mylgv all langevin 119.8 119.8 100 1530917

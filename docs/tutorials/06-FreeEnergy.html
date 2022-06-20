@@ -235,8 +235,9 @@ simulation using the 'addforce' command:
 minimize		1e-4 1e-6 100 1000
 reset_timestep		0
 
+variable		U atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
 variable		F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
-fix 			myadf all addforce v_F 0.0 0.0</code></pre>
+fix 			myadf all addforce v_F 0.0 0.0 energy v_U</code></pre>
 </p>
 <p>
 Finally, let us combine the fix nve
@@ -385,8 +386,9 @@ neigh_modify		every 1 delay 4 check yes
 group			topull type 2
 
 # --------------------- run
+variable		U atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
 variable		F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
-fix 			pot all addforce v_F 0.0 0.0
+fix 			pot all addforce v_F 0.0 0.0 energy v_U
 
 fix			mynve all nve
 fix			mylgv all langevin 119.8 119.8 100 1530917
@@ -498,31 +500,68 @@ alt="Responsive image">
 <small>Potential as predicted from umbrella sampling for different run durations. 
 Note that their is a small
 difference in width between the calculated and the imposed potential, I am not
-sure why, may be this can be improbed by using different values of \(k\).</small>
+sure why, may be this can be improved by using different values of \(k\).</small>
 </p>
 </section>
-<br><br>
 <!-- ======================================================= -->
 <!-- ======================================================= -->
 <!-- ======================================================= -->
 <section id="further">
-<h2>Going further</h2>
-<h4>Realistic system</h4>
-<p>
-You can apply the same two methods to a more realistic and
-interesting system. For example, you can measure the free energy
-profile normal to a water-vapour interface, or normal to a
-solid liquid interface (see <a href="07-AdsorptionInterface.html">this tutorial</a>).
+<h2>Going further with exercises</h2>
+
+<br>
+<p class="alert alert-info"> 
+Request the solutions by email, or register <a target="_blank"
+href="https://www.patreon.com/molecularsimulations">here</a> and access all the solutions
++ additional LAMMPS content.
 </p>
-<h4>Nanopore selectivity</h4>
+<br>
+
+<h4><b>Exercise 1: Monte Carlo versus molecular dynamics</b></h4>
+
 <p>
-Umbrella sampling method can be used to evaluate the barrier
-potential that a nanopore, for example a protein (e.g. aquaporin),
-opposes to molecules or ions. In this case, the procedure is to
-force the molecule/ion to cross the channel, and then
-reconstruct the free energy profile as we did here.
+Use a Monte Carlo procedure to equilibrate the system instead of 
+molecular dynamics. Is it more efficient than molecular dynamics?
+
+<blockquote><i>
+Hint: pure MC move can be made using the fix gcmc. 
+</blockquote></i>
 </p>
-<br><br>
+
+<h4><b>Exercise 2 : Binary fluid simulation</b></h4>
+
+<p>
+Create a molecular simulation with two species, and apply a different
+potential on them using addforce to create the following situation:
+</p>
+<p><img src="../figures/tutorial02/binary.jpg" class="img-fluid"
+alt="Responsive image">
+</p>
+
+<!--
+<h4><b>Exercise 2b : using swap exchange</b></h4>
+
+<p>
+Starting from the previous simulation, equilibrate the two population
+of atoms using atom/swap instead of molecular dynamics.  
+
+<blockquote><i>
+Hint: only swapping atoms identity (1 <-> 2) without moving them will no led to
+an equilibrium situation, but swapping can be mixed with molecular dynamics. 
+</blockquote></i>
+</p>
+-->
+
+<h4><b>Exercise 3 : Adsorption energy of a molecule at a solid wall</b></h4>
+
+<p>
+Apply umbrella sampling to calculate the free energy profile of an ethanol molecule
+normal to a solid wall. 
+
+
+
+
+</p>
 <p class="alert alert-info"> <a
 href="../miscellaneous/contact.html">Click here</a>
 if you are looking for help with your project, if you want to
