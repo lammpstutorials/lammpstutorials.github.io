@@ -22,9 +22,6 @@ Some LAMMPS inputs can be found in the inputs folder.
   
   <a href="https://lammpstutorials.github.io/tutorials/06-FreeEnergy.html">
   <img src="docs/figures/tutorial02/avatar.jpg" width="32%" /></a>
-  
-  <a href="https://lammpstutorials.github.io/tutorials/07-AdsorptionInterface.html">
-  <img src="docs/figures/tutorial06/avatar.jpg" width="32%" /></a>
  
   <a href="https://lammpstutorials.github.io/miscellaneous/checklist.html">
   <img src="docs/figures/checklist/avatar.jpg" width="32%" /></a>
