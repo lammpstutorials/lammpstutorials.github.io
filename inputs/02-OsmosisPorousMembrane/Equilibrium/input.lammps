@@ -1,0 +1,17 @@
+
+
+
+boundary	s p p
+pair_style	lj/cut 2.5
+
+read_data	../SystemCreation/data.lammps
+
+region		right block 0 INF INF INF INF INF
+
+group		solid type 1 2 3
+group		piston_right type 3
+group		membrane type 2
+group		piston_left type 1
+group		fluid type 4 5
+group		solvent type 4
+group		solute type 5
