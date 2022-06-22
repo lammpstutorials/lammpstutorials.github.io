@@ -161,8 +161,8 @@ LAMMPS input file called input.lammps.</p>
 <p>
 Let us define some general parameters by adding these two lines to the 
 input.lammps file:
-<pre><code>boundary	s p p
-pair_style	lj/cut 2.5</code></pre></p>
+<pre><code>boundary s p p
+pair_style lj/cut 2.5</code></pre></p>
 <p> Here we impose that the boundary conditions along the \(x\), \(y\), and \(z\)
 axis are non-periodic shrink-wrapped ("s"), periodic ("p"), and periodic "p", respectively. With the
 style "shrink-wrapped", the box integrate the atoms in that
@@ -191,21 +191,20 @@ box.</small>
 Let us set the lattice to face-centered cubic (fcc) (for the future positioning
 of the solid wall atoms), define the simulation_box region, and use it to
 create the initial box:
-<pre><code># ------------- System definition
-lattice 	fcc 1
-region		simulation_box block -50 50 -5 5 -5 5
-create_box	5 simulation_box</code></pre></p>
+<pre><code># System definition
+lattice fcc 1
+region simulation_box block -23 23 -5 5 -5 5
+create_box 5 simulation_box</code></pre></p>
 <p>
 The "5" in create_box indicates that the simulation will contain 5 types of
 atoms (solute, solvent, membrane, and pistons (x2)), see below. 
-Here, a box of dimension 100 by 10 by 10 (unitless) is used.
+Here, a box of dimension 46 by 10 by 10 (unitless) is created (the dimension 
+along \(x\) will be free to evolve during the simulation).
 
 <blockquote><i>
-Note that a box of 100 
-by 30 by 30 was used to generate all the figures here, you too can increase the dimensions
-if you have a powerfull computer and/or time. This choice was
-made to speed-up the calculation. If you have a good computer, feel free to increase 
-the system size. 
+Note that a larger system was used to generate the figures here, you too can increase 
+the dimensions of the system and increase the number of atoms
+if you have a powerful computer and/or time.
 </blockquote></i></p>
 <p>
 Then, let us define 5 regions that will be used to place the atoms.
@@ -217,11 +216,11 @@ class="img-fluid" alt="Responsive image">
 five regions, from left to right : piston_left, fluid_left,
 membrane, fluid_right, and piston_right.</small>
 
-<pre><code>region		piston_left block -49 -48 INF INF INF INF
-region		fluid_left block -45 -2 INF INF INF INF
-region		membrane block -0.25 0.25 INF INF INF INF
-region		fluid_right block 2 45 INF INF INF INF
-region		piston_right block 48 49 INF INF INF INF</code></pre></p>
+<pre><code>region piston_left block -21 -20 INF INF INF INF
+region fluid_left block -18 -2 INF INF INF INF
+region membrane block -0.25 0.25 INF INF INF INF
+region fluid_right block 2 18 INF INF INF INF
+region piston_right block 20 21 INF INF INF INF</code></pre></p>
 <p>
 With the INF keyword (here used for \(y\) and \(z\) axis), the region 
 encompasses the whole simulation box.
@@ -236,12 +235,12 @@ class="img-fluid" alt="Responsive image">
 <br>
 <small style="color:#6B6B6B">Figure: Molecular dynamics system with all
 five types of atoms: solid (types 1, 2 and 3) and fluid (types 4 and 5).</small>
-<pre><code>create_atoms	1 region piston_left
-create_atoms	2 region membrane
-create_atoms	3 region piston_right
-create_atoms	4 random 5000 654514 fluid_left
-create_atoms	4 random 4500 654514 fluid_right
-create_atoms	5 random 500 424514 fluid_right</code></pre></p>
+<pre><code>create_atoms 1 region piston_left
+create_atoms 2 region membrane
+create_atoms 3 region piston_right
+create_atoms 4 random 1000 654514 fluid_left
+create_atoms 4 random 550 654514 fluid_right
+create_atoms 5 random 50 424514 fluid_right</code></pre></p>
 <p>
 Atoms of types 1, 2, and 3 are placed on the fcc lattice previously defined.
 The atoms of the fluid (types 4 and 5) are placed randomly. Solute (type 5) is placed
@@ -253,15 +252,15 @@ from the left to the right.
 <h4><b>Settings</b></h4>
 <p>
 Let us define the simulation settings:
-<pre><code># ------------- Simulation settings
-mass		* 1
-pair_coeff	1*3 1*3 1.0 1.0 # solid-solid 
-pair_coeff	4 4 1.0 1.0 # solvent-solvent
-pair_coeff	5 5 2.0 3.0 # solute-solute</code></pre></p>
+<pre><code># Simulation settings
+mass * 1
+pair_coeff 1*3 1*3 1.0 1.0 # solid-solid 
+pair_coeff 4 4 1.0 1.0 # solvent-solvent
+pair_coeff 5 5 2.0 3.0 # solute-solute</code></pre></p>
 <p> The mass of all the atoms are set to 1 (unitless). The Lennard-Jones pair coefficient
 between atoms of types 1 to 4 are set to 1 for both the depth of the potential
-well  \(\epsilon\) and the distance at which the particle-particle potential
-energy is zero \(\sigma\) (i.e. the size of the particle).  For the solute (type 5),
+well \(\epsilon\) and the distance at which the particle-particle potential
+energy is zero \(\sigma\) (i.e. the size of the particle). For the solute (type 5),
 both \(\epsilon\) and \(\sigma\) are set to larger values that 1, thus making the particles
 of the solute respectively slightly more attractive (in order to enhance the 
 osmotic flow of solvent) and larger (so it is unlikely for solute to cross the membrane).
@@ -269,26 +268,26 @@ osmotic flow of solvent) and larger (so it is unlikely for solute to cross the m
 By default, the cross-parameters (i.e. between species \(i\) and \(j\)) are automatically calculated by LAMMPS.
 Here, let us tune slightly these cross- parameters. First, let us
 reduce slightly the affinity between the solvent and the walls, by reducing \( \epsilon_{14}, \epsilon_{24}\), and \(\epsilon_{34} \)) :
-<pre><code>pair_coeff	1*3 4 0.8 1 # fluid-solvent</code></pre></p><p>
+<pre><code>pair_coeff 1*3 4 0.8 1 # solid-solvent</code></pre></p><p>
 This helps minimizing unnecessarily large adsorption of the solvent at the walls.
 <br><br>
 In order to help prevent the solute to cross the porous membrane too easily, let us increase
 a bit its effective size "as seen by the wall", and reduce the affinity between
 the solute and the wall:
-<pre><code>pair_coeff	1*3 5 0.1 3.0 # fluid-solute</code></pre></p>
+<pre><code>pair_coeff 2 5 0.1 3.0 # membrane-solute</code></pre></p>
 <br><br>
 <h4><b>Output and run</b></h4>
 <p>
 Let us dump the atom positions for visualisation purpose,
-<pre><code># ------------- Output
-dump		mydmp all atom 1 dump.lammpstrj
-thermo		10</code></pre></p>
+<pre><code># Output
+dump mydmp all atom 1 dump.lammpstrj
+thermo 10</code></pre></p>
 <p>
 and finally minimise the energy of the system and print the final positions of
 the atoms (which we will use as a starting configuration for the next simulation):
-<pre><code># ------------- Run
-minimize	1.0e-4 1.0e-6 1000 10000
-write_data	data.lammps pair ij</code></pre></p>
+<pre><code># Run
+minimize 1.0e-4 1.0e-6 1000 10000
+write_data data.lammps pair ij</code></pre></p>
 <p> With the pair "ij keyword", LAMMPS will print the simulation settings (mass and pair_coeff)
 in the data.lammps file. The dump file can be opened with VMD. If you do so, 
 you will notice that some atoms are moving slightly from each other, and are now in a 
@@ -309,138 +308,160 @@ Equilibrium. Create a new LAMMPS input file called input.lammps in it.</p>
 <p>Start by re-writing the boundary and pair_style (these information
 are not saved by the write_data command), and import write_data using
 the read_data command:
-<pre><code>boundary	s p p
-pair_style	lj/cut 2.5
-
-read_data	../SystemCreation/data.lammps</code></pre>
+<pre><code>boundary s p p
+pair_style lj/cut 2.5
+read_data ../SystemCreation/data.lammps</code></pre>
 </p>
 <h4><b>Region and groups</b></h4>
 <p>Let us define a region corresponding to the right side of the porous membrane,
 which will be used later for recording the number of solute and solvent atoms on
 the right side of the membrane, from which the flux will be calculated:
-<pre><code>region		right block 0 INF INF INF INF INF</code></pre></p>
+<pre><code>region right block 0 INF INF INF INF INF</code></pre></p>
 <p>Then, let us group the atoms into groups, which will allow us to control them
 separately:
-<pre><code>group		solid type 1 2 3
-group		piston_right type 3
-group		membrane type 2
-group		piston_left type 1
-group		fluid type 4 5
-group		solvent type 4
-group		solute type 5</code></pre>
+<pre><code>group solid type 1 2 3
+group piston_right type 3
+group membrane type 2
+group piston_left type 1
+group fluid type 4 5
+group solvent type 4
+group solute type 5</code></pre>
 </p>
 <h4><b>Small optimization</b></h4>
 <p>Since we anticipate that the atoms of the solid will be frozen, we can ask
 LAMMPS to not build neighbor lists between the solid atoms (and save computational power):
-<pre><code>neigh_modify 	exclude group solid solid</code></pre></p>
+<pre><code>neigh_modify exclude group solid solid</code></pre></p>
 <p>
 This command will slightly speeds up the simulation, but won't influence the result.
 Let us also slightly change the default parameters for the default neighbor
 search, and this avoid having dangerous builds (like we did in this <a href="01-SimpleMolecularSimulation.html">tutorial</a> )
-<pre><code>neigh_modify 	every 1 delay 5 check yes</code></pre></p>
-
-<h2>Dynamics</h2>
+<pre><code>neigh_modify every 1 delay 5 check yes</code></pre></p>
+<h4><b>Dynamics</b></h4>
 <p> Now, let us address the molecular dynamics of the atoms. First, let us
 give an initial temperature of 1 (unitless) to the atoms of the fluid:
-<pre><code>velocity 	fluid create 1.0 4928459 mom yes rot yes dist gaussian</code></pre></p>
+<pre><code>velocity fluid create 1.0 4928459 mom yes rot yes dist gaussian</code></pre></p>
 <p>Then, let us apply the fix nve to all the atoms in order to perform the molecular dynamics
 (i.e. update the atom positions from the force calculation):
-<pre><code>fix		mynve all nve</code></pre></p>
+<pre><code>fix mynve all nve</code></pre></p>
 <p>
 Note that nve is applied to all atoms, including solid atoms, even though they
 will be maintained frozen (they will be maintained frozen thanks to setforce and addforce fixes, see below).
 For the next step, let us control the temperature of the atoms of the fluid using a Langevin thermostat:
-<pre><code>compute		temperature_fluid fluid temp
-fix		mylgv fluid langevin 1.0 1.0 0.1 1530917 zero yes
-fix_modify	mylgv temp temperature_fluid</code></pre></p>
+<pre><code>compute temperature_fluid fluid temp
+fix mylgv fluid langevin 1.0 1.0 0.1 1530917 zero yes
+fix_modify mylgv temp temperature_fluid</code></pre></p>
 <p>
 The fix_modify, which uses the temperature calculated by the compute temperature_fluid,
 ensures that the temperature of the fluid is used as a reference temperature.
+This must be done every time a thermostat is not applied to group all.
 <br><br>
 Then, let us force the membrane to remain frozen by canceling the force
 applied on the atoms of the membrane at every timestep:
-<pre><code>fix		mysf1 membrane setforce 0 0 0</code></pre></p>
+<pre><code>fix mysf1 membrane setforce 0 0 0</code></pre></p>
 <p>
-In addition, we want to freeze the piston, but still allow them to move as
+In addition, we want to freeze both pistons, but still allow them to move as
 rigid bodies along the \(x\) direction. To do so, let us combine the
 setforce and aveforce commands.
-<pre><code>fix		mysf2 piston_left setforce NULL 0 0
-fix		mysf3 piston_right setforce NULL 0 0
-variable	F equal 0.01
-fix		myaf1 piston_left aveforce ${F} NULL NULL
-fix		myaf2 piston_right aveforce -${F} NULL NULL</code></pre></p>
+<pre><code>fix mysf2 piston_left setforce NULL 0 0
+fix mysf3 piston_right setforce NULL 0 0
+variable F equal 0.025
+fix myaf1 piston_left aveforce ${F} NULL NULL
+fix myaf2 piston_right aveforce -${F} NULL NULL</code></pre></p>
 <p>
 A force \(F\) is applied on the atoms of the piston along \(x\) is order to
 slightly compress the fluid.
 </p>
-<h2>Outputs</h2>
-<p>In order to make sure that the dynamics is working fine, let us print out
-a few information, such as the piston position and number of fluid atoms in the
+<h4><b>Outputs</b></h4>
+<p>Let us make sure that our simulation is correct by printing out some
+information as the simulation runs, such as the piston position and number of fluid atoms in the
 right reservoir:
-<pre><code># ------------- Output
-variable	solvent_right equal count(solvent,right)
-variable	solute_right equal count(solute,right)
-variable	position_piston_left equal xcm(piston_left,x)
-variable	position_piston_right equal xcm(piston_right,x)
-
-fix		myat1 all ave/time 1000 1 1000 v_solvent_right file solvent_right.dat
-fix		myat2 all ave/time 1000 1 1000 v_solute_right file solute_right.dat
-fix		myat3 all ave/time 1000 1 1000 v_position_piston_left file position_piston_left.dat
-fix		myat4 all ave/time 1000 1 1000 v_position_piston_right file position_piston_right.dat
-
-dump		mydmp all atom 1000 dump.lammpstrj
-thermo_modify	temp temperature_fluid</code></pre></p>
+<pre><code># Output
+variable solvent_right equal count(solvent,right)
+variable solute_right equal count(solute,right)
+variable position_piston_left equal xcm(piston_left,x)
+variable position_piston_right equal xcm(piston_right,x)
+fix myat1 all ave/time 1000 1 1000 v_solvent_right file solvent_right.dat
+fix myat2 all ave/time 1000 1 1000 v_solute_right file solute_right.dat
+fix myat3 all ave/time 1000 1 1000 v_position_piston_left file position_piston_left.dat
+fix myat4 all ave/time 1000 1 1000 v_position_piston_right file position_piston_right.dat
+dump mydmp all atom 1000 dump.lammpstrj
+thermo_modify temp temperature_fluid</code></pre></p>
 <p>
 </p>
-<h2>Run</h2>
+<h4><b>Run</b></h4>
 <p>Finally, let us run the equilibration for 20000 timesteps and save the final state
 of the simulation:
-<pre><code># ------------- Run
-run		20000
-
-write_data	data.lammps pair ij</code></pre></p>
+<pre><code># Run
+thermo 10000
+run 500000
+write_data data.lammps pair ij</code></pre></p>
 <p>
-This equilibration time is too short and has been chosen in order to keep the computational 
-cost as low as possible. If you are planning to study the osmosis using molecular 
-dynamics, you may want to increase it to at least 1 million timesteps. 
+Run the input using LAMMPS, it should take a few minutes. 
+<blockquote><i>
+Since we did not specified the timestep, the default value of 1 fs is used. 
+</blockquote></i>
+<blockquote><i>
+This equilibration time is a bit too short and has been chosen in order to keep the computational 
+cost as low as possible.
+</blockquote></i> 
+</p>
+<p>
+We can ensure that the system did reach equilibrium by looking at the 
+positions of the two pistons.
+</p>
+<p>
+<img src="../figures/tutorial07/Piston_equilibration.png"
+class="img-fluid" alt="Responsive image">
+<small>Positions of the left and right pistons during equilibration.</small>
+</p>
+<p>
+Let us make sure that the membrane is not permeable to the fluid 
+by looking at the solvent_right.dat file:
+<pre><code># Time-averaged data for fix myat1
+# TimeStep v_solvent_right
+0 550
+1000 550
+2000 550
+3000 550
+4000 550
+{...}
+498000 550
+499000 550
+500000 550</code></pre></p>
 </section>
 <br><br>
 <!-- ======================================================= -->
 <!-- ======================================================= -->
 <!-- ======================================================= -->
 <section id="Run">
-<h1>Production run</h1>
-<br>
+<h2>Production run</h2>
 <p>Create a third folder alongside the two current folders, and call it
 Porosity0.5. Create a new LAMMPS input file called input.lammps in it.</p>
-<br>
-<h2>Initialisation and membrane drilling</h2>
+<h4><b>Initialisation and membrane drilling</b></h4>
 <p>Let us start by copy-pasting similar commands as previously in the input.lammps file:
-<pre><code># LAMMPS input script
+<pre><code>boundary s p p
+pair_style lj/cut 2.5
 
-boundary	s p p
-pair_style	lj/cut 2.5
+read_data ../Equilibrium/data.lammps
 
-read_data	../Equilibrium/data.lammps
+region right block 0 INF INF INF INF INF
 
-region		right block 0 INF INF INF INF INF
+group solid type 1 2 3
+group piston_right type 3
+group membrane type 2
+group piston_left type 1
+group fluid type 4 5
+group solvent type 4
+group solute type 5
 
-group		solid type 1 2 3
-group		piston_right type 3
-group		membrane type 2
-group		piston_left type 1
-group		fluid type 4 5
-group		solvent type 4
-group		solute type 5
-
-neigh_modify 	exclude group solid solid
-neigh_modify 	every 1 delay 5 check yes</code></pre></p>
+neigh_modify exclude group solid solid
+neigh_modify every 1 delay 5 check yes</code></pre></p>
 <p>
 Then, let us delete randomly \(50\%\) of the atoms of the membrane:
-<pre><code>region		membrane block -0.25 0.25 INF INF INF INF
-delete_atoms 	porosity membrane 0.5 482793</code></pre></p>
+<pre><code>region membrane block -0.25 0.25 INF INF INF INF
+delete_atoms porosity membrane 0.5 482793</code></pre></p>
 <p>or 
-<pre><code>delete_atoms 	random fraction 0.5 no all membrane 482793 # for newer LAMMPS version</code></pre></p>
+<pre><code>delete_atoms random fraction 0.5 no all membrane 482793 # for newer LAMMPS version</code></pre></p>
 <p> if you are using the most recent LAMMPS version. This command deletes \(50\%\) 
 of the atoms of the membrane region. The last
 number is a seed, change its value to generate different pattern, and different
@@ -448,42 +469,42 @@ porosity can be obtained by changing the fraction of deleted atoms:
 <img src="../figures/tutorial07/membranes.png"
 class="img-fluid" alt="Responsive image">
 <br>
-<small style="color:#6B6B6B">Figure: Membranes with different amount of deleted atoms
+<small style="color:#6B6B6B">Figure: Membranes with different fraction of deleted atoms
 </small>
 </p>
-<h2>Dynamics and data printing</h2>
+<h4><b>Dynamics and data printing</b></h4>
 <p>
 Finally, let us re-enter the dynamics setting used in the equilibration step, and
 print information into data file:
-<pre><code>fix		mynve all nve
-compute		temperature_fluid fluid temp
-fix		mylgv fluid langevin 1.0 1.0 0.1 1530917 zero yes
-fix_modify	mylgv temp temperature_fluid
-thermo_modify	temp temperature_fluid
+<pre><code>fix mynve all nve
+compute temperature_fluid fluid temp
+fix mylgv fluid langevin 1.0 1.0 0.1 1530917 zero yes
+fix_modify mylgv temp temperature_fluid
+thermo_modify temp temperature_fluid
 
-fix		mysf1 membrane setforce 0 0 0
-fix		mysf2 piston_left setforce NULL 0 0
-fix		mysf3 piston_right setforce NULL 0 0
+fix mysf1 membrane setforce 0 0 0
+fix mysf2 piston_left setforce NULL 0 0
+fix mysf3 piston_right setforce NULL 0 0
 
-variable	F equal 0.01
-fix		myaf1 piston_left aveforce ${F} NULL NULL
-fix		myaf2 piston_right aveforce -${F} NULL NULL
+variable F equal 0.025
+fix myaf1 piston_left aveforce ${F} NULL NULL
+fix myaf2 piston_right aveforce -${F} NULL NULL
 
-variable	solvent_right equal count(solvent,right)
-variable	solute_right equal count(solute,right)
-variable	position_piston_left equal xcm(piston_left,x)
-variable	position_piston_right equal xcm(piston_right,x)
+variable solvent_right equal count(solvent,right)
+variable solute_right equal count(solute,right)
+variable position_piston_left equal xcm(piston_left,x)
+variable position_piston_right equal xcm(piston_right,x)
 
-fix		myat1 all ave/time 10000 1 10000 v_solvent_right file solvent_right.dat
-fix		myat2 all ave/time 10000 1 10000 v_solute_right file solute_right.dat
-fix		myat3 all ave/time 10000 1 10000 v_position_piston_left file position_piston_left.dat
-fix		myat4 all ave/time 10000 1 10000 v_position_piston_right file position_piston_right.dat
-fix		myat5 all ave/time 10 1000 10000 f_mysf1[1] file force_membrane.dat
+fix myat1 all ave/time 10000 1 10000 v_solvent_right file solvent_right.dat
+fix myat2 all ave/time 10000 1 10000 v_solute_right file solute_right.dat
+fix myat3 all ave/time 10000 1 10000 v_position_piston_left file position_piston_left.dat
+fix myat4 all ave/time 10000 1 10000 v_position_piston_right file position_piston_right.dat
+fix myat5 all ave/time 10 1000 10000 f_mysf1[1] file force_membrane.dat
 
-dump		mydmp all atom 10000 dump.lammpstrj
+dump mydmp all atom 10000 dump.lammpstrj
 
-thermo		10000
-run		100000000</code></pre></p>
+thermo 10000
+run 2000000</code></pre></p>
 
 <p> This simulation may take several hours to complete, depending on the
 number of processors you use: you can use more that one processor for your simulation
@@ -492,26 +513,18 @@ by using :
 <p>where 4 is the number of desired processors. 
 
 <br><br>
-
-Here I plot the number of solvent atoms in the right reservoir as a function
-of time for different membrane porosity:
-<br>
-<img src="../figures/tutorial07/solvent_left.png"
+Here I plot the number of solvent atom in the right reservoir, as well as the 
+position of the left piston over time:
+<p>
+<img src="../figures/tutorial07/Flux.png"
 class="img-fluid" alt="Responsive image">
-<br>
-<small style="color:#6B6B6B">Figure: Number of solvent atoms in the right reservoir as a
-function of time.
-</small>
-<br><br><br>
-Looking at the solute as a function of time give hint on whether the membrane is
-semi-permeable or not:
-<br>
-<img src="../figures/tutorial07/solute_left.png"
-class="img-fluid" alt="Responsive image">
-<br>
-<small style="color:#6B6B6B">Figure: Number of solute atoms in the right reservoir as a
-function of time.
-</small>
+<small>Positions of the left piston during the production run (left).
+Solvent in the right reservoir (right).</small>
+</p>
+<p>
+A net flux of solvent is induced from left to right (from low concentration to
+high concentration) due to the osmotic pressure difference. The simulation should 
+look like <a href="https://www.youtube.com/watch?v=DY_u_Q9uWbI"target="_blank">this video</a>.
 </p>
 </section>
 <br><br>
@@ -519,20 +532,46 @@ function of time.
 <!-- ======================================================= -->
 <!-- ======================================================= -->
 <section id="further">
-<h2>Going further</h2>
-<h3>Energy barrier on solute</h3>
-<p>
-The energy barrier imposed by the membrane on the solute is an important parameter,
-as it sets how efficiently the membrane will block the flux of solute (from right to left).
-This information can be difficult to extract from a simple molecular simulation,
-particularly if the membrane has a small permeability: in that case, no solute is recorded
-to flow through the membrane, but this does not mean that the membrane is perfectly non-permeable,
-but rather than the event of a solute atom crossing it is too rare to be seen in
-such small duration.
-<br><br>
-Instead, one could use Umbrella Sampling and reconstruct the energy profile of the
-solute across the membrane. You can find LAMMPS Umbrella Sampling tutorials on this site.
+<h2>Exercises</h2>
+
+<br>
+<p class="alert alert-info"> 
+Request the solutions by email, or register <a target="_blank"
+href="https://www.patreon.com/molecularsimulations">here</a> and access all the solutions
++ additional LAMMPS content.
 </p>
+<br>
+
+<h4><b>Exercises 1: Measure the osmotic pressure difference</b></h4>
+<p>
+Using the simulation created here, measure the osmotic pressure induced
+by the solute concentration difference.
+
+<blockquote><i>
+Hint: the osmotic pressure can me measured along one of the membrane.
+</blockquote></i>
+</p>
+
+<h4><b>Exercise 2: Pressure driven flux</b></h4>
+<p>
+Modify the input script and create a system with a net flux induced 
+by mechanical pressure difference instead of osmosis.
+
+<blockquote><i>
+Hint: you can either remove the solute, or use the same solute concentration
+in both side.
+</blockquote></i>
+</p>
+
+
+
+
+<blockquote><i>
+Hint: you can either remove the solute, or use the same solute concentration
+in both side 
+</blockquote></i>
+</p>
+
 <p class="alert alert-info"> <a
 href="../miscellaneous/contact.html">Click here</a>
 if you are looking for help with your project, if you want to
