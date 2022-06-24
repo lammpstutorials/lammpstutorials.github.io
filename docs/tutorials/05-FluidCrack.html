@@ -198,7 +198,7 @@ that the first atom is Si, and the second is O. Let us also add a
 dump command for printing out the positions of the atoms every 5000
 steps:
 <pre><code># Simulation settings
-pair_coeff * *  SiO.1990.vashishta Si O
+pair_coeff * * SiO.1990.vashishta Si O
 dump dmp all atom 5000 dump.lammpstrj</code></pre>
 </p>
 <p>
@@ -430,12 +430,11 @@ type. The extra bond, extra angle, and extra special lines
 are for memory allocation. Now we can continue to fill the
 input.lammps file, by adding the system definition:
 <pre><code># System definition
-
-read_data           	data.dilatedSiO
-molecule		h2omol TIP4P2005.txt
-create_atoms 		0 single 19.5 10 10 mol h2omol 45585
-group			SiO type 1 2
-group			H2O type 3 4
+read_data data.dilatedSiO
+molecule h2omol TIP4P2005.txt
+create_atoms 0 single 19.5 10 10 mol h2omol 45585
+group SiO type 1 2
+group H2O type 3 4
 </code></pre>
 </p>
 <p>
@@ -453,24 +452,20 @@ dirty way here. Not adding a molecule before starting the
 GCMC steps usually lead to failure. Then,
 add the following settings of the simulation:
 <pre><code># Simulation settings
-
-pair_coeff		* * vashishta ../SilicaBlock/SiO.1990.vashishta Si O NULL NULL
-pair_coeff 		* * lj/cut/tip4p/long 0 0
-pair_coeff 		1 3 lj/cut/tip4p/long 0.0057 4.42 # epsilonSi = 0.00403, sigmaSi = 3.69
-pair_coeff 		2 3 lj/cut/tip4p/long 0.0043 3.12 # epsilonO = 0.0023, sigmaO = 3.091
-pair_coeff 		3 3 lj/cut/tip4p/long 0.008 3.1589
-pair_coeff 		4 4 lj/cut/tip4p/long 0.0 0.0
-bond_coeff		1 0 0.9572
-angle_coeff		1 0 104.52
-
-variable 		oxygen atom "type==3"
-group 	        	oxygen dynamic all var oxygen
-variable		nO equal count(oxygen)
-fix 			myat1 all ave/time 100 10 1000 v_nO file numbermolecule.dat
-
-fix 			shak H2O shake 1.0e-4 200 0 b 1 a 1 mol h2omol
-
-dump 			dmp all atom 2000 dump.lammpstrj</code></pre>
+pair_coeff * * vashishta ../SilicaBlock/SiO.1990.vashishta Si O NULL NULL
+pair_coeff * * lj/cut/tip4p/long 0 0
+pair_coeff 1 3 lj/cut/tip4p/long 0.0057 4.42 # epsilonSi = 0.00403, sigmaSi = 3.69
+pair_coeff 2 3 lj/cut/tip4p/long 0.0043 3.12 # epsilonO = 0.0023, sigmaO = 3.091
+pair_coeff 3 3 lj/cut/tip4p/long 0.008 3.1589
+pair_coeff 4 4 lj/cut/tip4p/long 0.0 0.0
+bond_coeff 1 0 0.9572
+angle_coeff 1 0 104.52
+variable oxygen atom "type==3"
+group oxygen dynamic all var oxygen
+variable nO equal count(oxygen)
+fix myat1 all ave/time 100 10 1000 v_nO file numbermolecule.dat
+fix shak H2O shake 1.0e-4 200 0 b 1 a 1 mol h2omol
+dump dmp all atom 2000 dump.lammpstrj</code></pre>
 </p>
 <p>
 The force field vashishta applies only to Si and O of SiO, and
@@ -517,7 +512,7 @@ The tfac_insert option ensures that the correct estimate
 is made for the temperature of the inserted water molecules
 by taking into account the internal degrees of freedom.
 Running this simulation, you should see the number of molecule
-increasing progressively. Using  \(\mu = -0.5\) eV is a
+increasing progressively. Using \(\mu = -0.5\) eV is a
 reasonable value for the chemical potential that corresponds
 roughly to ambient conditions (i.e. RH approx 50%).
 <br><br>
