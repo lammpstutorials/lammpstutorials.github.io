@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,
 initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
 <link href="../figures/favicon-32x32.png" rel="icon" />
-<title>GCMC water silic</title>
+<title>Water adsorption silica</title>
 <meta name="description" content="GCMC water silic">
 <meta name="author" content="Simon Gravelle">
 <link rel="stylesheet" type="text/css"
@@ -46,19 +46,6 @@ data-toggle="collapse" data-target="#header-nav">
 </button>-->
 <div id="header-nav" class="collapse navbar-collapse justify-content-end">
 <ul class="navbar-nav">
-<!--
-<li class="dropdown"> <a class="dropdown-toggle" href="#">All tutorials</a>
-<ul class="dropdown-menu">
-<li><a class="dropdown-item" href="tutorial01.html">Tutorial 1</a></li>
-<li><a class="dropdown-item" href="tutorial02.html">Tutorial 2</a></li>
-<li><a class="dropdown-item" href="tutorial03.html">Tutorial 3</a></li>
-<li><a class="dropdown-item" href="tutorial04.html">Tutorial 4</a></li>
-<li><a class="dropdown-item" href="tutorial05.html">Tutorial 5</a></li>
-<li><a class="dropdown-item" href="tutorial06.html">Tutorial 6</a></li>
-<li><a class="dropdown-item" href="tutorial07.html">Tutorial 7</a></li>
-</ul>
-</li>
--->
 <li>
 <a href="../index.html">
 All tutorials
@@ -120,8 +107,8 @@ canonical Monte Carlo method</h3>
 <br>
 <p><img src="../figures/tutorial05/3silica.png"
 class="img-fluid" alt="Responsive image">
-<small style="color:#6B6B6B">Figure: From left to right,
-amorphous silica, amorphous silica with crack, cracked
+<small style="color:#6B6B6B">Figure: From left to right:
+amorphous silica, cracked amorphous silica, cracked
 amorphous silica with adsorbed water molecules. Silicon (Si)
 and oxygen (O) atoms of the silica are in yellow and red,
 respectively, and represented at a network of bonds.
@@ -131,7 +118,7 @@ represented as spheres.
 </small>
 </p>
 <p><b>The objective of this tutorial</b> is to combine molecular
-dynamics and grand canonical Monte Carlo to simulate the
+dynamics and grand canonical Monte Carlo simulations to simulate the
 adsorption of water molecules in a cracked silica, see the
 figure above. There are three main parts to this tutorial:
 <ul>
@@ -143,17 +130,17 @@ is deformed by dilatation of the box until a crack forms.
 </li>
 <li> <a href="#Water">Adding water - </a> Third, the system
 is equilibrated with a water reservoir of given chemical
-potential using grand canonical Monte Carlo.
+potential using the grand canonical Monte Carlo method.
 </li>
 </ul>
 </p>
 <p>If you are new to LAMMPS, I recommend you to follow
 <a href="01-SimpleMolecularSimulation.html">this simpler tutorial</a> first.
 </p>
-<p class="alert alert-info"> <a href="contact.html">Click here</a>
-if you are looking for help with your project, if you want to
-support me (for free or not), or if you have any suggestions
-for these tutorials.
+<p class="alert alert-info"> <a href="../miscellaneous/contact.html">Click here</a> if
+you are looking for help with your project, if you want to support
+me (for free or not), or if you have any suggestions for
+these tutorials.
 </p>
 </section>
 <br><br>
@@ -166,7 +153,8 @@ for these tutorials.
 we are going to replicate a building block containing 3 Si and
 6 O atoms. The data file for the SiO atoms can be downloaded
 by clicking <a href="../data/tutorial05/dataSiO.data"
-target="_blank" class="removelinkdefault">here</a>. This data
+target="_blank" class="removelinkdefault">here</a>. Save it 
+in a folder called SilicaBlock. This data
 file contains the coordinates of the atoms, their masses, and
 their charges, and can be directly read by LAMMPS using the
 read_file command. Let us replicate these atoms using LAMMPS,
@@ -176,18 +164,16 @@ amorphous silica.
 Create a new input file in the same folder as the downloaded
 dataSiO.data, and copy the following lines in it:
 <pre><code># Initialization
-
-units		    	metal
-boundary            	p p p
-atom_style          	full
-pair_style 		vashishta
-neighbor	    	1.0 bin
-neigh_modify	    	delay 1
+units metal
+boundary p p p
+atom_style full
+pair_style vashishta
+neighbor 1.0 bin
+neigh_modify delay 1
 
 # System definition
-
-read_data           	data.SiO
-replicate		4 4 4</code></pre>
+read_data data.SiO
+replicate 4 4 4</code></pre>
 </p>
 <p>
 Metalic units are used as required by the Vashishta potential.
@@ -207,13 +193,13 @@ target="_blank" class="removelinkdefault">here</a>.
 The system is then replicated four times in all three directions
 of space.
 <br><br>
-Then, let us add the pair coefficient: we simply indicate
-that the first atom is Si, and the second is O, and add a
-dump for printing atoms trajectories:
+Then, let us specify the pair coefficients: we simply indicate
+that the first atom is Si, and the second is O. Let us also add a
+dump command for printing out the positions of the atoms every 5000
+steps:
 <pre><code># Simulation settings
-
-pair_coeff		* *  SiO.1990.vashishta Si O
-dump 			dmp all atom 5000 dump.lammpstrj</code></pre>
+pair_coeff * * SiO.1990.vashishta Si O
+dump dmp all atom 5000 dump.lammpstrj</code></pre>
 </p>
 <p>
 Finally, let us create the last part of our script. The
@@ -231,23 +217,19 @@ publish your results.
 </p>
 <p>
 <pre><code># Run
-
-velocity 		all create 6000 4928459 rot yes dist gaussian
-fix 			nvt1 all nvt temp 6000 6000 0.1
-timestep		0.001
-thermo          	1000
-run			5000
-
-unfix			nvt1
-fix 			npt1 all npt temp 6000 4000 0.1 aniso 100 100 1
-run			50000
-
-fix 			npt1 all npt temp 4000 300 0.1 aniso 100 1 1
-run			200000
-
-fix 			npt1 all npt temp 300 300 0.1 aniso 1 1 1
-run			4000
-write_data 		data.amorphousSiO</code></pre>
+velocity all create 6000 4928459 rot yes dist gaussian
+fix nvt1 all nvt temp 6000 6000 0.1
+timestep 0.001
+thermo 1000
+run 5000
+unfix nvt1
+fix npt1 all npt temp 6000 4000 0.1 aniso 100 100 1
+run 50000
+fix npt1 all npt temp 4000 300 0.1 aniso 100 1 1
+run 200000
+fix npt1 all npt temp 300 300 0.1 aniso 1 1 1
+run 4000
+write_data data.amorphousSiO</code></pre>
 </p>
 <p>
 Notice the use of an anisotropic barostat for which all three
@@ -281,52 +263,44 @@ tutorial.
 <h2>Cracking the silica</h2>
 <p>
 We are now going to dilate the block of silica to create a
-crack. Create a new folder, copy data.amorphousSiO and
-SiO.1990.vashishta in it, and create a new input.lammps
+crack. Create a new folder, called Cracking, and create a new input.lammps
 file starting with:
 <pre><code># Initialization
-
-units		    	metal
-boundary            	p p p
-atom_style          	full
-neighbor	    	1.0 bin
-neigh_modify	    	delay 1
+units metal
+boundary p p p
+atom_style full
+neighbor 1.0 bin
+neigh_modify delay 1
 
 # System definition
-
-read_data           	data.amorphousSiO
+read_data ../SilicaBlock/data.amorphousSiO
 
 # Simulation settings
-
-pair_style 		vashishta
-pair_coeff		* *  SiO.1990.vashishta Si O
-dump 			dmp all atom 1000 dump.lammpstrj</code></pre>
+pair_style vashishta
+pair_coeff * * ../SilicaBlock/SiO.1990.vashishta Si O
+dump dmp all atom 1000 dump.lammpstrj</code></pre>
 </p>
 <p>
 Then, we are going to progressively increase the size of the
 box over \(z\), thus forcing the silica to crack. To do so,
 we are going to make a loop using the jump command. At
 every step of the loop, the box dimension over \(z\) will be
-multiplied by a factor 1.005. For this step, we a NVT
+multiplied by a factor 1.005. For this step, we use a NVT
 thermostat because we want to impose a deformation of the volume
-(i.e. NPT would be inappropriate). Add the following lines
+(therefore NPT would be inappropriate). Add the following lines
 to the input script:
 <pre><code># Run
-
-fix 			nvt1 all nvt temp 300 300 0.1
-
-timestep		0.001
-thermo			1000
-
-variable 		var loop 35
-label 			loop
-change_box 		all z scale 1.005 remap
-run			2000
-next 			var
-jump 			input.lammps loop
-
-run			20000
-write_data 		data.dilatedSiO</code></pre>
+fix nvt1 all nvt temp 300 300 0.1
+timestep 0.001
+thermo 1000
+variable var loop 35
+label loop
+change_box all z scale 1.005 remap
+run 2000
+next var
+jump input.lammps loop
+run 20000
+write_data data.dilatedSiO</code></pre>
 </p>
 <p>
 After the dilatation, a final equilibration step of 20
@@ -367,36 +341,33 @@ ensemble (GCMC). In short, the system is put into contact
 with a virtual reservoir of given chemical potential \(\mu\),
 and multiple attempts to insert water molecules at random
 positions are made. Attempts are either accepted or rejected
-based on a Monte Carlo an acceptance rule.
+based on a Monte Carlo acceptance rule.
 <br><br>
-In a different folder, copy the data.dilatedSiO file
-previously generated as well as this
+In a new folder called Addingwater, add this template file for the water molecule :
 <a href="../data/tutorial05/TIP4P2005.txt"
-target="_blank" class="removelinkdefault">TIP4P2005.txt</a>
-file for the water molecule, and the SiO.1990.vashishta file.
+target="_blank" class="removelinkdefault">TIP4P2005.txt</a>.
 Create a new input file, and copy the following lines into it:
 <pre><code># Initialization
-
-units		    	metal
-boundary            	p p p
-atom_style          	full
-neighbor	    	1.0 bin
-neigh_modify	    	delay 1
-pair_style 		hybrid/overlay vashishta lj/cut/tip4p/long 3 4 1 1 0.1546 10
-kspace_style 		pppm/tip4p 1.0e-4
-bond_style		harmonic
-angle_style		harmonic
+units metal
+boundary p p p
+atom_style full
+neighbor 1.0 bin
+neigh_modify delay 1
+pair_style hybrid/overlay vashishta lj/cut/tip4p/long 3 4 1 1 0.1546 10
+kspace_style pppm/tip4p 1.0e-4
+bond_style harmonic
+angle_style harmonic
 </code></pre>
 </p>
 <p>
-There are several difference with the previous input files
-used in this tutorial. All these differences are here to
-include the water to our simulation. First, we have to
+There are several differences with the previous input files
+used in this tutorial. All these differences are here because 
+this simulation will combine water and silica. First, we have to
 combine two force fields, vashishta for SiO, and
 lj/cut/tip4p/long for TIP4P water model. Combining force
 fields in LAMMPS can be done using the hybrid/overlay pair
 style. We also need a kspace solver to solve the long range
-Coulomb interaction associated with tip4p/long. Finally,
+Coulomb interactions associated with tip4p/long. Finally,
 we need to define the style for the bond and angle of the
 water molecules. Some of these features have been seen in
 a <a href="03-NanoconfinedElectrolyte.html">previous and simpler tutorial</a>.
@@ -459,12 +430,11 @@ type. The extra bond, extra angle, and extra special lines
 are for memory allocation. Now we can continue to fill the
 input.lammps file, by adding the system definition:
 <pre><code># System definition
-
-read_data           	data.dilatedSiO
-molecule		h2omol TIP4P2005.txt
-create_atoms 		0 single 19.5 10 10 mol h2omol 45585
-group			SiO type 1 2
-group			H2O type 3 4
+read_data data.dilatedSiO
+molecule h2omol TIP4P2005.txt
+create_atoms 0 single 19.5 10 10 mol h2omol 45585
+group SiO type 1 2
+group H2O type 3 4
 </code></pre>
 </p>
 <p>
@@ -479,33 +449,29 @@ structure using VMD. There are cleaner way to do it, such
 as detecting the free space before inserting the molecule,
 but for the sake of simplicity, here we are going to do the
 dirty way here. Not adding a molecule before starting the
-GCMC steps usually lead to failure, I am not sure why. Then,
+GCMC steps usually lead to failure. Then,
 add the following settings of the simulation:
 <pre><code># Simulation settings
-
-pair_coeff		* * vashishta SiO.1990.vashishta Si O NULL NULL
-pair_coeff 		* * lj/cut/tip4p/long 0 0
-pair_coeff 		1 3 lj/cut/tip4p/long 0.0057 4.42 # epsilonSi = 0.00403, sigmaSi = 3.69
-pair_coeff 		2 3 lj/cut/tip4p/long 0.0043 3.12 # epsilonO = 0.0023, sigmaO = 3.091
-pair_coeff 		3 3 lj/cut/tip4p/long 0.008 3.1589
-pair_coeff 		4 4 lj/cut/tip4p/long 0.0 0.0
-bond_coeff		1 0 0.9572
-angle_coeff		1 0 104.52
-
-variable 		oxygen atom "type==3"
-group 	        	oxygen dynamic all var oxygen
-variable		nO equal count(oxygen)
-fix 			myat1 all ave/time 100 10 1000 v_nO file numbermolecule.dat
-
-fix 			shak H2O shake 1.0e-4 200 0 b 1 a 1 mol h2omol
-
-dump 			dmp all atom 2000 dump.lammpstrj</code></pre>
+pair_coeff * * vashishta ../SilicaBlock/SiO.1990.vashishta Si O NULL NULL
+pair_coeff * * lj/cut/tip4p/long 0 0
+pair_coeff 1 3 lj/cut/tip4p/long 0.0057 4.42 # epsilonSi = 0.00403, sigmaSi = 3.69
+pair_coeff 2 3 lj/cut/tip4p/long 0.0043 3.12 # epsilonO = 0.0023, sigmaO = 3.091
+pair_coeff 3 3 lj/cut/tip4p/long 0.008 3.1589
+pair_coeff 4 4 lj/cut/tip4p/long 0.0 0.0
+bond_coeff 1 0 0.9572
+angle_coeff 1 0 104.52
+variable oxygen atom "type==3"
+group oxygen dynamic all var oxygen
+variable nO equal count(oxygen)
+fix myat1 all ave/time 100 10 1000 v_nO file numbermolecule.dat
+fix shak H2O shake 1.0e-4 200 0 b 1 a 1 mol h2omol
+dump dmp all atom 2000 dump.lammpstrj</code></pre>
 </p>
 <p>
-The force field vashishta apply only to Si and O of SiO, and
-not to the O and H of H2O thanks to the NULL parameters.
+The force field vashishta applies only to Si and O of SiO, and
+not to the O and H of H\(_2\)O thanks to the NULL parameters.
 Pair coefficients for lj/cut/tip4p/long are defined between
-O atoms, as well as between O(SiO)-O(H2O) and Si(SiO)-O(H2O).
+O atoms, as well as between O(SiO)-O(H\(_2\)O) and Si(SiO)-O(H\(_2\)O).
 Finally, the number of oxygen atoms will be printed in the
 file numbermolecule.dat, and the shake algorithm is used
 to maintain the shape of the water molecule over time. Some
@@ -514,21 +480,17 @@ of these features have been seen previously, such as in
 <br><br>
 Let us make a first equilibration step:
 <pre><code># Run
-
-compute_modify  	thermo_temp dynamic yes
-
-compute 		ctH2O H2O temp
-compute_modify		ctH2O dynamic yes
-fix 			mynvt1 H2O nvt temp 300 300 0.1
-fix_modify		mynvt1 temp ctH2O
-
-compute 		ctSiO SiO temp
-fix 			mynvt2 SiO nvt temp 300 300 0.1
-fix_modify		mynvt2 temp ctSiO
-
-timestep		0.001
-thermo			1000
-run			5000</code></pre>
+compute_modify thermo_temp dynamic yes
+compute ctH2O H2O temp
+compute_modify ctH2O dynamic yes
+fix mynvt1 H2O nvt temp 300 300 0.1
+fix_modify mynvt1 temp ctH2O
+compute ctSiO SiO temp
+fix mynvt2 SiO nvt temp 300 300 0.1
+fix_modify mynvt2 temp ctSiO
+timestep 0.001
+thermo 1000
+run 5000</code></pre>
 </p>
 <p>
 We use two different thermostats for SiO and H2O, which
@@ -540,27 +502,25 @@ to specify that the number of molecules is not constant.
 <br><br>
 Finally, let us use the gcmc fix and perform the grand
 canonical Monte Carlo step:
-<pre><code>variable        	tfac equal 5.0/3.0
-fix             	fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} group H2O shake shak full_energy
-
-run			250000
-
-write_data 		SiOwithwater.data</code></pre>
+<pre><code>variable tfac equal 5.0/3.0
+fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} group H2O shake shak full_energy
+run 250000
+write_data SiOwithwater.data</code></pre>
 </p>
 <p>
 The tfac_insert option ensures that the correct estimate
 is made for the temperature of the inserted water molecules
 by taking into account the internal degrees of freedom.
 Running this simulation, you should see the number of molecule
-increasing progressively. Using  \(\mu = -0.5\) eV is a
+increasing progressively. Using \(\mu = -0.5\) eV is a
 reasonable value for the chemical potential that corresponds
 roughly to ambient conditions (i.e. RH approx 50%).
 <br><br>
-After 250000 steps, I've got 12 water molecules. The number
-will vary from one simulation to another. Here the final
-number of molecule will depend a lot on the space available
-in the crack. It also depends on the imposed chemical
-potential, temperature, and interaction between water and
+After 250000 steps, There should be about 10 molecules in the 
+system. This number
+will vary from one simulation to another, depending on the 
+space available for insertion. The number of molecules also depends on the imposed chemical
+potential, temperature, and on the interaction between water and
 silica. The final state looks like this:
 </p>
 <p><img src="../figures/tutorial05/SiOwater.jpg"
