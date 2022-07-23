@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,
+initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+<link href="../figures/favicon-32x32.png" rel="icon" />
+<title>Tips for molecular dynamics</title>
+<meta name="description" content="Tips for molecular dynamics">
+<meta name="author" content="Simon Gravelle">
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/vendor/font-awesome/css/all.min.css" />
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/css/stylesheet.css" />
+<script async
+src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-W1WGEC5GQ8');
+</script>
+<script id="MathJax-script" async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
+<div id="main-wrapper">
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<header id="header" class="sticky-top">
+<nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+<div class="container-fluid">
+<a class="logo ml-md-3" href="../index.html" title="LAMMPS tutorials">
+<img src="../figures/logo.png"
+alt="LAMMPS tutorials" height="60"/>
+</a>
+<!--<button class="navbar-toggler ml-auto" type="button"
+data-toggle="collapse" data-target="#header-nav">
+<span></span>
+<span></span>
+<span></span>
+</button>-->
+<div id="header-nav" class="collapse navbar-collapse justify-content-end">
+<ul class="navbar-nav">
+<!--
+<li class="dropdown"> <a class="dropdown-toggle" href="#">All tutorials</a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="tutorial01.html">Tutorial 1</a></li>
+<li><a class="dropdown-item" href="tutorial02.html">Tutorial 2</a></li>
+<li><a class="dropdown-item" href="tutorial03.html">Tutorial 3</a></li>
+<li><a class="dropdown-item" href="tutorial04.html">Tutorial 4</a></li>
+<li><a class="dropdown-item" href="tutorial05.html">Tutorial 5</a></li>
+<li><a class="dropdown-item" href="tutorial06.html">Tutorial 6</a></li>
+<li><a class="dropdown-item" href="tutorial07.html">Tutorial 7</a></li>
+</ul>
+</li>
+-->
+<li>
+<a href="../index.html">
+All tutorials
+</a>
+</li>
+<li>
+<a href="../miscellaneous/contact.html">
+Contact / Get help with your project
+</a>
+</li>
+</ul>
+</div>
+<ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://twitter.com/GravelleSimon" target="_blank"
+title="" data-original-title="Twitter">
+<i class="fab fa-twitter"></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://gitlab.com/sgravelle" target="_blank"
+title="" data-original-title="Gitlab">
+<i class="fab fa-gitlab"></i></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://github.com/simongravelle" target="_blank"
+title="" data-original-title="Github">
+<i class="fab fa-github"></i></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://www.youtube.com/c/SimonGravelle"
+target="_blank" title="" data-original-title="Youtube">
+<i class="fab fa-youtube"></i></i></a></li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="idocs-navigation bg-light">
+<ul class="nav flex-column ">
+<li class="nav-item"><a class="nav-link active"
+href="#intro">Getting Started</a></li>
+<li class="nav-item"><a class="nav-link" href="#before">Before</a></li>
+<li class="nav-item"><a class="nav-link" href="#during">During</a></li>
+<li class="nav-item"><a class="nav-link" href="#after">After</a></li>
+</ul>
+</div>
+<div class="idocs-content">
+<div class="container">
+<section id="intro">
+	<h1>LAMMPS 101</h1>
+	<p>
+		This page provides general information about the functionnement of the open source software LAMMPS,
+		which according to its <a href="https://docs.lammps.org" target="_blank">own website</a> is 
+		<i>a classical molecular dynamics (MD) code that models ensembles of particles in 
+		a liquid, solid, or gaseous state. </i>
+		<br><br>
+		Credit : This LAMMPS 101 page has been inspired by <a target="_blank" href="https://gist.github.com/rkingsbury/57805181da0b62a6b6e8f7ae778de9b2">this page</a>.
+	</p>
+</section>
+<br><br>
+<section id="before">
+	<h2>Files</h2>
+	<p>
+		Any lammps simulation requires at least one input file. In addition, 
+		one or more .data files containing information about the system topology can
+		be supplied, as well as one or more files containing information about 
+		the parameters and force field. 
+	</p>
+	<h4><b>The input script</b></h4>
+	<p>
+		Input scripts are text files that are read by LAMMPS one line at a time. Input 
+		scripts contain commands (see below), and each command induces LAMMPS to take
+		action. Line starting with # are ignored by LAMMPS. Example of a minimal script 
+		extracted (with some simplifications) from <a href="../tutorials/01-SimpleMolecularSimulation.html">this tutorial</a>:
+		<pre><code># Minimal LAMMPS input script
+pair_style lj/cut 2.5
+region myreg block -10 10 -10 10 -10 10
+create_box 1 myreg
+create_atoms 1 random 100 54142 myreg
+mass * 1
+pair_coeff * * 1.0 1.0
+dump mydmp all atom 1000 dump.lammpstrj
+minimize 1.0e-4 1.0e-6 1000 10000</code></pre>
+	</p>
+</section>
+<br><br>
+<section id="before">
+	<h2>System creation</h2>
+	<p>
+		Typically, a simulation requires the definition of a computational box (orthogonal or tilded), 
+		as well as a list of atoms and their initial positions. These informations can either be 
+		written in a .data file before the simulation is started, or be specified within the input
+		script. 
+	</p>
+	<h4><b>From a .data file</b></h4>
+	<p>
+		test
+	</p>
+	<h4><b>LAMMPS build-in commands</b></h4>
+	<p>
+		test
+	</p>
+</section>
+<br><br>
+<section id="before">
+	<h2>Outputs</h2>
+	<h4><b>Trajectory</b></h4>
+	<p>
+		test
+	</p>
+	<h4><b>Data</b></h4>
+	<p>
+		test
+	</p>
+	<h4><b>Thermodynamics</b></h4>
+	<p>
+		test
+	</p>
+</section>
+<br><br>
+<section id="before">
+	<h2>Restarting a simulation</h2>
+	<h4><b>Binary files</b></h4>
+	<p>
+		test
+	</p>
+	<h4><b>Text files</b></h4>
+	<p>
+		test
+	</p>
+</section>
+<br><br>
+<section id="after">
+	<p class="alert alert-info"> 
+		<a href="contact.html">Click here</a>
+			if you are looking for help with your project, if you want to
+			support me (for free or not), or if you have any suggestions
+			for these tutorials.
+	</p>
+</section>
+</div>
+</div>
+<footer id="footer" class="section">
+	<div class="container">
+	<p class="text-2 text-center mb-0">
+		This template has been adapted from
+		<a class="btn-link" target="_blank"
+		href="https://github.com/harnishdesign/iDocs/">HarnishDesign</a>.
+	</p>
+	</div>
+</footer>
+</div>
+<a id="back-to-top" data-toggle="tooltip" title="Back to Top"
+href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a>
+<script src="../assets_tutorials/vendor/jquery/jquery.min.js"></script>
+<script src="../assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets_tutorials/vendor/highlight.js/highlight.min.js"></script>
+<script src="../assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="../assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="../assets_tutorials/js/theme.js"></script>
+</body>
+</html>
