@@ -76,16 +76,16 @@ src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <div class="idocs-navigation bg-light">
 <ul class="nav flex-column ">
 <li class="nav-item"><a class="nav-link active"
-href="#intro">Getting Started</a></li>
-<li class="nav-item"><a class="nav-link" href="#before">Before</a></li>
-<li class="nav-item"><a class="nav-link" href="#during">During</a></li>
-<li class="nav-item"><a class="nav-link" href="#after">After</a></li>
+href="#intro">Intro</a></li>
+<li class="nav-item"><a class="nav-link" href="#files">Files</a></li>
+<li class="nav-item"><a class="nav-link" href="#system_creation">System creation</a></li>
+<li class="nav-item"><a class="nav-link" href="#outputs">Outputs</a></li>
 </ul>
 </div>
 <div class="idocs-content">
 <div class="container">
 <section id="intro">
-	<h1>LAMMPS 101</h1>
+	<h1>LAMMPS 101 (page in construction)</h1>
 	<p>
 		This page provides general information about the functionnement of the open source software LAMMPS,
 		which according to its <a href="https://docs.lammps.org" target="_blank">own website</a> is 
@@ -98,7 +98,7 @@ href="#intro">Getting Started</a></li>
 	</p>
 </section>
 <br><br>
-<section id="before">
+<section id="files">
 	<h2>Files</h2>
 	<p>
 		Any lammps simulation requires at least one input file. In addition, 
@@ -122,9 +122,16 @@ pair_coeff 1 1 1.5 0.7 						# attribute Lennards Jones coefficients (epsilon = 
 dump mydmp all atom 10 dump.lammpstrj 				# dump the atoms position in a file every 10 timestep
 minimize 1.0e-4 1.0e-6 1000 10000 				# perform an energy minimisation</code></pre>
 	</p>
+	<p>
+		<b>One of the most important command : fix - </b>
+		In LAMMPS, a fix is a command used to apply an operation on a group of atoms.
+		For instance, a Berendsen thermostating can be applied using fix Berendsen/temp,
+		integration of atom positions can be done using fix nve, or an additional force 
+		can be applied to a system using fix gravity. <br><br>
+	</p>
 </section>
 <br><br>
-<section id="before">
+<section id="system_creation">
 	<h2>System creation</h2>
 	<p>
 		Typically, a simulation requires the definition of a computational box (orthogonal or tilded), 
@@ -197,7 +204,7 @@ create_atoms 0 random 1 456415 NULL mol h2omol 454756</code></pre>
 	</p>
 </section>
 <br><br>
-<section id="before">
+<section id="outputs">
 	<h2>Outputs</h2>
 	<p>
 		There are several ways of extracting information from a simulation:
@@ -220,16 +227,30 @@ create_atoms 0 random 1 456415 NULL mol h2omol 454756</code></pre>
 		<pre><code>dump myDump all atom 100 dump.lammpstrj</code></pre>
 		Here the positions of all the atoms is printed every 100 timestep in the dump.lammpstrj,
 		which you can then open using VMD or Ovito. lammpstrj is the default ascii LAMMPS
-		dump format. Compressed trajectory formats such as xtc can also be used.
+		dump format. Compressed trajectory formats such as xtc can also be used. <br><br>
+		There are plenty of measurements that can be performed from the trajecory files 
+		after your simulation is over. These measurements can be done with external tools
+		such as MDAnalysis or MAICoS (for confined geometries).
 	</p>
 	<h4><b>Data</b></h4>
 	<p>
-		Data (such as temperature, the center of mass of an atom, the 1D profile of density) can 
-		be extracted from a simulation using compute and variable ()
+		Data can be printed in a text file as a function of the
+		simulation timestep using fix ave/time. The printed information can for instance be
+		the result of a variable, a compute, or  even a fix. For instance this series of command extracts the 
+		the box size along x (lx), convert it in meter, and print it in a text file every 1000 timesteps:
+		<pre><code>variable AngstromtoMeter equal 1e-10
+variable mylx equal lx*${AngstromtoMeter}
+fix myat1 all ave/time 1000 1 1000 v_mylx file myly_in_meter.dat</code></pre>
+	</p>
+	<p>	
+		Data can also be printed as a function of space, for instane to extract density profiles, as 
+		done using:
+		<pre><code>compute cc1 water chunk/atom bin/1d z 0.0 1.0
+fix myac1 water ave/chunk 100 1000 100000 cc1 density/number norm sample file density_water.dat</code></pre>
 	</p>
 </section>
 <br><br>
-<section id="before">
+<!--<section id="before">
 	<h2>Restarting a simulation</h2>
 	<h4><b>Binary files</b></h4>
 	<p>
@@ -240,7 +261,7 @@ create_atoms 0 random 1 456415 NULL mol h2omol 454756</code></pre>
 		test
 	</p>
 </section>
-<br><br>
+<br><br>-->
 <section id="after">
 	<p class="alert alert-info"> 
 		<a href="contact.html">Click here</a>
