@@ -153,7 +153,7 @@ minimize 1.0e-4 1.0e-6 1000 10000 				# perform an energy minimisation</code></p
 	</p>
 	<h4><b>Option 1: from a data file</b></h4>
 	<p>
-		LAMMPS can read information from data file using the read_data command. 
+		LAMMPS can read information from a data file using the read_data command. 
 		The data file usually contains information such as the number of atoms
 		and their initial positions, the box dimensions, etc. Such data
 		file must follow a specific formating, see <a href="https://docs.lammps.org/2001/data_format.html" target="_blank">here</a>.
@@ -192,28 +192,32 @@ Angles
 	<p>
 		Some external softwares allow you to create such data file, for example
 		<a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">VMD</a> + 
-		<a href="https://sites.google.com/site/akohlmey/software/topotools" target="_blank">topotool</a>. You can also create 
-		the data file with a simple script, you can find some of my own Python and Octave/Matlab scripts in my 
+		<a href="https://sites.google.com/site/akohlmey/software/topotools" target="_blank">topotool</a>. 
+		Data files can also be created with a simple script, find some Python and Octave/Matlab examples in my 
 		<a href="https://github.com/simongravelle/lammps-input-files", target="_blank">Github repository</a>.
 	</p>
-	<h4><b>LAMMPS build-in commands</b></h4>
+	<h4><b>Option 2: LAMMPS build-in commands</b></h4>
 	<p>
 		Another way to create a simulation box and place atoms is to use the
-		create_box and create_atoms commands of lammps:
-		<pre><code>region box block -5 5 -5 5 -5 5
-create_box 2 box &
+		create_box and create_atoms commands of LAMMPS. For instance, to 
+		generate a box of 10x10x10, type in the input script:
+		<pre><code>region box block -5 5 -5 5 -5 5</code></pre>
+	</p>
+	<p>
+		To create a simulation box with the space for 2 atom type, 1 bond type, and 1 angle type, write in the input script:
+		<pre><code>create_box 2 box &
 	bond/types 1 &
 	angle/types 1 &
 	extra/bond/per/atom 2 &
 	extra/angle/per/atom 1 &
-	extra/special/per/atom 2
-molecule h2omol H2OTip4p.txt
+	extra/special/per/atom 2</code></pre>
+	<p>
+		And to place a single water molecule, type:
+		<pre><code>molecule h2omol H2OTip4p.txt
 create_atoms 0 random 1 456415 NULL mol h2omol 454756</code></pre>
 	</p>
 	<p>
-		These commands, when placed in a LAMMPS input script, respectively (1) generate a box of 10x10x10, (2) create 
-		a simulation box with the space for 2 atom type, 1 bond type, and 1 angle type, and (3) create 
-		one single molecule at a random location from a template H2OTip4p.txt. Here the template 
+		Here the molecule template H2OTip4p.txt
 		contains information about the molecule (i.e. which atoms are bonded toghether, etc.).
 	</p>
 </section>
@@ -221,27 +225,32 @@ create_atoms 0 random 1 456415 NULL mol h2omol 454756</code></pre>
 <section id="outputs">
 	<h2>Outputs</h2>
 	<p>
-		There are several ways of extracting information from a simulation:
+		There are several ways to extract information from a simulation:
 	</p>
 	<h4><b>Thermodynamic info</b></h4>
 	<p>
 		Thermodynamic info (such as temperature, energy, pressure) can be printed in the 
-		terminal and in the log file as the simulation goes by using the thermo command:
+		terminal and in the log file by using the thermo command. To print thermodynamic 
+		information every 100 timestep, type:
 		<pre><code>thermo 100</code></pre>
 	</p>
 	<p>
-		Here thermodynamic info are printed every 100 timesteps. You can use the thermo_modify
-		command to change the type of info you want to see being printed. This is a 
-		great way of controlling your simulation as it runs. 
+		The thermo_modify and thermo_custom commands can be used to change the type of info printed 
+		by LAMMPS, for instance, to print the temperature of the group groupH2O only, as well as the overall kinetic energy and volume, use:
+		<pre><code>group groupH2O type 1 2
+compute tempH2O groupH2O temp
+thermo_modity temp tempH2O
+thermo_style custom step temp ke vol</code></pre>
 	</p>
 	<h4><b>Trajectory</b></h4>
 	<p>
 		Trajectory information, i.e. the position of atoms over time, can be printed 
 		in a file using the dump command:
 		<pre><code>dump myDump all atom 100 dump.lammpstrj</code></pre>
-		Here the positions of all the atoms is printed every 100 timestep in the dump.lammpstrj,
-		which you can then open using VMD or Ovito. lammpstrj is the default ascii LAMMPS
-		dump format. Compressed trajectory formats such as xtc can also be used. <br><br>
+		Here the positions of all the atoms are printed every 100 timesteps in the dump.lammpstrj file,
+		which you can then open using VMD or Ovito. 'lammpstrj' is the default ascii LAMMPS
+		dump format. Compressed trajectory formats such as xtc can also be used. 
+		<br><br>
 		There are plenty of measurements that can be performed from the trajecory files 
 		after your simulation is over. These measurements can be done with external tools
 		such as MDAnalysis or MAICoS (for confined geometries).
@@ -250,15 +259,14 @@ create_atoms 0 random 1 456415 NULL mol h2omol 454756</code></pre>
 	<p>
 		Data can be printed in a text file as a function of the
 		simulation timestep using fix ave/time. The printed information can for instance be
-		the result of a variable, a compute, or  even a fix. For instance this series of command extracts the 
+		the result of a variable, a compute, or even a fix. For instance this series of commands extracts the 
 		the box size along x (lx), convert it in meter, and print it in a text file every 1000 timesteps:
 		<pre><code>variable AngstromtoMeter equal 1e-10
 variable mylx equal lx*${AngstromtoMeter}
 fix myat1 all ave/time 1000 1 1000 v_mylx file myly_in_meter.dat</code></pre>
 	</p>
 	<p>	
-		Data can also be printed as a function of space, for instane to extract density profiles, as 
-		done using:
+		Data can also be printed as a function of space, for instance to extract the 1D density profile along z, type:
 		<pre><code>compute cc1 water chunk/atom bin/1d z 0.0 1.0
 fix myac1 water ave/chunk 100 1000 100000 cc1 density/number norm sample file density_water.dat</code></pre>
 	</p>
