@@ -108,7 +108,7 @@ href="#installation">Installation</a>
 href="#input">The input script</a>
 </li>
 <li class="nav-item"><a class="nav-link active"
-href="#trajectories">Trajectory visualisation</a>
+href="#trajectories">Trajectory visualization</a>
 </li>
 <li class="nav-item"><a class="nav-link"
 href="#improved">Improving the script</a>
@@ -126,7 +126,7 @@ href="#further">Going further</a>
 <section id="intro">
 <h1>Simple molecular dynamics</h1>
 <h3>The very basics of molecular dynamics through a simple example:
-a bidimentional Lennard-Jones binary gas</h3>
+a bidimensional Lennard-Jones binary gas</h3>
 <!--<a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/Video/tutorial01">
 <img src="Video/tutorial01/2D-lj-fluid.webp" style="width:32%" alt="Responsive image"/>
 </a>-->
@@ -144,7 +144,7 @@ a simple molecular dynamics simulation. The simulation
 consists in a binary fluid in a 2D box, with atoms of the
 fluid interacting through a simple Lennard-Jones potential.
 This tutorial illustrates the use of several ingredients of
-molecular dynamics simulations, such as system initialisation,
+molecular dynamics simulations, such as system initialization,
 energy minimisation, integration of the equations of motion,
 and trajectory visualisation.
 </p>
@@ -208,7 +208,7 @@ In addition to LAMMPS, you will also need
 target="_blank" class="removelinkdefault">(1)	a basic text
 editing software</a> such as Vim, Gedit, or Notepad++,
 <a href="https://www.ks.uiuc.edu/Research/vmd/"
-target="_blank" class="removelinkdefault">(2) a visualisation
+target="_blank" class="removelinkdefault">(2) a visualization
 software</a>, here I will use VMD (note: VMD is free but you
 have to register to the uiuc website in order to download
 it. If you don't want to, you can also use Ovito.),
@@ -370,11 +370,11 @@ minimize 1.0e-4 1.0e-6 1000 10000
     <b>Explanations:</b> The thermo command asks LAMMPS to print
     thermodynamic information (e.g. temperature, energy) in the
     terminal every 10 timesteps.
-    The second line asks LAMMPS to perform an energy minimisation
+    The second line asks LAMMPS to perform an energy minimization
     of the system. 
     <blockquote>
         <b>About energy minimization</b>
-        An energy minimisation consists in adjusting
+        An energy minimization consists in adjusting
         the coordinates of the atoms until one of the stopping
         criteria is reached. Here there are four stopping criteria:
         <ul>
@@ -404,7 +404,7 @@ minimize 1.0e-4 1.0e-6 1000 10000
     </p>
     <p>
     <b>Explanations:</b> These lines give us information
-    concerning the progress of the energy minimisation.
+    concerning the progress of the energy minimization.
     First, at the start of the simulation (step 0), the energy
     in the system is huge: 5.8997404e+14 (unitless). This was
     expected because the atoms have been created at random
@@ -412,7 +412,7 @@ minimize 1.0e-4 1.0e-6 1000 10000
     probably overlapping, resulting in a large initial energy
     which is the consequence of the repulsive part of the
     Lennard-Jones interaction potential. As the energy
-    minimisation progresses, the energy rapidly decreases and
+    minimization progresses, the energy rapidly decreases and
     reaches a negative, more acceptable value, indicating that
     the atoms have been displaced at reasonable distances from
     each others. Other useful information have been printed in
@@ -431,11 +431,11 @@ minimize 1.0e-4 1.0e-6 1000 10000
     the message is simply an indication that LAMMPS is
     building the pairwise neighbor lists (that are used by
     LAMMPS to evaluate the interaction between atoms) more
-    frequently than the default value during the minimisation.
+    frequently than the default value during the minimization.
     <br><br>
     The system is ready, now let us start the second part of 
     the input script, the molecular dynamics simulation. In the same script,
-    after the minimisation command, add the following lines:
+    after the minimization command, add the following lines:
     <pre><code># PART B - MOLECULAR DYNAMICS
 # 4) Visualization
 thermo 1000
@@ -538,10 +538,10 @@ Total wall time: 0:00:02</code></pre>
 <h2>Trajectories visualisation</h2>
 <p>
 The simulation is running well, but we would like
-to visualise the trajectories of the atoms. To do so, we are
+to visualize the trajectories of the atoms. To do so, we are
 going to dump the positions of the atoms in a file at a
 regular interval. Add the following command in the
-'vizualisation' section of PART 2:
+'visualization' section of PART 2:
 <pre><code>dump mydmp all atom 1000 dump.lammpstrj</code></pre>
 </p>
 <p>
@@ -620,8 +620,8 @@ minimisation step.
 <br><br>
 Run LAMMPS using the input_02.lammps script. If everything
 goes well, a dump file named dump.min.lammpstrj will appear
-in the folder, allowing you to visualise the atoms
-trajectories during minimisation using VMD or Ovito.
+in the folder, allowing you to visualize the atoms
+trajectories during minimization using VMD or Ovito.
 In addition, a file named minimized_coordinate.data will be created.
 If you open this file, you will see that it contains all
 the information necessary to restart the simulation, such
@@ -680,7 +680,7 @@ we simply add the following command:
 read_data minimized_coordinate.data</code></pre>
 </p>
 <p>
-By visualising the previously generated dump.min.lammpstrj
+By visualizing the previously generated dump.min.lammpstrj
 file, you may have noticed that some atoms have moved
 from one region to the other during minimisation,
 as seen in <a href="https://www.youtube.com/embed/gfJ_n33-F6A"
@@ -735,7 +735,7 @@ thermo 50000
 dump mydmp all atom 500 dump.RUN.lammpstrj</code></pre>
 </p>
 <p>
-Note that 2 atom groups have been defined, they are usefull 
+Note that 2 atom groups have been defined, they are useful 
 to extract the coordination number between atoms of type 1 and 2.
 Let us extract this coordination number, as well as the number
 of atoms of each type in each region, by adding the
@@ -778,7 +778,7 @@ is equal to 1 (unitless). The additional keywords ensure
 that no linear momentum and no angular momentum are given
 to the system, and that the generated velocities are
 distributed as a Gaussian. Another novelty is the
-'zero yes' keyword in the langevin thermostat,
+'zero yes' keyword in the Langevin thermostat,
 that ensures that the total random force is equal to zero.
 <br><br>
 After running the simulation, you can observe the number
@@ -843,9 +843,9 @@ leading to enormous acceleration. As a
 consequence, atoms are moving by large distances during
 the firsts timesteps, and LAMMPS loses them.
 </p>
-<h4><b>Exercise 1 : perform a minimisation using fix langevin only</b></h4>
+<h4><b>Exercise 1 : perform a minimization using fix langevin only</b></h4>
 <p>
-Perform an energy minimisation without using the the minimize command (this is sometimes 
+Perform an energy minimization without using the the minimize command (this is sometimes 
 usefull, particularly for rigid water models). 
 
 <blockquote><i>
