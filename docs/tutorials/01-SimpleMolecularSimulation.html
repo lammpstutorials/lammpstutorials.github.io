@@ -437,9 +437,14 @@ minimize 1.0e-4 1.0e-6 1000 10000
     the input script, the molecular dynamics simulation. In the same script,
     after the minimisation command, add the following lines:
     <pre><code># PART B - MOLECULAR DYNAMICS
-4) Vizualization
+# 4) Visualization
 thermo 1000
-5) Run
+variable kinetic_energy equal ke
+variable potential_energy equal pe
+variable pressure equal press
+fix myat1 all ave/time 10 1 10 v_kinetic_energy v_potential_energy v_pressure file energy.dat
+
+# 5) Run
 fix mynve all nve
 fix mylgv all langevin 1.0 1.0 0.1 1530917
 fix myefn all enforce2d
@@ -455,10 +460,10 @@ run 10000</code></pre>
         value of '10' will be overuled by the value of '1000'.
     </blockquote>
     <p>
-    <b>Explanations: </b>For LAMMPS, a `fix' is an operation applied to a group of
-    atoms. The first fix performs constant NVE integration
-    (micro-canonical ensemble with constant number of atom \(N\),
-    constant volume \(V\), and constant energy \(E\)) to update
+    <b>Explanations: </b>Three variables have been defined in order to 
+    print the kinetic energy, the potential energy, and the pressure of the system in 
+    the file named 'energy.dat'.     
+    Then, in the run section, the fix 'nve' updates
     the positions and the velocities of the atoms in the group
     `all'. The second fix applies a Langevin thermostat to the
     atoms of group `all', with a desired temperature of 1 and a
@@ -513,6 +518,17 @@ Neighbor list builds = 1152
 Dangerous builds = 0
 Total wall time: 0:00:02</code></pre>
     </p>
+
+    <p>
+        Let us plot the kinetic energy, potential energy, and pressure of the system 
+        over time: <br>
+        <img src="../../inputs/01-SimpleMolecularDynamics/Energy.png"
+        class="img-fluid" alt="Responsive image">
+        <br>
+        All three quantities rapidly evolve at the beginning of the simulation, before reaching 
+        an equilibrated value. 
+        </p>
+
 </section>
 <br><br>
 <!-- ======================================================= -->
@@ -661,7 +677,7 @@ boundary p p p</code></pre>
 Now instead of creating a new region and adding atoms,
 we simply add the following command:
 <pre><code># 2) System definition
-read_data data.min.lammps</code></pre>
+read_data minimized_coordinate.data</code></pre>
 </p>
 <p>
 By visualising the previously generated dump.min.lammpstrj
@@ -711,29 +727,37 @@ mass 2 1
 pair_coeff 1 1 1.0 1.0
 pair_coeff 2 2 0.5 3.0
 neigh_modify every 1 delay 5 check yes
+group type1 type 1
+group type2 type 2
 
-4) Visualization
-thermo50000
+# 4) Visualization
+thermo 50000
 dump mydmp all atom 500 dump.RUN.lammpstrj</code></pre>
 </p>
 <p>
-In addition, it would be great to extract data directly
-from the simulation. For example, let us extract the number
+Note that 2 atom groups have been defined, they are usefull 
+to extract the coordination number between atoms of type 1 and 2.
+Let us extract this coordination number, as well as the number
 of atoms of each type in each region, by adding the
 following commands:
-<pre><code>variable	Ntype1in equal count(mytype1,mycylin)
+<pre><code>variable Ntype1in equal count(mytype1,mycylin)
 variable Ntype1ou equal count(mytype1,mycylou)
 variable Ntype2in equal count(mytype2,mycylin)
 variable Ntype2ou equal count(mytype2,mycylou)
-fix myat1 all ave/time 1000 1 1000 v_Ntype1in v_Ntype1ou file population1vstime.dat
-fix myat2 all ave/time 1000 1 1000 v_Ntype2in v_Ntype2ou file population2vstime.dat</code></pre>
+fix myat1 all ave/time 1000 10 10000 v_Ntype1in v_Ntype1ou file population1vstime.dat
+fix myat2 all ave/time 1000 10 10000 v_Ntype2in v_Ntype2ou file population2vstime.dat
+compute coor12 type1 coord/atom cutoff 2.0 group type2
+compute sumcoor12 all reduce ave c_coor12
+fix myat3 all ave/time 1000 10 10000 c_sumcoor12 file coordinationnumber12.dat</code></pre>
 </p>
 <p>
-<b>Explanations:</b> The fixes ave/times allow to evaluate
+<b>Explanations:</b> As seen previously, the fixes ave/times allow to evaluate
 previously defined
-variables and print the values (here every 1000 steps)
-into data file. Here each variable simply counts the number
+variables and print the values (here every 10000 steps, averaged 10 times)
+into data file. The variables Ntype* are used to count the number
 of atoms of a specific group in a specific region.
+The compute ave is used to average the per atom coordination number 
+resulting of the coord/atom compute. 
 <br><br>
 Finally, let us terminate the script by adding:
 <pre><code># 5) Run
@@ -742,7 +766,7 @@ fix mynve all nve
 fix mylgv all langevin 1.0 1.0 0.1 1530917 zero yes
 fix myefn all enforce2d
 timestep 0.005
-run 1500000
+run 3000000
 write_data data.mixed.lammps</code></pre>
 </p>
 <p>
@@ -758,10 +782,10 @@ distributed as a Gaussian. Another novelty is the
 that ensures that the total random force is equal to zero.
 <br><br>
 After running the simulation, you can observe the number
-of atoms in each region from the generated data files,
-using for example XmGrace:
+of atoms in each region from the generated data files, as 
+well as the evolution of the coordination number due to mixing:
 </p>
-<p><img src="../figures/01-SimpleMolecularSimulation/tutorial01_curve01.jpg"
+<p><img src="../../inputs/01-SimpleMolecularDynamics/Population.png"
 class="img-fluid" alt="Responsive image">
 </p>
 <p>The final simulation should resemble

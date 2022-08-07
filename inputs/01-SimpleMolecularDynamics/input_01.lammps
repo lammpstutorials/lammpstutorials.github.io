@@ -31,11 +31,15 @@ minimize 1.0e-4 1.0e-6 1000 10000
 
 # PART B - MOLECULAR DYNAMICS
 
-4) Vizualization
+# 4) Vizualization
 thermo 1000
 dump mydmp all atom 1000 dump.lammpstrj
+variable kinetic_energy equal ke
+variable potential_energy equal pe
+variable pressure equal press
+fix myat1 all ave/time 10 1 10 v_kinetic_energy v_potential_energy v_pressure file energy.dat
 
-5) Run
+# 5) Run
 fix mynve all nve
 fix mylgv all langevin 1.0 1.0 0.1 1530917
 fix myefn all enforce2d
