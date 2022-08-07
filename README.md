@@ -6,7 +6,7 @@ Some LAMMPS inputs can be found in the inputs folder.
 
 <p float="left">
   <a href="https://lammpstutorials.github.io/tutorials/01-SimpleMolecularSimulation.html">
-  <img src="docs/figures/tutorial01/avatar.jpg" width="32%" /></a>
+  <img src="docs/figures/01-SimpleMolecularSimulation/avatar.jpg" width="32%" /></a>
 
   <a href="https://lammpstutorials.github.io/tutorials/02-PorousMembraneOsmosis.html">
   <img src="docs/figures/tutorial07/avatar.jpg" width="32%" /></a>
