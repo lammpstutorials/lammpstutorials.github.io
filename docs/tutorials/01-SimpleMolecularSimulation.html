@@ -66,9 +66,7 @@ All tutorials
 </a>
 </li>
 <li>
-<a href="../miscellaneous/contact.html">
-Contact / Get help with your project
-</a>
+<a href="../miscellaneous/contact.html">Contact me</a>
 </li>
 </ul>
 </div>
@@ -128,10 +126,10 @@ href="#further">Going further</a>
 <h3>The very basics of LAMMPS through a simple example:
 a bidimensional Lennard-Jones binary fluid</h3>
 <p>
-<img src="../figures/01-SimpleMolecularSimulation/binary_LJ_fluid.png"
+<img src="../figures/01-SimpleMolecularSimulation/main_image.png"
 style="width:100%" alt="Responsive image"/>
 <small style="color:#6B6B6B">
-Figure: a binary fluid in a 2D box
+Figure: a binary fluid in a 2D box at 3 different times
 </small>
 </p>
 <p><b>The objective of this tutorial</b> is to use the
@@ -165,14 +163,10 @@ as a new starting point
 </li>
 </ul>
 </p>
-<!--
 <p class="alert alert-info">
-<a href="../miscellaneous/contact.html">Click here</a> if you are looking
-for help with your project, if you want to support me
-(for free or not), or if you have any suggestions for
-these tutorials.
-</p>
--->
+    <a href="../miscellaneous/contact.html">Click here</a>
+    to contact me.
+    </p>
 </section>
 <br><br>
 <!-- ======================================================= -->
@@ -566,11 +560,11 @@ What you observe should resemble <a href="https://www.youtube.com/embed/bN2VV2gO
 <section id="improved">
 <h2>Improving the script</h2>
 <p>
-Let us improve the input sxript and perform slightly more
+Let us improve the input script and perform slightly more
 advanced operations.
 <br><br>
 Let us create the atoms of type 1 and 2 in two separate
-regions, respectively. Create a new input script., call it input_02.lammps.
+regions, respectively. Create a new input script, and call it input_02.lammps.
 Similarly to what has been done for input_01.lammps, 
 copy the following lines into the input script:
 <pre><code># 1) Initialization
@@ -650,7 +644,7 @@ of all the atoms:
 (...)</code></pre>
 </p>
 <p>
-<b>Explanations:</b> Each column corresponds respectively
+<b>Explanations:</b> The columns of the Atoms section correspond (from left to right)
 to the atom indexes (from 1 to the total number of atoms,
 1150), the atom types (1 or 2 here), the atoms positions
 (\(x\), \(y\), \(z\)) and the atoms velocities
@@ -735,14 +729,14 @@ group type2 type 2
 
 # 4) Visualization
 thermo 50000
-dump mydmp all atom 500 dump.RUN.lammpstrj</code></pre>
+dump mydmp all atom 5000 dump.RUN.lammpstrj</code></pre>
 </p>
 <p>
-Note that 2 atom groups have been defined, they are useful 
+Note that 2 atom groups have been defined, they are useful here
 to extract the coordination number between atoms of type 1 and 2.
 Let us extract this coordination number, as well as the number
 of atoms of each type in each region, by adding the
-following commands:
+following commands to the input file:
 <pre><code>variable Ntype1in equal count(mytype1,mycylin)
 variable Ntype1ou equal count(mytype1,mycylou)
 variable Ntype2in equal count(mytype2,mycylin)
@@ -762,7 +756,7 @@ of atoms of a specific group in a specific region.
 The compute ave is used to average the per atom coordination number 
 resulting of the coord/atom compute. 
 <br><br>
-Finally, let us terminate the script by adding:
+Finally, let us complete the script by adding the run section:
 <pre><code># 5) Run
 velocity all create 1.0 4928459 mom yes rot yes dist gaussian
 fix mynve all nve
@@ -895,9 +889,7 @@ target="_blank">this video</a>.
 </p>
 <p class="alert alert-info">
 <a href="../miscellaneous/contact.html">Click here</a>
-if you are looking for help with your project, if you
-want to support me (for free or not), or if you have
-any suggestions for these tutorials.
+to contact me.
 </p>
 </section>
 <!-- ======================================================= -->
