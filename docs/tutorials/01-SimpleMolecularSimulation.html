@@ -125,24 +125,20 @@ href="#further">Going further</a>
 <div class="container">
 <section id="intro">
 <h1>Simple molecular dynamics</h1>
-<h3>The very basics of molecular dynamics through a simple example:
-a bidimensional Lennard-Jones binary gas</h3>
-<!--<a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/Video/tutorial01">
-<img src="Video/tutorial01/2D-lj-fluid.webp" style="width:32%" alt="Responsive image"/>
-</a>-->
+<h3>The very basics of LAMMPS through a simple example:
+a bidimensional Lennard-Jones binary fluid</h3>
 <p>
 <img src="../figures/01-SimpleMolecularSimulation/binary_LJ_fluid.png"
 style="width:100%" alt="Responsive image"/>
 <small style="color:#6B6B6B">
-Lennard-Jones binary gas in a 2D box.
+Figure: a binary fluid in a 2D box
 </small>
 </p>
 <p><b>The objective of this tutorial</b> is to use the
-open-source code named LAMMPS (acronym for Large-scale
+open-source code LAMMPS (acronym for Large-scale
 Atomic/Molecular Massively Parallel Simulator) to perform
-a simple molecular dynamics simulation. The simulation
-consists in a binary fluid in a 2D box, with atoms of the
-fluid interacting through a simple Lennard-Jones potential.
+a simple molecular dynamics simulation: a binary fluid in 
+a 2D box, Lennard-Jones potential between atoms, and Langevin thermostating.
 This tutorial illustrates the use of several ingredients of
 molecular dynamics simulations, such as system initialization,
 energy minimisation, integration of the equations of motion,
@@ -169,12 +165,14 @@ as a new starting point
 </li>
 </ul>
 </p>
+<!--
 <p class="alert alert-info">
 <a href="../miscellaneous/contact.html">Click here</a> if you are looking
 for help with your project, if you want to support me
 (for free or not), or if you have any suggestions for
 these tutorials.
 </p>
+-->
 </section>
 <br><br>
 <!-- ======================================================= -->
@@ -264,9 +262,9 @@ boundary p p p</code></pre>
     boundary conditions will be used along all three directions
     of space (the three 'p' stand for 'x', 'y', 'z', respectively). 
     <blockquote>
-    <b>Note:</b> It may seems strange to define the periodic
-    boundary conditions along the third dimension since we are
-    performing 2D simulation, but it is a LAMMPS requirement.
+    <b>Note:</b> It may seems strange to define the
+    boundary conditions along the third dimension for a 
+    2D simulation, but it is a LAMMPS requirement.
     </blockquote>
     At this point, you have a LAMMPS script that does nothing.
     You can execute it to verify that there is no mistake by
@@ -343,17 +341,17 @@ pair_coeff 2 2 0.5 3.0</code></pre>
         <b>About cross parameters</b><br><br>
 
         By default, LAMMPS calculates
-        the Lennards coefficients for the interactions between atoms
-        of type 1 and 2 by using geometric average:
+        the cross coefficients (here for the interactions between atoms
+        of type 1 and 2) using geometric average:
         \(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\),
-        \(\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}\).Note that the arithmetic rule, where
+        \(\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}\). Note that the arithmetic rule, where
         \(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\) and
         \(\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2\), is more
         commonly used. However neither the geometric nor the arimetic
         rule is based on rigorous argument, so here the geometric
         rule will do just fine.<br><br>
 
-        Cross parameters can also be specified using 'pair_coeff	1 2'.
+        Cross parameters can also be explicitely specified using 'pair_coeff 1 2'.
     </blockquote>
     </p>
     <p>
@@ -413,9 +411,9 @@ minimize 1.0e-4 1.0e-6 1000 10000
     which is the consequence of the repulsive part of the
     Lennard-Jones interaction potential. As the energy
     minimization progresses, the energy rapidly decreases and
-    reaches a negative, more acceptable value, indicating that
+    reaches a negative and also more acceptable value, indicating that
     the atoms have been displaced at reasonable distances from
-    each others. Other useful information have been printed in
+    one another. Other useful information have been printed in
     the terminal, for example, LAMMPS tells us that the first
     of the four criteria to be satisfied was the energy:
     <pre><code>Minimization stats:
@@ -423,8 +421,7 @@ minimize 1.0e-4 1.0e-6 1000 10000
     </p>
     <p>
     You may also see the following warning:
-    <pre><code>WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization
-    </code></pre>
+    <pre><code>WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization</code></pre>
     </p>
     <p>
     There is nothing to worry about at this stage,
@@ -455,7 +452,7 @@ run 10000</code></pre>
         <b>Note:</b> Since LAMMPS reads the input from top to bottom, 
         these lines will be executed after the energy minimization. <br><br>
         There is no need to initialize the system (1), define it (2), or 
-        specify the settings again. <br><br>
+        specify the (3) settings again. <br><br>
         The thermo command is called a second time, so the previously entered 
         value of '10' will be overuled by the value of '1000'.
     </blockquote>
@@ -463,9 +460,9 @@ run 10000</code></pre>
     <b>Explanations: </b>Three variables have been defined in order to 
     print the kinetic energy, the potential energy, and the pressure of the system in 
     the file named 'energy.dat'.     
-    Then, in the run section, the fix 'nve' updates
+    Then, in the run section, the fix 'nve' is used to update
     the positions and the velocities of the atoms in the group
-    `all'. The second fix applies a Langevin thermostat to the
+    `all' (this is the most important command here). The second fix applies a Langevin thermostat to the
     atoms of group `all', with a desired temperature of 1 and a
     damping parameter of 0.1. The number '1530917' is a seed, you
     can change it to perform statistically independent simulations
@@ -489,7 +486,7 @@ run 10000</code></pre>
 10081    1.0136339   -1.2913059            0  -0.27830551    0.8433209</code></pre>
     </p>
     <p>
-    It shows that the temperature oscillates near \(T=1\), as
+    The second column shows that the temperature oscillates near \(T=1\), as
     requested. Note that the temperature starts from 0, but
     rapidly reaches the expected value thanks to the applied
     Langevin thermostat. In the terminal, you may also see
@@ -501,9 +498,9 @@ Total wall time: 0:00:02</code></pre>
     </p>
     <p>
     During the simulation, they have been 998 dangerous builds.
-    This is an indication that something is wrong with the
-    simulation, and that some atoms have moved more than expected
-    in between two calculations of the neighbor lists.
+    This is an indication that something is wrong: some atoms 
+    have moved more than expected
+    in between two calculations of the neighbor lists. 
     Let us add the following command in the 'Simulation
     settings' section:
     <pre><code>neigh_modify every 1 delay 5 check yes</code></pre>
@@ -511,7 +508,7 @@ Total wall time: 0:00:02</code></pre>
     <p>
     With this command, LAMMPS will rebuild the neighbour lists
     more often. Re-run the simulation, and you should see a
-    more positive outcome with 0 dangerous builds:
+    more positive outcome with 0 dangerous build:
     <pre><code>Total # of neighbors = 8514
 Ave neighs/atom = 5.32125
 Neighbor list builds = 1152
@@ -520,13 +517,14 @@ Total wall time: 0:00:02</code></pre>
     </p>
 
     <p>
-        Let us plot the kinetic energy, potential energy, and pressure of the system 
+        From what has been printed in the energy.dat file, let us 
+        plot the kinetic energy, potential energy, and pressure of the system 
         over time: <br>
         <img src="../../inputs/01-SimpleMolecularDynamics/Energy.png"
         class="img-fluid" alt="Responsive image">
         <br>
         All three quantities rapidly evolve at the beginning of the simulation, before reaching 
-        an equilibrated value. 
+        an equilibrium value. 
         </p>
 
 </section>
@@ -538,23 +536,28 @@ Total wall time: 0:00:02</code></pre>
 <h2>Trajectories visualisation</h2>
 <p>
 The simulation is running well, but we would like
-to visualize the trajectories of the atoms. To do so, we are
-going to dump the positions of the atoms in a file at a
+to visualize the trajectories of the atoms. To do so, we need
+to dump the positions of the atoms in a file at a
 regular interval. Add the following command in the
 'visualization' section of PART 2:
 <pre><code>dump mydmp all atom 1000 dump.lammpstrj</code></pre>
 </p>
 <p>
 Run LAMMPS again. A file named dump.lammpstrj must appear
-in the same folder as your input. This file can be opened using VMD or Ovito, 
+in the same folder as your input. This file can be opened using VMD or Ovito.
 In Ubuntu, if VMD is installed, you can simply execute in the terminal:
 <pre><code>vmd dump.lammpstrj</code></pre>
 </p>
 <p>
-Otherwise, you can open VMD and open dump.lammpstrj manually using file -> molecule. 
-You should see a cloud of lines. You can improve the representation using Graphics -> Representation, 
-and replace Lines by Points or VDW in drawing method. What you observe should 
-resemble <a href="https://www.youtube.com/embed/bN2VV2gOLAw" target="_blank">this video</a>.</p>
+Otherwise, you can open VMD and import the dump.lammpstrj file manually using file -> molecule. 
+You should see a cloud of lines. You can improve the representation and make it look 
+like that (see <a href="../miscellaneous/vmd.html" target="_blank">this short VMD guide</a>):
+
+<p><img src="../figures/01-SimpleMolecularSimulation/input_01.png"
+    class="img-fluid" alt="Responsive image">
+</p>
+
+What you observe should resemble <a href="https://www.youtube.com/embed/bN2VV2gOLAw" target="_blank">this video</a>.</p>
 </section>
 <br><br>
 <!-- ======================================================= -->
