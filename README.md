@@ -1,8 +1,10 @@
 <a href="https://lammpstutorials.github.io">
 <img src="docs/figures/welcome.png" width="80%" /></a>
 
-This is the script of the webpage [LAMMPS Tutorials](https://lammpstutorials.github.io/). 
-Some LAMMPS inputs can be found in the inputs folder. 
+This is the repository of the webpage [LAMMPS Tutorials](https://lammpstutorials.github.io/). 
+The LAMMPS inputs script can be found in the [inputs](inputs/) folder. 
+
+### Tutorials ###
 
 <p float="left">
   <a href="https://lammpstutorials.github.io/tutorials/01-SimpleMolecularSimulation.html">
@@ -22,36 +24,19 @@ Some LAMMPS inputs can be found in the inputs folder.
   
   <a href="https://lammpstutorials.github.io/tutorials/06-FreeEnergy.html">
   <img src="docs/figures/tutorial02/avatar.jpg" width="32%" /></a>
- 
-  <a href="https://lammpstutorials.github.io/miscellaneous/checklist.html">
-  <img src="docs/figures/checklist/avatar.jpg" width="32%" /></a>
-  
-  <a href="https://lammpstutorials.github.io/miscellaneous/vmd.html">
-  <img src="docs/figures/vmd/avatar.jpg" width="32%" /></a>
-  
-  <a href="https://lammpstutorials.github.io/miscellaneous/LAMMPSscripts.html">
-  <img src="docs/figures/scripts/avatar.jpg" width="32%" /></a>
-  
-  <a href="https://maicos-devel.gitlab.io/maicos/index.html">
-  <img src="docs/figures/maicos/avatar.jpg" width="32%" /></a>
-  
-  <a href="https://nmrformd.readthedocs.io/en/latest/">
-  <img src="docs/figures/nmrformd/avatar.jpg" width="32%" /></a>
 </p>
 
-### About the author ###
+### About me ###
 
-I am a computer physicist in soft matter and fluids at interfaces. I am 
-principally using molecular simulations to study the behaviour of fluid confined 
-in nanoporous materials. You can find more information on my 
-[personal webpage](https://simongravelle.github.io/).
+I am a computer physicist in soft matter and fluids at interfaces. You can 
+find more information on my [personal webpage](https://simongravelle.github.io/).
 
 ### License ###
 
 All the LAMMPS materials given here are open source and released under the 
 GNU general public license v3.0.
 
-### Template ###
+### Templates ###
 
 The html/css templates are from [html5 up](https://html5up.net/) 
 and [harnishdesign](http://www.harnishdesign.net/).
