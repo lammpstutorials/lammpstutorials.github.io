@@ -4,6 +4,10 @@
 This is the repository of the webpage [LAMMPS Tutorials](https://lammpstutorials.github.io/). 
 The LAMMPS inputs script can be found in the [inputs](inputs/) folder. 
 
+### You found an issue on one of the tutorial? ###
+
+You can report issue here, or send me an [email](https://simongravelle.github.io/). Your feedback is always highly appreciated.
+
 ### Tutorials ###
 
 <p float="left">
