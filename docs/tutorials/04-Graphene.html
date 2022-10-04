@@ -1,206 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,
-initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
-<link href="../figures/favicon-32x32.png" rel="icon" />
-<title>Graphene sheet and CNT</title>
-<meta name="description" content="Graphene sheet and CNT">
-<meta name="author" content="Simon Gravelle">
-<link rel="stylesheet" type="text/css"
-href="../assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css"
-href="../assets_tutorials/vendor/font-awesome/css/all.min.css" />
-<link rel="stylesheet" type="text/css"
-href="../assets_tutorials/css/stylesheet.css" />
-<script async
-src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-W1WGEC5GQ8');
-</script>
-<script id="MathJax-script" async
-src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-</head>
-<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
-<div id="main-wrapper">
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<header id="header" class="sticky-top">
-<nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
-<div class="container-fluid">
-<a class="logo ml-md-3" href="../index.html" title="LAMMPS tutorials">
-<img src="../figures/logo.png"
-alt="LAMMPS tutorials" height="60"/>
-</a>
-<!--<button class="navbar-toggler ml-auto" type="button"
-data-toggle="collapse" data-target="#header-nav">
-<span></span>
-<span></span>
-<span></span>
-</button>-->
-<div id="header-nav" class="collapse navbar-collapse justify-content-end">
-<ul class="navbar-nav">
-<!--
-<li class="dropdown"> <a class="dropdown-toggle" href="#">All tutorials</a>
-<ul class="dropdown-menu">
-<li><a class="dropdown-item" href="tutorial01.html">Tutorial 1</a></li>
-<li><a class="dropdown-item" href="tutorial02.html">Tutorial 2</a></li>
-<li><a class="dropdown-item" href="tutorial03.html">Tutorial 3</a></li>
-<li><a class="dropdown-item" href="tutorial04.html">Tutorial 4</a></li>
-<li><a class="dropdown-item" href="tutorial05.html">Tutorial 5</a></li>
-<li><a class="dropdown-item" href="tutorial06.html">Tutorial 6</a></li>
-<li><a class="dropdown-item" href="tutorial07.html">Tutorial 7</a></li>
-</ul>
-</li>
--->
-<li>
-<a href="../index.html">
-All tutorials
-</a>
-</li>
-<li><
-    <a href="../miscellaneous/contact.html">Contact me</a>
-</li>
-</ul>
-</div>
-<ul class="social-icons social-icons-sm ml-lg-2 mr-2">
-<li class="social-icons-twitter"><a data-toggle="tooltip"
-href="https://twitter.com/GravelleSimon" target="_blank"
-title="" data-original-title="Twitter">
-<i class="fab fa-twitter"></i></a></li>
-<li class="social-icons-twitter"><a data-toggle="tooltip"
-href="https://gitlab.com/sgravelle" target="_blank"
-title="" data-original-title="Gitlab">
-<i class="fab fa-gitlab"></i></i></a></li>
-<li class="social-icons-twitter"><a data-toggle="tooltip"
-href="https://github.com/simongravelle" target="_blank"
-title="" data-original-title="Github">
-<i class="fab fa-github"></i></i></a></li>
-<li class="social-icons-twitter"><a data-toggle="tooltip"
-href="https://www.youtube.com/c/SimonGravelle"
-target="_blank" title="" data-original-title="Youtube">
-<i class="fab fa-youtube"></i></i></a></li>
-</ul>
-</div>
-</nav>
-</header>
-<div class="idocs-navigation bg-light">
-<ul class="nav flex-column ">
-
-<li class="nav-item"><a class="nav-link active"
-href="#intro">Getting Started</a>
-</li>
-<li class="nav-item"><a class="nav-link"
-href="#Graphene">Graphene sheet</a>
-</li>
-<li class="nav-item"><a class="nav-link"
-href="#cnt">CNT</a>
-</li>
-<li class="nav-item"><a class="nav-link"
-href="#further">Going further</a>
-</li>
-</ul>
-<a href="../miscellaneous/contact.html" rel='noreferrer'>
-    <img src="../figures/pub/pub1_patreon.png" style="width:100%" alt="Contact me"/>
-</a>
-</div>
-<div class="idocs-content">
-<div class="container">
-<section id="intro">
-<h1>Graphene sheet and CNT</h1>
-<h3>Generation of a graphene sheet and a carbon nanotube CNT with VMD, and imposed
-deformation using LAMMPS</h3>
-<br>
-<p><img src="../figures/tutorial04/3_graphene.png"
-class="img-fluid" alt="Responsive image">
-</p>
-<br>
-<p>
-<b>The objective of this tutorial</b> is to use molecular
-dynamics and simulate the deformation of simple carbon-based
-structures. There are two main parts to this tutorial:
-<ul>
-<li> <a href="#Graphene">Graphene sheet - </a>First, a graphene sheet will
-be generated using VMD-topotool. The sheet will be deformed using applied displacement.
-</li>
-<li> <a href="#cnt">CNT - </a>Second, a similar protocol will be used
-to create a single CNT. In this case, a reactive
-force field will be used in order to simulate the breaking of the bonds
-under extreme deformation.
-</li>
-</ul>
-</p>
-<p>If you are new to LAMMPS, I recommend you to follow
-<a href="01-SimpleMolecularSimulation.html">this simpler tutorial</a> first.
-</p>
-<p class="alert alert-info"> <a
-href="../miscellaneous/contact.html">Click here</a>
-if you are looking for help with your project, if you want to
-support me (for free or not), or if you have any suggestions
-for these tutorials.
-</p>
-</section>
-<br><br>
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<section id="Graphene">
-<h1>Graphene sheet</h1>
-<h2>Generation of the system</h2>
-<p>The initial configuration (atoms positions, bonds, angles, etc.) is
-generated using <a href="https://www.ks.uiuc.edu/Research/vmd/"
-target="_blank" class="removelinkdefault">VMD</a>. Open VMD,
-and go to Extensions, Modeling, Nanotube Builder. A window named
-Carbon Nanostructures opens up, allowing us to choose between 
-generating sheet and nanotube of graphene or BN. For this
-tutorial, we are going to generate a 4 nm per 4 nm sheet of graphene.
-Simply change the values of "Edge length along x" and "Edge length
-along y" to 4, and click on "Generate Sheet(s)". You shoud see
-this:
-<br> <br>
-<img src="../figures/tutorial04/carbon_sheet.png"
-class="img-fluid" alt="Responsive image">
-<br> <br>
-At this point, this is not a molecular dynamics simulations, but
-a cloud of dots that looks like graphene. In order to generate
-the initial LAMMPS data file, let us use Topotool and estimate which
-dots must be connected by bonds using a distance criteria.
-In the VMD terminal, enter the following command:
-<pre><code>topo writelammpsdata data.lammps full</code></pre>
-</p>
-<p>
-More details about these commands can be found on the personal page
-of <a href="https://sites.google.com/site/akohlmey/software/topotools"
-target="_blank">Axel Kohlmeyer</a>. In short, Topotool deduces the
-location of bonds, angles, dihedrals, and impropers from the positions
-of the atoms, and generates a file that can be read by LAMMPS.
-The keyword "full" corresponds to the LAMMPS atom full style
-(other possibilities include atomic, bond, charge, etc). The
-parameters of the constraints (bond length, dihedral coefficients,
-etc.) will be given later. A new file named "data.lammps" has been
-created.
-
-</p>
-<p>
-We need the box to be larger than the structure (i.e. we need vacuum
-on each side of the graphene). Make sure of that by increasing the box dimensions 
-in the data.lammps file:
-<pre><code> -20 60  xlo xhi
- -20 60  ylo yhi
- -40 40  zlo zhi
-</code></pre></p>
-<p>
-<!--, alternatively you can download the file
-<a href="Inputs/tutorial04.zip" target="_blank"
-class="removelinkdefault">here</a>. -->
-It starts like that:
-<pre><code>LAMMPS data file. CGCMM style. atom_style full generated by VMD/TopoTools v1.7 on Tue Jan 12 19:39:40 GMT 2021
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,
+        initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+        <link href="../figures/favicon-32x32.png" rel="icon" />
+        <title>Graphene sheet and CNT</title>
+        <meta name="description" content="Graphene sheet and CNT">
+        <meta name="author" content="Simon Gravelle">
+        <link rel="stylesheet" type="text/css"
+        href="../assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css"
+        href="../assets_tutorials/vendor/font-awesome/css/all.min.css" />
+        <link rel="stylesheet" type="text/css"
+        href="../assets_tutorials/css/stylesheet.css" />
+        <script async
+        src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-W1WGEC5GQ8');
+        </script>
+        <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
+        <div id="main-wrapper">
+            <header id="header" class="sticky-top">
+                <nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+                    <div class="container-fluid">
+                        <a class="logo ml-md-3" href="../index.html" title="LAMMPS tutorials">
+                            <img src="../figures/logo.png"
+                            alt="LAMMPS tutorials" height="60"/>
+                        </a>
+                        <div id="header-nav" class="collapse navbar-collapse justify-content-end">
+                            <ul class="navbar-nav">
+                                <li>
+                                    <a href="../index.html">
+                                        All tutorials
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../miscellaneous/contact.html">
+                                        Contact me
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+                            <li class="social-icons-twitter"><a data-toggle="tooltip"
+                            href="https://twitter.com/GravelleSimon" target="_blank"
+                            title="" data-original-title="Twitter">
+                            <i class="fab fa-twitter"></i></a></li>
+                            <li class="social-icons-twitter"><a data-toggle="tooltip"
+                            href="https://gitlab.com/sgravelle" target="_blank"
+                            title="" data-original-title="Gitlab">
+                            <i class="fab fa-gitlab"></i></i></a></li>
+                            <li class="social-icons-twitter"><a data-toggle="tooltip"
+                            href="https://github.com/simongravelle" target="_blank"
+                            title="" data-original-title="Github">
+                            <i class="fab fa-github"></i></i></a></li>
+                            <li class="social-icons-twitter"><a data-toggle="tooltip"
+                            href="https://www.youtube.com/c/SimonGravelle"
+                            target="_blank" title="" data-original-title="Youtube">
+                            <i class="fab fa-youtube"></i></i></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <div class="idocs-navigation bg-light">
+            <ul class="nav flex-column ">
+            <li class="nav-item"><a class="nav-link active"
+            href="#intro">Getting Started</a>
+            </li>
+            <li class="nav-item"><a class="nav-link"
+            href="#Graphene">Graphene sheet</a>
+            </li>
+            <li class="nav-item"><a class="nav-link"
+            href="#cnt">CNT</a>
+            </li>
+            <li class="nav-item"><a class="nav-link"
+            href="#further">Going further</a>
+            </li>
+            </ul>
+            <a href="../miscellaneous/contact.html" rel='noreferrer'>
+                <img src="../figures/pub/pub1_patreon.png" style="width:100%" alt="Contact me"/>
+            </a>
+            </div>
+            <div class="idocs-content">
+                <div class="container">
+                    <section id="intro">
+                        <h1>Graphene sheet and CNT</h1>
+                        <h3>Generation of a graphene sheet and a carbon nanotube CNT with VMD, and imposed
+                        deformation using LAMMPS</h3>
+                        <br>
+                        <p>
+                            <img src="../figures/tutorial04/3_graphene.png"
+                            class="img-fluid" alt="Responsive image">
+                        </p>
+                        <br>
+                        <p>
+                            <b>The objective of this tutorial</b> is to use molecular
+                            dynamics and simulate the deformation of simple carbon-based
+                            structures. There are two main parts to this tutorial:
+                            <ul>
+                                <li> <a href="#Graphene">Graphene sheet - </a>First, a graphene sheet will
+                                be generated using VMD-topotool. The sheet will be deformed using applied displacement.
+                                </li>
+                                <li> <a href="#cnt">CNT - </a>Second, a similar protocol will be used
+                                to create a single CNT. In this case, a reactive
+                                force field will be used in order to simulate the breaking of the bonds
+                                under extreme deformation.
+                                </li>
+                            </ul>
+                        </p>
+                        <p>If you are new to LAMMPS, I recommend you to follow
+                        <a href="01-SimpleMolecularSimulation.html">this simpler tutorial</a> first.
+                        </p>
+                        <p class="alert alert-info"> <a
+                        href="../miscellaneous/contact.html">Click here</a>
+                        if you are looking for help with your project, if you want to
+                        support me (for free or not), or if you have any suggestions
+                        for these tutorials.
+                        </p>
+                    </section>
+                    <br><br>
+                    <section id="Graphene">
+                        <h1>Graphene sheet</h1>
+                        <h2>Generation of the system</h2>
+                        <p>
+                            The initial configuration (atoms positions, bonds, angles, etc.) is
+                            generated using <a href="https://www.ks.uiuc.edu/Research/vmd/"
+                            target="_blank" class="removelinkdefault">VMD</a>. Open VMD,
+                            and go to Extensions, Modeling, Nanotube Builder. A window named
+                            Carbon Nanostructures opens up, allowing us to choose between 
+                            generating sheet and nanotube of graphene or BN. For this
+                            tutorial, we are going to generate a 4 nm per 4 nm sheet of graphene.
+                            Simply change the values of "Edge length along x" and "Edge length
+                            along y" to 4, and click on "Generate Sheet(s)". You should see
+                            this:
+                            <br> <br>
+                            <img src="../figures/tutorial04/carbon_sheet.png"
+                            class="img-fluid" alt="Responsive image">
+                            <br> <br>
+                            At this point, this is not a molecular dynamics simulations, but
+                            a cloud of dots that looks like graphene. In order to generate
+                            the initial LAMMPS data file, let us use Topotool and estimate which
+                            dots must be connected by bonds using a distance criteria.
+                            In the VMD terminal, enter the following command:
+                            <pre><code>topo writelammpsdata data.lammps full</code></pre>
+                        </p>
+                        <p>
+                            More details about these commands can be found on the personal page
+                            of <a href="https://sites.google.com/site/akohlmey/software/topotools"
+                            target="_blank">Axel Kohlmeyer</a>. In short, Topotool deduces the
+                            location of bonds, angles, dihedrals, and impropers from the positions
+                            of the atoms, and generates a file that can be read by LAMMPS.
+                            The keyword "full" corresponds to the LAMMPS atom full style
+                            (other possibilities include atomic, bond, charge, etc). The
+                            parameters of the constraints (bond length, dihedral coefficients,
+                            etc.) will be given later. A new file named "data.lammps" has been
+                            created.
+                        </p>
+                        <p>
+                            We need the box to be larger than the structure (i.e. we need vacuum
+                            on each side of the graphene). Make sure of that by increasing the box dimensions 
+                            in the data.lammps file:
+                            <pre><code>-20 60  xlo xhi
+-20 60  ylo yhi
+-40 40  zlo zhi</code></pre>
+                        </p>
+                        <p>
+                            It starts like that:
+                            <pre><code>LAMMPS data file. CGCMM style. atom_style full generated by VMD/TopoTools v1.7 on Tue Jan 12 19:39:40 GMT 2021
 680 atoms
 983 bonds
 1894 angles
@@ -218,94 +192,94 @@ It starts like that:
 # Pair Coeffs
 #
 # 1  CA</code></pre>
-</p>
-<p>
-As you can see, the data.lammps file contains information about the
-positions of the carbons atoms, as well as the identity of the
-atoms linked by bonds, angles, dihedrals, and impropers constraints.
-</p>
-<p>
-Save the "data.lammps" file in the same folder as your future
-LAMMPS input script. We are done with the system generation, we can
-start the molecular dynamics simulations.
-</p>
-<br><br>
-<h2>LAMMPS input script</h2>
-<p>
-Create a new text file and name it "input.lammps". Copy the
-following lines in it:
-<pre><code># Initialisation
+                        </p>
+                        <p>
+                            As you can see, the data.lammps file contains information about the
+                            positions of the carbons atoms, as well as the identity of the
+                            atoms linked by bonds, angles, dihedrals, and impropers constraints.
+                        </p>
+                        <p>
+                            Save the "data.lammps" file in the same folder as your future
+                            LAMMPS input script. We are done with the system generation, we can
+                            start the molecular dynamics simulations.
+                        </p>
+                        <br><br>
+                        <h2>LAMMPS input script</h2>
+                        <p>
+                            Create a new text file and name it "input.lammps". Copy the
+                            following lines in it:
+                            <pre><code># Initialisation
 
-variable	T equal 300
+variable T equal 300
 
-units		real
-atom_style	full
-boundary	p p p
-pair_style	lj/cut 14
+units real
+atom_style full
+boundary p p p
+pair_style lj/cut 14
 
-bond_style	harmonic
-angle_style	harmonic
-dihedral_style	opls
-improper_style	harmonic
+bond_style harmonic
+angle_style harmonic
+dihedral_style opls
+improper_style harmonic
 
-special_bonds	lj 0.0 0.0 0.5
+special_bonds lj 0.0 0.0 0.5
 
 # System definition
-read_data	data.lammps</code></pre>
-</p>
-<p>
-Most of these command lines have been seen already in previous
-tutorials (see <a href="01-SimpleMolecularSimulation.html">this tutorial</a> or
-<a href="03-NanoconfinedElectrolyte.html">this one</a>), with a few differences:
-first, the pair style here is lj/cut with parameter 14, which means
-that the atoms closer than 14 Angstroms from each others interact
-through a Lennard-Jones potential. Notice that there is no
-Coulombic interaction because all the atoms in pure graphene have
-a charge of 0. The bond, angle, dihedral, and improper styles
-specify the different potentials used to restrain the positions
-of the atoms For more details, have a look at the LAMMPS website (see for example
-the <a href="https://lammps.sandia.gov/doc/dihedral_opls.html"
-class="removelinkdefault">OPLS dihedral style</a>). The three
-numbers of the special bonds command are weighting factors for the
-Lennard-Jones interaction between atoms connected by bond
-(respectively directly bounded, separated by two bonds, etc.).
-For instance, the first weighting factor, with a value of 0, imposes
-that two atoms connected by a bond do not interact through a LJ
-potential (therefore they only interact through bonded potentials).
-Then the read data command opens the data.lammps
-file previously generated with VMD, which contains the information
-about the box size, atoms positions, etc.
-</p>
-<h4><b>Parameters for the graphene</b></h4>
-<p>
-What we need now is to specify the parameter of both bonded and non-bonded interactions. 
-Create a new text file and name
-it "PARM.lammps". Copy the following lines in it:
-<pre><code>pair_coeff 	1 1 0.066047 3.4
-bond_coeff 	1 469 1.4
-angle_coeff 	1 63 120
-dihedral_coeff	1 0 7.25 0 0
-improper_coeff	1 5 180</code></pre>
-</p>
-<p>
-The pair_coeff indicates the Lennard-jones parameters (\(\epsilon\) and \(\sigma\)) for the only
-type of atom of the simulation: carbon atom of type 1. The bond_coeff provides the
-equilibrium distance \(r_0\) as well as the spring constant \(K\) for the harmonic potential imposed between
-two neighboring carbon atoms, where the potential is : 
-\[ E = K ( r - r_0)^2. \]
-The angle_coeff gives the equilibrium angle \(\theta_0\) and constant for the potential
-between three neighbors atoms : 
-\[ E = K ( \theta - \theta_0)^2. \]
-The dihedral_coeff and improper_coeff give the potential for the constraints between 
-4 atoms. The file PARM.file can be included in the simulation by
-adding the following line to input.lammps:
-<pre><code>include	PARM.lammps</code></pre>
-</p>
-<h4><b>Separate the atoms into 3 groups</b></h4>
-<p>
-The goal of the present simulation is to impose a deformation to
-the sheet. To do so, add the following lines to the input script :
-<pre><code># Simulation settings
+read_data data.lammps</code></pre>
+                        </p>
+                        <p>
+                            Most of these command lines have been seen already in previous
+                            tutorials (see <a href="01-SimpleMolecularSimulation.html">this tutorial</a> or
+                            <a href="03-NanoconfinedElectrolyte.html">this one</a>), with a few differences:
+                            first, the pair style here is lj/cut with parameter 14, which means
+                            that the atoms closer than 14 Angstroms from each others interact
+                            through a Lennard-Jones potential. Notice that there is no
+                            Coulombic interaction because all the atoms in pure graphene have
+                            a charge of 0. The bond, angle, dihedral, and improper styles
+                            specify the different potentials used to restrain the positions
+                            of the atoms For more details, have a look at the LAMMPS website (see for example
+                            the <a href="https://lammps.sandia.gov/doc/dihedral_opls.html"
+                            class="removelinkdefault">OPLS dihedral style</a>). The three
+                            numbers of the special bonds command are weighting factors for the
+                            Lennard-Jones interaction between atoms connected by bond
+                            (respectively directly bounded, separated by two bonds, etc.).
+                            For instance, the first weighting factor, with a value of 0, imposes
+                            that two atoms connected by a bond do not interact through a LJ
+                            potential (therefore they only interact through bonded potentials).
+                            Then the read data command opens the data.lammps
+                            file previously generated with VMD, which contains the information
+                            about the box size, atoms positions, etc.
+                        </p>
+                        <h4><b>Parameters for the graphene</b></h4>
+                        <p>
+                            What we need now is to specify the parameter of both bonded and non-bonded interactions. 
+                            Create a new text file and name
+                            it "PARM.lammps". Copy the following lines in it:
+                            <pre><code>pair_coeff 	1 1 0.066047 3.4
+bond_coeff 1 469 1.4
+angle_coeff 1 63 120
+dihedral_coeff 1 0 7.25 0 0
+improper_coeff 1 5 180</code></pre>
+                        </p>
+                        <p>
+                            The pair_coeff indicates the Lennard-jones parameters (\(\epsilon\) and \(\sigma\)) for the only
+                            type of atom of the simulation: carbon atom of type 1. The bond_coeff provides the
+                            equilibrium distance \(r_0\) as well as the spring constant \(K\) for the harmonic potential imposed between
+                            two neighboring carbon atoms, where the potential is : 
+                            \[ E = K ( r - r_0)^2. \]
+                            The angle_coeff gives the equilibrium angle \(\theta_0\) and constant for the potential
+                            between three neighbors atoms : 
+                            \[ E = K ( \theta - \theta_0)^2. \]
+                            The dihedral_coeff and improper_coeff give the potential for the constraints between 
+                            4 atoms. The file PARM.file can be included in the simulation by
+                            adding the following line to input.lammps:
+                            <pre><code>include	PARM.lammps</code></pre>
+                        </p>
+                        <h4><b>Separate the atoms into 3 groups</b></h4>
+                        <p>
+                            The goal of the present simulation is to impose a deformation to
+                            the sheet. To do so, add the following lines to the input script :
+                            <pre><code># Simulation settings
 
 group		gcar type 1
 variable	xmax equal bound(gcar,xmax)-0.5
@@ -313,148 +287,142 @@ variable	xmin equal bound(gcar,xmin)+0.5
 region		rtop block ${xmax} INF INF INF INF INF
 region		rbot block INF ${xmin} INF INF INF INF
 region		rmid block ${xmin} ${xmax} INF INF INF INF</code></pre>
-</p>
-<p>
-The first command includes all of the atoms of type one
-(i.e. all of our atoms here) in a group named gcar. Then, two
-variables are defined: \(x_\mathrm{max}\) corresponds to the
-coordinate of the last atoms along \(x\) minus 0.5 Angstroms,
-and \(x_\mathrm{min}\) to the coordinate of the first atoms
-along \(x\) plus 0.5 Angstroms. Then, 3 regions are defined, and
-correspond respectively to: 
-\[x < x_\mathrm{min},\]
-\[x_\mathrm{min} > x > x_\mathrm{max}, ~ \text{and} \]  
-\[x > x_\mathrm{max}.\]
-Then groups of atoms corresponding to the atoms located in each
-regions respectively can be defined:
-</p>
-<pre><code>group		gtop region rtop
+                        </p>
+                        <p>
+                            The first command includes all of the atoms of type one
+                            (i.e. all of our atoms here) in a group named gcar. Then, two
+                            variables are defined: \(x_\mathrm{max}\) corresponds to the
+                            coordinate of the last atoms along \(x\) minus 0.5 Angstroms,
+                            and \(x_\mathrm{min}\) to the coordinate of the first atoms
+                            along \(x\) plus 0.5 Angstroms. Then, 3 regions are defined, and
+                            correspond respectively to: 
+                            \[x < x_\mathrm{min},\]
+                            \[x_\mathrm{min} > x > x_\mathrm{max}, ~ \text{and} \]  
+                            \[x > x_\mathrm{max}.\]
+                            Then groups of atoms corresponding to the atoms located in each
+                            regions respectively can be defined:
+                        </p>
+                        <pre><code>group		gtop region rtop
 group		gbot region rbot
 group		gmid region rmid</code></pre>
-<p>
-When running the simulation, the number of atoms in each group is
-printed in the terminal, it's a way of controlling that
-no mistake was made:
-
-<pre><code>680 atoms in group gcar
+                        <p>
+                            When running the simulation, the number of atoms in each group is
+                            printed in the terminal, it's a way of controlling that
+                            no mistake was made:
+                            <pre><code>680 atoms in group gcar
 20 atoms in group gtop
 20 atoms in group gbot
-640 atoms in group gmid</code></pre></p>
-<h4><b>Thermalisation and dynamics</b></h4>
-<p>
-
-Let us specify the thermalisation and the dynamics of the system.
-Add the following lines to input.lammps:
-</p>
-<pre><code>velocity	gmid create ${T} 48455 mom yes rot yes
+640 atoms in group gmid</code></pre>
+                        </p>
+                        <h4><b>Thermalisation and dynamics</b></h4>
+                        <p>
+                            Let us specify the thermalisation and the dynamics of the system.
+                            Add the following lines to input.lammps:
+                        <pre><code>velocity	gmid create ${T} 48455 mom yes rot yes
 fix		mynve all nve
 compute		Tmid gmid temp
 fix		myber gmid temp/berendsen ${T} ${T} 100
 fix_modify	myber temp Tmid</code></pre>
-<p>
-The "velocity create" command gives initial velocities to the
-atoms of the group gmid, assuring an initial temperature of
-\(300\,\)K for these atoms. NVE integration is applied to all
-atoms, and a Berendsen thermostat is applied to the atoms of
-the group gmid only. The "fix modify" ensures that the fix
-Berendsten uses the temperature of the group gmid as an input,
-instead of the temperature of whole system. The atoms of the
-edges are not thermalised because their motion will be restrained.
-</p>
-<h4><b>Restrain the motion of the edges</b></h4>
-<p>
-To restrain the motion of the atoms at the edges, add the
-following commands:
-</p>
-<pre><code>fix 		mysf1 gtop setforce 0 NULL 0
+                        </p>
+                        <p>
+                            The "velocity create" command gives initial velocities to the
+                            atoms of the group gmid, assuring an initial temperature of
+                            \(300\,\)K for these atoms. NVE integration is applied to all
+                            atoms, and a Berendsen thermostat is applied to the atoms of
+                            the group gmid only. The "fix modify" ensures that the fix
+                            Berendsen uses the temperature of the group gmid as an input,
+                            instead of the temperature of whole system. The atoms of the
+                            edges are not thermalised because their motion will be restrained.
+                        </p>
+                        <h4><b>Restrain the motion of the edges</b></h4>
+                        <p>
+                            To restrain the motion of the atoms at the edges, add the
+                            following commands:
+                            <pre><code>fix 		mysf1 gtop setforce 0 NULL 0
 fix 		mysf2 gbot setforce 0 NULL 0
 velocity	gtop set 0 NULL 0
 velocity	gbot set 0 NULL 0
-</code></pre>
-<p>
-The two setforce commands cancel the forces applied on the atoms
-of the two edges, respectively, during the whole simulation along
-\(x\) and \(z\), and the velocity commands set the initial velocities
-along \(x\) and \(z\) to 0 for the atoms of the edges. Therefore,
-the atoms of the edges will remain immobile during the simulation
-(or they would if no other command was applied to them).
-</p>
-<h4><b>Data extraction</b></h4>
-<p>
-Next, in order to
-measure the strain and stress in the graphene sheet, let us
-extract the distance \(L\) between the two edges as well as the
-force applied on the edges. Let us also create a lammpstrj file
-containing the trajectories.
-</p>
-<pre><code>variable	L equal xcm(gtop,x)-xcm(gbot,x)
+                            </code></pre></p>
+                        <p>
+                            The two setforce commands cancel the forces applied on the atoms
+                            of the two edges, respectively, during the whole simulation along
+                            \(x\) and \(z\), and the velocity commands set the initial velocities
+                            along \(x\) and \(z\) to 0 for the atoms of the edges. Therefore,
+                            the atoms of the edges will remain immobile during the simulation
+                            (or they would if no other command was applied to them).
+                        </p>
+                        <h4><b>Data extraction</b></h4>
+                        <p>
+                            Next, in order to
+                            measure the strain and stress in the graphene sheet, let us
+                            extract the distance \(L\) between the two edges as well as the
+                            force applied on the edges. Let us also create a lammpstrj file
+                            containing the trajectories.
+                            <pre><code>variable	L equal xcm(gtop,x)-xcm(gbot,x)
 fix 		at1 all ave/time 10 100 1000 v_L file length.dat
 fix 		at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
 dump 		mydmp all atom 1000 dump.lammpstrj</code></pre>
-<p>
-Notice that the values of the force on each edge are extracted
-from the fixes setforce 'mysf1' and 'mysf2', by calling them using 'f_', the same way variables
-are called using 'v_' and computes are called using 'c_'. A fix setforce cancels all the forces
-on a group of atoms every timestep, but allows one to extract the
-values of the force before its cancellation. 
-
-</p>
-<h4><b>Run</b></h4>
-<p>
-
-Let us run a small
-equilibration step:
-</p>
-<pre><code>thermo		100
+                        </p>
+                        <p>
+                            Notice that the values of the force on each edge are extracted
+                            from the fixes setforce 'mysf1' and 'mysf2', by calling them using 'f_', the same way variables
+                            are called using 'v_' and computes are called using 'c_'. A fix setforce cancels all the forces
+                            on a group of atoms every timestep, but allows one to extract the
+                            values of the force before its cancellation. 
+                        </p>
+                        <h4><b>Run</b></h4>
+                        <p>
+                            Let us run a small
+                            equilibration step:
+                            <pre><code>thermo		100
 thermo_modify 	temp Tmid
 
 # Run
 
 timestep	1.0
 run		5000</code></pre>
-<p>
-With the thermo_modify command, we specify to LAMMPS that
-we want the temperature \(T_\mathrm{mid}\) to be printed in the
-terminal, not the temperature of the entire system. Then, we
-perform a loop.
-At each step of the loop, the edges are slightly displaced,
-and the simulation runs for a short time.
-<pre><code>variable 	var loop 10
+                        </p>
+                        <p>
+                            With the thermo_modify command, we specify to LAMMPS that
+                            we want the temperature \(T_\mathrm{mid}\) to be printed in the
+                            terminal, not the temperature of the entire system. Then, we
+                            perform a loop.
+                            At each step of the loop, the edges are slightly displaced,
+                            and the simulation runs for a short time.
+                            <pre><code>variable 	var loop 10
 label 		loop
 displace_atoms	gtop move 0.1 0 0
 displace_atoms	gbot move -0.1 0 0
 run		1000
 next		var
-jump 		input.lammps loop</code></pre></p>
-<p>
-What you observe should resemble
-<a href="https://www.youtube.com/embed/o5IoCVWpPKg"
-target="_blank">this video</a>.
-<!--You can download the input and
-data files by clicking <a href="Inputs/tutorial04.zip"
-target="_blank" class="removelinkdefault">here</a>.-->
-</p>
-<p class="alert alert-info">
-Always remember that what you measure
-and observe is only as good as your force field.
-</p>
-
-<p>
-Whis this force field, no matter how large is the imposed deformation,
-the bond will never break. To study such bond breaking, one has to use
-a reactive force field, which is done in the next part.
-</p>
-</section>
-<br><br>
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<section id="cnt">
-<h1>Carbon nanotube</h1>
-<p>Using the same protocol as previously, generate a carbon nanotube (just
-untick "bonds" since we dont need them here). Create a LAMMPS input file,
-and as previously, type in it:
-<pre><code># Initialisation
+jump 		input.lammps loop</code></pre>
+                        </p>
+                        <p>
+                            What you observe should resemble
+                            <a href="https://www.youtube.com/embed/o5IoCVWpPKg"
+                            target="_blank">this video</a>.
+                            <!--You can download the input and
+                            data files by clicking <a href="Inputs/tutorial04.zip"
+                            target="_blank" class="removelinkdefault">here</a>.-->
+                        </p>
+                        <p class="alert alert-info">
+                            Always remember that what you measure
+                            and observe is only as good as your force field.
+                        </p>
+                        <p>
+                            Whis this force field, no matter how large is the imposed deformation,
+                            the bond will never break. To study such bond breaking, one has to use
+                            a reactive force field, which is done in the next part.
+                        </p>
+                    </section>
+                    <br><br>
+                    <section id="cnt">
+                        <h1>Carbon nanotube</h1>
+                        <p>
+                            Using the same protocol as previously, generate a carbon nanotube (just
+                            untick "bonds" since we dont need them here). Create a LAMMPS input file,
+                            and as previously, type in it:
+                            <pre><code># Initialisation
 
 variable	T equal 300
 
@@ -464,25 +432,28 @@ boundary	p p p
 pair_style  	airebo 2.5 1 1
 
 # System definition
-read_data	data.lammps</code></pre></p>
-<p>The first difference with the previous case (the graphene sheet) is the units: 
-'metal' instead of 'real', a choice that is imposed by the force field we are 
-going to use (careful, the time is in pico second (\(1\mathrm{e}-12\,\)s) with 'metal'
-instead of femto second (\(1\mathrm{e}-15\,\)s) with 'real'). The second difference is the pair_style. We use
-airebo, which is a reactive force field. With reactive force field, bonds between atoms are
-deduced in real time according to the distance between atoms.
-<br><br>
-Then, let us include the LAMMPS data file, and set the pair_coeff:
+read_data	data.lammps</code></pre>
+                        </p>
+                        <p>
+                            The first difference with the previous case (the graphene sheet) is the units: 
+                            'metal' instead of 'real', a choice that is imposed by the force field we are 
+                            going to use (careful, the time is in pico second (\(1\mathrm{e}-12\,\)s) with 'metal'
+                            instead of femto second (\(1\mathrm{e}-15\,\)s) with 'real'). The second difference is the pair_style. We use
+                            airebo, which is a reactive force field. With reactive force field, bonds between atoms are
+                            deduced in real time according to the distance between atoms.
+                            <br><br>
+                            Then, let us include the LAMMPS data file, and set the pair_coeff:
 
-<pre><code>read_data	data.lammps
-pair_coeff 	* * CH.airebo C</code></pre></p>
-<p>
-The CH.airebo file can be downloaded
-<a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials.github.io/main/inputs/04-Graphene/cnt/CH.airebo
-" target="_blank">here</a>. The rest of the script is very similar to the previous one.
-For a change, let us impose a constant velocity to the atoms of one edge, while
-maintaing the other edge fix:
-<pre><code># Simulation settings
+                            <pre><code>read_data	data.lammps
+pair_coeff 	* * CH.airebo C</code></pre>
+                        </p>
+                        <p>
+                            The CH.airebo file can be downloaded
+                            <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials.github.io/main/inputs/04-Graphene/cnt/CH.airebo
+                            " target="_blank">here</a>. The rest of the script is very similar to the previous one.
+                            For a change, let us impose a constant velocity to the atoms of one edge, while
+                            maintaing the other edge fix:
+                            <pre><code># Simulation settings
 
 group		gcar type 1
 variable	zmax equal bound(gcar,zmax)-0.5
@@ -522,126 +493,111 @@ run		5000
 # 0.05 A/ps = 10 m/s
 velocity	gtop set NULL NULL 0.05
 
-run		150000</code></pre></p>
-<p>
-Looking at the dump file using VMD, you will see the bonds break,
-similar to <a href="https://www.youtube.com/watch?v=f1ve1j3yA6w"
-target="_blank">this video</a>.
-</p>
-<p class="alert alert-info"> 
-All the scripts and data files generated during this tutorial are available
-<a target="_blank"
-href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs">here</a>.
-</p>
-</section>
-<br><br>
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<section id="further">
-<h2>Going further with exercises</h2>
-
-<br>
-<p class="alert alert-info"> 
-Request the solutions by email, or register <a target="_blank"
-href="https://www.patreon.com/molecularsimulations">here</a> and access all the solutions
-+ additional LAMMPS content.
-</p>
-<br>
-
-<h4><b>Exercise 1 : Measure the bond length as a function of time</b></h4>
-
-<p>
-Using the sheet script, extract histograms of the bond length and bond energy 
-as a function of the time. 
-
-<blockquote><i>
-Hint: data extraction can in general be done (1) using the internal LAMMPS 
-command, and (2) using a post-processing analysis tool (e.g. Python). 
-</blockquote></i>
-</p>
-
-<p><img src="../figures/tutorial04/Bond_length.jpg"
-class="img-fluid" alt="Responsive image">
-<small style="color:#6B6B6B">
-Left: snapshots of the deformed and undeformed graphene sheet. Middle: probability
-distribution of the bond length. Right: occurrence of bond length as a function of the simulation time. 
-50 steps, each increasing the length of the sheet by 0.2 Angstrom have been performed, for 
-a total elongation of 1 nanometer. 
-</small>
-</p>
-
-<h4><b>Exercise 2 : Generate a twisted graphene bilayer</b></h4>
-
-<p>
-Using the sheet script, duplicate the sheet to obtain a bilayer, and rotate one of the sheet, then 
-equilibrate it (without imposed deformation). It should look like <a href="https://www.youtube.com/watch?v=bRB0lccK6O0"
-target="_blank">this video</a>.
-</p>
-
-<p><img src="../figures/tutorial04/bilayer.png"
-class="img-fluid" alt="Responsive image">
-<small style="color:#6B6B6B">
-Left: top view of the bilayer. Right: side view of the bilayer.
-</small>
-</p>
-
-<h4><b>Exercise 3 : Compress a bulk graphite material</b></h4>
-
-<p>
-Using the sheet script, makes it periodical over \(x\) and \(y\) directions
-(i.e. remove the vacuum), duplicate the sheet multiple times along \(z\) and compress it 
-along along \(z\).
-
-<blockquote><i>
-Hint1: to make the sheet periodical over \(x\) and \(y\), its easier to use
-the reactive force field (the one used here for the CNT).
-</blockquote></i>
-
-<blockquote><i>
-Hint2: for such solid and periodic system, its better to
-use anisotropic npt thermostating to let the box dimension relax
-and adjust to the system size
-</blockquote></i>
-
-<blockquote><i>
-Hint3: use VMD to generate a sheet without bond for use with Airebo
-</blockquote></i>
-</p>
-<p><img src="../figures/tutorial04/graphite_compressed.png"
-class="img-fluid" alt="Responsive image">
-<small style="color:#6B6B6B">
-Left: graphite at ambient pressure. Right: graphite under a large pressure of 100000 atmospheres applied vertically. 
-</small></p>
-
-
-
-</section>
-
-<p class="alert alert-info"> <a
-href="../miscellaneous/contact.html">Click here</a>
-if you are looking for help with your project, if you want to
-support me (for free or not), or if you have any suggestions
-for these tutorials.
-</p>
-</section>
-</div>
-</div>
-<footer id="footer" class="section">
-<div class="container">
-<p class="text-2 text-center mb-0">This template has been adapted from
-<a class="btn-link" target="_blank"
-href="https://github.com/harnishdesign/iDocs/">HarnishDesign</a>.
-</p>
-</div>
-</footer>
-</div>
-<a id="back-to-top" data-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a>
-<script src="../assets_tutorials/vendor/jquery/jquery.min.js"></script>
-<script src="../assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../assets_tutorials/vendor/highlight.js/highlight.min.js"></script>
-<script src="../assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="../assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-<script src="../assets_tutorials/js/theme.js"></script>
-</body>
+run		150000</code></pre>
+                        </p>
+                        <p>
+                            Looking at the dump file using VMD, you will see the bonds break,
+                            similar to <a href="https://www.youtube.com/watch?v=f1ve1j3yA6w"
+                            target="_blank">this video</a>.
+                            </p>
+                            <p class="alert alert-info"> 
+                            All the scripts and data files generated during this tutorial are available
+                            <a target="_blank"
+                            href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs">here</a>.
+                        </p>
+                    </section>
+                    <br><br>
+                    <section id="further">
+                        <h2>Going further with exercises</h2>
+                        <br>
+                        <p class="alert alert-info"> 
+                            Request the solutions by email, or register <a target="_blank"
+                            href="https://www.patreon.com/molecularsimulations">here</a> and access all the solutions
+                            + additional LAMMPS content.
+                        </p>
+                        <br>
+                        <h4><b>Exercise 1 : Measure the bond length as a function of time</b></h4>
+                        <p>
+                            Using the sheet script, extract histograms of the bond length and bond energy 
+                            as a function of the time. 
+                            <blockquote><i>
+                            Hint: data extraction can in general be done (1) using the internal LAMMPS 
+                            command, and (2) using a post-processing analysis tool (e.g. Python). 
+                            </blockquote></i>
+                        </p>
+                        <p>
+                            <img src="../figures/tutorial04/Bond_length.jpg"
+                            class="img-fluid" alt="Responsive image">
+                            <small style="color:#6B6B6B">
+                            Left: snapshots of the deformed and undeformed graphene sheet. Middle: probability
+                            distribution of the bond length. Right: occurrence of bond length as a function of the simulation time. 
+                            50 steps, each increasing the length of the sheet by 0.2 Angstrom have been performed, for 
+                            a total elongation of 1 nanometer. 
+                            </small>
+                        </p>
+                        <h4><b>Exercise 2 : Generate a twisted graphene bilayer</b></h4>
+                        <p>
+                            Using the sheet script, duplicate the sheet to obtain a bilayer, and rotate one of the sheet, then 
+                            equilibrate it (without imposed deformation). It should look like <a href="https://www.youtube.com/watch?v=bRB0lccK6O0"
+                            target="_blank">this video</a>.
+                        </p>
+                        <p>
+                            <img src="../figures/tutorial04/bilayer.png"
+                            class="img-fluid" alt="Responsive image">
+                            <small style="color:#6B6B6B">
+                            Left: top view of the bilayer. Right: side view of the bilayer.
+                            </small>
+                        </p>
+                        <h4><b>Exercise 3 : Compress a bulk graphite material</b></h4>
+                        <p>
+                            Using the sheet script, makes it periodical over \(x\) and \(y\) directions
+                            (i.e. remove the vacuum), duplicate the sheet multiple times along \(z\) and compress it 
+                            along along \(z\).
+                            <blockquote><i>
+                            Hint1: to make the sheet periodical over \(x\) and \(y\), its easier to use
+                            the reactive force field (the one used here for the CNT).
+                            </blockquote></i>
+                            <blockquote><i>
+                            Hint2: for such solid and periodic system, its better to
+                            use anisotropic npt thermostating to let the box dimension relax
+                            and adjust to the system size
+                            </blockquote></i>
+                            <blockquote><i>
+                            Hint3: use VMD to generate a sheet without bond for use with Airebo
+                            </blockquote></i>
+                        </p>
+                        <p>
+                            <img src="../figures/tutorial04/graphite_compressed.png"
+                            class="img-fluid" alt="Responsive image">
+                            <small style="color:#6B6B6B">
+                            Left: graphite at ambient pressure. Right: graphite under a large pressure of 100000 atmospheres applied vertically. 
+                            </small>
+                        </p>
+                        <p class="alert alert-info"> 
+                            <a href="../miscellaneous/contact.html">Click here</a>
+                            if you are looking for help with your project, if you want to
+                            support me (for free or not), or if you have any suggestions
+                            for these tutorials.
+                        </p>
+                    </section>
+                </div>
+            </div>
+            <footer id="footer" class="section">
+                <div class="container">
+                    <p class="text-2 text-center mb-0">
+                        This template has been adapted from
+                        <a class="btn-link" target="_blank"
+                        href="https://github.com/harnishdesign/iDocs/">HarnishDesign</a>.
+                    </p>
+                </div>
+            </footer>
+        </div>
+        <a id="back-to-top" data-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a>
+        <script src="../assets_tutorials/vendor/jquery/jquery.min.js"></script>
+        <script src="../assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets_tutorials/vendor/highlight.js/highlight.min.js"></script>
+        <script src="../assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script>
+        <script src="../assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+        <script src="../assets_tutorials/js/theme.js"></script>
+    </body>
 </html>
