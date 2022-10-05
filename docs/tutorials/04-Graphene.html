@@ -92,14 +92,19 @@
             <div class="idocs-content">
                 <div class="container">
                     <section id="intro">
-                        <h1>Graphene sheet and CNT</h1>
-                        <h3>Generation of a graphene sheet and a carbon nanotube CNT with VMD, and imposed
-                        deformation using LAMMPS</h3>
+                        <h1>Graphene sheet and CNT under deformation</h1>
+                        <h3>Generation of a graphene sheet and a carbon nanotube CNT with VMD, 
+                            and imposed deformation using LAMMPS</h3>
                         <br>
                         <p>
                             <img src="../figures/tutorial04/3_graphene.png"
                             class="img-fluid" alt="Responsive image">
                         </p>
+                        <!--<p>
+                            <img src="../figures/tutorial04/myvideo.webp"
+                            style="width:33%" alt="Responsive image"/>
+                            <p style="color:#6B6B6B">
+                        </p>-->
                         <br>
                         <p>
                             <b>The objective of this tutorial</b> is to use molecular
@@ -107,23 +112,29 @@
                             structures. There are two main parts to this tutorial:
                             <ul>
                                 <li> <a href="#Graphene">Graphene sheet - </a>First, a graphene sheet will
-                                be generated using VMD-topotool. The sheet will be deformed using applied displacement.
+                                be generated using VMD-topotool, and then it will be deformed using an 
+                                applied displacement (a method called <i>out-of-equilibrium molecular dynamics</i>).
                                 </li>
                                 <li> <a href="#cnt">CNT - </a>Second, a similar protocol will be used
                                 to create a single CNT. In this case, a reactive
-                                force field will be used in order to simulate the breaking of the bonds
-                                under extreme deformation.
+                                force field will be used, and the breaking of the bonds
+                                under extreme deformation will be simulated.
                                 </li>
                             </ul>
                         </p>
-                        <p>If you are new to LAMMPS, I recommend you to follow
-                        <a href="01-SimpleMolecularSimulation.html">this simpler tutorial</a> first.
+                        <p>
+                            If you are new to LAMMPS, I recommend you to follow
+                            <a href="01-SimpleMolecularSimulation.html">this simpler tutorial</a> first.
+                            <!--and to have a look at this 
+                            <a href="file:///home/simon/Git/LAMMPStutorials/lammpstutorials.github.io/docs/miscellaneous/lammps101.html">
+                            LAMMPS 101 guide. </a> -->
                         </p>
-                        <p class="alert alert-info"> <a
-                        href="../miscellaneous/contact.html">Click here</a>
-                        if you are looking for help with your project, if you want to
-                        support me (for free or not), or if you have any suggestions
-                        for these tutorials.
+                        <br>
+                        <p class="alert alert-info"> 
+                            <a href="../miscellaneous/contact.html">Click here</a>
+                            if you are looking for help with your project, if you want to
+                            support me (for free or not), or if you have any suggestions
+                            for these tutorials.
                         </p>
                     </section>
                     <br><br>
@@ -137,10 +148,11 @@
                             and go to Extensions, Modeling, Nanotube Builder. A window named
                             Carbon Nanostructures opens up, allowing us to choose between 
                             generating sheet and nanotube of graphene or BN. For this
-                            tutorial, we are going to generate a 4 nm per 4 nm sheet of graphene.
+                            tutorial, let us generate a 4 nm per 4 nm sheet of graphene.
                             Simply change the values of "Edge length along x" and "Edge length
                             along y" to 4, and click on "Generate Sheet(s)". You should see
-                            this:
+                            this (here I changed the Drawing Method in Graphics, Representations from 
+                            Lines to DynamicBonds, and played with the colors, but that is not necessary):
                             <br> <br>
                             <img src="../figures/tutorial04/carbon_sheet.png"
                             class="img-fluid" alt="Responsive image">
@@ -149,8 +161,14 @@
                             a cloud of dots that looks like graphene. In order to generate
                             the initial LAMMPS data file, let us use Topotool and estimate which
                             dots must be connected by bonds using a distance criteria.
-                            In the VMD terminal, enter the following command:
-                            <pre><code>topo writelammpsdata data.lammps full</code></pre>
+                            In the VMD terminal, set the box dimensions by typing the following command in the VMD terminal: 
+                            <pre><code>molinfo top set a 80  
+molinfo top set b 80            
+molinfo top set c 80 </code></pre>
+                        </p>                          
+                        <p>                      
+                            Then, generate the LAMMPS file, enter the following command:
+                            <pre><code>topo writelammpsdata carbon.data full</code></pre>
                         </p>
                         <p>
                             More details about these commands can be found on the personal page
@@ -161,20 +179,22 @@
                             The keyword "full" corresponds to the LAMMPS atom full style
                             (other possibilities include atomic, bond, charge, etc). The
                             parameters of the constraints (bond length, dihedral coefficients,
-                            etc.) will be given later. A new file named "data.lammps" has been
-                            created.
+                            etc.) will be given later.
                         </p>
-                        <p>
-                            We need the box to be larger than the structure (i.e. we need vacuum
-                            on each side of the graphene). Make sure of that by increasing the box dimensions 
-                            in the data.lammps file:
+                        <!--<p>
+                            Let us re-adjust the dimensions of the structure (i.e. we need vacuum
+                            on each side of the graphene). 
+                            Make sure of that the dimensions of the system is acceptable 
+                            (i.e. that the vacuum area on each side of the graphene is large enough) 
+                            by setting the box dimensions in the data.lammps file:
                             <pre><code>-20 60  xlo xhi
 -20 60  ylo yhi
 -40 40  zlo zhi</code></pre>
-                        </p>
+                        </p>-->
                         <p>
-                            It starts like that:
-                            <pre><code>LAMMPS data file. CGCMM style. atom_style full generated by VMD/TopoTools v1.7 on Tue Jan 12 19:39:40 GMT 2021
+                            A new file named "carbon.data" has been
+                            created, it starts like that:
+                            <pre><code>LAMMPS data file. CGCMM style. atom_style full generated by VMD/TopoTools v1.8 on Wed Oct 05 19:58:07 CEST 2022
 680 atoms
 983 bonds
 1894 angles
@@ -194,12 +214,12 @@
 # 1  CA</code></pre>
                         </p>
                         <p>
-                            As you can see, the data.lammps file contains information about the
+                            As you can see, the carbon.data file contains information about the
                             positions of the carbons atoms, as well as the identity of the
                             atoms linked by bonds, angles, dihedrals, and impropers constraints.
                         </p>
                         <p>
-                            Save the "data.lammps" file in the same folder as your future
+                            Save the "carbon.data" file in the same folder as your future
                             LAMMPS input script. We are done with the system generation, we can
                             start the molecular dynamics simulations.
                         </p>
@@ -225,7 +245,7 @@ improper_style harmonic
 special_bonds lj 0.0 0.0 0.5
 
 # System definition
-read_data data.lammps</code></pre>
+read_data carbon.data</code></pre>
                         </p>
                         <p>
                             Most of these command lines have been seen already in previous
@@ -239,30 +259,35 @@ read_data data.lammps</code></pre>
                             specify the different potentials used to restrain the positions
                             of the atoms For more details, have a look at the LAMMPS website (see for example
                             the <a href="https://lammps.sandia.gov/doc/dihedral_opls.html"
-                            class="removelinkdefault">OPLS dihedral style</a>). The three
-                            numbers of the special bonds command are weighting factors for the
+                            class="removelinkdefault">OPLS dihedral style</a>). 
+                            <br><br>
+                            <b>About interaction between neighbors atoms:</b> Atoms connected by
+                            bond do not typically interact through Lennard-Jones interaction.
+                            This is ensured here by the special_bonds command. The three
+                            numbers of the special_bonds command are weighting factors for the
                             Lennard-Jones interaction between atoms connected by bond
                             (respectively directly bounded, separated by two bonds, etc.).
                             For instance, the first weighting factor, with a value of 0, imposes
-                            that two atoms connected by a bond do not interact through a LJ
+                            that two atoms connected by a bond do not interact through a Lennard-Jones
                             potential (therefore they only interact through bonded potentials).
-                            Then the read data command opens the data.lammps
+                            <br><br>
+                            The last command, read_data, imports the carbon.data
                             file previously generated with VMD, which contains the information
                             about the box size, atoms positions, etc.
                         </p>
                         <h4><b>Parameters for the graphene</b></h4>
                         <p>
-                            What we need now is to specify the parameter of both bonded and non-bonded interactions. 
-                            Create a new text file and name
+                            Next, we need to specify the parameters of both bonded and non-bonded interactions. 
+                            Create a new text file in the same folder and name
                             it "PARM.lammps". Copy the following lines in it:
-                            <pre><code>pair_coeff 	1 1 0.066047 3.4
+                            <pre><code>pair_coeff 1 1 0.066047 3.4
 bond_coeff 1 469 1.4
 angle_coeff 1 63 120
 dihedral_coeff 1 0 7.25 0 0
 improper_coeff 1 5 180</code></pre>
                         </p>
                         <p>
-                            The pair_coeff indicates the Lennard-jones parameters (\(\epsilon\) and \(\sigma\)) for the only
+                            The pair_coeff sets the Lennard-jones parameters (\(\epsilon\) and \(\sigma\)) for the only
                             type of atom of the simulation: carbon atom of type 1. The bond_coeff provides the
                             equilibrium distance \(r_0\) as well as the spring constant \(K\) for the harmonic potential imposed between
                             two neighboring carbon atoms, where the potential is : 
@@ -278,19 +303,22 @@ improper_coeff 1 5 180</code></pre>
                         <h4><b>Separate the atoms into 3 groups</b></h4>
                         <p>
                             The goal of the present simulation is to impose a deformation to
-                            the sheet. To do so, add the following lines to the input script :
+                            the sheet. To do so, we will isolate the atoms of two edges of 
+                            the graphene sheets into groups, and the displacement will 
+                            be applied to the atoms of the edge. 
+                            Add the following lines to the input script :
                             <pre><code># Simulation settings
 
-group		gcar type 1
-variable	xmax equal bound(gcar,xmax)-0.5
-variable	xmin equal bound(gcar,xmin)+0.5
-region		rtop block ${xmax} INF INF INF INF INF
-region		rbot block INF ${xmin} INF INF INF INF
-region		rmid block ${xmin} ${xmax} INF INF INF INF</code></pre>
+group gcar type 1
+variable xmax equal bound(gcar,xmax)-0.5
+variable xmin equal bound(gcar,xmin)+0.5
+region rtop block ${xmax} INF INF INF INF INF
+region rbot block INF ${xmin} INF INF INF INF
+region rmid block ${xmin} ${xmax} INF INF INF INF</code></pre>
                         </p>
                         <p>
                             The first command includes all of the atoms of type one
-                            (i.e. all of our atoms here) in a group named gcar. Then, two
+                            (i.e. all the atoms here) in a group named gcar. Then, two
                             variables are defined: \(x_\mathrm{max}\) corresponds to the
                             coordinate of the last atoms along \(x\) minus 0.5 Angstroms,
                             and \(x_\mathrm{min}\) to the coordinate of the first atoms
@@ -299,15 +327,15 @@ region		rmid block ${xmin} ${xmax} INF INF INF INF</code></pre>
                             \[x < x_\mathrm{min},\]
                             \[x_\mathrm{min} > x > x_\mathrm{max}, ~ \text{and} \]  
                             \[x > x_\mathrm{max}.\]
-                            Then groups of atoms corresponding to the atoms located in each
-                            regions respectively can be defined:
+                            Then, let us define 3 groups of atoms corresponding to the atoms located in each
+                            of the 3 regions, respectively:
                         </p>
-                        <pre><code>group		gtop region rtop
-group		gbot region rbot
-group		gmid region rmid</code></pre>
+                        <pre><code>group gtop region rtop
+group gbot region rbot
+group gmid region rmid</code></pre>
                         <p>
-                            When running the simulation, the number of atoms in each group is
-                            printed in the terminal, it's a way of controlling that
+                            Hint: when running the simulation, the number of atoms in each group is
+                            printed in the terminal (and the log.lammps file), it's a way of controlling that
                             no mistake was made:
                             <pre><code>680 atoms in group gcar
 20 atoms in group gtop
@@ -319,30 +347,31 @@ group		gmid region rmid</code></pre>
                             Let us specify the thermalisation and the dynamics of the system.
                             Add the following lines to input.lammps:
                         <pre><code>velocity	gmid create ${T} 48455 mom yes rot yes
-fix		mynve all nve
-compute		Tmid gmid temp
-fix		myber gmid temp/berendsen ${T} ${T} 100
-fix_modify	myber temp Tmid</code></pre>
+fix mynve all nve
+compute Tmid gmid temp
+fix myber gmid temp/berendsen ${T} ${T} 100
+fix_modify myber temp Tmid</code></pre>
                         </p>
                         <p>
                             The "velocity create" command gives initial velocities to the
                             atoms of the group gmid, assuring an initial temperature of
-                            \(300\,\)K for these atoms. NVE integration is applied to all
-                            atoms, and a Berendsen thermostat is applied to the atoms of
+                            \(300\,\)K for these atoms. NVE fix is applied to all
+                            atoms, thus ensuring that atoms positions are 
+                            recalculated in time, and a Berendsen thermostat is applied to the atoms of
                             the group gmid only. The "fix modify" ensures that the fix
                             Berendsen uses the temperature of the group gmid as an input,
                             instead of the temperature of whole system. The atoms of the
-                            edges are not thermalised because their motion will be restrained.
+                            edges are not thermalised because their motion will be restrained in the
+                            next part of the input.
                         </p>
                         <h4><b>Restrain the motion of the edges</b></h4>
                         <p>
                             To restrain the motion of the atoms at the edges, add the
                             following commands:
-                            <pre><code>fix 		mysf1 gtop setforce 0 NULL 0
-fix 		mysf2 gbot setforce 0 NULL 0
-velocity	gtop set 0 NULL 0
-velocity	gbot set 0 NULL 0
-                            </code></pre></p>
+                            <pre><code>fix mysf1 gtop setforce 0 NULL 0
+fix mysf2 gbot setforce 0 NULL 0
+velocity gtop set 0 NULL 0
+velocity gbot set 0 NULL 0</code></pre></p>
                         <p>
                             The two setforce commands cancel the forces applied on the atoms
                             of the two edges, respectively, during the whole simulation along
@@ -356,8 +385,8 @@ velocity	gbot set 0 NULL 0
                             Next, in order to
                             measure the strain and stress in the graphene sheet, let us
                             extract the distance \(L\) between the two edges as well as the
-                            force applied on the edges. Let us also create a lammpstrj file
-                            containing the trajectories.
+                            force applied on the edges. Let us also add a command to print the
+                            atoms coordinates in a lammpstrj file every 1000 timeteps:
                             <pre><code>variable	L equal xcm(gtop,x)-xcm(gbot,x)
 fix 		at1 all ave/time 10 100 1000 v_L file length.dat
 fix 		at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
@@ -374,33 +403,37 @@ dump 		mydmp all atom 1000 dump.lammpstrj</code></pre>
                         <p>
                             Let us run a small
                             equilibration step:
-                            <pre><code>thermo		100
-thermo_modify 	temp Tmid
+                            <pre><code>thermo 100
+thermo_modify temp Tmid
 
 # Run
 
-timestep	1.0
-run		5000</code></pre>
+timestep 1.0
+run 5000</code></pre>
                         </p>
                         <p>
                             With the thermo_modify command, we specify to LAMMPS that
                             we want the temperature \(T_\mathrm{mid}\) to be printed in the
-                            terminal, not the temperature of the entire system. Then, we
-                            perform a loop.
+                            terminal, not the temperature of the entire system (because 
+                            of the frozen edges, the temperature of the entire system 
+                            is not relevant). Then, let us perform a loop.
                             At each step of the loop, the edges are slightly displaced,
                             and the simulation runs for a short time.
-                            <pre><code>variable 	var loop 10
-label 		loop
-displace_atoms	gtop move 0.1 0 0
-displace_atoms	gbot move -0.1 0 0
-run		1000
-next		var
-jump 		input.lammps loop</code></pre>
+                            <pre><code>variable var loop 10
+label loop
+displace_atoms gtop move 0.1 0 0
+displace_atoms gbot move -0.1 0 0
+run 1000
+next var
+jump input.lammps loop</code></pre>
                         </p>
                         <p>
                             What you observe should resemble
                             <a href="https://www.youtube.com/embed/o5IoCVWpPKg"
                             target="_blank">this video</a>.
+                            The sheet is progressively elongated, and the carbon honeycomb
+                            are being deformed. You can increase the number of iteration 
+                            of the loop (variable var) to force a larger elongation.
                             <!--You can download the input and
                             data files by clicking <a href="Inputs/tutorial04.zip"
                             target="_blank" class="removelinkdefault">here</a>.-->
@@ -432,7 +465,7 @@ boundary	p p p
 pair_style  	airebo 2.5 1 1
 
 # System definition
-read_data	data.lammps</code></pre>
+read_data carbon.data</code></pre>
                         </p>
                         <p>
                             The first difference with the previous case (the graphene sheet) is the units: 
@@ -444,7 +477,7 @@ read_data	data.lammps</code></pre>
                             <br><br>
                             Then, let us include the LAMMPS data file, and set the pair_coeff:
 
-                            <pre><code>read_data	data.lammps
+                            <pre><code>read_data carbon.data
 pair_coeff 	* * CH.airebo C</code></pre>
                         </p>
                         <p>

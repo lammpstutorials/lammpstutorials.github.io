@@ -17,7 +17,7 @@ improper_style harmonic
 special_bonds lj 0.0 0.0 0.5
 
 # System definition
-read_data data.lammps
+read_data carbon.data
 include PARM.lammps
 
 # Simulation settings
@@ -46,7 +46,7 @@ velocity gbot set 0 NULL 0
 variable L equal xcm(gtop,x)-xcm(gbot,x)
 fix at1 all ave/time 10 100 1000 v_L file length.dat
 fix at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
-dump mydmp all atom 1000 dump.lammpstrj
+dump mydmp all atom 100 dump.lammpstrj
 
 thermo 100
 thermo_modify temp Tmid
@@ -55,7 +55,7 @@ thermo_modify temp Tmid
 timestep 1.0
 run 5000
 
-variable var loop 10
+variable var loop 100
 label loop
 displace_atoms gtop move 0.1 0 0
 displace_atoms gbot move -0.1 0 0
