@@ -484,9 +484,7 @@ pair_coeff * * CH.airebo C</code></pre>
                         <p>
                             The CH.airebo file can be downloaded
                             <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials.github.io/main/inputs/04-Graphene/cnt/CH.airebo
-                            " target="_blank">here</a>. The rest of the script is very similar to the previous one.
-                            For a change, let us impose a constant velocity to the atoms of one edge, while
-                            maintaing the other edge fix:
+                            " target="_blank">here</a>. The rest of the script is very similar to the previous one:
                             <pre><code># Simulation settings
 
 group gcar type 1
@@ -504,9 +502,17 @@ velocity gmid create ${T} 48455 mom yes rot yes
 fix mynve all nve
 compute Tmid gmid temp
 fix myber gmid temp/berendsen ${T} ${T} 0.1
-fix_modify myber temp Tmid
-
-fix mysf1 gbot setforce NULL NULL 0
+fix_modify myber temp Tmid</code></pre>
+                        </p>
+                        <p>
+                            For a change, let us impose a constant velocity to the 
+                            atoms of one edge, while maintaing the other edge fix.
+                            Do to so, one needs to cancel the forces (and the acceleration)
+                            of the atoms of the edges using setforce, and set the value of 
+                            the velocity along the \(z\) direction.
+                            <br><br>
+                            First, as an equilibration step, let us set the velocity to 0.
+                            <pre><code>fix mysf1 gbot setforce NULL NULL 0
 fix mysf2 gtop setforce NULL NULL 0
 velocity gbot set NULL NULL 0
 velocity gtop set NULL NULL 0
@@ -521,23 +527,39 @@ thermo_modify temp Tmid
 
 # Run
 timestep 0.0005
-run 5000
-
-# 0.05 A/ps = 10 m/s
-velocity gtop set NULL NULL 0.05
-
-run 150000</code></pre>
+run 5000</code></pre>
                         </p>
                         <p>
-                            Run the input script using LAMMPS. 
-                            <br><br>
-                            When looking at the dump file using VMD, you will see the bonds break,
+                            At the start of the equilibration, you can see that the temperature 
+                            deviates from the target temperature of 300 K (after a 
+                            few picoseconds the temperature reaches values near the target value):   
+                            <pre><code>Step          Temp          E_pair         E_mol          TotEng         Press     
+0   300           -5084.7276      0             -5058.3973     -1515.7017    
+100   237.49462     -5075.4114      0             -5054.5671     -155.05545    
+200   238.86589     -5071.9168      0             -5050.9521     -498.15029    
+300   220.04074     -5067.1113      0             -5047.7989     -1514.8516    
+400   269.23434     -5069.6565      0             -5046.0264     -174.31158    
+500   274.92241     -5068.5989      0             -5044.4696     -381.28758    
+600   261.91841     -5065.985       0             -5042.9971     -1507.5577    
+700   288.47709     -5067.7301      0             -5042.4111     -312.16669    
+800   289.85177     -5066.5482      0             -5041.1086     -259.84893    
+900   279.34891     -5065.0216      0             -5040.5038     -1390.8508    
+1000   312.27343     -5067.6245      0             -5040.217      -465.74352</code></pre></p>
+                            <p>
+                                Then. let us set the velocity to
+                                10 m/s and run for a longer time:
+                                <pre><code># 0.05 A/ps = 10 m/s
+velocity gtop set NULL NULL 0.05
+
+run 300000</code></pre></p>
+                        <p>
+                            When looking at the lammpstrj file using VMD, you will see the bonds breakink,
                             similar to <a href="https://www.youtube.com/watch?v=f1ve1j3yA6w"
                             target="_blank">this video</a>. Use the DynamicBonds representation. Note 
-                            that VMD draw bond based on distance, not based on the presence of actual 
-                            bond in the LAMMPS simulation. 
-                            </p>
-                            <p class="alert alert-info"> 
+                            that VMD draws bonds based on the distances between atoms, 
+                            and not based on the presence of actual bonds in the LAMMPS simulation. 
+                        </p>
+                        <p class="alert alert-info"> 
                             All the scripts and data files generated during this tutorial are available
                             <a target="_blank"
                             href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs">here</a>.
