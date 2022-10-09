@@ -12,7 +12,7 @@ boundary p p p
 pair_style airebo 2.5 1 1
 
 # System definition
-read_data data.lammps
+read_data cnt.data
 pair_coeff * * CH.airebo C
 
 # Simulation settings
@@ -41,7 +41,9 @@ velocity gtop set NULL NULL 0
 variable pos equal xcm(gtop,z)
 fix at1 all ave/time 10 100 1000 v_pos file cnt_deflection.dat
 fix at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
-dump mydmp all atom 1000 dump.lammpstrj
+dump mydmp all atom 15000 dump.lammpstrj
+
+fix myrct all recenter INIT INIT NULL
 
 thermo 100
 thermo_modify temp Tmid
@@ -50,6 +52,8 @@ thermo_modify temp Tmid
 timestep 0.0005
 run 5000
 
+# 0.025 A/ps = 5 m/s
+velocity gtop set NULL NULL 0.15
 # 0.05 A/ps = 10 m/s
-velocity gtop set NULL NULL 0.05
-run 150000
+#velocity gtop set NULL NULL 0.05
+run 250000
