@@ -280,11 +280,11 @@ From the terminal, assemble the image into a movie by typing:
 <p>
 You may receive the following error <b>width not divisible by 2 (1363x1134)</b>.
 If that's the case, you can remove one line of pixel with the command:
-<pre><code>for file in untitled.*.ppm; do convert $file -crop 1362x1134+0+0 output-$file; done</pre></code>
+<pre><code>for file in untitled.*.ppm; do convert $file -crop 1362x1134+0+0 $file; done</pre></code>
 </p>
 <p>
 To convert the video in webp, for web integration, use:
-<pre><code>ffmpeg -i myvideo.mp4 -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 1000:1000 CO2.webp</pre></code>
+<pre><code>ffmpeg -i myvideo.mp4 -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 myvideo.webp</pre></code>
 </p>
 <p>
 The result should look like
