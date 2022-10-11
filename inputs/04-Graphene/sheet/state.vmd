@@ -281,7 +281,7 @@ display distance     -2.000000
 display projection   Orthographic
 display nearclip set 0.500000
 display farclip  set 10.000000
-display depthcue   on
+display depthcue   off
 display cuestart   0.500000
 display cueend     10.000000
 display cuestart   0.500000
@@ -366,10 +366,10 @@ mol clipplane color  5 1 top {0.5 0.5 0.5 }
 mol clipplane normal 5 1 top {0.0 0.0 1.0}
 mol clipplane status 5 1 top {0}
 mol rename top dump.lammpstrj
-set viewpoints([molinfo top]) {{{1 0 0 -19.0347} {0 1 0 -20.5208} {0 0 1 -0.0109823} {0 0 0 1}} {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}} {{0.0520789 0 0 0} {0 0.0520789 0 0} {0 0 0.0520789 0} {0 0 0 1}} {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}}
+set viewpoints([molinfo top]) {{{1 0 0 -19.0347} {0 1 0 -20.5208} {0 0 1 -0.0109823} {0 0 0 1}} {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}} {{0.0624947 0 0 0} {0 0.0624947 0 0} {0 0 0.0624947 0} {0 0 0 1}} {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}}
 lappend viewplist [molinfo top]
 set topmol [molinfo top]
-# done with molecule 0
+# done with molecule 1
 foreach v $viewplist {
   molinfo $v set {center_matrix rotate_matrix scale_matrix global_matrix} $viewpoints($v)
 }
@@ -539,6 +539,8 @@ color scale colors CET_R2 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
     {color Segname {} blue}
     {color Conformation {all} blue}
     {color Molecule {0} blue}
+    {color Molecule {1} red}
+    {color Molecule {dump.lammpstrj} red}
     {color Structure {3_10_Helix} blue}
     {color Surface {Grasp} gray}
     {color Labels {Springs} orange}
