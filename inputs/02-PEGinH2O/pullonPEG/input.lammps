@@ -1,0 +1,48 @@
+# pure bulk water system
+# Written by Simon Gravelle
+# My personal page : https://simongravelle.github.io/
+# My Github account: https://github.com/simongravelle/
+# LAMMPS tutorials for beginners: https://lammpstutorials.github.io/
+
+variable f0 equal 2 # kcal/mol/A # 1 kcal/mol/A = 67.2 pN
+
+units real
+atom_style full
+bond_style harmonic
+angle_style charmm
+dihedral_style charmm
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4
+
+special_bonds lj 0.0 0.0 0.5
+
+read_data ../mergePEGH2O/mix.data
+include ../PARM.lammps
+
+group H2O type 1 2
+group PEG type 3 4 5 6 7
+group oxygen_end1 id 65
+group oxygen_end2 id 4
+
+dump mydmp all atom 1000 dump.lammpstrj
+# write_dump all atom dump.lammpstrj
+# dump myxtc xtc atom 1000 dump.xtc
+
+timestep 1
+fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
+fix mynvt all nvt temp 300 300 100
+
+variable mytemp equal temp
+fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
+variable x1 equal xcm(oxygen_end1,x)
+variable x2 equal xcm(oxygen_end2,x)
+variable delta_x equal abs(v_x1-v_x2)
+fix myat2 all ave/time 10 10 100 v_delta_x file end-to-end-distance.dat
+thermo 10000
+
+run 100000
+
+fix myaf1 oxygen_end1 addforce ${f0} 0 0
+fix myaf2 oxygen_end2 addforce -${f0} 0 0
+
+run 200000

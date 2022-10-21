@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,
+        initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+        <link href="../figures/favicon-32x32.png" rel="icon" />
+        <title>PEG in H2O</title>
+        <meta name="description" content="PEG molecule pulled in water">
+        <meta name="author" content="Simon Gravelle">
+        <link rel="stylesheet" type="text/css"
+        href="../assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css"
+        href="../assets_tutorials/vendor/font-awesome/css/all.min.css" />
+        <link rel="stylesheet" type="text/css"
+        href="../assets_tutorials/css/stylesheet.css" />
+        <script async
+        src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-W1WGEC5GQ8');
+        </script>
+        <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
+        <div id="main-wrapper">
+            <header id="header" class="sticky-top">
+            <nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+            <div class="container-fluid">
+                <a class="logo ml-md-3" href="../index.html" title="LAMMPS tutorials">
+                <img src="../figures/logo.png"
+                alt="LAMMPS tutorials" height="60"/>
+                </a>
+                <div id="header-nav" class="collapse navbar-collapse justify-content-end">
+                    <ul class="navbar-nav">
+                        <li>
+                            <a href="../index.html">
+                            All tutorials
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../miscellaneous/contact.html">Contact me</a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+                <li class="social-icons-twitter"><a data-toggle="tooltip"
+                href="https://twitter.com/GravelleSimon" target="_blank"
+                title="" data-original-title="Twitter">
+                <i class="fab fa-twitter"></i></a></li>
+                <li class="social-icons-twitter"><a data-toggle="tooltip"
+                href="https://gitlab.com/sgravelle" target="_blank"
+                title="" data-original-title="Gitlab">
+                <i class="fab fa-gitlab"></i></i></a></li>
+                <li class="social-icons-twitter"><a data-toggle="tooltip"
+                href="https://github.com/simongravelle" target="_blank"
+                title="" data-original-title="Github">
+                <i class="fab fa-github"></i></i></a></li>
+                <li class="social-icons-twitter"><a data-toggle="tooltip"
+                href="https://www.youtube.com/c/SimonGravelle"
+                target="_blank" title="" data-original-title="Youtube">
+                <i class="fab fa-youtube"></i></i></a></li>
+                </ul>
+            </div>
+            </nav>
+            </header>
+            <div class="idocs-navigation bg-light">
+                <ul class="nav flex-column ">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#bulk-water">Bulk water</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#peg-molecule">PEG molecule</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#solvation">Solvating</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#pull">Pulling the PEG</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#further">Going further</a>
+                    </li>            
+                </ul>
+                <a href="../miscellaneous/contact.html" rel='noreferrer'>
+                    <img src="../figures/pub/pub1_patreon.png" style="width:100%" alt="Contact me"/>
+                </a>
+            </div>
+            <div class="idocs-content">
+                <div class="container">
+                    <section id="intro">
+                    <h1>PEG molecule pulled in water</h1>
+                    <h3>A small polymer molecule is immersed in liquid water and pulled.</h3>
+                    <p>
+                        <img src="../figures/02-PEGinH2O/PEGinH2O.png"
+                        style="width:100%" alt="Responsive image"/>
+                        <small style="color:#6B6B6B">
+                        Figure: a PEG molecule in water. Water is represented as a continuum field.
+                        </small>
+                    </p>
+                    <p>
+                        <b>The objective of this tutorial</b> is to use LAMMPS and ...
+                    </p>
+                    <p>
+                        There are several parts to this tutorial:
+                        <ul>
+                            <li> 
+                                <a href="#bulk-water">Equilibration of bulk liquid water - </a>
+                                aaaaaa
+                            </li>
+                            <li> 
+                                <a href="#peg-molecule">Equilibration of the PEG molecule - </a>
+                                aaaaaa
+                            </li>
+                            <li> 
+                                <a href="#solvation">Solvating the PEG molecule - </a>
+                                aaaaaa
+                            </li>
+                            <li> 
+                                <a href="#pull">Pulling the PEG molecule - </a>
+                                aaaaaa
+                            </li>
+                            <li> 
+                                <a href="#further">Going further - </a>
+                                aaaaaa
+                            </li>    
+                        </ul>
+                    </p>
+                    <p class="alert alert-info">
+                        <a href="../miscellaneous/contact.html">Click here</a>
+                        to contact me.
+                    </p>
+                    </section>
+                    <br><br>
+                    <section id="bulk-water">
+                        <h1>Bulk water</h1>
+                        <p>
+                            Here a rectangular box of water equilibrated at ambient temperature and ambient pressure 
+                            is created.
+                        </p>
+                        <p>
+                            Create a folder named pureH2O/. Inside the folder, create an empty text file names input.lammps. 
+                            Copy the following lines in it:
+                            <pre><code># LAMMPS input script
+units real
+atom_style full
+bond_style harmonic
+angle_style charmm
+dihedral_style charmm
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4</code></pre>
+                        </p>
+                        <p>
+                            <b>Explanations:</b> There are many differences with respect to
+                            <a href="01-SimpleMolecularSimulation.html">tutorial 01</a>, mostly because here 
+                            a system with molecules and charges will be modeled (instead of neutral dot particles as in tutorial 01). With the unit
+                            style 'real', masses are in grams per mole, distances in
+                            Ångstroms, time in femtoseconds, energies in Kcal/mole.
+                            With the atom style 'full', each atom is a dot with a mass
+                            and a charge. In addition, each atom can be linked by bonds,
+                            angles, dihedrals and impropers potentials (for example to 
+                            form molecules). The
+                            'bond_style', 'angle_style', and 'dihedral_style' commands define the styles
+                            of bond angle, and dihedrals used in the simulation, respectively, 
+                            and the 'harmonic' and 'charmm' keywords impose the potential to use.
+                        </p>
+                        <blockquote>
+                            <i>
+                                <u>Note 1</u>: here the future merging of the water with the PEG has already 
+                                been anticipated as the charmm angle_style and dihedral_style are 
+                                requirements of our PEG molecule. 
+                                <br>
+                                <u>Note 2</u>: here a rigid water model will be used,
+                                so the bond and angle styles do not matter.
+                            </i>
+                        </blockquote>
+                        <p>
+                            With the 'pair_style' named 'lj/cut/tip4p/long', atoms
+                            interact through both a Lennard-Jones (LJ) potential and
+                            through Coulombic interactions. This style is specific to
+                            four points water model, and automatically accounts for the
+                            additional massless site. The six numbers are, respectively,
+                            <ul>
+                                <li><b>1 - </b>the atom type for the oxygen O of
+                                the tip4p water,</li>
+                                <li><b>2 - </b>the atom type for the hydrogen H
+                                of the tip4p water,</li>
+                                <li><b>3 - </b>the OH bond type,</li>
+                                <li><b>4 - </b>the HOH angle type,</li>
+                                <li><b>5 - </b>the distance from O atom to
+                                massless charge,</li>
+                                <li><b>6 - </b>the cutoff in Ångstroms.</li>
+                            </ul>
+                        </p>
+                        <blockquote>
+                            <i>
+                                <u>Note 3</u>: The cutoff applies to both LJ and Coulombic interactions,
+                                but in a different way. For LJ 'cut' interactions, atoms
+                                interact with each other only if they are separated by a
+                                distance smaller than the cutoff. For Coulombic 'long',
+                                interaction between atoms closer than the cutoff are computed
+                                directly, and interaction between atoms outside that cutoff
+                                are computed in reciprocal space.
+                            </i>
+                        </blockquote>
+                        <p>
+                            Finally the kspace defines
+                            the long-range solver for Coulombic interactions. The pppm
+                            style refers to particle-particle particle-mesh.
+                        </p>
+                        <blockquote>
+                            <i>
+                                <u>Note 4</u>: From <a href="https://doi.org/10.1021/jp9518623"
+                                target="_blank">Luty and van Gunsteren' paper</a>:
+                                "The PPPM method is based on separating the total
+                                interaction between particles into the sum of short-range
+                                interactions, which are computed by direct particle-particle
+                                summation, and long-range interactions, which are calculated
+                                by solving Poisson's equation using periodic boundary
+                                conditions (PBCs)."
+                            </i>
+                        </blockquote>
+                        <p>
+                            Then, let us create a 3D simulation box of dimensions 8 x 3 x 3 nm\(^3\), and make space for 7 atom types (1 and 2 for the water oxygen
+                            and hydrogen, and 3, 4, 5, 6 and 7 for the PEG molecule (see below)), 6 bond types, 9 angle types, and 14 dihedrals types.
+                            <pre><code>region box block -40 40 -15 15 -15 15
+create_box 7 box &
+bond/types 6 &
+angle/types 9 &
+dihedral/types 14 &
+extra/bond/per/atom 2 &
+extra/angle/per/atom 1 &
+extra/special/per/atom 2</code></pre>
+                        </p>
+                        <blockquote>
+                            <i>
+                                <u>Note 5</u>: The extra/X/per/atom commands are related to memory allocation, they ensure space is left for a certain number of 
+                                attribute for each atom, we don't need to understand those commands here. 
+                            </i>
+                        </blockquote>
+                        <p>
+                        </p>
+                        <pre><code>include ../PARM.lammps</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>molecule h2omol H2OTip4p.txt
+create_atoms 0 random 500 456415 NULL mol h2omol 454756
+group H2O type 1 2
+delete_atoms overlap 2 H2O H2O mol yes</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>fix myshk H2O shake 1.0e-4 200 0 b 1 a 1 mol h2omol
+fix mynpt all npt temp 300 300 100 iso 1 1 1000</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>dump mydmp all atom 1000 dump.lammpstrj
+variable mytemp equal temp
+variable myvol equal vol
+fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
+fix myat2 all ave/time 10 10 100 v_myvol file volume.dat</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>timestep 1.0
+thermo 1000
+run 30000
+write_data H2O.data</code></pre>
+                        <p>
+                        </p>
+                    </section>
+                    <section id="peg-molecule">
+                        <h1>PEG molecule</h1>
+                        <p>
+                            text
+                        </p>
+                        <pre><code>units real
+atom_style full
+bond_style harmonic
+angle_style charmm
+dihedral_style charmm
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4</code></pre>
+                        <p>
+                            The special_bonds command cancels the interactions between the closest atoms of the molecule.
+                        </p>
+                        <pre><code>special_bonds lj 0.0 0.0 0.5</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>read_data init.data
+include ../PARM.lammps</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>dump mydmp all atom 10 dump.eq.lammpstrj
+thermo 1</code></pre>
+                        <p>
+                            Minimisation of energy is required as the initial configuration of the PEG molecule is far from an equilibrium value. 
+                            In addition, the high resolution dump command is cancelled at the end of the minimisation, and a new lower resolution dump 
+                            is created below.
+                        </p>
+                        <pre><code>minimize 1.0e-4 1.0e-6 100 1000
+undump mydmp
+reset_timestep 0</code></pre>
+                        <p>
+                            The PEG is equilibrated in the NVT ensemble. No box relaxation is required as the PEG is in vacuum.
+                        </p>
+                        <pre><code>fix mynve all nve
+fix myber all temp/berendsen 300 300 100</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>dump mydmp all atom 1000 dump.lammpstrj
+thermo 1000
+variable mytemp equal temp
+fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>timestep 1
+run 10000
+write_data PEG.data</code></pre>
+                    </section> 
+                    <section id="solvation">
+                        <h1>Solvation of the PEG molecule</h1>
+                        <p>
+                        </p>
+                        <pre><code>units real
+atom_style full
+bond_style harmonic
+angle_style charmm
+dihedral_style charmm
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4
+special_bonds lj 0.0 0.0 0.5</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>read_data ../singlePEG/PEG.data
+read_data ../pureH2O/H2O.data add append
+include ../PARM.lammps</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>group H2O type 1 2
+group PEG type 3 4 5 6 7</code></pre>
+                        <p>
+                            Water molecules that are overlapping must be deleted. 
+                            The value of 2 Angstroms is fixed arbitrary, and can be chosen through trial and error. 
+                            The mol yes option ensures that full molecule are deleted.
+                        </p>
+                        <pre><code>delete_atoms overlap 2.0 H2O PEG mol yes</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
+fix mynpt all npt temp 300 300 100 x 1 1 1000
+timestep 1.0</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>dump mydmp all atom 100 dump.lammpstrj
+thermo 100
+variable mytemp equal temp
+variable myvol equal vol
+fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
+fix myat2 all ave/time 10 10 100 v_myvol file volume.dat</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>run 10000
+                            write_data mix.data</code></pre>
+                    </section> 
+                    <section id="pull">
+                        <h1>Pulling of the PEG molecule</h1>
+                        <p>
+                            The force is chosen to be large enough to overcome thermal agitation 
+                            and entropic contribution from both water and PEG molecules.
+                        </p>
+                        <pre><code>variable f0 equal 2 # kcal/mol/A # 1 kcal/mol/A = 67.2 pN</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>units real
+atom_style full
+bond_style harmonic
+angle_style charmm
+dihedral_style charmm
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4
+special_bonds lj 0.0 0.0 0.5</code></pre>
+                        <p>
+                            Simulation starts from the equilibrated PEG+water system.
+                        </p>
+                        <pre><code>read_data ../mergePEGH2O/mix.data
+include ../PARM.lammps</code></pre>
+                        <p>
+                            The two oxygen atoms located respectively at the two PEG ends are 
+                            selected and placed in groups on which the force will be applied.
+                        </p>
+                        <pre><code>group H2O type 1 2
+group PEG type 3 4 5 6 7
+group oxygen_end1 id 65
+group oxygen_end2 id 4</code></pre>
+                        <p>
+                            To generate smaller dump files in compressed xtc format, comment the 
+                            mydmp line and uncomment both the write_dump and myxtc lines. This is 
+                            useful for generating higher resolution trajectories.
+                        </p>
+                        <pre><code>dump mydmp all atom 1000 dump.lammpstrj
+# write_dump all atom dump.lammpstrj
+# dump myxtc xtc atom 1000 dump.xtc</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>timestep 1
+fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
+fix mynvt all nvt temp 300 300 100</code></pre>
+                        <p>
+                        </p>
+                        <pre><code>variable mytemp equal temp
+fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
+variable x1 equal xcm(oxygen_end1,x)
+variable x2 equal xcm(oxygen_end2,x)
+variable delta_x equal abs(v_x1-v_x2)
+fix myat2 all ave/time 10 10 100 v_delta_x file end-to-end-distance.dat
+thermo 10000</code></pre>
+                        <pre><code>timestep 1
+fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
+fix mynvt all nvt temp 300 300 100</code></pre>
+                        <p>
+                            The distance between the two ends are here extracted 
+                            directly using the LAMMPS internal commands, but the same information can also be extracted from the dump file after the simulation is over.
+                        </p>
+                        <pre><code>run 100000</code></pre>
+                        <p>
+                            The forcing is applied only during the second part of the run.
+                        </p>
+                        <pre><code>fix myaf1 oxygen_end1 addforce ${f0} 0 0
+fix myaf2 oxygen_end2 addforce -${f0} 0 0
+run 200000</code></pre>
+                    </section> 
+                    <section id="further">
+                        <h2>Going further with exercises</h2>
+                        <br>
+                        <p class="alert alert-info"> 
+                            Request the solutions by email, or register <a target="_blank"
+                            href="https://www.patreon.com/molecularsimulations">here</a> and access all the solutions
+                            + additional LAMMPS content.
+                        </p>
+                        <p class="alert alert-info">
+                            <a href="../miscellaneous/contact.html">Click here</a>
+                            to contact me.
+                        </p>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <footer id="footer" class="section">
+            <div class="container">
+            <p class="text-2 text-center mb-0">This template has been adapted from
+            <a class="btn-link" target="_blank"
+            href="https://github.com/harnishdesign/iDocs/">HarnishDesign</a>.
+            </p>
+            </div>
+        </footer>
+        </div>
+        <script src="../assets_tutorials/vendor/jquery/jquery.min.js"></script>
+        <script src="../assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets_tutorials/vendor/highlight.js/highlight.min.js"></script>
+        <script src="../assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script>
+        <script src="../assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+        <script src="../assets_tutorials/js/theme.js"></script>
+    </body>
+</html>

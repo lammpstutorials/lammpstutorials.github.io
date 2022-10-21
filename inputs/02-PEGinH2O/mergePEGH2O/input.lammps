@@ -1,0 +1,38 @@
+# pure bulk water system
+# Written by Simon Gravelle
+# My personal page : https://simongravelle.github.io/
+# My Github account: https://github.com/simongravelle/
+# LAMMPS tutorials for beginners: https://lammpstutorials.github.io/
+
+units real
+atom_style full
+bond_style harmonic
+angle_style charmm
+dihedral_style charmm
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4
+
+special_bonds lj 0.0 0.0 0.5
+
+read_data ../singlePEG/PEG.data
+read_data ../pureH2O/H2O.data add append
+include ../PARM.lammps
+
+group H2O type 1 2
+group PEG type 3 4 5 6 7
+
+delete_atoms overlap 2.0 H2O PEG mol yes
+
+fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
+fix mynpt all npt temp 300 300 100 x 1 1 1000
+timestep 1.0
+
+dump mydmp all atom 100 dump.lammpstrj
+thermo 100
+variable mytemp equal temp
+variable myvol equal vol
+fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
+fix myat2 all ave/time 10 10 100 v_myvol file volume.dat
+
+run 10000
+write_data mix.data
