@@ -24,7 +24,7 @@ extra/special/per/atom 2
 include ../PARM.lammps
 
 molecule h2omol H2OTip4p.txt
-create_atoms 0 random 500 456415 NULL mol h2omol 454756
+create_atoms 0 random 700 456415 NULL mol h2omol 454756
 group H2O type 1 2
 delete_atoms overlap 2 H2O H2O mol yes
 
@@ -41,8 +41,8 @@ variable mydensity equal ${myoxy}/v_myvol
 fix myat3 all ave/time 10 10 100 v_mydensity file density.dat
 thermo 1000
 
-timestep 1.0
+timestep 2.0
 thermo 1000
-run 50000
+run 25000
 
 write_data H2O.data

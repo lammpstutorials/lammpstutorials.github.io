@@ -177,11 +177,11 @@ kspace_style pppm/tip4p 1.0e-4</code></pre>
                             and the 'harmonic' and 'charmm' keywords impose the potential to use.
                         </p>
                         <blockquote>
-                                <i>Note -</i> here the future merging of the water with the PEG has already 
+                                <i>Note -</i> the future merging of the water with the PEG has already 
                                 been anticipated as the charmm angle_style and dihedral_style are 
                                 requirements of the PEG's model. 
                                 <br>
-                                <i>Note -</i> here a rigid water model will be used,
+                                <i>Note -</i> a rigid water model will be used,
                                 so the bond and angle styles do not matter to the water, 
                                 they will only matter to the PEG when it is added.
                         </blockquote>
@@ -312,79 +312,18 @@ dihedral_coeff 14 1.01 3 0 0</code></pre>
                             we will just trust that these parameters are correct and will lead to physically consistent behavior. 
                             <br><br>
                             Now, let us create water molecules. To do so, let us define a water molecule
-                            using a molecule template called H2OTip4p.txt, and randomly create 500 of those.
+                            using a molecule template called H2OTip4p.txt, and randomly create 700 of those.
                             <pre><code>molecule h2omol H2OTip4p.txt
-create_atoms 0 random 500 456415 NULL mol h2omol 454756</code></pre>
+create_atoms 0 random 700 456415 NULL mol h2omol 454756</code></pre>
                         </p>
                         <p>
-                            The molecule template named H2OTip4p.txt must be created in the 
-                            same folder (named pureH2O/) as the input.lammps file, it reads:
-                            <pre><code># Molecule template for water
-
-3 atoms
-2 bonds
-1 angles
-
-Coords
-
-1 0 0 0
-2 0.9572 0 0
-3 -0.24000 0.92660 0
-
-Types
-
-1 1
-2 2   
-3 2  
-
-Charges 
-
-1 -1.054
-2 0.52700
-3 0.52700
-
-Bonds
-
-1 1 1 2
-2 1 1 3
-
-Angles
-
-1 1 2 1 3
-
-Shake Flags
-
-1 1
-2 1
-3 1
-
-Shake Atoms
-
-1 1 2 3
-2 1 2 3
-3 1 2 3
-
-Shake Bond Types
-
-1 1 1 1
-2 1 1 1
-3 1 1 1
-
-Special Bond Counts
-
-1 2 0 0
-2 1 1 0
-3 1 1 0
-
-Special Bonds
-
-1 2 3
-2 1 3
-3 1 2</code></pre>
+                            The molecule template named H2OTip4p.txt must be <a href="../../inputs/02-PEGinH2O/pureH2O/H2OTip4p.txt"
+                            target="_blank" class="removelinkdefault">downloaded</a> and saved in the 
+                            same folder (named pureH2O/) as the input.lammps file.
                         </p>
                         <p>
-                            The molecule template contains all the necessary structural information on the water molecule: 
-                            how many atoms, which atoms are connected with bonds, which atoms are connected with angles, etc.
+                            This template contains all the necessary structural information of the water molecule, such as
+                            how many atoms there are, which atoms are connected with bonds, which atoms are connected with angles, etc.
                             <br><br>
                             Then, let us group the atoms of the water in a group named H2O, and then delete the overlapping molecules:
                             <pre><code>group H2O type 1 2
@@ -396,33 +335,34 @@ delete_atoms overlap 2 H2O H2O mol yes</code></pre>
                             too close from each other, which may force the simulation to crash. 
                         </blockquote>
                         <p>
-                            Let us set up the parameters of the dynamics. Let us
-                            use the shake algorithm in order to apply bond and angle
-                            constraints to the water molecules. Let us also use the fix NPT 
+                            Let us use the shake algorithm in order to
+                            constrain the shape of the water molecules. Let us also use the fix NPT 
                             to control both the temperature and the pressure:
                         </p>
                         <pre><code>fix myshk H2O shake 1.0e-5 200 0 b 1 a 1 mol h2omol
 fix mynpt all npt temp 300 300 100 iso 1 1 1000</code></pre>
                         </p>
                         <p>
-                            <b>Explanations:</b> The parameters of the shake specify to which group (H2O)
+                            <b>Explanations:</b> The parameters of the fix shake specify to which group (H2O)
                             the shake algorithm applied, with what tolerance (1e-5). Still in the shake command,
                             we also supply the molecule 
                             template (h2omol) previously defined, and specify to which bond/angle type shake mush apply, i.e.
                             the bond of type 1 and the angle of type 1.
-                            <blockquote>
-                                <i>Note -</i> With shake, water molecules behave as rigid. If you want to 
-                                study the vibration of the O-H bonds and H-O-H angles, you will have to 
-                                use a flexible water model. If you want to study the hydrogen transfer,
-                                you will have to use a reactive force field.
-                                <br>
-                                <i>Note -</i> Here only the water molecules will be rigid, the PEG molecule (which will be 
-                                added in the next part) will be fully flexible.
-                            </blockquote>
+                        </p>
+                        <blockquote>
+                            <i>Note -</i> With shake, water molecules behave as rigid. If you want to 
+                            study the vibration of the O-H bonds and H-O-H angles, you will have to 
+                            use a flexible water model. If you want to study the hydrogen transfer,
+                            you will have to use a reactive force field.
+                            <br>
+                            <i>Note -</i> Here only the water molecules will be rigid, the PEG molecule (which will be 
+                            added in the next part) will be fully flexible.
+                        </blockquote>
+                        <p>
                             Let us print the atom positions in a dump file every 1000 timesteps (i.e. 1 ps),
                             print the temperature volume, and density every 100 timesteps in 3 separate data files, and print 
                             the information in the terminal every 1000 timesteps:
-                        <pre><code>dump mydmp all atom 1000 dump.lammpstrj
+                            <pre><code>dump mydmp all atom 1000 dump.lammpstrj
 variable mytemp equal temp
 variable myvol equal vol
 fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
@@ -431,24 +371,26 @@ variable myoxy equal count(H2O)/3 # divide by 3 to get the number of molecule, n
 variable mydensity equal ${myoxy}/v_myvol
 fix myat3 all ave/time 10 10 100 v_mydensity file density.dat
 thermo 1000</code></pre>
-                        </p>
+                        </p> 
                         <p>
                             Note that in the formula for the density (number of molecule divided by volume),
                             the underscore '_' is used to call the volume variable because this variable is expected
-                            to evolve in time, but the dollar sign '$' is used as the number of molecule is not 
-                            expected to evolved after the initial delete_atoms command. 
+                            to evolve in time, but the dollar sign '$' is used as the number of molecules is not 
+                            expected to evolve during the simulation (the number of molecule 
+                            changes after the delete_atoms command is used, but this is done before the simulation 
+                            starts). 
                             <br><br>
-                            Finally, let us set the timestep to 1 fs, and run the simulation for 50 ps:
-                        <pre><code>timestep 1.0
-run 50000
+                            Finally, let us set the timestep to 2.0 fs (allowed because we use shake), and run the simulation for 50 ps:
+                        <pre><code>timestep 2.0
+run 25000
 write_data H2O.data</code></pre>
                         </p>
                         <p>
-                            Looking at the logfile, one can see how many atoms have been deleted (the number will vary 
+                            Looking at the log file, one can see how many atoms have been deleted (the number will vary 
                             depending on the random number you choose).
-                            <pre><code>Deleted 414 atoms, new total = 1086
-Deleted 276 bonds, new total = 724
-Deleted 138 angles, new total = 362</code></pre>
+                            <pre><code>Deleted 714 atoms, new total = 1386
+Deleted 476 bonds, new total = 924
+Deleted 238 angles, new total = 462</code></pre>
                         </p>
                         <p>
                             About 30 % the molecules were deleted due to overlapping, together with their respective
@@ -533,7 +475,8 @@ include ../PARM.lammps</code></pre>
                             Then, replace the box dimensions in the init.data file with these 3 lines. 
                         </p>
                         <p>
-                            Let us print the atom positions and thermodynamic information very frequently (this is going to be a very short simulation):
+                            Let us print the atom positions and thermodynamic information very frequently 
+                            (because we anticipate that the energy minimization will be short):
                         <pre><code>dump mydmp all atom 10 dump.eq.lammpstrj
 thermo 1</code></pre>
                         </p>
