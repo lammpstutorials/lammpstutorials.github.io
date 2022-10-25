@@ -1,0 +1,363 @@
+LAMMPS (15 Sep 2022)
+# pure bulk water system
+# Written by Simon Gravelle
+# My personal page : https://simongravelle.github.io/
+# My Github account: https://github.com/simongravelle/
+# LAMMPS tutorials for beginners: https://lammpstutorials.github.io/
+
+units real
+atom_style full
+bond_style harmonic
+angle_style charmm
+dihedral_style charmm
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4
+
+special_bonds lj 0.0 0.0 0.5
+
+read_data ../singlePEG/PEG.data
+Reading data file ...
+  orthogonal box = (-23.407027 -8.7776353 -8.7776353) to (23.407027 8.7776353 8.7776353)
+  4 by 1 by 1 MPI processor grid
+  reading atoms ...
+  66 atoms
+  reading velocities ...
+  66 velocities
+  scanning bonds ...
+  4 = max bonds/atom
+  scanning angles ...
+  6 = max angles/atom
+  scanning dihedrals ...
+  6 = max dihedrals/atom
+  reading bonds ...
+  65 bonds
+  reading angles ...
+  118 angles
+  reading dihedrals ...
+  74 dihedrals
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0.5     
+  special bond factors coul:  0        0        0       
+     4 = max # of 1-2 neighbors
+     6 = max # of 1-3 neighbors
+    12 = max # of 1-4 neighbors
+    14 = max # of special neighbors
+  special bonds CPU = 0.000 seconds
+  read_data CPU = 0.006 seconds
+read_data ../pureH2O/H2O.data add append
+Reading data file ...
+  orthogonal box = (-23.407027 -8.7776353 -8.7776353) to (23.407027 8.7776353 8.7776353)
+  4 by 1 by 1 MPI processor grid
+  reading atoms ...
+  1386 atoms
+  reading velocities ...
+  1386 velocities
+  scanning bonds ...
+  2 = max bonds/atom
+  scanning angles ...
+  1 = max angles/atom
+  reading bonds ...
+  924 bonds
+  reading angles ...
+  462 angles
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0.5     
+  special bond factors coul:  0        0        0       
+     4 = max # of 1-2 neighbors
+     6 = max # of 1-3 neighbors
+    12 = max # of 1-4 neighbors
+    14 = max # of special neighbors
+  special bonds CPU = 0.000 seconds
+  read_data CPU = 0.016 seconds
+include ../PARM.lammps
+# Mass
+
+mass 		1 15.9994 # H2O O
+mass 		2 1.008 # H2O H
+mass 		3 12.011 # CC32A
+mass 		4 15.9994 # OC30A
+mass 		5 1.008 # HCA2
+mass 		6 15.9994 # OC311
+mass 		7 1.008 # HCP1
+
+# Pair Coeff
+
+pair_coeff 	1 1 0.185199 3.1589
+pair_coeff 	2 2 0.0 0.0
+pair_coeff 	3 3 0.056 3.58141
+pair_coeff 	4 4 0.100 2.93997
+pair_coeff 	5 5 0.035 2.38761
+pair_coeff 	6 6 0.192 3.14487
+pair_coeff 	7 7 0.046 0.40001
+
+# Bond coeff
+
+bond_coeff 	1 0 0.9572
+bond_coeff 	2 222.35 1.5300
+bond_coeff 	3 308.79 1.1111
+bond_coeff 	4 359.76 1.1415
+bond_coeff 	5 427.715 1.1420
+bond_coeff 	6 544.635 0.9600
+
+# Angle coeff
+
+angle_coeff 	1 0 104.52 0 0
+angle_coeff	2 50.0000 109.0000 0.0000 0.0000
+angle_coeff	3 26.5000 110.1000 22.5300 2.179
+angle_coeff	4 45.0000 111.5000 0.0000 0.0000
+angle_coeff	5 13.0258 109.4000 0.0000 0.0000
+angle_coeff	6 35.5000 109.0000 5.4000 1.802
+angle_coeff	7 55.0000 108.8900 0.0000 0.0000
+angle_coeff	8 75.7000 110.1000 0.0000 0.0000
+angle_coeff	9 95.0000 109.7000 0.0000 0.0000
+
+# Dihedral coeff
+# weighting factor put to 0, possibly wrong
+
+dihedral_coeff	1 0.57 1 0 0
+dihedral_coeff	2 0.29 2 0 0
+dihedral_coeff	3 0.43 3 0 0
+dihedral_coeff	4 0.59 1 180 0
+dihedral_coeff	5 1.16 2 0 0
+dihedral_coeff	6 0.12 1 0 0
+dihedral_coeff	7 0.42 2 0 0
+dihedral_coeff	8 0.29 3 0 0
+dihedral_coeff	9 2.87 1 180 0
+dihedral_coeff	10 0.03 2 0 0
+dihedral_coeff	11 0.23 3 0 0
+dihedral_coeff	12 1.36 1 180 0
+dihedral_coeff	13 0.16 2 0 0
+dihedral_coeff	14 1.01 3 0 0
+
+
+group H2O type 1 2
+1386 atoms in group H2O
+group PEG type 3 4 5 6 7
+66 atoms in group PEG
+
+delete_atoms overlap 2.0 H2O PEG mol yes
+System init for delete_atoms ...
+PPPM initialization ...
+  extracting TIP4P info from pair style
+  using 12-bit tables for long-range coulomb (../kspace.cpp:342)
+  G vector (1/distance) = 0.22752364
+  grid = 20 9 9
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.026481872
+  estimated relative force accuracy = 7.9749371e-05
+  using double precision KISS FFT
+  3d grid and FFT values/proc = 2560 540
+Generated 21 of 21 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update: every = 1 steps, delay = 10 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 14.3092
+  ghost atom cutoff = 14.3092
+  binsize = 7.1546, bins = 7 3 3
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) command delete_atoms, occasional
+      attributes: full, newton on
+      pair build: full/bin
+      stencil: full/bin/3d
+      bin: standard
+  (2) pair lj/cut/tip4p/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+WARNING: Ignoring 'compress yes' for molecular system (../delete_atoms.cpp:140)
+Deleted 102 atoms, new total = 1350
+Deleted 68 bonds, new total = 921
+Deleted 34 angles, new total = 546
+Deleted 0 dihedrals, new total = 74
+
+fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
+Finding SHAKE clusters ...
+       0 = # of size 2 clusters
+       0 = # of size 3 clusters
+       0 = # of size 4 clusters
+     428 = # of frozen angles
+  find clusters CPU = 0.000 seconds
+fix mynpt all npt temp 300 300 100 x 1 1 1000
+timestep 1.0
+
+dump mydmp all atom 100 dump.lammpstrj
+thermo 100
+variable mytemp equal temp
+variable myvol equal vol
+fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
+fix myat2 all ave/time 10 10 100 v_myvol file volume.dat
+
+variable myenthalpy equal enthalpy
+fix myat3 all ave/time 10 10 100 v_myenthalpy file enthalpy.dat
+
+run 10000
+PPPM initialization ...
+  extracting TIP4P info from pair style
+  using 12-bit tables for long-range coulomb (../kspace.cpp:342)
+  G vector (1/distance) = 0.22752362
+  grid = 20 9 9
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.025449258
+  estimated relative force accuracy = 7.6639684e-05
+  using double precision KISS FFT
+  3d grid and FFT values/proc = 2560 540
+Generated 21 of 21 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update: every = 1 steps, delay = 10 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 14.3092
+  ghost atom cutoff = 14.3092
+  binsize = 7.1546, bins = 7 3 3
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/tip4p/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 14.34 | 14.55 | 14.75 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press          Volume    
+         0   292.93282     -3870.1219      92.98199      -2972.9439      1135.5678      14427.508    
+       100   314.9891      -3987.3709      105.15698     -3017.4662     -81.455959      14447.237    
+       200   297.31699     -3986.2136      107.95714     -3062.0244     -1313.0506      14468.031    
+       300   295.46552     -4002.8945      107.91918     -3083.8261     -1192.005       14446.048    
+       400   293.0165      -4011.6324      106.57281     -3100.6337     -675.01042      14389.773    
+       500   296.64809     -4016.696       97.967585     -3104.3327      391.66655      14331.691    
+       600   300.69407     -4031.0414      94.167454     -3111.3707      601.50309      14274.816    
+       700   295.28523     -4014.9553      111.14594     -3093.1551     -351.59805      14247.79     
+       800   299.29965     -4014.6836      102.43168     -3090.5768     -733.95981      14223.914    
+       900   298.80345     -4009.0066      105.0376      -3083.6561     -640.44523      14196.126    
+      1000   308.55501     -3994.0559      93.216825     -3053.755       1317.5359      14151.207    
+      1100   306.68079     -3988.4784      100.30876     -3046.2309      164.01791      14121.863    
+      1200   299.28093     -4020.3524      93.412857     -3105.3158     -303.16317      14094.135    
+      1300   297.7454      -4037.5279      97.280597     -3122.8391     -764.83162      14067.446    
+      1400   309.54022     -4091.2709      109.5924      -3131.8896     -414.88926      14011.005    
+      1500   286.3116      -4057.4239      109.8102      -3161.595      -152.68644      13952.495    
+      1600   301.63228     -4082.6386      98.908785     -3155.6509     -1108.2712      13883.277    
+      1700   302.20687     -4035.1588      106.51371     -3098.9887      918.30063      13815.833    
+      1800   309.62848     -4035.6912      94.594135     -3091.066       628.56551      13770.9      
+      1900   297.91785     -4043.3013      101.84692     -3123.5728      311.86356      13748.113    
+      2000   298.42013     -4076.7102      98.009156     -3159.4405     -778.10408      13718.565    
+      2100   293.68077     -4066.3143      99.79214      -3160.2727      673.48544      13670.379    
+      2200   301.56992     -4083.5757      89.938635     -3165.7293      516.16049      13622.802    
+      2300   297.12954     -4108.3788      90.343991     -3202.3173      671.1321       13592.851    
+      2400   292.92735     -4132.0769      108.6892      -3219.2067     -353.12809      13585.398    
+      2500   296.01302     -4124.2326      101.48267     -3210.0976      423.22747      13583.47     
+      2600   298.07659     -4109.097       97.425085     -3193.3545      495.90999      13570.762    
+      2700   302.49022     -4098.7983      96.346577     -3172.0174      776.38436      13553.477    
+      2800   309.61159     -4115.3165      93.410712     -3171.9211     -734.34226      13571.458    
+      2900   296.49057     -4088.0327      108.11535     -3165.9541     -264.6006       13593.238    
+      3000   302.1534      -4059.911       87.480452     -3142.9209      135.12077      13603.553    
+      3100   317.06586     -4071.8236      95.862682     -3105.5118      275.32658      13600.81     
+      3200   310.92412     -4086.0718      97.04401      -3135.4397     -923.06231      13605.696    
+      3300   287.34164     -4075.9931      103.96437     -3183.1822     -724.74308      13601.854    
+      3400   304.48076     -4076.3381      92.868206     -3147.5709      400.63116      13575.444    
+      3500   312.20095     -4108.4301      108.13182     -3143.2049      492.96084      13556.745    
+      3600   301.16205     -4108.3276      88.759477     -3192.7801      179.08941      13543.33     
+      3700   306.86297     -4134.3388      92.923509     -3198.9764      270.53653      13549.066    
+      3800   304.73373     -4144.3536      98.38005      -3209.3801     -331.60458      13597.013    
+      3900   287.01664     -4111.1258      90.559653     -3232.6119      764.67752      13655.743    
+      4000   287.61758     -4111.2293      100.18548     -3221.4397     -276.56157      13711.267    
+      4100   302.97283     -4092.5932      93.862891     -3166.9711      472.43939      13780.016    
+      4200   298.26087     -4056.6988      92.848636     -3145.0268      485.54526      13867.75     
+      4300   304.01071     -4070.9683      91.164275     -3145.1954      113.6244       13958.56     
+      4400   293.55523     -4076.4194      86.437186     -3184.0774     -1205.0848      14020.373    
+      4500   286.24185     -4086.2808      90.648532     -3209.8051     -116.00936      14034.537    
+      4600   304.67328     -4090.2231      84.133252     -3169.6623     -779.47433      14035.178    
+      4700   294.2375      -4032.6349      89.60649      -3135.2505     -640.33002      14029.458    
+      4800   310.92289     -4074.7834      91.657486     -3129.5412     -848.53555      14015.163    
+      4900   293.27945     -4053.5435      94.075219     -3154.3206     -459.71417      13989.801    
+      5000   294.12924     -4086.2208      95.070905     -3183.6692     -773.66129      13965.462    
+      5100   288.18207     -4061.8289      83.487383     -3187.1878      509.6419       13936.974    
+      5200   296.44903     -4084.6582      81.306587     -3189.5024     -627.52593      13902.516    
+      5300   297.57415     -4097.6788      87.665156     -3193.0756      540.16412      13861.875    
+      5400   306.08042     -4114.2838      93.607638     -3180.3856     -694.94609      13818.145    
+      5500   305.94601     -4106.7754      91.468671     -3175.3852      273.88018      13780.21     
+      5600   296.58645     -4113.9655      94.836008     -3204.903      -1072.16        13740.905    
+      5700   306.38522     -4132.0956      86.997758     -3203.9705     -65.015709      13684.194    
+      5800   313.20352     -4112.3425      88.632596     -3163.8641     -284.16375      13642.495    
+      5900   312.68009     -4082.9965      90.285509     -3134.3022     -148.41889      13618.004    
+      6000   316.71313     -4095.4854      93.221702     -3132.7829      372.25281      13615.776    
+      6100   301.65928     -4113.7043      84.700183     -3200.8511     -36.051421      13610.698    
+      6200   286.4127      -4103.4918      94.756601     -3222.439       1190.3255      13605.108    
+      6300   302.65231     -4124.3899      85.665415     -3207.8452     -899.72897      13603.896    
+      6400   306.92861     -4094.9294      84.531942     -3167.7784      136.65995      13572.817    
+      6500   305.79405     -4076.9971      89.436008     -3148.0567      106.03978      13557.442    
+      6600   300.51015     -4082.9714      94.711063     -3163.262       445.47769      13545.743    
+      6700   285.72791     -4116.8218      99.823005     -3232.5825      267.08008      13551.892    
+      6800   286.98081     -4103.0578      88.300562     -3226.9013      224.32904      13579.852    
+      6900   297.53393     -4106.6228      94.713927     -3195.0812     -182.66203      13607.592    
+      7000   293.87499     -4068.3566      91.523551     -3170.0504     -780.64727      13634.725    
+      7100   297.30335     -4035.629       82.766888     -3136.6674      109.08995      13643.929    
+      7200   308.70998     -4063.1649      84.994425     -3130.6609      971.46311      13649.896    
+      7300   303.00407     -4053.3772      81.233357     -3140.2988      499.85208      13659.008    
+      7400   299.48416     -4056.7027      94.271187     -3140.2499     -180.42585      13674.336    
+      7500   308.78644     -4065.6047      92.262635     -3125.6226     -555.95534      13695.482    
+      7600   306.47591     -4059.4892      91.321331     -3126.7916     -288.50118      13698.284    
+      7700   301.70887     -4074.6604      93.306067     -3153.0651      984.14817      13680.589    
+      7800   289.70079     -4079.8232      87.934429     -3196.5656      7.1098452      13675.054    
+      7900   302.11555     -4113.1247      85.903078     -3197.8159      675.39074      13663.904    
+      8000   292.93481     -4078.0493      85.718545     -3188.1292      1195.9198      13664.032    
+      8100   313.39563     -4099.3093      78.926818     -3160.0093     -881.53767      13674.7      
+      8200   306.48629     -4062.0164      87.623327     -3132.9883      456.76397      13672.28     
+      8300   300.36292     -4066.5756      92.453769     -3149.5277      239.88348      13687.635    
+      8400   286.73486     -4066.787       90.770528     -3188.8357     -349.04395      13711.995    
+      8500   301.88813     -4108.1362      86.381293     -3192.9736     -259.06963      13745.83     
+      8600   298.82434     -4045.533       80.424072     -3144.7387      1535.7956      13791.58     
+      8700   307.9838      -4042.1732      91.439825     -3105.2175     -378.55037      13852.992    
+      8800   296.90397     -4032.2716      97.517779     -3119.6556      969.19741      13902.362    
+      8900   293.84885     -4043.9338      89.60307      -3147.6198     -561.22771      13949.673    
+      9000   292.58791     -4058.5397      92.67721      -3162.6133      69.275958      13971.689    
+      9100   287.91237     -4077.4602      83.776283     -3203.2706     -167.90123      13974.268    
+      9200   292.33234     -4093.3484      93.338391     -3197.4625      48.349742      13965.021    
+      9300   302.48183     -4078.2603      90.326906     -3157.5222      234.94811      13952.969    
+      9400   312.46874     -4080.2133      88.356863     -3134.0278      181.40369      13953.355    
+      9500   302.7075      -4023.1611      92.042157     -3100.0882     -779.03676      13966.084    
+      9600   328.60808     -4048.5172      97.397118     -3048.9838     -300.93175      13973.192    
+      9700   305.73036     -4014.6038      89.213694     -3086.0605     -1023.1448      13982.255    
+      9800   308.05112     -4049.659       96.022605     -3107.9357     -500.90209      13966.802    
+      9900   301.09042     -4053.926       88.271544     -3139.0631     -636.46472      13922.109    
+     10000   295.15184     -4063.4052      92.011324     -3161.1058     -894.52419      13855.71     
+Loop time of 122.297 on 4 procs for 10000 steps with 1350 atoms
+
+Performance: 7.065 ns/day, 3.397 hours/ns, 81.768 timesteps/s
+99.5% CPU use with 4 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 94.663     | 95.794     | 97.705     |  11.7 | 78.33
+Bond    | 0.017238   | 0.078761   | 0.14216    |  21.9 |  0.06
+Kspace  | 16.963     | 18.937     | 20.129     |  27.3 | 15.48
+Neigh   | 3.3613     | 3.3634     | 3.3645     |   0.1 |  2.75
+Comm    | 1.3474     | 1.4311     | 1.4741     |   4.1 |  1.17
+Output  | 0.056792   | 0.060662   | 0.061961   |   0.9 |  0.05
+Modify  | 2.2308     | 2.3266     | 2.5251     |   7.6 |  1.90
+Other   |            | 0.3053     |            |       |  0.25
+
+Nlocal:          337.5 ave         344 max         329 min
+Histogram: 1 0 0 0 0 1 0 1 0 1
+Nghost:        7965.75 ave        7992 max        7936 min
+Histogram: 1 0 0 1 0 0 0 0 1 1
+Neighs:         201330 ave      204439 max      197470 min
+Histogram: 1 0 0 1 0 0 0 0 1 1
+
+Total # of neighbors = 805320
+Ave neighs/atom = 596.53333
+Ave special neighs/atom = 2.3733333
+Neighbor list builds = 441
+Dangerous builds = 0
+write_data mix.data
+System init for write_data ...
+PPPM initialization ...
+  extracting TIP4P info from pair style
+  using 12-bit tables for long-range coulomb (../kspace.cpp:342)
+  G vector (1/distance) = 0.22589811
+  grid = 18 9 9
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.028876892
+  estimated relative force accuracy = 8.6961902e-05
+  using double precision KISS FFT
+  3d grid and FFT values/proc = 2560 486
+Generated 21 of 21 mixed pair_coeff terms from geometric mixing rule
+Total wall time: 0:02:02
