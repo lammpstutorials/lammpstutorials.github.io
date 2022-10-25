@@ -433,6 +433,9 @@ Deleted 238 angles, new total = 462</code></pre>
                             Alternatively, you can <a href="../../inputs/02-PEGinH2O/pureH2O/H2O.data"
                             target="_blank" class="removelinkdefault">download</a> the water reservoir I have equilibrated and continue with the tutorial.
                         </p>
+                        <p class="alert alert-info">
+                            Become a <a href="../miscellaneous/contact.html">patreon</a> and receive ongoing support and advices for your project.
+                        </p>
                     </section>
                     <section id="peg-molecule">
                         <h1>PEG molecule</h1>
@@ -481,8 +484,8 @@ include ../PARM.lammps</code></pre>
 thermo 1</code></pre>
                         </p>
                         <p>
-                            Next, let us perform a minimisation of energy. Here, this is required because the initial configuration of the PEG molecule is 
-                            really far from an equilibrium value. 
+                            Next, let us perform a minimisation of energy. Here, this step is required because the initial configuration of the PEG molecule is 
+                            really far from equilibrium. 
                             <pre><code>minimize 1.0e-4 1.0e-6 100 1000</code></pre>
                         </p>
                         <p>
@@ -549,8 +552,8 @@ read_data ../pureH2O/H2O.data add append
 include ../PARM.lammps</code></pre>
                         </p>
                         <p>
-                            When using the read_data command more than one, one needs to use the "add append" keyword. 
-                            The simulation box is only initialized by the first read_data. 
+                            When using the read_data command more than once, one needs to use the "add append" keyword. 
+                            In that case the simulation box is only initialized by the first read_data. 
                             <br><br>
                             Let us create 2 groups to differentiate the PEG from the H2O: 
                             <pre><code>group H2O type 1 2
@@ -607,6 +610,10 @@ write_data mix.data</code></pre>
                         <p>
                             Alternatively, you can <a href="../../inputs/02-PEGinH2O/mergePEGH2O/mix.data"
                             target="_blank" class="removelinkdefault">download</a> the solvated PEG I have generated and continue with the tutorial.
+                        </p>
+                        <p class="alert alert-info">
+                            Support the creation of content for LAMMPS for just <a href="../miscellaneous/contact.html">1 euro per month</a> (and access 
+                            additional content and tips).
                         </p>
                     </section> 
                     <section id="pull">
@@ -746,6 +753,9 @@ run 100000</code></pre>
                         <p>
                             Import the trajectory using Python, and re-extract the 
                             end-to-end distance. 
+                            <br><br>
+                            Hint: you can import lammpstrj file using MDAnalysis:
+                            <pre><code>u = mda.Universe("dump.lammpstrj", format = "LAMMPSDUMP")</code></pre>
                             <br><br>
                             <b>Motivation: </b> In today research, most analysis is done 
                             after the simulation is over, and it is important for a user to master 
