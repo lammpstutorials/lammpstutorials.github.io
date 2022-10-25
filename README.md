@@ -14,8 +14,8 @@ You can report issue here, or send me an [email](https://simongravelle.github.io
   <a href="https://lammpstutorials.github.io/tutorials/01-SimpleMolecularSimulation.html">
   <img src="docs/figures/01-SimpleMolecularSimulation/avatar.jpg" width="32%" /></a>
 
-  <a href="https://lammpstutorials.github.io/tutorials/02-PorousMembraneOsmosis.html">
-  <img src="docs/figures/tutorial07/avatar.jpg" width="32%" /></a>
+  <a href="https://lammpstutorials.github.io/tutorials/02-PEGinH2O.html">
+  <img src="docs/figures/02-PEGinH2O/avatar.jpg" width="32%" /></a>
 
   <a href="https://lammpstutorials.github.io/tutorials/03-NanoconfinedElectrolyte.html">
   <img src="docs/figures/tutorial03/avatar.jpg" width="32%" /></a>
