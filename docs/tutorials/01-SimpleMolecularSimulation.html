@@ -100,90 +100,93 @@
             <div class="idocs-content">
                 <div class="container">
                     <section id="intro">
-                    <h1>Simple molecular dynamics</h1>
-                    <h3>The very basics of LAMMPS through a simple example:
-                    a bidimensional Lennard-Jones binary fluid</h3>
-                    <p>
-                        <img src="../figures/01-SimpleMolecularSimulation/main_image.png"
-                        style="width:100%" alt="Responsive image"/>
-                        <small style="color:#6B6B6B">
-                        Figure: a binary fluid in a 2D box at 3 different times
-                        </small>
-                    </p>
-                    <p>
-                        <b>The objective of this tutorial</b> is to use the
-                        open-source code LAMMPS (acronym for Large-scale
-                        Atomic/Molecular Massively Parallel Simulator) to perform
-                        a simple molecular dynamics simulation: a binary fluid in 
-                        a 2D box, Lennard-Jones potential between atoms, and Langevin thermostating.
-                        This tutorial illustrates the use of several ingredients of
-                        molecular dynamics simulations, such as system initialization,
-                        energy minimisation, integration of the equations of motion,
-                        and trajectory visualisation.
-                    </p>
-                    <p>
-                        There are several parts to this tutorial:
-                        <ul>
-                        <li> <a href="#installation">Softwares installation - </a>
-                        A quick look at the required softwares
-                        </li>
-                        <li> <a href="#input">LAMMPS input script - </a> Description
-                        of the LAMMPS input file and its most basic commands
-                        </li>
-                        <li> <a href="#trajectories">Trajectories visualisation - </a>
-                        Atoms and trajectories visualisation using VMD
-                        </li>
-                        <li> <a href="#improved">Improving LAMMPS script - </a>
-                        Toward better and slightly more advanced LAMMPS scripts
-                        </li>
-                        <li> <a href="#restarting">Restarting from a saved
-                        configuration - </a> Saving a configuration and using it
-                        as a new starting point
-                        </li>
-                        </ul>
-                    </p>
-                    <p class="alert alert-info">
-                        <a href="../miscellaneous/contact.html">Click here</a>
-                        to contact me.
-                    </p>
+                        <h1>Simple molecular dynamics</h1>
+                        <h3>The very basics of LAMMPS through a simple example:
+                        a bidimensional Lennard-Jones binary fluid</h3>
+                        <p>
+                            <img src="../figures/01-SimpleMolecularSimulation/main_image.png"
+                            style="width:100%" alt="Responsive image"/>
+                            <small style="color:#6B6B6B">
+                            Figure: a binary fluid in a 2D box at 3 different times
+                            </small>
+                        </p>
+                        <p>
+                            <b>The objective of this tutorial</b> is to use the
+                            open-source code LAMMPS (acronym for Large-scale
+                            Atomic/Molecular Massively Parallel Simulator) to perform
+                            a simple molecular dynamics simulation: a binary fluid in 
+                            a 2D box, Lennard-Jones potential between atoms, and Langevin thermostating.
+                            This tutorial illustrates the use of several ingredients of
+                            molecular dynamics simulations, such as system initialization,
+                            energy minimisation, integration of the equations of motion,
+                            and trajectory visualisation.
+                        </p>
+                        <p>
+                            There are several parts to this tutorial:
+                            <ul>
+                            <li> <a href="#installation">Softwares installation - </a>
+                            A quick look at the required softwares
+                            </li>
+                            <li> <a href="#input">LAMMPS input script - </a> Description
+                            of the LAMMPS input file and its most basic commands
+                            </li>
+                            <li> <a href="#trajectories">Trajectories visualisation - </a>
+                            Atoms and trajectories visualisation using VMD
+                            </li>
+                            <li> <a href="#improved">Improving LAMMPS script - </a>
+                            Toward better and slightly more advanced LAMMPS scripts
+                            </li>
+                            <li> <a href="#restarting">Restarting from a saved
+                            configuration - </a> Saving a configuration and using it
+                            as a new starting point
+                            </li>
+                            </ul>
+                        </p>
+                        <p class="alert alert-info">
+                            <a href="../miscellaneous/contact.html">Contact me</a> if you have any question about these tutorials
+                            (or about your own project).
+                        </p>
+                        <p class="alert alert-info">
+                            You can <a href="../miscellaneous/contact.html">support the creation</a> of content for LAMMPS for 1 euro per month (and access extra content and tips).
+                        </p>
                     </section>
                     <br><br>
                     <section id="installation">
-                    <h2>Software installation</h2>
-                    <p>
-                        You need to download and install LAMMPS, the code that will
-                        allow us to perform molecular simulations. You can do it
-                        following the instructions of the
-                        <a href="https://lammps.sandia.gov" target="_blank"
-                        class="removelinkdefault">LAMMPS website</a>. Alternatively,
-                        if you are using Ubuntu OS, you can simply execute the
-                        following command in a terminal:
-                        <pre><code>sudo apt-get install lammps</code></pre>
-                    </p>
-                    <p>
-                        You can verify that LAMMPS is indeed installed on your computer
-                        by typing in the terminal :
-                        <pre><code>lmp</code></pre>
-                    </p>
-                    <p>
-                        You should see the version of LAMMPS that has been
-                        installed. On my computer I see
-                        <pre><code>LAMMPS (20 Nov 2019)</code></pre>
-                    </p>
-                    <p>
-                        In addition to LAMMPS, you will also need
-                        <a href="https://help.gnome.org/users/gedit/stable/"
-                        target="_blank" class="removelinkdefault">(1)	a basic text
-                        editing software</a> such as Vim, Gedit, or Notepad++,
-                        <a href="https://www.ks.uiuc.edu/Research/vmd/"
-                        target="_blank" class="removelinkdefault">(2) a visualization
-                        software</a>, here I will use VMD (note: VMD is free but you
-                        have to register to the uiuc website in order to download
-                        it. If you don't want to, you can also use Ovito.),
-                        <a href="https://plasma-gate.weizmann.ac.il/Grace/"
-                        target="_blank" class="removelinkdefault">(3) a plotting
-                        tool</a> like XmGrace or pyplot.
-                    </p>
+                        <h2>Software installation</h2>
+                        <p>
+                            You need to download and install LAMMPS, the code that will
+                            allow us to perform molecular simulations. You can do it
+                            following the instructions of the
+                            <a href="https://lammps.sandia.gov" target="_blank"
+                            class="removelinkdefault">LAMMPS website</a>. Alternatively,
+                            if you are using Ubuntu OS, you can simply execute the
+                            following command in a terminal:
+                            <pre><code>sudo apt-get install lammps</code></pre>
+                        </p>
+                        <p>
+                            You can verify that LAMMPS is indeed installed on your computer
+                            by typing in the terminal :
+                            <pre><code>lmp</code></pre>
+                        </p>
+                        <p>
+                            You should see the version of LAMMPS that has been
+                            installed. On my computer I see
+                            <pre><code>LAMMPS (20 Nov 2019)</code></pre>
+                        </p>
+                        <p>
+                            In addition to LAMMPS, you will also need
+                            <a href="https://help.gnome.org/users/gedit/stable/"
+                            target="_blank" class="removelinkdefault">(1)	a basic text
+                            editing software</a> such as Vim, Gedit, or Notepad++,
+                            <a href="https://www.ks.uiuc.edu/Research/vmd/"
+                            target="_blank" class="removelinkdefault">(2) a visualization
+                            software</a>, here I will use VMD (note: VMD is free but you
+                            have to register to the uiuc website in order to download
+                            it. If you don't want to, you can also use Ovito.),
+                            <a href="https://plasma-gate.weizmann.ac.il/Grace/"
+                            target="_blank" class="removelinkdefault">(3) a plotting
+                            tool</a> like XmGrace or pyplot.
+                        </p>
                     </section>
                     <br><br>
                     <!-- ======================================================= -->
@@ -204,16 +207,21 @@
 # 4) Visualization
 # 5) Run</code></pre>
                         </p>
+                        <p class="alert alert-info">
+                            Those five categories are not found in every input script, and should not necessarily 
+                            be in that order (3 and 4 could be inverted for instance), but they are nevertheless
+                            helpful to apprehend LAMMPS the first time.
+                        </p>
                         <p>
-                        A line starting with a brace (#) is a comment that is ignored
-                        by LAMMPS. In the first section of the script, called
-                        'Initialization', let us indicate to LAMMPS the type of
-                        simulation we are going to execute by specifying
-                        the most basic information, such as the conditions at
-                        the boundaries of the box (e.g periodic, non-periodic)
-                        or the type of atoms (e.g. uncharged single dots, spheres
-                        with angular velocities). Enter the following lines:
-                        <pre><code># 1) Initialization
+                            A line starting with a brace (#) is a comment that is ignored
+                            by LAMMPS. In the first section of the script, called
+                            'Initialization', let us indicate to LAMMPS the type of
+                            simulation we are going to execute by specifying
+                            the most basic information, such as the conditions at
+                            the boundaries of the box (e.g periodic, non-periodic)
+                            or the type of atoms (e.g. uncharged single dots, spheres
+                            with angular velocities). Enter the following lines:
+                            <pre><code># 1) Initialization
 units lj
 dimension 2
 atom_style atomic
@@ -231,11 +239,17 @@ boundary p p p</code></pre>
                             (unitless), and the last line indicates that the periodic
                             boundary conditions will be used along all three directions
                             of space (the three 'p' stand for 'x', 'y', 'z', respectively). 
-                            <blockquote>
-                            <b>Note:</b> It may seems strange to define the
+                            <!--<blockquote>
+                                <b>Note:</b> It may seems strange to define the
+                                boundary conditions along the third dimension for a 
+                                2D simulation, but it is a LAMMPS requirement.
+                            </blockquote>-->
+                        <p class="alert alert-info">
+                            It may seems strange to define the
                             boundary conditions along the third dimension for a 
                             2D simulation, but it is a LAMMPS requirement.
-                            </blockquote>
+                        </p>
+                        <p>
                             At this point, you have a LAMMPS script that does nothing.
                             You can execute it to verify that there is no mistake by
                             running the following command in the terminal:
@@ -770,7 +784,7 @@ write_data data.mixed.lammps</code></pre>
                         You can access the input scripts that have been written
                         in this tutorial from the
                         <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs/01-SimpleMolecularDynamics"
-                        target="_blank" class="removelinkdefault">Github repository</a>  of LAMMPS tutorial.
+                        target="_blank" class="removelinkdefault">Github repository</a> of LAMMPStutorial.
                     </p>
                     </section>
                     <br><br>
