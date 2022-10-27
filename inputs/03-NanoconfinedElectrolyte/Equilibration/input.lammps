@@ -13,38 +13,32 @@ pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
 kspace_style pppm/tip4p 1.0e-4
 
 # System definition
-read_data data.01.lammps
+read_data ../Minimization/data.lammps
 
-# settings
-include PARM.lammps
-
+# Simulation settings
+include ../PARM.lammps
 group gH2O type 1 2
 group gNa type 3
 group gCl type 4
 group gliquid type 1 2 3 4
-group gtopwall type 5
-group gbotwall type 6
-group gwall type 5 6
-neigh_modify exclude group gwall gwall
-dump mydmp all atom 1000 dump.02.lammpstrj
+group gwall type 5
 
-# run
-# walls
-fix mysf1 gtopwall setforce 0 0 NULL
-fix mysf2 gbotwall setforce 0 0 NULL
-fix myaf1 gtopwall aveforce NULL NULL 0
-fix myaf2 gbotwall aveforce NULL NULL 0
+# vizualisation
+dump mydmp all atom 1000 dump.lammpstrj
+thermo 50
 
+# Dynamics
 fix mynve all nve
 compute tliq gliquid temp
-fix myber gliquid temp/berendsen 1 1 1
-fix_modify myber temp tliq
-
+fix myber1 gliquid temp/berendsen 300 300 100
+fix_modify myber1 temp tliq
+compute twall gwall temp
+fix myber2 gwall temp/berendsen 300 300 100
+fix_modify myber2 temp twall
 fix myshk gH2O shake 1.0e-4 200 0 b 1 a 1
 fix myrct all recenter NULL NULL INIT
 
-timestep 0.1
-thermo 500
-run 5000
-write_data data.02.lammps
+timestep 1.0
+run 20000
+write_data data.lammps
 
