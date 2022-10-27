@@ -7,72 +7,63 @@
         initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
         <link href="../figures/favicon-32x32.png" rel="icon" />
         <title>Lennard jones mixture</title>
-        <meta name="description" content="Simple molecular
-        dynamics simulation">
+        <meta name="description" content="Simple molecular dynamics simulation">
         <meta name="author" content="Simon Gravelle">
-        <link rel="stylesheet" type="text/css"
-        href="../assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css"
-        href="../assets_tutorials/vendor/font-awesome/css/all.min.css" />
-        <link rel="stylesheet" type="text/css"
-        href="../assets_tutorials/css/stylesheet.css" />
-        <script async
-        src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+        <link rel="stylesheet" type="text/css" href="../assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../assets_tutorials/vendor/font-awesome/css/all.min.css" />
+        <link rel="stylesheet" type="text/css" href="../assets_tutorials/css/stylesheet.css" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
         <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-W1WGEC5GQ8');
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-W1WGEC5GQ8');
         </script>
-        <script id="MathJax-script" async
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </head>
     <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
         <div id="main-wrapper">
             <header id="header" class="sticky-top">
-            <nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
-            <div class="container-fluid">
-                <a class="logo ml-md-3" href="../index.html" title="LAMMPS tutorials">
-                <img src="../figures/logo.png"
-                alt="LAMMPS tutorials" height="60"/>
-                </a>
-                <div id="header-nav" class="collapse navbar-collapse justify-content-end">
-                    <ul class="navbar-nav">
-                        <li>
-                            <a href="../index.html">
-                            All tutorials
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../miscellaneous/contact.html">Contact me</a>
-                        </li>
-                    </ul>
-                </div>
-                <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
-                <li class="social-icons-twitter"><a data-toggle="tooltip"
-                href="https://twitter.com/GravelleSimon" target="_blank"
-                title="" data-original-title="Twitter">
-                <i class="fab fa-twitter"></i></a></li>
-                <li class="social-icons-twitter"><a data-toggle="tooltip"
-                href="https://gitlab.com/sgravelle" target="_blank"
-                title="" data-original-title="Gitlab">
-                <i class="fab fa-gitlab"></i></i></a></li>
-                <li class="social-icons-twitter"><a data-toggle="tooltip"
-                href="https://github.com/simongravelle" target="_blank"
-                title="" data-original-title="Github">
-                <i class="fab fa-github"></i></i></a></li>
-                <li class="social-icons-twitter"><a data-toggle="tooltip"
-                href="https://www.youtube.com/c/SimonGravelle"
-                target="_blank" title="" data-original-title="Youtube">
-                <i class="fab fa-youtube"></i></i></a></li>
-                </ul>
-            </div>
-            </nav>
+                <nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+                    <div class="container-fluid">
+                        <a class="logo ml-md-3" href="../index.html" title="LAMMPS tutorials">
+                            <img src="../figures/logo.png" alt="LAMMPS tutorials" height="60"/>
+                        </a>
+                        <div id="header-nav" class="collapse navbar-collapse justify-content-end">
+                            <ul class="navbar-nav">
+                                <li>
+                                    <a href="../index.html">All tutorials</a>
+                                </li>
+                                <li>
+                                    <a href="../miscellaneous/contact.html">Contact me</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+                            <li class="social-icons-twitter"><a data-toggle="tooltip"
+                            href="https://twitter.com/GravelleSimon" target="_blank"
+                            title="" data-original-title="Twitter">
+                            <i class="fab fa-twitter"></i></a></li>
+                            <li class="social-icons-twitter"><a data-toggle="tooltip"
+                            href="https://gitlab.com/sgravelle" target="_blank"
+                            title="" data-original-title="Gitlab">
+                            <i class="fab fa-gitlab"></i></i></a></li>
+                            <li class="social-icons-twitter"><a data-toggle="tooltip"
+                            href="https://github.com/simongravelle" target="_blank"
+                            title="" data-original-title="Github">
+                            <i class="fab fa-github"></i></i></a></li>
+                            <li class="social-icons-twitter"><a data-toggle="tooltip"
+                            href="https://www.youtube.com/c/SimonGravelle"
+                            target="_blank" title="" data-original-title="Youtube">
+                            <i class="fab fa-youtube"></i></i></a></li>
+                        </ul>
+                    </div>
+                </nav>
             </header>
             <div class="idocs-navigation bg-light">
                 <ul class="nav flex-column ">
                     <li class="nav-item">
-                    <a class="nav-link active" href="#intro">Getting Started</a>
+                        <a class="nav-link active" href="#intro">Getting Started</a>
                     </li>
                     <li class="nav-item"><a class="nav-link active"
                     href="#installation">Installation</a>
@@ -93,102 +84,103 @@
                     href="#further">Going further</a>
                     </li>
                 </ul>
-                <a href="../miscellaneous/contact.html" rel='noreferrer'>
+                <!--<a href="../miscellaneous/contact.html" rel='noreferrer'>
                     <img src="../figures/pub/pub1_patreon.png" style="width:100%" alt="Contact me"/>
-                </a>
+                </a>-->
             </div>
             <div class="idocs-content">
                 <div class="container">
                     <section id="intro">
-                    <h1>Simple molecular dynamics</h1>
-                    <h3>The very basics of LAMMPS through a simple example:
-                    a bidimensional Lennard-Jones binary fluid</h3>
-                    <p>
-                        <img src="../figures/01-SimpleMolecularSimulation/main_image.png"
-                        style="width:100%" alt="Responsive image"/>
-                        <small style="color:#6B6B6B">
-                        Figure: a binary fluid in a 2D box at 3 different times
-                        </small>
-                    </p>
-                    <p>
-                        <b>The objective of this tutorial</b> is to use the
-                        open-source code LAMMPS (acronym for Large-scale
-                        Atomic/Molecular Massively Parallel Simulator) to perform
-                        a simple molecular dynamics simulation: a binary fluid in 
-                        a 2D box, Lennard-Jones potential between atoms, and Langevin thermostating.
-                        This tutorial illustrates the use of several ingredients of
-                        molecular dynamics simulations, such as system initialization,
-                        energy minimisation, integration of the equations of motion,
-                        and trajectory visualisation.
-                    </p>
-                    <p>
-                        There are several parts to this tutorial:
-                        <ul>
-                        <li> <a href="#installation">Softwares installation - </a>
-                        A quick look at the required softwares
-                        </li>
-                        <li> <a href="#input">LAMMPS input script - </a> Description
-                        of the LAMMPS input file and its most basic commands
-                        </li>
-                        <li> <a href="#trajectories">Trajectories visualisation - </a>
-                        Atoms and trajectories visualisation using VMD
-                        </li>
-                        <li> <a href="#improved">Improving LAMMPS script - </a>
-                        Toward better and slightly more advanced LAMMPS scripts
-                        </li>
-                        <li> <a href="#restarting">Restarting from a saved
-                        configuration - </a> Saving a configuration and using it
-                        as a new starting point
-                        </li>
-                        </ul>
-                    </p>
-                    <p class="alert alert-info">
-                        <a href="../miscellaneous/contact.html">Click here</a>
-                        to contact me.
-                    </p>
+                        <h1>Simple molecular dynamics</h1>
+                        <h3>The very basics of LAMMPS through a simple example:
+                        a bidimensional Lennard-Jones binary fluid</h3>
+                        <p>
+                            <img src="../figures/01-SimpleMolecularSimulation/main_image.png"
+                            style="width:100%" alt="Responsive image"/>
+                            <small style="color:#6B6B6B">
+                            Figure: a binary fluid in a 2D box at 3 different times
+                            </small>
+                        </p>
+                        <p>
+                            <b>The objective of this tutorial</b> is to use the
+                            open-source code LAMMPS (acronym for Large-scale
+                            Atomic/Molecular Massively Parallel Simulator) to perform
+                            a simple molecular dynamics simulation: a binary fluid in 
+                            a 2D box, Lennard-Jones potential between atoms, and Langevin thermostating.
+                            This tutorial illustrates the use of several ingredients of
+                            molecular dynamics simulations, such as system initialization,
+                            energy minimisation, integration of the equations of motion,
+                            and trajectory visualisation.
+                        </p>
+                        <p>
+                            There are several parts to this tutorial:
+                            <ul>
+                            <li> <a href="#installation">Softwares installation - </a>
+                            A quick look at the required softwares
+                            </li>
+                            <li> <a href="#input">LAMMPS input script - </a> Description
+                            of the LAMMPS input file and its most basic commands
+                            </li>
+                            <li> <a href="#trajectories">Trajectories visualisation - </a>
+                            Atoms and trajectories visualisation using VMD
+                            </li>
+                            <li> <a href="#improved">Improving LAMMPS script - </a>
+                            Toward better and slightly more advanced LAMMPS scripts
+                            </li>
+                            <li> <a href="#restarting">Restarting from a saved
+                            configuration - </a> Saving a configuration and using it
+                            as a new starting point
+                            </li>
+                            </ul>
+                        </p>
                     </section>
-                    <br><br>
+                    <section>
+                        <div id="boxtype1">
+                            <a href="../miscellaneous/contact.html">Contact me</a> if you have any question about these tutorials
+                            (or about your own project). 
+                        </div>
+                        <div id="boxtype2">
+                                You can <a href="../miscellaneous/contact.html">support the creation</a> of content for LAMMPS for 1 euro 
+                                per month (and access extra content and tips).
+                        </div>
+                    </section>
                     <section id="installation">
-                    <h2>Software installation</h2>
-                    <p>
-                        You need to download and install LAMMPS, the code that will
-                        allow us to perform molecular simulations. You can do it
-                        following the instructions of the
-                        <a href="https://lammps.sandia.gov" target="_blank"
-                        class="removelinkdefault">LAMMPS website</a>. Alternatively,
-                        if you are using Ubuntu OS, you can simply execute the
-                        following command in a terminal:
-                        <pre><code>sudo apt-get install lammps</code></pre>
-                    </p>
-                    <p>
-                        You can verify that LAMMPS is indeed installed on your computer
-                        by typing in the terminal :
-                        <pre><code>lmp</code></pre>
-                    </p>
-                    <p>
-                        You should see the version of LAMMPS that has been
-                        installed. On my computer I see
-                        <pre><code>LAMMPS (20 Nov 2019)</code></pre>
-                    </p>
-                    <p>
-                        In addition to LAMMPS, you will also need
-                        <a href="https://help.gnome.org/users/gedit/stable/"
-                        target="_blank" class="removelinkdefault">(1)	a basic text
-                        editing software</a> such as Vim, Gedit, or Notepad++,
-                        <a href="https://www.ks.uiuc.edu/Research/vmd/"
-                        target="_blank" class="removelinkdefault">(2) a visualization
-                        software</a>, here I will use VMD (note: VMD is free but you
-                        have to register to the uiuc website in order to download
-                        it. If you don't want to, you can also use Ovito.),
-                        <a href="https://plasma-gate.weizmann.ac.il/Grace/"
-                        target="_blank" class="removelinkdefault">(3) a plotting
-                        tool</a> like XmGrace or pyplot.
-                    </p>
+                        <h2>Software installation</h2>
+                        <p>
+                            You need to download and install LAMMPS, the code that will
+                            allow us to perform molecular simulations. You can do it
+                            following the instructions of the
+                            <a href="https://lammps.sandia.gov" target="_blank"
+                            class="removelinkdefault">LAMMPS website</a>. Alternatively,
+                            if you are using Ubuntu OS, you can simply execute the
+                            following command in a terminal:
+                            <pre><code>sudo apt-get install lammps</code></pre>
+                        </p>
+                        <p>
+                            You can verify that LAMMPS is indeed installed on your computer
+                            by typing in the terminal :
+                            <pre><code>lmp</code></pre>
+                        </p>
+                        <p>
+                            You should see the version of LAMMPS that has been
+                            installed. On my computer I see
+                            <pre><code>LAMMPS (20 Nov 2019)</code></pre>
+                        </p>
+                        <p>
+                            In addition to LAMMPS, you will also need
+                            <a href="https://help.gnome.org/users/gedit/stable/"
+                            target="_blank" class="removelinkdefault">(1)	a basic text
+                            editing software</a> such as Vim, Gedit, or Notepad++,
+                            <a href="https://www.ks.uiuc.edu/Research/vmd/"
+                            target="_blank" class="removelinkdefault">(2) a visualization
+                            software</a>, here I will use VMD (note: VMD is free but you
+                            have to register to the uiuc website in order to download
+                            it. If you don't want to, you can also use Ovito.),
+                            <a href="https://plasma-gate.weizmann.ac.il/Grace/"
+                            target="_blank" class="removelinkdefault">(3) a plotting
+                            tool</a> like XmGrace or pyplot.
+                        </p>
                     </section>
-                    <br><br>
-                    <!-- ======================================================= -->
-                    <!-- ======================================================= -->
-                    <!-- ======================================================= -->
                     <section id="input">
                         <h2>The input script</h2>
                         <p>
@@ -197,23 +189,30 @@
                             input script contains five categories, which we are going
                             to fill up one by one. Create a blank text file, call it
                             'input_01.lammps', and copy the following lines in it:
-                            <pre><code># PART A - ENERGY MINIMIZATION
+                        </p>
+                        <pre><code># PART A - ENERGY MINIMIZATION
 # 1) Initialization
 # 2) System definition
 # 3) Simulation settings
 # 4) Visualization
-# 5) Run</code></pre>
-                        </p>
+# 5) Run</code></pre>   
+                        <div id="boxtype1">
+                            <i>Remark -- </i>These five categories are not found in every input script, and should not necessarily 
+                            be in that order. For instance parts 3 and 4 could be inverted, or part 4 could be omitted, or there could be 
+                            several consecutive runs.
+                        </div>  
+                        <div id="boxtype2">
+                            <i>Remark -- </i> A line starting with a brace (#) is a comment that is ignored by LAMMPS.  
+                        </div>
                         <p>
-                        A line starting with a brace (#) is a comment that is ignored
-                        by LAMMPS. In the first section of the script, called
-                        'Initialization', let us indicate to LAMMPS the type of
-                        simulation we are going to execute by specifying
-                        the most basic information, such as the conditions at
-                        the boundaries of the box (e.g periodic, non-periodic)
-                        or the type of atoms (e.g. uncharged single dots, spheres
-                        with angular velocities). Enter the following lines:
-                        <pre><code># 1) Initialization
+                            In the first section of the script, called
+                            'Initialization', let us indicate to LAMMPS the type of
+                            simulation we are going to execute by specifying
+                            the most basic information, such as the conditions at
+                            the boundaries of the box (e.g periodic, non-periodic)
+                            or the type of atoms (e.g. uncharged single dots, spheres
+                            with angular velocities). Enter the following lines:
+                            <pre><code># 1) Initialization
 units lj
 dimension 2
 atom_style atomic
@@ -231,11 +230,17 @@ boundary p p p</code></pre>
                             (unitless), and the last line indicates that the periodic
                             boundary conditions will be used along all three directions
                             of space (the three 'p' stand for 'x', 'y', 'z', respectively). 
-                            <blockquote>
-                            <b>Note:</b> It may seems strange to define the
+                            <!--<blockquote>
+                                <b>Note:</b> It may seems strange to define the
+                                boundary conditions along the third dimension for a 
+                                2D simulation, but it is a LAMMPS requirement.
+                            </blockquote>-->
+                        <div id="boxtype1">
+                            It may seems strange to define the
                             boundary conditions along the third dimension for a 
                             2D simulation, but it is a LAMMPS requirement.
-                            </blockquote>
+                        </div>
+                        <p>
                             At this point, you have a LAMMPS script that does nothing.
                             You can execute it to verify that there is no mistake by
                             running the following command in the terminal:
@@ -273,7 +278,8 @@ create_atoms 2 random 100 127569 myreg</code></pre>
                             region 'myreg'. The integer '341341' is a seed that can be changed
                             in order to create different initial conditions for the
                             simulation. The fourth line creates 100 atoms of type 2.
-                            <br><br>
+                        </p>
+                        <p>
                             If you run LAMMPS, you should see the following in the terminal:
                             <pre><code>LAMMPS (20 Nov 2019)
 Created orthogonal box = (-30 -30 -0.5) to (30 30 0.5)
@@ -288,7 +294,8 @@ Total wall time: 0:00:00</code></pre>
                             From what is printed in the terminal, it is clear that LAMMPS
                             correctly interpreted the commands, and first created the box
                             with desired dimensions, then 1500 atoms, then 100 atoms.
-                            <br><br>
+                        </p>
+                        <p>
                             Let us fill the third section of the input script:
                             <pre><code># 3) Simulation settings
 mass 1 1
@@ -306,24 +313,23 @@ pair_coeff 2 2 0.5 3.0</code></pre>
                             for the interactions between atoms of type 1. The last line
                             sets the Lennard-Jones coefficients for the interactions
                             between atoms of type 2.
-                        <p>
-                            <blockquote>
-                                <b>About cross parameters</b><br><br>
-
-                                By default, LAMMPS calculates
-                                the cross coefficients (here for the interactions between atoms
-                                of type 1 and 2) using geometric average:
-                                \(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\),
-                                \(\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}\). Note that the arithmetic rule, where
-                                \(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\) and
-                                \(\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2\), is more
-                                commonly used. However neither the geometric nor the arimetic
-                                rule is based on rigorous argument, so here the geometric
-                                rule will do just fine.<br><br>
-
-                                Cross parameters can also be explicitely specified using 'pair_coeff 1 2'.
-                            </blockquote>
                         </p>
+                        <div id="boxtype2">
+                            <b>About cross parameters</b>
+                            <br><br>
+                            By default, LAMMPS calculates
+                            the cross coefficients (here for the interactions between atoms
+                            of type 1 and 2) using geometric average:
+                            \(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\),
+                            \(\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}\). Note that the arithmetic rule, where
+                            \(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\) and
+                            \(\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2\), is more
+                            commonly used. However neither the geometric nor the arimetic
+                            rule is based on rigorous argument, so here the geometric
+                            rule will do just fine.<br><br>
+
+                            Cross parameters can also be explicitely specified using 'pair_coeff 1 2'.
+                        </div>
                         <p>
                             The input script is almost done, we just need to fill the
                             'Visualization' and 'Run' sections:
@@ -339,13 +345,15 @@ minimize 1.0e-4 1.0e-6 1000 10000
                             thermodynamic information (e.g. temperature, energy) in the
                             terminal every 10 timesteps.
                             The second line asks LAMMPS to perform an energy minimization
-                            of the system. 
-                            <blockquote>
-                                <b>About energy minimization</b>
-                                An energy minimization consists in adjusting
-                                the coordinates of the atoms until one of the stopping
-                                criteria is reached. Here there are four stopping criteria:
-                                <ul>
+                            of the system.
+                        </p> 
+                        <div id="boxtype2">
+                            <b>About energy minimization</b>
+                            <br><br>
+                            An energy minimization procedure consists in adjusting
+                            the coordinates of the atoms until one of the stopping
+                            criteria is reached. Here there are four stopping criteria:
+                            <ul>
                                 <li><b>1 - </b>The change in energy between two iterations
                                 is less than 1.0e-4,
                                 <li><b>2 - </b>the maximum force between two atoms in the
@@ -353,9 +361,8 @@ minimize 1.0e-4 1.0e-6 1000 10000
                                 <li><b> 3 - </b>the maximum number of iterations is 1000,
                                 <li><b>4 - </b>the maximum number of times the force and the
                                 energy have been evaluated is 10000.
-                                </ul>
-                            </blockquote>
-                        </p>
+                            </ul>
+                        </div>
                         <p>Now running the simulation, you should see the following lines in the terminal:
                             <pre><code>Step Temp E_pair E_mol TotEng Press
 0            0 5.8997404e+14            0 5.8997404e+14 1.5732641e+15
@@ -398,7 +405,8 @@ Stopping criterion = energy tolerance</code></pre>
                             building the pairwise neighbor lists (that are used by
                             LAMMPS to evaluate the interaction between atoms) more
                             frequently than the default value during the minimization.
-                            <br><br>
+                        </p>
+                        <p>
                             The system is ready, now let us start the second part of 
                             the input script, the molecular dynamics simulation. In the same script,
                             after the minimization command, add the following lines:
@@ -417,14 +425,18 @@ fix myefn all enforce2d
 timestep 0.005
 run 10000</code></pre>
                         </p>
-                        <blockquote>
-                            <b>Note:</b> Since LAMMPS reads the input from top to bottom, 
-                            these lines will be executed after the energy minimization. <br><br>
-                            There is no need to initialize the system (1), define it (2), or 
-                            specify the (3) settings again. <br><br>
-                            The thermo command is called a second time, so the previously entered 
-                            value of '10' will be overuled by the value of '1000'.
-                        </blockquote>
+                        <div id="boxtype2">
+                            <i>Remark --</i> Since LAMMPS reads the input from top to bottom, 
+                            these lines will be executed after the energy minimization.
+                        </div>
+                        <div id="boxtype1">
+                            <i>Remark --</i> There is no need to initialize the system (part 1), define it (part 2), or 
+                            specify the settings again (part 3).
+                        </div>
+                        <div id="boxtype2">
+                            <i>Remark --</i> The thermo command is called a second time, so the previously entered 
+                            value of '10' will be replaced by the value of '1000' as soon as the second run starts.
+                        </div>
                         <p>
                             <b>Explanations: </b>Three variables have been defined in order to 
                             print the kinetic energy, the potential energy, and the pressure of the system in 
@@ -494,79 +506,76 @@ Total wall time: 0:00:02</code></pre>
                             All three quantities rapidly evolve at the beginning of the simulation, before reaching 
                             an equilibrium value. 
                         </p>
-                        <p class="alert alert-info">
+                        <div id="boxtype1">
                             Become a <a href="../miscellaneous/contact.html">patreon</a> and receive ongoing support and advices for your project.
+                        </div>
+                    </section>
+                    <section id="trajectories">
+                        <h2>Trajectories visualisation</h2>
+                        <p>
+                            The simulation is running well, but we would like
+                            to visualize the trajectories of the atoms. To do so, we need
+                            to dump the positions of the atoms in a file at a
+                            regular interval. Add the following command in the
+                            'visualization' section of PART 2:
+                            <pre><code>dump mydmp all atom 1000 dump.lammpstrj</code></pre>
+                        </p>
+                        <p>
+                            Run LAMMPS again. A file named dump.lammpstrj must appear
+                            in the same folder as your input. This file can be opened using VMD or Ovito.
+                            In Ubuntu, if VMD is installed, you can simply execute in the terminal:
+                            <pre><code>vmd dump.lammpstrj</code></pre>
+                        </p>
+                        <p>
+                            Otherwise, you can open VMD and import the dump.lammpstrj file manually using file -> molecule. 
+                            You should see a cloud of lines. You can improve the representation and make it look 
+                            like that (see <a href="../miscellaneous/vmd.html" target="_blank">this short VMD guide</a>):
+                        </p>
+                        <p><img src="../figures/01-SimpleMolecularSimulation/input_01.png"
+                            class="img-fluid" alt="Responsive image">
+                        </p>
+                        <p>
+                            What you observe should resemble <a href="https://www.youtube.com/embed/bN2VV2gOLAw" target="_blank">this video</a>.
                         </p>
                     </section>
-                    <br><br>
-                    <!-- ======================================================= -->
-                    <!-- ======================================================= -->
-                    <!-- ======================================================= -->
-                    <section id="trajectories">
-                    <h2>Trajectories visualisation</h2>
-                    <p>
-                        The simulation is running well, but we would like
-                        to visualize the trajectories of the atoms. To do so, we need
-                        to dump the positions of the atoms in a file at a
-                        regular interval. Add the following command in the
-                        'visualization' section of PART 2:
-                        <pre><code>dump mydmp all atom 1000 dump.lammpstrj</code></pre>
-                    </p>
-                    <p>
-                        Run LAMMPS again. A file named dump.lammpstrj must appear
-                        in the same folder as your input. This file can be opened using VMD or Ovito.
-                        In Ubuntu, if VMD is installed, you can simply execute in the terminal:
-                        <pre><code>vmd dump.lammpstrj</code></pre>
-                    </p>
-                    <p>
-                        Otherwise, you can open VMD and import the dump.lammpstrj file manually using file -> molecule. 
-                        You should see a cloud of lines. You can improve the representation and make it look 
-                        like that (see <a href="../miscellaneous/vmd.html" target="_blank">this short VMD guide</a>):
-                    </p>
-                    <p><img src="../figures/01-SimpleMolecularSimulation/input_01.png"
-                        class="img-fluid" alt="Responsive image">
-                    </p>
-                    <p>
-                        What you observe should resemble <a href="https://www.youtube.com/embed/bN2VV2gOLAw" target="_blank">this video</a>.
-                    </p>
-                    </section>
-                    <br><br>
                     <section id="improved">
-                    <h2>Improving the script</h2>
-                    <p>
-                        Let us improve the input script and perform slightly more
-                        advanced operations.
-                        <br><br>
-                        Let us create the atoms of type 1 and 2 in two separate
-                        regions, respectively. Create a new input script, and call it input_02.lammps.
-                        Similarly to what has been done for input_01.lammps, 
-                        copy the following lines into the input script:
-                        <pre><code># 1) Initialization
+                        <h2>Improving the script</h2>
+                        <p>
+                            Let us improve the input script and perform slightly more
+                            advanced operations.
+                        </p>
+                        <p>
+                            Let us create the atoms of type 1 and 2 in two separate
+                            regions, respectively. Create a new input script, and call it input_02.lammps.
+                            Similarly to what has been done for input_01.lammps, 
+                            copy the following lines into the input script:
+                            <pre><code># 1) Initialization
 units lj
 dimension 2
 atom_style atomic
 pair_style lj/cut 2.5
 boundary p p p</code></pre>
-                    </p>
-                    <p>
-                        Let us create a box from a predefined region, and create two
-                        additional regions and generate atoms of type 1 and 2 in each
-                        region respectively.
-                        <pre><code># 2) System definition
+                        </p>
+                        <p>
+                            Let us create a box from a predefined region, and create two
+                            additional regions and generate atoms of type 1 and 2 in each
+                            region respectively.
+                            <pre><code># 2) System definition
 region mybox block -30 30 -30 30 -0.5 0.5
 create_box 2 mybox
 region mycylin cylinder z 0 0 15 INF INF side in
 region mycylou cylinder z 0 0 15 INF INF side out
 create_atoms 1 random 1000 341341 mycylou
 create_atoms 2 random 150 127569 mycylin</code></pre>
-                    </p>
-                    <p>
-                        <b>Explanations:</b> The 'side in' and 'side out' keywords
-                        allow us to define regions that are respectively 'inside the
-                        cylinder', and 'everything that is not inside the cylinder'.
-                        <br><br>
-                        We can write the remaining of the input script as follow:
-                        <pre><code># 3) Simulation settings
+                        </p>
+                        <p>
+                            <b>Explanations:</b> The 'side in' and 'side out' keywords
+                            allow us to define regions that are respectively 'inside the
+                            cylinder', and 'everything that is not inside the cylinder'.
+                        </p>
+                        <p>                                
+                            We can write the remaining of the input script as follow:
+                            <pre><code># 3) Simulation settings
 mass 1 1
 mass 2 1
 pair_coeff 1 1 1.0 1.0
@@ -616,53 +625,52 @@ write_data minimized_coordinate.data</code></pre>
 347 1 -2.4330866813628781e+01 -2.9373591404712414e+01 0.0000000000000000e+00 0 0 0
 448 1 -2.3610197298718113e+01 -2.8518785172533800e+01 0.0000000000000000e+00 0 0 0
 (...)</code></pre>
-                    </p>
-                    <p>
-                        <b>Explanations:</b> The columns of the Atoms section correspond (from left to right)
-                        to the atom indexes (from 1 to the total number of atoms,
-                        1150), the atom types (1 or 2 here), the atoms positions
-                        (\(x\), \(y\), \(z\)) and the atoms velocities
-                        (\(v_x\), \(v_y\), \(v_z\)).
-                    </p>
-                    <p class="alert alert-info">
-                        Support the creation of content for LAMMPS for just <a href="../miscellaneous/contact.html">1 euro per month</a> (and access 
-                        additional content and tips).
-                    </p>
+                        </p>
+                        <p>
+                            <b>Explanations:</b> The columns of the Atoms section correspond (from left to right)
+                            to the atom indexes (from 1 to the total number of atoms,
+                            1150), the atom types (1 or 2 here), the atoms positions
+                            (\(x\), \(y\), \(z\)) and the atoms velocities
+                            (\(v_x\), \(v_y\), \(v_z\)).
+                        </p>
+                        <div id="boxtype1">
+                            Support the creation of content for LAMMPS for just <a href="../miscellaneous/contact.html">1 euro per month</a> (and access 
+                            additional content and tips).
+                        </div>
                     </section>
-                    <br><br>
                     <section id="restarting">
-                    <h2>Restarting from a saved configuration </h2>
-                    <p>
-                        We are going to create a new input file and start a
-                        molecular dynamics simulation directly from the previously
-                        saved configuration. In the same folder, create a new file
-                        named input_03.lammps
-                        and copy the same lines as previously:
-                        <pre><code># 1) Initialization
+                        <h2>Restarting from a saved configuration </h2>
+                        <p>
+                            We are going to create a new input file and start a
+                            molecular dynamics simulation directly from the previously
+                            saved configuration. In the same folder, create a new file
+                            named input_03.lammps
+                            and copy the same lines as previously:
+                            <pre><code># 1) Initialization
 units lj
 dimension 2
 atom_style atomic
 pair_style lj/cut 2.5
 boundary p p p</code></pre>
-                    </p>
-                    <p>
-                        Now instead of creating a new region and adding atoms,
-                        we simply add the following command:
-                        <pre><code># 2) System definition
+                        </p>
+                        <p>
+                            Now instead of creating a new region and adding atoms,
+                            we simply add the following command:
+                            <pre><code># 2) System definition
 read_data minimized_coordinate.data</code></pre>
-                    </p>
-                    <p>
-                        By visualizing the previously generated dump.min.lammpstrj
-                        file, you may have noticed that some atoms have moved
-                        from one region to the other during minimisation,
-                        as seen in <a href="https://www.youtube.com/embed/gfJ_n33-F6A"
-                        target="_blank">this video</a>.
-                        <br><br>
-                        In order to start the simulation from a clean state, with
-                        only atoms of type 2 within the cylinder and atoms of
-                        type 1 outside the cylinder, let us delete the misplaced
-                        atoms by adding the following commands:
-                        <pre><code>region mycylin cylinder z 0 0 15 INF INF side in
+                        </p>
+                        <p>
+                            By visualizing the previously generated dump.min.lammpstrj
+                            file, you may have noticed that some atoms have moved
+                            from one region to the other during minimisation,
+                            as seen in <a href="https://www.youtube.com/embed/gfJ_n33-F6A"
+                            target="_blank">this video</a>.
+                            <br><br>
+                            In order to start the simulation from a clean state, with
+                            only atoms of type 2 within the cylinder and atoms of
+                            type 1 outside the cylinder, let us delete the misplaced
+                            atoms by adding the following commands:
+                            <pre><code>region mycylin cylinder z 0 0 15 INF INF side in
 region mycylou cylinder z 0 0 15 INF INF side out
 group mytype1 type 1
 group mytype2 type 2
@@ -672,17 +680,17 @@ group type1in intersect mytype1 incyl
 group type2ou intersect mytype2 oucyl
 delete_atoms group type1in
 delete_atoms group type2ou</code></pre>
-                    </p>
-                    <p>
-                        <b>Explanations:</b> These commands will respectively
-                        recreate the previously defined regions (regions are not
-                        saved by the write_data command), create groups, and
-                        finally delete the atoms of type 1 that are located
-                        within the cylinder, as well as the atoms of type 2 that
-                        are located outside the cylinder. If you run LAMMPS, you
-                        can see in the terminal how many atoms are in each group,
-                        and how many atoms have been deleted:
-                        <pre><code>1000 atoms in group mytype1
+                        </p>
+                        <p>
+                            <b>Explanations:</b> These commands will respectively
+                            recreate the previously defined regions (regions are not
+                            saved by the write_data command), create groups, and
+                            finally delete the atoms of type 1 that are located
+                            within the cylinder, as well as the atoms of type 2 that
+                            are located outside the cylinder. If you run LAMMPS, you
+                            can see in the terminal how many atoms are in each group,
+                            and how many atoms have been deleted:
+                            <pre><code>1000 atoms in group mytype1
 150 atoms in group mytype2
 120 atoms in group incyl
 1030 atoms in group oucyl
@@ -690,10 +698,10 @@ delete_atoms group type2ou</code></pre>
 31 atoms in group type2ou
 Deleted 1 atoms, new total = 1149
 Deleted 31 atoms, new total = 1118</code></pre>
-                    </p>
-                    <p>
-                        Similarly to previously, add the following simulation settings:
-                        <pre><code># 3) Simulation settings
+                        </p>
+                        <p>
+                            Similarly to previously, add the following simulation settings:
+                            <pre><code># 3) Simulation settings
 mass 1 1
 mass 2 1
 pair_coeff 1 1 1.0 1.0
@@ -705,14 +713,14 @@ group type2 type 2
 # 4) Visualization
 thermo 50000
 dump mydmp all atom 5000 dump.RUN.lammpstrj</code></pre>
-                    </p>
-                    <p>
-                        Note that 2 atom groups have been defined, they are useful here
-                        to extract the coordination number between atoms of type 1 and 2.
-                        Let us extract this coordination number, as well as the number
-                        of atoms of each type in each region, by adding the
-                        following commands to the input file:
-                        <pre><code>variable Ntype1in equal count(mytype1,mycylin)
+                        </p>
+                        <p>
+                            Note that 2 atom groups have been defined, they are useful here
+                            to extract the coordination number between atoms of type 1 and 2.
+                            Let us extract this coordination number, as well as the number
+                            of atoms of each type in each region, by adding the
+                            following commands to the input file:
+                            <pre><code>variable Ntype1in equal count(mytype1,mycylin)
 variable Ntype1ou equal count(mytype1,mycylou)
 variable Ntype2in equal count(mytype2,mycylin)
 variable Ntype2ou equal count(mytype2,mycylou)
@@ -721,18 +729,18 @@ fix myat2 all ave/time 1000 10 10000 v_Ntype2in v_Ntype2ou file population2vstim
 compute coor12 type1 coord/atom cutoff 2.0 group type2
 compute sumcoor12 all reduce ave c_coor12
 fix myat3 all ave/time 1000 10 10000 c_sumcoor12 file coordinationnumber12.dat</code></pre>
-                    </p>
-                    <p>
-                        <b>Explanations:</b> As seen previously, the fixes ave/times allow to evaluate
-                        previously defined
-                        variables and print the values (here every 10000 steps, averaged 10 times)
-                        into data file. The variables Ntype* are used to count the number
-                        of atoms of a specific group in a specific region.
-                        The compute ave is used to average the per atom coordination number 
-                        resulting of the coord/atom compute. 
-                        <br><br>
-                        Finally, let us complete the script by adding the run section:
-                        <pre><code># 5) Run
+                        </p>
+                        <p>
+                            <b>Explanations:</b> As seen previously, the fixes ave/times allow to evaluate
+                            previously defined
+                            variables and print the values (here every 10000 steps, averaged 10 times)
+                            into data file. The variables Ntype* are used to count the number
+                            of atoms of a specific group in a specific region.
+                            The compute ave is used to average the per atom coordination number 
+                            resulting of the coord/atom compute. 
+                            <br><br>
+                            Finally, let us complete the script by adding the run section:
+                            <pre><code># 5) Run
 velocity all create 1.0 4928459 mom yes rot yes dist gaussian
 fix mynve all nve
 fix mylgv all langevin 1.0 1.0 0.1 1530917 zero yes
@@ -740,56 +748,53 @@ fix myefn all enforce2d
 timestep 0.005
 run 3000000
 write_data data.mixed.lammps</code></pre>
-                    </p>
-                    <p>
-                        <b>Explanations:</b> There are a few differences with the
-                        previous input script. First, the 'velocity create' command
-                        attributes an initial velocity to all the atoms.
-                        The initial velocity is chosen so that the initial temperature
-                        is equal to 1 (unitless). The additional keywords ensure
-                        that no linear momentum and no angular momentum are given
-                        to the system, and that the generated velocities are
-                        distributed as a Gaussian. Another novelty is the
-                        'zero yes' keyword in the Langevin thermostat,
-                        that ensures that the total random force is equal to zero.
-                        <br><br>
-                        After running the simulation, you can observe the number
-                        of atoms in each region from the generated data files, as 
-                        well as the evolution of the coordination number due to mixing:
-                    </p>
-                    <p>
-                        <img src="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials.github.io/main/inputs/01-SimpleMolecularDynamics/Population.png"
-                        class="img-fluid" alt="Result tutorial molecular dynamics simulation: Poputation envolution with time.">
-                    </p>
-                    <p>
-                        The final simulation should resemble
-                        <a href="https://www.youtube.com/embed/-ouevxQ6-Jw"
-                        target="_blank">this video</a>.
-                    </p>
-                    <p>
-                        You can access the input scripts that have been written
-                        in this tutorial from the
-                        <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs/01-SimpleMolecularDynamics"
-                        target="_blank" class="removelinkdefault">Github repository</a>  of LAMMPS tutorial.
-                    </p>
+                        </p>
+                        <p>
+                            <b>Explanations:</b> There are a few differences with the
+                            previous input script. First, the 'velocity create' command
+                            attributes an initial velocity to all the atoms.
+                            The initial velocity is chosen so that the initial temperature
+                            is equal to 1 (unitless). The additional keywords ensure
+                            that no linear momentum and no angular momentum are given
+                            to the system, and that the generated velocities are
+                            distributed as a Gaussian. Another novelty is the
+                            'zero yes' keyword in the Langevin thermostat,
+                            that ensures that the total random force is equal to zero.
+                            <br><br>
+                            After running the simulation, you can observe the number
+                            of atoms in each region from the generated data files, as 
+                            well as the evolution of the coordination number due to mixing:
+                        </p>
+                        <p>
+                            <img src="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials.github.io/main/inputs/01-SimpleMolecularDynamics/Population.png"
+                            class="img-fluid" alt="Result tutorial molecular dynamics simulation: Poputation envolution with time.">
+                        </p>
+                        <p>
+                            The final simulation should resemble
+                            <a href="https://www.youtube.com/embed/-ouevxQ6-Jw"
+                            target="_blank">this video</a>.
+                        </p>
+                        <p>
+                            You can access the input scripts that have been written
+                            in this tutorial from
+                            <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs/01-SimpleMolecularDynamics"
+                            target="_blank" class="removelinkdefault">Github</a>.
+                        </p>
                     </section>
-                    <br><br>
                     <section id="further">
                         <h2>Going further with exercises</h2>
-                        <br>
-                        <p class="alert alert-info"> 
+                        <div id="boxtype2">
                             Request the solutions by email, or register <a target="_blank"
                             href="https://www.patreon.com/molecularsimulations">here</a> and access all the solutions
                             + additional LAMMPS content.
-                        </p>
-                        <br>
+                        </div>
                         <h4><b>Preamble : on the importance of energy minimisation</b></h4>
                         <p>
                             A good way to master LAMMPS and
                             molecular dynamics simulations is to play around with a
                             script that is already working and observe the differences
                             and/or errors occurring. For example, with the input
-                            file input_01.lammps, we can explore what appends if we don't perform a
+                            file input_01.lammps, we can explore what happens if we don't perform a
                             minimisation step and start the molecular dynamics directly.
                             To do so, comment the two following lines:
                             <pre><code># thermo	10
@@ -813,50 +818,51 @@ Last command: run 10000</code></pre>
                             consequence, atoms are moving by large distances during
                             the firsts timesteps, and LAMMPS loses them.
                         </p>
-                        <h4><b>Exercise 1 : perform a minimization using fix langevin only</b></h4>
+                        <br><h4><b>Exercise 1 : perform a minimization using fix langevin only</b></h4>
                         <p>
-                            Perform an energy minimization without using the the minimize command (this is sometimes 
-                            usefull, particularly for rigid water models). 
-                            <blockquote><i>
-                                Hint 1: play with both timestep and damping factor of the fix langevin.
-                            </blockquote></i>
-                            <blockquote><i>
-                                Hint 2: perform several consecutive steps.
-                            </blockquote></i>
-                            <blockquote><i>
-                                Hint 3: have a look at fix nve/limit.
-                            </blockquote></i>
+                            Perform an energy minimization without using the minimize command (this is sometimes 
+                            usefull, particularly for rigid water models using shake for whiches the minimize command
+                            cant be used). 
+                            <div id="boxtype1">
+                                <i>Hint --</i> adjust both the value of the timestep and the damping factor of the fix langevin
+                            </div>
+                            <div id="boxtype2">
+                                <i>Hint --</i> perform several consecutive runs (the very first run with small timestep, the 
+                                last one with normal timestep)
+                            </div>
+                            <div id="boxtype1">
+                                <i>Hint --</i> have a look at fix nve/limit, this command is made explicitely to 
+                                prevent an unequilibrated system for exploding
+                            </div>
                         </p>
-                        <h4><b>Exercise 2a : make the same simulation in 3D</b></h4>
+                        <br><h4><b>Exercise 2a : make the same simulation in 3D</b></h4>
                         <p>
                             Does the system reaches equilibrium (i.e. a fully mixed state) faster? or slower?
                         </p>
-                        <h4><b>Exercise 2b : perform an actual NVE simulation</b></h4>
+                        <br><h4><b>Exercise 2b : perform an actual NVE simulation</b></h4>
                         <p>
                             Despite using the NVE fix, simulations here are not performed in 
-                            the NVE ensemble. Starting from the system of the Exercise 2a,
+                            the NVE ensemble (because of the use of the thermostat). Starting from the system of the Exercise 2a,
                             perform a simulation in the NVE ensemble and 
                             extract the energy over time. Is it conserved as expected?
                             What if you do the same with a 2D simulation?
-                        <blockquote><i>
-                            Hint: smaller timestep gives better energy conservation.
-                        </blockquote></i>
                         </p>
-                        <h4><b>Exercise 3 : induce a net flow</b></h4>
+                        <div id="boxtype1">
+                            <i>Hint --</i> a smaller value for the timestep gives better energy conservation
+                        </div>
+                        <br><h4><b>Exercise 3 : induce a net flow</b></h4>
                         <p>
-                            So far, atoms were freely diffusing. Add an acceleration to them to 
-                            force a flow of the atom in a direction. The value for the
+                            So far, atoms were freely diffusing. Add an external acceleration to
+                            induce a net flow of atoms in aone direction. The value for the
                             acceleration must be chosen so that the system is not 'too
-                            out-of-equilibrium'.
-                            <br><br>
-                            The final simulation should resembles
+                            out-of-equilibrium'. The final simulation should resembles
                             <a href="https://www.youtube.com/embed/J-skFWlemto"
                             target="_blank">this video</a>.
                         </p>
-                        <p class="alert alert-info">
-                            <a href="../miscellaneous/contact.html">Click here</a>
-                            to contact me.
-                        </p>
+                        <div id="boxtype1">
+                            <a href="../miscellaneous/contact.html">Contact me </a>if you have any question about these tutorials
+                            (or about your own project). 
+                        </div>
                     </section>
                 </div>
             </div>
