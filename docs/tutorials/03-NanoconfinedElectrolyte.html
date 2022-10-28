@@ -288,7 +288,9 @@ angle_coeff 1 0 104.52 # water</code></pre>
                         Only assigned pairwise interaction between atoms of
                         identical type we assign. By default, LAMMPS calculates the pair
                         coefficients for the interactions between atoms of different types (i and j)
-                        by using geometrical average (\( \epsilon_{ij} = (\epsilon_i + \epsilon_j)/2 \)). 
+                        by using geometrical average:
+                        \[ \epsilon_{ij} = (\epsilon_i + \epsilon_j)/2, \]
+                        \[ \sigma_{ij} = (\sigma_i + \sigma_j)/2. \]
                     </div>
                     <div id="boxtype2">
                         Other rules for cross coefficients can be
@@ -308,7 +310,7 @@ angle_coeff 1 0 104.52 # water</code></pre>
                         is in degree.
                     </p>
                     <p>
-                        Finally, add the following line to the input file:
+                        Finally, add the following lines to the input file:
                         <pre><code># run
 run 10
 
@@ -337,32 +339,57 @@ write_dump all atom dump.lammpstrj</code></pre>
                         final positions of the atoms, and can be used with VMD or ovito.
                     </p>
                     <p>
-                        This input script is ready to be ran with LAMMPS.
+                        This input script is ready to be ran with LAMMPS. When the run is over, 
+                        open the log file and make sure that atoms have been created (look 
+                        for lines like 'Created 3648 atoms'), or just look at the dump file with VMD:
                     </p>
+                    <p>
+                        <img src="../figures/03-NanoshearedElectrolyte/systemcreation.png" 
+                        class="img-fluid" style="width:80%" alt="Nanoconfined electrolyte initial system">
+                        <br>
+                        <small> Left: side view. Periodic images are represented in light color. 
+                            Water molecules are in red and white, Na\(^+\) ions in purple, Cl\(^+\) ions in lime, and walls in gray. 
+                            Right: top view. Note the absence of atomic defect at the cell boundaries. </small>
+                    </p>
+                    <div id="boxtype2"> 
+                        Always check that your system has been correctly created by showing 
+                        the periodic images. Atomic defects often occur at the boundary.
+                    </div>
                 </section>
                 <section id="minimisation">
                 <h2>Energy minimisation</h2>
-
-                <h4><b>Why is this step necessary?</b></h4>
-
-                <p>
-                It is clear from the way the system has been created that
-                the atoms are not at equilibrium distances from each others.
-                Indeed, some of the ions added using the 'fix deposit'
-                commands are too close to the water molecules. If we were
-                to start a 'normal' molecular dynamics simulation now
-                (i.e. solve the equations of motion) with a 'normal'
-                timestep (1  or 2 femto-seconds), the atoms would exert
-                huge forces on each others, as a consequence they would
-                accelerate brutally, and the simulation would fail. 
-                </p>
-                <p>
-                <blockquote><i>MD simulations failing due to overlapping atoms
-                is extremely common. If it occurs, you can either (1) 
-                delete the overlapping atoms or (2) move the atoms to more 
-                reasonable distances (here we do the second one).</i>
-                </blockquote>
-                </p>
+                <div id="boxtype2"> 
+                    <b>Why is this step necessary?</b>
+                    <br><br>
+                    It is clear from the way the system has been created that
+                    the atoms are not at equilibrium distances from each others.
+                    Indeed, some of the ions added using the 'fix deposit'
+                    commands are too close to the water molecules. If we were
+                    to start a 'normal' molecular dynamics simulation now
+                    (i.e. solve the equations of motion) with a 'normal'
+                    timestep (1  or 2 femto-seconds), the atoms would exert
+                    huge forces on each others, accelerate brutally, and the simulation would fail (you can try). 
+                </div>
+                <div id="boxtype1"> 
+                    MD simulations failing due to overlapping atoms
+                    are extremely common, and I can almost guarantee that you will face 
+                    a similar issue at some point. If it occurs, you can either 
+                    <ul>
+                        <li>
+                            (1) 
+                        delete the overlapping atoms (like we did in <a href="02-PEGinH2O.html">tutorial number 2</a>),
+                        </li>
+                        <li>
+                            (2) move the atoms to more 
+                            reasonable distances using some kind of energy minization before 
+                            the simulation starts (here, this is what we do).
+                        </li>
+                    </ul>
+                </div>
+                <div id="boxtype2">
+                    Support the creation of content for LAMMPS for just <a href="../miscellaneous/contact.html">1 euro per month</a> (and access 
+                    additional content and tips).
+                </div>
                 <p>
                 Here we need to find a way to move the atoms
                 and place them in a more favorable position before starting
