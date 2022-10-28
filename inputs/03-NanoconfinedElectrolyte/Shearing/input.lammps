@@ -47,14 +47,16 @@ velocity gwallbot set -20e-5 NULL NULL
 velocity gwalltop set 20e-5 NULL NULL
 
 # vizualisation
-dump mydmp all atom 1000 dump.lammpstrj
-thermo 50
+dump mydmp all atom 5000 dump.lammpstrj
+thermo 500
 thermo_modify temp tliq
 
-compute cc1 gliquid chunk/atom bin/1d y 0.0 1.0
-fix myac1 gliquid ave/chunk 10 1500 20000 cc1 vx file vel.profile.dat
+compute cc1 gliquid chunk/atom bin/1d z 0.0 1.0
+fix myac1 gliquid ave/chunk 10 15000 200000 cc1 vx file vel.profile.dat
+
+fix myat1 all ave/time 10 1000 10000 f_mysf1[1] f_mysf2[1] file forces.dat
 
 timestep 1.0
-run 20000
+run 200000
 write_data data.lammps
 
