@@ -13,19 +13,31 @@ pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
 kspace_style pppm/tip4p 1.0e-4
 
 # System definition
-read_data ../Minimization/data.lammps
+read_data ../Minimization/system.data
 
 # Simulation settings
 include ../PARM.lammps
+
+# Define groups
 group gH2O type 1 2
 group gNa type 3
 group gCl type 4
 group gliquid type 1 2 3 4
 group gwall type 5
+region rtop block INF INF INF INF 0 INF
+region rbot block INF INF INF INF INF 0
+group gtop region rtop
+group gbot region rbot
+group gwalltop intersect gwall gtop
+group gwallbot intersect gwall gbot
 
-# vizualisation
+# visualisation
 dump mydmp all atom 1000 dump.lammpstrj
 thermo 50
+variable walltopz equal xcm(gwalltop,z)
+variable wallbotz equal xcm(gwallbot,z)
+variable deltaz equal v_walltopz-v_wallbotz
+fix myat1 all ave/time 10 10 100 v_deltaz file interwall_distance.dat
 
 # Dynamics
 fix mynve all nve
@@ -40,5 +52,5 @@ fix myrct all recenter NULL NULL INIT
 
 timestep 1.0
 run 20000
-write_data data.lammps
+write_data system.data
 

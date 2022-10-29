@@ -19,12 +19,7 @@ read_data ../SystemCreation/data.lammps
 include ../PARM.lammps
 
 group gH2O type 1 2
-group gNa type 3
-group gCl type 4
-group gliquid type 1 2 3 4
-group gtopwall type 5
-group gbotwall type 6
-group gwall type 5 6
+
 dump mydmp all atom 1000 dump.lammpstrj
 
 # run
@@ -34,13 +29,13 @@ dump mydmp all atom 1000 dump.lammpstrj
 #fix myaf1 gtopwall aveforce NULL NULL 0
 #fix myaf2 gbotwall aveforce NULL NULL 0
 
-fix mynve all nve
+fix mynve all nve/limit 0.1
 fix myber all temp/berendsen 1 1 1
 
 fix myshk gH2O shake 1.0e-4 200 0 b 1 a 1
 fix myrct all recenter NULL NULL INIT
 
-timestep 0.1
+timestep 0.5
 thermo 50
 run 10000
 write_data data.lammps
