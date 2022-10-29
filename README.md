@@ -18,7 +18,7 @@ You can report issue here, or send me an [email](https://simongravelle.github.io
   <img src="docs/figures/02-PEGinH2O/avatar.jpg" width="32%" /></a>
 
   <a href="https://lammpstutorials.github.io/tutorials/03-NanoconfinedElectrolyte.html">
-  <img src="docs/figures03-NanoshearedElectrolyte/avatar.jpg" width="32%" /></a>
+  <img src="docs/figures/03-NanoshearedElectrolyte/avatar.jpg" width="32%" /></a>
   
   <a href="https://lammpstutorials.github.io/tutorials/04-Graphene.html">
   <img src="docs/figures/04-Graphene/avatar.jpg" width="32%" /></a>
