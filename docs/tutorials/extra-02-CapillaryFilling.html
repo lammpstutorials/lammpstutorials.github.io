@@ -33,14 +33,23 @@
 <br>
 <span class="image main"><img src="../figures/extra02-CapillaryFilling/lammps_tuto03.jpg" alt="" /></span>
 
+
+
 <p>
+
+	Warning: This tutorial may be obsolete.
+
+	<br><br>
 
 In this tutorial, we are going to simulate the capillary filling of a LJ fluid in a disordered porous medium. If you are not already familiar with LAMMPS and molecular dynamics, I suggest you to follow <a href="../tuto01/tuto01a.html">tutorial 1</a> and <a href="../tuto02/tuto02a.html">tutorial 2</a> first. 
 
 <br><br>
 
-If you already have a good grasp on LAMMPS, you can download directly the input scripts that will be written following this tutorial, respectively <a href="input.fluid.lammps" target="_blank">input.fluid.lammps</a>, <a href="input.porous.lammps" target="_blank">input.porous.lammps</a>, and <a href="input.filling.lammps" target="_blank">input.filling.lammps</a>.
-
+<p>
+	If you already have a good grasp on LAMMPS, you can download directly the input scripts that will be written following this tutorial on
+	<a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs/extra-02-CapillaryFilling/"
+	target="_blank" class="removelinkdefault">Github</a>.
+</p>
 <br><br>
 
 </p>
@@ -81,7 +90,7 @@ fix		mynpt all npt temp 1.0 1.0 0.1 x 1.0 1.0 1.0
 run		10000
 write_data	data.fluid.lammps
 </code></pre></p><p>
-If you followed tutorials <a href="../tuto01/tuto01a.html">1</a> and <a href="../tuto02/tuto02a.html">2</a>, you may notice 3 novelties here. First, the absence of the command 'dimension 2' in the 'Initialisation' section. Implicitly, we are using 'dimension 3' but we don't have to specify it because it is the default value. Another novelty is that we use the '*' in the mass and pair_coeff command, therefore the commands apply to all three atom types of the simulation. Finally we are using the npt command. This command replaces the 'nve' and 'langevin' previously used. This command performs a time integration that is consistent with the isothermal-isobaric ensemble, and updates the position and velocity for atoms each timestep. Here, the npt command is used to impose a temperature of 1 (unitless) to all of the atom (there are only atoms of type 2 in the present simulation) as well as a pressure of 1 (unitless). In order to impose the pressure, only the 'x' dimension of the box is adjusted until the desired pressure is reached. This way the dimensions of the box along y and z remain unchanged, which will be practical later. You can run this script using LAMMPS. You should see the following in the terminal: 
+If you followed tutorials <a href="01-SimpleMolecularSimulation.html">1</a>, you may notice 3 novelties here. First, the absence of the command 'dimension 2' in the 'Initialisation' section. Implicitly, we are using 'dimension 3' but we don't have to specify it because it is the default value. Another novelty is that we use the '*' in the mass and pair_coeff command, therefore the commands apply to all three atom types of the simulation. Finally we are using the npt command. This command replaces the 'nve' and 'langevin' previously used. This command performs a time integration that is consistent with the isothermal-isobaric ensemble, and updates the position and velocity for atoms each timestep. Here, the npt command is used to impose a temperature of 1 (unitless) to all of the atom (there are only atoms of type 2 in the present simulation) as well as a pressure of 1 (unitless). In order to impose the pressure, only the 'x' dimension of the box is adjusted until the desired pressure is reached. This way the dimensions of the box along y and z remain unchanged, which will be practical later. You can run this script using LAMMPS. You should see the following in the terminal: 
 </p>
 <pre><code>Step Temp E_pair E_mol TotEng Press Volume 
        0            1   -6.4715435            0   -4.9716935  -0.51399353        13600 
