@@ -18,16 +18,16 @@ You can report issue here, or send me an [email](https://simongravelle.github.io
   <img src="docs/figures/02-PEGinH2O/avatar.jpg" width="32%" /></a>
 
   <a href="https://lammpstutorials.github.io/tutorials/03-NanoconfinedElectrolyte.html">
-  <img src="docs/figures/tutorial03/avatar.jpg" width="32%" /></a>
+  <img src="docs/figures/03-NanoshearedElectrolyte/avatar.jpg" width="32%" /></a>
   
   <a href="https://lammpstutorials.github.io/tutorials/04-Graphene.html">
-  <img src="docs/figures/tutorial04/avatar.jpg" width="32%" /></a>
+  <img src="docs/figures/04-Graphene/avatar.jpg" width="32%" /></a>
   
   <a href="https://lammpstutorials.github.io/tutorials/05-FluidCrack.html">
-  <img src="docs/figures/tutorial05/avatar.jpg" width="32%" /></a>
+  <img src="docs/figures/05-FluidCrack/avatar.jpg" width="32%" /></a>
   
   <a href="https://lammpstutorials.github.io/tutorials/06-FreeEnergy.html">
-  <img src="docs/figures/tutorial02/avatar.jpg" width="32%" /></a>
+  <img src="docs/figures/06-FreeEnergy/avatar.jpg" width="32%" /></a>
 </p>
 
 ### About me ###

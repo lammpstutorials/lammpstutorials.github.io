@@ -84,7 +84,7 @@
 						<h3>A simple sampling of a free energy barrier using WHAM</h3>
 						<br>
 						<p>
-							<img src="../figures/tutorial02/largerRes.jpg" width="300"
+							<img src="../figures/06-FreeEnergy/largerRes.jpg" width="300"
 							class="img-fluid" alt="Responsive image">
 						</p>
 						<p>
@@ -96,7 +96,7 @@
 							The procedure is valid for more complex systems. 
 						</p>
 						<p>
-							<img src="../figures/tutorial02/EnergyAndPotential.jpg" 
+							<img src="../figures/06-FreeEnergy/EnergyAndPotential.jpg" 
 							class="img-fluid" alt="Responsive image">
 							<br>
 							<small> 
@@ -117,16 +117,21 @@
 								</li>
 							</ul>
 						</p>
-						<p>
-							If you are new to LAMMPS, I recommend you to follow
-						    <a href="01-SimpleMolecularSimulation.html">this simpler tutorial</a> first.
-						</p>
-						<p class="alert alert-info"> <a href="../miscellaneous/contact.html">
-							Click here</a> if you are looking for help with your project, if you want to support
-						    me (for free or not), or if you have any suggestions for these tutorials.
-						</p>
 					</section>
-					<br><br>
+                    <section>
+                        <div id="boxtype2">
+                            If you are new to LAMMPS, I recommend you to follow
+                            <a href="01-SimpleMolecularSimulation.html">this simpler tutorial</a> first.
+                        </div>
+                        <div id="boxtype1">
+                            <a href="../miscellaneous/contact.html">Contact me</a> if you have any question about these tutorials
+                            (or about your own project). 
+                        </div>
+                        <div id="boxtype2">
+                                You can <a href="../miscellaneous/contact.html">support the creation</a> of content for LAMMPS for 1 euro 
+                                per month (and access extra content and tips).
+                        </div>
+                    </section>
 					<section id="freesampling">
 						<h2>Method 1: Free sampling </h2>
 						<h4><b>Introduction</b></h4>
@@ -145,6 +150,7 @@
 							makes the centre of the box a relatively unfavourable area
 							to explore. 
 						</p>
+						<br><br>
 						<h4><b>Basic LAMMPS parameters</b></h4>
 						<p>
 							Create an input script, and copy the following lines:
@@ -177,6 +183,7 @@ boundary		p p p</code></pre>
 							a cut-off equal to \( \sigma \times 2 ^ {1/6} \) (i.e. a WCA repulsive potential). 
 							The potential is shifted to be equal to 0 at the cut-off using the pair_modify.
 						</p>
+						<br><br>
 						<h4><b>System creation and settings</b></h4>
 						<p>
 							Let us define the simulation block and randomly add atoms:
@@ -204,6 +211,7 @@ neigh_modify		every 1 delay 4 check yes</code></pre>
 							to impose to the particles in the simulation,
 							\[F(x)=U_0/((x-x_0)^2/\delta^2+1)/\delta-U_0/((x+x_0)^2/\delta^2+1)/\delta.\]
 						</p>
+						<br><br>
 						<h4><b>Energy minimization and equilibration</b></h4>
 						<p>
 							Let us minimize the energy, and then impose 
@@ -237,6 +245,7 @@ timestep		2.0
 thermo			100000
 run			2000000</code></pre>
 						</p>
+						<br><br>
 						<h4><b>Run and data aquisition</b></h4>
 						<p>
 							Finally, let us record the
@@ -256,13 +265,14 @@ run			10000000</code></pre>
 						<p>
 							The simulation needs a few minutes to complete. You can visualize the dump file using VMD.
 						</p>
+						<br><br>
 						<h4><b>Data analysis</b></h4>
 						<p>
 							First, let us make sure that the equilibration duration of 4 ns is long enough by looking at the 
 							'density_evolution.dat' file (left panel):
 						</p>
 						<p>
-							<img src="../figures/tutorial02/Density.jpg" 
+							<img src="../figures/06-FreeEnergy/Density.jpg" 
 							class="img-fluid" alt="Responsive image">
 							<br>
 							<small> Left: evolution of the number of atoms in the central region
@@ -280,13 +290,13 @@ run			10000000</code></pre>
 							The results show a good agreement with the expected energy profile (despite a bit of noise in the central part):
 						</p>
 						<p>
-							<img src="../figures/tutorial02/Potential_free_sampling.jpg" 
+							<img src="../figures/06-FreeEnergy/Potential_free_sampling.jpg" 
 							class="img-fluid" alt="Responsive image">
 							<br>
 							<small> Left: calculated potential after 1 run (2 ns). 
 							Right:calculated potential after 10 runs (20 ns). </small>
 						</p>
-						<br>
+						<br><br>
 						<h4><b>The limits of free sampling</b></h4>
 						<p>
 							If we increase the value of \(U_0\), the average number of atoms
@@ -297,7 +307,7 @@ run			10000000</code></pre>
 							(possibly days)): 
 						</p>
 						<p>
-							<img src="../figures/tutorial02/Potential_free_sampling_largeU0.jpg" 
+							<img src="../figures/06-FreeEnergy/Potential_free_sampling_largeU0.jpg" 
 							class="img-fluid" alt="Responsive image">
 							<br>
 							<small> Results for larger value of \(F\). Left: averaged density profile  10 run (20 ns). 
@@ -309,7 +319,6 @@ run			10000000</code></pre>
 							we are going to do next.
 						</p>
 					</section>
-					<br><br>
 					<section id="Umbrellasampling">
 						<h2>Method 2: Umbrella sampling </h2>
 						<br>
@@ -327,7 +336,7 @@ run			10000000</code></pre>
 							to remove the effect of the bias and eventually deduce the unbiased
 							free energy profile. 
 						</p>
-						<br>
+						<br><br>
 						<h4><b>LAMMPS input script</b></h4>
 						<p>
 							Create a new script
@@ -410,12 +419,12 @@ jump 			SELF loop</code></pre>
 							enough to have some overlap in the density probability of two neighbor positions, like we have here.
 							</blockquote></i>
 						</p>
-						<p><img src="../figures/tutorial02/Density_Probability.jpg" class="img-fluid"
+						<p><img src="../figures/06-FreeEnergy/Density_Probability.jpg" class="img-fluid"
 						alt="Responsive image">
 						<br>
 						<small>Density probability for each run. Note the good overlapping.</small>
 						</p>
-						<br>
+						<br><br>
 						<h4><b>WHAM algoritm</b></h4>
 						<p>
 							In order to treat the data, we are going to use the WHAM algorithm.
@@ -456,7 +465,7 @@ end</code></pre>
 							PMF.dat has been created, and contains the free energy profile in
 							Kcal/mol. 
 						</p>
-						<br>
+						<br><br>
 						<h4><b>Results</b></h4>
 						<p>
 							We can compare the PMF with we the imposed potential,
@@ -464,7 +473,7 @@ end</code></pre>
 							calculation time:
 						</p>
 						<p>
-							<img src="../figures/tutorial02/Potential_umbrella_sampling.jpg" class="img-fluid"
+							<img src="../figures/06-FreeEnergy/Potential_umbrella_sampling.jpg" class="img-fluid"
 						alt="Responsive image">
 							<br>
 							<small>Potential as predicted from umbrella sampling for different run durations. 
@@ -476,58 +485,47 @@ end</code></pre>
 					<section id="further">
 						<h2>Going further with exercises</h2>
 						<br>
-						<p class="alert alert-info"> 
-						Request the solutions by email, or register <a target="_blank"
-						href="https://www.patreon.com/molecularsimulations">here</a> and access all the solutions
-						+ additional LAMMPS content.
-						</p>
-						<br>
+						<div id="boxtype2">
+							Request the solutions by <a href="../miscellaneous/contact.html">email</a>, or become a <a target="_blank"
+							href="https://www.patreon.com/molecularsimulations">patreon for 1 euro per month</a> and access all the solutions
+							+ additional LAMMPS content.
+						</div>
+						<br><br>
 						<h4><b>Exercise 1: Monte Carlo versus molecular dynamics</b></h4>
 						<p>
 							Use a Monte Carlo procedure to equilibrate the system instead of 
 							molecular dynamics. Is it more efficient than molecular dynamics?
-							<blockquote><i>
-							Hint: pure MC move can be made using the fix gcmc. 
-							</blockquote></i>
 						</p>
+						<div id="boxtype1">
+							Pure MC move can be made using the fix gcmc. 
+						</div>
+						<br><br>
 						<h4><b>Exercise 2 : Binary fluid simulation</b></h4>
 						<p>
 							Create a molecular simulation with two species, and apply a different
 							potential on them using addforce to create the following situation:
 						</p>
-						<p><img src="../figures/tutorial02/binary.jpg" class="img-fluid"
+						<p><img src="../figures/06-FreeEnergy/binary.jpg" class="img-fluid"
 						alt="Responsive image">
 						</p>
-						<!--
-						<h4><b>Exercise 2b : using swap exchange</b></h4>
-						<p>
-						Starting from the previous simulation, equilibrate the two population
-						of atoms using atom/swap instead of molecular dynamics.  
-						<blockquote><i>
-						Hint: only swapping atoms identity (1 <-> 2) without moving them will no led to
-						an equilibrium situation, but swapping can be mixed with molecular dynamics. 
-						</blockquote></i>
-						</p>
-						-->
+						<br><br>
 						<h4><b>Exercise 3 : Adsorption energy of a molecule at a solid wall</b></h4>
 						<p>
 							Apply umbrella sampling to calculate the free energy profile of a molecule of your
 							choice normally to a solid wall. 
-							<blockquote><i>
-							Hint: A non-equilibrated system contraining a few ethanol molecules can be downloaded:
+						</p>
+						<div id="boxtype2">
+							A non-equilibrated system containing a few ethanol molecules can be downloaded:
 							<a target="_blank"
 							href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs/06-FreeEnergy/exercice3">here</a>
 							(the method to create this system using molecules structures downloaded from the ATB 
 							is given in the <a target="_blank"
-							href="https://www.patreon.com/molecularsimulations">solution to the exercice</a>)
-							</blockquote></i>
-						</p>
-						<p class="alert alert-info"> 
-							<a href="../miscellaneous/contact.html">Click here</a>
-							if you are looking for help with your project, if you want to
-							support me (for free or not), or if you have any suggestions
-							for these tutorials.
-						</p>
+							href="https://www.patreon.com/molecularsimulations">solutions to the exercises</a>)
+						</div>
+						<div id="boxtype1">
+							<a href="../miscellaneous/contact.html">Contact me </a>if you have any question about these tutorials
+							(or about your own project). 
+						</div>
 					</section>
 				</div>
 			</div>
