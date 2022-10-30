@@ -1,12 +1,12 @@
 <a href="https://lammpstutorials.github.io">
 <img src="docs/figures/welcome.png" width="80%" /></a>
 
-This is the repository of the webpage [LAMMPS Tutorials](https://lammpstutorials.github.io/). 
-The LAMMPS inputs script can be found in the [inputs](inputs/) folder. 
+This is the repository of the [LAMMPS Tutorials](https://lammpstutorials.github.io/) webpage. 
+All LAMMPS input scripts and data files can be found in the [inputs](inputs/) folder. 
 
 ### You found an issue on one of the tutorial? ###
 
-You can report issue here, or send me an [email](https://simongravelle.github.io/). Your feedback is always highly appreciated.
+You can report issue here on Github, or send me an [email](https://simongravelle.github.io/). Your feedback is always highly appreciated.
 
 ### Tutorials ###
 
