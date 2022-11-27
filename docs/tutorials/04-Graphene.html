@@ -321,7 +321,7 @@ group gmid region rmid</code></pre>
                         <p>
                             Let us specify the thermalisation and the dynamics of the system.
                             Add the following lines to input.lammps:
-                        <pre><code>velocity gmid create ${T} 48455 mom yes rot yes
+                            <pre><code>velocity gmid create ${T} 48455 mom yes rot yes
 fix mynve all nve
 compute Tmid gmid temp
 fix myber gmid temp/berendsen ${T} ${T} 100
@@ -409,7 +409,7 @@ jump input.lammps loop</code></pre>
                             What you observe should resemble
                             <a href="https://www.youtube.com/embed/o5IoCVWpPKg"
                             target="_blank">this video</a>.
-                            The sheet is progressively elongated, and the carbon honeycomb
+                            The sheet is progressively elongated, and the carbon honeycombs
                             are being deformed. You can increase the number of iteration 
                             of the loop (variable var) to force a larger elongation.
                         </p>
@@ -418,8 +418,8 @@ jump input.lammps loop</code></pre>
                             and observe is only as good as your force field.
                         </div>
                         <div id="boxtype2">
-                            Whis the present force field, no matter how large is the imposed deformation,
-                            the bond will never break. To study such bond breaking, one has to use
+                            With the present force field, no matter how large is the imposed deformation,
+                            the bonds will never break. To study such bond breaking, one has to use
                             a reactive force field, which is done in the next part.
                         </div>
                         <div id="boxtype1">
@@ -486,8 +486,8 @@ fix_modify myber temp Tmid</code></pre>
                         <p>
                             For a change, let us impose a constant velocity to the 
                             atoms of one edge, while maintaing the other edge fix.
-                            Do to so, one needs to cancel the forces (and the acceleration)
-                            of the atoms of the edges using setforce, and set the value of 
+                            Do to so, one needs to cancel the forces (thus the acceleration)
+                            on the atoms of the edges using the setforce command, and set the value of 
                             the velocity along the \(z\) direction.
                         </p>
                         <p>
@@ -512,7 +512,7 @@ run 5000</code></pre>
                         <p>
                             At the start of the equilibration, you can see that the temperature 
                             deviates from the target temperature of 300 K (after a 
-                            few picoseconds the temperature reaches values near the target value):   
+                            few picoseconds the temperature reaches the target value):   
                             <pre><code>Step          Temp          E_pair         E_mol          TotEng         Press     
 0   300           -5084.7276      0             -5058.3973     -1515.7017    
 100   237.49462     -5075.4114      0             -5054.5671     -155.05545    
@@ -539,7 +539,7 @@ run 250000</code></pre>
                                 target="_blank">this video</a>. Use the DynamicBonds representation.
                             </p>
                             <div id="boxtype1">
-                                VMD draws bonds based on the distances between atoms, 
+                                Note that VMD guesses bonds based on the distances between atoms, 
                                 and not based on the presence of actual bonds in the LAMMPS simulation. 
                             </div>
                             <p>
