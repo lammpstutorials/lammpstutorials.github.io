@@ -26,6 +26,12 @@ Welcome to lammpstutorials's documentation!
 
    tutorials/2Dmaterials/graphene.rst
    tutorials/2Dmaterials/carbonnanotube.rst
+   
+.. toctree::
+   :maxdepth: 2
+   :caption: Monte Carlo
+
+   tutorials/montecarlo/gcmc-silica.rst
 
 Indices and tables
 ==================
