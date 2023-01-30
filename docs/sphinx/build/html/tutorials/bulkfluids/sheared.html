@@ -216,7 +216,10 @@
 solution sheared between two solid walls</p>
 </div>
 <figure class="align-right">
-<a class="reference internal image-reference" href="../../_images/binary_LJ_fluid.webp"><img alt="video of a binary fluid" src="../../_images/binary_LJ_fluid.webp" style="height: 250px;" /></a>
+<a class="only-light reference internal image-reference" href="../../_images/nanoconfined-electrolyte-light.png"><img alt="Electrolyte nano-confined in a slit pore" class="only-light" src="../../_images/nanoconfined-electrolyte-light.png" style="height: 250px;" /></a>
+</figure>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../../_images/nanoconfined-electrolyte-dark.png"><img alt="Electrolyte nano-confined in a slit pore" class="only-dark" src="../../_images/nanoconfined-electrolyte-dark.png" style="height: 250px;" /></a>
 </figure>
 <div class="justify docutils container">
 <p>The objective of this tutorial is to use molecular
@@ -732,13 +735,13 @@ distance between the wall is very close to its equilibrium distance.</span><a cl
 to make sure that proper equilibration was reached. Here, the slowest
 process is the ionic diffusion, so at the very least the equilibration
 should be longer than the typical diffusion time of the ions over the
-size of the pore (~3 nm).</p>
+size of the pore (~3 nm), i.e. of the order of the nanosecond.</p>
 </section>
 <section id="imposed-nanoshearing">
 <h2>Imposed nanoshearing<a class="headerlink" href="#imposed-nanoshearing" title="Permalink to this heading">#</a></h2>
 <p>From the equilibrated configuration, let us impose the
 shearing of the two walls. In a new folder called Shearing/,
-create a new input that start similarly:</p>
+create a new input that starts like the previous ones:</p>
 <div class="literal-block-wrapper docutils container" id="id21">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id21" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Initialisation</span>
@@ -800,16 +803,18 @@ and set the value of the velocity along \(x\):</p>
 </pre></div>
 </div>
 </div>
-<p>Setforce command cancel forced on a group of atom at
+<p>The setforce commands cancel the forces on a group of atoms at
 every timestep, so the atoms of the group do not
-experience any force from the rest of the system, so
-their velocity never changes.</p>
-<p>The velocity set command acts only once. Used in
-combination with setforce, the atom will keep that
-imposed velocity no matter what.</p>
+experience any force from the rest of the system. In absence of force
+acting on those atoms, their velocity never changes.</p>
+<p>The velocity set command acts only once, and imposes
+the velocity of the atoms. Used in
+combination with setforce, the atoms will keep that
+imposed velocity regardless of the other atoms.</p>
 <p>Finally, let us dump the atom positions, extract the
 velocity profile using the ave/chunk command, extract the
-force applied on the walls, and then run for 20 ps:</p>
+force applied on the walls, and then run for 20 ps (or 200 ps if you
+comment/uncomment the appropriate lines):</p>
 <div class="literal-block-wrapper docutils container" id="id23">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id23" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># vizualisation</span>
@@ -820,6 +825,9 @@ force applied on the walls, and then run for 20 ps:</p>
 <span class="w"> </span>compute<span class="w"> </span>cc1<span class="w"> </span>gliquid<span class="w"> </span>chunk/atom<span class="w"> </span>bin/1d<span class="w"> </span>z<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">1</span>.0
 <span class="w"> </span><span class="c1">#fix myac1 gliquid ave/chunk 10 15000 200000 cc1 vx file vel.profile.dat # tag:200ps</span>
 <span class="w"> </span>fix<span class="w"> </span>myac1<span class="w"> </span>gliquid<span class="w"> </span>ave/chunk<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1500</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span>cc1<span class="w"> </span>vx<span class="w"> </span>file<span class="w"> </span>vel.profile.dat<span class="w"> </span><span class="c1"># tag:20ps</span>
+<span class="w"> </span>compute<span class="w"> </span>cc2<span class="w"> </span>gwall<span class="w"> </span>chunk/atom<span class="w"> </span>bin/1d<span class="w"> </span>z<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">1</span>.0
+<span class="w"> </span>fix<span class="w"> </span>myac2<span class="w"> </span>gwall<span class="w"> </span>ave/chunk<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span>cc2<span class="w"> </span>vx<span class="w"> </span>file<span class="w"> </span>vel.solid.dat<span class="w"> </span><span class="c1"># tag:200ps</span>
+<span class="w"> </span><span class="c1">#fix myac2 gwall ave/chunk 10 1500 20000 cc2 vx file vel.solid.dat # tag:20ps</span>
 
 <span class="w"> </span><span class="c1">#fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat # tag:200ps</span>
 <span class="w"> </span>fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span>f_mysf1<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>f_mysf2<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>file<span class="w"> </span>forces.dat<span class="w"> </span><span class="c1"># tag:20ps</span>
@@ -831,32 +839,43 @@ force applied on the walls, and then run for 20 ps:</p>
 </pre></div>
 </div>
 </div>
-<p>20 ps is too short to access meaningull value, so if you
-want just uncomment the 3 line tagged with “200ps”, and
-comment the lines tagged “20ps”.</p>
+<p><strong>Note</strong> 20 ps is too short to measure meaningfull quantities. If you
+want just uncomment all lines tagged with “200ps”, and
+comment the lines tagged “20ps”. Of course the simulation
+will take a longer time to complete (about one hour using 4 CPU).</p>
 <p>The velocity profile I got (running for 200ps) is the
 following:</p>
-<p>Velocity of the nanosheared fluid Video of sheared fluid
-Velocity profile of the fluid along \(z\).</p>
+<figure class="align-default">
+<img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-light" src="../../_images/shearing-light.png" />
+</figure>
+<figure class="align-default" id="id24">
+<img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-dark" src="../../_images/shearing-dark.png" />
+<figcaption>
+<p><span class="caption-text">Velocity profile of the fluid and walls.</span><a class="headerlink" href="#id24" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>From the force applied by the fluid on the solid, one can
 extract the stress within the fluid, which allows one to
-measure its viscosity \( \dot{\eta} \) according to
+measure its viscosity <span class="math notranslate nohighlight">\(\dot{\eta}\)</span> according to
 <a class="reference external" href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/PhysRevFluids.6.034303.pdf">gravelle2021</a>:
-\[ \eta = \tau / \dot{\gamma} \] where \( \tau \)
+<span class="math notranslate nohighlight">\(\eta = \tau / \dot{\gamma}\)</span> where <span class="math notranslate nohighlight">\(\tau\)</span>
 is the stress applied bythe fluid on the shearing wall, and
-\( \dot{\gamma} \) the shear rate (which is imposed
+<span class="math notranslate nohighlight">\(\dot{\gamma}\)</span> the shear rate (which is imposed
 here). Here the shear rate is approximatively 6.25e9
-s\(^{-1}\), and using a surface area of 1e-17 m\(^2\), I
+s-1, and using a surface area of 1e-17 m2, I
 get a viscosity for the fluid equal to 2.25 mPa.s</p>
 <p>The viscosity calculated at such high shear rate may
 differ from the bulk value. I recommand using a lower
-shear rate.</p>
-<p>The viscosity of a fluid next to a solid surface is
+shear rate. Note that for lower shear rate, the ratio noise-to-signal
+is larger, and longer simulation must be performed.</p>
+<p>Also note that the viscosity of a fluid next to a solid surface is
 typically larger than in bulk due to interaction with the
-walls.</p>
+walls. Therefore one expect the present simulation to return
+a viscosity that is slightly larger than what would be measured with
+the fluid alone.</p>
 <p>You can access all the input scripts and data files that
 have been used in this tutorial from
-<a class="reference external" href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs/03-NanoconfinedElectrolyte/">Github</a>.</p>
+<a class="reference external" href="../../../../../../inputs/">Github</a>.</p>
 </section>
 <section id="going-further-with-exercises">
 <h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Permalink to this heading">#</a></h2>

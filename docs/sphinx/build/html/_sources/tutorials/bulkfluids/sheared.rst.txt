@@ -12,9 +12,16 @@ Nanosheared electrolyte
     Molecular dynamics simulation of an aqueous NaCl
     solution sheared between two solid walls
 
-.. figure:: ../figures/lennardjones/binary_LJ_fluid.webp
-    :alt: video of a binary fluid
+.. figure:: ../figures/sheared/nanoconfined-electrolyte-light.png
     :height: 250
+    :alt: Electrolyte nano-confined in a slit pore
+    :class: only-light
+    :align: right
+
+.. figure:: ../figures/sheared/nanoconfined-electrolyte-dark.png
+    :height: 250
+    :alt: Electrolyte nano-confined in a slit pore
+    :class: only-dark
     :align: right
 
 ..  container:: justify
@@ -556,14 +563,14 @@ Note: For actual reseach, run this equilibration step for longer times
 to make sure that proper equilibration was reached. Here, the slowest
 process is the ionic diffusion, so at the very least the equilibration 
 should be longer than the typical diffusion time of the ions over the 
-size of the pore (~3 nm). 
+size of the pore (~3 nm), i.e. of the order of the nanosecond. 
 
 Imposed nanoshearing
 ====================
 
 From the equilibrated configuration, let us impose the
 shearing of the two walls. In a new folder called Shearing/,
-create a new input that start similarly:
+create a new input that starts like the previous ones:
 
 ..  code-block:: bash
    :caption: *to be copied in Shearing/input.lammps*
@@ -626,18 +633,20 @@ and set the value of the velocity along \\(x\\):
     velocity gwallbot set -20e-5 NULL NULL
     velocity gwalltop set 20e-5 NULL NULL
 
-Setforce command cancel forced on a group of atom at
+The setforce commands cancel the forces on a group of atoms at
 every timestep, so the atoms of the group do not
-experience any force from the rest of the system, so
-their velocity never changes.
+experience any force from the rest of the system. In absence of force
+acting on those atoms, their velocity never changes.
 
-The velocity set command acts only once. Used in
-combination with setforce, the atom will keep that
-imposed velocity no matter what.
+The velocity set command acts only once, and imposes
+the velocity of the atoms. Used in
+combination with setforce, the atoms will keep that
+imposed velocity regardless of the other atoms.
 
 Finally, let us dump the atom positions, extract the
 velocity profile using the ave/chunk command, extract the
-force applied on the walls, and then run for 20 ps:
+force applied on the walls, and then run for 20 ps (or 200 ps if you 
+comment/uncomment the appropriate lines):
 
 ..  code-block:: bash
    :caption: *to be copied in Shearing/input.lammps*
@@ -650,6 +659,9 @@ force applied on the walls, and then run for 20 ps:
     compute cc1 gliquid chunk/atom bin/1d z 0.0 1.0
     #fix myac1 gliquid ave/chunk 10 15000 200000 cc1 vx file vel.profile.dat # tag:200ps
     fix myac1 gliquid ave/chunk 10 1500 20000 cc1 vx file vel.profile.dat # tag:20ps
+    compute cc2 gwall chunk/atom bin/1d z 0.0 1.0
+    fix myac2 gwall ave/chunk 10 15000 200000 cc2 vx file vel.solid.dat # tag:200ps
+    #fix myac2 gwall ave/chunk 10 1500 20000 cc2 vx file vel.solid.dat # tag:20ps
 
     #fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat # tag:200ps
     fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat # tag:20ps
@@ -659,38 +671,47 @@ force applied on the walls, and then run for 20 ps:
     run 20000 # tag:20ps
     write_data system.data
 
-20 ps is too short to access meaningull value, so if you
-want just uncomment the 3 line tagged with "200ps", and
-comment the lines tagged "20ps".
+**Note** 20 ps is too short to measure meaningfull quantities. If you
+want just uncomment all lines tagged with "200ps", and
+comment the lines tagged "20ps". Of course the simulation 
+will take a longer time to complete (about one hour using 4 CPU).
 
 The velocity profile I got (running for 200ps) is the
 following:
 
-Velocity of the nanosheared fluid Video of sheared fluid
-Velocity profile of the fluid along \\(z\\).
+.. figure:: ../figures/sheared/shearing-light.png
+    :alt: Velocity of the nanosheared fluid Video of sheared fluid
+    :class: only-light
+
+.. figure:: ../figures/sheared/shearing-dark.png
+    :alt: Velocity of the nanosheared fluid Video of sheared fluid
+    :class: only-dark
+
+    Velocity profile of the fluid and walls.
 
 From the force applied by the fluid on the solid, one can
 extract the stress within the fluid, which allows one to
-measure its viscosity \\( \\dot{\\eta} \\) according to
+measure its viscosity :math:`\dot{\eta}` according to
 `gravelle2021 <https://pure.tudelft.nl/ws/portalfiles/portal/89280267/PhysRevFluids.6.034303.pdf>`__:
-\\[ \\eta = \\tau / \\dot{\\gamma} \\] where \\( \\tau \\)
+:math:`\eta = \tau / \dot{\gamma}` where :math:`\tau`
 is the stress applied bythe fluid on the shearing wall, and
-\\( \\dot{\\gamma} \\) the shear rate (which is imposed
+:math:`\dot{\gamma}` the shear rate (which is imposed
 here). Here the shear rate is approximatively 6.25e9
-s\\(^{-1}\\), and using a surface area of 1e-17 m\\(^2\\), I
+s-1, and using a surface area of 1e-17 m2, I
 get a viscosity for the fluid equal to 2.25 mPa.s
 
 The viscosity calculated at such high shear rate may
 differ from the bulk value. I recommand using a lower
-shear rate.
+shear rate. Note that for lower shear rate, the ratio noise-to-signal
+is larger, and longer simulation must be performed.
 
-The viscosity of a fluid next to a solid surface is
+Also note that the viscosity of a fluid next to a solid surface is
 typically larger than in bulk due to interaction with the
-walls.
+walls. Therefore one expect the present simulation to return 
+a viscosity that is slightly larger than what would be measured with 
+the fluid alone.
 
-You can access all the input scripts and data files that
-have been used in this tutorial from
-`Github <https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs/03-NanoconfinedElectrolyte/>`__.
+.. include:: ../../contact/accessfile.rst
 
 Going further with exercises
 ============================
