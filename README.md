@@ -37,10 +37,9 @@ find more information on my [personal webpage](https://simongravelle.github.io/)
 
 ### License ###
 
-All the LAMMPS materials given here are open source and released under the 
+All the inputs, scripts, and data files are open source and released under the 
 GNU general public license v3.0.
 
 ### Templates ###
 
-The html/css templates are from [html5 up](https://html5up.net/) 
-and [harnishdesign](http://www.harnishdesign.net/).
+The template of the main page is from [html5 up](https://html5up.net/).
