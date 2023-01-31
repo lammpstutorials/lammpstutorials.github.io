@@ -25,7 +25,7 @@ Graphene under deformation
 
 ..  container:: justify
 
-   In this tutorial is, a graphene sheet
+   In this tutorial, a graphene sheet
    is generated using VMD and topotool, and is then
    deformed using an applied displacement (a method called
    *out-of-equilibrium molecular dynamics*).
@@ -67,7 +67,8 @@ Generation of the system
    dimensions by typing the following command in the VMD
    terminal:
 
-::
+..  code-block:: bash
+   :caption: *to be written in the VMD terminal*
 
    molinfo top set a 80  
    molinfo top set b 80            
@@ -79,10 +80,11 @@ Generation of the system
    so that the box is much larger than the graphene sheet.
 
    In order to
-   generate the initial LAMMPS data file, let us use Topotool. 
-   Then, generate the LAMMPS file, enter the following command:
+   generate the initial LAMMPS data file, let us use Topotool:
+   to generate the LAMMPS data file, enter the following command:
 
-::
+..  code-block:: bash
+   :caption: *to be written in the VMD terminal*
 
    topo writelammpsdata carbon.data full
 
@@ -126,7 +128,7 @@ Generation of the system
 
    As you can see, the carbon.data file contains information
    about the positions of the carbons atoms, as well as the
-   identity of the atoms linked by bonds, angles, dihedrals,
+   identity of the atoms that are linked by bonds, angles, dihedrals,
    and impropers constraints.
 
    Save the "carbon.data" file in the same folder as your
@@ -169,7 +171,7 @@ LAMMPS input script
 ..  container:: justify
 
    Most of these command lines have been seen already in
-   previous tutorials (see the bulk fluids series), with a few
+   previous tutorials (see the bulk fluids series for instance), with a few
    differences: first, the pair style here is lj/cut with
    parameter 14, which means that the atoms closer than 14
    Angstroms from each others interact through a Lennard-Jones
@@ -177,13 +179,13 @@ LAMMPS input script
    because all the atoms in pure graphene have a charge of 0.
    The bond, angle, dihedral, and improper styles specify the
    different potentials used to restrain the positions of the
-   atoms For more details, have a look at the LAMMPS website
+   atoms. For more details, have a look at the LAMMPS website
    (see for example the `OPLS dihedral
    style <https://lammps.sandia.gov/doc/dihedral_opls.html>`__).
 
 ..  container:: justify
 
-   The last command, read_data, imports the carbon.data file
+   The last command (read_data) imports the carbon.data file
    previously generated with VMD, which contains the
    information about the box size, atoms positions, etc.
 

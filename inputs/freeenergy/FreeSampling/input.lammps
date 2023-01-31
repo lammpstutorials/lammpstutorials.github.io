@@ -2,7 +2,7 @@
 # author : Simon Gravelle
 # lammpstutorials.github.io
 
-# define a bunch of variables
+# define some variables
 variable sigma equal 3.405 # Angstrom
 variable epsilon equal 0.238 # Kcal/mol
 variable U0 equal 2*${epsilon} # Kcal/mol
@@ -48,13 +48,13 @@ unfix myat # important
 reset_timestep 0
 
 compute cc1 all chunk/atom bin/1d x 0.0 1.0
-fix myac all ave/chunk 10 100000 1000000 cc1 density/number file density_profile_10run.dat
+fix myac all ave/chunk 10 1000000 10000000 cc1 density/number file density_profile_10run.dat
 dump mydmp all atom 1000000 dump.lammpstrj
 
 run 10000000
 
 # uncomment to perform long run
-#unfix myac
-#reset_timestep 0
-#fix myac all ave/chunk 10 100000 1000000 cc1 density/number file density_profile_100run.dat
-#run 100000000
+# unfix myac
+# reset_timestep 0
+# fix myac all ave/chunk 10 10000000 100000000 cc1 density/number file density_profile_100run.dat
+# run 100000000

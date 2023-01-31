@@ -33,6 +33,12 @@ Welcome to lammpstutorials's documentation!
 
    tutorials/montecarlo/gcmc-silica.rst
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Free energy
+
+   tutorials/freeenergy/umbrella-sampling.rst
+
 Indices and tables
 ==================
 

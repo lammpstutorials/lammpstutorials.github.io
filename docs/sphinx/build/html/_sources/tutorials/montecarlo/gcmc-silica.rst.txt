@@ -12,15 +12,15 @@ Water adsorption in silica
     Adsorption of water in a silica crack using the
     grand canonical Monte Carlo method
 
-.. figure:: ../figures/sheared/nanoconfined-electrolyte-light.png
+.. figure:: ../figures/gcmc-silica/main-light.png
     :height: 250
-    :alt: Electrolyte nano-confined in a slit pore
+    :alt: Water molecule adsorbed in silica matrix
     :class: only-light
     :align: right
 
-.. figure:: ../figures/sheared/nanoconfined-electrolyte-dark.png
+.. figure:: ../figures/gcmc-silica/main-dark.png
     :height: 250
-    :alt: Electrolyte nano-confined in a slit pore
+    :alt: Water molecule adsorbed in silica matrix
     :class: only-dark
     :align: right
 
