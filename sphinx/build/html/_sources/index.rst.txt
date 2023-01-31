@@ -41,9 +41,10 @@ Welcome to lammpstutorials's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contact me
+   :caption: Extra content
 
    contact/contact.rst
+   history/history.rst
 
 Indices and tables
 ==================
