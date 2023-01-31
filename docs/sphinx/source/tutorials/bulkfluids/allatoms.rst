@@ -578,17 +578,19 @@ PEG molecule
 Solvation of the PEG molecule
 =============================
 
-Now, we merge the PEG molecule and the equilibrated
-water reservoir. We do it by (1) importing both
-previously generated data files (PEG.data and
-H2O.data) into the same simulation, (2) deleting the
-overlapping molecules, and (3) re-equilibrating the new
-system. 
+..  container:: justify
 
-Create a third folder alongside pureH2O/ and singlePEG/,
-and call it mergePEGH2O/. Create a new blank file in it,
-called input.lammps. Copy the same first lines as
-previously in it:
+   Now, we merge the PEG molecule and the equilibrated
+   water reservoir. We do it by (1) importing both
+   previously generated data files (PEG.data and
+   H2O.data) into the same simulation, (2) deleting the
+   overlapping molecules, and (3) re-equilibrating the new
+   system. 
+
+   Create a third folder alongside pureH2O/ and singlePEG/,
+   and call it mergePEGH2O/. Create a new blank file in it,
+   called input.lammps. Copy the same first lines as
+   previously in it:
 
 ..  code-block:: bash
    :caption: *to be copied in mergePEGH2O/input.lammps*
@@ -602,7 +604,9 @@ previously in it:
    kspace_style pppm/tip4p 1.0e-4
    special_bonds lj 0.0 0.0 0.5
 
-Then, import the two previously generated data files:
+..  container:: justify
+
+   Then, import the two previously generated data files:
 
 ..  code-block:: bash
    :caption: *to be copied in mergePEGH2O/input.lammps*
@@ -611,10 +615,12 @@ Then, import the two previously generated data files:
    read_data ../pureH2O/H2O.data add append
    include ../PARM.lammps
 
-When using the read_data command more than once, one needs
-to use the *add append* keyword. In that case the
-simulation box is only initialized by the first read_data.
-Let us create 2 groups to differentiate the PEG from the H2O:
+..  container:: justify
+
+   When using the read_data command more than once, one needs
+   to use the *add append* keyword. In that case the
+   simulation box is only initialized by the first read_data.
+   Let us create 2 groups to differentiate the PEG from the H2O:
 
 ..  code-block:: bash
    :caption: *to be copied in mergePEGH2O/input.lammps*
@@ -622,22 +628,26 @@ Let us create 2 groups to differentiate the PEG from the H2O:
    group H2O type 1 2
    group PEG type 3 4 5 6 7
 
-Water molecules that are overlapping with the PEG must be
-deleted to avoid crashing:
+..  container:: justify
+
+   Water molecules that are overlapping with the PEG must be
+   deleted to avoid crashing:
 
 ..  code-block:: bash
    :caption: *to be copied in mergePEGH2O/input.lammps*
 
    delete_atoms overlap 2.0 H2O PEG mol yes
 
-*Note --* The value of 2 Angstroms was fixed arbitrary,
-and can be chosen through trial and error. The "mol yes"
-option ensures that entire molecule are deleted and not
-just single atoms.
+..  container:: justify
 
-Finally, let us use shake to keep the water
-molecules as rigid, and use the NPT command to control the
-temperature, as well as the pressure along x:
+   *Note --* The value of 2 Angstroms was fixed arbitrary,
+   and can be chosen through trial and error. The "mol yes"
+   option ensures that entire molecule are deleted and not
+   just single atoms.
+
+   Finally, let us use shake to keep the water
+   molecules as rigid, and use the NPT command to control the
+   temperature, as well as the pressure along x:
 
 ..  code-block:: bash
    :caption: *to be copied in mergePEGH2O/input.lammps*
@@ -646,11 +656,13 @@ temperature, as well as the pressure along x:
    fix mynpt all npt temp 300 300 100 x 1 1 1000
    timestep 1.0
 
-*Note --* The box dimension will only adjust along the
-x dimension here.
+..  container:: justify
 
-Once more, let us dump the atom positions and a few
-information about the evolution simulation:
+   *Note --* The box dimension will only adjust along the
+   x dimension here.
+
+   Once more, let us dump the atom positions and a few
+   information about the evolution simulation:
 
 ..  code-block:: bash
    :caption: *to be copied in mergePEGH2O/input.lammps*
@@ -662,7 +674,9 @@ information about the evolution simulation:
    fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
    fix myat2 all ave/time 10 10 100 v_myvol file volume.dat
 
-Let us also print the total enthalpy:
+..  container:: justify
+
+   Let us also print the total enthalpy:
 
 ..  code-block:: bash
    :caption: *to be copied in mergePEGH2O/input.lammps*
@@ -670,8 +684,10 @@ Let us also print the total enthalpy:
    variable myenthalpy equal enthalpy
    fix myat3 all ave/time 10 10 100 v_myenthalpy file enthalpy.dat
 
-Finally, let us perform a short equilibration and print the
-final state in a data file:
+..  container:: justify
+
+   Finally, let us perform a short equilibration and print the
+   final state in a data file:
 
 ..  code-block:: bash
    :caption: *to be copied in mergePEGH2O/input.lammps*
@@ -679,9 +695,11 @@ final state in a data file:
    run 10000
    write_data mix.data
 
-If you open the dump.lammpstrj file using VMD, you should
-see that the box dimension slightly shrink along x.
-The system looks like that:
+..  container:: justify
+
+   If you open the dump.lammpstrj file using VMD, you should
+   see that the box dimension slightly shrink along x.
+   The system looks like that:
 
 .. figure:: ../figures/allatoms/solvatedPEG_light.png
    :alt: PEG in water
@@ -696,23 +714,27 @@ The system looks like that:
 Stretching the PEG molecule
 ===========================
 
-Here, a constant forcing is applied to the two ends of the
-PEG molecule until it stretches. Create a new folder next
-to the 3 previously created folders, call it pullonPEG/
-and create a new input file in it called input.lammps.
-First, let us create a variable containing the magnitude
-of the force we are going to apply. The force magnitude is
-chosen to be large enough to overcome the thermal
-agitation and the entropic contribution from both water
-and PEG molecules (it was chosen by trial and error). Copy
-in the input file:
+..  container:: justify
+
+   Here, a constant forcing is applied to the two ends of the
+   PEG molecule until it stretches. Create a new folder next
+   to the 3 previously created folders, call it pullonPEG/
+   and create a new input file in it called input.lammps.
+   First, let us create a variable containing the magnitude
+   of the force we are going to apply. The force magnitude is
+   chosen to be large enough to overcome the thermal
+   agitation and the entropic contribution from both water
+   and PEG molecules (it was chosen by trial and error). Copy
+   in the input file:
 
 ..  code-block:: bash
    :caption: *to be copied in pullonPEG/input.lammps*
 
    variable f0 equal 5 # kcal/mol/A # 1 kcal/mol/A = 67.2 pN
 
-Then, as previouly, copy:
+..  container:: justify
+
+   Then, as previouly, copy:
 
 ..  code-block:: bash
    :caption: *to be copied in pullonPEG/input.lammps*
@@ -726,8 +748,10 @@ Then, as previouly, copy:
    kspace_style pppm/tip4p 1.0e-4
    special_bonds lj 0.0 0.0 0.5
 
-Start the simulation from the equilibrated PEG + water
-system, and include again the parameters:
+..  container:: justify
+
+   Start the simulation from the equilibrated PEG + water
+   system, and include again the parameters:
 
 ..  code-block:: bash
    :caption: *to be copied in pullonPEG/input.lammps*
@@ -735,10 +759,12 @@ system, and include again the parameters:
    read_data ../mergePEGH2O/mix.data
    include ../PARM.lammps
 
-Then, let us create 4 atom groups: H2O and PEG (as
-previously) as well as 2 groups containing one single atom
-corresponding respectively to the oxygen atoms ocated at the
-ends of the PEG molecule:
+..  container:: justify
+
+   Then, let us create 4 atom groups: H2O and PEG (as
+   previously) as well as 2 groups containing one single atom
+   corresponding respectively to the oxygen atoms ocated at the
+   ends of the PEG molecule:
 
 ..  code-block:: bash
    :caption: *to be copied in pullonPEG/input.lammps*
@@ -748,7 +774,9 @@ ends of the PEG molecule:
    group oxygen_end1 id 65
    group oxygen_end2 id 4
 
-Let us print again the atom positions in a dump:
+..  container:: justify
+
+   Let us print again the atom positions in a dump:
 
 ..  code-block:: bash
    :caption: *to be copied in pullonPEG/input.lammps*
@@ -757,13 +785,15 @@ Let us print again the atom positions in a dump:
    # write_dump all atom dump.lammpstrj
    # dump myxtc xtc atom 1000 dump.xtc
 
-*Note --* To generate smaller dump files, use the
-compressed xtc format. You can do it by commenting the
-mydmp line and by uncommenting both the write_dump and
-myxtc lines. This is useful for generating higher
-resolution trajectories without using too much space.
+..  container:: justify
 
-Let us use a simple thermostating and shake:
+   *Note --* To generate smaller dump files, use the
+   compressed xtc format. You can do it by commenting the
+   mydmp line and by uncommenting both the write_dump and
+   myxtc lines. This is useful for generating higher
+   resolution trajectories without using too much space.
+
+   Let us use a simple thermostating and shake:
 
 ..  code-block:: bash
    :caption: *to be copied in pullonPEG/input.lammps*
@@ -786,21 +816,25 @@ temperature of the entire system):
    fix myat2 all ave/time 10 10 100 v_delta_x file end-to-end-distance.dat
    thermo 5000
 
-The distance between the two ends are here extracted
-directly using the LAMMPS internal commands, but the same
-information can also be extracted from the dump file after
-the simulation is over.
-Finally, let us run the simulation for 10 ps (without
-any external forcing):
+..  container:: justify
+
+   The distance between the two ends are here extracted
+   directly using the LAMMPS internal commands, but the same
+   information can also be extracted from the dump file after
+   the simulation is over.
+   Finally, let us run the simulation for 10 ps (without
+   any external forcing):
 
 ..  code-block:: bash
    :caption: *to be copied in pullonPEG/input.lammps*
 
    run 10000
 
-Then, let us apply a forcing on the 2 oxygen atoms using 2
-add_force commands, and run for 100 ps (for a total duration
-of the simulation of 110 ps):
+..  container:: justify
+
+   Then, let us apply a forcing on the 2 oxygen atoms using 2
+   add_force commands, and run for 100 ps (for a total duration
+   of the simulation of 110 ps):
 
 ..  code-block:: bash
    :caption: *to be copied in pullonPEG/input.lammps*
@@ -809,9 +843,11 @@ of the simulation of 110 ps):
    fix myaf2 oxygen_end2 addforce -${f0} 0 0
    run 50000
 
-If you open the dump.lammpstrj file using VMD , you should
-see this (here the water is represented as a continuum
-field):
+..  container:: justify
+
+   If you open the dump.lammpstrj file using VMD , you should
+   see this (here the water is represented as a continuum
+   field):
 
 .. figure:: ../figures/allatoms/pulled_peg_dark.png
     :alt: PEG molecule in water
@@ -823,9 +859,11 @@ field):
 
     PEG molecule streched in water.
 
-The evolution of the end-to-end
-distance over time show the PEG adjusting
-to the external forcing:
+..  container:: justify
+
+   The evolution of the end-to-end
+   distance over time show the PEG adjusting
+   to the external forcing:
 
 .. figure:: ../figures/allatoms/distance-dark.png
     :alt: plot of the end-to-end distance versus time
@@ -847,35 +885,43 @@ Going further with exercises
 
 **Exercise 1 : generate a PEG-H2O mixture**
 
-Use the same script and a similar procedure and create a
-PEG-H2O mixture with several PEG molecules hydrated in a
-cubic box.
+..  container:: justify
 
-Hint: LAMMPS has internal commands allowing to replicate
-a molecule or a system.
+   Use the same script and a similar procedure and create a
+   PEG-H2O mixture with several PEG molecules hydrated in a
+   cubic box.
+
+   Hint: LAMMPS has internal commands allowing to replicate
+   a molecule or a system.
 
 **Exercise 2 : end-to-end distance**
 
-Create 2 simulations, one with a PEG molecule in vacuum, one
-with a PEG molecule in water, and measure their respective
-end-to-end equilibrium distance. PEG are hydrophilic and
-form hbonds with water molecules, therefore, when immersed
-in water, a PEG molecule slightly unfold, which changes it
-equilibrium end-to-end length.
+..  container:: justify
+
+   Create 2 simulations, one with a PEG molecule in vacuum, one
+   with a PEG molecule in water, and measure their respective
+   end-to-end equilibrium distance. PEG are hydrophilic and
+   form hbonds with water molecules, therefore, when immersed
+   in water, a PEG molecule slightly unfold, which changes it
+   equilibrium end-to-end length.
 
 **Exercise 3 : post-mortem analysis**
 
-Import the trajectory using Python, and re-extract the
-end-to-end distance.
+..  container:: justify
 
-Hint: you can import lammpstrj file using MDAnalysis:
+   Import the trajectory using Python, and re-extract the
+   end-to-end distance.
+
+   Hint: you can import lammpstrj file using MDAnalysis:
 
 ::
 
    u = mda.Universe("dump.lammpstrj", format = "LAMMPSDUMP")
 
-**Motivation:** In today research, most data analyses are
-done after the simulation is over, and it is important for
-LAMMPS users to know how to do it.
+..  container:: justify
+
+   **Motivation:** In today research, most data analyses are
+   done after the simulation is over, and it is important for
+   LAMMPS users to know how to do it.
 
 .. include:: ../../contact/contactme.rst
