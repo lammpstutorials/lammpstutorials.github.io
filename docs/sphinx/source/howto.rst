@@ -42,3 +42,11 @@ Monte Carlo
 #. :ref:`gcmc-silica-label` - advanced
     * simulation of charged and bonded atomic model
     * use of the grand-canonical ensemble
+
+Free energy
+===========
+
+#. :ref:`umbrella-sampling-label` - advanced
+    * simulation of neutral dots
+    * use of biasing potential
+    * use of WHAM algorithm

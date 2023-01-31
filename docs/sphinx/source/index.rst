@@ -39,6 +39,12 @@ Welcome to lammpstutorials's documentation!
 
    tutorials/freeenergy/umbrella-sampling.rst
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Contact me
+
+   contact/contact.rst
+
 Indices and tables
 ==================
 
