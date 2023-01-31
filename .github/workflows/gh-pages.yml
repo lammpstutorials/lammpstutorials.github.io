@@ -28,7 +28,9 @@ jobs:
       - name: Build
         run: |
           cd docs/sphinx/
-          bash build.sh
+          make clean
+          make html
+          cp source/index_replace.html build/html/index.html
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
