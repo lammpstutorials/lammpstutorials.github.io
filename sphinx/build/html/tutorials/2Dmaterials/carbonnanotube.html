@@ -1,0 +1,480 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Water adsorption in silica" href="../montecarlo/gcmc-silica.html" /><link rel="prev" title="Graphene under deformation" href="graphene.html" />
+
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+        <title>Breaking a carbon nanotube - </title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">    </div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">    </span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../howto.html">How-to</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bulk fluids</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bulkfluids/lennardjones.html">Lennard Jones fluid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bulkfluids/allatoms.html">Polymer in water</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bulkfluids/sheared.html">Nanosheared electrolyte</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">2D materials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="graphene.html">Graphene under deformation</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Breaking a carbon nanotube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Monte Carlo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../montecarlo/gcmc-silica.html">Water adsorption in silica</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Free energy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../freeenergy/umbrella-sampling.html">Simple free energy calculation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contact me</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contact/contact.html">Contact me</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="breaking-a-carbon-nanotube">
+<span id="carbon-nanotube-label"></span><h1>Breaking a carbon nanotube<a class="headerlink" href="#breaking-a-carbon-nanotube" title="Permalink to this heading">#</a></h1>
+<div class="justify docutils container">
+<p>This tutorial is part of the <em>2D materials</em> series.</p>
+</div>
+<div class="hatnote docutils container">
+<p>In this tutorial, the breaking of the bonds pf a carbon nanotube under
+extreme deformation is simulated.</p>
+</div>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../../_images/cnt_dark.png"><img alt="carbon nanotube image in vacuum" class="only-dark" src="../../_images/cnt_dark.png" style="height: 250px;" /></a>
+</figure>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../../_images/cnt_light.png"><img alt="carbon nanotube image in vacuum" class="only-light" src="../../_images/cnt_light.png" style="height: 250px;" /></a>
+</figure>
+<section id="system-creation">
+<h2>System creation<a class="headerlink" href="#system-creation" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Use the same protocol as the one used in the
+previous tutorial (<a class="reference internal" href="graphene.html#graphene-label"><span class="std std-ref">Graphene under deformation</span></a>) to
+generate a carbon nanotube. Use topotool to
+save the topology in a file called cnt.data.
+Before generating the CNT, untick “bonds”.</p>
+<p>The reason the bonds are not needed here is that
+a reactive force field is used. Such force field
+deduces the bonds between atoms on the fly based on the positions of the atoms.
+When two initially bonded atoms are separated by a
+distance that is too large, the bond may break.</p>
+<p>Alternatively, you can download the file I did generate
+by clicking <a class="reference external" href="../../../../../../inputs/2Dmaterials/carbonnanotube/cnt.data">here</a>.</p>
+</div>
+</section>
+<section id="input-file">
+<h2>Input file<a class="headerlink" href="#input-file" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Then, create a LAMMPS input file, call is input.lammps, and type in it:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialisation</span>
+
+variable<span class="w"> </span>T<span class="w"> </span>equal<span class="w"> </span><span class="m">300</span>
+
+units<span class="w"> </span>metal
+atom_style<span class="w"> </span>full
+boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
+pair_style<span class="w"> </span>airebo<span class="w"> </span><span class="m">2</span>.5<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+
+<span class="c1"># System definition</span>
+read_data<span class="w"> </span>cnt.data
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The first difference with the previous tutorial (<a class="reference internal" href="graphene.html#graphene-label"><span class="std std-ref">Graphene under deformation</span></a>)
+is the units: ‘metal’ instead of ‘real’, a choice
+that is imposed by the force field we are going to use
+(careful, the time is in pico second with ‘metal’ instead of femto
+second with ‘real’). The second
+difference is the pair_style. We use airebo, which is a
+reactive force field.</p>
+<p>Then, let us import the LAMMPS data file, and set the
+pair_coeff:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>read_data<span class="w"> </span>carbon.data
+pair_coeff<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>CH.airebo<span class="w"> </span>C
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The CH.airebo file can be downloaded
+<a class="reference external" href="../../../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo">here</a>.
+The rest of the script is very similar to the previous tutorial (<a class="reference internal" href="graphene.html#graphene-label"><span class="std std-ref">Graphene under deformation</span></a>):</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulation settings</span>
+
+group<span class="w"> </span>gcar<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span>
+variable<span class="w"> </span>zmax<span class="w"> </span>equal<span class="w"> </span>bound<span class="o">(</span>gcar,zmax<span class="o">)</span>-0.5
+variable<span class="w"> </span>zmin<span class="w"> </span>equal<span class="w"> </span>bound<span class="o">(</span>gcar,zmin<span class="o">)</span>+0.5
+region<span class="w"> </span>rtop<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="si">${</span><span class="nv">zmax</span><span class="si">}</span><span class="w"> </span>INF
+region<span class="w"> </span>rbot<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="si">${</span><span class="nv">zmin</span><span class="si">}</span>
+region<span class="w"> </span>rmid<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="si">${</span><span class="nv">zmin</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">zmax</span><span class="si">}</span>
+
+group<span class="w"> </span>gtop<span class="w"> </span>region<span class="w"> </span>rtop
+group<span class="w"> </span>gbot<span class="w"> </span>region<span class="w"> </span>rbot
+group<span class="w"> </span>gmid<span class="w"> </span>region<span class="w"> </span>rmid
+
+velocity<span class="w"> </span>gmid<span class="w"> </span>create<span class="w"> </span><span class="si">${</span><span class="nv">T</span><span class="si">}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span>mom<span class="w"> </span>yes<span class="w"> </span>rot<span class="w"> </span>yes
+fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
+compute<span class="w"> </span>Tmid<span class="w"> </span>gmid<span class="w"> </span>temp
+fix<span class="w"> </span>myber<span class="w"> </span>gmid<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="si">${</span><span class="nv">T</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">T</span><span class="si">}</span><span class="w"> </span><span class="m">0</span>.1
+fix_modify<span class="w"> </span>myber<span class="w"> </span>temp<span class="w"> </span>Tmid
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>For a change, let us impose a constant velocity to the atoms
+of one edge, while maintaining the other edge fix. Do to so,
+one needs to cancel the forces (thus the acceleration) on
+the atoms of the edges using the setforce command, and set
+the value of the velocity along the z direction.</p>
+</div>
+</section>
+<section id="equilibration">
+<h2>Equilibration<a class="headerlink" href="#equilibration" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>First, as an equilibration step, let us set the velocity to 0.</p>
+</div></blockquote>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fix<span class="w"> </span>mysf1<span class="w"> </span>gbot<span class="w"> </span>setforce<span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
+fix<span class="w"> </span>mysf2<span class="w"> </span>gtop<span class="w"> </span>setforce<span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
+velocity<span class="w"> </span>gbot<span class="w"> </span><span class="nb">set</span><span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
+velocity<span class="w"> </span>gtop<span class="w"> </span><span class="nb">set</span><span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
+
+variable<span class="w"> </span>pos<span class="w"> </span>equal<span class="w"> </span>xcm<span class="o">(</span>gtop,z<span class="o">)</span>
+fix<span class="w"> </span>at1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span>v_pos<span class="w"> </span>file<span class="w"> </span>cnt_deflection.dat
+fix<span class="w"> </span>at2<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span>f_mysf1<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>f_mysf2<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>file<span class="w"> </span>force.dat
+dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.lammpstrj
+
+thermo<span class="w"> </span><span class="m">100</span>
+thermo_modify<span class="w"> </span>temp<span class="w"> </span>Tmid
+
+<span class="c1"># Run</span>
+timestep<span class="w"> </span><span class="m">0</span>.0005
+run<span class="w"> </span><span class="m">5000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>At the start of the equilibration, you can see that the
+temperature deviates from the target temperature of 300 K
+(after a few picoseconds the temperature reaches the target
+value):</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Step<span class="w">          </span>Temp<span class="w">          </span>E_pair<span class="w">         </span>E_mol<span class="w">          </span>TotEng<span class="w">         </span>Press
+<span class="m">0</span><span class="w">   </span><span class="m">300</span><span class="w">           </span>-5084.7276<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5058.3973<span class="w">     </span>-1515.7017
+<span class="m">100</span><span class="w">   </span><span class="m">237</span>.49462<span class="w">     </span>-5075.4114<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5054.5671<span class="w">     </span>-155.05545
+<span class="m">200</span><span class="w">   </span><span class="m">238</span>.86589<span class="w">     </span>-5071.9168<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5050.9521<span class="w">     </span>-498.15029
+<span class="m">300</span><span class="w">   </span><span class="m">220</span>.04074<span class="w">     </span>-5067.1113<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5047.7989<span class="w">     </span>-1514.8516
+<span class="m">400</span><span class="w">   </span><span class="m">269</span>.23434<span class="w">     </span>-5069.6565<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5046.0264<span class="w">     </span>-174.31158
+<span class="m">500</span><span class="w">   </span><span class="m">274</span>.92241<span class="w">     </span>-5068.5989<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5044.4696<span class="w">     </span>-381.28758
+<span class="m">600</span><span class="w">   </span><span class="m">261</span>.91841<span class="w">     </span>-5065.985<span class="w">       </span><span class="m">0</span><span class="w">             </span>-5042.9971<span class="w">     </span>-1507.5577
+<span class="m">700</span><span class="w">   </span><span class="m">288</span>.47709<span class="w">     </span>-5067.7301<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5042.4111<span class="w">     </span>-312.16669
+<span class="m">800</span><span class="w">   </span><span class="m">289</span>.85177<span class="w">     </span>-5066.5482<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5041.1086<span class="w">     </span>-259.84893
+<span class="m">900</span><span class="w">   </span><span class="m">279</span>.34891<span class="w">     </span>-5065.0216<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5040.5038<span class="w">     </span>-1390.8508
+<span class="m">1000</span><span class="w">   </span><span class="m">312</span>.27343<span class="w">     </span>-5067.6245<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5040.217<span class="w">      </span>-465.74352
+</pre></div>
+</div>
+</section>
+<section id="deformation">
+<h2>Deformation<a class="headerlink" href="#deformation" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Then, let us set the velocity to 30 m/s and run for a longer time:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 0.15 A/ps = 30 m/s</span>
+velocity<span class="w"> </span>gtop<span class="w"> </span><span class="nb">set</span><span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>.15
+run<span class="w"> </span><span class="m">250000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>When looking at the lammpstrj file using VMD, you will see
+the bonds breaking, similar to <a class="reference external" href="https://www.youtube.com/watch?v=f1ve1j3yA6w">this
+video</a>. Use
+the DynamicBonds representation.</p>
+</div>
+<div class="remark2 docutils container">
+<p>Note that VMD guesses bonds based on the distances
+between atoms, and not based on the presence of actual
+bonds in the LAMMPS simulation.</p>
+</div>
+<p>You can access all the input scripts and data files that
+have been used in this tutorial from
+<a class="reference external" href="../../../../../../inputs/">Github</a>.</p>
+<div class="contact docutils container">
+<p>Contact me by <a class="reference external" href="mailto:simon&#46;gravelle&#37;&#52;&#48;live&#46;fr">email</a> if you have any question or suggestion about these tutorials.</p>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../montecarlo/gcmc-silica.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Water adsorption in silica</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="graphene.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Graphene under deformation</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Breaking a carbon nanotube</a><ul>
+<li><a class="reference internal" href="#system-creation">System creation</a></li>
+<li><a class="reference internal" href="#input-file">Input file</a></li>
+<li><a class="reference internal" href="#equilibration">Equilibration</a></li>
+<li><a class="reference internal" href="#deformation">Deformation</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    </body>
+</html>

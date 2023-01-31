@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,
+initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+<link href="../figures/favicon-32x32.png" rel="icon" />
+<title>Tips for molecular dynamics</title>
+<meta name="description" content="Tips for molecular dynamics">
+<meta name="author" content="Simon Gravelle">
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/vendor/font-awesome/css/all.min.css" />
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/css/stylesheet.css" />
+<script async
+src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-W1WGEC5GQ8');
+</script>
+<script id="MathJax-script" async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
+<div id="main-wrapper">
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<header id="header" class="sticky-top">
+	<nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+	<div class="container-fluid">
+		<a class="logo ml-md-3" href="../index.html" title="LAMMPS tutorials">
+		<img src="../figures/logo.png"
+		alt="LAMMPS tutorials" height="60"/>
+		</a>
+		<div id="header-nav" class="collapse navbar-collapse justify-content-end">
+			<ul class="navbar-nav">
+				<li>
+				<a href="../index.html">
+				All tutorials
+				</a>
+				</li>
+				<li>
+					<a href="../miscellaneous/contact.html">Contact me</a>
+				</li>
+			</ul>
+		</div>
+		<ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+			<li class="social-icons-twitter"><a data-toggle="tooltip"
+			href="https://twitter.com/GravelleSimon" target="_blank"
+			title="" data-original-title="Twitter">
+			<i class="fab fa-twitter"></i></a></li>
+			<li class="social-icons-twitter"><a data-toggle="tooltip"
+			href="https://gitlab.com/sgravelle" target="_blank"
+			title="" data-original-title="Gitlab">
+			<i class="fab fa-gitlab"></i></i></a></li>
+			<li class="social-icons-twitter"><a data-toggle="tooltip"
+			href="https://github.com/simongravelle" target="_blank"
+			title="" data-original-title="Github">
+			<i class="fab fa-github"></i></i></a></li>
+			<li class="social-icons-twitter"><a data-toggle="tooltip"
+			href="https://www.youtube.com/c/SimonGravelle"
+			target="_blank" title="" data-original-title="Youtube">
+			<i class="fab fa-youtube"></i></i></a></li>
+		</ul>
+	</div>
+	</nav>
+</header>
+<div class="idocs-navigation bg-light">
+<ul class="nav flex-column ">
+<li class="nav-item"><a class="nav-link active"
+href="#intro">Intro</a></li>
+<li class="nav-item"><a class="nav-link" href="#files">Input files</a></li>
+<li class="nav-item"><a class="nav-link" href="#system_creation">System creation</a></li>
+<li class="nav-item"><a class="nav-link" href="#outputs">Outputs</a></li>
+</ul>
+</div>
+<div class="idocs-content">
+<div class="container">
+<section id="intro">
+	<h1>LAMMPS 101 (page in construction)</h1>
+	<p>
+		This page provides general information about the functionnement of the open source software LAMMPS,
+		which according to its <a href="https://docs.lammps.org" target="_blank">own website</a> is 
+		<i>a classical molecular dynamics (MD) code that models ensembles of particles in 
+		a liquid, solid, or gaseous state. </i>
+		<br><br>
+		Warning : this is not an exaustive list of the possibilities offered by LAMMPS, for that see the <a href="https://docs.lammps.org/Manual.html" target="_blank">LAMMPS documentation</a>.
+		<br><br>
+		Credit : This page has been inspired by <a target="_blank" href="https://gist.github.com/rkingsbury/57805181da0b62a6b6e8f7ae778de9b2">this github post</a> by Ryan Kingsbury.
+	</p>
+</section>
+<br><br><br><br>
+<section id="files">
+	<h2>Input files</h2>
+	<p>
+		Any lammps simulation requires at least one input script containing commands. In addition, 
+		data files containing information about the system topology can
+		be supplied, as well as parameters file containing information about
+		the force field, such as masses and pair coefficients. 
+	</p>
+	<h4><b>The input script</b></h4>
+	<p>
+		Input scripts are text files that are read by LAMMPS one line at a time. Input 
+		scripts contain commands (see below), and each command induces LAMMPS to take
+		action. Line starting with # are ignored by LAMMPS. This is an example of a minimal script 
+		extracted (with some simplifications) from <a href="../tutorials/01-SimpleMolecularSimulation.html">this tutorial</a>:
+		<pre><code># Minimal LAMMPS input script with comments (this line is ignored)
+pair_style lj/cut 2.5 						# use Lennards Jones potential with a 2.5 (unitless) cutoff 
+region myreg block -10 10 -10 10 -10 10 			# define a cubic region
+create_box 1 myreg 						# set the simulation box according to the region "myreg"
+create_atoms 1 random 100 54142 myreg 				# create 100 atoms of type 1 in the region "myreg"
+mass 1 2 							# attribute a mass of 2 (unitless) to atoms of type 1
+pair_coeff 1 1 1.5 0.7 						# attribute Lennards Jones coefficients (epsilon = 1.5 and sigma = 0.7) to atoms of type 1
+dump mydmp all atom 10 dump.lammpstrj 				# dump the atoms position in a file every 10 timestep
+minimize 1.0e-4 1.0e-6 1000 10000 				# perform an energy minimisation</code></pre>
+	</p>
+	<p>
+		<b>What is a <i>fix</i> ? </b>
+		A fix is a command used to apply an operation on a group of atoms.
+		For instance, thermostating can be applied using 
+		<a  target="_blank" href="https://docs.lammps.org/fix_temp_berendsen.html">fix Berendsen/temp</a> or 
+		<a  target="_blank" href="https://docs.lammps.org/fix_temp_rescale.html">fix temp/rescale</a>,
+		integration of atom positions can be done using 
+		<a  target="_blank" href="https://docs.lammps.org/fix_nve.html">fix nve</a>, or an additional force 
+		can be applied to the atoms using 
+		<a  target="_blank" href="https://docs.lammps.org/fix_gravity.html">fix gravity</a>. <br><br>
+	</p>
+	<p>
+		<b>Can I create a loop ? </b>
+		Yes, 'for loop' can be created usign <a href="https://docs.lammps.org/jump.html">the jump command</a>, 
+		and 'while loop' can be created combining the jump command with the if statement, see
+		<a target="_blank" href="https://matsci.org/t/while-loop/43543">this post</a>.
+
+	</p>
+	
+</section>
+<br><br><br><br>
+<section id="system_creation">
+	<h2>System creation</h2>
+	<p>
+		Typically, a simulation requires the definition of a computational box (orthogonal or tilded), 
+		as well as a list of atoms and their initial positions. These information can either be 
+		written in a data file before the simulation is started, or be specified within the input
+		script. 
+	</p>
+	<h4><b>Option 1: from a data file</b></h4>
+	<p>
+		LAMMPS can read information from a data file using the read_data command. 
+		The data file usually contains information such as the number of atoms
+		and their initial positions, the box dimensions, etc. Such data
+		file must follow a specific formating, see <a href="https://docs.lammps.org/2001/data_format.html" target="_blank">here</a>.
+		Here is an example of a data file for a simple system with 1 water molecule:
+		<pre><code>15 atoms
+2 atom types
+2 bonds
+1 bond types
+1 angles
+1 angle types
+
+-5.00 5.00 xlo xhi
+-5.00 5.00 ylo yhi
+-5.00 5.00 zlo zhi
+
+Masses
+
+1 15.9994
+2 1.008
+
+Atoms
+
+3 1 2 0.527 -0.43213494211794057 4.490986821056591 -2.00832253672005 
+1 1 1 -1.054 -1.0103199635859141 3.9862944633721575 -1.436277429248943
+2 1 2 0.527 -1.819251731628718 3.888533765608223 -1.938580267494636
+
+Bonds
+
+1 1 1 2
+2 1 1 3
+
+Angles
+
+1 1 2 1 3</code></pre>
+	</p>
+	<p>
+		Some external softwares allow you to create such data file, for example
+		<a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">VMD</a> + 
+		<a href="https://sites.google.com/site/akohlmey/software/topotools" target="_blank">topotool</a>. 
+		Data files can also be created with a simple script, find some Python and Octave/Matlab examples in my 
+		<a href="https://github.com/simongravelle/lammps-input-files", target="_blank">Github repository</a>.
+	</p>
+	<h4><b>Option 2: LAMMPS build-in commands</b></h4>
+	<p>
+		Another way to create a simulation box and place atoms is to use the
+		create_box and create_atoms commands of LAMMPS. For instance, to 
+		generate a box of 10x10x10, type in the input script:
+		<pre><code>region box block -5 5 -5 5 -5 5</code></pre>
+	</p>
+	<p>
+		To create a simulation box with the space for 2 atom type, 1 bond type, and 1 angle type, write in the input script:
+		<pre><code>create_box 2 box &
+	bond/types 1 &
+	angle/types 1 &
+	extra/bond/per/atom 2 &
+	extra/angle/per/atom 1 &
+	extra/special/per/atom 2</code></pre>
+	<p>
+		And to place a single water molecule, type:
+		<pre><code>molecule h2omol H2OTip4p.txt
+create_atoms 0 random 1 456415 NULL mol h2omol 454756</code></pre>
+	</p>
+	<p>
+		Here the molecule template H2OTip4p.txt
+		contains information about the molecule (i.e. which atoms are bonded toghether, etc.).
+	</p>
+</section>
+<br><br><br><br>
+<section id="outputs">
+	<h2>Outputs</h2>
+	<p>
+		There are several ways to extract information from a simulation:
+	</p>
+	<h4><b>Thermodynamic info</b></h4>
+	<p>
+		Thermodynamic info (such as temperature, energy, pressure) can be printed in the 
+		terminal and in the log file by using the thermo command. To print thermodynamic 
+		information every 100 timestep, type:
+		<pre><code>thermo 100</code></pre>
+	</p>
+	<p>
+		The thermo_modify and thermo_custom commands can be used to change the type of info printed 
+		by LAMMPS, for instance, to print the temperature of the group groupH2O only, as well as the overall kinetic energy and volume, use:
+		<pre><code>group groupH2O type 1 2
+compute tempH2O groupH2O temp
+thermo_modity temp tempH2O
+thermo_style custom step temp ke vol</code></pre>
+	</p>
+	<h4><b>Trajectory</b></h4>
+	<p>
+		Trajectory information, i.e. the position of atoms over time, can be printed 
+		in a file using the dump command:
+		<pre><code>dump myDump all atom 100 dump.lammpstrj</code></pre>
+		Here the positions of all the atoms are printed every 100 timesteps in the dump.lammpstrj file,
+		which you can then open using VMD or Ovito. 'lammpstrj' is the default ascii LAMMPS
+		dump format. Compressed trajectory formats such as xtc can also be used. 
+		<br><br>
+		There are plenty of measurements that can be performed from the trajecory files 
+		after your simulation is over. These measurements can be done with external tools
+		such as MDAnalysis or MAICoS (for confined geometries).
+	</p>
+	<h4><b>Data</b></h4>
+	<p>
+		Data can be printed in a text file as a function of the
+		simulation timestep using fix ave/time. The printed information can for instance be
+		the result of a variable, a compute, or even a fix. For instance this series of commands extracts the 
+		the box size along x (lx), convert it in meter, and print it in a text file every 1000 timesteps:
+		<pre><code>variable AngstromtoMeter equal 1e-10
+variable mylx equal lx*${AngstromtoMeter}
+fix myat1 all ave/time 1000 1 1000 v_mylx file myly_in_meter.dat</code></pre>
+	</p>
+	<p>	
+		Data can also be printed as a function of space, for instance to extract the 1D density profile along z, type:
+		<pre><code>compute cc1 water chunk/atom bin/1d z 0.0 1.0
+fix myac1 water ave/chunk 100 1000 100000 cc1 density/number norm sample file density_water.dat</code></pre>
+	</p>
+</section>
+<br><br>
+<section id="after">
+	<p class="alert alert-info"> 
+		<a href="contact.html">Click here</a>
+			if you are looking for help with your project, if you want to
+			support me (for free or not), or if you have any suggestions
+			for these tutorials.
+	</p>
+</section>
+</div>
+</div>
+<footer id="footer" class="section">
+	<div class="container">
+	<p class="text-2 text-center mb-0">
+		This template has been adapted from
+		<a class="btn-link" target="_blank"
+		href="https://github.com/harnishdesign/iDocs/">HarnishDesign</a>.
+	</p>
+	</div>
+</footer>
+</div>
+<a id="back-to-top" data-toggle="tooltip" title="Back to Top"
+href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a>
+<script src="../assets_tutorials/vendor/jquery/jquery.min.js"></script>
+<script src="../assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets_tutorials/vendor/highlight.js/highlight.min.js"></script>
+<script src="../assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="../assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="../assets_tutorials/js/theme.js"></script>
+</body>
+</html>

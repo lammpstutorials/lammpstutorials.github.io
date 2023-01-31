@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,
+initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+<link href="../figures/favicon-32x32.png" rel="icon" />
+<title>Osmosis Porous Membrane</title>
+<meta name="description" content="Osmosis tutorial">
+<meta name="author" content="Simon Gravelle">
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/vendor/font-awesome/css/all.min.css" />
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/css/stylesheet.css" />
+<script async
+src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-W1WGEC5GQ8');
+</script>
+<script id="MathJax-script" async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
+<div id="main-wrapper">
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<header id="header" class="sticky-top">
+<nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+<div class="container-fluid">
+<a class="logo ml-md-3" href="../index.html" title="LAMMPS tutorials">
+<img src="../figures/logo.png"
+alt="LAMMPS tutorials" height="60"/>
+</a>
+<!--<button class="navbar-toggler ml-auto" type="button"
+data-toggle="collapse" data-target="#header-nav">
+<span></span>
+<span></span>
+<span></span>
+</button>-->
+<div id="header-nav" class="collapse navbar-collapse justify-content-end">
+<ul class="navbar-nav">
+<li>
+<a href="../index.html">
+All tutorials
+</a>
+</li>
+<li><a href="../miscellaneous/contact.html">Contact me</a>
+</li>
+</ul>
+</div>
+<ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://twitter.com/GravelleSimon" target="_blank"
+title="" data-original-title="Twitter">
+<i class="fab fa-twitter"></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://gitlab.com/sgravelle" target="_blank"
+title="" data-original-title="Gitlab">
+<i class="fab fa-gitlab"></i></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://github.com/simongravelle" target="_blank"
+title="" data-original-title="Github">
+<i class="fab fa-github"></i></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://www.youtube.com/c/SimonGravelle"
+target="_blank" title="" data-original-title="Youtube">
+<i class="fab fa-youtube"></i></i></a></li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="idocs-navigation bg-light">
+<ul class="nav flex-column ">
+<li class="nav-item"><a class="nav-link active"
+href="#intro">Getting Started</a>
+</li>
+<li class="nav-item"><a class="nav-link active"
+href="#SystemCreation">System creation</a>
+</li>
+<li class="nav-item"><a class="nav-link active"
+href="#Equilibrium">System equilibration</a>
+</li>
+<li class="nav-item"><a class="nav-link active"
+href="#Run">Production run</a>
+</li>
+<li class="nav-item"><a class="nav-link"
+href="#further">Going further</a>
+</li>
+</ul>
+</div>
+<div class="idocs-content">
+<div class="container">
+<section id="intro">
+<h1>Osmosis flow through a porous membrane</h1>
+<h3>Binary lennard-jones fluid flow through a rigid porous membrane</h3>
+<br>
+<p>
+<img src="../figures/extra01-PorousMembraneOsmosis/LAMMPS_system.png"
+class="img-fluid" alt="Responsive image">
+<small style="color:#6B6B6B">Figure: A fluid made of a solute (large yellow spheres
+and solvent (small blue-ish spheres)) flowing though a porous membrane made of a
+single layer of atoms. The two gray layers on each sides are pistons ensuring that no evaporation
+occurs.
+</small>
+</p>
+<p>
+Warning: This tutorial may be obsolete.
+<br><br>
+<b>The objective of this tutorial</b> is to build a molecular
+dynamics system made of a rigid porous membrane, two reservoirs containing
+a solute and a solvent, and two pistons.
+There are three main parts to this tutorial:
+<ul>
+<li> <a href="#SystemCreation">System creation- </a> First, the system will be
+generated using build-in LAMMPS commands, and the energy of the system will be 
+minimised. 
+</li>
+<li> <a href="#Equilibrium">System equilibration - </a>Then, the system will
+be equilibrated using molecular dynamics.
+</li>
+<li> <a href="#Run">Production run - </a> Finally, long production runs will be performed 
+and the flux of solvent through the membrane will be measured. 
+</li>
+</ul>
+</p>
+<p class="alert alert-info"> <a href="../miscellaneous/contact.html">Click here</a> if
+you are looking for help with your project, if you want to support
+me (for free or not), or if you have any suggestions for these tutorials.
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="SystemCreation">
+<h2>System creation</h2>
+<br>
+<p>Create a folder named SystemCreation, and within this folder, create a
+LAMMPS input file called input.lammps.</p>
+<br>
+<h4><b>Simulation initialisation</b></h4>
+<p>
+Let us define some general parameters by adding these two lines to the 
+input.lammps file:
+<pre><code>boundary s p p
+pair_style lj/cut 2.5</code></pre></p>
+<p> Here we impose that the boundary conditions along the \(x\), \(y\), and \(z\)
+axis are non-periodic shrink-wrapped ("s"), periodic ("p"), and periodic "p", respectively. With the
+style "shrink-wrapped", the box integrate the atoms in that
+dimension, no matter how far they move. Then we set the pair style
+as Lennard-Jones, with a cut-off of 2.5 (no unit).
+<br><br>
+Note that we did not set the units, atom_style, or dimension of the simulation,
+as is common to do. In that case, the default value of LAMMPS are used,
+respectively lj, atomic, and 3 (for 3D).
+</p>
+<br><br>
+<h4><b>Region creation</b></h4>
+<p>
+The first step toward the creation of the system is to define regions of space.
+The first region is a parallelepiped rectangle corresponding to the initial
+simulation box.
+<br><br>
+<img src="../figures/extra01-PorousMembraneOsmosis/LAMMPS_box.png"
+class="img-fluid" alt="Responsive image">
+<br>
+<small style="color:#6B6B6B">Figure: Molecular dynamics system simulation
+box.</small>
+<br>
+</p>
+<p>
+Let us set the lattice to face-centered cubic (fcc) (for the future positioning
+of the solid wall atoms), define the simulation_box region, and use it to
+create the initial box:
+<pre><code># System definition
+lattice fcc 1
+region simulation_box block -23 23 -5 5 -5 5
+create_box 5 simulation_box</code></pre></p>
+<p>
+The "5" in create_box indicates that the simulation will contain 5 types of
+atoms (solute, solvent, membrane, and pistons (x2)), see below. 
+Here, a box of dimension 46 by 10 by 10 (unitless) is created (the dimension 
+along \(x\) will be free to evolve during the simulation).
+
+<blockquote><i>
+Note that a larger system was used to generate the figures here, you too can increase 
+the dimensions of the system and increase the number of atoms
+if you have a powerful computer and/or time.
+</blockquote></i></p>
+<p>
+Then, let us define 5 regions that will be used to place the atoms.
+<br><br>
+<img src="../figures/extra01-PorousMembraneOsmosis/LAMMPS_regions.png"
+class="img-fluid" alt="Responsive image">
+<br>
+<small style="color:#6B6B6B">Figure: Molecular dynamics system with all
+five regions, from left to right : piston_left, fluid_left,
+membrane, fluid_right, and piston_right.</small>
+
+<pre><code>region piston_left block -21 -20 INF INF INF INF
+region fluid_left block -18 -2 INF INF INF INF
+region membrane block -0.25 0.25 INF INF INF INF
+region fluid_right block 2 18 INF INF INF INF
+region piston_right block 20 21 INF INF INF INF</code></pre></p>
+<p>
+With the INF keyword (here used for \(y\) and \(z\) axis), the region 
+encompasses the whole simulation box.
+</p>
+<br><br>
+<h4><b>Place the atoms</b></h4>
+<p>
+The second step is to add the atoms within the system.
+<br><br>
+<img src="../figures/extra01-PorousMembraneOsmosis/LAMMPS_atoms.png"
+class="img-fluid" alt="Responsive image">
+<br>
+<small style="color:#6B6B6B">Figure: Molecular dynamics system with all
+five types of atoms: solid (types 1, 2 and 3) and fluid (types 4 and 5).</small>
+<pre><code>create_atoms 1 region piston_left
+create_atoms 2 region membrane
+create_atoms 3 region piston_right
+create_atoms 4 random 1000 654514 fluid_left
+create_atoms 4 random 550 654514 fluid_right
+create_atoms 5 random 50 424514 fluid_right</code></pre></p>
+<p>
+Atoms of types 1, 2, and 3 are placed on the fcc lattice previously defined.
+The atoms of the fluid (types 4 and 5) are placed randomly. Solute (type 5) is placed
+only on the right side of the membrane. The difference in concentration will
+create a difference in osmotic pressure, which will induce the flow of solvent
+from the left to the right.
+</p>
+<br><br>
+<h4><b>Settings</b></h4>
+<p>
+Let us define the simulation settings:
+<pre><code># Simulation settings
+mass * 1
+pair_coeff 1*3 1*3 1.0 1.0 # solid-solid 
+pair_coeff 4 4 1.0 1.0 # solvent-solvent
+pair_coeff 5 5 2.0 3.0 # solute-solute</code></pre></p>
+<p> The mass of all the atoms are set to 1 (unitless). The Lennard-Jones pair coefficient
+between atoms of types 1 to 4 are set to 1 for both the depth of the potential
+well \(\epsilon\) and the distance at which the particle-particle potential
+energy is zero \(\sigma\) (i.e. the size of the particle). For the solute (type 5),
+both \(\epsilon\) and \(\sigma\) are set to larger values that 1, thus making the particles
+of the solute respectively slightly more attractive (in order to enhance the 
+osmotic flow of solvent) and larger (so it is unlikely for solute to cross the membrane).
+<br><br>
+By default, the cross-parameters (i.e. between species \(i\) and \(j\)) are automatically calculated by LAMMPS.
+Here, let us tune slightly these cross- parameters. First, let us
+reduce slightly the affinity between the solvent and the walls, by reducing \( \epsilon_{14}, \epsilon_{24}\), and \(\epsilon_{34} \)) :
+<pre><code>pair_coeff 1*3 4 0.8 1 # solid-solvent</code></pre></p><p>
+This helps minimizing unnecessarily large adsorption of the solvent at the walls.
+<br><br>
+In order to help prevent the solute to cross the porous membrane too easily, let us increase
+a bit its effective size "as seen by the wall", and reduce the affinity between
+the solute and the wall:
+<pre><code>pair_coeff 2 5 0.1 3.0 # membrane-solute</code></pre></p>
+<br><br>
+<h4><b>Output and run</b></h4>
+<p>
+Let us dump the atom positions for visualisation purpose,
+<pre><code># Output
+dump mydmp all atom 1 dump.lammpstrj
+thermo 10</code></pre></p>
+<p>
+and finally minimise the energy of the system and print the final positions of
+the atoms (which we will use as a starting configuration for the next simulation):
+<pre><code># Run
+minimize 1.0e-4 1.0e-6 1000 10000
+write_data data.lammps pair ij</code></pre></p>
+<p> With the pair "ij keyword", LAMMPS will print the simulation settings (mass and pair_coeff)
+in the data.lammps file. The dump file can be opened with VMD. If you do so, 
+you will notice that some atoms are moving slightly from each other, and are now in a 
+more acceptable position. 
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="Equilibrium">
+<h2>System equilibration</h2>
+<br>
+<p>Create a second folder alongside the SystemCreation folder, and call it
+Equilibrium. Create a new LAMMPS input file called input.lammps in it.</p>
+<br>
+<h4><b>Initialisation</b></h4>
+<p>Start by re-writing the boundary and pair_style (these information
+are not saved by the write_data command), and import write_data using
+the read_data command:
+<pre><code>boundary s p p
+pair_style lj/cut 2.5
+read_data ../SystemCreation/data.lammps</code></pre>
+</p>
+<h4><b>Region and groups</b></h4>
+<p>Let us define a region corresponding to the right side of the porous membrane,
+which will be used later for recording the number of solute and solvent atoms on
+the right side of the membrane, from which the flux will be calculated:
+<pre><code>region right block 0 INF INF INF INF INF</code></pre></p>
+<p>Then, let us group the atoms into groups, which will allow us to control them
+separately:
+<pre><code>group solid type 1 2 3
+group piston_right type 3
+group membrane type 2
+group piston_left type 1
+group fluid type 4 5
+group solvent type 4
+group solute type 5</code></pre>
+</p>
+<h4><b>Small optimization</b></h4>
+<p>Since we anticipate that the atoms of the solid will be frozen, we can ask
+LAMMPS to not build neighbor lists between the solid atoms (and save computational power):
+<pre><code>neigh_modify exclude group solid solid</code></pre></p>
+<p>
+This command will slightly speeds up the simulation, but won't influence the result.
+Let us also slightly change the default parameters for the default neighbor
+search, and this avoid having dangerous builds (like we did in this <a href="01-SimpleMolecularSimulation.html">tutorial</a> )
+<pre><code>neigh_modify every 1 delay 5 check yes</code></pre></p>
+<h4><b>Dynamics</b></h4>
+<p> Now, let us address the molecular dynamics of the atoms. First, let us
+give an initial temperature of 1 (unitless) to the atoms of the fluid:
+<pre><code>velocity fluid create 1.0 4928459 mom yes rot yes dist gaussian</code></pre></p>
+<p>Then, let us apply the fix nve to all the atoms in order to perform the molecular dynamics
+(i.e. update the atom positions from the force calculation):
+<pre><code>fix mynve all nve</code></pre></p>
+<p>
+Note that nve is applied to all atoms, including solid atoms, even though they
+will be maintained frozen (they will be maintained frozen thanks to setforce and addforce fixes, see below).
+For the next step, let us control the temperature of the atoms of the fluid using a Langevin thermostat:
+<pre><code>compute temperature_fluid fluid temp
+fix mylgv fluid langevin 1.0 1.0 0.1 1530917 zero yes
+fix_modify mylgv temp temperature_fluid</code></pre></p>
+<p>
+The fix_modify, which uses the temperature calculated by the compute temperature_fluid,
+ensures that the temperature of the fluid is used as a reference temperature.
+This must be done every time a thermostat is not applied to group all.
+<br><br>
+Then, let us force the membrane to remain frozen by canceling the force
+applied on the atoms of the membrane at every timestep:
+<pre><code>fix mysf1 membrane setforce 0 0 0</code></pre></p>
+<p>
+In addition, we want to freeze both pistons, but still allow them to move as
+rigid bodies along the \(x\) direction. To do so, let us combine the
+setforce and aveforce commands.
+<pre><code>fix mysf2 piston_left setforce NULL 0 0
+fix mysf3 piston_right setforce NULL 0 0
+variable F equal 0.025
+fix myaf1 piston_left aveforce ${F} NULL NULL
+fix myaf2 piston_right aveforce -${F} NULL NULL</code></pre></p>
+<p>
+A force \(F\) is applied on the atoms of the piston along \(x\) is order to
+slightly compress the fluid.
+</p>
+<h4><b>Outputs</b></h4>
+<p>Let us make sure that our simulation is correct by printing out some
+information as the simulation runs, such as the piston position and number of fluid atoms in the
+right reservoir:
+<pre><code># Output
+variable solvent_right equal count(solvent,right)
+variable solute_right equal count(solute,right)
+variable position_piston_left equal xcm(piston_left,x)
+variable position_piston_right equal xcm(piston_right,x)
+fix myat1 all ave/time 1000 1 1000 v_solvent_right file solvent_right.dat
+fix myat2 all ave/time 1000 1 1000 v_solute_right file solute_right.dat
+fix myat3 all ave/time 1000 1 1000 v_position_piston_left file position_piston_left.dat
+fix myat4 all ave/time 1000 1 1000 v_position_piston_right file position_piston_right.dat
+dump mydmp all atom 1000 dump.lammpstrj
+thermo_modify temp temperature_fluid</code></pre></p>
+<p>
+</p>
+<h4><b>Run</b></h4>
+<p>Finally, let us run the equilibration for 500000 timesteps and save the final state
+of the simulation:
+<pre><code># Run
+thermo 10000
+run 500000
+write_data data.lammps pair ij</code></pre></p>
+<p>
+Run the input using LAMMPS, it should take a few minutes. 
+<blockquote><i>
+Since we did not specified the timestep, the default value of 1 fs is used. 
+</blockquote></i>
+<blockquote><i>
+This equilibration time is a bit too short and has been chosen in order to keep the computational 
+cost as low as possible.
+</blockquote></i> 
+</p>
+<p>
+We can ensure that the system did reach equilibrium by looking at the 
+positions of the two pistons.
+</p>
+<p>
+<img src="../figures/extra01-PorousMembraneOsmosis/Piston_equilibration.png"
+class="img-fluid" alt="Responsive image">
+<small>Positions of the left and right pistons during equilibration.</small>
+</p>
+<p>
+Let us make sure that the membrane is not permeable to the fluid 
+by looking at the solvent_right.dat file:
+<pre><code># Time-averaged data for fix myat1
+# TimeStep v_solvent_right
+0 550
+1000 550
+2000 550
+3000 550
+4000 550
+{...}
+498000 550
+499000 550
+500000 550</code></pre></p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="Run">
+<h2>Production run</h2>
+<p>Create a third folder alongside the two current folders, and call it
+Porosity0.5. Create a new LAMMPS input file called input.lammps in it.</p>
+<h4><b>Initialisation and membrane drilling</b></h4>
+<p>Let us start by copy-pasting similar commands as previously in the input.lammps file:
+<pre><code>boundary s p p
+pair_style lj/cut 2.5
+
+read_data ../Equilibrium/data.lammps
+
+region right block 0 INF INF INF INF INF
+
+group solid type 1 2 3
+group piston_right type 3
+group membrane type 2
+group piston_left type 1
+group fluid type 4 5
+group solvent type 4
+group solute type 5
+
+neigh_modify exclude group solid solid
+neigh_modify every 1 delay 5 check yes</code></pre></p>
+<p>
+Then, let us delete randomly \(50\%\) of the atoms of the membrane:
+<pre><code>region membrane block -0.25 0.25 INF INF INF INF
+delete_atoms porosity membrane 0.5 482793</code></pre></p>
+<p>or 
+<pre><code>delete_atoms random fraction 0.5 no all membrane 482793 # for newer LAMMPS version</code></pre></p>
+<p> if you are using the most recent LAMMPS version. This command deletes \(50\%\) 
+of the atoms of the membrane region. The last
+number is a seed, change its value to generate different pattern, and different
+porosity can be obtained by changing the fraction of deleted atoms:
+<img src="../figures/extra01-PorousMembraneOsmosis/membranes.png"
+class="img-fluid" alt="Responsive image">
+<br>
+<small style="color:#6B6B6B">Figure: Membranes with different fraction of deleted atoms
+</small>
+</p>
+<h4><b>Dynamics and data printing</b></h4>
+<p>
+Finally, let us re-enter the dynamics setting used in the equilibration step, and
+print information into data file:
+<pre><code>fix mynve all nve
+compute temperature_fluid fluid temp
+fix mylgv fluid langevin 1.0 1.0 0.1 1530917 zero yes
+fix_modify mylgv temp temperature_fluid
+thermo_modify temp temperature_fluid
+
+fix mysf1 membrane setforce 0 0 0
+fix mysf2 piston_left setforce NULL 0 0
+fix mysf3 piston_right setforce NULL 0 0
+
+variable F equal 0.025
+fix myaf1 piston_left aveforce ${F} NULL NULL
+fix myaf2 piston_right aveforce -${F} NULL NULL
+
+variable solvent_right equal count(solvent,right)
+variable solute_right equal count(solute,right)
+variable position_piston_left equal xcm(piston_left,x)
+variable position_piston_right equal xcm(piston_right,x)
+
+fix myat1 all ave/time 10000 1 10000 v_solvent_right file solvent_right.dat
+fix myat2 all ave/time 10000 1 10000 v_solute_right file solute_right.dat
+fix myat3 all ave/time 10000 1 10000 v_position_piston_left file position_piston_left.dat
+fix myat4 all ave/time 10000 1 10000 v_position_piston_right file position_piston_right.dat
+fix myat5 all ave/time 10 1000 10000 f_mysf1[1] file force_membrane.dat
+
+dump mydmp all atom 10000 dump.lammpstrj
+
+thermo 10000
+run 2000000</code></pre></p>
+
+<p> This simulation may take several hours to complete, depending on the
+number of processors you use: you can use more that one processor for your simulation
+by using :
+<pre><code>mpirun -np 4 lmp -in input.lammps</code></pre></p>
+<p>where 4 is the number of desired processors. 
+
+<br><br>
+Here I plot the number of solvent atom in the right reservoir, as well as the 
+position of the left piston over time:
+<p>
+<img src="../figures/extra01-PorousMembraneOsmosis/Flux.png"
+class="img-fluid" alt="Responsive image">
+<small>Positions of the left piston during the production run (left).
+Solvent in the right reservoir (right).</small>
+</p>
+<p>
+A net flux of solvent is induced from left to right (from low concentration to
+high concentration) due to the osmotic pressure difference. The simulation should 
+look like <a href="https://www.youtube.com/watch?v=DY_u_Q9uWbI"target="_blank">this video</a>.
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="further">
+<h2>Exercises</h2>
+
+<br>
+<p class="alert alert-info"> 
+Request the solutions by email, or register <a target="_blank"
+href="https://www.patreon.com/molecularsimulations">here</a> and access all the solutions
++ additional LAMMPS content.
+</p>
+<br>
+
+<h4><b>Exercises 1: Measure the osmotic pressure difference</b></h4>
+<p>
+Using the simulation created here, measure the osmotic pressure induced
+by the solute concentration difference.
+
+<blockquote><i>
+Hint: the osmotic pressure can me measured along one of the membrane.
+</blockquote></i>
+</p>
+
+<h4><b>Exercise 2: Pressure driven flux</b></h4>
+<p>
+Modify the input script and create a system with a net flux induced 
+by mechanical pressure difference instead of osmosis.
+
+<blockquote><i>
+Hint: you can either remove the solute, or use the same solute concentration
+in both side.
+</blockquote></i>
+</p>
+
+<blockquote><i>
+Hint: you can either remove the solute, or use the same solute concentration
+in both side 
+</blockquote></i>
+</p>
+
+<p class="alert alert-info"> <a
+href="../miscellaneous/contact.html">Click here</a>
+if you are looking for help with your project, if you want to
+support me (for free or not), or if you have any suggestions
+for these tutorials.
+</p>
+</section>
+</div>
+</div>
+<footer id="footer" class="section">
+<div class="container">
+<p class="text-2 text-center mb-0">This template has been adapted from
+<a class="btn-link" target="_blank"
+href="https://github.com/harnishdesign/iDocs/">HarnishDesign</a>.
+</p>
+</div>
+</footer>
+</div>
+<a id="back-to-top" data-toggle="tooltip"
+title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a>
+<script src="../assets_tutorials/vendor/jquery/jquery.min.js"></script>
+<script src="../assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets_tutorials/vendor/highlight.js/highlight.min.js"></script>
+<script src="../assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="../assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="../assets_tutorials/js/theme.js"></script>
+</body>
+</html>

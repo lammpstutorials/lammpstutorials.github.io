@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,
+initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+<link href="../figures/favicon-32x32.png" rel="icon" />
+<title>Tips for molecular dynamics</title>
+<meta name="description" content="Tips for molecular dynamics">
+<meta name="author" content="Simon Gravelle">
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/vendor/font-awesome/css/all.min.css" />
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/css/stylesheet.css" />
+<script async
+src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-W1WGEC5GQ8');
+</script>
+<script id="MathJax-script" async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
+<div id="main-wrapper">
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<header id="header" class="sticky-top">
+<nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+<div class="container-fluid">
+<a class="logo ml-md-3" href="../index.html" title="LAMMPS tutorials">
+<img src="../figures/logo.png"
+alt="LAMMPS tutorials" height="60"/>
+</a>
+<!--<button class="navbar-toggler ml-auto" type="button"
+data-toggle="collapse" data-target="#header-nav">
+<span></span>
+<span></span>
+<span></span>
+</button>-->
+<div id="header-nav" class="collapse navbar-collapse justify-content-end">
+<ul class="navbar-nav">
+<!--
+<li class="dropdown"> <a class="dropdown-toggle" href="#">All tutorials</a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="tutorial01.html">Tutorial 1</a></li>
+<li><a class="dropdown-item" href="tutorial02.html">Tutorial 2</a></li>
+<li><a class="dropdown-item" href="tutorial03.html">Tutorial 3</a></li>
+<li><a class="dropdown-item" href="tutorial04.html">Tutorial 4</a></li>
+<li><a class="dropdown-item" href="tutorial05.html">Tutorial 5</a></li>
+<li><a class="dropdown-item" href="tutorial06.html">Tutorial 6</a></li>
+<li><a class="dropdown-item" href="tutorial07.html">Tutorial 7</a></li>
+</ul>
+</li>
+-->
+<li>
+<a href="../index.html">
+All tutorials
+</a>
+</li>
+<li>
+	<a href="../miscellaneous/contact.html">Contact me</a>
+</li>
+</ul>
+</div>
+<ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://twitter.com/GravelleSimon" target="_blank"
+title="" data-original-title="Twitter">
+<i class="fab fa-twitter"></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://gitlab.com/sgravelle" target="_blank"
+title="" data-original-title="Gitlab">
+<i class="fab fa-gitlab"></i></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://github.com/simongravelle" target="_blank"
+title="" data-original-title="Github">
+<i class="fab fa-github"></i></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://www.youtube.com/c/SimonGravelle"
+target="_blank" title="" data-original-title="Youtube">
+<i class="fab fa-youtube"></i></i></a></li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="idocs-navigation bg-light">
+<ul class="nav flex-column ">
+<li class="nav-item"><a class="nav-link active"
+href="#intro">Getting Started</a></li>
+<li class="nav-item"><a class="nav-link" href="#before">Before</a></li>
+<li class="nav-item"><a class="nav-link" href="#during">During</a></li>
+<li class="nav-item"><a class="nav-link" href="#after">After</a></li>
+</ul>
+</div>
+<div class="idocs-content">
+<div class="container">
+<section id="intro">
+<h1>Molecular simulation checklist</h1>
+<p><b>The objective of this page</b> is to provide a non-exhaustive
+list of tasks that must be validated to ensure the reliability of
+a molecular simulation. This page contains 3 categories:
+<ul>
+<li> <a href="#before">Before-</a> What to do when preparing
+a simulation. </li>
+<li> <a href="#while">During - </a> What to look at when
+		the simulation is running.</li>
+<li> <a href="#after">After - </a> What are the indication
+		that the simulations ran smoothly, or not.</li>
+</ul>
+</p>
+<p>If you are new to LAMMPS, this website is for you, see for
+example <a href="../tutorials/01-SimpleMolecularSimulation.html">this tutorial for beginners</a>.
+</p>
+<p class="alert alert-info"> <a href="contact.html">Click here</a> if
+you are looking for help with your project, if you want to
+support me (for free or not), or if you have any suggestions for
+these tutorials.
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="before">
+<h2>Before starting the simulation</h2>
+<h4><b>What is your physical question?</b></h4>
+<p>
+It is probably an obvious one, but it is much better to have a
+clear physical question in mind before starting your simulations,
+as it will help you designing your system, choose what observable
+to extract, etc. Of course, <u>sometimes you don't have a clear
+question</u> from the start, and its OK too. In this case you
+can just run the molecular dynamics simulation and analyse the
+trajectories post-mortem to decide what data you want to use.
+</p>
+<h4><b>Do you have the right force field?</b></h4>
+<p>
+The force field is a crutial aspect of a molecular simulation. It
+governs how the atoms interact with each others, how a molecule
+deforms, what crystal structure a solid adopts at a given temperature,
+etc. Reviewers often ask you to justify your choice of force field,
+and you better have an answer. You will have to read a few
+publications to identify the best choice for you. Generally,
+you choose a force field because it reproduces a relevant
+experimental result. If you can't find a force field calibrated
+from an experimental result that is relevant for you, try to
+find one calibrated from quantum mechanics. Alternatively, you can
+create a new force field, or re-calibrate an existing one,
+but that's a lot of work.
+<br><br>
+<i><u>Example</i></u>. If you want to simulate the dielectric
+properties of water near an interface, the four point model
+TIP4P/\(\epsilon\) is probably a good choice for the water
+molecules, as it has been specifically calibrated to reproduce
+the dielectric constant of bulk water. Still, keep in mind that
+TIP4P/\(\epsilon\) was calibrated for <i>bulk</i> water, and you
+have no guaranty that it will work at interfaces. Sometimes,
+polarisable water model are a better choice, but they are also
+more computationally expensive, and will make it difficult for
+you to simulate the system you want (see the part about
+computational power below).
+</p>
+<h4><b>Is your timestep suitable?</b></h4>
+<p>
+The timestep if the time interval for which the simulation
+progresses. The proper value for the timestep usually comes with
+the force field. For traditional all-atoms molecular dynamics
+its usually 1 femto second, sometimes 2 fs. For complex force fields
+such as reaxff, for which bonds can break and form, the  force
+between interacting atoms is nonlinear and a smaller timestep is
+needed, typically 0.1 fs. If needed, you can use smaller values,
+but never use a larger value for your timestep except if you
+have a good reason for that.
+</p>
+<h4><b>Do you have enough computational power?</b></h4>
+<p>
+Before starting a simulation, it is good to have an idea of the
+CPU time (duration of the simulation x number of CPU) that is
+needed. To make the estimate, you can run a test simulation for
+a few timesteps, and make a 'rule of 3' to estimate the
+required duration for the full simulation. Then, whether to run
+the full simulation or not depends on the infrastructure you have.
+A quick rule-of-thumb: if you only have your PC, it will be
+difficult to simulate systems larger than a few nanometers for
+more than 1-10 nanoseconds. If you have access to a super computer,
+you can probably go up to tens of nanometers and hundred of
+nanoseconds. If you don't have enough computational power,
+you better compromise, for example try to use a smaller system,
+or try a less demanding force field.
+</p>
+<h4><b>What thermodynamic ensemble is the more adapted?</b></h4>
+<p>
+There are plenty of ensembles that can be simulated, from the more
+classics like NVE (constant number of atoms, volume, and energy), NVT
+(constant number of atoms, volume, and temperature), and NPT
+(constant number of atoms, pressure, and temperature) to more
+exotic like \(\mu\)VT (constant chemical potential, volume, and
+temperature). To choose the best ensemble, it mostly comes to
+logic, and should arise from your physical question and systems.
+For instance, if what you want to measure is the pressure in your
+system, then NPT is probably not the best choice since with NPT you
+impose the pressure. If you have doubt, just look for systems similar
+as yours in the literature, or have a look at the great book
+by Frenkel and Smit :
+<a href="https://www.sciencedirect.com/book/9780122673511/understanding-molecular-simulation"
+target="_blank">Understanding Molecular Simulation</a>.
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="during">
+<h2>During the run</h2>
+<h4><b>Does the system look good?</b></h4>
+<p>
+At the start of a new simulation, open your trajectory file with VMD
+to see if the system resembles what you think you imposed. Verify
+that atoms are not moving 'too much', that molecules have the
+expected shape, etc. If your system is periodic (e.g. bulk solid
+phase), use the periodic image option in representation, it
+helps spot misplaced atoms.
+</p>
+<h4><b>Does the system behave well?</b></h4>
+<p>
+From the thermodynamic values printed in the terminal, make sure
+that the temperature, volume, etc. are not behaving
+erratically, and that they have values oscillating near the desired
+values. The total energy is also a good indicator if you are doing
+NVT or NPT simulations: if your system started in a 'non-natural'
+configuration (for example with the molecules of your fluid disposed
+on a square lattice), then the energy should decrease at the start,
+then should reach a certain equilibrium.
+</p>
+<h4><b>What are the warnings?</b></h4>
+<p>
+Your simulation can run fine even if you have some warnings at
+the beginning of the simulation. If it is the case, try to understand
+why you have these warnings. Sometimes, warnings are normal and can be
+ignored, but other times they can be of great help to spot an issue
+with your code.
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="after">
+<h2>After the simulation is over</h2>
+<h4><b>Was there dangerous builds?</b></h4>
+<p>
+If you see in the terminal or in the log file that there have been
+dangerous builds during the simulation, it means that some atoms
+moved too close to each other during the simulation. Either your
+timestep is too large, or your system is too far from equilibrium,
+resulting in large velocities of the atoms. You can try to understand
+the origin of the issue by having a look at the simulation trajectory
+using VMD. One solution can be to reduce the timestep, at least at the
+beginning of the simulation. Another solution is to make the
+recalculations of the neighbour lists more frequent, as in
+<a href="../tutorials/01-SimpleMolecularSimulation.html">this tutorial</a>.
+</p>
+<h4><b>Did your system reach equilibrium?</b></h4>
+<p>
+If you are performing equilibrium measurements (for example diffusion
+coefficient measurement from MSD), make sure that your system was
+indeed at equilibrium before the data acquisition started. You can
+make sure of that by extracting some data over time (for example
+the density in a bulk liquid simulation, or the RDF in a bulk
+solid simulation). Such data usually converge following an
+exponential-like curve versus the time, from which you can
+evaluate the duration required for your system to reach
+the equilibrium. If the data seems to never reach a plateau,
+may be longer simulations are needed, or a smaller system, or
+may be there is something really wrong in the dynamics of the atoms,
+like an unexpected external force, or a thermostat that is not
+doing what it is supposed to do.
+</p>
+<p class="alert alert-info"> <a
+href="contact.html">Click here</a>
+if you are looking for help with your project, if you want to
+support me (for free or not), or if you have any suggestions
+for these tutorials.
+</p>
+</section>
+</div>
+</div>
+<footer id="footer" class="section">
+<div class="container">
+<p class="text-2 text-center mb-0">This template has been adapted from
+<a class="btn-link" target="_blank"
+href="https://github.com/harnishdesign/iDocs/">HarnishDesign</a>.
+</p>
+</div>
+</footer>
+</div>
+<a id="back-to-top" data-toggle="tooltip" title="Back to Top"
+href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a>
+<script src="../assets_tutorials/vendor/jquery/jquery.min.js"></script>
+<script src="../assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets_tutorials/vendor/highlight.js/highlight.min.js"></script>
+<script src="../assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="../assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="../assets_tutorials/js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,
+initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+<link href="../figures/favicon-32x32.png" rel="icon" />
+<title>VMD tips</title>
+<meta name="description" content="VMD tips">
+<meta name="author" content="Simon Gravelle">
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/vendor/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/vendor/font-awesome/css/all.min.css" />
+<link rel="stylesheet" type="text/css"
+href="../assets_tutorials/css/stylesheet.css" />
+<script async
+src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-W1WGEC5GQ8');
+</script>
+<script id="MathJax-script" async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
+<div id="main-wrapper">
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<header id="header" class="sticky-top">
+<nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+<div class="container-fluid">
+<a class="logo ml-md-3" href="../index.html" title="LAMMPS tutorials">
+<img src="../figures/logo.png"
+alt="LAMMPS tutorials" height="60"/>
+</a>
+<!--<button class="navbar-toggler ml-auto" type="button"
+data-toggle="collapse" data-target="#header-nav">
+<span></span>
+<span></span>
+<span></span>
+</button>-->
+<div id="header-nav" class="collapse navbar-collapse justify-content-end">
+<ul class="navbar-nav">
+<!--
+<li class="dropdown"> <a class="dropdown-toggle" href="#">All tutorials</a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="tutorial01.html">Tutorial 1</a></li>
+<li><a class="dropdown-item" href="tutorial02.html">Tutorial 2</a></li>
+<li><a class="dropdown-item" href="tutorial03.html">Tutorial 3</a></li>
+<li><a class="dropdown-item" href="tutorial04.html">Tutorial 4</a></li>
+<li><a class="dropdown-item" href="tutorial05.html">Tutorial 5</a></li>
+<li><a class="dropdown-item" href="tutorial06.html">Tutorial 6</a></li>
+<li><a class="dropdown-item" href="tutorial07.html">Tutorial 7</a></li>
+</ul>
+</li>
+-->
+<li>
+<a href="../index.html">
+All tutorials
+</a>
+</li>
+<li>
+    <a href="../miscellaneous/contact.html">Contact me</a>
+</li>
+</ul>
+</div>
+<ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://twitter.com/GravelleSimon" target="_blank"
+title="" data-original-title="Twitter">
+<i class="fab fa-twitter"></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://gitlab.com/sgravelle" target="_blank"
+title="" data-original-title="Gitlab">
+<i class="fab fa-gitlab"></i></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://github.com/simongravelle" target="_blank"
+title="" data-original-title="Github">
+<i class="fab fa-github"></i></i></a></li>
+<li class="social-icons-twitter"><a data-toggle="tooltip"
+href="https://www.youtube.com/c/SimonGravelle"
+target="_blank" title="" data-original-title="Youtube">
+<i class="fab fa-youtube"></i></i></a></li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="idocs-navigation bg-light">
+<ul class="nav flex-column ">
+<li class="nav-item"><a class="nav-link active"
+href="#intro">Getting Started</a></li>
+<li class="nav-item"><a class="nav-link"
+href="#representation">Representation</a></li>
+<li class="nav-item"><a class="nav-link"
+href="#colours">Colours</a></li>
+<li class="nav-item"><a class="nav-link"
+href="#materials">Materials</a></li>
+<li class="nav-item"><a class="nav-link"
+href="#view">View</a></li>
+<li class="nav-item"><a class="nav-link"
+href="#rendering">Rendering</a></li>
+</ul>
+</div>
+<div class="idocs-content">
+<div class="container">
+<section id="intro">
+<h1>Visual representation</h1>
+<h3>Generate good looking image/movie with VMD</h3>
+<p>
+<img src="../figures/vmd/FIGURE5.png" class="img-fluid"
+alt="Responsive image">
+</p>
+<p>
+<b>The objective of this page</b> is to list a few tips that
+help improve the representation of atomic systems using VMD.
+The version of VMD I used is 1.9.4a51.
+</p>
+<p>
+If you are new to LAMMPS, this website is for you,
+see for example <a href="../tutorials/01-SimpleMolecularSimulation.html">this
+tutorial for beginners</a>.
+</p>
+<p class="alert alert-info"> <a href="contact.html">Click here</a>
+if you are looking for help with your project, if you want to
+support me (for free or not), or if you have any suggestions
+for these tutorials.
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="before">
+<h2>Practical example</h2>
+<p>
+If you want to try it yourself with the same system, you can
+download this <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/blob/main/docs/Inputs/VMDfiles.zip?raw=true">LAMMPS trajectory file</a>.
+The trajectory file corresponds to a mixture of water and toluene,
+and can be opened with VMD by typing in a terminal:
+<pre><code>vmd dump.lammpstrj</pre></code>
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="representation">
+<h2>The representation</h2>
+<p>
+You can change the representation of the atoms by going in
+<b>Graphics &#x2192; Representations</b>, and then choose
+another <b>Drawing Method</b>. My 2 favourite representations
+are <b>dynamic bonds</b> for large molecules or graphene,
+and <b>VDW</b> for single atoms or small molecules like water.
+QuickSurf can also make nice results, like
+<a href="https://www.youtube.com/watch?v=1ipJ8JQT0rc&t=3s"
+target="_blank">this video</a>. You can apply a representation
+only to a group of atoms, by choosing a selection in the windows
+<b>Selected Atoms</b>. To obtain the same result as me, replace
+<b>All</b> by <b>type 1</b> in the windows to select the oxygen
+of the water molecules. Then, tune the radius to 0.8, and increase
+the resolution (>32 at least). Then, click on <b>Create Rep</b>
+to create a second representation for the hydrogen of water
+(type 2), and change the radius to 0.4. Create a third
+representation for all 3 atom types of toluene by entering
+<b>type 3 4 5</b> (hydrogen, oxygen, and carbon atoms).
+Choose <b>DynamicBonds</b> and increase the resolution. You can
+see that 'DynamicBonds' is not really good looking by itself,
+the ends of the bonds are rough. To smooth the representation,
+create the fourth and last representation (VDW, radius 0.2)
+for types 3, 4, and 5.
+</p>
+<p><img src="../figures/vmd/FIGURE1.png" class="img-fluid"
+alt="Responsive image">
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="colours">
+<h2>The colours</h2>
+<p>To change the colours, go to <b>Graphics &#x2192; Colors</b>.
+Click on <b>Display</b>, then <b>Background</b>, and choose white
+instead of black. Then click on <b>Name</b>, and <b>5</b> (this is
+the oxygen atoms), and choose red. Do the same for 4
+(carbon &#x2192; pink), 3 (hydrogen &#x2192; white), 2
+(hydrogen &#x2192; white). These three colours are standard
+for oxygen, carbon, and hydrogen. To mark the difference between
+the water and the toluene, I choose a different colour for atoms
+of type 1, and entered manually the values 0 0.6, 0.88 in
+the RGB boxes.
+</p>
+<p><img src="../figures/vmd/FIGURE2.png" class="img-fluid"
+alt="Responsive image">
+</p>
+</section>
+v          <br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="materials">
+<h2>The materials</h2>
+<p>An often neglected aspect is the texture of the representation,
+given by the material. Finding the right degree of shininess is
+often difficult, but its really important if you want a good
+looking poster or presentation. In the <b>Representations</b>
+windows, you can choose among several materials. I prefer to
+create my own. To do so, go in <b>Graphics &#x2192; Materials</b>.
+Click on <b>Opaque</b> (this is the one used by default), then
+hit <b>Create New</b> twice. Two new materials should have
+appeared, called something like Material23 and Material24.
+Rename them to MWater and MToluene. For MWater, change
+<b>Diffuse</b>, <b>Specular</b>, and <b>Shininess</b>, to 0.43,
+0.48, and 0.35, respectively. Then, from the <b>Representations</b>
+windows, change the <b>Material</b> from <b>Opaque</b> to
+<b>MWater</b> for the two representations that concern water
+molecules. Do the same for toluene, with values of 0.78, 0.33,
+and 0.32 for MToluene.
+</p>
+<p><img src="../figures/vmd/FIGURE3.png" class="img-fluid"
+alt="Responsive image">
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="view">
+<h2>The view</h2>
+<p>
+Currently the view is perspective, which is not the best choice
+if you want a square image of your system. Go in <b>Display</b>,
+and click <b>Orthographic</b>. You can zoom with the mouse wheel.
+That is it, the system is ready to be rendered in high resolution.
+</p>
+<p><img src="../figures/vmd/FIGURE4.png" class="img-fluid"
+alt="Responsive image">
+</p>
+<p>
+You can also visualize the borders of your box by typing in the VMD' terminal:
+<pre><code>pbc box -center origin -color black -width 2</pre></code>
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="rendering">
+<h2>Rendering</h2>
+<h4><b>Image</b></h4>
+<p>
+To generate high resolution image, go in <b>File &#x2192;
+Render</b>. Choose <b>Tachyon</b>, add <b>-res 1000 1000</b>
+in the <b>Render command</b> cell, and hit <b>Start Rendering</b>.
+A high resolution image has been created by VMD. You can
+remove the borders using GIMP or Inkscape for example.
+</p>
+<h4><b>Movie</b></h4>
+<p>
+To generate a high resolution movie, go in <b>Extension &#x2192; Vizualisation</b>,
+and <b>Movie Maker</b>. If you hit <b>Make Movie</b> directly,
+the movie generated by VMD will be of poor quality. Instead, we
+are going to generate a sequence of high resolution images,
+and assemble these images ourselves. Go in <b>Movie Settings</b>,
+first hit <b>Trajectory</b> (so the movie will show the system
+evolving in time, and not rotating on itself), then also uncheck
+<b>Delete image files</b>. In <b>Rendered</b>, choose <b>Tachyon</b>,
+then <b>Make Movie</b>. When its done, you can close VMD. If you
+don't want do redo these steps every time, you can save the VMD
+state by clicking <b>File &#x2192; Save vizualisation state</b>.
+From the terminal, assemble the image into a movie by typing:
+<pre><code>ffmpeg -r 60 -i untitled.%05d.ppm -vcodec libx264 -crf 0  -pix_fmt yuv420p myvideo.mp4</pre></code>
+</p>
+<p>
+You may receive the following error <b>width not divisible by 2 (1363x1134)</b>.
+If that's the case, you can remove one line of pixel with the command:
+<pre><code>for file in untitled.*.ppm; do convert $file -crop 1362x1134+0+0 $file; done</pre></code>
+</p>
+<p>
+To convert the video in webp, for web integration, use:
+<pre><code>ffmpeg -i myvideo.mp4 -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 myvideo.webp</pre></code>
+</p>
+<p>
+The result should look like
+<a href="https://www.youtube.com/watch?v=BSE9Vf6KhRo&ab_channel=LAMMPStutorials"
+target="_blank">this video</a>.
+</p>
+</section>
+<br><br>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<section id="further">
+<p class="alert alert-info"> <a href="contact.html">Click here</a>
+if you are looking for help with your project, if you want to
+support me (for free or not), or if you have any suggestions
+for these tutorials.
+</p>
+</section>
+
+</div>
+</div>
+</div>
+<footer id="footer" class="section">
+<div class="container">
+<p class="text-2 text-center mb-0">This template has been adapted from
+<a class="btn-link" target="_blank"
+href="https://github.com/harnishdesign/iDocs/">HarnishDesign</a>.
+</p>
+</div>
+</footer>
+</div>
+<a id="back-to-top" data-toggle="tooltip"
+title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a>
+<script src="../assets_tutorials/vendor/jquery/jquery.min.js"></script>
+<script src="../assets_tutorials/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets_tutorials/vendor/highlight.js/highlight.min.js"></script>
+<script src="../assets_tutorials/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="../assets_tutorials/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="../assets_tutorials/js/theme.js"></script>
+</body>
+</html>

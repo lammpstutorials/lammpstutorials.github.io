@@ -1,0 +1,1060 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Graphene under deformation" href="../2Dmaterials/graphene.html" /><link rel="prev" title="Polymer in water" href="allatoms.html" />
+
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+        <title>Nanosheared electrolyte - </title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">    </div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">    </span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../howto.html">How-to</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bulk fluids</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lennardjones.html">Lennard Jones fluid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="allatoms.html">Polymer in water</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Nanosheared electrolyte</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">2D materials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../2Dmaterials/graphene.html">Graphene under deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2Dmaterials/carbonnanotube.html">Breaking a carbon nanotube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Monte Carlo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../montecarlo/gcmc-silica.html">Water adsorption in silica</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Free energy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../freeenergy/umbrella-sampling.html">Simple free energy calculation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contact me</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contact/contact.html">Contact me</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="nanosheared-electrolyte">
+<span id="sheared-confined-label"></span><h1>Nanosheared electrolyte<a class="headerlink" href="#nanosheared-electrolyte" title="Permalink to this heading">#</a></h1>
+<div class="justify docutils container">
+<p>This tutorial is part of the <em>Bulk fluids</em> series.</p>
+</div>
+<div class="hatnote docutils container">
+<p>Molecular dynamics simulation of an aqueous NaCl
+solution sheared between two solid walls</p>
+</div>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../../_images/nanoconfined-electrolyte-light.png"><img alt="Electrolyte nano-confined in a slit pore" class="only-light" src="../../_images/nanoconfined-electrolyte-light.png" style="height: 250px;" /></a>
+</figure>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../../_images/nanoconfined-electrolyte-dark.png"><img alt="Electrolyte nano-confined in a slit pore" class="only-dark" src="../../_images/nanoconfined-electrolyte-dark.png" style="height: 250px;" /></a>
+</figure>
+<div class="justify docutils container">
+<p>The objective of this tutorial is to use molecular
+dynamics and simulate an electrolyte sheared by two
+walls. The velocity profile of the electrolyte
+will be extracted.</p>
+<p>This tutorial illustrates some aspects of
+combining a fluid and a solid in the same simulation.</p>
+<p>All inputs and data files can be found on the
+Github repository of LAMMPStutorials.</p>
+</div>
+<section id="system-generation">
+<h2>System generation<a class="headerlink" href="#system-generation" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Create a new folder called SystemCreation/. Open a blank
+page in it using a text editor, and call it input.lammps.
+Copy the following lines into input.lammps:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># LAMMPS input file</span>
+<span class="w"> </span>units<span class="w"> </span>real
+<span class="w"> </span>atom_style<span class="w"> </span>full
+<span class="w"> </span>bond_style<span class="w"> </span>harmonic
+<span class="w"> </span>angle_style<span class="w"> </span>harmonic
+<span class="w"> </span>pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
+<span class="w"> </span>kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Let us create the box: copy the following lines into the
+input file:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># ------------- System definition</span>
+<span class="w"> </span>lattice<span class="w"> </span>fcc<span class="w"> </span><span class="m">4</span>.04
+<span class="w"> </span>region<span class="w"> </span>box<span class="w"> </span>block<span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-13<span class="w"> </span><span class="m">13</span>
+<span class="w"> </span>create_box<span class="w"> </span><span class="m">5</span><span class="w"> </span>box<span class="w"> </span><span class="p">&amp;</span>
+<span class="w">             </span>bond/types<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">             </span>angle/types<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">             </span>extra/bond/per/atom<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">             </span>extra/angle/per/atom<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">             </span>extra/special/per/atom<span class="w"> </span><span class="m">2</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><strong>Explanations:</strong> The ‘lattice’ command defines the unit
+cell. Here face-centered cubic (fcc) with a scale factor of
+4.04 has been chosen for the future positioning of the atoms
+of the walls. The ‘region’ command defines a geometric
+region of space, and by choosing ‘xlo=-4’ and ‘xhi=4’, and
+because we have previously chosen a lattice with scale
+factor of 4.04, the region box extends from -16.16 to 16.16
+Ångström (units of lengths are in Ångstrom because we have
+chosen the unit style ‘real’). Finally, the ‘create_box’
+command creates a simulation box with 5 types of atoms in
+the simulation: oxygen and hydrogen atoms of the water, Na,
+Cl, and the atoms of the walls.</p>
+<p>The create box command extends over 6 lines thanks to the
+‘&amp;’ character. The second and third lines are used to
+specify that the simulation contains 1 type of bond and 1
+type of angle (for the water molecule). The parameters of
+these bond and angle constraints will be given later. The
+three last lines are for memory allocation.</p>
+<p>We can now add atoms to the system. First, we create two
+sub-regions corresponding respectively to the two solid
+walls, and create a larger region from the union of the two
+regions. Then we create atoms of type 5 within the two
+regions:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># create the walls</span>
+<span class="w"> </span>region<span class="w"> </span>rbotwall<span class="w"> </span>block<span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-12<span class="w"> </span>-10
+<span class="w"> </span>region<span class="w"> </span>rtopwall<span class="w"> </span>block<span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">12</span>
+<span class="w"> </span>region<span class="w"> </span>rwall<span class="w"> </span>union<span class="w"> </span><span class="m">2</span><span class="w"> </span>rbotwall<span class="w"> </span>rtopwall
+<span class="w"> </span>create_atoms<span class="w"> </span><span class="m">5</span><span class="w"> </span>region<span class="w"> </span>rwall
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Atoms will be placed at the positions of the previously
+defined lattice.</p>
+<p>In order to add the water molecules, we first need to
+download the
+<a class="reference external" href="../../../../../../inputs/bulkfluids/sheared/SystemCreation/TIP4P2005.txt">TIP4P2005.txt</a>
+file and place it in the same folder. It contains all the
+necessary information about the water molecule, such as
+positions, bonds, and angle. Then, add the following lines
+to input.lammps:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># create the fluid</span>
+<span class="w"> </span>region<span class="w"> </span>rliquid<span class="w"> </span>block<span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-9<span class="w"> </span><span class="m">9</span>
+<span class="w"> </span>molecule<span class="w"> </span>h2omol<span class="w"> </span>TIP4P2005.txt
+<span class="w"> </span>lattice<span class="w"> </span>sc<span class="w"> </span><span class="m">4</span>.04
+<span class="w"> </span>create_atoms<span class="w"> </span><span class="m">0</span><span class="w"> </span>region<span class="w"> </span>rliquid<span class="w"> </span>mol<span class="w"> </span>h2omol<span class="w"> </span><span class="m">482793</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><strong>Explanations:</strong> With the last four lines, a region used to
+deposit the water is created on the last defined lattice,
+which is ‘fcc 4.04’. Then, on the next line, we define a new
+simple cubic lattice in order to position the water
+molecules on it, with a distance of 4.04 Ångstroms between
+each water molecule (note: the new lattice replaces the
+previous one as LAMMPS reads a script from top to bottom).
+Note that 4.04 Ångstroms is larger than the typical
+equilibrium distance between water molecules in a liquid,
+but this will allow us to insert ions more safely. Then, the
+‘molecule’ command opens the ‘TIP4P2005.txt’ file, and name
+the associated molecule ‘h2omol’. Finally, molecules are
+created on the sc lattice by the ‘create_atoms’ command. The
+first parameter is ‘0’ because we use the atom id from the
+‘TIP4P2005.txt’ file. The number ‘482793’ is a seed that is
+required by LAMMPS, it can be any positive integer.</p>
+<p>Finally, let us deposit 20 ions (10 Na+, 10
+Cl-) in between the water molecules by adding these
+two lines to input.01.lammps:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>fix<span class="w"> </span>mydep1<span class="w"> </span>all<span class="w"> </span>deposit<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">56513</span><span class="w"> </span>region<span class="w"> </span>rliquid<span class="w"> </span>near<span class="w"> </span><span class="m">0</span>.3
+<span class="w"> </span>fix<span class="w"> </span>mydep2<span class="w"> </span>all<span class="w"> </span>deposit<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">58613</span><span class="w"> </span>region<span class="w"> </span>rliquid<span class="w"> </span>near<span class="w"> </span><span class="m">0</span>.3
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Each ‘fix deposit’ will add one ion at a random position
+within the ‘rliquid’ region every timestep. So we can just
+make a very short simulation of 10 timesteps and save the
+generated configuration. Feel free to increase the salt
+concentration by increasing both number of steps and number
+of desired ions in the ‘deposit’ fixes.</p>
+<p>We need to define the parameters of the simulation: the mass
+of the 6 atoms (O, H, Na+, Cl-, and wall), the
+pairwise interaction parameters (here the parameters for the
+Lennard-Jones potential), and the bond and angle parameters.
+Copy the following line into input.lammps:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># settings</span>
+<span class="w"> </span>include<span class="w"> </span>../PARM.lammps
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Create a new text file, call it ‘PARM.lammps’, and copy it
+next to the SystemCreation/ folder. Copy the following lines
+into PARM.lammps:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in PARM.lammps</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Parameter file</span>
+<span class="w"> </span>mass<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">15</span>.9994<span class="w"> </span><span class="c1"># water</span>
+<span class="w"> </span>mass<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span>.008<span class="w"> </span><span class="c1"># water</span>
+<span class="w"> </span>mass<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">28</span>.990<span class="w"> </span><span class="c1"># ion</span>
+<span class="w"> </span>mass<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">35</span>.453<span class="w"> </span><span class="c1"># ion</span>
+<span class="w"> </span>mass<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">26</span>.9815<span class="w"> </span><span class="c1"># wall</span>
+
+<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.185199<span class="w"> </span><span class="m">3</span>.1589<span class="w"> </span><span class="c1"># water</span>
+<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="c1"># water</span>
+<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0</span>.04690<span class="w"> </span><span class="m">2</span>.4299<span class="w"> </span><span class="c1"># ion</span>
+<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0</span>.1500<span class="w"> </span><span class="m">4</span>.04470<span class="w"> </span><span class="c1"># ion</span>
+<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">11</span>.697<span class="w"> </span><span class="m">2</span>.574<span class="w"> </span><span class="c1"># wall</span>
+
+<span class="w"> </span>bond_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>.9572<span class="w"> </span><span class="c1"># water</span>
+
+<span class="w"> </span>angle_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104</span>.52<span class="w"> </span><span class="c1"># water</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Explanations: The parameters for water (mass 1, mass 2,
+pair_coeff 1 1, pair coeff 2 2, bond_coeff 1 and angle_coeff
+1) are given by the TIP4P/2005 force field, the parameters
+for Na+ and Cl- (mass 3, mass 4, pair_coeff 3
+3, pair_coeff 4 4) are given by the CHARMM-27 force field,
+and the parameters for the wall (mass 5 and pair_coeff 5 5)
+are parameters for the wall atoms. Each ‘mass’ command
+assigns a mass in grams/mole to an atom type. Each
+‘pair_coeff’ assigns respectively the depth of the potential
+in Kcal/mole, and the distance at which the
+particle-particle potential energy in Ångstrom.</p>
+<p>Only assigned pairwise interaction between atoms of
+identical type we assign. By default, LAMMPS calculates
+the pair coefficients for the interactions between atoms
+of different types (i and j) by using geometrical
+average: <span class="math notranslate nohighlight">\(\epsilon_{ij} = \epsilon_i + \epsilon_j)/2\)</span>,
+<span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_i + \sigma_j)/2.\)</span></p>
+<p>Other rules for cross coefficients can be set with the
+‘pair_modify’ command, but for the sake of simplicity,
+let us keep the default option here.</p>
+<p>The bond coefficient (here for the O-H bond of the water
+molecule) sets respectively the energy of the harmonic
+potential and the equilibrium distance in Ångstrom. The
+value is ‘0’ for the energy, because we are going to use a
+rigid model for the water molecule. The shape of the
+molecule will be preserved later by the shake algorithm.
+Similarly, the angle coefficient (here for the H-O-H angle
+of the water molecule) sets the energy of the harmonic
+potential (also 0) and the equilibrium angle is in degree.</p>
+<p>Finally, add the following lines to the input file:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># run</span>
+<span class="w"> </span>run<span class="w"> </span><span class="m">10</span>
+
+<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>charge<span class="w"> </span><span class="m">1</span>.0
+<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>charge<span class="w"> </span>-1.0
+
+<span class="w"> </span>write_data<span class="w"> </span>system.data
+<span class="w"> </span>write_dump<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span>dump.lammpstrj
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><strong>Explanations:</strong> With ‘run 10’, the simulation will run for
+10 timesteps.</p>
+<p>The value of the timestep (1 fs by default) does not
+matter yet because the atoms are not moving.</p>
+<p>We also need to specify the charge of the newly added ions,
+which is done using the ‘set’ commands. The write
+‘data_file’ finally creates a file named ‘system.data’
+containing all the information required to restart the
+simulation from the final configuration generated by this
+input file. The ‘write_dump’ command print the final
+positions of the atoms, and can be used with VMD or ovito.</p>
+<p>This input script is ready to be ran with LAMMPS. When the
+run is over, open the log file and make sure that atoms have
+been created (look for lines like ‘Created 3648 atoms’), or
+just look at the dump file with VMD:</p>
+</div>
+<figure class="align-default">
+<img alt="Generated electrolyte between walls" class="only-light" src="../../_images/systemcreation-light.png" />
+</figure>
+<figure class="align-default" id="id9">
+<img alt="Generated electrolyte between walls" class="only-dark" src="../../_images/systemcreation-dark.png" />
+<figcaption>
+<p><span class="caption-text">Left: side view. Periodic images are represented in light
+color. Water molecules are in red and white, Na+
+ions in purple, Cl- ions in lime, and walls in
+gray. Right: top view. Note the absence of atomic defect
+at the cell boundaries.</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>Always check that your system has been correctly created
+by showing the periodic images. Atomic defects often
+occur at the boundary.</p>
+</div>
+</section>
+<section id="energy-minimisation">
+<h2>Energy minimisation<a class="headerlink" href="#energy-minimisation" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p><strong>Why is this step necessary?</strong>
+It is clear from the way the system has been created that
+the atoms are not at equilibrium distances from each
+others. Indeed, some of the ions added using the ‘fix
+deposit’ commands are too close to the water molecules.
+If we were to start a ‘normal’ molecular dynamics
+simulation now (i.e. solve the equations of motion) with
+a ‘normal’ timestep (1 or 2 femto-seconds), the atoms
+would exert huge forces on each others, accelerate
+brutally, and the simulation would fail (you can try).</p>
+<p>MD simulations failing due to overlapping atoms are
+extremely common, and I can almost guarantee that you
+will face a similar issue at some point. If it occurs,
+you can either</p>
+<ul class="simple">
+<li><ol class="arabic simple">
+<li><p>delete the overlapping atoms,</p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="2">
+<li><p>move the atoms to more reasonable distances using some kind of energy minization before the simulation starts (here, this is what we do).</p></li>
+</ol>
+</li>
+</ul>
+<p>Here we need to find a way to move the atoms and place them
+in a more favorable position before starting the simulation.
+This step is called ‘energy minimization’, and is often
+necessary.</p>
+<p>To perform the energy minimization with our system, let us
+create a new folder named Minimization/, and create a new
+input file named input.lammps in it. The first lines will be
+very similar to the previous input file:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id10" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Initialisation</span>
+<span class="w"> </span>boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
+<span class="w"> </span>units<span class="w"> </span>real
+<span class="w"> </span>atom_style<span class="w"> </span>full
+<span class="w"> </span>bond_style<span class="w"> </span>harmonic
+<span class="w"> </span>angle_style<span class="w"> </span>harmonic
+<span class="w"> </span>pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
+<span class="w"> </span>kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+
+<span class="w"> </span><span class="c1"># System definition</span>
+<span class="w"> </span>read_data<span class="w"> </span>../SystemCreation/system.data
+
+<span class="w"> </span><span class="c1"># settings</span>
+<span class="w"> </span>include<span class="w"> </span>../PARM.lammps
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The only difference with the previous input is that, instead
+of creating a new box and atoms, we open and read the
+previously created file system.data which contains the
+definition of the simulation box and the positions of the
+atoms.</p>
+</div>
+<p>Next, let us create a group for the water:</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id11" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>group<span class="w"> </span>gH2O<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Creating groups allows us to apply different dynamics to the
+liquid and to the walls.</p>
+<p>Let us print the atoms positions in a dump file:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.lammpstrj
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Now, we can include the most important commands for the
+minimization:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id13" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve/limit<span class="w"> </span><span class="m">0</span>.1
+<span class="w"> </span>fix<span class="w"> </span>myber<span class="w"> </span>all<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The fix ‘nve/limit’ performs constant NVE integration to
+update positions and velocities of the atoms at each
+timestep, but limit the maximum motion an atom can do at
+every timestep. The temp/berendsen fix rescales the
+velocities of the atoms every timestep in order to reset the
+temperature.</p>
+<p>Since we want to perform a minimization step, both initial
+and final temperatures have been chosen equal to 1K. The
+third parameter is the damping factor, in time units, which
+determines how rapidly the temperature is relaxed. Such
+damping factor of 1 fs would be too small for a regular
+molecular dynamics simulation, but is acceptable for a
+minimization step during which we just want the atoms to
+move slightly from their initial positions..</p>
+<p>If we were to run the simulation as it is, it would fail
+because nothing maintains the shape of the water molecules
+(and the bond and angle energies are equal to 0). Let us use
+the shake algorithm in order to maintain the shape of the
+molecules. In addition, let us add a fix ‘recenter’ in order
+to maintain the system centered in the middle of the box in
+the \(z\) direction.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id14" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>fix<span class="w"> </span>myshk<span class="w"> </span>gH2O<span class="w"> </span>shake<span class="w"> </span><span class="m">1</span>.0e-4<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>b<span class="w"> </span><span class="m">1</span><span class="w"> </span>a<span class="w"> </span><span class="m">1</span>
+<span class="w"> </span>fix<span class="w"> </span>myrct<span class="w"> </span>all<span class="w"> </span>recenter<span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span>INIT
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Fix recenter has no influence on the dynamics.</p>
+<p>Finally, let us choose a small timestep (because we
+anticipate that the atoms are initially too close to each
+others) and run for 1000 timesteps (with the command thermo
+1000, thermodynamic info are printed in the terminal every
+1000 timesteps).</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id15" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>timestep<span class="w"> </span><span class="m">0</span>.5
+<span class="w"> </span>thermo<span class="w"> </span><span class="m">50</span>
+<span class="w"> </span>run<span class="w"> </span><span class="m">10000</span>
+<span class="w"> </span>write_data<span class="w"> </span>system.data
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>When running the input.lammps file, you should see that the
+total energy of the system decreases as expected (fifth
+colum):</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Step<span class="w">   </span>Temp<span class="w">          </span>E_pair<span class="w">         </span>E_mol<span class="w">          </span>TotEng<span class="w">         </span>Press
+<span class="w">    </span><span class="m">0</span><span class="w">   </span><span class="m">0</span><span class="w">             </span>-99554.799<span class="w">      </span><span class="m">0</span><span class="w">             </span>-99554.799<span class="w">     </span>-1008.4767
+<span class="m">50</span><span class="w">   </span><span class="m">3</span>.492673<span class="w">      </span>-107825.17<span class="w">      </span><span class="m">0</span><span class="w">             </span>-107786.32<span class="w">     </span>-19733.701
+<span class="m">100</span><span class="w">   </span><span class="m">2</span>.6260191<span class="w">     </span>-108926.18<span class="w">      </span><span class="m">0</span><span class="w">             </span>-108896.97<span class="w">     </span>-20225.668
+<span class="m">150</span><span class="w">   </span><span class="m">2</span>.2025292<span class="w">     </span>-109692.83<span class="w">      </span><span class="m">0</span><span class="w">             </span>-109668.34<span class="w">     </span>-20319.962
+<span class="o">(</span>...<span class="o">)</span>
+<span class="m">9800</span><span class="w">   </span><span class="m">1</span>.0233163<span class="w">     </span>-120975.23<span class="w">      </span><span class="m">0</span><span class="w">             </span>-120963.85<span class="w">     </span>-12590.345
+<span class="m">9850</span><span class="w">   </span><span class="m">1</span>.022532<span class="w">      </span>-120988.11<span class="w">      </span><span class="m">0</span><span class="w">             </span>-120976.74<span class="w">     </span>-12582.803
+<span class="m">9900</span><span class="w">   </span><span class="m">1</span>.0222164<span class="w">     </span>-121000.48<span class="w">      </span><span class="m">0</span><span class="w">             </span>-120989.11<span class="w">     </span>-12573.028
+<span class="m">9950</span><span class="w">   </span><span class="m">1</span>.0215887<span class="w">     </span>-121012.78<span class="w">      </span><span class="m">0</span><span class="w">             </span>-121001.42<span class="w">     </span>-12562.843
+<span class="m">10000</span><span class="w">   </span><span class="m">1</span>.0206449<span class="w">     </span>-121024.53<span class="w">      </span><span class="m">0</span><span class="w">             </span>-121013.18<span class="w">     </span>-12551.132
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>You can easily import log file into python using the
+[lammps_logfile](<a class="reference external" href="https://pypi.org/project/lammps-logfile/">https://pypi.org/project/lammps-logfile/</a>) tool:</p>
+</div>
+<figure class="align-default">
+<img alt="Energy minimisation of the confined water and salt" class="only-light" src="../../_images/minimization-light.png" />
+</figure>
+<figure class="align-default" id="id16">
+<img alt="Energy minimisation of the confined water and salt" class="only-dark" src="../../_images/minimization-dark.png" />
+<figcaption>
+<p><span class="caption-text">Energy as a function of time extracted from the log file using python and
+lammps_logfile.</span><a class="headerlink" href="#id16" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>If you look at the trajectory using VMD, you will see some
+of the atoms (the one that where initially in a problematic
+position) slightly move from each others, as seen in <a class="reference external" href="https://youtu.be/JWGZnFN4TOo">this
+video</a>.</p>
+</div>
+</section>
+<section id="system-equilibration">
+<h2>System equilibration<a class="headerlink" href="#system-equilibration" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Now, let us properly equilibrate the system by letting bot
+fluid and piston relax.</p>
+<p>Create a new folder called Equilibration/, create a new
+input file in it. Add the following lines:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id17" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Initialisation</span>
+<span class="w"> </span>boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
+<span class="w"> </span>units<span class="w"> </span>real
+<span class="w"> </span>atom_style<span class="w"> </span>full
+<span class="w"> </span>bond_style<span class="w"> </span>harmonic
+<span class="w"> </span>angle_style<span class="w"> </span>harmonic
+<span class="w"> </span>pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
+<span class="w"> </span>kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+
+<span class="w"> </span><span class="c1"># System definition</span>
+<span class="w"> </span>read_data<span class="w"> </span>../Minimization/system.data
+
+<span class="w"> </span><span class="c1"># Simulation settings</span>
+<span class="w"> </span>include<span class="w"> </span>../PARM.lammps
+
+<span class="w"> </span><span class="c1"># Define groups</span>
+<span class="w"> </span>group<span class="w"> </span>gH2O<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+<span class="w"> </span>group<span class="w"> </span>gNa<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span>
+<span class="w"> </span>group<span class="w"> </span>gCl<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">4</span>
+<span class="w"> </span>group<span class="w"> </span>gliquid<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+<span class="w"> </span>group<span class="w"> </span>gwall<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">5</span>
+<span class="w"> </span>region<span class="w"> </span>rtop<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="m">0</span><span class="w"> </span>INF
+<span class="w"> </span>region<span class="w"> </span>rbot<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="m">0</span>
+<span class="w"> </span>group<span class="w"> </span>gtop<span class="w"> </span>region<span class="w"> </span>rtop
+<span class="w"> </span>group<span class="w"> </span>gbot<span class="w"> </span>region<span class="w"> </span>rbot
+<span class="w"> </span>group<span class="w"> </span>gwalltop<span class="w"> </span>intersect<span class="w"> </span>gwall<span class="w"> </span>gtop
+<span class="w"> </span>group<span class="w"> </span>gwallbot<span class="w"> </span>intersect<span class="w"> </span>gwall<span class="w"> </span>gbot
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Here several groups to differentiate between solid, liquid
+(salt+water), Na\(^+\), etc. have been defined (although
+not all are used). In addition, groups containing only the
+top wall (gwalltop) and the bottom wall (gwallbot) have been
+created using the intersect keyword: the intersection
+between all the atom on the top part of the box (gtop) and
+all the atom of type 5 (gwall) corresponds to the top wall.</p>
+<p>Then, add the following lines for the visualisation :</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id18" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># visualisation</span>
+<span class="w"> </span>dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.lammpstrj
+<span class="w"> </span>thermo<span class="w"> </span><span class="m">50</span>
+<span class="w"> </span>variable<span class="w"> </span>walltopz<span class="w"> </span>equal<span class="w"> </span>xcm<span class="o">(</span>gwalltop,z<span class="o">)</span>
+<span class="w"> </span>variable<span class="w"> </span>wallbotz<span class="w"> </span>equal<span class="w"> </span>xcm<span class="o">(</span>gwallbot,z<span class="o">)</span>
+<span class="w"> </span>variable<span class="w"> </span>deltaz<span class="w"> </span>equal<span class="w"> </span>v_walltopz-v_wallbotz
+<span class="w"> </span>fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_deltaz<span class="w"> </span>file<span class="w"> </span>interwall_distance.dat
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The two variables allow to extract the centers of mass of
+the two walls, respectively, and the deltaz variable
+calculates the difference between the two centers of mass.</p>
+<p>Finally, add the end of the input:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id19" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Dynamics</span>
+<span class="w"> </span>fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
+<span class="w"> </span>compute<span class="w"> </span>tliq<span class="w"> </span>gliquid<span class="w"> </span>temp
+<span class="w"> </span>fix<span class="w"> </span>myber1<span class="w"> </span>gliquid<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="w"> </span>fix_modify<span class="w"> </span>myber1<span class="w"> </span>temp<span class="w"> </span>tliq
+<span class="w"> </span>compute<span class="w"> </span>twall<span class="w"> </span>gwall<span class="w"> </span>temp
+<span class="w"> </span>fix<span class="w"> </span>myber2<span class="w"> </span>gwall<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="w"> </span>fix_modify<span class="w"> </span>myber2<span class="w"> </span>temp<span class="w"> </span>twall
+<span class="w"> </span>fix<span class="w"> </span>myshk<span class="w"> </span>gH2O<span class="w"> </span>shake<span class="w"> </span><span class="m">1</span>.0e-4<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>b<span class="w"> </span><span class="m">1</span><span class="w"> </span>a<span class="w"> </span><span class="m">1</span>
+<span class="w"> </span>fix<span class="w"> </span>myrct<span class="w"> </span>all<span class="w"> </span>recenter<span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span>INIT
+
+<span class="w"> </span>timestep<span class="w"> </span><span class="m">1</span>.0
+<span class="w"> </span>run<span class="w"> </span><span class="m">20000</span>
+<span class="w"> </span>write_data<span class="w"> </span>system.data
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The main differences with the previous step (minimize) are</p>
+<ul class="simple">
+<li><ol class="arabic simple">
+<li><p>the timestep is 1 fs instead of 0.5 fs,</p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="2">
+<li><p>the thermostating imposes a temperature of 300 K, for which the fluid is expected to behave as a liquid,</p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="3">
+<li><p>two thermostats are used instead of one: one for the fluid, one for the solid (fix_modify ensure that the right temperature is used by the temp/berenden).</p></li>
+</ol>
+</li>
+</ul>
+<p>Run the input script. Note, I am running on 4 CPU using:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">4</span><span class="w"> </span>lmp<span class="w"> </span>-in<span class="w"> </span>input.lammps
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>To complete the 20000 steps (20 ps), it takes about 6 minutes. The duration
+may differ on your computer.</p>
+<p>The distance between the two walls
+reduces until it reaches an equilibrium value, see the evolution
+of the distance between the walls (printed in a data file by fix myat1):</p>
+</div>
+<figure class="align-default">
+<img alt="Plot showing the distance between the walls as a function of time." class="only-light" src="../../_images/equilibration-light.png" />
+</figure>
+<figure class="align-default" id="id20">
+<img alt="Plot showing the distance between the walls as a function of time." class="only-dark" src="../../_images/equilibration-dark.png" />
+<figcaption>
+<p><span class="caption-text">Distance between the walls as a function of time. After 10 ps, the
+distance between the wall is very close to its equilibrium distance.</span><a class="headerlink" href="#id20" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>Note: For actual reseach, run this equilibration step for longer times
+to make sure that proper equilibration was reached. Here, the slowest
+process is the ionic diffusion, so at the very least the equilibration
+should be longer than the typical diffusion time of the ions over the
+size of the pore (~3 nm), i.e. of the order of the nanosecond.</p>
+</div>
+</section>
+<section id="imposed-nanoshearing">
+<h2>Imposed nanoshearing<a class="headerlink" href="#imposed-nanoshearing" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>From the equilibrated configuration, let us impose the
+shearing of the two walls. In a new folder called Shearing/,
+create a new input that starts like the previous ones:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id21" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Initialisation</span>
+<span class="w"> </span>boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
+<span class="w"> </span>units<span class="w"> </span>real
+<span class="w"> </span>atom_style<span class="w"> </span>full
+<span class="w"> </span>bond_style<span class="w"> </span>harmonic
+<span class="w"> </span>angle_style<span class="w"> </span>harmonic
+<span class="w"> </span>pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
+<span class="w"> </span>kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+
+<span class="w"> </span><span class="c1"># System definition</span>
+<span class="w"> </span>read_data<span class="w"> </span>../Equilibration/system.data
+<span class="w"> </span>change_box<span class="w"> </span>all<span class="w"> </span>z<span class="w"> </span>final<span class="w"> </span>-40<span class="w"> </span><span class="m">40</span>
+
+<span class="w"> </span><span class="c1"># Simulation settings</span>
+<span class="w"> </span>include<span class="w"> </span>../PARM.lammps
+
+<span class="w"> </span><span class="c1"># Groups</span>
+<span class="w"> </span>group<span class="w"> </span>gH2O<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+<span class="w"> </span>group<span class="w"> </span>gNa<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span>
+<span class="w"> </span>group<span class="w"> </span>gCl<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">4</span>
+<span class="w"> </span>group<span class="w"> </span>gliquid<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+<span class="w"> </span>group<span class="w"> </span>gwall<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">5</span>
+<span class="w"> </span>region<span class="w"> </span>rtop<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="m">0</span><span class="w"> </span>INF
+<span class="w"> </span>region<span class="w"> </span>rbot<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="m">0</span>
+<span class="w"> </span>group<span class="w"> </span>gtop<span class="w"> </span>region<span class="w"> </span>rtop
+<span class="w"> </span>group<span class="w"> </span>gbot<span class="w"> </span>region<span class="w"> </span>rbot
+<span class="w"> </span>group<span class="w"> </span>gwalltop<span class="w"> </span>intersect<span class="w"> </span>gwall<span class="w"> </span>gtop
+<span class="w"> </span>group<span class="w"> </span>gwallbot<span class="w"> </span>intersect<span class="w"> </span>gwall<span class="w"> </span>gbot
+
+<span class="w"> </span><span class="c1"># Dynamics</span>
+<span class="w"> </span>fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
+<span class="w"> </span>compute<span class="w"> </span>tliq<span class="w"> </span>gliquid<span class="w"> </span>temp/partial<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="w"> </span>fix<span class="w"> </span>myber1<span class="w"> </span>gliquid<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="w"> </span>fix_modify<span class="w"> </span>myber1<span class="w"> </span>temp<span class="w"> </span>tliq
+<span class="w"> </span>compute<span class="w"> </span>twall<span class="w"> </span>gwall<span class="w"> </span>temp/partial<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="w"> </span>fix<span class="w"> </span>myber2<span class="w"> </span>gwall<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="w"> </span>fix_modify<span class="w"> </span>myber2<span class="w"> </span>temp<span class="w"> </span>twall
+<span class="w"> </span>fix<span class="w"> </span>myshk<span class="w"> </span>gH2O<span class="w"> </span>shake<span class="w"> </span><span class="m">1</span>.0e-4<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>b<span class="w"> </span><span class="m">1</span><span class="w"> </span>a<span class="w"> </span><span class="m">1</span>
+<span class="w"> </span>fix<span class="w"> </span>myrct<span class="w"> </span>all<span class="w"> </span>recenter<span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span>INIT
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The main difference with the equilibration step, so far, is
+the use of temp/partial 0 1 1. This is meant to exclude the
+x coordinate from the thermalisation, since a large velocity
+will be imposed along x. Another difference is the
+change_box, used to reduce a little the amount of vacuum
+along z.</p>
+<p>Then, let us cancel the forces along x on each walls,
+and set the value of the velocity along x:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id22" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>fix<span class="w"> </span>mysf1<span class="w"> </span>gwalltop<span class="w"> </span>setforce<span class="w"> </span><span class="m">0</span><span class="w"> </span>NULL<span class="w"> </span>NULL
+<span class="w"> </span>fix<span class="w"> </span>mysf2<span class="w"> </span>gwallbot<span class="w"> </span>setforce<span class="w"> </span><span class="m">0</span><span class="w"> </span>NULL<span class="w"> </span>NULL
+<span class="w"> </span>velocity<span class="w"> </span>gwallbot<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-20e-5<span class="w"> </span>NULL<span class="w"> </span>NULL
+<span class="w"> </span>velocity<span class="w"> </span>gwalltop<span class="w"> </span><span class="nb">set</span><span class="w"> </span>20e-5<span class="w"> </span>NULL<span class="w"> </span>NULL
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The setforce commands cancel the forces on a group of atoms at
+every timestep, so the atoms of the group do not
+experience any force from the rest of the system. In absence of force
+acting on those atoms, their velocity never changes.</p>
+<p>The velocity set command acts only once, and imposes
+the velocity of the atoms. Used in
+combination with setforce, the atoms will keep that
+imposed velocity regardless of the other atoms.</p>
+<p>Finally, let us dump the atom positions, extract the
+velocity profile using the ave/chunk command, extract the
+force applied on the walls, and then run for 20 ps (or 200 ps if you
+comment/uncomment the appropriate lines):</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id23" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># vizualisation</span>
+<span class="w"> </span>dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">5000</span><span class="w"> </span>dump.lammpstrj
+<span class="w"> </span>thermo<span class="w"> </span><span class="m">500</span>
+<span class="w"> </span>thermo_modify<span class="w"> </span>temp<span class="w"> </span>tliq
+
+<span class="w"> </span>compute<span class="w"> </span>cc1<span class="w"> </span>gliquid<span class="w"> </span>chunk/atom<span class="w"> </span>bin/1d<span class="w"> </span>z<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">1</span>.0
+<span class="w"> </span><span class="c1">#fix myac1 gliquid ave/chunk 10 15000 200000 cc1 vx file vel.profile.dat # tag:200ps</span>
+<span class="w"> </span>fix<span class="w"> </span>myac1<span class="w"> </span>gliquid<span class="w"> </span>ave/chunk<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1500</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span>cc1<span class="w"> </span>vx<span class="w"> </span>file<span class="w"> </span>vel.profile.dat<span class="w"> </span><span class="c1"># tag:20ps</span>
+<span class="w"> </span>compute<span class="w"> </span>cc2<span class="w"> </span>gwall<span class="w"> </span>chunk/atom<span class="w"> </span>bin/1d<span class="w"> </span>z<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">1</span>.0
+<span class="w"> </span>fix<span class="w"> </span>myac2<span class="w"> </span>gwall<span class="w"> </span>ave/chunk<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span>cc2<span class="w"> </span>vx<span class="w"> </span>file<span class="w"> </span>vel.solid.dat<span class="w"> </span><span class="c1"># tag:200ps</span>
+<span class="w"> </span><span class="c1">#fix myac2 gwall ave/chunk 10 1500 20000 cc2 vx file vel.solid.dat # tag:20ps</span>
+
+<span class="w"> </span><span class="c1">#fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat # tag:200ps</span>
+<span class="w"> </span>fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span>f_mysf1<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>f_mysf2<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>file<span class="w"> </span>forces.dat<span class="w"> </span><span class="c1"># tag:20ps</span>
+
+<span class="w"> </span>timestep<span class="w"> </span><span class="m">1</span>.0
+<span class="w"> </span><span class="c1">#run 200000 # tag:200ps</span>
+<span class="w"> </span>run<span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="c1"># tag:20ps</span>
+<span class="w"> </span>write_data<span class="w"> </span>system.data
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><strong>Note</strong> 20 ps is too short to measure meaningfull quantities. If you
+want just uncomment all lines tagged with “200ps”, and
+comment the lines tagged “20ps”. Of course the simulation
+will take a longer time to complete (about one hour using 4 CPU).</p>
+<p>The velocity profile I got (running for 200ps) is the
+following:</p>
+</div>
+<figure class="align-default">
+<img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-light" src="../../_images/shearing-light.png" />
+</figure>
+<figure class="align-default" id="id24">
+<img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-dark" src="../../_images/shearing-dark.png" />
+<figcaption>
+<p><span class="caption-text">Velocity profile of the fluid and walls.</span><a class="headerlink" href="#id24" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>From the force applied by the fluid on the solid, one can
+extract the stress within the fluid, which allows one to
+measure its viscosity <span class="math notranslate nohighlight">\(\dot{\eta}\)</span> according to
+<a class="reference external" href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/PhysRevFluids.6.034303.pdf">gravelle2021</a>:
+<span class="math notranslate nohighlight">\(\eta = \tau / \dot{\gamma}\)</span> where <span class="math notranslate nohighlight">\(\tau\)</span>
+is the stress applied bythe fluid on the shearing wall, and
+<span class="math notranslate nohighlight">\(\dot{\gamma}\)</span> the shear rate (which is imposed
+here). Here the shear rate is approximatively 6.25e9
+s-1, and using a surface area of 1e-17 m2, I
+get a viscosity for the fluid equal to 2.25 mPa.s</p>
+<p>The viscosity calculated at such high shear rate may
+differ from the bulk value. I recommand using a lower
+shear rate. Note that for lower shear rate, the ratio noise-to-signal
+is larger, and longer simulation must be performed.</p>
+<p>Also note that the viscosity of a fluid next to a solid surface is
+typically larger than in bulk due to interaction with the
+walls. Therefore one expect the present simulation to return
+a viscosity that is slightly larger than what would be measured with
+the fluid alone.</p>
+</div>
+<p>You can access all the input scripts and data files that
+have been used in this tutorial from
+<a class="reference external" href="../../../../../../inputs/">Github</a>.</p>
+</section>
+<section id="going-further-with-exercises">
+<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Permalink to this heading">#</a></h2>
+<blockquote class="epigraph">
+<div><p>Request the solutions by <a class="reference external" href="../miscellaneous/contact.html">email</a>, or register
+<a class="reference external" href="https://www.patreon.com/molecularsimulations">here</a>
+and access all the solutions + additional LAMMPS content.</p>
+</div></blockquote>
+<p><strong>Exercise 1 : Extract more data from the simulation</strong></p>
+<div class="justify docutils container">
+<p>Perform an equilibrium simulation, and extract both density
+profiles and diffusion coefficients in all 3 directions of
+space.</p>
+<p>Hint: in general, data extraction can ne done either (1)
+using the internal LAMMPS commands (e.g. variable/compute
++ fix ave/time), or (2) using a post-processing analysis
+tool (e.g. Python).</p>
+</div>
+<p><strong>Exercise 2 : Poiseuille flow</strong></p>
+<div class="justify docutils container">
+<p>Instead of inducing shearing using the walls, induce a flow
+of the liquid in the direction tangential to the walls, and
+extract the the velocity profile.</p>
+<p>Advice: the forcing must be chosen with care. If too
+large, the system will be strongly out-of-equilibrium. If
+too small, no net velocity will be measured because of
+the thermal noise.</p>
+<p>Question: Is the velocity profile you obtain consistent with
+Poiseuille’s predictions?</p>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../2Dmaterials/graphene.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Graphene under deformation</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="allatoms.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Polymer in water</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Nanosheared electrolyte</a><ul>
+<li><a class="reference internal" href="#system-generation">System generation</a></li>
+<li><a class="reference internal" href="#energy-minimisation">Energy minimisation</a></li>
+<li><a class="reference internal" href="#system-equilibration">System equilibration</a></li>
+<li><a class="reference internal" href="#imposed-nanoshearing">Imposed nanoshearing</a></li>
+<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

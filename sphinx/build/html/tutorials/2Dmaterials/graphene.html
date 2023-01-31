@@ -1,0 +1,712 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Breaking a carbon nanotube" href="carbonnanotube.html" /><link rel="prev" title="Nanosheared electrolyte" href="../bulkfluids/sheared.html" />
+
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+        <title>Graphene under deformation - </title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">    </div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">    </span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../howto.html">How-to</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bulk fluids</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bulkfluids/lennardjones.html">Lennard Jones fluid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bulkfluids/allatoms.html">Polymer in water</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bulkfluids/sheared.html">Nanosheared electrolyte</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">2D materials</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Graphene under deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="carbonnanotube.html">Breaking a carbon nanotube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Monte Carlo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../montecarlo/gcmc-silica.html">Water adsorption in silica</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Free energy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../freeenergy/umbrella-sampling.html">Simple free energy calculation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contact me</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contact/contact.html">Contact me</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="graphene-under-deformation">
+<span id="graphene-label"></span><h1>Graphene under deformation<a class="headerlink" href="#graphene-under-deformation" title="Permalink to this heading">#</a></h1>
+<div class="justify docutils container">
+<p>This tutorial is part of the <em>2D materials</em> series.</p>
+</div>
+<div class="hatnote docutils container">
+<p>Longitudinal deformation of a small graphene sheet</p>
+</div>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../../_images/graphene_dark.png"><img alt="graphene in vacuum image VMD" class="only-dark" src="../../_images/graphene_dark.png" style="width: 250px;" /></a>
+</figure>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../../_images/graphene_light.png"><img alt="graphene in vacuum image VMD" class="only-light" src="../../_images/graphene_light.png" style="width: 250px;" /></a>
+</figure>
+<div class="justify docutils container">
+<p>In this tutorial, a graphene sheet
+is generated using VMD and topotool, and is then
+deformed using an applied displacement (a method called
+<em>out-of-equilibrium molecular dynamics</em>).</p>
+</div>
+<section id="generation-of-the-system">
+<h2>Generation of the system<a class="headerlink" href="#generation-of-the-system" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>The initial configuration (atoms positions, bonds, angles,
+etc.) is generated using
+<a class="reference external" href="https://www.ks.uiuc.edu/Research/vmd/">VMD</a>. Open VMD,
+and go to Extensions, Modeling, Nanotube Builder. A window
+named Carbon Nanostructures opens up, allowing us to choose
+between generating sheet and nanotube of graphene or BN. For
+this tutorial, let us generate a 4 nm per 4 nm sheet of
+graphene. Simply change the values of “Edge length along x”
+and “Edge length along y” to 4, and click on “Generate
+Sheet(s)”. You should something like the image on the right
+(here I changed the original color a little bit,
+but that is not necessary).</p>
+</div>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../../_images/vmd_dark.png"><img alt="graphene in vacuum image VMD" class="only-dark" src="../../_images/vmd_dark.png" style="width: 250px;" /></a>
+</figure>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../../_images/vmd_light.png"><img alt="graphene in vacuum image VMD" class="only-light" src="../../_images/vmd_light.png" style="width: 250px;" /></a>
+</figure>
+<div class="justify docutils container">
+<p>At this point, this is not a molecular dynamics simulations,
+but a cloud of dots that looks like graphene.
+In the VMD terminal, set the box
+dimensions by typing the following command in the VMD
+terminal:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be written in the VMD terminal</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>molinfo<span class="w"> </span>top<span class="w"> </span><span class="nb">set</span><span class="w"> </span>a<span class="w"> </span><span class="m">80</span>
+molinfo<span class="w"> </span>top<span class="w"> </span><span class="nb">set</span><span class="w"> </span>b<span class="w"> </span><span class="m">80</span>
+molinfo<span class="w"> </span>top<span class="w"> </span><span class="nb">set</span><span class="w"> </span>c<span class="w"> </span><span class="m">80</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The values of 80 in each direction have been chosen
+so that the box is much larger than the graphene sheet.</p>
+<p>In order to
+generate the initial LAMMPS data file, let us use Topotool:
+to generate the LAMMPS data file, enter the following command:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be written in the VMD terminal</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>topo<span class="w"> </span>writelammpsdata<span class="w"> </span>carbon.data<span class="w"> </span>full
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>More details about these commands can be found on the
+personal page of <a class="reference external" href="https://sites.google.com/site/akohlmey/software/topotools">Axel
+Kohlmeyer</a>.
+In short, Topotool deduces the location of bonds, angles,
+dihedrals, and impropers from the positions of the atoms,
+and generates a file that can be read by LAMMPS.</p>
+</div>
+<div class="justify docutils container">
+<p>The keyword “full” corresponds to the LAMMPS atom full
+style (other possibilities include atomic, bond, charge,
+etc). The parameters of the constraints (bond length,
+dihedral coefficients, etc.) will be given later.</p>
+<p>A new file named “carbon.data” has been created, it starts
+like that:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>LAMMPS<span class="w"> </span>data<span class="w"> </span>file.<span class="w"> </span>CGCMM<span class="w"> </span>style.<span class="w"> </span>atom_style<span class="w"> </span>full<span class="w"> </span>generated<span class="w"> </span>by<span class="w"> </span>VMD/TopoTools<span class="w"> </span>v1.7<span class="w"> </span>on<span class="w"> </span>Sat<span class="w"> </span>Jan<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">15</span>:44:40<span class="w"> </span>CET<span class="w"> </span><span class="m">2023</span>
+<span class="m">680</span><span class="w"> </span>atoms
+<span class="m">983</span><span class="w"> </span>bonds
+<span class="m">1894</span><span class="w"> </span>angles
+<span class="m">3665</span><span class="w"> </span>dihedrals
+<span class="m">608</span><span class="w"> </span>impropers
+<span class="m">1</span><span class="w"> </span>atom<span class="w"> </span>types
+<span class="m">1</span><span class="w"> </span>bond<span class="w"> </span>types
+<span class="m">1</span><span class="w"> </span>angle<span class="w"> </span>types
+<span class="m">1</span><span class="w"> </span>dihedral<span class="w"> </span>types
+<span class="m">1</span><span class="w"> </span>improper<span class="w"> </span>types
+-20.965628<span class="w"> </span><span class="m">59</span>.034372<span class="w">  </span>xlo<span class="w"> </span>xhi
+-19.438999<span class="w"> </span><span class="m">60</span>.561001<span class="w">  </span>ylo<span class="w"> </span>yhi
+-40.000000<span class="w"> </span><span class="m">40</span>.000000<span class="w">  </span>zlo<span class="w"> </span>zhi
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>As you can see, the carbon.data file contains information
+about the positions of the carbons atoms, as well as the
+identity of the atoms that are linked by bonds, angles, dihedrals,
+and impropers constraints.</p>
+<p>Save the “carbon.data” file in the same folder as your
+future LAMMPS input script. We are done with the system
+generation, we can start the molecular dynamics simulations.</p>
+<p>Alternatively, you can download the file I did generate
+by clicking <a class="reference external" href="../../../../../../inputs/2Dmaterials/graphene/carbon.data">here</a>.</p>
+</div>
+</section>
+<section id="lammps-input-script">
+<h2>LAMMPS input script<a class="headerlink" href="#lammps-input-script" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Create a new text file and name it “input.lammps”. Copy the
+following lines in it:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialisation</span>
+
+variable<span class="w"> </span>T<span class="w"> </span>equal<span class="w"> </span><span class="m">300</span>
+
+units<span class="w"> </span>real
+atom_style<span class="w"> </span>full
+boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
+pair_style<span class="w"> </span>lj/cut<span class="w"> </span><span class="m">14</span>
+
+bond_style<span class="w"> </span>harmonic
+angle_style<span class="w"> </span>harmonic
+dihedral_style<span class="w"> </span>opls
+improper_style<span class="w"> </span>harmonic
+
+special_bonds<span class="w"> </span>lj<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.5
+
+<span class="c1"># System definition</span>
+read_data<span class="w"> </span>carbon.data
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Most of these command lines have been seen already in
+previous tutorials (see the bulk fluids series for instance), with a few
+differences: first, the pair style here is lj/cut with
+parameter 14, which means that the atoms closer than 14
+Angstroms from each others interact through a Lennard-Jones
+potential. Notice that there is no Coulombic interaction
+because all the atoms in pure graphene have a charge of 0.
+The bond, angle, dihedral, and improper styles specify the
+different potentials used to restrain the positions of the
+atoms. For more details, have a look at the LAMMPS website
+(see for example the <a class="reference external" href="https://lammps.sandia.gov/doc/dihedral_opls.html">OPLS dihedral
+style</a>).</p>
+</div>
+<div class="justify docutils container">
+<p>The last command (read_data) imports the carbon.data file
+previously generated with VMD, which contains the
+information about the box size, atoms positions, etc.</p>
+</div>
+<div class="remark2 docutils container">
+<p><strong>About interaction between neighbors atoms:</strong></p>
+<p>Atoms connected by bond do not typically interact through
+Lennard-Jones interaction. This is ensured here by the
+special_bonds command. The three numbers of the
+special_bonds command are weighting factors for the
+Lennard-Jones interaction between atoms connected by bond
+(respectively directly bounded, separated by two bonds,
+etc.). For instance, the first weighting factor, with a
+value of 0, imposes that two atoms connected by a bond do
+not interact through a Lennard-Jones potential (therefore
+they only interact through bonded potentials).</p>
+</div>
+</section>
+<section id="parameters-for-the-graphene">
+<h2>Parameters for the graphene<a class="headerlink" href="#parameters-for-the-graphene" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Next, we need to specify the parameters of both bonded and
+non-bonded interactions. Create a new text file in the same
+folder and name it “PARM.lammps”. Copy the following lines
+in it:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in PARM.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pair_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.066047<span class="w"> </span><span class="m">3</span>.4
+bond_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">469</span><span class="w"> </span><span class="m">1</span>.4
+angle_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">63</span><span class="w"> </span><span class="m">120</span>
+dihedral_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">7</span>.25<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+improper_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">180</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The pair_coeff sets the Lennard-jones parameters
+<span class="math notranslate nohighlight">\(\epsilon\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> for the only type of
+atom of the simulation: carbon atom of type 1. The
+bond_coeff provides the equilibrium distance <span class="math notranslate nohighlight">\(r_0\)</span> as
+well as the spring constant <span class="math notranslate nohighlight">\(K\)</span> for the harmonic
+potential imposed between two neighboring carbon atoms,
+where the potential is <span class="math notranslate nohighlight">\(E = K_r ( r - r_0)^2\)</span>. The
+angle_coeff gives the equilibrium angle \(\theta_0\) and
+constant for the potential between three neighbors atoms :
+<span class="math notranslate nohighlight">\(E = K_\theta ( \theta - \theta_0)^2\)</span>. The dihedral_coeff
+and improper_coeff give the potential for the constraints
+between 4 atoms. The file PARM.lammps need to be included in the
+simulation by adding the following line to input.lammps:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>include<span class="w"> </span>PARM.lammps
+</pre></div>
+</div>
+</div>
+</section>
+<section id="separate-the-atoms-into-3-groups">
+<h2>Separate the atoms into 3 groups<a class="headerlink" href="#separate-the-atoms-into-3-groups" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>The goal of the present simulation is to impose a
+deformation to the sheet. To do so, we will isolate the
+atoms of two edges of the graphene sheets into groups, and
+the displacement will be applied to the atoms of the edge.
+Add the following lines to the input script :</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulation settings</span>
+
+group<span class="w"> </span>gcar<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span>
+variable<span class="w"> </span>xmax<span class="w"> </span>equal<span class="w"> </span>bound<span class="o">(</span>gcar,xmax<span class="o">)</span>-0.5
+variable<span class="w"> </span>xmin<span class="w"> </span>equal<span class="w"> </span>bound<span class="o">(</span>gcar,xmin<span class="o">)</span>+0.5
+region<span class="w"> </span>rtop<span class="w"> </span>block<span class="w"> </span><span class="si">${</span><span class="nv">xmax</span><span class="si">}</span><span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF
+region<span class="w"> </span>rbot<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span><span class="si">${</span><span class="nv">xmin</span><span class="si">}</span><span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF
+region<span class="w"> </span>rmid<span class="w"> </span>block<span class="w"> </span><span class="si">${</span><span class="nv">xmin</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">xmax</span><span class="si">}</span><span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The first command includes all of the atoms of type one
+(i.e. all the atoms here) in a group named gcar. Then, two
+variables are defined: <span class="math notranslate nohighlight">\(x_\mathrm{max}\)</span> corresponds to
+the coordinate of the last atoms along \(x\) minus 0.5
+Angstroms, and <span class="math notranslate nohighlight">\(x_\mathrm{min}\)</span> to the coordinate of
+the first atoms along <span class="math notranslate nohighlight">\(x\)</span> plus 0.5 Angstroms. Then, 3
+regions are defined, and correspond respectively to: <span class="math notranslate nohighlight">\(x &lt; x_\mathrm{min}\)</span>,
+<span class="math notranslate nohighlight">\(x_\mathrm{min} &gt; x &gt; x_\mathrm{max}\)</span>, and
+<span class="math notranslate nohighlight">\(x &gt; x_\mathrm{max}\)</span>.</p>
+<p>Finally, let us define 3 groups of atoms
+corresponding to the atoms located in each of the 3 regions,
+respectively:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>group<span class="w"> </span>gtop<span class="w"> </span>region<span class="w"> </span>rtop
+group<span class="w"> </span>gbot<span class="w"> </span>region<span class="w"> </span>rbot
+group<span class="w"> </span>gmid<span class="w"> </span>region<span class="w"> </span>rmid
+</pre></div>
+</div>
+</div>
+<div class="remark2 docutils container">
+<p><strong>Tip</strong></p>
+<p>When running a simulation, the number of atoms in each
+group is printed in the terminal (and in the log.lammps
+file). Alway control that the number of atoms is the one you expect.</p>
+</div>
+</section>
+<section id="thermalisation-and-dynamics">
+<h2>Thermalisation and dynamics<a class="headerlink" href="#thermalisation-and-dynamics" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Let us specify the thermalisation and the dynamics of the
+system. Add the following lines to input.lammps:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>velocity<span class="w"> </span>gmid<span class="w"> </span>create<span class="w"> </span><span class="si">${</span><span class="nv">T</span><span class="si">}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span>mom<span class="w"> </span>yes<span class="w"> </span>rot<span class="w"> </span>yes
+fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
+compute<span class="w"> </span>Tmid<span class="w"> </span>gmid<span class="w"> </span>temp
+fix<span class="w"> </span>myber<span class="w"> </span>gmid<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="si">${</span><span class="nv">T</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">T</span><span class="si">}</span><span class="w"> </span><span class="m">100</span>
+fix_modify<span class="w"> </span>myber<span class="w"> </span>temp<span class="w"> </span>Tmid
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The “velocity create” command gives initial velocities to
+the atoms of the group gmid, assuring an initial temperature
+of 300 K for these atoms. NVE fix is applied to all
+atoms, thus ensuring that atoms positions are recalculated
+in time, and a Berendsen thermostat is applied to the atoms
+of the group gmid only. The “fix modify” ensures that the
+fix Berendsen uses the temperature of the group gmid as an
+input, instead of the temperature of whole system. The atoms
+of the edges are not thermalised because their motion will
+be restrained in the next part of the input.</p>
+</div>
+</section>
+<section id="restrain-the-motion-of-the-edges">
+<h2>Restrain the motion of the edges<a class="headerlink" href="#restrain-the-motion-of-the-edges" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>To restrain the motion of the atoms at the edges, add the
+following commands:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fix<span class="w"> </span>mysf1<span class="w"> </span>gtop<span class="w"> </span>setforce<span class="w"> </span><span class="m">0</span><span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
+fix<span class="w"> </span>mysf2<span class="w"> </span>gbot<span class="w"> </span>setforce<span class="w"> </span><span class="m">0</span><span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
+velocity<span class="w"> </span>gtop<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
+velocity<span class="w"> </span>gbot<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The two setforce commands cancel the forces applied on the
+atoms of the two edges, respectively, during the whole
+simulation along <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(z\)</span>, and the velocity
+commands set the initial velocities along <span class="math notranslate nohighlight">\(x\)</span> and
+<span class="math notranslate nohighlight">\(z\)</span> to 0 for the atoms of the edges. Therefore, the
+atoms of the edges will remain immobile during the
+simulation (or they would if no other command was applied to
+them).</p>
+</div>
+</section>
+<section id="data-extraction">
+<h2>Data extraction<a class="headerlink" href="#data-extraction" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Next, in order to measure the strain and stress in the
+graphene sheet, let us extract the distance <span class="math notranslate nohighlight">\(L\)</span> between
+the two edges as well as the force applied on the edges. Let
+us also add a command to print the atoms coordinates in a
+lammpstrj file every 1000 timeteps:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id10" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>variable<span class="w"> </span>L<span class="w"> </span>equal<span class="w"> </span>xcm<span class="o">(</span>gtop,x<span class="o">)</span>-xcm<span class="o">(</span>gbot,x<span class="o">)</span>
+fix<span class="w"> </span>at1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span>v_L<span class="w"> </span>file<span class="w"> </span>length.dat
+fix<span class="w"> </span>at2<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span>f_mysf1<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>f_mysf2<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>file<span class="w"> </span>force.dat
+dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.lammpstrj
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Notice that the values of the force on each edge are
+extracted from the fixes setforce ‘mysf1’ and ‘mysf2’, by
+calling them using <cite>f_</cite>, the same way variables are called
+using <cite>v_</cite> and computes are called using <cite>c_</cite>. A fix
+setforce cancels all the forces on a group of atoms every
+timestep, but allows one to extract the values of the force
+before its cancellation.</p>
+</div>
+</section>
+<section id="run">
+<h2>Run<a class="headerlink" href="#run" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Let us run a small equilibration step:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id11" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>thermo<span class="w"> </span><span class="m">100</span>
+thermo_modify<span class="w"> </span>temp<span class="w"> </span>Tmid
+
+<span class="c1"># Run</span>
+
+timestep<span class="w"> </span><span class="m">1</span>.0
+run<span class="w"> </span><span class="m">5000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>With the thermo_modify command, we specify to LAMMPS that we
+want the temperature <span class="math notranslate nohighlight">\(T_\mathrm{mid}\)</span> to be printed in
+the terminal, not the temperature of the entire system
+(because of the frozen edges, the temperature of the entire
+system is not relevant). Then, let us perform a loop. At
+each step of the loop, the edges are slightly displaced, and
+the simulation runs for a short time.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>variable<span class="w"> </span>var<span class="w"> </span>loop<span class="w"> </span><span class="m">10</span>
+label<span class="w"> </span>loop
+displace_atoms<span class="w"> </span>gtop<span class="w"> </span>move<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+displace_atoms<span class="w"> </span>gbot<span class="w"> </span>move<span class="w"> </span>-0.1<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+run<span class="w"> </span><span class="m">1000</span>
+next<span class="w"> </span>var
+jump<span class="w"> </span>input.lammps<span class="w"> </span>loop
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>What you observe should resemble <a class="reference external" href="https://www.youtube.com/embed/o5IoCVWpPKg">this
+video</a>. The
+sheet is progressively elongated, and the carbon honeycombs
+are being deformed. You can increase the number of iteration
+of the loop (variable var) to force a larger elongation.</p>
+</div>
+<div class="justify docutils container">
+<p>Always remember that what you measure and observe is only
+as good as your force field.</p>
+</div>
+<div class="justify docutils container">
+<p>With the present force field, no matter how large is the
+imposed deformation, the bonds will never break. To study
+such bond breaking, one has to use a reactive force
+field, which is done in the next tutorial (<a class="reference internal" href="carbonnanotube.html#carbon-nanotube-label"><span class="std std-ref">Breaking a carbon nanotube</span></a>).</p>
+</div>
+<p>You can access all the input scripts and data files that
+have been used in this tutorial from
+<a class="reference external" href="../../../../../../inputs/">Github</a>.</p>
+<div class="contact docutils container">
+<p>Contact me by <a class="reference external" href="mailto:simon&#46;gravelle&#37;&#52;&#48;live&#46;fr">email</a> if you have any question or suggestion about these tutorials.</p>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="carbonnanotube.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Breaking a carbon nanotube</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../bulkfluids/sheared.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Nanosheared electrolyte</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Graphene under deformation</a><ul>
+<li><a class="reference internal" href="#generation-of-the-system">Generation of the system</a></li>
+<li><a class="reference internal" href="#lammps-input-script">LAMMPS input script</a></li>
+<li><a class="reference internal" href="#parameters-for-the-graphene">Parameters for the graphene</a></li>
+<li><a class="reference internal" href="#separate-the-atoms-into-3-groups">Separate the atoms into 3 groups</a></li>
+<li><a class="reference internal" href="#thermalisation-and-dynamics">Thermalisation and dynamics</a></li>
+<li><a class="reference internal" href="#restrain-the-motion-of-the-edges">Restrain the motion of the edges</a></li>
+<li><a class="reference internal" href="#data-extraction">Data extraction</a></li>
+<li><a class="reference internal" href="#run">Run</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

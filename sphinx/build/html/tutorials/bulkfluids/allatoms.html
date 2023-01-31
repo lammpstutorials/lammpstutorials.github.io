@@ -1,0 +1,1167 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Nanosheared electrolyte" href="sheared.html" /><link rel="prev" title="Lennard Jones fluid" href="lennardjones.html" />
+
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+        <title>Polymer in water - </title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">    </div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">    </span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../howto.html">How-to</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bulk fluids</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lennardjones.html">Lennard Jones fluid</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Polymer in water</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sheared.html">Nanosheared electrolyte</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">2D materials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../2Dmaterials/graphene.html">Graphene under deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2Dmaterials/carbonnanotube.html">Breaking a carbon nanotube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Monte Carlo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../montecarlo/gcmc-silica.html">Water adsorption in silica</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Free energy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../freeenergy/umbrella-sampling.html">Simple free energy calculation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contact me</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contact/contact.html">Contact me</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="polymer-in-water">
+<span id="all-atoms-label"></span><h1>Polymer in water<a class="headerlink" href="#polymer-in-water" title="Permalink to this heading">#</a></h1>
+<div class="justify docutils container">
+<p>This tutorial is part of the <em>Bulk fluids</em> series.</p>
+</div>
+<div class="hatnote docutils container">
+<p>A small PEG molecule is immersed in water and its ends are pulled</p>
+</div>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../../_images/main-dark.png"><img alt="peg molecule in water" class="only-dark" src="../../_images/main-dark.png" style="height: 250px;" /></a>
+</figure>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../../_images/main-light.png"><img alt="peg molecule in water" class="only-light" src="../../_images/main-light.png" style="height: 250px;" /></a>
+</figure>
+<div class="justify docutils container">
+<p>The objective of this tutorial is to use LAMMPS and
+create a small hydrophilic polymer (PEG -
+PolyEthylene Glycol) in a reservoir of water.
+An all atoms description is used, with charged atoms
+connected by bonds constraints.</p>
+<p>Once the system created, a constant force will be applied to the 2
+ends of the polymer, and its length will be measured with time.</p>
+</div>
+<section id="bulk-water">
+<h2>Bulk water<a class="headerlink" href="#bulk-water" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Here a rectangular box of water is created, then
+equilibrated at ambient temperature and ambient pressure.</p>
+<p>Create a folder named pureH2O/. Inside this folder, create
+an empty text file named input.lammps. Copy the following
+lines in it:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pureH2O/input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># LAMMPS input script</span>
+units<span class="w"> </span>real
+atom_style<span class="w"> </span>full
+bond_style<span class="w"> </span>harmonic
+angle_style<span class="w"> </span>charmm
+dihedral_style<span class="w"> </span>charmm
+pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
+kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><strong>Explanations:</strong> There are many differences with respect to
+the previous tutorial (<a class="reference internal" href="lennardjones.html#lennard-jones-label"><span class="std std-ref">Lennard Jones fluid</span></a>), mostly
+because here a system with molecules and charges will be
+modeled (instead of neutral dot particles as in tutorial
+01). With the unit style ‘real’, masses are in grams per
+mole, distances in Ångstroms, time in femtoseconds, energies
+in Kcal/mole. With the atom style ‘full’, each atom is a dot
+with a mass and a charge. In addition, each atom can be
+linked by bonds, angles, dihedrals and impropers potentials
+(for example to form molecules). The ‘bond_style’,
+‘angle_style’, and ‘dihedral_style’ commands define the
+styles of bond angle, and dihedrals used in the simulation,
+respectively, and the ‘harmonic’ and ‘charmm’ keywords
+impose the potential to use.</p>
+<p><em>Remark –</em> The future merging of the water with the PEG
+has already been anticipated as the charmm angle_style
+and dihedral_style are requirements of the PEG’s model.</p>
+<p><em>Remark –</em> A rigid water model will be used, so the bond
+and angle styles do not matter to the water, they will
+only matter to the PEG when it is added.</p>
+<p>With the ‘pair_style’ named ‘lj/cut/tip4p/long’, atoms
+interact through both a Lennard-Jones (LJ) potential and
+through Coulombic interactions. This style is specific to
+four points water model, and automatically accounts for the
+additional massless site. The six numbers are, respectively,</p>
+</div>
+<ul class="simple">
+<li><p><strong>1 -</strong> the atom type for the oxygen O of the tip4p
+water,</p></li>
+<li><p><strong>2 -</strong> the atom type for the hydrogen H of the tip4p
+water,</p></li>
+<li><p><strong>3 -</strong> the OH bond type,</p></li>
+<li><p><strong>4 -</strong> the HOH angle type,</p></li>
+<li><p><strong>5 -</strong> the distance from O atom to massless charge,</p></li>
+<li><p><strong>6 -</strong> the cutoff in Ångstroms.</p></li>
+</ul>
+<div class="justify docutils container">
+<p><em>Note –</em> The cutoff applies to both LJ and Coulombic
+interactions, but in a different way. For LJ ‘cut’
+interactions, atoms interact with each other only if they
+are separated by a distance smaller than the cutoff. For
+Coulombic ‘long’, interaction between atoms closer than
+the cutoff are computed directly, and interaction between
+atoms outside that cutoff are computed in reciprocal
+space.</p>
+<p>Finally the kspace command defines the long-range solver for
+Coulombic interactions. The pppm style refers to
+particle-particle particle-mesh.</p>
+</div>
+<div class="justify docutils container">
+<p><strong>About PPPM</strong>
+From <a class="reference external" href="https://doi.org/10.1021/jp9518623">Luty and van Gunsteren’
+paper</a>: “The PPPM
+method is based on separating the total interaction
+between particles into the sum of short-range
+interactions, which are computed by direct
+particle-particle summation, and long-range interactions,
+which are calculated by solving Poisson’s equation using
+periodic boundary conditions (PBCs).”</p>
+<p>Then, let us create a 3D simulation box of dimensions 8 x 3
+x 3 nm:math:<cite>^3</cite>, and make space for 7 atom types (1 and 2 for
+the water oxygen and hydrogen, respectively, and 3, 4, 5, 6
+and 7 for the PEG molecule (see below)), 6 bond types, 9
+angle types, and 14 dihedrals types.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pureH2O/input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>region<span class="w"> </span>box<span class="w"> </span>block<span class="w"> </span>-40<span class="w"> </span><span class="m">40</span><span class="w"> </span>-15<span class="w"> </span><span class="m">15</span><span class="w"> </span>-15<span class="w"> </span><span class="m">15</span>
+create_box<span class="w"> </span><span class="m">7</span><span class="w"> </span>box<span class="w"> </span><span class="p">&amp;</span>
+bond/types<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="p">&amp;</span>
+angle/types<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="p">&amp;</span>
+dihedral/types<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="p">&amp;</span>
+extra/bond/per/atom<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">&amp;</span>
+extra/angle/per/atom<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
+extra/special/per/atom<span class="w"> </span><span class="m">2</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><em>Note -</em> The extra/X/per/atom commands are related to
+memory allocation, they ensure space is left for a
+certain number of attribute for each atom, we wont worry
+about those commands in this tutorial.</p>
+<p>Let us include a parameter file containing all the
+parameters (masses, interaction energies, bond equilibrium
+distances, etc):</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pureH2O/input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>include<span class="w"> </span>../PARM.lammps
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Next to the pureH2O/ folder, create a blank file called
+PARM.lammps and copy the following lines in it:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in PARM.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mass</span>
+
+mass<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">15</span>.9994<span class="w"> </span><span class="c1"># H2O O</span>
+mass<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span>.008<span class="w"> </span><span class="c1"># H2O H</span>
+mass<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">12</span>.011<span class="w"> </span><span class="c1"># CC32A</span>
+mass<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">15</span>.9994<span class="w"> </span><span class="c1"># OC30A</span>
+mass<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">1</span>.008<span class="w"> </span><span class="c1"># HCA2</span>
+mass<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">15</span>.9994<span class="w"> </span><span class="c1"># OC311</span>
+mass<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">1</span>.008<span class="w"> </span><span class="c1"># HCP1</span>
+
+<span class="c1"># Pair Coeff</span>
+
+pair_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.185199<span class="w"> </span><span class="m">3</span>.1589<span class="w"> </span><span class="c1"># H2O O</span>
+pair_coeff<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="c1"># H2O H</span>
+pair_coeff<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0</span>.056<span class="w"> </span><span class="m">3</span>.58141<span class="w"> </span><span class="c1"># CC32A</span>
+pair_coeff<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0</span>.100<span class="w"> </span><span class="m">2</span>.93997<span class="w"> </span><span class="c1"># OC30A</span>
+pair_coeff<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">0</span>.035<span class="w"> </span><span class="m">2</span>.38761<span class="w"> </span><span class="c1"># HCA2</span>
+pair_coeff<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">0</span>.192<span class="w"> </span><span class="m">3</span>.14487<span class="w"> </span><span class="c1"># OC311</span>
+pair_coeff<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">0</span>.046<span class="w"> </span><span class="m">0</span>.40001<span class="w"> </span><span class="c1"># HCP1</span>
+
+<span class="c1"># Bond coeff</span>
+
+bond_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>.9572<span class="w"> </span><span class="c1"># H2O O-H</span>
+bond_coeff<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">222</span>.35<span class="w"> </span><span class="m">1</span>.5300
+bond_coeff<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">308</span>.79<span class="w"> </span><span class="m">1</span>.1111
+bond_coeff<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">359</span>.76<span class="w"> </span><span class="m">1</span>.1415
+bond_coeff<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">427</span>.715<span class="w"> </span><span class="m">1</span>.1420
+bond_coeff<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">544</span>.635<span class="w"> </span><span class="m">0</span>.9600
+
+<span class="c1"># Angle coeff</span>
+
+angle_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104</span>.52<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c1"># H2O H-O-H</span>
+angle_coeff<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">50</span>.0000<span class="w"> </span><span class="m">109</span>.0000<span class="w"> </span><span class="m">0</span>.0000<span class="w"> </span><span class="m">0</span>.0000
+angle_coeff<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">26</span>.5000<span class="w"> </span><span class="m">110</span>.1000<span class="w"> </span><span class="m">22</span>.5300<span class="w"> </span><span class="m">2</span>.179
+angle_coeff<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">45</span>.0000<span class="w"> </span><span class="m">111</span>.5000<span class="w"> </span><span class="m">0</span>.0000<span class="w"> </span><span class="m">0</span>.0000
+angle_coeff<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>.0258<span class="w"> </span><span class="m">109</span>.4000<span class="w"> </span><span class="m">0</span>.0000<span class="w"> </span><span class="m">0</span>.0000
+angle_coeff<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">35</span>.5000<span class="w"> </span><span class="m">109</span>.0000<span class="w"> </span><span class="m">5</span>.4000<span class="w"> </span><span class="m">1</span>.802
+angle_coeff<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">55</span>.0000<span class="w"> </span><span class="m">108</span>.8900<span class="w"> </span><span class="m">0</span>.0000<span class="w"> </span><span class="m">0</span>.0000
+angle_coeff<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">75</span>.7000<span class="w"> </span><span class="m">110</span>.1000<span class="w"> </span><span class="m">0</span>.0000<span class="w"> </span><span class="m">0</span>.0000
+angle_coeff<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">95</span>.0000<span class="w"> </span><span class="m">109</span>.7000<span class="w"> </span><span class="m">0</span>.0000<span class="w"> </span><span class="m">0</span>.0000
+
+<span class="c1"># Dihedral coeff</span>
+
+dihedral_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.57<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span>.29<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0</span>.43<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0</span>.59<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">1</span>.16<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">0</span>.12<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">0</span>.42<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">0</span>.29<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">2</span>.87<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">0</span>.03<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">0</span>.23<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">1</span>.36<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">0</span>.16<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+dihedral_coeff<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">1</span>.01<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>If you want to know which column refers to which
+parameter, you can refer to the LAMMPS documentation. For
+this tutorial, we will just trust that these parameters
+are correct and will lead to physically consistent
+behavior.
+Now, let us create water molecules. To do so, let us
+define a water molecule using a molecule template called
+H2OTip4p.txt, and randomly create 700 of those.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pureH2O/input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>molecule<span class="w"> </span>h2omol<span class="w"> </span>H2OTip4p.txt
+create_atoms<span class="w"> </span><span class="m">0</span><span class="w"> </span>random<span class="w"> </span><span class="m">700</span><span class="w"> </span><span class="m">456415</span><span class="w"> </span>NULL<span class="w"> </span>mol<span class="w"> </span>h2omol<span class="w"> </span><span class="m">454756</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Alternatively, you can
+<a class="reference external" href="../../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data">download</a>
+the water reservoir I have equilibrated and continue with
+the tutorial.</p>
+<p>The molecule template named H2OTip4p.txt must be
+<a class="reference external" href="../../../../../../inputs/bulkfluids/allatoms/pureH2O/H2OTip4p.txt">downloaded</a>
+and saved in the same folder (named pureH2O/) as the
+input.lammps file.</p>
+<p>This template contains all the necessary structural
+information of a water molecule, such as the number of atoms,
+which pair of atoms are connected by bonds, which
+groups of atoms are connected by angles, etc.
+Then, let us group the atoms of the water in a group named
+H2O, and then delete the overlapping molecules:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pureH2O/input.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>group<span class="w"> </span>H2O<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+delete_atoms<span class="w"> </span>overlap<span class="w"> </span><span class="m">2</span><span class="w"> </span>H2O<span class="w"> </span>H2O<span class="w"> </span>mol<span class="w"> </span>yes
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><em>Note –</em> Deleting overlapping molecules is required here
+because the molecules where placed randomly in space by
+the “create_atoms” command, and some of them may be too
+close from each other, which may force the simulation to
+crash.</p>
+<p>Let us use the shake algorithm in order to constrain the
+shape of the water molecules. Let us also use the fix NPT to
+control both the temperature and the pressure:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pureH2O/input.lammps</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fix<span class="w"> </span>myshk<span class="w"> </span>H2O<span class="w"> </span>shake<span class="w"> </span><span class="m">1</span>.0e-5<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>b<span class="w"> </span><span class="m">1</span><span class="w"> </span>a<span class="w"> </span><span class="m">1</span><span class="w"> </span>mol<span class="w"> </span>h2omol
+fix<span class="w"> </span>mynpt<span class="w"> </span>all<span class="w"> </span>npt<span class="w"> </span>temp<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>iso<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><strong>Explanations:</strong> The parameters of the fix shake specify to
+which group (H2O) the shake algorithm applied, with what
+tolerance (1e-5). Still in the shake command, we also supply
+the molecule template (h2omol) previously defined, and
+specify to which bond/angle type shake mush apply, i.e. the
+bond of type 1 and the angle of type 1.</p>
+<p><em>Note -</em> With shake, water molecules behave as rigid. If
+you want to study the vibration of the O-H bonds and
+H-O-H angles, you will have to use a flexible water
+model. If you want to study the hydrogen transfer, you
+will have to use a reactive force field.</p>
+<p><em>Note -</em> Here only the water molecules will be rigid, the
+PEG molecule (which will be added in the next part) will
+be fully flexible.</p>
+<p>Let us print the atom positions in a dump file every 1000
+timesteps (i.e. 1 ps), print the temperature volume, and
+density every 100 timesteps in 3 separate data files, and
+print the information in the terminal every 1000 timesteps:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pureH2O/input.lammps</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.lammpstrj
+variable<span class="w"> </span>mytemp<span class="w"> </span>equal<span class="w"> </span>temp
+variable<span class="w"> </span>myvol<span class="w"> </span>equal<span class="w"> </span>vol
+fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_mytemp<span class="w"> </span>file<span class="w"> </span>temperature.dat
+fix<span class="w"> </span>myat2<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_myvol<span class="w"> </span>file<span class="w"> </span>volume.dat
+variable<span class="w"> </span>myoxy<span class="w"> </span>equal<span class="w"> </span>count<span class="o">(</span>H2O<span class="o">)</span>/3<span class="w"> </span><span class="c1"># divide by 3 to get the number of molecule, not atom</span>
+variable<span class="w"> </span>mydensity<span class="w"> </span>equal<span class="w"> </span><span class="si">${</span><span class="nv">myoxy</span><span class="si">}</span>/v_myvol
+fix<span class="w"> </span>myat3<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_mydensity<span class="w"> </span>file<span class="w"> </span>density.dat
+thermo<span class="w"> </span><span class="m">1000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Note that in the formula for the density (number of
+molecule divided by volume), the underscore ‘_’ is used to
+call the volume variable because this variable is expected
+to evolve in time, but the dollar sign ‘$’ is used as the
+number of molecules is not expected to evolve during the
+simulation (the number of molecule changes after the
+delete_atoms command is used, but this is done before the
+simulation starts).
+Finally, let us set the timestep to 2.0 fs (allowed
+because we use shake), and run the simulation for 50 ps:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pureH2O/input.lammps</em></span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>timestep<span class="w"> </span><span class="m">2</span>.0
+run<span class="w"> </span><span class="m">25000</span>
+write_data<span class="w"> </span>H2O.data
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Looking at the log file, one can see how many atoms have
+been deleted (the number will vary depending on the random
+number you choose).</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Deleted<span class="w"> </span><span class="m">714</span><span class="w"> </span>atoms,<span class="w"> </span>new<span class="w"> </span><span class="nv">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1386</span>
+Deleted<span class="w"> </span><span class="m">476</span><span class="w"> </span>bonds,<span class="w"> </span>new<span class="w"> </span><span class="nv">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">924</span>
+Deleted<span class="w"> </span><span class="m">238</span><span class="w"> </span>angles,<span class="w"> </span>new<span class="w"> </span><span class="nv">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">462</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>About 30 % the molecules were deleted due to overlapping,
+together with their respective bonds and angles.
+At the end of the simulation, the final state is printed
+in the H2O.data file, which will be used later.</p>
+<p><em>Note -</em> This simulation may be a bit slow to complete.
+You can speed it up by running it on multiple CPUs using
+something like “mpirun -np 4 lmp -in input.lammps” (the
+command may vary, depending on your OS and LAMMPS
+version).</p>
+<p><em>Note -</em> No energy minimization was performed here (NPT
+molecular dynamics was started straight away). This is a
+bit risky, but it works here because overlapping
+molecules were deleted, and because the initial density
+is very low.</p>
+<p>If you open the dump.lammpstrj file using VMD, you should
+see the system reaching its equilibrium volume:</p>
+</div>
+<figure class="align-default">
+<img alt="Bulk water system" class="only-light" src="../../_images/water_light.webp" />
+</figure>
+<figure class="align-default" id="id10">
+<img alt="Bulk water system" class="only-dark" src="../../_images/water_dark.webp" />
+<figcaption>
+<p><span class="caption-text">Video: water molecules during NPT equilibration.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>You can also open the temperature.dat and density.dat files
+to ensure that the system converged toward an equilibrated
+liquid system during the 50 ps of simulation:</p>
+</div>
+<figure class="align-default">
+<img alt="Curves showing the equilibration of the water reservoir" class="only-light" src="../../_images/equilibration_H2O_light.png" />
+</figure>
+<figure class="align-default" id="id11">
+<img alt="Curves showing the equilibration of the water reservoir" class="only-dark" src="../../_images/equilibration_H2O_dark.png" />
+<figcaption>
+<p><span class="caption-text">The graph on the left shows the evolution of the temperature
+with time, and the graph on the right the evolution of the
+density.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>Alternatively, you can
+<a class="reference external" href="../../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data">download</a>
+the water reservoir I have equilibrated and continue with
+the tutorial.</p>
+</div>
+</section>
+<section id="peg-molecule">
+<h2>PEG molecule<a class="headerlink" href="#peg-molecule" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Now that the water box is ready, let us prepare the PEG
+molecule. Create a second folder next to pureH2O/, call it
+singlePEG/, and create a new blank file called input.lammps
+in it. Copy the same first lines as previously:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>units<span class="w"> </span>real
+atom_style<span class="w"> </span>full
+bond_style<span class="w"> </span>harmonic
+angle_style<span class="w"> </span>charmm
+dihedral_style<span class="w"> </span>charmm
+pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
+kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Let us also add the special_bonds command to cancel the
+Lennard-Jones and Coulomb interactions between the closest
+atoms of a same molecule:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id13" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>special_bonds<span class="w"> </span>lj<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.5
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Let us include the original position of the PEG molecule, as
+well as the same parameter file as previously:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id14" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>read_data<span class="w"> </span>init.data
+include<span class="w"> </span>../PARM.lammps
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><a class="reference external" href="../../../../../../inputs/bulkfluids/allatoms/singlePEG/init.data">Download</a>
+the init.data file and save it in the singlePEG/ folder.
+It contains the initial parameters of the PEG molecules
+(atoms, bonds, charges, etc.), and was prepared using a
+Python script I wrote: <a class="reference external" href="https://github.com/simongravelle/PEGgenerator">PEG
+generator</a>.
+To make our life simpler later, let use use the exact same
+box size for the PEG as for the water (the merging will be
+simpler, see below). Open the previously generate H2O.data
+file, and copy the 3 lines corresponding to the box
+dimensions. In my case, its:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-21.64201909795004<span class="w"> </span><span class="m">21</span>.64201909795004<span class="w"> </span>xlo<span class="w"> </span>xhi
+-8.115757161731125<span class="w"> </span><span class="m">8</span>.115757161731125<span class="w"> </span>ylo<span class="w"> </span>yhi
+-8.115757161731125<span class="w"> </span><span class="m">8</span>.115757161731125<span class="w"> </span>zlo<span class="w"> </span>zhi
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then, replace the box dimensions in the init.data file with
+these 3 lines.</p>
+<p>Let us print the atom positions and thermodynamic
+information very frequently (because we anticipate that the
+energy minimization will be short):</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id15" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">10</span><span class="w"> </span>dump.lammpstrj
+thermo<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Next, let us perform a minimisation of energy. Here, this
+step is required because the initial configuration of the
+PEG molecule is really far from equilibrium.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id16" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>minimize<span class="w"> </span><span class="m">1</span>.0e-4<span class="w"> </span><span class="m">1</span>.0e-6<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>After the minimisation, the high resolution dump command is
+cancelled, and a new dump command with lower frequency is
+used (see below). We also reset the time to 0 with
+reset_timestep command:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id17" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>undump<span class="w"> </span>mydmp
+reset_timestep<span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The PEG is then equilibrated in the NVT ensemble (fix NVE +
+temperature control = NVT). No box relaxation is required as
+the PEG is in vacuum:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id18" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
+fix<span class="w"> </span>myber<span class="w"> </span>all<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Let us print the temperature in a file:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id19" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.lammpstrj
+dump_modify<span class="w"> </span>mydmp<span class="w"> </span>append<span class="w"> </span>yes
+thermo<span class="w"> </span><span class="m">1000</span>
+variable<span class="w"> </span>mytemp<span class="w"> </span>equal<span class="w"> </span>temp
+fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_mytemp<span class="w"> </span>file<span class="w"> </span>temperature.dat
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The <em>dump_modify</em> ensures that the coordinates are written
+in the existing dump.lammpstrj file.
+Finally let us run the simulation for a very short time (10 ps):</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id20" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>timestep<span class="w"> </span><span class="m">1</span>
+run<span class="w"> </span><span class="m">10000</span>
+write_data<span class="w"> </span>PEG.data
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>If you open the dump.lammpstrj file
+using VMD, you can see the PEG molecule starting from
+an extremely elongated and unrealistic shape, and
+gently equilibrating until reaching a reasonable state.</p>
+</div>
+<figure class="align-default">
+<img alt="PEG in vacuum" class="only-light" src="../../_images/singlePEG-light.webp" />
+</figure>
+<figure class="align-default" id="id21">
+<img alt="PEG in vacuum" class="only-dark" src="../../_images/singlePEG-dark.webp" />
+<figcaption>
+<p><span class="caption-text">A PEG molecule in vacuum during an energy
+minimisation step, followed by a short NVT molecular dynamics.</span><a class="headerlink" href="#id21" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>Alternatively, you can
+<a class="reference external" href="../../../../../../inputs/bulkfluids/allatoms/singlePEG/PEG.data">download</a>
+the PEG molecule I have equilibrated and continue with the tutorial.</p>
+</div>
+</section>
+<section id="solvation-of-the-peg-molecule">
+<h2>Solvation of the PEG molecule<a class="headerlink" href="#solvation-of-the-peg-molecule" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Now, we merge the PEG molecule and the equilibrated
+water reservoir. We do it by (1) importing both
+previously generated data files (PEG.data and
+H2O.data) into the same simulation, (2) deleting the
+overlapping molecules, and (3) re-equilibrating the new
+system.</p>
+<p>Create a third folder alongside pureH2O/ and singlePEG/,
+and call it mergePEGH2O/. Create a new blank file in it,
+called input.lammps. Copy the same first lines as
+previously in it:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id22" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>units<span class="w"> </span>real
+atom_style<span class="w"> </span>full
+bond_style<span class="w"> </span>harmonic
+angle_style<span class="w"> </span>charmm
+dihedral_style<span class="w"> </span>charmm
+pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
+kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+special_bonds<span class="w"> </span>lj<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.5
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Then, import the two previously generated data files:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id23" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>read_data<span class="w"> </span>../singlePEG/PEG.data
+read_data<span class="w"> </span>../pureH2O/H2O.data<span class="w"> </span>add<span class="w"> </span>append
+include<span class="w"> </span>../PARM.lammps
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>When using the read_data command more than once, one needs
+to use the <em>add append</em> keyword. In that case the
+simulation box is only initialized by the first read_data.
+Let us create 2 groups to differentiate the PEG from the H2O:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id24" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>group<span class="w"> </span>H2O<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+group<span class="w"> </span>PEG<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Water molecules that are overlapping with the PEG must be
+deleted to avoid crashing:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id25" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>delete_atoms<span class="w"> </span>overlap<span class="w"> </span><span class="m">2</span>.0<span class="w"> </span>H2O<span class="w"> </span>PEG<span class="w"> </span>mol<span class="w"> </span>yes
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><em>Note –</em> The value of 2 Angstroms was fixed arbitrary,
+and can be chosen through trial and error. The “mol yes”
+option ensures that entire molecule are deleted and not
+just single atoms.</p>
+<p>Finally, let us use shake to keep the water
+molecules as rigid, and use the NPT command to control the
+temperature, as well as the pressure along x:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id26" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fix<span class="w"> </span>myshk<span class="w"> </span>H2O<span class="w"> </span>shake<span class="w"> </span><span class="m">1</span>.0e-4<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>b<span class="w"> </span><span class="m">1</span><span class="w"> </span>a<span class="w"> </span><span class="m">1</span>
+fix<span class="w"> </span>mynpt<span class="w"> </span>all<span class="w"> </span>npt<span class="w"> </span>temp<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>x<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1000</span>
+timestep<span class="w"> </span><span class="m">1</span>.0
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><em>Note –</em> The box dimension will only adjust along the
+x dimension here.</p>
+<p>Once more, let us dump the atom positions and a few
+information about the evolution simulation:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id27" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">100</span><span class="w"> </span>dump.lammpstrj
+thermo<span class="w"> </span><span class="m">100</span>
+variable<span class="w"> </span>mytemp<span class="w"> </span>equal<span class="w"> </span>temp
+variable<span class="w"> </span>myvol<span class="w"> </span>equal<span class="w"> </span>vol
+fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_mytemp<span class="w"> </span>file<span class="w"> </span>temperature.dat
+fix<span class="w"> </span>myat2<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_myvol<span class="w"> </span>file<span class="w"> </span>volume.dat
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Let us also print the total enthalpy:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id28" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>variable<span class="w"> </span>myenthalpy<span class="w"> </span>equal<span class="w"> </span>enthalpy
+fix<span class="w"> </span>myat3<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_myenthalpy<span class="w"> </span>file<span class="w"> </span>enthalpy.dat
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Finally, let us perform a short equilibration and print the
+final state in a data file:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id29">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id29" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>run<span class="w"> </span><span class="m">10000</span>
+write_data<span class="w"> </span>mix.data
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>If you open the dump.lammpstrj file using VMD, you should
+see that the box dimension slightly shrink along x.
+The system looks like that:</p>
+</div>
+<figure class="align-default">
+<img alt="PEG in water" class="only-light" src="../../_images/solvatedPEG_light.png" />
+</figure>
+<figure class="align-default" id="id30">
+<img alt="PEG in water" class="only-dark" src="../../_images/solvatedPEG_dark.png" />
+<figcaption>
+<p><span class="caption-text">PEG molecule in water. Water is represented as a continuous field for clarity.</span><a class="headerlink" href="#id30" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="stretching-the-peg-molecule">
+<h2>Stretching the PEG molecule<a class="headerlink" href="#stretching-the-peg-molecule" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Here, a constant forcing is applied to the two ends of the
+PEG molecule until it stretches. Create a new folder next
+to the 3 previously created folders, call it pullonPEG/
+and create a new input file in it called input.lammps.
+First, let us create a variable containing the magnitude
+of the force we are going to apply. The force magnitude is
+chosen to be large enough to overcome the thermal
+agitation and the entropic contribution from both water
+and PEG molecules (it was chosen by trial and error). Copy
+in the input file:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id31">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pullonPEG/input.lammps</em></span><a class="headerlink" href="#id31" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>variable<span class="w"> </span>f0<span class="w"> </span>equal<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="c1"># kcal/mol/A # 1 kcal/mol/A = 67.2 pN</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Then, as previouly, copy:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id32">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pullonPEG/input.lammps</em></span><a class="headerlink" href="#id32" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>units<span class="w"> </span>real
+atom_style<span class="w"> </span>full
+bond_style<span class="w"> </span>harmonic
+angle_style<span class="w"> </span>charmm
+dihedral_style<span class="w"> </span>charmm
+pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
+kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+special_bonds<span class="w"> </span>lj<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.5
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Start the simulation from the equilibrated PEG + water
+system, and include again the parameters:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id33">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pullonPEG/input.lammps</em></span><a class="headerlink" href="#id33" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>read_data<span class="w"> </span>../mergePEGH2O/mix.data
+include<span class="w"> </span>../PARM.lammps
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Then, let us create 4 atom groups: H2O and PEG (as
+previously) as well as 2 groups containing one single atom
+corresponding respectively to the oxygen atoms ocated at the
+ends of the PEG molecule:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id34">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pullonPEG/input.lammps</em></span><a class="headerlink" href="#id34" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>group<span class="w"> </span>H2O<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+group<span class="w"> </span>PEG<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span>
+group<span class="w"> </span>oxygen_end1<span class="w"> </span>id<span class="w"> </span><span class="m">65</span>
+group<span class="w"> </span>oxygen_end2<span class="w"> </span>id<span class="w"> </span><span class="m">4</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Let us print again the atom positions in a dump:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id35">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pullonPEG/input.lammps</em></span><a class="headerlink" href="#id35" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.lammpstrj
+<span class="c1"># write_dump all atom dump.lammpstrj</span>
+<span class="c1"># dump myxtc xtc atom 1000 dump.xtc</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p><em>Note –</em> To generate smaller dump files, use the
+compressed xtc format. You can do it by commenting the
+mydmp line and by uncommenting both the write_dump and
+myxtc lines. This is useful for generating higher
+resolution trajectories without using too much space.</p>
+<p>Let us use a simple thermostating and shake:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id36">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pullonPEG/input.lammps</em></span><a class="headerlink" href="#id36" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>timestep<span class="w"> </span><span class="m">1</span>
+fix<span class="w"> </span>myshk<span class="w"> </span>H2O<span class="w"> </span>shake<span class="w"> </span><span class="m">1</span>.0e-4<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>b<span class="w"> </span><span class="m">1</span><span class="w"> </span>a<span class="w"> </span><span class="m">1</span>
+fix<span class="w"> </span>mynvt<span class="w"> </span>all<span class="w"> </span>nvt<span class="w"> </span>temp<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+</pre></div>
+</div>
+</div>
+<p>Let us print the end-to-end distance of the PEG (and the
+temperature of the entire system):</p>
+<div class="literal-block-wrapper docutils container" id="id37">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pullonPEG/input.lammps</em></span><a class="headerlink" href="#id37" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>variable<span class="w"> </span>mytemp<span class="w"> </span>equal<span class="w"> </span>temp
+fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_mytemp<span class="w"> </span>file<span class="w"> </span>temperature.dat
+variable<span class="w"> </span>x1<span class="w"> </span>equal<span class="w"> </span>xcm<span class="o">(</span>oxygen_end1,x<span class="o">)</span>
+variable<span class="w"> </span>x2<span class="w"> </span>equal<span class="w"> </span>xcm<span class="o">(</span>oxygen_end2,x<span class="o">)</span>
+variable<span class="w"> </span>delta_x<span class="w"> </span>equal<span class="w"> </span>abs<span class="o">(</span>v_x1-v_x2<span class="o">)</span>
+fix<span class="w"> </span>myat2<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_delta_x<span class="w"> </span>file<span class="w"> </span>end-to-end-distance.dat
+thermo<span class="w"> </span><span class="m">5000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The distance between the two ends are here extracted
+directly using the LAMMPS internal commands, but the same
+information can also be extracted from the dump file after
+the simulation is over.
+Finally, let us run the simulation for 10 ps (without
+any external forcing):</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id38">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pullonPEG/input.lammps</em></span><a class="headerlink" href="#id38" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>run<span class="w"> </span><span class="m">10000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Then, let us apply a forcing on the 2 oxygen atoms using 2
+add_force commands, and run for 100 ps (for a total duration
+of the simulation of 110 ps):</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id39">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in pullonPEG/input.lammps</em></span><a class="headerlink" href="#id39" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fix<span class="w"> </span>myaf1<span class="w"> </span>oxygen_end1<span class="w"> </span>addforce<span class="w"> </span><span class="si">${</span><span class="nv">f0</span><span class="si">}</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+fix<span class="w"> </span>myaf2<span class="w"> </span>oxygen_end2<span class="w"> </span>addforce<span class="w"> </span>-<span class="si">${</span><span class="nv">f0</span><span class="si">}</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+run<span class="w"> </span><span class="m">50000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>If you open the dump.lammpstrj file using VMD , you should
+see this (here the water is represented as a continuum
+field):</p>
+</div>
+<figure class="align-default">
+<img alt="PEG molecule in water" class="only-dark" src="../../_images/pulled_peg_dark.png" />
+</figure>
+<figure class="align-default" id="id40">
+<img alt="PEG molecule in water" class="only-light" src="../../_images/pulled_peg_light.png" />
+<figcaption>
+<p><span class="caption-text">PEG molecule streched in water.</span><a class="headerlink" href="#id40" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>The evolution of the end-to-end
+distance over time show the PEG adjusting
+to the external forcing:</p>
+</div>
+<figure class="align-default">
+<img alt="plot of the end-to-end distance versus time" class="only-dark" src="../../_images/distance-dark.png" />
+</figure>
+<figure class="align-default" id="id41">
+<img alt="plot of the end-to-end distance versus time" class="only-light" src="../../_images/distance-light.png" />
+<figcaption>
+<p><span class="caption-text">Evolution of the end-to-end distance of the PEG molecule
+with time. The forcing starts at <span class="math notranslate nohighlight">\(t = 10\)</span> ps.</span><a class="headerlink" href="#id41" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>You can access all the input scripts and data files that
+have been used in this tutorial from
+<a class="reference external" href="../../../../../../inputs/">Github</a>.</p>
+</section>
+<section id="going-further-with-exercises">
+<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Permalink to this heading">#</a></h2>
+<blockquote class="epigraph">
+<div><p>Request the solutions by <a class="reference external" href="../miscellaneous/contact.html">email</a>, or register
+<a class="reference external" href="https://www.patreon.com/molecularsimulations">here</a>
+and access all the solutions + additional LAMMPS content.</p>
+</div></blockquote>
+<p><strong>Exercise 1 : generate a PEG-H2O mixture</strong></p>
+<div class="justify docutils container">
+<p>Use the same script and a similar procedure and create a
+PEG-H2O mixture with several PEG molecules hydrated in a
+cubic box.</p>
+<p>Hint: LAMMPS has internal commands allowing to replicate
+a molecule or a system.</p>
+</div>
+<p><strong>Exercise 2 : end-to-end distance</strong></p>
+<div class="justify docutils container">
+<p>Create 2 simulations, one with a PEG molecule in vacuum, one
+with a PEG molecule in water, and measure their respective
+end-to-end equilibrium distance. PEG are hydrophilic and
+form hbonds with water molecules, therefore, when immersed
+in water, a PEG molecule slightly unfold, which changes it
+equilibrium end-to-end length.</p>
+</div>
+<p><strong>Exercise 3 : post-mortem analysis</strong></p>
+<div class="justify docutils container">
+<p>Import the trajectory using Python, and re-extract the
+end-to-end distance.</p>
+<p>Hint: you can import lammpstrj file using MDAnalysis:</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;LAMMPSDUMP&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p><strong>Motivation:</strong> In today research, most data analyses are
+done after the simulation is over, and it is important for
+LAMMPS users to know how to do it.</p>
+</div>
+<div class="contact docutils container">
+<p>Contact me by <a class="reference external" href="mailto:simon&#46;gravelle&#37;&#52;&#48;live&#46;fr">email</a> if you have any question or suggestion about these tutorials.</p>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="sheared.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Nanosheared electrolyte</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="lennardjones.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Lennard Jones fluid</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Polymer in water</a><ul>
+<li><a class="reference internal" href="#bulk-water">Bulk water</a></li>
+<li><a class="reference internal" href="#peg-molecule">PEG molecule</a></li>
+<li><a class="reference internal" href="#solvation-of-the-peg-molecule">Solvation of the PEG molecule</a></li>
+<li><a class="reference internal" href="#stretching-the-peg-molecule">Stretching the PEG molecule</a></li>
+<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

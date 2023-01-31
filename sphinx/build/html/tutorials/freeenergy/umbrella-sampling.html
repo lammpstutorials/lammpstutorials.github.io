@@ -1,0 +1,871 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Contact me" href="../../contact/contact.html" /><link rel="prev" title="Water adsorption in silica" href="../montecarlo/gcmc-silica.html" />
+
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+        <title>Simple free energy calculation - </title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">    </div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">    </span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../howto.html">How-to</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bulk fluids</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bulkfluids/lennardjones.html">Lennard Jones fluid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bulkfluids/allatoms.html">Polymer in water</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bulkfluids/sheared.html">Nanosheared electrolyte</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">2D materials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../2Dmaterials/graphene.html">Graphene under deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2Dmaterials/carbonnanotube.html">Breaking a carbon nanotube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Monte Carlo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../montecarlo/gcmc-silica.html">Water adsorption in silica</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Free energy</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Simple free energy calculation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contact me</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contact/contact.html">Contact me</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="simple-free-energy-calculation">
+<span id="umbrella-sampling-label"></span><h1>Simple free energy calculation<a class="headerlink" href="#simple-free-energy-calculation" title="Permalink to this heading">#</a></h1>
+<div class="justify docutils container">
+<p>This tutorial is part of the <em>Free energy</em> series.</p>
+</div>
+<div class="hatnote docutils container">
+<p>A simple sampling of a free energy barrier using WHAM</p>
+</div>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../../_images/avatar-light.png"><img alt="Atoms simulated with LAMMPS" class="only-light" src="../../_images/avatar-light.png" style="height: 250px;" /></a>
+</figure>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../../_images/avatar-dark.png"><img alt="Atoms simulated with LAMMPS" class="only-dark" src="../../_images/avatar-dark.png" style="height: 250px;" /></a>
+</figure>
+<div class="justify docutils container">
+<p>The objective of this tutorial is to measure the free
+energy profile across a barrier potential using two methods:
+free sampling and umbrella sampling. For the sake of
+simplicity and in order to reduce computation time, the
+barrier potential will be imposed artificially to the atoms.
+The procedure is valid for more complex
+systems, and can be adapted to many other situations (e.g.
+for measuring adsorption barrier near a wall, or translocation
+barrier through a membrane).</p>
+</div>
+<section id="method-1-free-sampling">
+<h2>Method 1: Free sampling<a class="headerlink" href="#method-1-free-sampling" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>One way to calculate the free energy profile is to extract
+the partition function from a classic (unbiased) molecular
+dynamics simulation, and then to estimate the Gibbs free
+energy using <span class="math notranslate nohighlight">\(\Delta G = -RT \ln(p/p_0)\)</span>, where
+<span class="math notranslate nohighlight">\(\Delta G\)</span> is the free energy difference, R the
+gas constant, T the temperature, p the
+pressure, and <span class="math notranslate nohighlight">\(p_0\)</span> the reference pressure.
+As an illustration, let us apply this method to an
+extremely simple configuration that consists in a few
+particles diffusing in a box in presence of a
+position-dependent repealing force that makes the centre
+of the box a relatively unfavourable area to explore.</p>
+</div>
+<section id="basic-lammps-parameters">
+<h3>Basic LAMMPS parameters<a class="headerlink" href="#basic-lammps-parameters" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Create a folder named FreeSampling/, and create an input script named input.lammps in it. Copy the following lines:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># define some variables</span>
+variable<span class="w"> </span>sigma<span class="w"> </span>equal<span class="w"> </span><span class="m">3</span>.405<span class="w"> </span><span class="c1"># Angstrom</span>
+variable<span class="w"> </span>epsilon<span class="w"> </span>equal<span class="w"> </span><span class="m">0</span>.238<span class="w"> </span><span class="c1"># Kcal/mol</span>
+variable<span class="w"> </span>U0<span class="w"> </span>equal<span class="w"> </span><span class="m">2</span>*<span class="si">${</span><span class="nv">epsilon</span><span class="si">}</span><span class="w"> </span><span class="c1"># Kcal/mol</span>
+variable<span class="w"> </span>dlt<span class="w"> </span>equal<span class="w"> </span><span class="m">0</span>.5<span class="w"> </span><span class="c1"># Angstrom</span>
+variable<span class="w"> </span>x0<span class="w"> </span>equal<span class="w"> </span><span class="m">5</span><span class="w">  </span><span class="c1"># Angstrom</span>
+
+<span class="c1"># initialise the simulation</span>
+units<span class="w"> </span>real
+atom_style<span class="w"> </span>atomic
+pair_style<span class="w"> </span>lj/cut<span class="w"> </span><span class="m">3</span>.822<span class="w"> </span><span class="c1"># 2^(1/6) * 3.405 WCA potential</span>
+pair_modify<span class="w"> </span><span class="nb">shift</span><span class="w"> </span>yes
+boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Here we start by defining variables for the Lennard-Jones
+interaction <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\epsilon\)</span> and for
+the repulsive potential <span class="math notranslate nohighlight">\(U (x)\)</span>: <span class="math notranslate nohighlight">\(U_0\)</span>, <span class="math notranslate nohighlight">\(\delta\)</span>, and <span class="math notranslate nohighlight">\(x_0\)</span>,
+see the analytical expression below.</p>
+<p>The system of unit ‘real’ (for which energy is in kcal/mol, distance in Ångstrom,
+time in femtosecond) has been chosen for practical reason,
+as the WHAM algorithm we are going to use in the second
+part of the tutorial automatically assumes the energy to
+be in kcal/mol. Atoms will interact through a
+Lennard-Jones potential with a cut-off equal to
+<span class="math notranslate nohighlight">\(\sigma \times 2 ^ {1/6}\)</span> (i.e. a WCA repulsive
+potential). The potential is shifted to be equal to 0 at
+the cut-off using the pair_modify.</p>
+</div>
+</section>
+<section id="system-creation-and-settings">
+<h3>System creation and settings<a class="headerlink" href="#system-creation-and-settings" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Let us define the simulation block and randomly add atoms:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the system</span>
+region<span class="w"> </span>myreg<span class="w"> </span>block<span class="w"> </span>-25<span class="w"> </span><span class="m">25</span><span class="w"> </span>-20<span class="w"> </span><span class="m">20</span><span class="w"> </span>-20<span class="w"> </span><span class="m">20</span>
+create_box<span class="w"> </span><span class="m">1</span><span class="w"> </span>myreg
+create_atoms<span class="w"> </span><span class="m">1</span><span class="w"> </span>random<span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span>myreg
+
+<span class="c1"># settings</span>
+mass<span class="w"> </span>*<span class="w"> </span><span class="m">39</span>.95
+pair_coeff<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="si">${</span><span class="nv">epsilon</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">sigma</span><span class="si">}</span>
+neigh_modify<span class="w"> </span>every<span class="w"> </span><span class="m">1</span><span class="w"> </span>delay<span class="w"> </span><span class="m">4</span><span class="w"> </span>check<span class="w"> </span>yes
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Argon has been chosen as the gas of interest, which explains
+the values of the Lennard-Jones parameters <span class="math notranslate nohighlight">\(\sigma\)</span> and
+<span class="math notranslate nohighlight">\(\epsilon\)</span>, as well as the mass m = 39.95
+grams/mole. The variables <span class="math notranslate nohighlight">\(U_0\)</span>, <span class="math notranslate nohighlight">\(\delta\)</span>, and
+<span class="math notranslate nohighlight">\(x_0\)</span> are used to create the potential. I have chosen it
+to be of the form:</p>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[U(x) / U_0 = \arctan \left( \dfrac{x+x_0}{\delta} \right)- \arctan \left(\dfrac{x-x_0}{\delta} \right).\]</div>
+</div>
+<div class="justify docutils container">
+<p>From the derivative of the
+potential with respect to <span class="math notranslate nohighlight">\(x\)</span>, we obtain the expression
+for the force that we are going to impose to the particles
+in the simulation,</p>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[F(x)=U_0/((x-x_0)^2/\delta^2+1)/\delta-U_0/((x+x_0)^2/\delta^2+1)/\delta.\]</div>
+</div>
+<div class="justify docutils container">
+<p>The potential and force as a function of <span class="math notranslate nohighlight">\(x\)</span> resemble:</p>
+</div>
+<figure class="align-default">
+<img alt="Imposed potential" class="only-light" src="../../_images/potential-light.png" />
+</figure>
+<figure class="align-default" id="id3">
+<img alt="Averaged density profile" class="only-dark" src="../../_images/potential-dark.png" />
+<figcaption>
+<p><span class="caption-text">Potential <span class="math notranslate nohighlight">\(U\)</span> and force <span class="math notranslate nohighlight">\(F\)</span> imposed to the particle.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Energy minimization and equilibration</strong></p>
+<div class="justify docutils container">
+<p>Let us minimize the energy, and then impose \(F(x)\) to
+all of the atoms in the simulation using the ‘addforce’
+command:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># --------------------- Run</span>
+minimize<span class="w"> </span>1e-4<span class="w"> </span>1e-6<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
+reset_timestep<span class="w"> </span><span class="m">0</span>
+
+variable<span class="w"> </span>U<span class="w"> </span>atom<span class="w"> </span><span class="si">${</span><span class="nv">U0</span><span class="si">}</span>*atan<span class="o">((</span>x+<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span><span class="o">)</span>-<span class="si">${</span><span class="nv">U0</span><span class="si">}</span>*atan<span class="o">((</span>x-<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span><span class="o">)</span>
+variable<span class="w"> </span>F<span class="w"> </span>atom<span class="w"> </span><span class="si">${</span><span class="nv">U0</span><span class="si">}</span>/<span class="o">((</span>x-<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>^2/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>^2+1<span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>-<span class="si">${</span><span class="nv">U0</span><span class="si">}</span>/<span class="o">((</span>x+<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>^2/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>^2+1<span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>
+fix<span class="w"> </span>myadf<span class="w"> </span>all<span class="w"> </span>addforce<span class="w"> </span>v_F<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span>energy<span class="w"> </span>v_U
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Finally, let us combine the fix nve with a Langevin
+thermostat to run a molecular dynamics simulation. With
+these two commands, the MD simulation is effectively in the
+NVT ensemble (constant number of atoms:math:<cite>N</cite>, constant
+volume <span class="math notranslate nohighlight">\(V\)</span>, and constant temperature <span class="math notranslate nohighlight">\(T\)</span>. Let us
+perform an equilibration step of 2000000 timestep (4
+nanoseconds). To make sure that 4 ns is long enough, let us
+record the evolution of the number of atoms in the central
+(energetically unfavorable) region called ‘mymes’:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
+fix<span class="w"> </span>mylgv<span class="w"> </span>all<span class="w"> </span>langevin<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1530917</span>
+
+region<span class="w"> </span>mymes<span class="w"> </span>block<span class="w"> </span>-5<span class="w"> </span><span class="m">5</span><span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF
+variable<span class="w"> </span>n_center<span class="w"> </span>equal<span class="w"> </span>count<span class="o">(</span>all,mymes<span class="o">)</span>
+fix<span class="w"> </span>myat<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="m">50000</span><span class="w"> </span>v_n_center<span class="w"> </span>file<span class="w"> </span>density_evolution.dat
+
+timestep<span class="w"> </span><span class="m">2</span>.0
+thermo<span class="w"> </span><span class="m">100000</span>
+run<span class="w"> </span><span class="m">2000000</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="run-and-data-acquisition">
+<h3>Run and data acquisition<a class="headerlink" href="#run-and-data-acquisition" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Finally, let us record the density profile of the atoms
+along the <span class="math notranslate nohighlight">\(x\)</span> axis using the ‘ave/chunk’ command. A
+total of ten density profiles will be printed. Timestep is
+reset to 0 to synchronize with the output times of
+density/number, and the fix ‘myat’ is canceled (it has to be
+canceled before a reset time).</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unfix<span class="w"> </span>myat
+reset_timestep<span class="w"> </span><span class="m">0</span>
+
+compute<span class="w"> </span>cc1<span class="w"> </span>all<span class="w"> </span>chunk/atom<span class="w"> </span>bin/1d<span class="w"> </span>x<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">1</span>.0
+fix<span class="w"> </span>myac<span class="w"> </span>all<span class="w"> </span>ave/chunk<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1000000</span><span class="w"> </span><span class="m">10000000</span><span class="w"> </span>cc1<span class="w"> </span>density/number<span class="w"> </span>file<span class="w"> </span>density_profile_10run.dat
+dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">100000</span><span class="w"> </span>dump.lammpstrj
+
+run<span class="w"> </span><span class="m">10000000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The simulation needs a few minutes to complete. You can
+visualize the dump file using VMD.</p>
+</div>
+</section>
+<section id="data-analysis">
+<h3>Data analysis<a class="headerlink" href="#data-analysis" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>First, let us make sure that the equilibration duration of 4
+ns is long enough by looking at the ‘density_evolution.dat’
+file (left panel):</p>
+</div>
+<figure class="align-default">
+<img alt="Number of particle in the central region as a function of time" class="only-light" src="../../_images/density_evolution-light.png" />
+</figure>
+<figure class="align-default" id="id7">
+<img alt="Number of particle in the central region as a function of time" class="only-dark" src="../../_images/density_evolution-dark.png" />
+<figcaption>
+<p><span class="caption-text">Evolution of the number of atoms in the central region during equilibration.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>Here we can clearly see that the number of atom in the
+central region quickly evolves to an equilibrium value.
+Therefore the chosen equilibration of 4 ns is long enough.</p>
+<p>Let us also plot the equilibrium density profile <span class="math notranslate nohighlight">\(\rho\)</span>:</p>
+</div>
+<figure class="align-default">
+<img alt="Averaged density profile" class="only-light" src="../../_images/density_profile-light.png" />
+</figure>
+<figure class="align-default" id="id8">
+<img alt="Averaged density profile" class="only-dark" src="../../_images/density_profile-dark.png" />
+<figcaption>
+<p><span class="caption-text">Averaged density profile (the dashed line is a 200 ns simulation, the full line is 20 ns).
+The value <span class="math notranslate nohighlight">\(\rho_0 = 0.0011\)</span> was estimated from the raw density profile.</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>Then, let us plot <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_0)\)</span> and compare it
+with the imposed (reference) potential <span class="math notranslate nohighlight">\(U\)</span>:</p>
+</div>
+<figure class="align-default">
+<img alt="Averaged density profile" class="only-light" src="../../_images/freesampling-potential-light.png" />
+</figure>
+<figure class="align-default" id="id9">
+<img alt="Averaged density profile" class="only-dark" src="../../_images/freesampling-potential-dark.png" />
+<figcaption>
+<p><span class="caption-text">Calculated potential <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_0)\)</span> compared to imposed potential.
+The calculated potential is in blue. The simulation is 20 ns long.</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>The agreement with the expected energy profile
+(despite a bit of noise in the central part). For longer simulations, the
+agreement gets better:</p>
+</div>
+<figure class="align-default">
+<img alt="Averaged density profile" class="only-light" src="../../_images/freesampling-potential-longer-light.png" />
+</figure>
+<figure class="align-default" id="id10">
+<img alt="Averaged density profile" class="only-dark" src="../../_images/freesampling-potential-longer-dark.png" />
+<figcaption>
+<p><span class="caption-text">Calculated potential <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_0)\)</span> compared to imposed potential.
+The calculated potential is in blue. The simulation is 200 ns long.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="the-limits-of-free-sampling">
+<h3>The limits of free sampling<a class="headerlink" href="#the-limits-of-free-sampling" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>If we increase the value of <span class="math notranslate nohighlight">\(U_0\)</span>, the average number of
+atoms in the central region will decrease, making it
+difficult to obtain a good resolution for the free energy
+profile. For instance, multiplying <span class="math notranslate nohighlight">\(F\)</span> by a factor of 5,
+one gets an average concentration <span class="math notranslate nohighlight">\(\rho \sim 0\)</span> in
+the central part, which makes it impossible to estimate
+<span class="math notranslate nohighlight">\(U (x)\)</span> (unless running the simulation for a much longer
+time (possibly days)).</p>
+<p>In that case, it is better to use more evolved methods,
+such as umbrella sampling, to extract free energy profiles.
+This is what we are going to do next.</p>
+</div>
+</section>
+</section>
+<section id="method-2-umbrella-sampling">
+<h2>Method 2: Umbrella sampling<a class="headerlink" href="#method-2-umbrella-sampling" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Umbrella sampling is a ‘biased molecular dynamics’ method,
+i.e a method in which additional forces are added to the
+atoms in order to make the ‘unfavourable states’ more likely
+to be explored: here, we are going to force a single atom to
+explore the central region. Starting from the same system as
+previously, we are going to add a potential <span class="math notranslate nohighlight">\(V\)</span> to one
+of the particle, and force it to move along the axe <span class="math notranslate nohighlight">\(x\)</span>.
+The chosen path is called the axe of reaction. The final
+simulation will be analysed using the weighted histogram
+analysis method (WHAM), which allows to remove the effect of
+the bias and eventually deduce the unbiased free energy
+profile.</p>
+</div>
+<p><strong>LAMMPS input script</strong></p>
+<div class="justify docutils container">
+<p>Create a new folder called BiasedSampling/, and create a new input file
+named input.lammps in it, copy the following lines:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in BiasedSampling/input.lammps</em></span><a class="headerlink" href="#id11" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a bunch of variables</span>
+variable<span class="w"> </span>sigma<span class="w"> </span>equal<span class="w"> </span><span class="m">3</span>.405<span class="w"> </span><span class="c1"># Angstrom</span>
+variable<span class="w"> </span>epsilon<span class="w"> </span>equal<span class="w"> </span><span class="m">0</span>.238<span class="w"> </span><span class="c1"># Kcal/mol</span>
+variable<span class="w"> </span>U0<span class="w"> </span>equal<span class="w"> </span><span class="m">10</span>*<span class="si">${</span><span class="nv">epsilon</span><span class="si">}</span><span class="w"> </span><span class="c1"># Kcal/mol</span>
+variable<span class="w"> </span>dlt<span class="w"> </span>equal<span class="w"> </span><span class="m">0</span>.5<span class="w"> </span><span class="c1"># Angstrom</span>
+variable<span class="w"> </span>x0<span class="w"> </span>equal<span class="w"> </span><span class="m">5</span>.0<span class="w">  </span><span class="c1"># Angstrom</span>
+variable<span class="w"> </span>k<span class="w"> </span>equal<span class="w"> </span><span class="m">1</span>.5<span class="w"> </span><span class="c1"># Kcal/mol/Angstrom^2</span>
+
+<span class="c1"># initialise the simulation</span>
+units<span class="w"> </span>real
+atom_style<span class="w"> </span>atomic
+pair_style<span class="w"> </span>lj/cut<span class="w"> </span><span class="m">3</span>.822<span class="w"> </span><span class="c1"># 2^(1/6) * 3.405 WCA potential</span>
+pair_modify<span class="w"> </span><span class="nb">shift</span><span class="w"> </span>yes
+boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
+
+<span class="c1"># define the system</span>
+region<span class="w"> </span>myreg<span class="w"> </span>block<span class="w"> </span>-25<span class="w"> </span><span class="m">25</span><span class="w"> </span>-20<span class="w"> </span><span class="m">20</span><span class="w"> </span>-20<span class="w"> </span><span class="m">20</span>
+create_box<span class="w"> </span><span class="m">2</span><span class="w"> </span>myreg
+create_atoms<span class="w"> </span><span class="m">2</span><span class="w"> </span>single<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+create_atoms<span class="w"> </span><span class="m">1</span><span class="w"> </span>random<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span>myreg
+
+<span class="c1"># settings</span>
+mass<span class="w"> </span>*<span class="w"> </span><span class="m">39</span>.948
+pair_coeff<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="si">${</span><span class="nv">epsilon</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">sigma</span><span class="si">}</span>
+neigh_modify<span class="w"> </span>every<span class="w"> </span><span class="m">1</span><span class="w"> </span>delay<span class="w"> </span><span class="m">4</span><span class="w"> </span>check<span class="w"> </span>yes
+group<span class="w"> </span>topull<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">2</span>
+
+<span class="c1"># run</span>
+variable<span class="w"> </span>U<span class="w"> </span>atom<span class="w"> </span><span class="si">${</span><span class="nv">U0</span><span class="si">}</span>*atan<span class="o">((</span>x+<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span><span class="o">)</span>-<span class="si">${</span><span class="nv">U0</span><span class="si">}</span>*atan<span class="o">((</span>x-<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span><span class="o">)</span>
+variable<span class="w"> </span>F<span class="w"> </span>atom<span class="w"> </span><span class="si">${</span><span class="nv">U0</span><span class="si">}</span>/<span class="o">((</span>x-<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>^2/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>^2+1<span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>-<span class="si">${</span><span class="nv">U0</span><span class="si">}</span>/<span class="o">((</span>x+<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>^2/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>^2+1<span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>
+fix<span class="w"> </span>pot<span class="w"> </span>all<span class="w"> </span>addforce<span class="w"> </span>v_F<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span>energy<span class="w"> </span>v_U
+
+fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
+fix<span class="w"> </span>mylgv<span class="w"> </span>all<span class="w"> </span>langevin<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1530917</span>
+timestep<span class="w"> </span><span class="m">2</span>.0
+thermo<span class="w"> </span><span class="m">100000</span>
+run<span class="w"> </span><span class="m">2000000</span>
+reset_timestep<span class="w"> </span><span class="m">0</span>
+
+dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000000</span><span class="w"> </span>dump.lammpstrj
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>So far, this code resembles the one of Method 1,
+except for the additional particle of type 2. This
+particle is identical to the particles of type 1 (same
+mass and Lennard-Jones parameters), and will be the only
+one to feel the biasing potential.</p>
+<p>The value of the potential <span class="math notranslate nohighlight">\(U_0\)</span> was chosen to be larger than in part 1,
+just because we can.</p>
+<p>Let us create a loop with 67 steps, and move progressively
+the centre of the bias potential by increment of 0.3 nm:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in BiasedSampling/input.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>variable<span class="w"> </span>a<span class="w"> </span>loop<span class="w"> </span><span class="m">50</span>
+label<span class="w"> </span>loop
+variable<span class="w"> </span>xdes<span class="w"> </span>equal<span class="w"> </span><span class="si">${</span><span class="nv">a</span><span class="si">}</span>-25
+variable<span class="w"> </span>xave<span class="w"> </span>equal<span class="w"> </span>xcm<span class="o">(</span>topull,x<span class="o">)</span>
+fix<span class="w"> </span>mytth<span class="w"> </span>topull<span class="w"> </span>spring<span class="w"> </span>tether<span class="w"> </span><span class="si">${</span><span class="nv">k</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">xdes</span><span class="si">}</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+run<span class="w"> </span><span class="m">200000</span>
+fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_xave<span class="w"> </span>v_xdes<span class="w"> </span>file<span class="w"> </span>position.<span class="si">${</span><span class="nv">a</span><span class="si">}</span>.dat
+run<span class="w"> </span><span class="m">200000</span>
+unfix<span class="w"> </span>myat1
+next<span class="w"> </span>a
+jump<span class="w"> </span>SELF<span class="w"> </span>loop
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The spring command serves to impose the
+additional harmonic potential with spring constant <span class="math notranslate nohighlight">\(k\)</span>.
+Note that the value of <span class="math notranslate nohighlight">\(k\)</span> should be chosen with care,
+if its too small, the particle wont follow the biasing potential
+center, if its too large, there will be no overlapping between the
+different windows.</p>
+<p>The centre of the harmonic potential <span class="math notranslate nohighlight">\(x_\text{des}\)</span>
+successively takes values from -25 to 25. For each value of
+<span class="math notranslate nohighlight">\(x_\text{des}\)</span>, an equilibration step of 400 ps is
+performed, followed by a step of 400 ps during which the
+position along <span class="math notranslate nohighlight">\(x\)</span> of the particle is saved in data
+files (one data file per value of <span class="math notranslate nohighlight">\(x_\text{des}\)</span>). You
+can increase the duration of the run for better samplings,
+but 0.4 ps returns reasonable results despite being really
+fast (it should only take a few minutes).</p>
+</div>
+<section id="on-the-choice-of-k">
+<h3>On the choice of k<a class="headerlink" href="#on-the-choice-of-k" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>As already stated, the difficult part is to choose the value of <span class="math notranslate nohighlight">\(k\)</span>. You
+want the biasing potential to be strong enough to force
+the atom to move along the axis, and you also want the
+fluctuations of the atom position to be large enough to
+have some overlap in the density probability of two
+neighbor positions, like we have here:</p>
+</div>
+<figure class="align-default">
+<img alt="Averaged density profile" class="only-light" src="../../_images/overlap-light.png" />
+</figure>
+<figure class="align-default" id="id13">
+<img alt="Averaged density profile" class="only-dark" src="../../_images/overlap-dark.png" />
+<figcaption>
+<p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 1.5\)</span> Kcal/mol/Å^2. Note the good
+overlapping between neighbor distributions.</span><a class="headerlink" href="#id13" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>If <span class="math notranslate nohighlight">\(k\)</span> is too small, the particle never explore the
+region of interest:</p>
+</div>
+<figure class="align-default">
+<img alt="Averaged density profile" class="only-light" src="../../_images/overlap015-light.png" />
+</figure>
+<figure class="align-default" id="id14">
+<img alt="Averaged density profile" class="only-dark" src="../../_images/overlap015-dark.png" />
+<figcaption>
+<p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 0.15\)</span> Kcal/mol/Å^2.
+The particle doesn’t even explore the middle region.</span><a class="headerlink" href="#id14" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>If <span class="math notranslate nohighlight">\(k\)</span> is too large, the biasing potential is too large
+compared to the thermal energy:</p>
+</div>
+<figure class="align-default">
+<img alt="Averaged density profile" class="only-light" src="../../_images/overlap15-light.png" />
+</figure>
+<figure class="align-default" id="id15">
+<img alt="Averaged density profile" class="only-dark" src="../../_images/overlap15-dark.png" />
+<figcaption>
+<p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 15\)</span> Kcal/mol/Å^2.
+Note the bad overlap between neighbor windows.</span><a class="headerlink" href="#id15" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="wham-algorithm">
+<h3>WHAM algorithm<a class="headerlink" href="#wham-algorithm" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>In order to generate the free energy profile from the density distribution, we are going to use the WHAM
+algorithm. You can download and compile the version of <a class="reference external" href="http://membrane.urmc.rochester.edu/?page_id=126">Alan
+Grossfield</a>.
+It can be compiled by simply running:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>wham
+make<span class="w"> </span>clean
+make
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>It creates an executable called wham that you can
+copy in the BiasedSampling folder.</p>
+<p>In order to apply the WHAM algorithm to our simulation, we
+first need to create a metadata file. This file simply
+contains the paths of the data files, the value of
+<span class="math notranslate nohighlight">\(x_\text{des}\)</span>, and the values of <span class="math notranslate nohighlight">\(k\)</span>. To generate
+the file more easily, you can run this script using Octave
+or Matlab (assuming that the wham algorithm is located in
+the same folder as the LAMMPS simulations):</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">file</span><span class="o">=</span>fopen<span class="o">(</span><span class="s1">&#39;metadata.dat&#39;</span>,<span class="s1">&#39;wt&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="m">1</span>:50
+<span class="w">    </span><span class="nv">X</span><span class="o">=[</span><span class="s1">&#39;./position.&#39;</span>,num2str<span class="o">(</span>a<span class="o">)</span>,<span class="s1">&#39;.dat &#39;</span>,num2str<span class="o">(</span>a-25<span class="o">)</span>,<span class="s1">&#39; 1.5&#39;</span><span class="o">]</span><span class="p">;</span>
+<span class="w">    </span>fprintf<span class="o">(</span>file,X<span class="o">)</span><span class="p">;</span>
+<span class="w">    </span>fprintf<span class="o">(</span>file,<span class="s1">&#39;\n&#39;</span><span class="o">)</span><span class="p">;</span>
+end
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The generated file named metadata.dat looks like that:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./position.1.dat<span class="w"> </span>-24<span class="w"> </span><span class="m">1</span>.5
+./position.2.dat<span class="w"> </span>-23<span class="w"> </span><span class="m">1</span>.5
+./position.3.dat<span class="w"> </span>-22<span class="w"> </span><span class="m">1</span>.5
+./position.4.dat<span class="w"> </span>-21<span class="w"> </span><span class="m">1</span>.5
+./position.5.dat<span class="w"> </span>-20<span class="w"> </span><span class="m">1</span>.5
+<span class="o">(</span>...<span class="o">)</span>
+./position.48.dat<span class="w"> </span><span class="m">23</span><span class="w"> </span><span class="m">1</span>.5
+./position.49.dat<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">1</span>.5
+./position.50.dat<span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="m">1</span>.5
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Here you can download my <a class="reference external" href="../../../../../../inputs/freeenergy/BiasedSampling/metadata.dat">metadata.dat</a> file.</p>
+<p>Then, simply run the following command in the terminal:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./wham<span class="w"> </span>-25<span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="m">50</span><span class="w"> </span>1e-8<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">0</span><span class="w"> </span>metadata.dat<span class="w"> </span>PMF.dat
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>where -25 and 25 are the boundaries, 50 the number of bins,
+1e-8 the tolerance, and 119.8 the temperature. A file named
+PMF.dat has been created, and contains the free energy
+profile in Kcal/mol.</p>
+</div>
+<p><strong>Results</strong></p>
+<div class="justify docutils container">
+<p>We can compare the PMF with we the imposed potential, and
+the agreement in again quite good despite the very short
+calculation time:</p>
+</div>
+<figure class="align-default">
+<img alt="Result of the umbrella sampling" class="only-light" src="../../_images/freeenergy-light.png" />
+</figure>
+<figure class="align-default" id="id16">
+<img alt="Result of the umbrella sampling" class="only-dark" src="../../_images/freeenergy-dark.png" />
+<figcaption>
+<p><span class="caption-text">Calculated potential using umbrella sampling compared to the imposed potential.
+The calculated potential is in blue.</span><a class="headerlink" href="#id16" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="going-further-with-exercises">
+<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Permalink to this heading">#</a></h2>
+<blockquote class="epigraph">
+<div><p>Request the solutions by <a class="reference external" href="../miscellaneous/contact.html">email</a>, or register
+<a class="reference external" href="https://www.patreon.com/molecularsimulations">here</a>
+and access all the solutions + additional LAMMPS content.</p>
+</div></blockquote>
+<p><strong>Exercise 1: Monte Carlo versus molecular dynamics</strong></p>
+<div class="justify docutils container">
+<p>Use a Monte Carlo procedure to equilibrate the system
+instead of molecular dynamics. Is it more efficient than
+molecular dynamics?</p>
+<p>Pure MC move can be made using the fix gcmc.</p>
+</div>
+<p><strong>Exercise 2 : Binary fluid simulation</strong></p>
+<div class="justify docutils container">
+<p>Create a molecular simulation with two species, and apply a
+different potential on them using addforce to create the
+following situation:</p>
+</div>
+<figure class="align-default">
+<img alt="Particles separated by a potential" class="only-light" src="../../_images/exercice2-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="Particles separated by a potential" class="only-dark" src="../../_images/exercice2-dark.png" />
+</figure>
+<p><strong>Exercise 3 : Adsorption energy of a molecule at a solid wall</strong></p>
+<div class="justify docutils container">
+<p>Apply umbrella sampling to calculate the free energy profile
+of a molecule of your choice normally to a solid wall.</p>
+</div>
+<div class="contact docutils container">
+<p>Contact me by <a class="reference external" href="mailto:simon&#46;gravelle&#37;&#52;&#48;live&#46;fr">email</a> if you have any question or suggestion about these tutorials.</p>
+</div>
+<blockquote>
+<div><p>A non-equilibrated system containing a few ethanol
+molecules can be downloaded:
+<a class="reference external" href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs/06-FreeEnergy/exercice3">here</a>
+(the method to create this system using molecules
+structures downloaded from the ATB is given in the
+<a class="reference external" href="https://www.patreon.com/molecularsimulations">solutions to the
+exercises</a>)</p>
+</div></blockquote>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../../contact/contact.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Contact me</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../montecarlo/gcmc-silica.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Water adsorption in silica</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Simple free energy calculation</a><ul>
+<li><a class="reference internal" href="#method-1-free-sampling">Method 1: Free sampling</a><ul>
+<li><a class="reference internal" href="#basic-lammps-parameters">Basic LAMMPS parameters</a></li>
+<li><a class="reference internal" href="#system-creation-and-settings">System creation and settings</a></li>
+<li><a class="reference internal" href="#run-and-data-acquisition">Run and data acquisition</a></li>
+<li><a class="reference internal" href="#data-analysis">Data analysis</a></li>
+<li><a class="reference internal" href="#the-limits-of-free-sampling">The limits of free sampling</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#method-2-umbrella-sampling">Method 2: Umbrella sampling</a><ul>
+<li><a class="reference internal" href="#on-the-choice-of-k">On the choice of k</a></li>
+<li><a class="reference internal" href="#wham-algorithm">WHAM algorithm</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>
