@@ -1,4 +1,4 @@
-.. gcmc-silica:
+.. _gcmc-silica-label:
 
 Water adsorption in silica
 **************************
@@ -205,7 +205,7 @@ following lines to the input script:
     fix nvt1 all nvt temp 300 300 0.1
     timestep 0.001
     thermo 1000
-    variable var loop 38
+    variable var loop 45
     label loop
     change_box all z scale 1.005 remap
     run 2000
@@ -213,6 +213,9 @@ following lines to the input script:
     jump input.lammps loop
     run 20000
     write_data dilatedSiO.data
+
+Feel free to play with the factor (1.005) and the number of 
+loop (45) to generate more or less large cracking in the silica.
 
 After the dilatation, a final equilibration step of 20
 picoseconds is performed. If you look at the dump file
@@ -227,7 +230,15 @@ can download the final state directly by clicking
 
 The final system, with the crack, resembles:
 
-Responsive image
+.. figure:: ../figures/gcmc-silica/cracked-dark.png
+    :alt: silica block with crack
+    :class: only-dark
+
+.. figure:: ../figures/gcmc-silica/cracked-light.png
+    :alt: silica block with crack
+    :class: only-light
+
+    Block of silica with holes and deformed bonds.
 
 In ambient conditions, silicon (Si) atoms are chemically
 passivated by forming covalent bonds with hydrogen (H)
@@ -342,35 +353,38 @@ Doing so, we anticipate that there will be 4 atoms types in
 the simulations, with O and H of H2O being indexes 3 and 4,
 respectively. There will also be 1 bond type and 1 angle
 type. The extra bond, extra angle, and extra special lines
-are for memory allocation. Now we can continue to fill the
+are for memory allocation. 
+
+We can continue to fill the
 input.lammps file, by adding the system definition:
 
 ..  code-block:: bash
-   :caption: *to be copied in Cracking/input.lammps*
+   :caption: *to be copied in Addingwater/input.lammps*
 
     # System definition
     read_data dilatedSiO.data
     molecule h2omol TIP4P2005.txt
-    create_atoms 0 single 19.5 10 10 mol h2omol 45585
+    lattice sc 3
+    create_atoms 0 box mol h2omol 45585
+    lattice none 1
+
     group SiO type 1 2
     group H2O type 3 4
 
 After reading the data file and defining the h2omol molecule
-from the txt file, the create atoms command is used to
-include one single molecule in the system at the location
-19.5 10 10. I've chosen these 3 values so that the water
-molecule is initially inside the crack, and not overlapping
-with SiO atoms, you may have to choose different values. You
-can estimate these values by looking at your silica
-structure using VMD. There are cleaner way to do it, such as
-detecting the free space before inserting the molecule, but
-for the sake of simplicity, here we are going to do the
-dirty way here. Not adding a molecule before starting the
-GCMC steps usually lead to failure. Then, add the following
+from the txt file, the create_atoms command is used to
+include some water molecules in the system on a 
+simple cubic lattice. Not adding a molecule before starting the
+GCMC steps usually lead to failure. Note that here,
+most water molecules are overlapping with the silica. THose 
+overlapping water molecules will be deleted before 
+starting the simulation. 
+
+Then, add the following
 settings of the simulation:
 
 ..  code-block:: bash
-   :caption: *to be copied in Cracking/input.lammps*
+   :caption: *to be copied in Addingwater/input.lammps*
 
     # Simulation settings
     pair_coeff * * vashishta ../SilicaBlock/SiO.1990.vashishta Si O NULL NULL
@@ -386,7 +400,6 @@ settings of the simulation:
     variable nO equal count(oxygen)
     fix myat1 all ave/time 100 10 1000 v_nO file numbermolecule.dat
     fix shak H2O shake 1.0e-4 200 0 b 1 a 1 mol h2omol
-    dump dmp all atom 2000 dump.lammpstrj
 
 The force field vashishta applies only to Si and O of SiO,
 and not to the O and H of H2O thanks to the NULL
@@ -399,10 +412,19 @@ maintain the shape of the water molecule over time. Some of
 these features have been seen previously, such as in `this
 tutorial <03-NanoconfinedElectrolyte.html>`__.
 
+Let us delete the overlapping water molecules, and print the 
+positions in a dump file:
+
+..  code-block:: bash
+   :caption: *to be copied in Addingwater/input.lammps*
+
+    delete_atoms overlap 2 H2O SiO mol yes
+    dump dmp all atom 1000 dump.init.lammpstrj
+
 Let us make a first equilibration step:
 
 ..  code-block:: bash
-   :caption: *to be copied in Cracking/input.lammps*
+   :caption: *to be copied in Addingwater/input.lammps*
 
     # Run
     compute_modify thermo_temp dynamic yes
@@ -420,38 +442,80 @@ Let us make a first equilibration step:
 We use two different thermostats for SiO and H2O, which is
 better when you have two species, such as one solid and one
 liquid. It is particularly important to use two thermostats
-here as the number of water molecules will fluctuate. We use
+here as the number of water molecules will fluctuate with time. We use
 a compute_modify 'dynamic yes' for water to specify that the
 number of molecules is not constant.
 
 Finally, let us use the gcmc fix and perform the grand
-canonical Monte Carlo step:
+canonical Monte Carlo steps:
 
 ..  code-block:: bash
-   :caption: *to be copied in Cracking/input.lammps*
+   :caption: *to be copied in Addingwater/input.lammps*
 
     variable tfac equal 5.0/3.0
-    fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} group H2O shake shak full_energy
-    run 250000
+    fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} group H2O shake shak full_energy pressure 10000
+    run 100000
     write_data SiOwithwater.data
+    write_dump all atom dump.lammpstrj
 
 The tfac_insert option ensures that the correct estimate is
 made for the temperature of the inserted water molecules by
 taking into account the internal degrees of freedom. Running
 this simulation, you should see the number of molecule
-increasing progressively. Using :math:`\mu = -0.5` eV is a
-reasonable value for the chemical potential that corresponds
-roughly to ambient conditions (i.e. RH approx 50%).
+increasing progressively. When using the pressure argument,
+LAMMPS ignore the value of the chemical potential (here :math:`\mu = -0.5` eV
+which corresponds roughly to ambient conditions (i.e. RH approx 50%).)
+The large pressure value of 10000 bars was chosen to ensure that 
+some successful insertions of molecules would occur during the 
+relatively short duration of the simulation.
 
-After 250000 steps, There should be about 10 molecules in
-the system. This number will vary from one simulation to
+When you run the simulation, make sure that some water molecules 
+remain in the system after the delete_atoms command. 
+
+Depending on your LAMMPS version, you may have to run LAMMPS
+on a single CPU, due to some restrictions of the fix gcmc.
+
+You can see that 
+by looking at the log file:
+
+..  code-block:: bash
+    :caption: *from the log file*
+
+    Created 972 atoms
+
+In my case 324 molecules were created.
+
+..  code-block:: bash
+    :caption: *from the log file*
+
+    Deleted 954 atoms, new total = 594
+    Deleted 636 bonds, new total = 12
+    Deleted 318 angles, new total = 6
+
+Then 318 molecules where immediately deleted, leaving 16 molecules.
+
+After 100000 steps, you should see that the number of molecule did fluctuate.
+This number will vary from one simulation to
 another, depending on the space available for insertion. The
-number of molecules also depends on the imposed chemical
-potential, temperature, and on the interaction between water
-and silica. The final state looks like this:
+number of molecules also depends on the imposed pressure, 
+temperature, and on the interaction between water
+and silica. 
 
-Responsive image
+In my case, the final state looks like this:
 
+.. figure:: ../figures/gcmc-silica/solvated-dark.png
+    :alt: silica block with water and crack
+    :class: only-dark
+
+.. figure:: ../figures/gcmc-silica/solvated-light.png
+    :alt: silica block with water and crack
+    :class: only-light
+
+    Cracked silica with a few water molecules.
+
+Note that gcmc simulations of dense phases are usually slow to converge due to the
+very low probability of successfully inserting a molecule. Here 100000 steps (or 100 ps)
+are not enough to reach equilibrium.
 
 .. include:: ../../contact/accessfile.rst
 

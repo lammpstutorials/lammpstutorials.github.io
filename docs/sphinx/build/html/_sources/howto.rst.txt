@@ -1,9 +1,8 @@
 How-to
 ******
 
-This page describes the structure of the website.
-Tutorials are grouped by thematic, and are of 
-increasing difficulty. Here some specificity
+This page describes the structure of the LAMMPStutorials.github.io.
+Tutorials are grouped by thematic. Here some specificity
 present in each tutorial are also listed.
 
 Bulk fluids
@@ -20,6 +19,12 @@ Bulk fluids
     * use of isotropic and anisotropic NPT ensemble
     * advanced control of subgroups of atoms
 
+#. :ref:`sheared-confined-label` - intermediate
+    * simulation of charged and bonded atomic model
+    * thermostating of individual groups
+    * advanced control of subgroups of atoms
+    * non-equilibrium dynamics
+
 2D materials
 ============
 
@@ -30,3 +35,10 @@ Bulk fluids
 #. :ref:`carbon-nanotube-label` - intermediate
     * use of reactive force field
     * constant velocity deformation of a structure
+
+Monte Carlo
+===========
+
+#. :ref:`gcmc-silica-label` - advanced
+    * simulation of charged and bonded atomic model
+    * use of the grand-canonical ensemble

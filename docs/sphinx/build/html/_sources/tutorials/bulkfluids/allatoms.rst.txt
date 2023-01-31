@@ -61,7 +61,7 @@ Bulk water
 ..  container:: justify
 
    **Explanations:** There are many differences with respect to
-   `tutorial 01 <01-SimpleMolecularSimulation.html>`__, mostly
+   the previous tutorial (:ref:`lennard-jones-label`), mostly
    because here a system with molecules and charges will be
    modeled (instead of neutral dot particles as in tutorial
    01). With the unit style 'real', masses are in grams per

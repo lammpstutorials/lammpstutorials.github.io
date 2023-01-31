@@ -78,7 +78,7 @@ source_suffix = ['.rst']
 html_logo = "../../figures/logo.png"
 #html_theme_options = {
 #    "light_logo": "../static/logo_MAICOS_light.png",
-#    "dark_logo": "../static/logo_MAICOS_dark.png",
+ #   "dark_logo": "../static/logo_MAICOS_dark.png",
 #}
 
 # hide extra stuff

@@ -1,4 +1,4 @@
-.. gcmc-silica:
+.. _gcmc-silica-label:
 
 Water adsorption in silica
 **************************
@@ -238,7 +238,7 @@ The final system, with the crack, resembles:
     :alt: silica block with crack
     :class: only-light
 
-Responsive image
+    Block of silica with holes and deformed bonds.
 
 In ambient conditions, silicon (Si) atoms are chemically
 passivated by forming covalent bonds with hydrogen (H)
@@ -499,14 +499,25 @@ This number will vary from one simulation to
 another, depending on the space available for insertion. The
 number of molecules also depends on the imposed pressure, 
 temperature, and on the interaction between water
-and silica. In my case, the final state looks like this:
+and silica. 
 
-Responsive image
+In my case, the final state looks like this:
 
-.. include:: ../../contact/accessfile.rst
+.. figure:: ../figures/gcmc-silica/solvated-dark.png
+    :alt: silica block with water and crack
+    :class: only-dark
+
+.. figure:: ../figures/gcmc-silica/solvated-light.png
+    :alt: silica block with water and crack
+    :class: only-light
+
+    Cracked silica with a few water molecules.
 
 Note that gcmc simulations of dense phases are usually slow to converge due to the
-very low probability of successfully inserting a molecule.
+very low probability of successfully inserting a molecule. Here 100000 steps (or 100 ps)
+are not enough to reach equilibrium.
+
+.. include:: ../../contact/accessfile.rst
 
 Going further with exercises
 ============================
