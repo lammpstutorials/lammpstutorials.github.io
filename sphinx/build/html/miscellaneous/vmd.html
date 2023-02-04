@@ -228,7 +228,7 @@
 <section id="practical-example">
 <h2>Practical example<a class="headerlink" href="#practical-example" title="Permalink to this heading">#</a></h2>
 <figure class="align-right">
-<a class="reference internal image-reference" href="../_images/avatar.jpg"><img alt="Image of the lammps polymer-water system generated with VMD visual representation" src="../_images/avatar.jpg" style="height: 250px;" /></a>
+<a class="reference internal image-reference" href="../_images/avatar_light.png"><img alt="Image of the lammps polymer-water system generated with VMD visual representation" src="../_images/avatar_light.png" style="height: 250px;" /></a>
 </figure>
 <div class="justify docutils container">
 <p>If you want to try it yourself with the same system, you can
@@ -266,6 +266,125 @@ the ends of the bonds are rough. To smooth the representation:</p>
 <ul class="simple">
 <li><p>create the fourth and last representation (VDW, radius 0.2) for types 3, 4, and 5.</p></li>
 </ul>
+</div>
+</section>
+<section id="the-colors">
+<h2>The colors<a class="headerlink" href="#the-colors" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>To change the colurs:</p>
+<ul class="simple">
+<li><p>go to <strong>Graphics, Colors</strong>,</p></li>
+<li><p>click on <strong>Display</strong>, then <strong>Background</strong>, and choose white instead of black,</p></li>
+<li><p>click on <strong>Name</strong>, and <strong>5</strong> (this is the oxygen atoms), and choose red,</p></li>
+<li><p>do the same for 4 (carbon → pink), 3 (hydrogen → white), 2 (hydrogen → white),</p></li>
+</ul>
+<p>These three colours are standard for oxygen,
+carbon, and hydrogen. To mark the difference between the water and
+the toluene:</p>
+<ul class="simple">
+<li><p>choose a different colour for atoms of type 1 by entering manually the values 0 0.6, 0.88 in the RGB box.</p></li>
+</ul>
+</div>
+</section>
+<section id="the-materials">
+<h2>The materials<a class="headerlink" href="#the-materials" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>An often neglected aspect is the texture of the representation, given
+by the material. Finding the right degree of shininess is often
+difficult, but it is really important if you want a good looking system.</p>
+<p>In the <strong>Representations</strong> windows, you can choose
+among several materials. I prefer to create my own. To do so,</p>
+<p><em>go in **Graphics, Materials*</em>. Click on <strong>Opaque</strong> (this is the one used by default),</p>
+<ul class="simple">
+<li><p>hit <strong>Create New</strong> twice</p></li>
+</ul>
+<p>Two new materials should have appeared, called something like Material23 and Material24.
+Rename them to MWater and MToluene.</p>
+<p>For MWater:</p>
+<ul class="simple">
+<li><p>change <strong>Diffuse</strong>, <strong>Specular</strong>, and <strong>Shininess</strong>, to 0.43, 0.48, and 0.35, respectively,</p></li>
+<li><p>from the <strong>Representations</strong> windows, change the <strong>Material</strong> from <strong>Opaque</strong> to <strong>MWater</strong> for the two representations that concern water molecules,</p></li>
+<li><p>do the same for toluene, with values of 0.78, 0.33, and 0.32 for MToluene.</p></li>
+</ul>
+</div>
+</section>
+<section id="the-view">
+<h2>The view<a class="headerlink" href="#the-view" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Currently the view is <em>perspective</em>, which is not always the best choice:</p>
+<ul class="simple">
+<li><p>go to <strong>Display</strong>,</p></li>
+<li><p>click <strong>Orthographic</strong>.</p></li>
+</ul>
+<p>You can zoom with the mouse wheel. That is it, the
+system is ready to be rendered in high resolution.</p>
+<p>Optionally, you can visualize the borders of your box by typing in the VMD terminal:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pbc<span class="w"> </span>box<span class="w"> </span>-center<span class="w"> </span>origin<span class="w"> </span>-color<span class="w"> </span>black<span class="w"> </span>-width<span class="w"> </span><span class="m">2</span>
+</pre></div>
+</div>
+</section>
+<section id="saving-a-state">
+<h2>Saving a state<a class="headerlink" href="#saving-a-state" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>If you don’t
+want do redo these steps every time you open VMD, you can save the VMD state by
+clicking <strong>File → Save vizualisation state</strong>.</p>
+</div>
+</section>
+<section id="rendering">
+<h2>Rendering<a class="headerlink" href="#rendering" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>To generate high a resolution image:</p>
+<ul class="simple">
+<li><p>go in <strong>File → Render</strong>,</p></li>
+<li><p>choose <strong>Tachyon</strong>,</p></li>
+<li><p>add <strong>-res 1000 1000</strong> in the <strong>Render command</strong> cell,</p></li>
+<li><p>hit <strong>Start Rendering</strong>.</p></li>
+</ul>
+<p>A high resolution image has been created by VMD. You can remove the borders using GIMP or Inkscape for
+example.</p>
+</div>
+</section>
+<section id="movie">
+<h2>Movie<a class="headerlink" href="#movie" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>To generate a high resolution movie:</p>
+<ul class="simple">
+<li><p>go in <strong>Extension, Vizualisation</strong>, and <strong>Movie Maker</strong>.</p></li>
+</ul>
+<p>If hit <strong>Make Movie</strong> directly, the movie generated by VMD will be of poor quality.
+Instead, we are going to generate a sequence of high resolution
+images, and assemble these images ourselves:</p>
+<ul class="simple">
+<li><p>go in <strong>Movie Settings</strong>,</p></li>
+<li><p>hit <strong>Trajectory</strong> (so the movie will show the system evolving in time, and not rotating on itself),</p></li>
+<li><p>uncheck <strong>Delete image files</strong>,</p></li>
+<li><p>In <strong>Rendered</strong>, choose <strong>Tachyon</strong>, then <strong>Make Movie</strong>.</p></li>
+</ul>
+<p>When its done, you can close VMD.</p>
+<p>From the terminal, assemble the image into a movie by typing:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-r<span class="w"> </span><span class="m">60</span><span class="w"> </span>-i<span class="w"> </span>untitled.%05d.ppm<span class="w"> </span>-vcodec<span class="w"> </span>libx264<span class="w"> </span>-crf<span class="w"> </span><span class="m">0</span><span class="w">  </span>-pix_fmt<span class="w"> </span>yuv420p<span class="w"> </span>myvideo.mp4
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>You may receive the following error <strong>width not divisible by 2
+(1363x1134)</strong>. If that’s the case, you can remove one line of pixel
+with the command:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span>untitled.*.ppm<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>convert<span class="w"> </span><span class="nv">$file</span><span class="w"> </span>-crop<span class="w"> </span>1362x1134+0+0<span class="w"> </span><span class="nv">$file</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>To convert the video in webp, for web integration, use:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>myvideo.mp4<span class="w"> </span>-vcodec<span class="w"> </span>libwebp<span class="w"> </span>-filter:v<span class="w"> </span><span class="nv">fps</span><span class="o">=</span><span class="nv">fps</span><span class="o">=</span><span class="m">20</span><span class="w"> </span>-lossless<span class="w"> </span><span class="m">1</span><span class="w"> </span>-loop<span class="w"> </span><span class="m">0</span><span class="w"> </span>-preset<span class="w"> </span>default<span class="w"> </span>-an<span class="w"> </span>-vsync<span class="w"> </span><span class="m">0</span><span class="w"> </span>myvideo.webp
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The result should look like <a class="reference external" href="https://www.youtube.com/watch?v=BSE9Vf6KhRo&amp;ab_channel=LAMMPStutorials">this
+video</a>.</p>
 </div>
 </section>
 </section>
@@ -316,6 +435,12 @@ the ends of the bonds are rough. To smooth the representation:</p>
 <li><a class="reference internal" href="#">VMD tips</a><ul>
 <li><a class="reference internal" href="#practical-example">Practical example</a></li>
 <li><a class="reference internal" href="#the-representation">The representation</a></li>
+<li><a class="reference internal" href="#the-colors">The colors</a></li>
+<li><a class="reference internal" href="#the-materials">The materials</a></li>
+<li><a class="reference internal" href="#the-view">The view</a></li>
+<li><a class="reference internal" href="#saving-a-state">Saving a state</a></li>
+<li><a class="reference internal" href="#rendering">Rendering</a></li>
+<li><a class="reference internal" href="#movie">Movie</a></li>
 </ul>
 </li>
 </ul>
