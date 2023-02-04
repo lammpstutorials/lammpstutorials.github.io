@@ -45,6 +45,8 @@ Welcome to lammpstutorials's documentation!
 
    contact/contact.rst
    history/history.rst
+   miscellaneous/vmd.rst
+
 
 Indices and tables
 ==================
