@@ -2,7 +2,7 @@
 <img src="docs/figures/welcome.png" width="80%" /></a>
 
 This is the repository of the [LAMMPS Tutorials](https://lammpstutorials.github.io/) webpage. 
-All LAMMPS input scripts and data files can be found in the [inputs](inputs/) folder. 
+All LAMMPS input scripts and data files can be found in the [inputs](docs/inputs/) folder. 
 
 ### You found an issue on one of the tutorial? ###
 
