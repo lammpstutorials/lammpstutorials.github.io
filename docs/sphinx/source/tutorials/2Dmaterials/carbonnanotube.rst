@@ -42,7 +42,7 @@ System creation
    distance that is too large, the bond may break. 
 
    Alternatively, you can download the file I did generate 
-   by clicking `here <../../../../../../inputs/2Dmaterials/carbonnanotube/cnt.data>`__.
+   by clicking `here <../../../../../inputs/2Dmaterials/carbonnanotube/cnt.data>`__.
 
 Input file
 ==========
@@ -88,7 +88,7 @@ Input file
 ..  container:: justify
 
    The CH.airebo file can be downloaded
-   `here <../../../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo>`__.
+   `here <../../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo>`__.
    The rest of the script is very similar to the previous tutorial (:ref:`graphene-label`):
 
 ..  code-block:: bash

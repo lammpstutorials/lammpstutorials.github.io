@@ -136,7 +136,7 @@ Generation of the system
    generation, we can start the molecular dynamics simulations.
 
    Alternatively, you can download the file I did generate 
-   by clicking `here <../../../../../../inputs/2Dmaterials/graphene/carbon.data>`__.
+   by clicking `here <../../../../../inputs/2Dmaterials/graphene/carbon.data>`__.
 
 LAMMPS input script
 ===================

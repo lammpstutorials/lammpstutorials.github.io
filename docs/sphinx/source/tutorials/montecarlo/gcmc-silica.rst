@@ -44,7 +44,7 @@ Generation of the silica block
     so, we are going to replicate a building block containing 3
     Si and 6 O atoms. The data file for the SiO atoms can be
     downloaded by clicking
-    `here <../../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.data>`__.
+    `here <../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.data>`__.
     Save it in a folder called SilicaBlock. This data file
     contains the coordinates of the atoms, their masses, and
     their charges, and can be directly read by LAMMPS using the
@@ -73,7 +73,7 @@ Generation of the silica block
 ..  container:: justify
 
     Download the Vashishta potential by clicking
-    `here <../../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.1990.vashishta>`__,
+    `here <../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.1990.vashishta>`__,
     and copy it within the SilicaBlock folder.
 
     **About the Vashishta potential:** Metal units are used
@@ -154,7 +154,7 @@ Generation of the silica block
     amorphousSiO.data will be located in the same folder as your
     input file. Alternatively, if you are only interested in the
     next steps of this tutorial, you can download it by clicking
-    `here <../../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/amorphousSiO.data>`__.
+    `here <../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/amorphousSiO.data>`__.
     The final system resembles the image below, where the oxygen
     atoms are in red and the silicon atoms in yellow:
 
@@ -244,7 +244,7 @@ Cracking the silica
     are reversible (elastic regime), but at some point, bonds
     start breaking and dislocations appear (plastic regime). You
     can download the final state directly by clicking
-    `here <../../../../../../inputs/montecarlo/gcmc-silica/Cracking/dilatedSiO.data>`__.
+    `here <../../../../../inputs/montecarlo/gcmc-silica/Cracking/dilatedSiO.data>`__.
 
     The final system, with the crack, resembles:
 
@@ -284,7 +284,7 @@ Adding water
 
     In a new folder called Addingwater, add this template file
     for the water molecule :
-    `TIP4P2005.txt <../../../../../../inputs/montecarlo/gcmc-silica/AddingWater/TIP4P2005.txt>`__.
+    `TIP4P2005.txt <../../../../../inputs/montecarlo/gcmc-silica/AddingWater/TIP4P2005.txt>`__.
     Create a new input file, and copy the following lines into
     it:
 
