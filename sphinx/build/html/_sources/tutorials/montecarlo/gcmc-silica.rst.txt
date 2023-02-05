@@ -441,8 +441,7 @@ Adding water
     number of oxygen atoms will be printed in the file
     numbermolecule.dat, and the shake algorithm is used to
     maintain the shape of the water molecule over time. Some of
-    these features have been seen previously, such as in `this
-    tutorial <03-NanoconfinedElectrolyte.html>`__.
+    these features have been seen in other tutorials.
 
     Let us delete the overlapping water molecules, and print the 
     positions in a dump file:
