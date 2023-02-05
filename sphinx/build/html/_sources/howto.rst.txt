@@ -50,3 +50,8 @@ Free energy
     * simulation of neutral dots
     * use of biasing potential
     * use of WHAM algorithm
+
+#. :ref:`surface-profile-label` - advanced
+    * simulation of charged and bonded atomic model
+    * use of biasing potential
+    * use of WHAM algorithm
