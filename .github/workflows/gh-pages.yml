@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - version2.0  # Set a branch name to trigger deployment
-
 jobs:
   deploy:
     runs-on: ubuntu-20.04
@@ -17,31 +16,24 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: true  # Fetch any Git submodules (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
-
+          submodules: true 
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v2.2.1
         with:
           python-version: 3.9
-
       - name: Install sphinx
         run: |
           pip install sphinx furo
-
       - name: Build
         run: |
           cd docs/sphinx/
           make clean
           make html
           cp source/index_replace.html build/html/index.html
-
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        # If you're changing the branch from main, 
-        # also change the `main` in `refs/heads/main` 
-        # below accordingly.
         if: ${{ github.ref == 'refs/heads/version2.0' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          publish_dir: ./docs/
