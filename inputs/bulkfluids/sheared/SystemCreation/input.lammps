@@ -1,0 +1,50 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# https://lammpstutorials.github.io
+# https://lammpstutorials.github.io/tutorials/03-NanoconfinedElectrolyte.html
+
+# Initialisation
+units real
+atom_style full
+bond_style harmonic
+angle_style harmonic
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4
+
+# System definition
+lattice fcc 4.04
+region box block -4 4 -4 4 -13 13
+create_box 5 box &
+           bond/types 1 &
+           angle/types 1 &
+           extra/bond/per/atom 2 &
+           extra/angle/per/atom 1 &
+           extra/special/per/atom 2
+ 
+# create the walls
+region rbotwall block -4 4 -4 4 -12 -10
+region rtopwall block -4 4 -4 4 10 12
+region rwall union 2 rbotwall rtopwall
+create_atoms 5 region rwall
+
+# create the fluid
+region rliquid block -4 4 -4 4 -9 9
+molecule h2omol TIP4P2005.txt
+lattice sc 4.04
+create_atoms 0 region rliquid mol h2omol 482793
+
+# deposit 20 ions
+fix mydep1 all deposit 10 3 1 56513 region rliquid near 0.3
+fix mydep2 all deposit 10 4 1 58613 region rliquid near 0.3
+
+# settings
+include ../PARM.lammps
+
+# run 
+run 10
+
+set type 3 charge 1.0
+set type 4 charge -1.0
+
+write_data system.data
+write_dump all atom dump.lammpstrj

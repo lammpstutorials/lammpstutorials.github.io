@@ -18,7 +18,7 @@ Practical example
 .. container:: justify
 
     If you want to try it yourself with the same system, you can 
-    `download <../../../../../inputs/miscellaneous/vmd/dump.lammpstrj>`__
+    `download <../../../../inputs/miscellaneous/vmd/dump.lammpstrj>`__
     this LAMMPS trajectory file, which corresponds to a mixture of water and toluene,
     and can be opened with VMD by typing in a terminal:
 

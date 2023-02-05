@@ -1,0 +1,68 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# https://lammpstutorials.github.io
+# https://lammpstutorials.github.io/tutorials/03-NanoconfinedElectrolyte.html
+
+# Initialisation
+boundary p p p
+units real
+atom_style full
+bond_style harmonic
+angle_style harmonic
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4
+
+# System definition
+read_data ../Equilibration/system.data
+change_box all z final -40 40
+
+# Simulation settings
+include ../PARM.lammps
+
+# Groups
+group gH2O type 1 2
+group gNa type 3
+group gCl type 4
+group gliquid type 1 2 3 4
+group gwall type 5
+region rtop block INF INF INF INF 0 INF
+region rbot block INF INF INF INF INF 0
+group gtop region rtop
+group gbot region rbot
+group gwalltop intersect gwall gtop
+group gwallbot intersect gwall gbot
+
+# Dynamics
+fix mynve all nve
+compute tliq gliquid temp/partial 0 1 1
+fix myber1 gliquid temp/berendsen 300 300 100
+fix_modify myber1 temp tliq
+compute twall gwall temp/partial 0 1 1
+fix myber2 gwall temp/berendsen 300 300 100
+fix_modify myber2 temp twall
+fix myshk gH2O shake 1.0e-4 200 0 b 1 a 1
+fix myrct all recenter NULL NULL INIT
+
+fix mysf1 gwalltop setforce 0 NULL NULL
+fix mysf2 gwallbot setforce 0 NULL NULL
+velocity gwallbot set -20e-5 NULL NULL
+velocity gwalltop set 20e-5 NULL NULL
+
+# vizualisation
+dump mydmp all atom 5000 dump.lammpstrj
+thermo 500
+thermo_modify temp tliq
+
+compute cc1 gliquid chunk/atom bin/1d z 0.0 1.0
+fix myac1 gliquid ave/chunk 10 15000 200000 cc1 vx file vel.profile.dat # tag:200ps
+#fix myac1 gliquid ave/chunk 10 1500 20000 cc1 vx file vel.profile.dat # tag:20ps
+compute cc2 gwall chunk/atom bin/1d z 0.0 1.0
+fix myac2 gwall ave/chunk 10 15000 200000 cc2 vx file vel.solid.dat # tag:200ps
+#fix myac2 gwall ave/chunk 10 1500 20000 cc2 vx file vel.solid.dat # tag:20ps
+
+fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat
+
+timestep 1.0
+run 200000 # tag:200ps
+#run 20000 # tag:20ps
+write_data system.data

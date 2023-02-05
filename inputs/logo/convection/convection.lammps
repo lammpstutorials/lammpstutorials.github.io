@@ -1,0 +1,34 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# lammpstutorials.github.io
+
+# -------------	Initialization
+units		lj
+dimension 	2
+atom_style	atomic
+pair_style	lj/cut 2.5
+boundary	p p p
+
+# ------------- System definition
+read_data	../data.lammps
+
+# ------------- Simulation settings
+mass		* 1
+pair_coeff	* * 1.0 1.0
+neigh_modify	every 1 delay 5 check yes
+dump 		mydmp all atom 1000 dump.lammpstrj
+
+# ------------- Run
+minimize	1.0e-4 1.0e-6 1000 10000
+reset_timestep	0
+velocity 	all create 1.0 4928459 mom yes rot yes dist gaussian
+fix		mynve all nve
+fix		mylgv all langevin 1.0 1.0 0.1 1530917 zero yes
+fix		myefn all enforce2d
+variable	f0 equal 0.25
+variable	f atom ${f0}*cos(2*PI*x/lx)
+fix 		myaddf all addforce 0 v_f 0
+timestep	0.005
+#thermo_modify	temp mytemp
+thermo		1000
+run		2000000

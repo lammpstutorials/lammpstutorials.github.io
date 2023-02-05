@@ -1,0 +1,30 @@
+# RESI PEGM            0.00  ! Peg monomer for polymer construction
+                           !
+# GROUP                      !         H1A       H2A  
+# ATOM C1   CC32A     -0.01  !          |         |
+# ATOM H1B  HCA2       0.09  ! (-C2) - C1 - O1 - C2 - 
+# ATOM H1A  HCA2       0.09  !          |         |  
+# ATOM O1   OC30A     -0.34  !         H1B       H2B  
+# ATOM C2   CC32A     -0.01  !
+# ATOM H2A  HCA2       0.09  !    
+# ATOM H2B  HCA2       0.09  !    
+# BOND C1 H1A   C1 H1B   C1 O1  !  
+# BOND O1 C2    C2 H2A   C2 H2B !   
+# BOND C1 -C2   
+# !
+# IC -O1 -C2 C1  O1     0.000  0.000  180.0  0.000  0.000
+# IC -C2  C1 O1  C2     0.000  0.000  180.0  0.000  0.000
+# IC  C1  O1 C2 +C1     0.000  0.000  180.0  0.000  0.000
+
+#! glycol end patch via HOCH2CH2OH from Olgun Guvench sugar files; RMV Aug07
+#PRES GCL0            0.00  ! add -CH2OH to the "left" end of PEGM polymer
+#GROUP                      !
+#ATOM C0    CC32A     0.05  !        |
+#ATOM H0A   HCA2      0.09  !   H0A--C0--H0B
+#ATOM H0B   HCA2      0.09  !        | 
+#ATOM OG0   OC311    -0.65  !        OG0--HG0
+#ATOM HG0   HCP1      0.42  !
+#BOND C1 C0   C0 H0A   C0 H0B   C0 OG0   OG0 HG0
+#IC  C0  C1  O1  C2     0.000  0.000  180.0  0.000  0.000
+#IC  OG0 C0  C1  O1     0.000  0.000  180.0  0.000  0.000
+#IC  HG0 OG0 C0  C1     0.000  0.000  180.0  0.000  0.000

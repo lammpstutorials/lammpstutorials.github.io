@@ -245,12 +245,12 @@ Bulk water
 ..  container:: justify
 
    Alternatively, you can
-   `download <../../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data>`__
+   `download <../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data>`__
    the water reservoir I have equilibrated and continue with
    the tutorial.
 
    The molecule template named H2OTip4p.txt must be
-   `downloaded <../../../../../../inputs/bulkfluids/allatoms/pureH2O/H2OTip4p.txt>`__
+   `downloaded <../../../../../inputs/bulkfluids/allatoms/pureH2O/H2OTip4p.txt>`__
    and saved in the same folder (named pureH2O/) as the
    input.lammps file.
 
@@ -407,7 +407,7 @@ Bulk water
 ..  container:: justify
 
    Alternatively, you can
-   `download <../../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data>`__
+   `download <../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data>`__
    the water reservoir I have equilibrated and continue with
    the tutorial.
 
@@ -456,7 +456,7 @@ PEG molecule
 
 ..  container:: justify
 
-   `Download <../../../../../../inputs/bulkfluids/allatoms/singlePEG/init.data>`__
+   `Download <../../../../../inputs/bulkfluids/allatoms/singlePEG/init.data>`__
    the init.data file and save it in the singlePEG/ folder.
    It contains the initial parameters of the PEG molecules
    (atoms, bonds, charges, etc.), and was prepared using a
@@ -572,7 +572,7 @@ PEG molecule
 ..  container:: justify
 
    Alternatively, you can
-   `download <../../../../../../inputs/bulkfluids/allatoms/singlePEG/PEG.data>`__
+   `download <../../../../../inputs/bulkfluids/allatoms/singlePEG/PEG.data>`__
    the PEG molecule I have equilibrated and continue with the tutorial.
 
 Solvation of the PEG molecule

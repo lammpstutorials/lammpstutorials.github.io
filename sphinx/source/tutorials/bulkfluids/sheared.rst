@@ -120,7 +120,7 @@ System generation
 
     In order to add the water molecules, we first need to
     download the
-    `TIP4P2005.txt <../../../../../../inputs/bulkfluids/sheared/SystemCreation/TIP4P2005.txt>`__
+    `TIP4P2005.txt <../../../../inputs/bulkfluids/sheared/SystemCreation/TIP4P2005.txt>`__
     file and place it in the same folder. It contains all the
     necessary information about the water molecule, such as
     positions, bonds, and angle. Then, add the following lines

@@ -1,0 +1,42 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# https://lammpstutorials.github.io
+# https://lammpstutorials.github.io/tutorials/03-NanoconfinedElectrolyte.html
+
+# Initialisation
+boundary p p p
+units real
+atom_style full
+bond_style harmonic
+angle_style harmonic
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4
+
+# System definition
+read_data ../SystemCreation/system.data
+
+# settings
+include ../PARM.lammps
+
+group gH2O type 1 2
+
+dump mydmp all atom 1000 dump.lammpstrj
+
+# run
+# walls
+#fix mysf1 gtopwall setforce 0 0 NULL
+#fix mysf2 gbotwall setforce 0 0 NULL
+#fix myaf1 gtopwall aveforce NULL NULL 0
+#fix myaf2 gbotwall aveforce NULL NULL 0
+
+fix mynve all nve/limit 0.1
+fix myber all temp/berendsen 1 1 1
+
+fix myshk gH2O shake 1.0e-4 200 0 b 1 a 1
+fix myrct all recenter NULL NULL INIT
+
+timestep 0.5
+thermo 50
+run 10000
+write_data system.data
+

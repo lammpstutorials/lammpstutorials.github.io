@@ -1,0 +1,56 @@
+# ------------- LAMMPS input script
+# ------------- author : Simon Gravelle
+# ------------- lammpstutorials.github.io
+
+boundary	s p p
+pair_style	lj/cut 2.5
+
+read_data	../SystemCreation/data.lammps
+
+region		right block 0 INF INF INF INF INF
+
+group		solid type 1 2 3
+group		piston_right type 3
+group		membrane type 2
+group		piston_left type 1
+group		fluid type 4 5
+group		solvent type 4
+group		solute type 5
+
+neigh_modify 	exclude group solid solid
+neigh_modify 	every 1 delay 5 check yes
+
+# ------------- Dynamics
+velocity 	fluid create 1.0 4928459 mom yes rot yes dist gaussian
+fix		mynve all nve
+compute		temperature_fluid fluid temp
+fix		mylgv fluid langevin 1.0 1.0 0.1 1530917 zero yes
+fix_modify	mylgv temp temperature_fluid
+
+fix		mysf1 membrane setforce 0 0 0
+fix		mysf2 piston_left setforce NULL 0 0
+fix		mysf3 piston_right setforce NULL 0 0
+
+variable	F equal 0.01
+fix		myaf1 piston_left aveforce ${F} NULL NULL
+fix		myaf2 piston_right aveforce -${F} NULL NULL
+
+# ------------- Output
+variable	solvent_right equal count(solvent,right)
+variable	solute_right equal count(solute,right)
+variable	position_piston_left equal xcm(piston_left,x)
+variable	position_piston_right equal xcm(piston_right,x)
+
+fix		myat1 all ave/time 1000 1 1000 v_solvent_right file solvent_right.dat
+fix		myat2 all ave/time 1000 1 1000 v_solute_right file solute_right.dat
+fix		myat3 all ave/time 1000 1 1000 v_position_piston_left file position_piston_left.dat
+fix		myat4 all ave/time 1000 1 1000 v_position_piston_right file position_piston_right.dat
+
+dump		mydmp all atom 1000 dump.lammpstrj
+thermo_modify	temp temperature_fluid
+thermo		1000
+
+# ------------- Run
+run		20000
+
+write_data	data.lammps pair ij

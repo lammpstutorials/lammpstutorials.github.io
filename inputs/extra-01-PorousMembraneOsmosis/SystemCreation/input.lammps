@@ -1,0 +1,44 @@
+# ------------- LAMMPS input script
+# ------------- author : Simon Gravelle
+# ------------- lammpstutorials.github.io
+
+# -------------	Initialization
+# units		lj # use default LAMMPS value
+# dimension 	3 # use default LAMMPS value
+# atom_style	atomic # use default LAMMPS value
+
+boundary	s p p
+pair_style	lj/cut 2.5
+
+# ------------- System definition
+lattice 	fcc 1
+region		simulation_box block -50 50 -5 5 -5 5
+create_box	5 simulation_box
+
+region		piston_left block -49 -48 INF INF INF INF
+region		fluid_left block -45 -2 INF INF INF INF
+region		membrane block -0.25 0.25 INF INF INF INF
+region		fluid_right block 2 45 INF INF INF INF
+region		piston_right block 48 49 INF INF INF INF
+
+create_atoms	1 region piston_left
+create_atoms	2 region membrane
+create_atoms	3 region piston_right
+create_atoms	4 random 5000 654514 fluid_left
+create_atoms	4 random 4500 654514 fluid_right
+create_atoms	5 random 500 424514 fluid_right
+
+# ------------- Simulation settings
+mass		* 1
+pair_coeff	1*4 1*4 1.0 1.0
+pair_coeff	5 5 2.0 3.0
+pair_coeff	1*3 4 0.8 1
+pair_coeff	1*3 5 0.1 3.0
+
+# ------------- Output
+dump		mydmp all atom 1 dump.lammpstrj
+thermo		10
+
+# ------------- Run
+minimize	1.0e-4 1.0e-6 1000 10000
+write_data	data.lammps pair ij

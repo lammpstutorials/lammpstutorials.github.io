@@ -1,5 +1,7 @@
 .. epigraph::
 
-    Request the solutions by `email <../miscellaneous/contact.html>`__, or register
+    Request the solutions by `email`_, or register
     `here <https://www.patreon.com/molecularsimulations>`__
-    and access all the solutions + additional LAMMPS content.
+    to access all the solutions as well as additional LAMMPS content.
+
+.. _email: simon.gravelle@live.fr

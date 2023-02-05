@@ -1,0 +1,51 @@
+# 1) Initialization
+units lj
+dimension 3
+atom_style atomic
+pair_style lj/cut 2.5
+boundary p p p
+
+# 2) System definition
+read_data minimized_coordinate.data
+
+region mycylin cylinder z 0 0 10 INF INF side in
+region mycylou cylinder z 0 0 10 INF INF side out
+group mytype1 type 1
+group mytype2 type 2
+group incyl region mycylin
+group oucyl region mycylou
+group type1in intersect mytype1 incyl
+group type2ou intersect mytype2 oucyl
+delete_atoms group type1in
+delete_atoms group type2ou
+
+# 3) Simulation settings
+mass 1 1
+mass 2 1
+pair_coeff 1 1 1.0 1.0
+pair_coeff 2 2 0.5 3.0
+neigh_modify every 1 delay 5 check yes
+group type1 type 1
+group type2 type 2
+
+# 4) Visualization
+thermo 1000
+dump mydmp all atom 1000 dump.run.lammpstrj
+
+variable Ntype1in equal count(mytype1,mycylin)
+variable Ntype1ou equal count(mytype1,mycylou)
+variable Ntype2in equal count(mytype2,mycylin)
+variable Ntype2ou equal count(mytype2,mycylou)
+fix myat1 all ave/time 10 200 2000 v_Ntype1in v_Ntype1ou file population1vstime.dat
+fix myat2 all ave/time 10 200 2000 v_Ntype2in v_Ntype2ou file population2vstime.dat
+compute coor12 type1 coord/atom cutoff 2.0 group type2
+compute sumcoor12 all reduce ave c_coor12
+fix myat3 all ave/time 10 200 2000 c_sumcoor12 file coordinationnumber12.dat
+
+# 5) Run
+velocity all create 1.0 4928459 mom yes rot yes dist gaussian
+fix mynve all nve
+fix mylgv all langevin 1.0 1.0 0.1 1530917 zero yes
+timestep 0.005
+run 300000
+write_data mixed.data
