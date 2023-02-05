@@ -1,0 +1,46 @@
+# ethanol at a nacl surface
+# variables
+variable pre equal 1 # desired pressure (Atm)
+variable tem equal 300 # desired temperature (K)
+variable k1 equal 0.5 # spring constant
+variable k2 equal 5 # spring constant
+# main parameters
+units real # style of units (A, fs, Kcal/mol)
+atom_style full # molecular + charge
+bond_style harmonic
+angle_style harmonic
+dihedral_style harmonic
+boundary p p p # periodic boundary conditions
+pair_style lj/cut/coul/long 10 # cut-off 1 nm
+kspace_style pppm 1.0e-4
+pair_modify mix arithmetic tail yes # eij = sqrt(ei*ej), dij = 0.5*(di+dj)
+# import positions and parameters
+read_data eq.data
+include PARM.lammps
+# groups # descriptions
+group nacl type 1 2 # nacl wall
+group eth type 3 4 5 6 7 # ethanol molecules
+group oxy type 7 # ethanol molecules
+group mol2 molecule 2
+group topull intersect mol2 oxy
+# dynamics
+timestep 1 # (fs)
+fix mynve all nve
+fix mylgv all langevin ${tem} ${tem} 20 1530917
+variable zini equal xcm(nacl,z)
+fix mytth1 nacl spring tether ${k2} NULL NULL ${zini} 0
+# output
+thermo 1000
+dump dp1 all atom 50000 dump.lammpstrj
+# run
+variable zave equal xcm(topull,z)
+variable cpt loop 24
+label loop
+variable zdes equal -20+0.5*(${cpt}-1)
+fix mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
+run 50000
+fix myat1 all ave/time 10 200 2000 v_zave v_zdes file position.${cpt}.dat
+run 500000
+unfix myat1
+next cpt
+jump SELF loop
