@@ -3,13 +3,23 @@
 Contact me
 **********
 
-By email
+About me
 ========
 
-Feel free to contact me by `email`_. I am always happy to hear your opinion on this website. It helps me improve its content.
+I am a physicist in soft matter and fluids at interfaces, see my `personal page`_.
 
-Become a patreon
-================
+.. _personal page: https://simongravelle.github.io/
+
+Email
+=====
+
+Feel free to contact me by `email`_. I am always happy to read what you
+think about this website, or answer your LAMMPS-related questions.
+
+.. _email: simon.gravelle@live.fr
+
+Become a `patreon`_
+===================
 
 .. figure:: images/patreon.png
     :height: 100
@@ -18,9 +28,9 @@ Become a patreon
 
 - Receive personalised help for your project
 - Access more content such as the solution to exercises and a few tips
-- Support the creation of content
+- Support the creation of content for LAMMPS
 
-.. _email: simon.gravelle@live.fr
+.. _patreon: https://www.patreon.com/molecularsimulations
 
 Follow me
 =========
@@ -30,10 +40,3 @@ Follow me
 
 .. _twitter: https://twitter.com/GravelleSimon
 .. _github: https://github.com/simongravelle
-
-About me
-========
-
-I am a physicist in soft matter and fluids at interfaces, see my `personal page`_.
-
-.. _personal page: https://simongravelle.github.io/
