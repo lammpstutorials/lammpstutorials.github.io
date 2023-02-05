@@ -527,24 +527,8 @@ Building the free energy profile
     to the surface). The energy well is about 6.5 kcal/mol,
     which is about :math:`11 \times k_\text{B} T`.
 
-
-
-
-
-
-
-
-
-
-
-
-
-Going further with exercises
-============================
-
-.. include:: ../../contact/requestsolution.rst
-        
-**Exercise 1: Monte Carlo versus molecular dynamics**
+    Note that if you intent to publish such PMF,
+    much longer simulations must be performed.
 
 .. include:: ../../contact/contactme.rst
 

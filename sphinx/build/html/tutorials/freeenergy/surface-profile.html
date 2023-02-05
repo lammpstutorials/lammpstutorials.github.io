@@ -372,8 +372,8 @@ folder named NaCl/, and create a file named Positions.dat in it.
 Copy the following lines corresponding to the initial
 positions of 8 NaCl atoms:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in NaCl/Positions.dat</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in NaCl/Positions.dat</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.<span class="w"> </span><span class="m">0</span>.<span class="w"> </span><span class="m">0</span>.
 <span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>-1<span class="w"> </span><span class="m">0</span>.<span class="w"> </span><span class="m">2</span>.84<span class="w"> </span><span class="m">0</span>.
 <span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>-1<span class="w"> </span><span class="m">2</span>.84<span class="w"> </span><span class="m">0</span>.<span class="w"> </span><span class="m">0</span>.
@@ -411,8 +411,8 @@ molecule orientation anyway.</p>
 file, named PARM.lammps, which contains all the mass and intra/inter
 molecular interaction parameters:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in PARM.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in PARM.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># mass parameters</span>
 mass<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">22</span>.99000
 mass<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">35</span>.45000
@@ -469,8 +469,8 @@ types i and j will be calculated by LAMMPS using the arithmetic rule.</p>
 new text file, name it input.eq.lammps, and copy the
 following lines in it:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.eq.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.eq.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ethanol at a nacl surface</span>
 <span class="c1"># variables</span>
 variable<span class="w"> </span>pre<span class="w"> </span>equal<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c1"># desired pressure (Atm)</span>
@@ -500,8 +500,8 @@ accuracy of 0.0001. Finally, the arithmetic rule is used to
 control interaction between atoms of different types.</p>
 <p>Then, add the following lines to the script:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.eq.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.eq.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># import positions and parameters</span>
 read_data<span class="w"> </span>data.lammps
 include<span class="w"> </span>PARM.lammps
@@ -554,8 +554,8 @@ profile.</p>
 <p>Create another input file, call it
 input.umbrella.lammps, and copy the following lines in it:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.umbrella.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.umbrella.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ethanol at a nacl surface</span>
 <span class="c1"># variables</span>
 variable<span class="w"> </span>pre<span class="w"> </span>equal<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c1"># desired pressure (Atm)</span>
@@ -692,16 +692,9 @@ rather than remaining far from it, which is consistent with
 what we observe with the unperturbed molecules (they stick
 to the surface). The energy well is about 6.5 kcal/mol,
 which is about <span class="math notranslate nohighlight">\(11 \times k_\text{B} T\)</span>.</p>
+<p>Note that if you intent to publish such PMF,
+much longer simulations must be performed.</p>
 </div>
-</section>
-<section id="going-further-with-exercises">
-<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Permalink to this heading">#</a></h2>
-<blockquote class="epigraph">
-<div><p>Request the solutions by <a class="reference external" href="mailto:simon&#46;gravelle&#37;&#52;&#48;live&#46;fr">email</a>, or register
-<a class="reference external" href="https://www.patreon.com/molecularsimulations">here</a>
-to access all the solutions as well as additional LAMMPS content.</p>
-</div></blockquote>
-<p><strong>Exercise 1: Monte Carlo versus molecular dynamics</strong></p>
 <div class="contact docutils container">
 <p>Contact me by <a class="reference external" href="mailto:simon&#46;gravelle&#37;&#52;&#48;live&#46;fr">email</a> if you have any question or suggestion about these tutorials.</p>
 </div>
@@ -765,7 +758,6 @@ to access all the solutions as well as additional LAMMPS content.</p>
 <li><a class="reference internal" href="#equilibrium">Equilibrium</a></li>
 <li><a class="reference internal" href="#umbrella-sampling">Umbrella sampling</a></li>
 <li><a class="reference internal" href="#building-the-free-energy-profile">Building the free energy profile</a></li>
-<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a></li>
 </ul>
 </li>
 </ul>
