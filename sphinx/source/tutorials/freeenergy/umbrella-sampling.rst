@@ -543,7 +543,7 @@ WHAM algorithm
 
 ..  container:: justify
 
-    Here you can download my `metadata.dat <../../../../../../inputs/freeenergy/BiasedSampling/metadata.dat>`__ file.
+    Here you can download my `metadata.dat <../../../../../inputs/freeenergy/BiasedSampling/metadata.dat>`__ file.
 
     Then, simply run the following command in the terminal:
 
