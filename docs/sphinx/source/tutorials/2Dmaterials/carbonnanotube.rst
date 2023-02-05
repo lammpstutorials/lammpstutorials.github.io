@@ -128,6 +128,8 @@ Input file
 Equilibration
 =============
 
+..  container:: justify
+
    First, as an equilibration step, let us set the velocity to 0.
 
 ..  code-block:: bash
@@ -197,7 +199,8 @@ Deformation
 
    Note that VMD guesses bonds based on the distances
    between atoms, and not based on the presence of actual
-   bonds in the LAMMPS simulation.
+   bonds between atoms in the LAMMPS simulation. Therefore what is seen
+   in VMD can sometimes be misleading.
 
 .. include:: ../../contact/accessfile.rst
 
