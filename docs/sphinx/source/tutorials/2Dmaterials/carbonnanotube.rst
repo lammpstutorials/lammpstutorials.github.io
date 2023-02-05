@@ -9,8 +9,12 @@ Breaking a carbon nanotube
 
 .. container:: hatnote
 
-   In this tutorial, the breaking of the bonds pf a carbon nanotube under
+   In this tutorial, the breaking of the bonds of a carbon nanotube under
    extreme deformation is simulated.
+   
+   The main aspect of this tutorial is that a reactive force field (airebo) is used.
+   This force field allows one to simulate the formation and breaking of chemical 
+   bonds between the atoms of a structure.
 
 .. figure:: ../figures/carbonnanotube/cnt_dark.png
     :alt: carbon nanotube image in vacuum
