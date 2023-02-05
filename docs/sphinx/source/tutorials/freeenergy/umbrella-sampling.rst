@@ -13,13 +13,13 @@ Simple free energy calculation
 
 .. figure:: ../figures/umbrellasampling/avatar-light.png
     :height: 250
-    :alt: Atoms simulated with LAMMPS
+    :alt: Figure showing atoms simulated with LAMMPS
     :class: only-light
     :align: right
 
 .. figure:: ../figures/umbrellasampling/avatar-dark.png
     :height: 250
-    :alt: Atoms simulated with LAMMPS
+    :alt: Figure showing atoms simulated with LAMMPS
     :class: only-dark
     :align: right
 
@@ -32,7 +32,7 @@ Simple free energy calculation
     barrier potential will be imposed artificially to the atoms.
     The procedure is valid for more complex
     systems, and can be adapted to many other situations (e.g.
-    for measuring adsorption barrier near a wall, or translocation
+    for measuring adsorption barrier near a wall, or for calculating translocation
     barrier through a membrane).
 
 Method 1: Free sampling
