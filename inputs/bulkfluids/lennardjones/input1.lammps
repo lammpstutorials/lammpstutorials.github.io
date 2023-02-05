@@ -1,0 +1,43 @@
+# PART A - ENERGY MINIMIZATION
+
+# 1) Initialization
+units lj
+dimension 3
+atom_style atomic
+pair_style lj/cut 2.5
+boundary p p p
+    
+# 2) System definition
+region simulation_box block -20 20 -20 20 -20 20
+create_box 2 simulation_box
+create_atoms 1 random 1500 341341 simulation_box
+create_atoms 2 random 100 127569 simulation_box
+
+# 3) Simulation settings
+neigh_modify every 1 delay 5 check yes
+mass 1 1
+mass 2 1
+pair_coeff 1 1 1.0 1.0
+pair_coeff 2 2 0.5 3.0
+
+# 4) Visualization
+thermo 10
+
+# 5) Run
+minimize 1.0e-4 1.0e-6 1000 10000
+
+# PART B - MOLECULAR DYNAMICS
+
+# 4) Visualization
+dump mydmp all atom 100 dump.lammpstrj
+thermo 1000
+variable kinetic_energy equal ke
+variable potential_energy equal pe
+variable pressure equal press
+fix myat1 all ave/time 10 1 10 v_kinetic_energy v_potential_energy file energy.dat
+
+# 5) Run
+fix mynve all nve
+fix mylgv all langevin 1.0 1.0 0.1 1530917
+timestep 0.005
+run 4000

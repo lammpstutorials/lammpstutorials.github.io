@@ -1,0 +1,29 @@
+# 1) Initialization
+units lj
+dimension 3
+atom_style atomic
+pair_style lj/cut 2.5
+boundary p p p
+
+# 2) System definition
+region simulation_box block -20 20 -20 20 -20 20
+create_box 2 simulation_box
+region mycylin cylinder z 0 0 10 INF INF side in
+region mycylou cylinder z 0 0 10 INF INF side out
+create_atoms 1 random 1000 341341 mycylou
+create_atoms 2 random 150 127569 mycylin
+
+# 3) Simulation settings
+mass 1 1
+mass 2 1
+pair_coeff 1 1 1.0 1.0
+pair_coeff 2 2 0.5 3.0
+neigh_modify every 1 delay 5 check yes
+
+# 4) Visualization
+thermo 10
+dump mydmp all atom 10 dump.min.lammpstrj
+
+# 5) Run
+minimize 1.0e-4 1.0e-6 1000 10000
+write_data minimized_coordinate.data

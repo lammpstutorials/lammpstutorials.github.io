@@ -1,0 +1,53 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# https://lammpstutorials.github.io
+# https://lammpstutorials.github.io/tutorials/03-NanoconfinedElectrolyte.html
+
+# Initialisation
+boundary p p p
+units real
+atom_style full
+bond_style harmonic
+angle_style harmonic
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4
+
+# System definition
+read_data ../Equilibration/system.data
+replicate 2 1 1
+change_box all z final -40 40
+
+# Simulation settings
+include ../PARM.lammps
+
+# Groups
+group gH2O type 1 2
+group gNa type 3
+group gCl type 4
+group gliquid type 1 2 3 4
+group gwall type 5
+region rtop block INF INF INF INF 0 INF
+region rbot block INF INF INF INF INF 0
+group gtop region rtop
+group gbot region rbot
+group gwalltop intersect gwall gtop
+group gwallbot intersect gwall gbot
+
+# Dynamics
+fix mynve all nve
+compute tliq gliquid temp
+fix myber1 gliquid temp/berendsen 300 300 100
+fix_modify myber1 temp tliq
+compute twall gwall temp/partial 0 1 1
+fix myber2 gwall temp/berendsen 300 300 100
+fix_modify myber2 temp twall
+fix myshk gH2O shake 1.0e-4 200 0 b 1 a 1
+fix myrct all recenter NULL NULL INIT
+
+# vizualisation
+dump mydmp all atom 500 dump.lammpstrj
+thermo 500
+thermo_modify temp tliq
+
+timestep 1.0
+run 5000
