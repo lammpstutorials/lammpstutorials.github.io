@@ -517,6 +517,16 @@ Building the free energy profile
     PMF.dat has been created, and contains the free energy
     profile in Kcal/mol:
 
+.. figure:: ../figures/surfaceprofile/freeenergy-light.png
+    :alt: Figure showing the PMF calculated by umbrella sampling
+    :class: only-light
+
+.. figure:: ../figures/surfaceprofile/freeenergy-dark.png
+    :alt: Figure showing the PMF calculated by umbrella sampling
+    :class: only-dark
+
+    Calculated PMF profile normal to the solid wall. The origin :math:`z=0`
+    corresponds to the position of the first layer of atoms.
 
 ..  container:: justify
 
@@ -526,6 +536,11 @@ Building the free energy profile
     what we observe with the unperturbed molecules (they stick
     to the surface). The energy well is about 6.5 kcal/mol,
     which is about :math:`11 \times k_\text{B} T`.
+
+    Notice that even at a distance of 1 nm from the wall, the PMF 
+    is not flat, indicating that the ethanol molecule still feels the 
+    presence of the wall. This is expected in vacuum, as there is nothing 
+    in between the molecule and the wall to screen the interaction.
 
     Note that if you intent to publish such PMF,
     much longer simulations must be performed.
