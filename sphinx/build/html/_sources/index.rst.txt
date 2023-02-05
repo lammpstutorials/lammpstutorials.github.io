@@ -38,6 +38,7 @@ Welcome to lammpstutorials's documentation!
    :caption: Free energy
 
    tutorials/freeenergy/umbrella-sampling.rst
+   tutorials/freeenergy/surface-profile.rst
 
 .. toctree::
    :maxdepth: 2
