@@ -38,10 +38,14 @@ Relax the amorphous silica structure
     Create a folder, name it RelaxSilica/, and
     `download <../../../../../inputs/reaxff/reax-silica/RelaxSilica/silica.data>`__
     the initial topology of a small amorphous silica structure.
-    The system was created by temperature ramp using another force field 
+    The system was created by temperature annealing using another force field 
     (`vashishta <../../../../../inputs/reaxff/reax-silica/CreateSilica/SiO.1990.vashishta>`__),
     therefore the bond length, angle values, or charges are different from what is expected
     from reaxff force field. 
+
+    If you are interested, the input script for creating the initial topology are 
+    available `here <../../../../../inputs/reaxff/reax-silica/CreateSilica/input.lammps>`__,
+    but it is not part of this tutorial.
 
     The Atoms section of the *silica.data* file starts like that:
 
@@ -66,20 +70,20 @@ Relax the amorphous silica structure
 
 ..  container:: justify
 
-    Due to the use of vashishta force field, all silicon atoms have the same charge (1.1e), all
-    the oxygen atoms have the same charge (-0.55e). This is common to most classical force field. 
+    Due to the use of vashishta force field, all silicon atoms have the same charge (1.1e).
+    Similarly, all oxygen atoms have the same charge (-0.55e). This is common to most classical force field. 
     Let us keep that in mind before we start using reaxff.
 
     The first step is to relax the structure. We are going to track the changes and make 
-    sure the system equilibrates nicely. 
+    sure that the system equilibrates nicely. 
     
-    Note that this silica structure is too small, all full of defect, but it will 
+    Note that this silica structure is a bit small, all full of defects, but it will 
     make the effect of reaxff more easily more visible.
 
     Create an input file called input.lammps in RelaxSilica/, and copy in it: 
 
 ..  code-block:: bash
-   :caption: *to be copied in RelaxSilica/input.lammps*
+    :caption: *to be copied in RelaxSilica/input.lammps*
 
     units real
     atom_style full
@@ -95,7 +99,7 @@ Relax the amorphous silica structure
     Now let us enter the 3 most important line of a reaxff simulation:
 
 ..  code-block:: bash
-   :caption: *to be copied in RelaxSilica/input.lammps*
+    :caption: *to be copied in RelaxSilica/input.lammps*
 
     pair_style reaxff NULL safezone 3.0 mincap 150
     pair_coeff * * reaxCHOFe.ff Si O
@@ -108,21 +112,22 @@ Relax the amorphous silica structure
     failed errors sometimes occur.
 
     The pair_coeff uses the 
-    `reaxCHOFe.ff <../../../../../inputs/reaxff/reax-silica/RelaxSilica/reaxCHOFe.ff>`__,
-    and we set the type 1 as oxygen, and type 2 as silicon.
+    `reaxCHOFe.ff <../../../../../inputs/reaxff/reax-silica/RelaxSilica/reaxCHOFe.ff>`__
+    (which must be saved in the same folder), and we set the type 1 as silicon,
+    and type 2 as oxygen.
 
-    Finally, qeq/reaxff is used to perform charge equilibration every timestep. O and 10.0.
-    are low and high cutoff, and 1.0e-6 a tolerance. Finally, maxiter sets a limit to the number of 
+    Finally, qeq/reaxff is used to perform charge equilibration every timestep. The values 0 and 10.0
+    are low and high cutoffs, and 1.0e-6 a tolerance. Finally, maxiter sets a limit to the number of 
     attempt to equilibrate the charge. If the charge does not properly equilibrate
-    despite the 400 attempts, a WARNING will appear. It can happens when the initial 
+    despite the 400 attempts, a WARNING will appear. It can happen when the initial 
     charges are too far from equilibrium values. 
 
     Then, let us insert some familiar commands controlling the re-building of the 
-    neighbor lists, which seems to be critical for reaxff. Let us also
+    neighbor lists. Let us also
     print thermodynamic information as well as the charge of both atom types.
 
 ..  code-block:: bash
-   :caption: *to be copied in RelaxSilica/input.lammps*
+    :caption: *to be copied in RelaxSilica/input.lammps*
 
     neighbor 0.5 bin
     neigh_modify every 5 delay 0 check yes 
@@ -147,7 +152,7 @@ Relax the amorphous silica structure
     run using anisotropic NPT, thus allowing for the box to relax. 
 
 ..  code-block:: bash
-   :caption: *to be copied in RelaxSilica/input.lammps*
+    :caption: *to be copied in RelaxSilica/input.lammps*
 
     velocity all create 300.0 3482028
     fix mynpt all npt temp 300.0 300.0 10 aniso 1.0 1.0 100
@@ -158,7 +163,13 @@ Relax the amorphous silica structure
 
 ..  container:: justify
 
-    As the simulation runs, you can see the charge of the atoms are fluctuating,
+    Here I choose values of 10 fs for the temperature damping parameter and 100 fs
+    for the pressure. These choices were made to reach equilibrium faster and 
+    allow very short run to be performed. For your research, use longer equilibration 
+    and larger damping (100 and 1000 for temperature and pressure respectively are 
+    usually used).
+
+    As the simulation runs, you can see that the charges of the atoms are fluctuating,
     as it adjusts to the topology:
 
 .. figure:: ../figures/reaxff/average-charge-light.png
@@ -173,8 +184,8 @@ Relax the amorphous silica structure
 
 ..  container:: justify
 
-    Moreover, instantaneously, each atom adopts its own charge value, therefore one
-    can have a look at the charge distribution for both atom types:
+    Moreover, instantaneously, each atom adopts its own charge value, therefore the
+    charge are distributed around a mean value:
 
 .. figure:: ../figures/reaxff/distribution-charge-light.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
@@ -192,8 +203,8 @@ Relax the amorphous silica structure
 ..  container:: justify
 
     Using VMD and coloring the atoms by their charges, one can see that 
-    the atoms with the extreme-most charges are located at detect in the 
-    amorphous structure:
+    the atoms with the extreme-most charges are located at defects in the 
+    amorphous structure (here dandling oxygen group):
 
 .. figure:: ../figures/reaxff/silicon-light.png
     :alt: Amorphous silica colored by charges using VMD
@@ -203,21 +214,21 @@ Relax the amorphous silica structure
     :alt: Amorphous silica colored by charges using VMD
     :class: only-dark
 
-    Amorphous silica colored by charges using VMD
+    Amorphous silica colored by charges using VMD. Dandling oxygen groups appear in green.
 
 Deform the structure
 ====================
 
 ..  container:: justify
 
-    Now let us apply a deformation to the structure and force some bonds 
+    Now, let us apply a deformation to the structure in order to force some bonds 
     to break and eventually re-form. 
 
     Next to RelaxSilica/, create a folder, call it Deform/ and create a
     file named input.lammps in it. Copy the following lines:
 
 ..  code-block:: bash
-   :caption: *to be copied in Deform/input.lammps*
+    :caption: *to be copied in Deform/input.lammps*
 
     # SiO amorphous silica deformed with reaxff potential
 
@@ -266,16 +277,17 @@ Deform the structure
 
 ..  container:: justify
 
-    The main differences with the previous input is 
+    The main differences with the previous input are
 
-    - the use of fix deform for elongate progressively the box along x
-    - the use of fix NVT instead of NPT (because the box deformation is already ensured by fix deform)
+    - the use of fix deform for elongating progressively the box along x,
+    - the use of fix NVT instead of NPT (because the box deformation is already ensured by fix deform).
     
     After a first run of 25000 steps, a short run of 2000 steps is performed 
-    in order to measure the final charges of the atoms.
+    in order to extract the final charges of the atoms from an structure that is not 
+    under deformation.
 
     During the deformation, the charges progressively changes, until the structure 
-    breaks. After the structure breaks, the charges equilibrates nears a new 
+    breaks. After the structure breaks, the charges equilibrates near a new 
     average value that differs from the starting charge, which is expected due to the
     presence of the new solid/vacuum interface:
 
@@ -325,6 +337,34 @@ Deform the structure
 
     The final charge distribution differs from the previously calculated, as a new peak 
     near -0.5e for the oxygen. 
+
+.. include:: ../../contact/accessfile.rst
+
+Going further with exercises
+============================
+
+.. include::  ../../contact/requestsolution.rst
+
+..  container:: justify
+
+    Under ambient conditions, dandling oxygen are typically terminated by hydrogen atoms. 
+    The current structure can be decorated with hydrogen atoms then relaxed using reaxff. 
+
+    Add hydrogen atoms to the dandling oxygens. Then relax the structure using reaxff with LAMMPS.
+
+.. figure:: ../figures/reaxff/exercice-light.png
+    :height: 250
+    :alt: Silicon oxide decorated with hydrogens
+    :class: only-light
+    :align: right
+
+.. figure:: ../figures/reaxff/exercice-dark.png
+    :height: 250
+    :alt: Silicon oxide decorated with hydrogens
+    :class: only-dark
+    :align: right
+
+    Hydrogen atoms are in white, oxygen in red, and silicon in yellow.
 
 .. include:: ../../contact/contactme.rst
 
