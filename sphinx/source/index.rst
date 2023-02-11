@@ -42,7 +42,7 @@ Welcome to lammpstutorials's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Reaxff
+   :caption: Reaxff [new]
 
    tutorials/reaxff/reax-silica.rst
 

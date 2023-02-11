@@ -55,3 +55,11 @@ Free energy
     * simulation of charged and bonded atomic model
     * use of biasing potential
     * use of WHAM algorithm
+
+Reaxff
+======
+
+#. :ref:`reax-silica-label` - advanced
+    * simulation of charged reactive species
+    * use of charge equilibration
+    * constant velocity deformation of a structure

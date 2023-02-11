@@ -343,7 +343,9 @@ Deform the structure
 Going further with exercises
 ============================
 
-.. include::  ../../contact/requestsolution.rst
+..  container:: justify
+
+    .. include::  ../../contact/requestsolution.rst
 
 ..  container:: justify
 
@@ -351,20 +353,17 @@ Going further with exercises
     The current structure can be decorated with hydrogen atoms then relaxed using reaxff. 
 
     Add hydrogen atoms to the dandling oxygens. Then relax the structure using reaxff with LAMMPS.
+    Hydrogen atoms can be added using create_atoms command, gcmc, or external python script as I did here:
 
 .. figure:: ../figures/reaxff/exercice-light.png
-    :height: 250
     :alt: Silicon oxide decorated with hydrogens
     :class: only-light
-    :align: right
 
 .. figure:: ../figures/reaxff/exercice-dark.png
-    :height: 250
     :alt: Silicon oxide decorated with hydrogens
     :class: only-dark
-    :align: right
 
     Hydrogen atoms are in white, oxygen in red, and silicon in yellow.
 
-.. include:: ../../contact/contactme.rst
+    .. include:: ../../contact/contactme.rst
 
