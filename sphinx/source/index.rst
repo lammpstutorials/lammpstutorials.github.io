@@ -51,6 +51,7 @@ Welcome to lammpstutorials's documentation!
    :caption: Extra content
 
    contact/contact.rst
+   miscellaneous/participation.rst
    history/history.rst
    miscellaneous/vmd.rst
 
