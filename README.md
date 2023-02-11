@@ -16,8 +16,9 @@ The previous version (1.0) of LAMMPS tutorial is still visible [here](https://la
 * Water adsorption in silica - adsorption of water in a silica crack using the grand canonical Monte Carlo method
 * Simple free energy calculation - simple sampling of a free energy barrier using WHAM
 * Adsorption of ethanol - free energy profile of ethanol near a solid surface
+* Deforming silicon dioxide - using reaxff and deform a structure
 
-### You found a mistake in one of the tutorial?
+### You noticed a mistake in one of the tutorial?
 
 You can report issue here on Github, or send me an [email](https://simongravelle.github.io/). Your feedback is always highly appreciated.
 
