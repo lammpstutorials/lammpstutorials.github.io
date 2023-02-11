@@ -1,7 +1,7 @@
 .. _reax-silica-label:
 
-Silicon
-*******
+Deforming silicon dioxide
+*************************
 
 ..  container:: justify
 
@@ -9,26 +9,26 @@ Silicon
 
 .. container:: hatnote
 
-    Defect silica
+    Using reaxff and deform a structure
 
-.. figure:: ../figures/surfaceprofile/avatar-light.png
+.. figure:: ../figures/reaxff/avatar-light.png
     :height: 250
-    :alt: Figure showing ethanol molecules adsorbed at the NaCl(100) surface.
+    :alt: Figure showing silicon dioxide structure with colored charges.
     :class: only-light
     :align: right
 
-.. figure:: ../figures/surfaceprofile/avatar-dark.png
+.. figure:: ../figures/reaxff/avatar-dark.png
     :height: 250
-    :alt: Figure showing ethanol molecules adsorbed at the NaCl(100) surface.
+    :alt: Figure showing silicon dioxide structure with colored charges.
     :class: only-dark
     :align: right
 
 ..  container:: justify
 
-    The objective of this tutorial is to build a molecular
-    dynamics system made of a flat crystal wall (NaCl) and
-    ethanol molecules. The molecule topology files will be downloaded from
-    the `ATB repository <https://atb.uq.edu.au/>`__.
+    The objective of this tutorial is to use molecular
+    dynamics system made of silicon dioxide (SiO2), and deform 
+    it until it break. The reactive force field reaxff is used, and 
+    a particular attention is given to the charge of the atoms. 
 
 Relax the amorphous silica structure
 ====================================
@@ -173,9 +173,158 @@ Relax the amorphous silica structure
 
 ..  container:: justify
 
-    Moreover, instantaneously, each atom adopts its own charge value:
+    Moreover, instantaneously, each atom adopts its own charge value, therefore one
+    can have a look at the charge distribution for both atom types:
 
+.. figure:: ../figures/reaxff/distribution-charge-light.png
+    :alt: Distribution charge of silica and oxygen during equilibration with reaxff
+    :class: only-light
 
+.. figure:: ../figures/reaxff/distribution-charge-dark.png
+    :alt: Distribution charge of silica and oxygen during equilibration with reaxff
+    :class: only-dark
+
+    Distribution of charge of  silica (positive) and oxygen (negative) during equilibration. The data 
+    were extracted from the dump.lammpstrj file using python, you can 
+    use this `notebook <../../../../../inputs/reaxff/reax-silica/RelaxSilica/plot_distribution.ipynb>`__
+    to do the same. 
+
+..  container:: justify
+
+    Using VMD and coloring the atoms by their charges, one can see that 
+    the atoms with the extreme-most charges are located at detect in the 
+    amorphous structure:
+
+.. figure:: ../figures/reaxff/silicon-light.png
+    :alt: Amorphous silica colored by charges using VMD
+    :class: only-light
+
+.. figure:: ../figures/reaxff/silicon-dark.png
+    :alt: Amorphous silica colored by charges using VMD
+    :class: only-dark
+
+    Amorphous silica colored by charges using VMD
+
+Deform the structure
+====================
+
+..  container:: justify
+
+    Now let us apply a deformation to the structure and force some bonds 
+    to break and eventually re-form. 
+
+    Next to RelaxSilica/, create a folder, call it Deform/ and create a
+    file named input.lammps in it. Copy the following lines:
+
+..  code-block:: bash
+   :caption: *to be copied in Deform/input.lammps*
+
+    # SiO amorphous silica deformed with reaxff potential
+
+    units real
+    atom_style full
+
+    read_data ../RelaxSilica/silica-relaxed.data
+
+    mass 1 28.0855 # Si
+    mass 2 15.999 # O
+
+    pair_style reaxff NULL safezone 3.0 mincap 150
+    pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O
+    fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
+
+    neighbor 0.5 bin
+    neigh_modify every 5 delay 0 check yes 
+
+    group grpSi type 1
+    group grpO type 2
+    variable totqSi equal charge(grpSi)
+    variable totqO equal charge(grpO)
+    variable nSi equal count(grpSi)
+    variable nO equal count(grpO)
+    variable qSi equal v_totqSi/${nSi}
+    variable qO equal v_totqO/${nO}
+
+    dump dmp all custom 100 dump-deform.lammpstrj id type q x y z
+    thermo 100
+    thermo_style custom step temp etotal press vol v_qSi v_qO
+
+    fix mydef all deform 1 x erate 5e-5
+    fix mynvt all nvt temp 300.0 300.0 100
+    timestep 0.5 
+
+    thermo 100
+    run 25000
+    unfix mydef
+    undump dmp
+
+    dump dmp all custom 100 dump.lammpstrj id type q x y z
+
+    run 2000
+
+    write_data silica-deformed.data
+
+..  container:: justify
+
+    The main differences with the previous input is 
+
+    - the use of fix deform for elongate progressively the box along x
+    - the use of fix NVT instead of NPT (because the box deformation is already ensured by fix deform)
+    
+    After a first run of 25000 steps, a short run of 2000 steps is performed 
+    in order to measure the final charges of the atoms.
+
+    During the deformation, the charges progressively changes, until the structure 
+    breaks. After the structure breaks, the charges equilibrates nears a new 
+    average value that differs from the starting charge, which is expected due to the
+    presence of the new solid/vacuum interface:
+
+.. figure:: ../figures/reaxff/deformed-charge-light.png
+    :alt: Charge of silica during deformation of the silicon oxide with reaxff
+    :class: only-light
+
+.. figure:: ../figures/reaxff/deformed-charge-dark.png
+    :alt: Charge of silica during deformation of the silicon oxide with reaxff
+    :class: only-dark
+
+    Charge of silica during deformation of the silicon oxide with reaxff
+
+..  container:: justify
+
+    At the end of the deformation,  one can visualize the brocken material, not
+    the different charge of atoms near the interface.
+
+.. figure:: ../figures/reaxff/deformed-light.png
+    :alt: Deformed amorphous silica colored by charges using VMD
+    :class: only-light
+
+.. figure:: ../figures/reaxff/deformed-dark.png
+    :alt: Deformed amorphous silica colored by charges using VMD
+    :class: only-dark
+
+    Amorphous silicon oxide after deformation colored by charges using VMD
+
+..  container:: justify
+
+    One O2 molecule was formed during the process (here appearing in green),
+    most likely because the rate of deformation was really high.
+
+    One can have a look at the final charge distribution:
+
+.. figure:: ../figures/reaxff/deformed-distribution-charge-light.png
+    :alt: Distribution charge of silica and oxygen during equilibration with reaxff
+    :class: only-light
+
+.. figure:: ../figures/reaxff/deformed-distribution-charge-dark.png
+    :alt: Distribution charge of silica and oxygen during equilibration with reaxff
+    :class: only-dark
+
+    Distribution of charge of silica (positive) and oxygen (negative) after deformation.
+
+..  container:: justify
+
+    The final charge distribution differs from the previously calculated, as a new peak 
+    near -0.5e for the oxygen. 
 
 .. include:: ../../contact/contactme.rst
 
