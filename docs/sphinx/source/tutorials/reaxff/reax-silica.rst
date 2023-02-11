@@ -86,8 +86,8 @@ Relax the amorphous silica structure
 
     read_data silica.data
 
-    mass 1 15.999 # O
-    mass 2 28.0855 # Si
+    mass 1 28.0855 # Si
+    mass 2 15.999 # O
 
 ..  container:: justify
 
@@ -98,7 +98,7 @@ Relax the amorphous silica structure
    :caption: *to be copied in RelaxSilica/input.lammps*
 
     pair_style reaxff NULL safezone 3.0 mincap 150
-    pair_coeff * * reaxCHOFe.ff O Si
+    pair_coeff * * reaxCHOFe.ff Si O
     fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
 ..  container:: justify
@@ -116,7 +116,65 @@ Relax the amorphous silica structure
     attempt to equilibrate the charge. If the charge does not properly equilibrate
     despite the 400 attempts, a WARNING will appear. It can happens when the initial 
     charges are too far from equilibrium values. 
-    
+
+    Then, let us insert some familiar commands controlling the re-building of the 
+    neighbor lists, which seems to be critical for reaxff. Let us also
+    print thermodynamic information as well as the charge of both atom types.
+
+..  code-block:: bash
+   :caption: *to be copied in RelaxSilica/input.lammps*
+
+    neighbor 0.5 bin
+    neigh_modify every 5 delay 0 check yes 
+
+    group grpSi type 1
+    group grpO type 2
+    variable totqSi equal charge(grpSi)
+    variable totqO equal charge(grpO)
+    variable nSi equal count(grpSi)
+    variable nO equal count(grpO)
+    variable qSi equal v_totqSi/${nSi}
+    variable qO equal v_totqO/${nO}
+
+    dump dmp all custom 100 dump.lammpstrj id type q x y z
+    thermo 10
+    thermo_style custom step temp etotal press vol v_qSi v_qO
+
+..  container:: justify
+
+    Let us also print 
+    particle charges and positions in a dump file, and let us perform a very short
+    run using anisotropic NPT, thus allowing for the box to relax. 
+
+..  code-block:: bash
+   :caption: *to be copied in RelaxSilica/input.lammps*
+
+    velocity all create 300.0 3482028
+    fix mynpt all npt temp 300.0 300.0 10 aniso 1.0 1.0 100
+    timestep 0.5
+
+    thermo 100
+    run 2000
+
+..  container:: justify
+
+    As the simulation runs, you can see the charge of the atoms are fluctuating,
+    as it adjusts to the topology:
+
+.. figure:: ../figures/reaxff/average-charge-light.png
+    :alt: Charge of silica during equilibration with reaxff
+    :class: only-light
+
+.. figure:: ../figures/reaxff/average-charge-dark.png
+    :alt: Charge of silica during equilibration with reaxff
+    :class: only-dark
+
+    Average charge of silica during equilibration
+
+..  container:: justify
+
+    Moreover, instantaneously, each atom adopts its own charge value:
+
 
 
 .. include:: ../../contact/contactme.rst
