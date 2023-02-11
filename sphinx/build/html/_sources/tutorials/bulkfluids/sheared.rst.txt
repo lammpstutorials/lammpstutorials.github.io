@@ -464,7 +464,7 @@ Next, let us create a group for the water:
 ..  container:: justify
 
     You can easily import log file into python using the
-    [lammps_logfile](https://pypi.org/project/lammps-logfile/) tool:
+    `lammps_logfile`_ tool:
 
 .. figure:: ../figures/sheared/minimization-light.png
     :alt: Energy minimisation of the confined water and salt
@@ -476,6 +476,8 @@ Next, let us create a group for the water:
 
     Energy as a function of time extracted from the log file using python and
     lammps_logfile.
+
+.. _lammps_logfile: https://pypi.org/project/lammps-logfile/
 
 ..  container:: justify
 

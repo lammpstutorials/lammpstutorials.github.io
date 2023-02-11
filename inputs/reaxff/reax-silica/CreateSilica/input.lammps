@@ -1,0 +1,44 @@
+# LAMMPS input file
+
+variable speed equal 1.0 # K/ps
+variable Pi equal 100 # bars
+variable Pf equal 1 # bars
+variable Tinitl equal 6000 # K
+variable Tinter equal 3600 # K
+variable Tfinal equal 300 # K
+variable durat1 equal floor((${Tinitl}-${Tinter})/${speed})*1000 # ps
+variable durat2 equal floor((${Tinter}-${Tfinal})/${speed})*1000 # ps
+
+units metal
+boundary p p p
+atom_style full
+
+neighbor 1.0 bin
+neigh_modify delay 1
+
+read_data data.SiO
+replicate 4 4 4
+
+pair_style vashishta
+pair_coeff * * SiO.1990.vashishta Si O
+
+velocity all create ${Tinitl} 4928459 rot yes mom yes dist gaussian
+fix mynvt all nvt temp ${Tinitl} ${Tinitl} 0.1
+
+dump dmp all atom 10000 dump.lammpstrj
+
+timestep 0.001
+thermo 1000
+run 20000
+unfix mynvt
+
+fix mynpt all npt temp ${Tinitl} ${Tinter} 0.1 iso ${Pi} ${Pf} 1
+
+run ${durat1}
+
+fix mynpt all npt temp ${Tinter} ${Tfinal} 0.1 aniso ${Pi} ${Pf} 1
+
+run ${durat2}
+
+write_data silica.data
+write_dump all atom amorphous_silica.lammpstrj

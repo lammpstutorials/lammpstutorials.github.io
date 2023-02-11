@@ -1,0 +1,44 @@
+# SiO amorphous silica deformed with reaxff potential
+
+units real
+atom_style full
+
+read_data ../RelaxSilica/silica-relaxed.data
+
+mass 1 28.0855 # Si
+mass 2 15.999 # O
+
+pair_style reaxff NULL safezone 3.0 mincap 150
+pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O
+fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
+
+neighbor 0.5 bin
+neigh_modify every 5 delay 0 check yes 
+
+group grpSi type 1
+group grpO type 2
+variable totqSi equal charge(grpSi)
+variable totqO equal charge(grpO)
+variable nSi equal count(grpSi)
+variable nO equal count(grpO)
+variable qSi equal v_totqSi/${nSi}
+variable qO equal v_totqO/${nO}
+
+dump dmp all custom 100 dump-deform.lammpstrj id type q x y z
+thermo 100
+thermo_style custom step temp etotal press vol v_qSi v_qO
+
+fix mydef all deform 1 x erate 5e-5
+fix mynvt all nvt temp 300.0 300.0 100
+timestep 0.5 
+
+thermo 100
+run 25000
+unfix mydef
+undump dmp
+
+dump dmp all custom 100 dump.lammpstrj id type q x y z
+
+run 2000
+
+write_data silica-deformed.data

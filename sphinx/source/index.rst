@@ -42,12 +42,17 @@ Welcome to lammpstutorials's documentation!
 
 .. toctree::
    :maxdepth: 2
+   :caption: Reaxff
+
+   tutorials/reaxff/reax-silica.rst
+
+.. toctree::
+   :maxdepth: 2
    :caption: Extra content
 
    contact/contact.rst
    history/history.rst
    miscellaneous/vmd.rst
-
 
 Indices and tables
 ==================
