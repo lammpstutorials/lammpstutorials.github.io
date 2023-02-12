@@ -30,7 +30,12 @@ author = 'Simon Gravelle'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-#extensions = ['sphinxcontrib.googleanalytics']
+extensions = ['sphinxcontrib.googleanalytics']
+
+
+# google analytics
+googleanalytics_id = 'G-W1WGEC5GQ8'
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
