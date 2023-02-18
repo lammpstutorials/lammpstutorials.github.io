@@ -9,7 +9,7 @@ The previous version (1.0) of LAMMPS tutorial is still visible [here](https://la
 ### List of tutorials:
 
 * Lennard Jones binary fluid - simple molecular dynamics simulation
-* Polymer in water - constant force applied to the 2 ends of the polymer (polyethylene glycol))
+* Polymer in water - constant force applied to the 2 ends of the polymer (polyethylene glycol)
 * Nanosheared electrolyte - electrolyte sheared by two walls and velocity profile measurement
 * Graphene under deformation - longitudinal deformation of a small graphene sheet
 * Breaking a carbon nanotube - carbon nanotube under extreme deformation with reactive force field
