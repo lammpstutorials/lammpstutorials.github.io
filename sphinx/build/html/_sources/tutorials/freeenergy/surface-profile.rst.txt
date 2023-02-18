@@ -9,7 +9,7 @@ Adsorption of ethanol
 
 .. container:: hatnote
 
-    Free energy profile of ethanol near a solid surface
+    Free energy profile of a gas of ethanol near a solid surface
 
 .. figure:: ../figures/surfaceprofile/avatar-light.png
     :height: 250
@@ -39,12 +39,12 @@ Download ATB molecule
     field information from the Automated Topology Builder (ATB)
     and repository.
 
-    Create a EthanolMolecule/ folder.
-
-    Alternatively, you can skip the creation of the system and go directly to
+    You can skip the creation of the system and go directly to
     the `molecular dynamics <#equilibrium>`__ part by
     downloading the input data file
     `here <../../../../../inputs/freeenergy/SurfaceProfile/data.lammps>`__.
+
+    Create a EthanolMolecule/ folder.
 
     Go to the `ATB
     repository <https://atb.uq.edu.au/>`__ website (you will
@@ -169,7 +169,7 @@ Download ATB molecule
 
     If you choose another molecule, you may have additional
     impropers contraints, or may not have dihedral constraints. In that
-    case you will have to make a few adjustment to the following codes.
+    case you will have to make some modification to the following codes.
 
 Initial configuration
 =====================
@@ -211,7 +211,6 @@ Initial configuration
     position and molecule information for both NaCl and ethanol,
     replicate them, and write a LAMMPS data file. Feel free to
     modify it and add more molecules (or a different molecule).
-
 
     To properly insert molecules within a structure using a
     custom script, it is important to detect the positions of
@@ -454,7 +453,7 @@ Umbrella sampling
 
     Run the script using LAMMPS. 24 files named position.1.dat,
     position.2.dat... position.24.dat must appear inside the folder. 
-    The simulation will take time.
+    The simulation will take some time.
     
     If you visualize the dump file with VMD, you see one molecule being
     progressively moved out from the wall. The other molecules
