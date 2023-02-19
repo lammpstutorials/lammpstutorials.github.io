@@ -2,7 +2,7 @@
 <img src="docs/figures/welcome.png" width="80%" /></a>
 
 This is the repository of the [LAMMPS Tutorials 2.0](https://lammpstutorials.github.io/) webpage. 
-All LAMMPS input scripts and data files can be found in the [inputs](docs/inputs/) folder.
+All input scripts and data files can be found in the [inputs](docs/inputs/) folder.
 
 The previous version (1.0) of LAMMPS tutorial is still visible [here](https://lammpstutorials.github.io/lammpstutorials-version1.0/).
 
@@ -29,5 +29,5 @@ find more information on my [personal webpage](https://simongravelle.github.io/)
 
 ### License ###
 
-All the inputs, scripts, and data files are open source and released under the 
+All the inputs, scripts, and data files are released under the 
 GNU general public license v3.0.
