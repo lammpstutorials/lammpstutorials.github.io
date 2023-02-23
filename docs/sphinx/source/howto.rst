@@ -5,6 +5,8 @@ This page describes the structure of the LAMMPStutorials.github.io.
 Tutorials are grouped by thematic. Here some specificity
 present in each tutorial are also listed.
 
+.. include:: contact/accessfile.rst
+
 Bulk fluids
 ===========
 

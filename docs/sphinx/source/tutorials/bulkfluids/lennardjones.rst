@@ -34,6 +34,8 @@ Lennard Jones fluid
     All inputs and data files can be found on the
     Github repository of LAMMPStutorials.
 
+.. include:: ../../contact/needhelp.rst
+
 Required softwares
 ==================
 
@@ -812,6 +814,8 @@ Restarting from a saved configuration
     :class: only-dark
 
     Evolution of the poputation with time, as well as evolution of the coordination number. 
+
+.. include:: ../../contact/accessfile.rst
 
 Going further with exercises
 ============================

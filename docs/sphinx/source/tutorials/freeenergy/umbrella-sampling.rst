@@ -35,6 +35,8 @@ Simple free energy calculation
     for measuring adsorption barrier near a wall, or for calculating translocation
     barrier through a membrane).
 
+.. include:: ../../contact/needhelp.rst
+
 Method 1: Free sampling
 =======================
 
@@ -577,6 +579,7 @@ WHAM algorithm
     Calculated potential using umbrella sampling compared to the imposed potential.
     The calculated potential is in blue.
 
+.. include:: ../../contact/accessfile.rst
 
 Going further with exercises
 ============================
