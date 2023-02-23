@@ -30,6 +30,8 @@ Adsorption of ethanol
     ethanol molecules. The molecule topology files will be downloaded from
     the `ATB repository <https://atb.uq.edu.au/>`__.
 
+.. include:: ../../contact/needhelp.rst
+
 Download ATB molecule
 =====================
 
@@ -543,6 +545,8 @@ Building the free energy profile
 
     Note that if you intent to publish such PMF,
     much longer simulations must be performed.
+
+.. include:: ../../contact/accessfile.rst
 
 .. include:: ../../contact/contactme.rst
 

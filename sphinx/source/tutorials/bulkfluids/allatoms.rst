@@ -34,6 +34,8 @@ Polymer in water
    Once the system created, a constant force will be applied to the 2
    ends of the polymer, and its length will be measured with time.
 
+.. include:: ../../contact/needhelp.rst
+
 Bulk water
 ==========
 

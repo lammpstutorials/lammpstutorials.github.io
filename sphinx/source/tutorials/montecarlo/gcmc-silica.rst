@@ -35,6 +35,8 @@ Water adsorption in silica
     ensemble in molecular simulation, an ensemble in which the number of 
     molecule/atom is not constant.
 
+.. include:: ../../contact/needhelp.rst
+
 Generation of the silica block
 ==============================
 

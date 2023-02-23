@@ -260,6 +260,9 @@ systems, and can be adapted to many other situations (e.g.
 for measuring adsorption barrier near a wall, or for calculating translocation
 barrier through a membrane).</p>
 </div>
+<div class="help docutils container">
+<p>Need personalised advice for your own project? See the <a class="reference internal" href="../../contact/contact.html#contact-label"><span class="std std-ref">Contact me</span></a> page.</p>
+</div>
 <section id="method-1-free-sampling">
 <h2>Method 1: Free sampling<a class="headerlink" href="#method-1-free-sampling" title="Permalink to this heading">#</a></h2>
 <div class="justify docutils container">
@@ -281,8 +284,8 @@ of the box a relatively unfavourable area to explore.</p>
 <div class="justify docutils container">
 <p>Create a folder named FreeSampling/, and create an input script named input.lammps in it. Copy the following lines:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># define some variables</span>
 variable<span class="w"> </span>sigma<span class="w"> </span>equal<span class="w"> </span><span class="m">3</span>.405<span class="w"> </span><span class="c1"># Angstrom</span>
 variable<span class="w"> </span>epsilon<span class="w"> </span>equal<span class="w"> </span><span class="m">0</span>.238<span class="w"> </span><span class="c1"># Kcal/mol</span>
@@ -320,8 +323,8 @@ the cut-off using the pair_modify.</p>
 <div class="justify docutils container">
 <p>Let us define the simulation block and randomly add atoms:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the system</span>
 region<span class="w"> </span>myreg<span class="w"> </span>block<span class="w"> </span>-25<span class="w"> </span><span class="m">25</span><span class="w"> </span>-20<span class="w"> </span><span class="m">20</span><span class="w"> </span>-20<span class="w"> </span><span class="m">20</span>
 create_box<span class="w"> </span><span class="m">1</span><span class="w"> </span>myreg
@@ -362,10 +365,10 @@ in the simulation,</p>
 <figure class="align-default">
 <img alt="Imposed potential" class="only-light" src="../../_images/potential-light.png" />
 </figure>
-<figure class="align-default" id="id4">
+<figure class="align-default" id="id3">
 <img alt="Averaged density profile" class="only-dark" src="../../_images/potential-dark.png" />
 <figcaption>
-<p><span class="caption-text">Potential <span class="math notranslate nohighlight">\(U\)</span> and force <span class="math notranslate nohighlight">\(F\)</span> imposed to the particle.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Potential <span class="math notranslate nohighlight">\(U\)</span> and force <span class="math notranslate nohighlight">\(F\)</span> imposed to the particle.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>Energy minimization and equilibration</strong></p>
@@ -374,8 +377,8 @@ in the simulation,</p>
 all of the atoms in the simulation using the ‘addforce’
 command:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># --------------------- Run</span>
 minimize<span class="w"> </span>1e-4<span class="w"> </span>1e-6<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
 reset_timestep<span class="w"> </span><span class="m">0</span>
@@ -397,8 +400,8 @@ nanoseconds). To make sure that 4 ns is long enough, let us
 record the evolution of the number of atoms in the central
 (energetically unfavorable) region called ‘mymes’:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
 fix<span class="w"> </span>mylgv<span class="w"> </span>all<span class="w"> </span>langevin<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1530917</span>
 
@@ -423,8 +426,8 @@ reset to 0 to synchronize with the output times of
 density/number, and the fix ‘myat’ is canceled (it has to be
 canceled before a reset time).</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unfix<span class="w"> </span>myat
 reset_timestep<span class="w"> </span><span class="m">0</span>
 
@@ -451,10 +454,10 @@ file (left panel):</p>
 <figure class="align-default">
 <img alt="Number of particle in the central region as a function of time" class="only-light" src="../../_images/density_evolution-light.png" />
 </figure>
-<figure class="align-default" id="id8">
+<figure class="align-default" id="id7">
 <img alt="Number of particle in the central region as a function of time" class="only-dark" src="../../_images/density_evolution-dark.png" />
 <figcaption>
-<p><span class="caption-text">Evolution of the number of atoms in the central region during equilibration.</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Evolution of the number of atoms in the central region during equilibration.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -466,11 +469,11 @@ Therefore the chosen equilibration of 4 ns is long enough.</p>
 <figure class="align-default">
 <img alt="Averaged density profile" class="only-light" src="../../_images/density_profile-light.png" />
 </figure>
-<figure class="align-default" id="id9">
+<figure class="align-default" id="id8">
 <img alt="Averaged density profile" class="only-dark" src="../../_images/density_profile-dark.png" />
 <figcaption>
 <p><span class="caption-text">Averaged density profile (the dashed line is a 200 ns simulation, the full line is 20 ns).
-The value <span class="math notranslate nohighlight">\(\rho_0 = 0.0011\)</span> was estimated from the raw density profile.</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+The value <span class="math notranslate nohighlight">\(\rho_0 = 0.0011\)</span> was estimated from the raw density profile.</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -480,11 +483,11 @@ with the imposed (reference) potential <span class="math notranslate nohighlight
 <figure class="align-default">
 <img alt="Averaged density profile" class="only-light" src="../../_images/freesampling-potential-light.png" />
 </figure>
-<figure class="align-default" id="id10">
+<figure class="align-default" id="id9">
 <img alt="Averaged density profile" class="only-dark" src="../../_images/freesampling-potential-dark.png" />
 <figcaption>
 <p><span class="caption-text">Calculated potential <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_0)\)</span> compared to imposed potential.
-The calculated potential is in blue. The simulation is 20 ns long.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+The calculated potential is in blue. The simulation is 20 ns long.</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -495,11 +498,11 @@ agreement gets better:</p>
 <figure class="align-default">
 <img alt="Averaged density profile" class="only-light" src="../../_images/freesampling-potential-longer-light.png" />
 </figure>
-<figure class="align-default" id="id11">
+<figure class="align-default" id="id10">
 <img alt="Averaged density profile" class="only-dark" src="../../_images/freesampling-potential-longer-dark.png" />
 <figcaption>
 <p><span class="caption-text">Calculated potential <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_0)\)</span> compared to imposed potential.
-The calculated potential is in blue. The simulation is 200 ns long.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+The calculated potential is in blue. The simulation is 200 ns long.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -541,8 +544,8 @@ profile.</p>
 <p>Create a new folder called BiasedSampling/, and create a new input file
 named input.lammps in it, copy the following lines:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in BiasedSampling/input.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in BiasedSampling/input.lammps</em></span><a class="headerlink" href="#id11" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a bunch of variables</span>
 variable<span class="w"> </span>sigma<span class="w"> </span>equal<span class="w"> </span><span class="m">3</span>.405<span class="w"> </span><span class="c1"># Angstrom</span>
 variable<span class="w"> </span>epsilon<span class="w"> </span>equal<span class="w"> </span><span class="m">0</span>.238<span class="w"> </span><span class="c1"># Kcal/mol</span>
@@ -597,8 +600,8 @@ just because we can.</p>
 <p>Let us create a loop with 67 steps, and move progressively
 the centre of the bias potential by increment of 0.3 nm:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in BiasedSampling/input.lammps</em></span><a class="headerlink" href="#id13" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in BiasedSampling/input.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>variable<span class="w"> </span>a<span class="w"> </span>loop<span class="w"> </span><span class="m">50</span>
 label<span class="w"> </span>loop
 variable<span class="w"> </span>xdes<span class="w"> </span>equal<span class="w"> </span><span class="si">${</span><span class="nv">a</span><span class="si">}</span>-25
@@ -643,11 +646,11 @@ neighbor positions, like we have here:</p>
 <figure class="align-default">
 <img alt="Averaged density profile" class="only-light" src="../../_images/overlap-light.png" />
 </figure>
-<figure class="align-default" id="id14">
+<figure class="align-default" id="id13">
 <img alt="Averaged density profile" class="only-dark" src="../../_images/overlap-dark.png" />
 <figcaption>
 <p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 1.5\)</span> Kcal/mol/Å^2. Note the good
-overlapping between neighbor distributions.</span><a class="headerlink" href="#id14" title="Permalink to this image">#</a></p>
+overlapping between neighbor distributions.</span><a class="headerlink" href="#id13" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -657,11 +660,11 @@ region of interest:</p>
 <figure class="align-default">
 <img alt="Averaged density profile" class="only-light" src="../../_images/overlap015-light.png" />
 </figure>
-<figure class="align-default" id="id15">
+<figure class="align-default" id="id14">
 <img alt="Averaged density profile" class="only-dark" src="../../_images/overlap015-dark.png" />
 <figcaption>
 <p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 0.15\)</span> Kcal/mol/Å^2.
-The particle doesn’t even explore the middle region.</span><a class="headerlink" href="#id15" title="Permalink to this image">#</a></p>
+The particle doesn’t even explore the middle region.</span><a class="headerlink" href="#id14" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -671,11 +674,11 @@ compared to the thermal energy:</p>
 <figure class="align-default">
 <img alt="Averaged density profile" class="only-light" src="../../_images/overlap15-light.png" />
 </figure>
-<figure class="align-default" id="id16">
+<figure class="align-default" id="id15">
 <img alt="Averaged density profile" class="only-dark" src="../../_images/overlap15-dark.png" />
 <figcaption>
 <p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 15\)</span> Kcal/mol/Å^2.
-Note the bad overlap between neighbor windows.</span><a class="headerlink" href="#id16" title="Permalink to this image">#</a></p>
+Note the bad overlap between neighbor windows.</span><a class="headerlink" href="#id15" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -747,13 +750,15 @@ calculation time:</p>
 <figure class="align-default">
 <img alt="Result of the umbrella sampling" class="only-light" src="../../_images/freeenergy-light1.png" />
 </figure>
-<figure class="align-default" id="id17">
+<figure class="align-default" id="id16">
 <img alt="Result of the umbrella sampling" class="only-dark" src="../../_images/freeenergy-dark1.png" />
 <figcaption>
 <p><span class="caption-text">Calculated potential using umbrella sampling compared to the imposed potential.
-The calculated potential is in blue.</span><a class="headerlink" href="#id17" title="Permalink to this image">#</a></p>
+The calculated potential is in blue.</span><a class="headerlink" href="#id16" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<p>You can access all the input scripts and data files that
+are used in these tutorials from <a class="reference external" href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs">Github</a>.</p>
 </section>
 </section>
 <section id="going-further-with-exercises">
@@ -788,7 +793,7 @@ following situation:</p>
 of a molecule of your choice normally to a solid wall.</p>
 </div>
 <div class="contact docutils container">
-<p>Contact me by <a class="reference external" href="mailto:simon&#46;gravelle&#37;&#52;&#48;live&#46;fr">email</a> if you have any question or suggestion about these tutorials.</p>
+<p><a class="reference internal" href="../../contact/contact.html#contact-label"><span class="std std-ref">Contact me</span></a> if you have any question or suggestion about these tutorials.</p>
 </div>
 <blockquote>
 <div><p>A non-equilibrated system containing a few ethanol

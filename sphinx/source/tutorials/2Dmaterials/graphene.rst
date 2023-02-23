@@ -30,6 +30,8 @@ Graphene under deformation
    deformed using an applied displacement (a method called
    *out-of-equilibrium molecular dynamics*).
 
+.. include:: ../../contact/needhelp.rst
+
 Generation of the system
 ========================
 

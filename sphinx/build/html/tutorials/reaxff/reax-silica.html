@@ -255,6 +255,9 @@ dynamics system made of silicon dioxide (SiO2), and deform
 it until it break. The reactive force field reaxff is used, and
 a particular attention is given to the charge of the atoms.</p>
 </div>
+<div class="help docutils container">
+<p>Need personalised advice for your own project? See the <a class="reference internal" href="../../contact/contact.html#contact-label"><span class="std std-ref">Contact me</span></a> page.</p>
+</div>
 <section id="relax-the-amorphous-silica-structure">
 <h2>Relax the amorphous silica structure<a class="headerlink" href="#relax-the-amorphous-silica-structure" title="Permalink to this heading">#</a></h2>
 <div class="justify docutils container">
@@ -298,8 +301,8 @@ sure that the system equilibrates nicely.</p>
 make the effect of reaxff more easily more visible.</p>
 <p>Create an input file called input.lammps in RelaxSilica/, and copy in it:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>units<span class="w"> </span>real
 atom_style<span class="w"> </span>full
 
@@ -314,8 +317,8 @@ mass<span class="w"> </span><span class="m">2</span><span class="w"> </span><spa
 <p>So far, the input is very silica to what is seen in the other tutorials here.
 Now let us enter the 3 most important line of a reaxff simulation:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pair_style<span class="w"> </span>reaxff<span class="w"> </span>NULL<span class="w"> </span>safezone<span class="w"> </span><span class="m">3</span>.0<span class="w"> </span>mincap<span class="w"> </span><span class="m">150</span>
 pair_coeff<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>reaxCHOFe.ff<span class="w"> </span>Si<span class="w"> </span>O
 fix<span class="w"> </span>myqeq<span class="w"> </span>all<span class="w"> </span>qeq/reaxff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">10</span>.0<span class="w"> </span><span class="m">1</span>.0e-6<span class="w"> </span>reaxff<span class="w"> </span>maxiter<span class="w"> </span><span class="m">400</span>
@@ -339,8 +342,8 @@ charges are too far from equilibrium values.</p>
 neighbor lists. Let us also
 print thermodynamic information as well as the charge of both atom types.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>neighbor<span class="w"> </span><span class="m">0</span>.5<span class="w"> </span>bin
 neigh_modify<span class="w"> </span>every<span class="w"> </span><span class="m">5</span><span class="w"> </span>delay<span class="w"> </span><span class="m">0</span><span class="w"> </span>check<span class="w"> </span>yes
 
@@ -364,8 +367,8 @@ thermo_style<span class="w"> </span>custom<span class="w"> </span>step<span clas
 particle charges and positions in a dump file, and let us perform a very short
 run using anisotropic NPT, thus allowing for the box to relax.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>velocity<span class="w"> </span>all<span class="w"> </span>create<span class="w"> </span><span class="m">300</span>.0<span class="w"> </span><span class="m">3482028</span>
 fix<span class="w"> </span>mynpt<span class="w"> </span>all<span class="w"> </span>npt<span class="w"> </span>temp<span class="w"> </span><span class="m">300</span>.0<span class="w"> </span><span class="m">300</span>.0<span class="w"> </span><span class="m">10</span><span class="w"> </span>aniso<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">100</span>
 timestep<span class="w"> </span><span class="m">0</span>.5
@@ -387,10 +390,10 @@ as it adjusts to the topology:</p>
 <figure class="align-default">
 <img alt="Charge of silica during equilibration with reaxff" class="only-light" src="../../_images/average-charge-light.png" />
 </figure>
-<figure class="align-default" id="id6">
+<figure class="align-default" id="id5">
 <img alt="Charge of silica during equilibration with reaxff" class="only-dark" src="../../_images/average-charge-dark.png" />
 <figcaption>
-<p><span class="caption-text">Average charge of silica during equilibration</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Average charge of silica during equilibration</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -400,13 +403,13 @@ charge are distributed around a mean value:</p>
 <figure class="align-default">
 <img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-light" src="../../_images/distribution-charge-light.png" />
 </figure>
-<figure class="align-default" id="id7">
+<figure class="align-default" id="id6">
 <img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-dark" src="../../_images/distribution-charge-dark.png" />
 <figcaption>
 <p><span class="caption-text">Distribution of charge of  silica (positive) and oxygen (negative) during equilibration. The data
 were extracted from the dump.lammpstrj file using python, you can
 use this <a class="reference external" href="../../../../../inputs/reaxff/reax-silica/RelaxSilica/plot_distribution.ipynb">notebook</a>
-to do the same.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+to do the same.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -417,10 +420,10 @@ amorphous structure (here dandling oxygen group):</p>
 <figure class="align-default">
 <img alt="Amorphous silica colored by charges using VMD" class="only-light" src="../../_images/silicon-light.png" />
 </figure>
-<figure class="align-default" id="id8">
+<figure class="align-default" id="id7">
 <img alt="Amorphous silica colored by charges using VMD" class="only-dark" src="../../_images/silicon-dark.png" />
 <figcaption>
-<p><span class="caption-text">Amorphous silica colored by charges using VMD. Dandling oxygen groups appear in green.</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Amorphous silica colored by charges using VMD. Dandling oxygen groups appear in green.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -432,8 +435,8 @@ to break and eventually re-form.</p>
 <p>Next to RelaxSilica/, create a folder, call it Deform/ and create a
 file named input.lammps in it. Copy the following lines:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Deform/input.lammps</em></span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Deform/input.lammps</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># SiO amorphous silica deformed with reaxff potential</span>
 
 units<span class="w"> </span>real
@@ -498,10 +501,10 @@ presence of the new solid/vacuum interface:</p>
 <figure class="align-default">
 <img alt="Charge of silica during deformation of the silicon oxide with reaxff" class="only-light" src="../../_images/deformed-charge-light.png" />
 </figure>
-<figure class="align-default" id="id10">
+<figure class="align-default" id="id9">
 <img alt="Charge of silica during deformation of the silicon oxide with reaxff" class="only-dark" src="../../_images/deformed-charge-dark.png" />
 <figcaption>
-<p><span class="caption-text">Charge of silica during deformation of the silicon oxide with reaxff</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Charge of silica during deformation of the silicon oxide with reaxff</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -511,10 +514,10 @@ the different charge of atoms near the interface.</p>
 <figure class="align-default">
 <img alt="Deformed amorphous silica colored by charges using VMD" class="only-light" src="../../_images/deformed-light.png" />
 </figure>
-<figure class="align-default" id="id11">
+<figure class="align-default" id="id10">
 <img alt="Deformed amorphous silica colored by charges using VMD" class="only-dark" src="../../_images/deformed-dark.png" />
 <figcaption>
-<p><span class="caption-text">Amorphous silicon oxide after deformation colored by charges using VMD</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Amorphous silicon oxide after deformation colored by charges using VMD</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -525,10 +528,10 @@ most likely because the rate of deformation was really high.</p>
 <figure class="align-default">
 <img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-light" src="../../_images/deformed-distribution-charge-light.png" />
 </figure>
-<figure class="align-default" id="id12">
+<figure class="align-default" id="id11">
 <img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-dark" src="../../_images/deformed-distribution-charge-dark.png" />
 <figcaption>
-<p><span class="caption-text">Distribution of charge of silica (positive) and oxygen (negative) after deformation.</span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Distribution of charge of silica (positive) and oxygen (negative) after deformation.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -536,7 +539,7 @@ most likely because the rate of deformation was really high.</p>
 near -0.5e for the oxygen.</p>
 </div>
 <p>You can access all the input scripts and data files that
-have been used in this tutorial from <a class="reference external" href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs">Github</a>.</p>
+are used in these tutorials from <a class="reference external" href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs">Github</a>.</p>
 </section>
 <section id="going-further-with-exercises">
 <h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Permalink to this heading">#</a></h2>
@@ -556,13 +559,13 @@ Hydrogen atoms can be added using create_atoms command, gcmc, or external python
 <figure class="align-default">
 <img alt="Silicon oxide decorated with hydrogens" class="only-light" src="../../_images/exercice-light.png" />
 </figure>
-<figure class="align-default" id="id13">
+<figure class="align-default" id="id12">
 <img alt="Silicon oxide decorated with hydrogens" class="only-dark" src="../../_images/exercice-dark.png" />
 <figcaption>
-<p><span class="caption-text">Hydrogen atoms are in white, oxygen in red, and silicon in yellow.</span><a class="headerlink" href="#id13" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Hydrogen atoms are in white, oxygen in red, and silicon in yellow.</span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
 <div class="legend">
 <div class="contact docutils container">
-<p>Contact me by <a class="reference external" href="mailto:simon&#46;gravelle&#37;&#52;&#48;live&#46;fr">email</a> if you have any question or suggestion about these tutorials.</p>
+<p><a class="reference internal" href="../../contact/contact.html#contact-label"><span class="std std-ref">Contact me</span></a> if you have any question or suggestion about these tutorials.</p>
 </div>
 </div>
 </figcaption>
