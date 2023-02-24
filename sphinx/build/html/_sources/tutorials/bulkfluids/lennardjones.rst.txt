@@ -31,9 +31,6 @@ Lennard Jones fluid
     energy minimisation, integration of the equations of motion,
     and trajectory visualisation.
 
-    All inputs and data files can be found on the
-    Github repository of LAMMPStutorials.
-
 .. include:: ../../contact/needhelp.rst
 
 Required softwares
@@ -259,9 +256,7 @@ The input script
     The last line sets the Lennard-Jones coefficients for
     the interactions between atoms of type 2.
    
-.. container:: remark2
-
-    **About cross parameters**
+.. admonition:: About cross parameters
 
     By default, LAMMPS calculates the cross coefficients
     (here for the interactions between atoms of type 1 and 2)
