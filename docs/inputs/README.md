@@ -1,1 +1,7 @@
-## Input files corresponding to each tutorial of [lammps tutorials](https://lammpstutorials.github.io/).
+## Input files
+
+Files corresponding to each tutorial of [lammps tutorials](https://lammpstutorials.github.io/), including:
+
+- LAMMPS data files
+- input files
+- python script for analysis
