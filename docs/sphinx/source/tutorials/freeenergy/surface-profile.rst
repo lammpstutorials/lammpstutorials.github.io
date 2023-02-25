@@ -67,7 +67,7 @@ Download ATB molecule
     `system.lt <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/system.lt>`__
     file that looks like that:
 
-..  code-block:: bash
+..  code-block:: bw
 
     # system.lt
     # simulation of a single molecule in a box of size 50x50x50 Angstroms^3
@@ -96,7 +96,7 @@ Download ATB molecule
 
     Run it using `Moltemplate <https://www.moltemplate.org/>`__,
 
-..  code-block:: bash
+..  code-block:: bw
 
     moltemplate.sh ./system.lt
 
@@ -105,7 +105,7 @@ Download ATB molecule
     to generate several LAMMPS input files corresponding to a
     single molecule in vacuum, which you can run using LAMMPS:
 
-..  code-block:: bash
+..  code-block:: bw
 
     lmp -in run.in.EXAMPLE
 
@@ -128,7 +128,7 @@ Download ATB molecule
     `Bonds.dat <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat>`__
     file looks like that:
 
-..  code-block:: bash
+..  code-block:: lammps
 
     1 5 1 2
     2 2 2 3
@@ -184,7 +184,7 @@ Initial configuration
     Copy the following lines corresponding to the initial
     positions of 8 NaCl atoms:
 
-..  code-block:: bash
+..  code-block:: bw
     :caption: *to be copied in NaCl/Positions.dat*
 
     1 1 1 1 0. 0. 0.
