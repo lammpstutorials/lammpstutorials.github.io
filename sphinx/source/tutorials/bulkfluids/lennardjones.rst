@@ -42,7 +42,7 @@ Required softwares
     Alternatively, if you are using Ubuntu OS, you can simply execute the
     following command in a terminal:
 
-..  code-block:: bash
+..  code-block:: bw
 
    sudo apt-get install lammps
    
@@ -51,7 +51,7 @@ Required softwares
     You can verify that LAMMPS is indeed installed on your
     computer by typing in a terminal :
 
-..  code-block:: bash
+..  code-block:: bw
 
     lmp
 
@@ -60,7 +60,7 @@ Required softwares
     You should see the version of LAMMPS that has been
     installed. On my computer I see
 
-..  code-block:: bash
+..  code-block:: bw
 
     LAMMPS (29 Sep 2021 - Update 2)
 
@@ -158,7 +158,7 @@ The input script
     You can execute it to verify that there is no mistake by
     running the following command in the terminal:
 
-..  code-block:: bash
+..  code-block:: bw
 
     lmp -in input_01.lammps
 
@@ -166,7 +166,7 @@ The input script
 
     Which should return something like
 
-..  code-block:: bash
+..  code-block:: bw
 
     LAMMPS (29 Sep 2021 - Update 2)
     Total wall time: 0:00:00
@@ -177,7 +177,7 @@ The input script
     'atom_stile' is written instead of 'atom_style', LAMMPS
     gives you a warning:
 
-..  code-block:: bash
+..  code-block:: bw
 
     LAMMPS (29 Sep 2021 - Update 2)
     ERROR: Unknown command: atom_stile  atomic (src/input.cpp:232)
@@ -213,7 +213,7 @@ The input script
     If you run LAMMPS, you should see the following in the
     terminal:
 
-..  code-block:: bash
+..  code-block:: bw
 
     LAMMPS (29 Sep 2021 - Update 2)
     Created orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
@@ -310,7 +310,7 @@ The input script
     Now running the simulation, we can see how the thermodynamics
     variables evolve with time:
 
-..  code-block:: bash
+..  code-block:: bw
 
     Step         Temp       E_pair        E_mol       TotEng         Press
        0            0     78840982            0     78840982       7884122 
@@ -341,7 +341,7 @@ The input script
     example, LAMMPS tells us that the first of the four criteria
     to be satisfied was the energy:
 
-..  code-block:: bash
+..  code-block:: bw
 
     Minimization stats:
     Stopping criterion = energy tolerance
@@ -398,7 +398,7 @@ The input script
     the simulation, you should see the following information in
     the terminal:
 
-..  code-block:: bash
+..  code-block:: bw
 
     Step         Temp       E_pair        E_mol       TotEng        Press
      388            0  -0.95476642            0  -0.95476642 -0.000304834
@@ -421,7 +421,7 @@ The input script
     expected value near :math:`T=1`, as requested. 
     Note that  In the terminal, you may also see
 
-..  code-block:: bash
+..  code-block:: bw
 
     Total (number) of neighbors = 8560
     Ave neighs/atom = 5.35
@@ -452,7 +452,7 @@ The input script
     more often. Re-run the simulation, and you should see a more
     positive outcome with 0 dangerous build:
 
-..  code-block:: bash
+..  code-block:: bw
 
     Total (number) of neighbors = 2024
     Ave neighs/atom = 1.2650000
@@ -504,7 +504,7 @@ Trajectory visualisation
     VMD or Ovito. In Ubuntu, if VMD is installed, you can simply
     execute in the terminal:
 
-..  code-block:: bash
+..  code-block:: bw
 
     vmd dump.lammpstrj
 
@@ -708,7 +708,7 @@ Restarting from a saved configuration
     many atoms are in each group, and how many atoms have been
     deleted:
 
-..  code-block:: bash
+..  code-block:: bw
 
     1000 atoms in group mytype1
     150 atoms in group mytype2
@@ -748,7 +748,7 @@ Restarting from a saved configuration
     well as the number of atoms of each type in each region, by
     adding the following commands to the input file:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in input3.lammps*
 
     variable Ntype1in equal count(mytype1,mycylin)
@@ -829,7 +829,7 @@ Going further with exercises
     and start the molecular dynamics directly. To do so, comment
     the two following lines:
 
-..  code-block:: bash
+..  code-block:: lammps
 
     # thermo 10
     # minimize  1.0e-4 1.0e-6 1000 10000
@@ -838,7 +838,7 @@ Going further with exercises
 
     If you run LAMMPS again, you should get something like:
 
-..  code-block:: bash
+..  code-block:: bw
 
     Step Temp E_pair E_mol TotEng Press
     0 5.8997404e+14 0 5.8997404e+14 1.5732641e+15
