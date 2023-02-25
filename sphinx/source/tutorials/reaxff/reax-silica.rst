@@ -51,7 +51,7 @@ Relax the amorphous silica structure
 
     The Atoms section of the *silica.data* file starts like that:
 
-..  code-block:: bash
+..  code-block:: lammps
 
     Atoms # full
 
@@ -84,7 +84,7 @@ Relax the amorphous silica structure
 
     Create an input file called input.lammps in RelaxSilica/, and copy in it: 
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in RelaxSilica/input.lammps*
 
     units real
@@ -100,7 +100,7 @@ Relax the amorphous silica structure
     So far, the input is very silica to what is seen in the other tutorials here.
     Now let us enter the 3 most important line of a reaxff simulation:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in RelaxSilica/input.lammps*
 
     pair_style reaxff NULL safezone 3.0 mincap 150
@@ -128,7 +128,7 @@ Relax the amorphous silica structure
     neighbor lists. Let us also
     print thermodynamic information as well as the charge of both atom types.
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in RelaxSilica/input.lammps*
 
     neighbor 0.5 bin
@@ -153,7 +153,7 @@ Relax the amorphous silica structure
     particle charges and positions in a dump file, and let us perform a very short
     run using anisotropic NPT, thus allowing for the box to relax. 
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in RelaxSilica/input.lammps*
 
     velocity all create 300.0 3482028
@@ -229,7 +229,7 @@ Deform the structure
     Next to RelaxSilica/, create a folder, call it Deform/ and create a
     file named input.lammps in it. Copy the following lines:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in Deform/input.lammps*
 
     # SiO amorphous silica deformed with reaxff potential
