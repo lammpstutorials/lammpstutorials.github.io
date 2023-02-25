@@ -48,7 +48,7 @@ Bulk water
    an empty text file named input.lammps. Copy the following
    lines in it:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
 
    # LAMMPS input script
@@ -133,7 +133,7 @@ Bulk water
    and 7 for the PEG molecule (see below)), 6 bond types, 9
    angle types, and 14 dihedrals types.
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
 
    region box block -40 40 -15 15 -15 15
@@ -156,7 +156,7 @@ Bulk water
    parameters (masses, interaction energies, bond equilibrium
    distances, etc):
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
 
    include ../PARM.lammps
@@ -166,7 +166,7 @@ Bulk water
    Next to the pureH2O/ folder, create a blank file called
    PARM.lammps and copy the following lines in it:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in PARM.lammps*
 
    # Mass
@@ -238,7 +238,7 @@ Bulk water
    define a water molecule using a molecule template called
    H2OTip4p.txt, and randomly create 700 of those.
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
 
    molecule h2omol H2OTip4p.txt
@@ -263,7 +263,7 @@ Bulk water
    Then, let us group the atoms of the water in a group named
    H2O, and then delete the overlapping molecules:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
 
    group H2O type 1 2
@@ -281,7 +281,7 @@ Bulk water
    shape of the water molecules. Let us also use the fix NPT to
    control both the temperature and the pressure:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
 
    fix myshk H2O shake 1.0e-5 200 0 b 1 a 1 mol h2omol
@@ -311,7 +311,7 @@ Bulk water
    density every 100 timesteps in 3 separate data files, and
    print the information in the terminal every 1000 timesteps:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
 
    dump mydmp all atom 1000 dump.lammpstrj
@@ -337,7 +337,7 @@ Bulk water
    Finally, let us set the timestep to 2.0 fs (allowed
    because we use shake), and run the simulation for 50 ps:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
 
    timestep 2.0
@@ -423,7 +423,7 @@ PEG molecule
    singlePEG/, and create a new blank file called input.lammps
    in it. Copy the same first lines as previously:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in singlePEG/input.lammps*
 
    units real
@@ -440,7 +440,7 @@ PEG molecule
    Lennard-Jones and Coulomb interactions between the closest
    atoms of a same molecule:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in singlePEG/input.lammps*
 
    special_bonds lj 0.0 0.0 0.5
@@ -450,7 +450,7 @@ PEG molecule
    Let us include the original position of the PEG molecule, as
    well as the same parameter file as previously:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in singlePEG/input.lammps*
 
    read_data init.data
@@ -485,7 +485,7 @@ PEG molecule
    information very frequently (because we anticipate that the
    energy minimization will be short):
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in singlePEG/input.lammps*
 
    dump mydmp all atom 10 dump.lammpstrj
@@ -497,7 +497,7 @@ PEG molecule
    step is required because the initial configuration of the
    PEG molecule is really far from equilibrium.
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in singlePEG/input.lammps*
 
    minimize 1.0e-4 1.0e-6 100 1000
@@ -509,7 +509,7 @@ PEG molecule
    used (see below). We also reset the time to 0 with
    reset_timestep command:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in singlePEG/input.lammps*
 
    undump mydmp
@@ -521,7 +521,7 @@ PEG molecule
    temperature control = NVT). No box relaxation is required as
    the PEG is in vacuum:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in singlePEG/input.lammps*
 
    fix mynve all nve
@@ -531,7 +531,7 @@ PEG molecule
 
    Let us print the temperature in a file:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in singlePEG/input.lammps*
 
    dump mydmp all atom 1000 dump.lammpstrj
@@ -546,7 +546,7 @@ PEG molecule
    in the existing dump.lammpstrj file. 
    Finally let us run the simulation for a very short time (10 ps):
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in singlePEG/input.lammps*
 
    timestep 1
@@ -594,7 +594,7 @@ Solvation of the PEG molecule
    called input.lammps. Copy the same first lines as
    previously in it:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in mergePEGH2O/input.lammps*
 
    units real
@@ -610,7 +610,7 @@ Solvation of the PEG molecule
 
    Then, import the two previously generated data files:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in mergePEGH2O/input.lammps*
 
    read_data ../singlePEG/PEG.data
@@ -624,7 +624,7 @@ Solvation of the PEG molecule
    simulation box is only initialized by the first read_data.
    Let us create 2 groups to differentiate the PEG from the H2O:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in mergePEGH2O/input.lammps*
 
    group H2O type 1 2
@@ -635,7 +635,7 @@ Solvation of the PEG molecule
    Water molecules that are overlapping with the PEG must be
    deleted to avoid crashing:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in mergePEGH2O/input.lammps*
 
    delete_atoms overlap 2.0 H2O PEG mol yes
@@ -651,7 +651,7 @@ Solvation of the PEG molecule
    molecules as rigid, and use the NPT command to control the
    temperature, as well as the pressure along x:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in mergePEGH2O/input.lammps*
 
    fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
@@ -666,7 +666,7 @@ Solvation of the PEG molecule
    Once more, let us dump the atom positions and a few
    information about the evolution simulation:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in mergePEGH2O/input.lammps*
 
    dump mydmp all atom 100 dump.lammpstrj
@@ -680,7 +680,7 @@ Solvation of the PEG molecule
 
    Let us also print the total enthalpy:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in mergePEGH2O/input.lammps*
 
    variable myenthalpy equal enthalpy
@@ -691,7 +691,7 @@ Solvation of the PEG molecule
    Finally, let us perform a short equilibration and print the
    final state in a data file:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in mergePEGH2O/input.lammps*
 
    run 10000
@@ -729,7 +729,7 @@ Stretching the PEG molecule
    and PEG molecules (it was chosen by trial and error). Copy
    in the input file:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pullonPEG/input.lammps*
 
    variable f0 equal 5 # kcal/mol/A # 1 kcal/mol/A = 67.2 pN
@@ -738,7 +738,7 @@ Stretching the PEG molecule
 
    Then, as previouly, copy:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pullonPEG/input.lammps*
 
    units real
@@ -755,7 +755,7 @@ Stretching the PEG molecule
    Start the simulation from the equilibrated PEG + water
    system, and include again the parameters:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pullonPEG/input.lammps*
 
    read_data ../mergePEGH2O/mix.data
@@ -768,7 +768,7 @@ Stretching the PEG molecule
    corresponding respectively to the oxygen atoms ocated at the
    ends of the PEG molecule:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pullonPEG/input.lammps*
 
    group H2O type 1 2
@@ -780,7 +780,7 @@ Stretching the PEG molecule
 
    Let us print again the atom positions in a dump:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pullonPEG/input.lammps*
 
    dump mydmp all atom 1000 dump.lammpstrj
@@ -797,7 +797,7 @@ Stretching the PEG molecule
 
    Let us use a simple thermostating and shake:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pullonPEG/input.lammps*
 
    timestep 1
@@ -807,7 +807,7 @@ Stretching the PEG molecule
 Let us print the end-to-end distance of the PEG (and the
 temperature of the entire system):
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pullonPEG/input.lammps*
 
    variable mytemp equal temp
@@ -827,7 +827,7 @@ temperature of the entire system):
    Finally, let us run the simulation for 10 ps (without
    any external forcing):
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pullonPEG/input.lammps*
 
    run 10000
@@ -838,7 +838,7 @@ temperature of the entire system):
    add_force commands, and run for 100 ps (for a total duration
    of the simulation of 110 ps):
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in pullonPEG/input.lammps*
 
    fix myaf1 oxygen_end1 addforce ${f0} 0 0
@@ -916,7 +916,7 @@ Going further with exercises
 
    Hint: you can import lammpstrj file using MDAnalysis:
 
-::
+..  code-block:: python
 
    u = mda.Universe("dump.lammpstrj", format = "LAMMPSDUMP")
 

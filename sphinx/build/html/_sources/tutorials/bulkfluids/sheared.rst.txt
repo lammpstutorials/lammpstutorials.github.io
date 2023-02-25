@@ -48,7 +48,7 @@ System generation
     page in it using a text editor, and call it input.lammps.
     Copy the following lines into input.lammps:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in SystemCreation/input.lammps*
 
     # LAMMPS input file
@@ -64,7 +64,7 @@ System generation
     Let us create the box: copy the following lines into the
     input file:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in SystemCreation/input.lammps*
 
     # ------------- System definition
@@ -105,7 +105,7 @@ System generation
     regions. Then we create atoms of type 5 within the two
     regions:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in SystemCreation/input.lammps*
 
     # create the walls
@@ -127,7 +127,7 @@ System generation
     positions, bonds, and angle. Then, add the following lines
     to input.lammps:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in SystemCreation/input.lammps*
 
     # create the fluid
@@ -159,7 +159,7 @@ System generation
     Cl-) in between the water molecules by adding these
     two lines to input.01.lammps:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in SystemCreation/input.lammps*
 
     fix mydep1 all deposit 10 3 1 56513 region rliquid near 0.3
@@ -180,7 +180,7 @@ System generation
     Lennard-Jones potential), and the bond and angle parameters.
     Copy the following line into input.lammps:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in SystemCreation/input.lammps*
 
     # settings
@@ -192,7 +192,7 @@ System generation
     next to the SystemCreation/ folder. Copy the following lines
     into PARM.lammps:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in PARM.lammps*
 
     # Parameter file
@@ -249,7 +249,7 @@ System generation
 
     Finally, add the following lines to the input file:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in SystemCreation/input.lammps*
 
     # run
@@ -336,7 +336,7 @@ Energy minimisation
     input file named input.lammps in it. The first lines will be
     very similar to the previous input file:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Minimization/input.lammps*
 
     # Initialisation
@@ -364,7 +364,7 @@ Energy minimisation
 
 Next, let us create a group for the water:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Minimization/input.lammps*
 
     group gH2O type 1 2
@@ -376,7 +376,7 @@ Next, let us create a group for the water:
 
     Let us print the atoms positions in a dump file:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Minimization/input.lammps*
 
     dump mydmp all atom 1000 dump.lammpstrj
@@ -386,7 +386,7 @@ Next, let us create a group for the water:
     Now, we can include the most important commands for the
     minimization:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Minimization/input.lammps*
 
     fix mynve all nve/limit 0.1
@@ -418,7 +418,7 @@ Next, let us create a group for the water:
     to maintain the system centered in the middle of the box in
     the \\(z\\) direction.
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Minimization/input.lammps*
 
     fix myshk gH2O shake 1.0e-4 200 0 b 1 a 1
@@ -434,7 +434,7 @@ Next, let us create a group for the water:
     1000, thermodynamic info are printed in the terminal every
     1000 timesteps).
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Minimization/input.lammps*
 
     timestep 0.5
@@ -498,7 +498,7 @@ System equilibration
     Create a new folder called Equilibration/, create a new
     input file in it. Add the following lines:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Equilibration/input.lammps*
 
     # Initialisation
@@ -541,7 +541,7 @@ System equilibration
 
     Then, add the following lines for the visualisation :
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Equilibration/input.lammps*
 
     # visualisation
@@ -560,7 +560,7 @@ System equilibration
 
     Finally, add the end of the input:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Equilibration/input.lammps*
 
     # Dynamics
@@ -629,7 +629,7 @@ Imposed nanoshearing
     shearing of the two walls. In a new folder called Shearing/,
     create a new input that starts like the previous ones:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Shearing/input.lammps*
 
     # Initialisation
@@ -684,7 +684,7 @@ Imposed nanoshearing
     Then, let us cancel the forces along x on each walls,
     and set the value of the velocity along x:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Shearing/input.lammps*
 
     fix mysf1 gwalltop setforce 0 NULL NULL
@@ -709,7 +709,7 @@ Imposed nanoshearing
     force applied on the walls, and then run for 20 ps (or 200 ps if you 
     comment/uncomment the appropriate lines):
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in Shearing/input.lammps*
 
     # vizualisation

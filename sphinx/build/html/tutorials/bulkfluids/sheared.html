@@ -273,13 +273,13 @@ Copy the following lines into input.lammps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># LAMMPS input file</span>
-<span class="w"> </span>units<span class="w"> </span>real
-<span class="w"> </span>atom_style<span class="w"> </span>full
-<span class="w"> </span>bond_style<span class="w"> </span>harmonic
-<span class="w"> </span>angle_style<span class="w"> </span>harmonic
-<span class="w"> </span>pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
-<span class="w"> </span>kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># LAMMPS input file</span>
+<span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="n">real</span>
+<span class="w"> </span><span class="n">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="w"> </span><span class="n">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="w"> </span><span class="n">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="w"> </span><span class="n">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
+<span class="w"> </span><span class="n">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 </pre></div>
 </div>
 </div>
@@ -289,15 +289,15 @@ input file:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># ------------- System definition</span>
-<span class="w"> </span>lattice<span class="w"> </span>fcc<span class="w"> </span><span class="m">4</span>.04
-<span class="w"> </span>region<span class="w"> </span>box<span class="w"> </span>block<span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-13<span class="w"> </span><span class="m">13</span>
-<span class="w"> </span>create_box<span class="w"> </span><span class="m">5</span><span class="w"> </span>box<span class="w"> </span><span class="p">&amp;</span>
-<span class="w">             </span>bond/types<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">             </span>angle/types<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">             </span>extra/bond/per/atom<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">             </span>extra/angle/per/atom<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">             </span>extra/special/per/atom<span class="w"> </span><span class="m">2</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># ------------- System definition</span>
+<span class="w"> </span><span class="n">lattice</span><span class="w"> </span><span class="n">fcc</span><span class="w"> </span><span class="m">4.04</span>
+<span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">13</span><span class="w"> </span><span class="m">13</span>
+<span class="w"> </span><span class="n">create_box</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">             </span><span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">             </span><span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">             </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">             </span><span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">             </span><span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
 </div>
@@ -328,11 +328,11 @@ regions:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># create the walls</span>
-<span class="w"> </span>region<span class="w"> </span>rbotwall<span class="w"> </span>block<span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-12<span class="w"> </span>-10
-<span class="w"> </span>region<span class="w"> </span>rtopwall<span class="w"> </span>block<span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">12</span>
-<span class="w"> </span>region<span class="w"> </span>rwall<span class="w"> </span>union<span class="w"> </span><span class="m">2</span><span class="w"> </span>rbotwall<span class="w"> </span>rtopwall
-<span class="w"> </span>create_atoms<span class="w"> </span><span class="m">5</span><span class="w"> </span>region<span class="w"> </span>rwall
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># create the walls</span>
+<span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbotwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">12</span><span class="w"> </span><span class="o">-</span><span class="m">10</span>
+<span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtopwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">12</span>
+<span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rwall</span><span class="w"> </span><span class="n">union</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">rbotwall</span><span class="w"> </span><span class="n">rtopwall</span>
+<span class="w"> </span><span class="n">create_atoms</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rwall</span>
 </pre></div>
 </div>
 </div>
@@ -349,11 +349,11 @@ to input.lammps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># create the fluid</span>
-<span class="w"> </span>region<span class="w"> </span>rliquid<span class="w"> </span>block<span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-4<span class="w"> </span><span class="m">4</span><span class="w"> </span>-9<span class="w"> </span><span class="m">9</span>
-<span class="w"> </span>molecule<span class="w"> </span>h2omol<span class="w"> </span>TIP4P2005.txt
-<span class="w"> </span>lattice<span class="w"> </span>sc<span class="w"> </span><span class="m">4</span>.04
-<span class="w"> </span>create_atoms<span class="w"> </span><span class="m">0</span><span class="w"> </span>region<span class="w"> </span>rliquid<span class="w"> </span>mol<span class="w"> </span>h2omol<span class="w"> </span><span class="m">482793</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># create the fluid</span>
+<span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">9</span><span class="w"> </span><span class="m">9</span>
+<span class="w"> </span><span class="n">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">TIP4P2005.txt</span>
+<span class="w"> </span><span class="n">lattice</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="m">4.04</span>
+<span class="w"> </span><span class="n">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">482793</span>
 </pre></div>
 </div>
 </div>
@@ -380,8 +380,8 @@ two lines to input.01.lammps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>fix<span class="w"> </span>mydep1<span class="w"> </span>all<span class="w"> </span>deposit<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">56513</span><span class="w"> </span>region<span class="w"> </span>rliquid<span class="w"> </span>near<span class="w"> </span><span class="m">0</span>.3
-<span class="w"> </span>fix<span class="w"> </span>mydep2<span class="w"> </span>all<span class="w"> </span>deposit<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">58613</span><span class="w"> </span>region<span class="w"> </span>rliquid<span class="w"> </span>near<span class="w"> </span><span class="m">0</span>.3
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">mydep1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">deposit</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">56513</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">near</span><span class="w"> </span><span class="m">0.3</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">mydep2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">deposit</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">58613</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">near</span><span class="w"> </span><span class="m">0.3</span>
 </pre></div>
 </div>
 </div>
@@ -400,8 +400,8 @@ Copy the following line into input.lammps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># settings</span>
-<span class="w"> </span>include<span class="w"> </span>../PARM.lammps
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># settings</span>
+<span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 </pre></div>
 </div>
 </div>
@@ -412,22 +412,22 @@ into PARM.lammps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in PARM.lammps</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Parameter file</span>
-<span class="w"> </span>mass<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">15</span>.9994<span class="w"> </span><span class="c1"># water</span>
-<span class="w"> </span>mass<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span>.008<span class="w"> </span><span class="c1"># water</span>
-<span class="w"> </span>mass<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">28</span>.990<span class="w"> </span><span class="c1"># ion</span>
-<span class="w"> </span>mass<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">35</span>.453<span class="w"> </span><span class="c1"># ion</span>
-<span class="w"> </span>mass<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">26</span>.9815<span class="w"> </span><span class="c1"># wall</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># Parameter file</span>
+<span class="w"> </span><span class="n">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">15.9994</span><span class="w"> </span><span class="c"># water</span>
+<span class="w"> </span><span class="n">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1.008</span><span class="w"> </span><span class="c"># water</span>
+<span class="w"> </span><span class="n">mass</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">28.990</span><span class="w"> </span><span class="c"># ion</span>
+<span class="w"> </span><span class="n">mass</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">35.453</span><span class="w"> </span><span class="c"># ion</span>
+<span class="w"> </span><span class="n">mass</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">26.9815</span><span class="w"> </span><span class="c"># wall</span>
 
-<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.185199<span class="w"> </span><span class="m">3</span>.1589<span class="w"> </span><span class="c1"># water</span>
-<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="c1"># water</span>
-<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0</span>.04690<span class="w"> </span><span class="m">2</span>.4299<span class="w"> </span><span class="c1"># ion</span>
-<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0</span>.1500<span class="w"> </span><span class="m">4</span>.04470<span class="w"> </span><span class="c1"># ion</span>
-<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">11</span>.697<span class="w"> </span><span class="m">2</span>.574<span class="w"> </span><span class="c1"># wall</span>
+<span class="w"> </span><span class="n">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.185199</span><span class="w"> </span><span class="m">3.1589</span><span class="w"> </span><span class="c"># water</span>
+<span class="w"> </span><span class="n">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="c"># water</span>
+<span class="w"> </span><span class="n">pair_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0.04690</span><span class="w"> </span><span class="m">2.4299</span><span class="w"> </span><span class="c"># ion</span>
+<span class="w"> </span><span class="n">pair_coeff</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0.1500</span><span class="w"> </span><span class="m">4.04470</span><span class="w"> </span><span class="c"># ion</span>
+<span class="w"> </span><span class="n">pair_coeff</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">11.697</span><span class="w"> </span><span class="m">2.574</span><span class="w"> </span><span class="c"># wall</span>
 
-<span class="w"> </span>bond_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>.9572<span class="w"> </span><span class="c1"># water</span>
+<span class="w"> </span><span class="n">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.9572</span><span class="w"> </span><span class="c"># water</span>
 
-<span class="w"> </span>angle_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104</span>.52<span class="w"> </span><span class="c1"># water</span>
+<span class="w"> </span><span class="n">angle_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104.52</span><span class="w"> </span><span class="c"># water</span>
 </pre></div>
 </div>
 </div>
@@ -465,14 +465,14 @@ potential (also 0) and the equilibrium angle is in degree.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># run</span>
-<span class="w"> </span>run<span class="w"> </span><span class="m">10</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># run</span>
+<span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="m">10</span>
 
-<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>charge<span class="w"> </span><span class="m">1</span>.0
-<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>charge<span class="w"> </span>-1.0
+<span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="m">1.0</span>
+<span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="o">-</span><span class="m">1.0</span>
 
-<span class="w"> </span>write_data<span class="w"> </span>system.data
-<span class="w"> </span>write_dump<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span>dump.lammpstrj
+<span class="w"> </span><span class="n">write_data</span><span class="w"> </span><span class="n">system.data</span>
+<span class="w"> </span><span class="k">write_dump </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
 </div>
 </div>
@@ -550,20 +550,20 @@ very similar to the previous input file:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id10" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Initialisation</span>
-<span class="w"> </span>boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
-<span class="w"> </span>units<span class="w"> </span>real
-<span class="w"> </span>atom_style<span class="w"> </span>full
-<span class="w"> </span>bond_style<span class="w"> </span>harmonic
-<span class="w"> </span>angle_style<span class="w"> </span>harmonic
-<span class="w"> </span>pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
-<span class="w"> </span>kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># Initialisation</span>
+<span class="w"> </span><span class="n">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="n">real</span>
+<span class="w"> </span><span class="n">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="w"> </span><span class="n">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="w"> </span><span class="n">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="w"> </span><span class="n">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
+<span class="w"> </span><span class="n">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 
-<span class="w"> </span><span class="c1"># System definition</span>
-<span class="w"> </span>read_data<span class="w"> </span>../SystemCreation/system.data
+<span class="w"> </span><span class="c"># System definition</span>
+<span class="w"> </span><span class="n">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">SystemCreation</span><span class="o">/</span><span class="n">system.data</span>
 
-<span class="w"> </span><span class="c1"># settings</span>
-<span class="w"> </span>include<span class="w"> </span>../PARM.lammps
+<span class="w"> </span><span class="c"># settings</span>
+<span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 </pre></div>
 </div>
 </div>
@@ -577,7 +577,7 @@ atoms.</p>
 <p>Next, let us create a group for the water:</p>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id11" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>group<span class="w"> </span>gH2O<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
 </div>
@@ -588,7 +588,7 @@ liquid and to the walls.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.lammpstrj
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
 </div>
 </div>
@@ -598,8 +598,8 @@ minimization:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id13" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve/limit<span class="w"> </span><span class="m">0</span>.1
-<span class="w"> </span>fix<span class="w"> </span>myber<span class="w"> </span>all<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span><span class="o">/</span><span class="n">limit</span><span class="w"> </span><span class="m">0.1</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
 </div>
@@ -628,8 +628,8 @@ the \(z\) direction.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id14" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>fix<span class="w"> </span>myshk<span class="w"> </span>gH2O<span class="w"> </span>shake<span class="w"> </span><span class="m">1</span>.0e-4<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>b<span class="w"> </span><span class="m">1</span><span class="w"> </span>a<span class="w"> </span><span class="m">1</span>
-<span class="w"> </span>fix<span class="w"> </span>myrct<span class="w"> </span>all<span class="w"> </span>recenter<span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span>INIT
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">INIT</span>
 </pre></div>
 </div>
 </div>
@@ -643,10 +643,10 @@ others) and run for 1000 timesteps (with the command thermo
 </div>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id15" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>timestep<span class="w"> </span><span class="m">0</span>.5
-<span class="w"> </span>thermo<span class="w"> </span><span class="m">50</span>
-<span class="w"> </span>run<span class="w"> </span><span class="m">10000</span>
-<span class="w"> </span>write_data<span class="w"> </span>system.data
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="n">timestep</span><span class="w"> </span><span class="m">0.5</span>
+<span class="w"> </span><span class="n">thermo</span><span class="w"> </span><span class="m">50</span>
+<span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="m">10000</span>
+<span class="w"> </span><span class="n">write_data</span><span class="w"> </span><span class="n">system.data</span>
 </pre></div>
 </div>
 </div>
@@ -699,33 +699,33 @@ input file in it. Add the following lines:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id17">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id17" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Initialisation</span>
-<span class="w"> </span>boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
-<span class="w"> </span>units<span class="w"> </span>real
-<span class="w"> </span>atom_style<span class="w"> </span>full
-<span class="w"> </span>bond_style<span class="w"> </span>harmonic
-<span class="w"> </span>angle_style<span class="w"> </span>harmonic
-<span class="w"> </span>pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
-<span class="w"> </span>kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># Initialisation</span>
+<span class="w"> </span><span class="n">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="n">real</span>
+<span class="w"> </span><span class="n">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="w"> </span><span class="n">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="w"> </span><span class="n">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="w"> </span><span class="n">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
+<span class="w"> </span><span class="n">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 
-<span class="w"> </span><span class="c1"># System definition</span>
-<span class="w"> </span>read_data<span class="w"> </span>../Minimization/system.data
+<span class="w"> </span><span class="c"># System definition</span>
+<span class="w"> </span><span class="n">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Minimization</span><span class="o">/</span><span class="n">system.data</span>
 
-<span class="w"> </span><span class="c1"># Simulation settings</span>
-<span class="w"> </span>include<span class="w"> </span>../PARM.lammps
+<span class="w"> </span><span class="c"># Simulation settings</span>
+<span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 
-<span class="w"> </span><span class="c1"># Define groups</span>
-<span class="w"> </span>group<span class="w"> </span>gH2O<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
-<span class="w"> </span>group<span class="w"> </span>gNa<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span>
-<span class="w"> </span>group<span class="w"> </span>gCl<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">4</span>
-<span class="w"> </span>group<span class="w"> </span>gliquid<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
-<span class="w"> </span>group<span class="w"> </span>gwall<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">5</span>
-<span class="w"> </span>region<span class="w"> </span>rtop<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="m">0</span><span class="w"> </span>INF
-<span class="w"> </span>region<span class="w"> </span>rbot<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="m">0</span>
-<span class="w"> </span>group<span class="w"> </span>gtop<span class="w"> </span>region<span class="w"> </span>rtop
-<span class="w"> </span>group<span class="w"> </span>gbot<span class="w"> </span>region<span class="w"> </span>rbot
-<span class="w"> </span>group<span class="w"> </span>gwalltop<span class="w"> </span>intersect<span class="w"> </span>gwall<span class="w"> </span>gtop
-<span class="w"> </span>group<span class="w"> </span>gwallbot<span class="w"> </span>intersect<span class="w"> </span>gwall<span class="w"> </span>gbot
+<span class="w"> </span><span class="c"># Define groups</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gNa</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gCl</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">5</span>
+<span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtop</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">INF</span>
+<span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gtop</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtop</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gbot</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">gwall</span><span class="w"> </span><span class="n">gtop</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">gwall</span><span class="w"> </span><span class="n">gbot</span>
 </pre></div>
 </div>
 </div>
@@ -741,13 +741,13 @@ all the atom of type 5 (gwall) corresponds to the top wall.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id18">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id18" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># visualisation</span>
-<span class="w"> </span>dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.lammpstrj
-<span class="w"> </span>thermo<span class="w"> </span><span class="m">50</span>
-<span class="w"> </span>variable<span class="w"> </span>walltopz<span class="w"> </span>equal<span class="w"> </span>xcm<span class="o">(</span>gwalltop,z<span class="o">)</span>
-<span class="w"> </span>variable<span class="w"> </span>wallbotz<span class="w"> </span>equal<span class="w"> </span>xcm<span class="o">(</span>gwallbot,z<span class="o">)</span>
-<span class="w"> </span>variable<span class="w"> </span>deltaz<span class="w"> </span>equal<span class="w"> </span>v_walltopz-v_wallbotz
-<span class="w"> </span>fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_deltaz<span class="w"> </span>file<span class="w"> </span>interwall_distance.dat
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># visualisation</span>
+<span class="w"> </span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
+<span class="w"> </span><span class="n">thermo</span><span class="w"> </span><span class="m">50</span>
+<span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="n">walltopz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(gwalltop,z)</span>
+<span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="n">wallbotz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(gwallbot,z)</span>
+<span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="n">deltaz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_walltopz</span><span class="o">-</span><span class="n">v_wallbotz</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_deltaz</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">interwall_distance.dat</span>
 </pre></div>
 </div>
 </div>
@@ -759,20 +759,20 @@ calculates the difference between the two centers of mass.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id19">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id19" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Dynamics</span>
-<span class="w"> </span>fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
-<span class="w"> </span>compute<span class="w"> </span>tliq<span class="w"> </span>gliquid<span class="w"> </span>temp
-<span class="w"> </span>fix<span class="w"> </span>myber1<span class="w"> </span>gliquid<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="w"> </span>fix_modify<span class="w"> </span>myber1<span class="w"> </span>temp<span class="w"> </span>tliq
-<span class="w"> </span>compute<span class="w"> </span>twall<span class="w"> </span>gwall<span class="w"> </span>temp
-<span class="w"> </span>fix<span class="w"> </span>myber2<span class="w"> </span>gwall<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="w"> </span>fix_modify<span class="w"> </span>myber2<span class="w"> </span>temp<span class="w"> </span>twall
-<span class="w"> </span>fix<span class="w"> </span>myshk<span class="w"> </span>gH2O<span class="w"> </span>shake<span class="w"> </span><span class="m">1</span>.0e-4<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>b<span class="w"> </span><span class="m">1</span><span class="w"> </span>a<span class="w"> </span><span class="m">1</span>
-<span class="w"> </span>fix<span class="w"> </span>myrct<span class="w"> </span>all<span class="w"> </span>recenter<span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span>INIT
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># Dynamics</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+<span class="w"> </span><span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="w"> </span><span class="n">fix_modify</span><span class="w"> </span><span class="n">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
+<span class="w"> </span><span class="k">compute </span><span class="nv nv-Identifier">twall</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="w"> </span><span class="n">fix_modify</span><span class="w"> </span><span class="n">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">twall</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">INIT</span>
 
-<span class="w"> </span>timestep<span class="w"> </span><span class="m">1</span>.0
-<span class="w"> </span>run<span class="w"> </span><span class="m">20000</span>
-<span class="w"> </span>write_data<span class="w"> </span>system.data
+<span class="w"> </span><span class="n">timestep</span><span class="w"> </span><span class="m">1.0</span>
+<span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="m">20000</span>
+<span class="w"> </span><span class="n">write_data</span><span class="w"> </span><span class="n">system.data</span>
 </pre></div>
 </div>
 </div>
@@ -831,45 +831,45 @@ create a new input that starts like the previous ones:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id21">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id21" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Initialisation</span>
-<span class="w"> </span>boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
-<span class="w"> </span>units<span class="w"> </span>real
-<span class="w"> </span>atom_style<span class="w"> </span>full
-<span class="w"> </span>bond_style<span class="w"> </span>harmonic
-<span class="w"> </span>angle_style<span class="w"> </span>harmonic
-<span class="w"> </span>pair_style<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">12</span>.0
-<span class="w"> </span>kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># Initialisation</span>
+<span class="w"> </span><span class="n">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="n">real</span>
+<span class="w"> </span><span class="n">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="w"> </span><span class="n">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="w"> </span><span class="n">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="w"> </span><span class="n">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
+<span class="w"> </span><span class="n">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 
-<span class="w"> </span><span class="c1"># System definition</span>
-<span class="w"> </span>read_data<span class="w"> </span>../Equilibration/system.data
-<span class="w"> </span>change_box<span class="w"> </span>all<span class="w"> </span>z<span class="w"> </span>final<span class="w"> </span>-40<span class="w"> </span><span class="m">40</span>
+<span class="w"> </span><span class="c"># System definition</span>
+<span class="w"> </span><span class="n">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Equilibration</span><span class="o">/</span><span class="n">system.data</span>
+<span class="w"> </span><span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">40</span><span class="w"> </span><span class="m">40</span>
 
-<span class="w"> </span><span class="c1"># Simulation settings</span>
-<span class="w"> </span>include<span class="w"> </span>../PARM.lammps
+<span class="w"> </span><span class="c"># Simulation settings</span>
+<span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 
-<span class="w"> </span><span class="c1"># Groups</span>
-<span class="w"> </span>group<span class="w"> </span>gH2O<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
-<span class="w"> </span>group<span class="w"> </span>gNa<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span>
-<span class="w"> </span>group<span class="w"> </span>gCl<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">4</span>
-<span class="w"> </span>group<span class="w"> </span>gliquid<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
-<span class="w"> </span>group<span class="w"> </span>gwall<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">5</span>
-<span class="w"> </span>region<span class="w"> </span>rtop<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="m">0</span><span class="w"> </span>INF
-<span class="w"> </span>region<span class="w"> </span>rbot<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="m">0</span>
-<span class="w"> </span>group<span class="w"> </span>gtop<span class="w"> </span>region<span class="w"> </span>rtop
-<span class="w"> </span>group<span class="w"> </span>gbot<span class="w"> </span>region<span class="w"> </span>rbot
-<span class="w"> </span>group<span class="w"> </span>gwalltop<span class="w"> </span>intersect<span class="w"> </span>gwall<span class="w"> </span>gtop
-<span class="w"> </span>group<span class="w"> </span>gwallbot<span class="w"> </span>intersect<span class="w"> </span>gwall<span class="w"> </span>gbot
+<span class="w"> </span><span class="c"># Groups</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gNa</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gCl</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">5</span>
+<span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtop</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">INF</span>
+<span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gtop</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtop</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gbot</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">gwall</span><span class="w"> </span><span class="n">gtop</span>
+<span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">gwall</span><span class="w"> </span><span class="n">gbot</span>
 
-<span class="w"> </span><span class="c1"># Dynamics</span>
-<span class="w"> </span>fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
-<span class="w"> </span>compute<span class="w"> </span>tliq<span class="w"> </span>gliquid<span class="w"> </span>temp/partial<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
-<span class="w"> </span>fix<span class="w"> </span>myber1<span class="w"> </span>gliquid<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="w"> </span>fix_modify<span class="w"> </span>myber1<span class="w"> </span>temp<span class="w"> </span>tliq
-<span class="w"> </span>compute<span class="w"> </span>twall<span class="w"> </span>gwall<span class="w"> </span>temp/partial<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
-<span class="w"> </span>fix<span class="w"> </span>myber2<span class="w"> </span>gwall<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="w"> </span>fix_modify<span class="w"> </span>myber2<span class="w"> </span>temp<span class="w"> </span>twall
-<span class="w"> </span>fix<span class="w"> </span>myshk<span class="w"> </span>gH2O<span class="w"> </span>shake<span class="w"> </span><span class="m">1</span>.0e-4<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>b<span class="w"> </span><span class="m">1</span><span class="w"> </span>a<span class="w"> </span><span class="m">1</span>
-<span class="w"> </span>fix<span class="w"> </span>myrct<span class="w"> </span>all<span class="w"> </span>recenter<span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span>INIT
+<span class="w"> </span><span class="c"># Dynamics</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+<span class="w"> </span><span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="w"> </span><span class="n">fix_modify</span><span class="w"> </span><span class="n">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
+<span class="w"> </span><span class="k">compute </span><span class="nv nv-Identifier">twall</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="w"> </span><span class="n">fix_modify</span><span class="w"> </span><span class="n">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">twall</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">INIT</span>
 </pre></div>
 </div>
 </div>
@@ -885,10 +885,10 @@ and set the value of the velocity along x:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id22">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id22" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>fix<span class="w"> </span>mysf1<span class="w"> </span>gwalltop<span class="w"> </span>setforce<span class="w"> </span><span class="m">0</span><span class="w"> </span>NULL<span class="w"> </span>NULL
-<span class="w"> </span>fix<span class="w"> </span>mysf2<span class="w"> </span>gwallbot<span class="w"> </span>setforce<span class="w"> </span><span class="m">0</span><span class="w"> </span>NULL<span class="w"> </span>NULL
-<span class="w"> </span>velocity<span class="w"> </span>gwallbot<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-20e-5<span class="w"> </span>NULL<span class="w"> </span>NULL
-<span class="w"> </span>velocity<span class="w"> </span>gwalltop<span class="w"> </span><span class="nb">set</span><span class="w"> </span>20e-5<span class="w"> </span>NULL<span class="w"> </span>NULL
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="n">gwallbot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">-</span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="n">gwalltop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 </pre></div>
 </div>
 </div>
@@ -908,25 +908,25 @@ comment/uncomment the appropriate lines):</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id23">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id23" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># vizualisation</span>
-<span class="w"> </span>dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">5000</span><span class="w"> </span>dump.lammpstrj
-<span class="w"> </span>thermo<span class="w"> </span><span class="m">500</span>
-<span class="w"> </span>thermo_modify<span class="w"> </span>temp<span class="w"> </span>tliq
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># vizualisation</span>
+<span class="w"> </span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
+<span class="w"> </span><span class="n">thermo</span><span class="w"> </span><span class="m">500</span>
+<span class="w"> </span><span class="n">thermo_modify</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
 
-<span class="w"> </span>compute<span class="w"> </span>cc1<span class="w"> </span>gliquid<span class="w"> </span>chunk/atom<span class="w"> </span>bin/1d<span class="w"> </span>z<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">1</span>.0
-<span class="w"> </span><span class="c1">#fix myac1 gliquid ave/chunk 10 15000 200000 cc1 vx file vel.profile.dat # tag:200ps</span>
-<span class="w"> </span>fix<span class="w"> </span>myac1<span class="w"> </span>gliquid<span class="w"> </span>ave/chunk<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1500</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span>cc1<span class="w"> </span>vx<span class="w"> </span>file<span class="w"> </span>vel.profile.dat<span class="w"> </span><span class="c1"># tag:20ps</span>
-<span class="w"> </span>compute<span class="w"> </span>cc2<span class="w"> </span>gwall<span class="w"> </span>chunk/atom<span class="w"> </span>bin/1d<span class="w"> </span>z<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">1</span>.0
-<span class="w"> </span>fix<span class="w"> </span>myac2<span class="w"> </span>gwall<span class="w"> </span>ave/chunk<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span>cc2<span class="w"> </span>vx<span class="w"> </span>file<span class="w"> </span>vel.solid.dat<span class="w"> </span><span class="c1"># tag:200ps</span>
-<span class="w"> </span><span class="c1">#fix myac2 gwall ave/chunk 10 1500 20000 cc2 vx file vel.solid.dat # tag:20ps</span>
+<span class="w"> </span><span class="k">compute </span><span class="nv nv-Identifier">cc1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="w"> </span><span class="c">#fix myac1 gliquid ave/chunk 10 15000 200000 cc1 vx file vel.profile.dat # tag:200ps</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myac1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1500</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="n">cc1</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">vel.profile.dat</span><span class="w"> </span><span class="c"># tag:20ps</span>
+<span class="w"> </span><span class="k">compute </span><span class="nv nv-Identifier">cc2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myac2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc2</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">vel.solid.dat</span><span class="w"> </span><span class="c"># tag:200ps</span>
+<span class="w"> </span><span class="c">#fix myac2 gwall ave/chunk 10 1500 20000 cc2 vx file vel.solid.dat # tag:20ps</span>
 
-<span class="w"> </span><span class="c1">#fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat # tag:200ps</span>
-<span class="w"> </span>fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span>f_mysf1<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>f_mysf2<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>file<span class="w"> </span>forces.dat<span class="w"> </span><span class="c1"># tag:20ps</span>
+<span class="w"> </span><span class="c">#fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat # tag:200ps</span>
+<span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">f_mysf1[1]</span><span class="w"> </span><span class="n">f_mysf2[1]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">forces.dat</span><span class="w"> </span><span class="c"># tag:20ps</span>
 
-<span class="w"> </span>timestep<span class="w"> </span><span class="m">1</span>.0
-<span class="w"> </span><span class="c1">#run 200000 # tag:200ps</span>
-<span class="w"> </span>run<span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="c1"># tag:20ps</span>
-<span class="w"> </span>write_data<span class="w"> </span>system.data
+<span class="w"> </span><span class="n">timestep</span><span class="w"> </span><span class="m">1.0</span>
+<span class="w"> </span><span class="c">#run 200000 # tag:200ps</span>
+<span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="c"># tag:20ps</span>
+<span class="w"> </span><span class="n">write_data</span><span class="w"> </span><span class="n">system.data</span>
 </pre></div>
 </div>
 </div>

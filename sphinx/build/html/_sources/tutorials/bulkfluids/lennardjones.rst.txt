@@ -100,7 +100,7 @@ The input script
     fill up one by one. Create a blank text file, call it
     'input1.lammps', and copy the following lines in it:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input1.lammps*
 
     # PART A - ENERGY MINIMIZATION
@@ -130,7 +130,7 @@ The input script
     single dots, spheres with angular velocities). Enter the
     following lines:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input1.lammps*
 
     # 1) Initialization
@@ -187,7 +187,7 @@ The input script
 
     Let us fill the second part the of the input script:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input1.lammps*
 
     # 2) System definition
@@ -235,7 +235,7 @@ The input script
 
     Let us fill the third section of the input script, the settings:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input1.lammps*
 
     # 3) Simulation settings
@@ -277,7 +277,7 @@ The input script
     The input script is almost done, let us just fill the
     'Visualization' and 'Run' sections:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input1.lammps*
 
     # 4) Visualization
@@ -353,7 +353,7 @@ The input script
     script, after the minimization command, add the following
     lines:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input1.lammps*
 
     # PART B - MOLECULAR DYNAMICS
@@ -441,7 +441,7 @@ The input script
     the neighbor lists. Let us add the following command in the
     'Simulation settings' section:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in input1.lammps*
 
     neigh_modify every 1 delay 5 check yes
@@ -493,7 +493,7 @@ Trajectory visualisation
     interval. Add the following command in the 'visualization'
     section of PART 2:
 
-..  code-block:: bash
+..  code-block:: lammps
 
     dump mydmp all atom 1000 dump.lammpstrj
 
@@ -504,7 +504,7 @@ Trajectory visualisation
     VMD or Ovito. In Ubuntu, if VMD is installed, you can simply
     execute in the terminal:
 
-..  code-block:: bash
+..  code-block:: lammps
 
     vmd dump.lammpstrj
 
@@ -535,7 +535,7 @@ Improving the script
     in the previous part, copy the following lines
     into the input script:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in input2.lammps*
 
     # 1) Initialization
@@ -551,7 +551,7 @@ Improving the script
     and create two additional regions and generate
     atoms of type 1 and 2 in each region respectively.
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in input2.lammps*
 
     # 2) System definition
@@ -570,7 +570,7 @@ Improving the script
 
     We can write the remaining of the input script as follow:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in input2.lammps*
 
     # 3) Simulation settings
@@ -607,7 +607,7 @@ Improving the script
     simulation, such as the number of atoms and the size of
     the box:
 
-..  code-block:: bash
+..  code-block:: lammps
 
     1150 atoms
     2 atom types
@@ -621,7 +621,7 @@ Improving the script
     The minimized_coordinate.data file also contains the final
     positions and velocities of all the atoms:
 
-..  code-block:: bash
+..  code-block:: lammps
 
     Atoms # atomic
 
@@ -651,7 +651,7 @@ Restarting from a saved configuration
     saved configuration. In the same folder, create a new file
     named input3.lammps and copy the same lines as previously:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in input3.lammps*
 
     # 1) Initialization
@@ -666,7 +666,7 @@ Restarting from a saved configuration
     Now, instead of creating a new region and adding atoms, we
     simply add the following command:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input3.lammps*
 
     # 2) System definition
@@ -683,7 +683,7 @@ Restarting from a saved configuration
     1 outside the cylinder, let us delete the misplaced atoms
     by adding the following commands:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input3.lammps*
 
     region mycylin cylinder z 0 0 10 INF INF side in
@@ -724,7 +724,7 @@ Restarting from a saved configuration
     Similarly to previously, add the following simulation
     settings:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input3.lammps*
 
     # 3) Simulation settings
@@ -773,7 +773,7 @@ Restarting from a saved configuration
     Finally, let us complete the script by adding the run
     section:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input3.lammps*
 
     # 5) Run
