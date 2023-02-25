@@ -49,7 +49,7 @@ System generation
     Copy the following lines into input.lammps:
 
 ..  code-block:: lammps
-   :caption: *to be copied in SystemCreation/input.lammps*
+    :caption: *to be copied in SystemCreation/input.lammps*
 
     # LAMMPS input file
     units real
@@ -65,7 +65,7 @@ System generation
     input file:
 
 ..  code-block:: lammps
-   :caption: *to be copied in SystemCreation/input.lammps*
+    :caption: *to be copied in SystemCreation/input.lammps*
 
     # ------------- System definition
     lattice fcc 4.04
@@ -106,7 +106,7 @@ System generation
     regions:
 
 ..  code-block:: lammps
-   :caption: *to be copied in SystemCreation/input.lammps*
+    :caption: *to be copied in SystemCreation/input.lammps*
 
     # create the walls
     region rbotwall block -4 4 -4 4 -12 -10
@@ -128,7 +128,7 @@ System generation
     to input.lammps:
 
 ..  code-block:: lammps
-   :caption: *to be copied in SystemCreation/input.lammps*
+    :caption: *to be copied in SystemCreation/input.lammps*
 
     # create the fluid
     region rliquid block -4 4 -4 4 -9 9
@@ -160,7 +160,7 @@ System generation
     two lines to input.01.lammps:
 
 ..  code-block:: lammps
-   :caption: *to be copied in SystemCreation/input.lammps*
+    :caption: *to be copied in SystemCreation/input.lammps*
 
     fix mydep1 all deposit 10 3 1 56513 region rliquid near 0.3
     fix mydep2 all deposit 10 4 1 58613 region rliquid near 0.3
@@ -181,7 +181,7 @@ System generation
     Copy the following line into input.lammps:
 
 ..  code-block:: lammps
-   :caption: *to be copied in SystemCreation/input.lammps*
+    :caption: *to be copied in SystemCreation/input.lammps*
 
     # settings
     include ../PARM.lammps
@@ -193,7 +193,7 @@ System generation
     into PARM.lammps:
 
 ..  code-block:: lammps
-   :caption: *to be copied in PARM.lammps*
+    :caption: *to be copied in PARM.lammps*
 
     # Parameter file
     mass 1 15.9994 # water
@@ -250,7 +250,7 @@ System generation
     Finally, add the following lines to the input file:
 
 ..  code-block:: lammps
-   :caption: *to be copied in SystemCreation/input.lammps*
+    :caption: *to be copied in SystemCreation/input.lammps*
 
     # run
     run 10
@@ -337,7 +337,7 @@ Energy minimisation
     very similar to the previous input file:
 
 ..  code-block:: lammps
-   :caption: *to be copied in Minimization/input.lammps*
+    :caption: *to be copied in Minimization/input.lammps*
 
     # Initialisation
     boundary p p p
@@ -365,7 +365,7 @@ Energy minimisation
 Next, let us create a group for the water:
 
 ..  code-block:: lammps
-   :caption: *to be copied in Minimization/input.lammps*
+    :caption: *to be copied in Minimization/input.lammps*
 
     group gH2O type 1 2
 
@@ -377,7 +377,7 @@ Next, let us create a group for the water:
     Let us print the atoms positions in a dump file:
 
 ..  code-block:: lammps
-   :caption: *to be copied in Minimization/input.lammps*
+    :caption: *to be copied in Minimization/input.lammps*
 
     dump mydmp all atom 1000 dump.lammpstrj
 
@@ -387,7 +387,7 @@ Next, let us create a group for the water:
     minimization:
 
 ..  code-block:: lammps
-   :caption: *to be copied in Minimization/input.lammps*
+    :caption: *to be copied in Minimization/input.lammps*
 
     fix mynve all nve/limit 0.1
     fix myber all temp/berendsen 1 1 1
@@ -419,7 +419,7 @@ Next, let us create a group for the water:
     the \\(z\\) direction.
 
 ..  code-block:: lammps
-   :caption: *to be copied in Minimization/input.lammps*
+    :caption: *to be copied in Minimization/input.lammps*
 
     fix myshk gH2O shake 1.0e-4 200 0 b 1 a 1
     fix myrct all recenter NULL NULL INIT
@@ -435,7 +435,7 @@ Next, let us create a group for the water:
     1000 timesteps).
 
 ..  code-block:: lammps
-   :caption: *to be copied in Minimization/input.lammps*
+    :caption: *to be copied in Minimization/input.lammps*
 
     timestep 0.5
     thermo 50
@@ -448,7 +448,7 @@ Next, let us create a group for the water:
     total energy of the system decreases as expected (fifth
     colum):
 
-..  code-block:: bash
+..  code-block:: bw
 
     Step   Temp          E_pair         E_mol          TotEng         Press     
         0   0             -99554.799      0             -99554.799     -1008.4767    
@@ -499,7 +499,7 @@ System equilibration
     input file in it. Add the following lines:
 
 ..  code-block:: lammps
-   :caption: *to be copied in Equilibration/input.lammps*
+    :caption: *to be copied in Equilibration/input.lammps*
 
     # Initialisation
     boundary p p p
@@ -542,7 +542,7 @@ System equilibration
     Then, add the following lines for the visualisation :
 
 ..  code-block:: lammps
-   :caption: *to be copied in Equilibration/input.lammps*
+    :caption: *to be copied in Equilibration/input.lammps*
 
     # visualisation
     dump mydmp all atom 1000 dump.lammpstrj
@@ -561,7 +561,7 @@ System equilibration
     Finally, add the end of the input:
 
 ..  code-block:: lammps
-   :caption: *to be copied in Equilibration/input.lammps*
+    :caption: *to be copied in Equilibration/input.lammps*
 
     # Dynamics
     fix mynve all nve
@@ -588,7 +588,7 @@ System equilibration
 
     Run the input script. Note, I am running on 4 CPU using:
 
-..  code-block:: bash
+..  code-block:: bw
 
     mpirun -np 4 lmp -in input.lammps
 
@@ -630,7 +630,7 @@ Imposed nanoshearing
     create a new input that starts like the previous ones:
 
 ..  code-block:: lammps
-   :caption: *to be copied in Shearing/input.lammps*
+    :caption: *to be copied in Shearing/input.lammps*
 
     # Initialisation
     boundary p p p
@@ -685,7 +685,7 @@ Imposed nanoshearing
     and set the value of the velocity along x:
 
 ..  code-block:: lammps
-   :caption: *to be copied in Shearing/input.lammps*
+    :caption: *to be copied in Shearing/input.lammps*
 
     fix mysf1 gwalltop setforce 0 NULL NULL
     fix mysf2 gwallbot setforce 0 NULL NULL
@@ -710,7 +710,7 @@ Imposed nanoshearing
     comment/uncomment the appropriate lines):
 
 ..  code-block:: lammps
-   :caption: *to be copied in Shearing/input.lammps*
+    :caption: *to be copied in Shearing/input.lammps*
 
     # vizualisation
     dump mydmp all atom 5000 dump.lammpstrj
