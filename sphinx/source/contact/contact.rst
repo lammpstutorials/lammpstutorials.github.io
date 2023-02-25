@@ -1,7 +1,7 @@
 .. _contact-label:
 
-Contact me
-**********
+Contact
+*******
 
 Email
 =====

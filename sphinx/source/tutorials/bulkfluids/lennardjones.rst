@@ -257,6 +257,7 @@ The input script
     the interactions between atoms of type 2.
    
 .. admonition:: About cross parameters
+    :class: info
 
     By default, LAMMPS calculates the cross coefficients
     (here for the interactions between atoms of type 1 and 2)

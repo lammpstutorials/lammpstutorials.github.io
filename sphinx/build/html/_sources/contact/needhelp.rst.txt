@@ -1,5 +1,6 @@
-.. container:: help
+.. admonition:: Looking for help with your project?
+    :class: patreon
 
-    Need personalised advice for your own project? See the :ref:`contact-label` page. 
+    See the :ref:`contact-label` page. 
 
 
