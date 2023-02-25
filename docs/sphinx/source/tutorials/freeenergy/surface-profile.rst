@@ -146,7 +146,7 @@ Download ATB molecule
     column is the identity of the bond. For each bond identity,
     a bond length and energy are given:
 
-..  code-block:: bash
+..  code-block:: lammps
 
     bond_coeff 1 349.274 1.0900
     bond_coeff 2 399.792 1.4300
@@ -228,7 +228,7 @@ Initial configuration
     file, named PARM.lammps, which contains all the mass and intra/inter 
     molecular interaction parameters:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in PARM.lammps*
 
     # mass parameters
@@ -239,6 +239,7 @@ Initial configuration
     mass 5 1.008
     mass 6 12.011
     mass 7 15.9994
+
     # pair coeffs
     pair_coeff 1 1 0.0552 2.31
     pair_coeff 2 2 0.1004 4.3
@@ -247,12 +248,14 @@ Initial configuration
     pair_coeff 5 5 0.0000 0.0000
     pair_coeff 6 6 0.2450 2.8114
     pair_coeff 7 7 0.1195 3.1000
+
     # bond coeffs
     bond_coeff 1 349.274 1.0900
     bond_coeff 2 399.792 1.4300
     bond_coeff 3 299.844 1.5200
     bond_coeff 4 349.928 1.1000
     bond_coeff 5 442.161 0.9720
+
     # angle coeffs
     angle_coeff 1 47.694 109.500
     angle_coeff 2 55.127 109.500
@@ -260,6 +263,7 @@ Initial configuration
     angle_coeff 4 52.477 107.570
     angle_coeff 5 47.502 108.530
     angle_coeff 6 54.993 110.300
+
     # dihedral coeffs
     dihedral_coeff 1 0.30115 1 3
     dihedral_coeff 2 1.415 1 3
@@ -288,7 +292,7 @@ Equilibrium
     new text file, name it input.eq.lammps, and copy the
     following lines in it:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in input.eq.lammps*
 
     # ethanol at a nacl surface
@@ -320,7 +324,7 @@ Equilibrium
 
     Then, add the following lines to the script:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in input.eq.lammps*
 
     # import positions and parameters
@@ -377,7 +381,7 @@ Umbrella sampling
     Create another input file, call it
     input.umbrella.lammps, and copy the following lines in it:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in input.umbrella.lammps*
 
     # ethanol at a nacl surface
