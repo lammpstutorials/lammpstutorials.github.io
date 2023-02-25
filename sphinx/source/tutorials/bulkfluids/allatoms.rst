@@ -345,7 +345,7 @@ Bulk water
    been deleted (the number will vary depending on the random
    number you choose).
 
-..  code-block:: bash
+..  code-block:: bw
 
    Deleted 714 atoms, new total = 1386
    Deleted 476 bonds, new total = 924
@@ -465,7 +465,7 @@ PEG molecule
    file, and copy the 3 lines corresponding to the box
    dimensions. In my case, its:
 
-..  code-block:: bash
+..  code-block:: bw
 
    -21.64201909795004 21.64201909795004 xlo xhi
    -8.115757161731125 8.115757161731125 ylo yhi
