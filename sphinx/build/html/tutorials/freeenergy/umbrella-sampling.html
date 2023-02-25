@@ -287,19 +287,19 @@ of the box a relatively unfavourable area to explore.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># define some variables</span>
-variable<span class="w"> </span>sigma<span class="w"> </span>equal<span class="w"> </span><span class="m">3</span>.405<span class="w"> </span><span class="c1"># Angstrom</span>
-variable<span class="w"> </span>epsilon<span class="w"> </span>equal<span class="w"> </span><span class="m">0</span>.238<span class="w"> </span><span class="c1"># Kcal/mol</span>
-variable<span class="w"> </span>U0<span class="w"> </span>equal<span class="w"> </span><span class="m">2</span>*<span class="si">${</span><span class="nv">epsilon</span><span class="si">}</span><span class="w"> </span><span class="c1"># Kcal/mol</span>
-variable<span class="w"> </span>dlt<span class="w"> </span>equal<span class="w"> </span><span class="m">0</span>.5<span class="w"> </span><span class="c1"># Angstrom</span>
-variable<span class="w"> </span>x0<span class="w"> </span>equal<span class="w"> </span><span class="m">5</span><span class="w">  </span><span class="c1"># Angstrom</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># define some variables</span>
+<span class="k">variable </span><span class="nv nv-Identifier">sigma</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">3.405</span><span class="w"> </span><span class="c"># Angstrom</span>
+<span class="k">variable </span><span class="nv nv-Identifier">epsilon</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.238</span><span class="w"> </span><span class="c"># Kcal/mol</span>
+<span class="k">variable </span><span class="nv nv-Identifier">U0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="nv">${epsilon}</span><span class="w"> </span><span class="c"># Kcal/mol</span>
+<span class="k">variable </span><span class="nv nv-Identifier">dlt</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="c"># Angstrom</span>
+<span class="k">variable </span><span class="nv nv-Identifier">x0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5</span><span class="w">  </span><span class="c"># Angstrom</span>
 
-<span class="c1"># initialise the simulation</span>
-units<span class="w"> </span>real
-atom_style<span class="w"> </span>atomic
-pair_style<span class="w"> </span>lj/cut<span class="w"> </span><span class="m">3</span>.822<span class="w"> </span><span class="c1"># 2^(1/6) * 3.405 WCA potential</span>
-pair_modify<span class="w"> </span><span class="nb">shift</span><span class="w"> </span>yes
-boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
+<span class="c"># initialise the simulation</span>
+<span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">atomic</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="m">3.822</span><span class="w"> </span><span class="c"># 2^(1/6) * 3.405 WCA potential</span>
+<span class="k">pair_modify</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 </pre></div>
 </div>
 </div>
@@ -326,15 +326,15 @@ the cut-off using the pair_modify.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the system</span>
-region<span class="w"> </span>myreg<span class="w"> </span>block<span class="w"> </span>-25<span class="w"> </span><span class="m">25</span><span class="w"> </span>-20<span class="w"> </span><span class="m">20</span><span class="w"> </span>-20<span class="w"> </span><span class="m">20</span>
-create_box<span class="w"> </span><span class="m">1</span><span class="w"> </span>myreg
-create_atoms<span class="w"> </span><span class="m">1</span><span class="w"> </span>random<span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span>myreg
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># define the system</span>
+<span class="k">region </span><span class="nv nv-Identifier">myreg</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
+<span class="k">create_box</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">myreg</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">myreg</span>
 
-<span class="c1"># settings</span>
-mass<span class="w"> </span>*<span class="w"> </span><span class="m">39</span>.95
-pair_coeff<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="si">${</span><span class="nv">epsilon</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">sigma</span><span class="si">}</span>
-neigh_modify<span class="w"> </span>every<span class="w"> </span><span class="m">1</span><span class="w"> </span>delay<span class="w"> </span><span class="m">4</span><span class="w"> </span>check<span class="w"> </span>yes
+<span class="c"># settings</span>
+<span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.95</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">${epsilon}</span><span class="w"> </span><span class="nv">${sigma}</span>
+<span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
 </pre></div>
 </div>
 </div>
@@ -380,13 +380,13 @@ command:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># --------------------- Run</span>
-minimize<span class="w"> </span>1e-4<span class="w"> </span>1e-6<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
-reset_timestep<span class="w"> </span><span class="m">0</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># --------------------- Run</span>
+<span class="k">minimize</span><span class="w"> </span><span class="m">1e-4</span><span class="w"> </span><span class="m">1e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 
-variable<span class="w"> </span>U<span class="w"> </span>atom<span class="w"> </span><span class="si">${</span><span class="nv">U0</span><span class="si">}</span>*atan<span class="o">((</span>x+<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span><span class="o">)</span>-<span class="si">${</span><span class="nv">U0</span><span class="si">}</span>*atan<span class="o">((</span>x-<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span><span class="o">)</span>
-variable<span class="w"> </span>F<span class="w"> </span>atom<span class="w"> </span><span class="si">${</span><span class="nv">U0</span><span class="si">}</span>/<span class="o">((</span>x-<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>^2/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>^2+1<span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>-<span class="si">${</span><span class="nv">U0</span><span class="si">}</span>/<span class="o">((</span>x+<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>^2/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>^2+1<span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>
-fix<span class="w"> </span>myadf<span class="w"> </span>all<span class="w"> </span>addforce<span class="w"> </span>v_F<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span>energy<span class="w"> </span>v_U
+<span class="k">variable </span><span class="nv nv-Identifier">U</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
+<span class="k">variable </span><span class="nv nv-Identifier">F</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myadf</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U</span>
 </pre></div>
 </div>
 </div>
@@ -403,16 +403,16 @@ record the evolution of the number of atoms in the central
 </div>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
-fix<span class="w"> </span>mylgv<span class="w"> </span>all<span class="w"> </span>langevin<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1530917</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1530917</span>
 
-region<span class="w"> </span>mymes<span class="w"> </span>block<span class="w"> </span>-5<span class="w"> </span><span class="m">5</span><span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF
-variable<span class="w"> </span>n_center<span class="w"> </span>equal<span class="w"> </span>count<span class="o">(</span>all,mymes<span class="o">)</span>
-fix<span class="w"> </span>myat<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="m">50000</span><span class="w"> </span>v_n_center<span class="w"> </span>file<span class="w"> </span>density_evolution.dat
+<span class="k">region </span><span class="nv nv-Identifier">mymes</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span>
+<span class="k">variable </span><span class="nv nv-Identifier">n_center</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(all,mymes)</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="m">50000</span><span class="w"> </span><span class="n">v_n_center</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">density_evolution.dat</span>
 
-timestep<span class="w"> </span><span class="m">2</span>.0
-thermo<span class="w"> </span><span class="m">100000</span>
-run<span class="w"> </span><span class="m">2000000</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">2.0</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">100000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">2000000</span>
 </pre></div>
 </div>
 </div>
@@ -429,14 +429,14 @@ canceled before a reset time).</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unfix<span class="w"> </span>myat
-reset_timestep<span class="w"> </span><span class="m">0</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">unfix </span><span class="nv nv-Identifier">myat</span>
+<span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 
-compute<span class="w"> </span>cc1<span class="w"> </span>all<span class="w"> </span>chunk/atom<span class="w"> </span>bin/1d<span class="w"> </span>x<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">1</span>.0
-fix<span class="w"> </span>myac<span class="w"> </span>all<span class="w"> </span>ave/chunk<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1000000</span><span class="w"> </span><span class="m">10000000</span><span class="w"> </span>cc1<span class="w"> </span>density/number<span class="w"> </span>file<span class="w"> </span>density_profile_10run.dat
-dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">100000</span><span class="w"> </span>dump.lammpstrj
+<span class="k">compute </span><span class="nv nv-Identifier">cc1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1000000</span><span class="w"> </span><span class="m">10000000</span><span class="w"> </span><span class="n">cc1</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">number</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">density_profile_10run.dat</span>
+<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">100000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 
-run<span class="w"> </span><span class="m">10000000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">10000000</span>
 </pre></div>
 </div>
 </div>
@@ -547,46 +547,46 @@ named input.lammps in it, copy the following lines:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in BiasedSampling/input.lammps</em></span><a class="headerlink" href="#id11" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a bunch of variables</span>
-variable<span class="w"> </span>sigma<span class="w"> </span>equal<span class="w"> </span><span class="m">3</span>.405<span class="w"> </span><span class="c1"># Angstrom</span>
-variable<span class="w"> </span>epsilon<span class="w"> </span>equal<span class="w"> </span><span class="m">0</span>.238<span class="w"> </span><span class="c1"># Kcal/mol</span>
-variable<span class="w"> </span>U0<span class="w"> </span>equal<span class="w"> </span><span class="m">10</span>*<span class="si">${</span><span class="nv">epsilon</span><span class="si">}</span><span class="w"> </span><span class="c1"># Kcal/mol</span>
-variable<span class="w"> </span>dlt<span class="w"> </span>equal<span class="w"> </span><span class="m">0</span>.5<span class="w"> </span><span class="c1"># Angstrom</span>
-variable<span class="w"> </span>x0<span class="w"> </span>equal<span class="w"> </span><span class="m">5</span>.0<span class="w">  </span><span class="c1"># Angstrom</span>
-variable<span class="w"> </span>k<span class="w"> </span>equal<span class="w"> </span><span class="m">1</span>.5<span class="w"> </span><span class="c1"># Kcal/mol/Angstrom^2</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># define a bunch of variables</span>
+<span class="k">variable </span><span class="nv nv-Identifier">sigma</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">3.405</span><span class="w"> </span><span class="c"># Angstrom</span>
+<span class="k">variable </span><span class="nv nv-Identifier">epsilon</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.238</span><span class="w"> </span><span class="c"># Kcal/mol</span>
+<span class="k">variable </span><span class="nv nv-Identifier">U0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">10</span><span class="o">*</span><span class="nv">${epsilon}</span><span class="w"> </span><span class="c"># Kcal/mol</span>
+<span class="k">variable </span><span class="nv nv-Identifier">dlt</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="c"># Angstrom</span>
+<span class="k">variable </span><span class="nv nv-Identifier">x0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5.0</span><span class="w">  </span><span class="c"># Angstrom</span>
+<span class="k">variable </span><span class="nv nv-Identifier">k</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">1.5</span><span class="w"> </span><span class="c"># Kcal/mol/Angstrom^2</span>
 
-<span class="c1"># initialise the simulation</span>
-units<span class="w"> </span>real
-atom_style<span class="w"> </span>atomic
-pair_style<span class="w"> </span>lj/cut<span class="w"> </span><span class="m">3</span>.822<span class="w"> </span><span class="c1"># 2^(1/6) * 3.405 WCA potential</span>
-pair_modify<span class="w"> </span><span class="nb">shift</span><span class="w"> </span>yes
-boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
+<span class="c"># initialise the simulation</span>
+<span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">atomic</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="m">3.822</span><span class="w"> </span><span class="c"># 2^(1/6) * 3.405 WCA potential</span>
+<span class="k">pair_modify</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 
-<span class="c1"># define the system</span>
-region<span class="w"> </span>myreg<span class="w"> </span>block<span class="w"> </span>-25<span class="w"> </span><span class="m">25</span><span class="w"> </span>-20<span class="w"> </span><span class="m">20</span><span class="w"> </span>-20<span class="w"> </span><span class="m">20</span>
-create_box<span class="w"> </span><span class="m">2</span><span class="w"> </span>myreg
-create_atoms<span class="w"> </span><span class="m">2</span><span class="w"> </span>single<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-create_atoms<span class="w"> </span><span class="m">1</span><span class="w"> </span>random<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span>myreg
+<span class="c"># define the system</span>
+<span class="k">region </span><span class="nv nv-Identifier">myreg</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
+<span class="k">create_box</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">myreg</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">myreg</span>
 
-<span class="c1"># settings</span>
-mass<span class="w"> </span>*<span class="w"> </span><span class="m">39</span>.948
-pair_coeff<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="si">${</span><span class="nv">epsilon</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">sigma</span><span class="si">}</span>
-neigh_modify<span class="w"> </span>every<span class="w"> </span><span class="m">1</span><span class="w"> </span>delay<span class="w"> </span><span class="m">4</span><span class="w"> </span>check<span class="w"> </span>yes
-group<span class="w"> </span>topull<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">2</span>
+<span class="c"># settings</span>
+<span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.948</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">${epsilon}</span><span class="w"> </span><span class="nv">${sigma}</span>
+<span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">group </span><span class="nv nv-Identifier">topull</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
 
-<span class="c1"># run</span>
-variable<span class="w"> </span>U<span class="w"> </span>atom<span class="w"> </span><span class="si">${</span><span class="nv">U0</span><span class="si">}</span>*atan<span class="o">((</span>x+<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span><span class="o">)</span>-<span class="si">${</span><span class="nv">U0</span><span class="si">}</span>*atan<span class="o">((</span>x-<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span><span class="o">)</span>
-variable<span class="w"> </span>F<span class="w"> </span>atom<span class="w"> </span><span class="si">${</span><span class="nv">U0</span><span class="si">}</span>/<span class="o">((</span>x-<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>^2/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>^2+1<span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>-<span class="si">${</span><span class="nv">U0</span><span class="si">}</span>/<span class="o">((</span>x+<span class="si">${</span><span class="nv">x0</span><span class="si">}</span><span class="o">)</span>^2/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>^2+1<span class="o">)</span>/<span class="si">${</span><span class="nv">dlt</span><span class="si">}</span>
-fix<span class="w"> </span>pot<span class="w"> </span>all<span class="w"> </span>addforce<span class="w"> </span>v_F<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span>energy<span class="w"> </span>v_U
+<span class="c"># run</span>
+<span class="k">variable </span><span class="nv nv-Identifier">U</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
+<span class="k">variable </span><span class="nv nv-Identifier">F</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
+<span class="k">fix </span><span class="nv nv-Identifier">pot</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U</span>
 
-fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
-fix<span class="w"> </span>mylgv<span class="w"> </span>all<span class="w"> </span>langevin<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1530917</span>
-timestep<span class="w"> </span><span class="m">2</span>.0
-thermo<span class="w"> </span><span class="m">100000</span>
-run<span class="w"> </span><span class="m">2000000</span>
-reset_timestep<span class="w"> </span><span class="m">0</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1530917</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">2.0</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">100000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">2000000</span>
+<span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 
-dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000000</span><span class="w"> </span>dump.lammpstrj
+<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
 </div>
 </div>
@@ -603,17 +603,17 @@ the centre of the bias potential by increment of 0.3 nm:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in BiasedSampling/input.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>variable<span class="w"> </span>a<span class="w"> </span>loop<span class="w"> </span><span class="m">50</span>
-label<span class="w"> </span>loop
-variable<span class="w"> </span>xdes<span class="w"> </span>equal<span class="w"> </span><span class="si">${</span><span class="nv">a</span><span class="si">}</span>-25
-variable<span class="w"> </span>xave<span class="w"> </span>equal<span class="w"> </span>xcm<span class="o">(</span>topull,x<span class="o">)</span>
-fix<span class="w"> </span>mytth<span class="w"> </span>topull<span class="w"> </span>spring<span class="w"> </span>tether<span class="w"> </span><span class="si">${</span><span class="nv">k</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">xdes</span><span class="si">}</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-run<span class="w"> </span><span class="m">200000</span>
-fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>v_xave<span class="w"> </span>v_xdes<span class="w"> </span>file<span class="w"> </span>position.<span class="si">${</span><span class="nv">a</span><span class="si">}</span>.dat
-run<span class="w"> </span><span class="m">200000</span>
-unfix<span class="w"> </span>myat1
-next<span class="w"> </span>a
-jump<span class="w"> </span>SELF<span class="w"> </span>loop
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">a</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">50</span>
+<span class="k">label</span><span class="w"> </span><span class="n">loop</span>
+<span class="k">variable </span><span class="nv nv-Identifier">xdes</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="nv">${a}</span><span class="o">-</span><span class="m">25</span>
+<span class="k">variable </span><span class="nv nv-Identifier">xave</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(topull,x)</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mytth</span><span class="w"> </span><span class="nv nv-Identifier">topull</span><span class="w"> </span><span class="n">spring</span><span class="w"> </span><span class="n">tether</span><span class="w"> </span><span class="nv">${k}</span><span class="w"> </span><span class="nv">${xdes}</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="k">run</span><span class="w"> </span><span class="m">200000</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_xave</span><span class="w"> </span><span class="n">v_xdes</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">position.</span><span class="nv">${a}</span><span class="n">.dat</span>
+<span class="k">run</span><span class="w"> </span><span class="m">200000</span>
+<span class="k">unfix </span><span class="nv nv-Identifier">myat1</span>
+<span class="k">next</span><span class="w"> </span><span class="n">a</span>
+<span class="k">jump</span><span class="w"> </span><span class="n">SELF</span><span class="w"> </span><span class="n">loop</span>
 </pre></div>
 </div>
 </div>

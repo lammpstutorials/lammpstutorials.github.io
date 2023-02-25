@@ -62,7 +62,7 @@ Basic LAMMPS parameters
 
     Create a folder named FreeSampling/, and create an input script named input.lammps in it. Copy the following lines:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in FreeSampling/input.lammps*
 
     # define some variables
@@ -103,7 +103,7 @@ System creation and settings
 
     Let us define the simulation block and randomly add atoms:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in FreeSampling/input.lammps*
 
     # define the system
@@ -162,7 +162,7 @@ System creation and settings
     all of the atoms in the simulation using the 'addforce'
     command:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in FreeSampling/input.lammps*
 
     # --------------------- Run
@@ -185,7 +185,7 @@ System creation and settings
     record the evolution of the number of atoms in the central
     (energetically unfavorable) region called 'mymes':
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in FreeSampling/input.lammps*
 
     fix mynve all nve
@@ -211,7 +211,7 @@ Run and data acquisition
     density/number, and the fix 'myat' is canceled (it has to be
     canceled before a reset time).
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in FreeSampling/input.lammps*
 
     unfix myat
@@ -342,7 +342,7 @@ Method 2: Umbrella sampling
     Create a new folder called BiasedSampling/, and create a new input file 
     named input.lammps in it, copy the following lines:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in BiasedSampling/input.lammps*
 
     # define a bunch of variables
@@ -400,7 +400,7 @@ Method 2: Umbrella sampling
     Let us create a loop with 67 steps, and move progressively
     the centre of the bias potential by increment of 0.3 nm:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in BiasedSampling/input.lammps*
 
     variable a loop 50

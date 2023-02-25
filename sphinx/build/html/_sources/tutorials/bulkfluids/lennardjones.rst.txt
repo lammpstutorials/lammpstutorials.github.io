@@ -131,7 +131,7 @@ The input script
     following lines:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input1.lammps*
+    :caption: *to be copied in input1.lammps*
 
     # 1) Initialization
     units lj
@@ -188,7 +188,7 @@ The input script
     Let us fill the second part the of the input script:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input1.lammps*
+    :caption: *to be copied in input1.lammps*
 
     # 2) System definition
     region simulation_box block -20 20 -20 20 -20 20
@@ -236,7 +236,7 @@ The input script
     Let us fill the third section of the input script, the settings:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input1.lammps*
+    :caption: *to be copied in input1.lammps*
 
     # 3) Simulation settings
     mass 1 1
@@ -278,7 +278,7 @@ The input script
     'Visualization' and 'Run' sections:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input1.lammps*
+    :caption: *to be copied in input1.lammps*
 
     # 4) Visualization
     thermo 10
@@ -354,7 +354,7 @@ The input script
     lines:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input1.lammps*
+    :caption: *to be copied in input1.lammps*
 
     # PART B - MOLECULAR DYNAMICS
     # 4) Visualization
@@ -504,7 +504,7 @@ Trajectory visualisation
     VMD or Ovito. In Ubuntu, if VMD is installed, you can simply
     execute in the terminal:
 
-..  code-block:: lammps
+..  code-block:: bash
 
     vmd dump.lammpstrj
 
@@ -667,7 +667,7 @@ Restarting from a saved configuration
     simply add the following command:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input3.lammps*
+    :caption: *to be copied in input3.lammps*
 
     # 2) System definition
     read_data minimized_coordinate.data
@@ -684,7 +684,7 @@ Restarting from a saved configuration
     by adding the following commands:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input3.lammps*
+    :caption: *to be copied in input3.lammps*
 
     region mycylin cylinder z 0 0 10 INF INF side in
     region mycylou cylinder z 0 0 10 INF INF side out
@@ -725,7 +725,7 @@ Restarting from a saved configuration
     settings:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input3.lammps*
+    :caption: *to be copied in input3.lammps*
 
     # 3) Simulation settings
     mass 1 1
@@ -749,7 +749,7 @@ Restarting from a saved configuration
     adding the following commands to the input file:
 
 ..  code-block:: bash
-   :caption: *to be copied in input3.lammps*
+    :caption: *to be copied in input3.lammps*
 
     variable Ntype1in equal count(mytype1,mycylin)
     variable Ntype1ou equal count(mytype1,mycylou)
@@ -774,7 +774,7 @@ Restarting from a saved configuration
     section:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input3.lammps*
+    :caption: *to be copied in input3.lammps*
 
     # 5) Run
     velocity all create 1.0 4928459 mom yes rot yes dist gaussian

@@ -170,7 +170,6 @@ Bulk water
    :caption: *to be copied in PARM.lammps*
 
    # Mass
-
    mass 1 15.9994 # H2O O
    mass 2 1.008 # H2O H
    mass 3 12.011 # CC32A
@@ -180,7 +179,6 @@ Bulk water
    mass 7 1.008 # HCP1
 
    # Pair Coeff
-
    pair_coeff 1 1 0.185199 3.1589 # H2O O
    pair_coeff 2 2 0.0 0.0 # H2O H
    pair_coeff 3 3 0.056 3.58141 # CC32A
@@ -190,7 +188,6 @@ Bulk water
    pair_coeff 7 7 0.046 0.40001 # HCP1
 
    # Bond coeff
-
    bond_coeff 1 0 0.9572 # H2O O-H
    bond_coeff 2 222.35 1.5300
    bond_coeff 3 308.79 1.1111
@@ -199,7 +196,6 @@ Bulk water
    bond_coeff 6 544.635 0.9600
 
    # Angle coeff
-
    angle_coeff 1 0 104.52 0 0 # H2O H-O-H
    angle_coeff 2 50.0000 109.0000 0.0000 0.0000
    angle_coeff 3 26.5000 110.1000 22.5300 2.179   
@@ -211,7 +207,6 @@ Bulk water
    angle_coeff 9 95.0000 109.7000 0.0000 0.0000
          
    # Dihedral coeff
-
    dihedral_coeff 1 0.57 1 0 0
    dihedral_coeff 2 0.29 2 0 0
    dihedral_coeff 3 0.43 3 0 0
