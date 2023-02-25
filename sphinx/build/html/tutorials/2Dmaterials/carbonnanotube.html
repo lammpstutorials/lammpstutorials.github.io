@@ -283,17 +283,17 @@ by clicking <a class="reference external" href="../../../../../inputs/2Dmaterial
 </div>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialisation</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
 
-variable<span class="w"> </span>T<span class="w"> </span>equal<span class="w"> </span><span class="m">300</span>
+<span class="k">variable </span><span class="nv nv-Identifier">T</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">300</span>
 
-units<span class="w"> </span>metal
-atom_style<span class="w"> </span>full
-boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
-pair_style<span class="w"> </span>airebo<span class="w"> </span><span class="m">2</span>.5<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">units</span><span class="w"> </span><span class="n">metal</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">airebo</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
 
-<span class="c1"># System definition</span>
-read_data<span class="w"> </span>cnt.data
+<span class="c"># System definition</span>
+<span class="k">read_data</span><span class="w"> </span><span class="n">cnt.data</span>
 </pre></div>
 </div>
 </div>
@@ -310,8 +310,8 @@ pair_coeff:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>read_data<span class="w"> </span>carbon.data
-pair_coeff<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>CH.airebo<span class="w"> </span>C
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">carbon.data</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CH.airebo</span><span class="w"> </span><span class="n">C</span>
 </pre></div>
 </div>
 </div>
@@ -322,24 +322,24 @@ The rest of the script is very similar to the previous tutorial (<a class="refer
 </div>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulation settings</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Simulation settings</span>
 
-group<span class="w"> </span>gcar<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span>
-variable<span class="w"> </span>zmax<span class="w"> </span>equal<span class="w"> </span>bound<span class="o">(</span>gcar,zmax<span class="o">)</span>-0.5
-variable<span class="w"> </span>zmin<span class="w"> </span>equal<span class="w"> </span>bound<span class="o">(</span>gcar,zmin<span class="o">)</span>+0.5
-region<span class="w"> </span>rtop<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="si">${</span><span class="nv">zmax</span><span class="si">}</span><span class="w"> </span>INF
-region<span class="w"> </span>rbot<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="si">${</span><span class="nv">zmin</span><span class="si">}</span>
-region<span class="w"> </span>rmid<span class="w"> </span>block<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span>INF<span class="w"> </span><span class="si">${</span><span class="nv">zmin</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">zmax</span><span class="si">}</span>
+<span class="k">group </span><span class="nv nv-Identifier">gcar</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
+<span class="k">variable </span><span class="nv nv-Identifier">zmax</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(gcar,zmax)</span><span class="o">-</span><span class="m">0.5</span>
+<span class="k">variable </span><span class="nv nv-Identifier">zmin</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(gcar,zmin)</span><span class="o">+</span><span class="m">0.5</span>
+<span class="k">region </span><span class="nv nv-Identifier">rtop</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="nv">${zmax}</span><span class="w"> </span><span class="n">INF</span>
+<span class="k">region </span><span class="nv nv-Identifier">rbot</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="nv">${zmin}</span>
+<span class="k">region </span><span class="nv nv-Identifier">rmid</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="nv">${zmin}</span><span class="w"> </span><span class="nv">${zmax}</span>
 
-group<span class="w"> </span>gtop<span class="w"> </span>region<span class="w"> </span>rtop
-group<span class="w"> </span>gbot<span class="w"> </span>region<span class="w"> </span>rbot
-group<span class="w"> </span>gmid<span class="w"> </span>region<span class="w"> </span>rmid
+<span class="k">group </span><span class="nv nv-Identifier">gtop</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtop</span>
+<span class="k">group </span><span class="nv nv-Identifier">gbot</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span>
+<span class="k">group </span><span class="nv nv-Identifier">gmid</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rmid</span>
 
-velocity<span class="w"> </span>gmid<span class="w"> </span>create<span class="w"> </span><span class="si">${</span><span class="nv">T</span><span class="si">}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span>mom<span class="w"> </span>yes<span class="w"> </span>rot<span class="w"> </span>yes
-fix<span class="w"> </span>mynve<span class="w"> </span>all<span class="w"> </span>nve
-compute<span class="w"> </span>Tmid<span class="w"> </span>gmid<span class="w"> </span>temp
-fix<span class="w"> </span>myber<span class="w"> </span>gmid<span class="w"> </span>temp/berendsen<span class="w"> </span><span class="si">${</span><span class="nv">T</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">T</span><span class="si">}</span><span class="w"> </span><span class="m">0</span>.1
-fix_modify<span class="w"> </span>myber<span class="w"> </span>temp<span class="w"> </span>Tmid
+<span class="k">velocity</span><span class="w"> </span><span class="n">gmid</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+<span class="k">compute </span><span class="nv nv-Identifier">Tmid</span><span class="w"> </span><span class="nv nv-Identifier">gmid</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">gmid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">fix_modify</span><span class="w"> </span><span class="n">myber</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tmid</span>
 </pre></div>
 </div>
 </div>
@@ -358,22 +358,22 @@ the value of the velocity along the z direction.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fix<span class="w"> </span>mysf1<span class="w"> </span>gbot<span class="w"> </span>setforce<span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
-fix<span class="w"> </span>mysf2<span class="w"> </span>gtop<span class="w"> </span>setforce<span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
-velocity<span class="w"> </span>gbot<span class="w"> </span><span class="nb">set</span><span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
-velocity<span class="w"> </span>gtop<span class="w"> </span><span class="nb">set</span><span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">gbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">gtop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
+<span class="k">velocity</span><span class="w"> </span><span class="n">gbot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
+<span class="k">velocity</span><span class="w"> </span><span class="n">gtop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
 
-variable<span class="w"> </span>pos<span class="w"> </span>equal<span class="w"> </span>xcm<span class="o">(</span>gtop,z<span class="o">)</span>
-fix<span class="w"> </span>at1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span>v_pos<span class="w"> </span>file<span class="w"> </span>cnt_deflection.dat
-fix<span class="w"> </span>at2<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span>f_mysf1<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>f_mysf2<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>file<span class="w"> </span>force.dat
-dump<span class="w"> </span>mydmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.lammpstrj
+<span class="k">variable </span><span class="nv nv-Identifier">pos</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(gtop,z)</span>
+<span class="k">fix </span><span class="nv nv-Identifier">at1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_pos</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">cnt_deflection.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">at2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">f_mysf1[1]</span><span class="w"> </span><span class="n">f_mysf2[1]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">force.dat</span>
+<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 
-thermo<span class="w"> </span><span class="m">100</span>
-thermo_modify<span class="w"> </span>temp<span class="w"> </span>Tmid
+<span class="k">thermo</span><span class="w"> </span><span class="m">100</span>
+<span class="k">thermo_modify</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tmid</span>
 
-<span class="c1"># Run</span>
-timestep<span class="w"> </span><span class="m">0</span>.0005
-run<span class="w"> </span><span class="m">5000</span>
+<span class="c"># Run</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.0005</span>
+<span class="k">run</span><span class="w"> </span><span class="m">5000</span>
 </pre></div>
 </div>
 </div>
@@ -383,18 +383,18 @@ temperature deviates from the target temperature of 300 K
 (after a few picoseconds the temperature reaches the target
 value):</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Step<span class="w">          </span>Temp<span class="w">          </span>E_pair<span class="w">         </span>E_mol<span class="w">          </span>TotEng<span class="w">         </span>Press
-<span class="m">0</span><span class="w">   </span><span class="m">300</span><span class="w">           </span>-5084.7276<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5058.3973<span class="w">     </span>-1515.7017
-<span class="m">100</span><span class="w">   </span><span class="m">237</span>.49462<span class="w">     </span>-5075.4114<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5054.5671<span class="w">     </span>-155.05545
-<span class="m">200</span><span class="w">   </span><span class="m">238</span>.86589<span class="w">     </span>-5071.9168<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5050.9521<span class="w">     </span>-498.15029
-<span class="m">300</span><span class="w">   </span><span class="m">220</span>.04074<span class="w">     </span>-5067.1113<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5047.7989<span class="w">     </span>-1514.8516
-<span class="m">400</span><span class="w">   </span><span class="m">269</span>.23434<span class="w">     </span>-5069.6565<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5046.0264<span class="w">     </span>-174.31158
-<span class="m">500</span><span class="w">   </span><span class="m">274</span>.92241<span class="w">     </span>-5068.5989<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5044.4696<span class="w">     </span>-381.28758
-<span class="m">600</span><span class="w">   </span><span class="m">261</span>.91841<span class="w">     </span>-5065.985<span class="w">       </span><span class="m">0</span><span class="w">             </span>-5042.9971<span class="w">     </span>-1507.5577
-<span class="m">700</span><span class="w">   </span><span class="m">288</span>.47709<span class="w">     </span>-5067.7301<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5042.4111<span class="w">     </span>-312.16669
-<span class="m">800</span><span class="w">   </span><span class="m">289</span>.85177<span class="w">     </span>-5066.5482<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5041.1086<span class="w">     </span>-259.84893
-<span class="m">900</span><span class="w">   </span><span class="m">279</span>.34891<span class="w">     </span>-5065.0216<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5040.5038<span class="w">     </span>-1390.8508
-<span class="m">1000</span><span class="w">   </span><span class="m">312</span>.27343<span class="w">     </span>-5067.6245<span class="w">      </span><span class="m">0</span><span class="w">             </span>-5040.217<span class="w">      </span>-465.74352
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Step          Temp          E_pair         E_mol          TotEng         Press
+0   300           -5084.7276      0             -5058.3973     -1515.7017
+100   237.49462     -5075.4114      0             -5054.5671     -155.05545
+200   238.86589     -5071.9168      0             -5050.9521     -498.15029
+300   220.04074     -5067.1113      0             -5047.7989     -1514.8516
+400   269.23434     -5069.6565      0             -5046.0264     -174.31158
+500   274.92241     -5068.5989      0             -5044.4696     -381.28758
+600   261.91841     -5065.985       0             -5042.9971     -1507.5577
+700   288.47709     -5067.7301      0             -5042.4111     -312.16669
+800   289.85177     -5066.5482      0             -5041.1086     -259.84893
+900   279.34891     -5065.0216      0             -5040.5038     -1390.8508
+1000   312.27343     -5067.6245      0             -5040.217      -465.74352
 </pre></div>
 </div>
 </section>
@@ -405,9 +405,9 @@ value):</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 0.15 A/ps = 30 m/s</span>
-velocity<span class="w"> </span>gtop<span class="w"> </span><span class="nb">set</span><span class="w"> </span>NULL<span class="w"> </span>NULL<span class="w"> </span><span class="m">0</span>.15
-run<span class="w"> </span><span class="m">250000</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 0.15 A/ps = 30 m/s</span>
+<span class="k">velocity</span><span class="w"> </span><span class="n">gtop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0.15</span>
+<span class="k">run</span><span class="w"> </span><span class="m">250000</span>
 </pre></div>
 </div>
 </div>

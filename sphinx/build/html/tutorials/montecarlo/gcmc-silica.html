@@ -282,17 +282,17 @@ dataSiO.data, and copy the following lines in it:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SilicaBlock/input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Initialization</span>
-<span class="w"> </span>units<span class="w"> </span>metal
-<span class="w"> </span>boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
-<span class="w"> </span>atom_style<span class="w"> </span>full
-<span class="w"> </span>pair_style<span class="w"> </span>vashishta
-<span class="w"> </span>neighbor<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span>bin
-<span class="w"> </span>neigh_modify<span class="w"> </span>delay<span class="w"> </span><span class="m">1</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialization</span>
+<span class="k">units</span><span class="w"> </span><span class="n">metal</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">vashishta</span>
+<span class="k">neighbor</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">bin</span>
+<span class="k">neigh_modify</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">1</span>
 
-<span class="w"> </span><span class="c1"># System definition</span>
-<span class="w"> </span>read_data<span class="w"> </span>SiO.data
-<span class="w"> </span>replicate<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span>
+<span class="c"># System definition</span>
+<span class="k">read_data</span><span class="w"> </span><span class="n">SiO.data</span>
+<span class="k">replicate</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span>
 </pre></div>
 </div>
 </div>
@@ -322,9 +322,9 @@ atoms every 5000 steps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SilicaBlock/input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Simulation settings</span>
-<span class="w"> </span>pair_coeff<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>SiO.1990.vashishta<span class="w"> </span>Si<span class="w"> </span>O
-<span class="w"> </span>dump<span class="w"> </span>dmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">5000</span><span class="w"> </span>dump.lammpstrj
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Simulation settings</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
+<span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
 </div>
 </div>
@@ -343,20 +343,20 @@ results.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SilicaBlock/input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Run</span>
-<span class="w"> </span>velocity<span class="w"> </span>all<span class="w"> </span>create<span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">4928459</span><span class="w"> </span>rot<span class="w"> </span>yes<span class="w"> </span>dist<span class="w"> </span>gaussian
-<span class="w"> </span>fix<span class="w"> </span>nvt1<span class="w"> </span>all<span class="w"> </span>nvt<span class="w"> </span>temp<span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">0</span>.1
-<span class="w"> </span>timestep<span class="w"> </span><span class="m">0</span>.001
-<span class="w"> </span>thermo<span class="w"> </span><span class="m">1000</span>
-<span class="w"> </span>run<span class="w"> </span><span class="m">5000</span>
-<span class="w"> </span>unfix<span class="w"> </span>nvt1
-<span class="w"> </span>fix<span class="w"> </span>npt1<span class="w"> </span>all<span class="w"> </span>npt<span class="w"> </span>temp<span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">4000</span><span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>aniso<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1</span>
-<span class="w"> </span>run<span class="w"> </span><span class="m">50000</span>
-<span class="w"> </span>fix<span class="w"> </span>npt1<span class="w"> </span>all<span class="w"> </span>npt<span class="w"> </span>temp<span class="w"> </span><span class="m">4000</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>aniso<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
-<span class="w"> </span>run<span class="w"> </span><span class="m">200000</span>
-<span class="w"> </span>fix<span class="w"> </span>npt1<span class="w"> </span>all<span class="w"> </span>npt<span class="w"> </span>temp<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>aniso<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
-<span class="w"> </span>run<span class="w"> </span><span class="m">4000</span>
-<span class="w"> </span>write_data<span class="w"> </span>amorphousSiO.data
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Run</span>
+<span class="k">velocity</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">4928459</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="n">gaussian</span>
+<span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">5000</span>
+<span class="k">unfix </span><span class="nv nv-Identifier">nvt1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">npt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">4000</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1</span>
+<span class="k">run</span><span class="w"> </span><span class="m">50000</span>
+<span class="k">fix </span><span class="nv nv-Identifier">npt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">4000</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">run</span><span class="w"> </span><span class="m">200000</span>
+<span class="k">fix </span><span class="nv nv-Identifier">npt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">run</span><span class="w"> </span><span class="m">4000</span>
+<span class="k">write_data</span><span class="w"> </span><span class="n">amorphousSiO.data</span>
 </pre></div>
 </div>
 </div>
@@ -403,20 +403,20 @@ new input.lammps file starting with:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Cracking/input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialization</span>
-units<span class="w"> </span>metal
-boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
-atom_style<span class="w"> </span>full
-neighbor<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span>bin
-neigh_modify<span class="w"> </span>delay<span class="w"> </span><span class="m">1</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialization</span>
+<span class="k">units</span><span class="w"> </span><span class="n">metal</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">neighbor</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">bin</span>
+<span class="k">neigh_modify</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">1</span>
 
-<span class="c1"># System definition</span>
-read_data<span class="w"> </span>../SilicaBlock/amorphousSiO.data
+<span class="c"># System definition</span>
+<span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">SilicaBlock</span><span class="o">/</span><span class="n">amorphousSiO.data</span>
 
-<span class="c1"># Simulation settings</span>
-pair_style<span class="w"> </span>vashishta
-pair_coeff<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>../SilicaBlock/SiO.1990.vashishta<span class="w"> </span>Si<span class="w"> </span>O
-dump<span class="w"> </span>dmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.lammpstrj
+<span class="c"># Simulation settings</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">vashishta</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">SilicaBlock</span><span class="o">/</span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
+<span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
 </div>
 </div>
@@ -432,18 +432,18 @@ following lines to the input script:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Cracking/input.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run</span>
-fix<span class="w"> </span>nvt1<span class="w"> </span>all<span class="w"> </span>nvt<span class="w"> </span>temp<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0</span>.1
-timestep<span class="w"> </span><span class="m">0</span>.001
-thermo<span class="w"> </span><span class="m">1000</span>
-variable<span class="w"> </span>var<span class="w"> </span>loop<span class="w"> </span><span class="m">45</span>
-label<span class="w"> </span>loop
-change_box<span class="w"> </span>all<span class="w"> </span>z<span class="w"> </span>scale<span class="w"> </span><span class="m">1</span>.005<span class="w"> </span>remap
-run<span class="w"> </span><span class="m">2000</span>
-next<span class="w"> </span>var
-jump<span class="w"> </span>input.lammps<span class="w"> </span>loop
-run<span class="w"> </span><span class="m">20000</span>
-write_data<span class="w"> </span>dilatedSiO.data
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Run</span>
+<span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">variable </span><span class="nv nv-Identifier">var</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">45</span>
+<span class="k">label</span><span class="w"> </span><span class="n">loop</span>
+<span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="m">1.005</span><span class="w"> </span><span class="n">remap</span>
+<span class="k">run</span><span class="w"> </span><span class="m">2000</span>
+<span class="k">next</span><span class="w"> </span><span class="n">var</span>
+<span class="k">jump</span><span class="w"> </span><span class="n">input.lammps</span><span class="w"> </span><span class="n">loop</span>
+<span class="k">run</span><span class="w"> </span><span class="m">20000</span>
+<span class="k">write_data</span><span class="w"> </span><span class="n">dilatedSiO.data</span>
 </pre></div>
 </div>
 </div>
@@ -500,16 +500,16 @@ it:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Initialization</span>
-<span class="w"> </span>units<span class="w"> </span>metal
-<span class="w"> </span>boundary<span class="w"> </span>p<span class="w"> </span>p<span class="w"> </span>p
-<span class="w"> </span>atom_style<span class="w"> </span>full
-<span class="w"> </span>neighbor<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span>bin
-<span class="w"> </span>neigh_modify<span class="w"> </span>delay<span class="w"> </span><span class="m">1</span>
-<span class="w"> </span>pair_style<span class="w"> </span>hybrid/overlay<span class="w"> </span>vashishta<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>.1546<span class="w"> </span><span class="m">10</span>
-<span class="w"> </span>kspace_style<span class="w"> </span>pppm/tip4p<span class="w"> </span><span class="m">1</span>.0e-4
-<span class="w"> </span>bond_style<span class="w"> </span>harmonic
-<span class="w"> </span>angle_style<span class="w"> </span>harmonic
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialization</span>
+<span class="k">units</span><span class="w"> </span><span class="n">metal</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">neighbor</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">bin</span>
+<span class="k">neigh_modify</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">1</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">hybrid</span><span class="o">/</span><span class="n">overlay</span><span class="w"> </span><span class="n">vashishta</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">10</span>
+<span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
+<span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
 </pre></div>
 </div>
 </div>
@@ -530,23 +530,23 @@ Currently, dilatedSiO.data only includes two atom types, but
 we need four. Copy the previously generated dilatedSiO.data
 file within the present folder. It starts with:</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>LAMMPS<span class="w"> </span>data<span class="w"> </span>file<span class="w"> </span>via<span class="w"> </span>write_data,<span class="w"> </span>version<span class="w"> </span><span class="m">30</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">2021</span>,<span class="w"> </span><span class="nv">timestep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90000</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">LAMMPS</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="n">write_data</span>,<span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="n">Jul</span><span class="w"> </span><span class="m">2021</span>,<span class="w"> </span><span class="n">timestep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90000</span>
 
-<span class="m">576</span><span class="w"> </span>atoms
-<span class="m">2</span><span class="w"> </span>atom<span class="w"> </span>types
+<span class="m">576</span><span class="w"> </span><span class="n">atoms</span>
+<span class="m">2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
 
-<span class="m">0</span>.910777522101565<span class="w"> </span><span class="m">19</span>.67480018949893<span class="w"> </span>xlo<span class="w"> </span>xhi
-<span class="m">2</span>.1092682236518137<span class="w"> </span><span class="m">18</span>.476309487947546<span class="w"> </span>ylo<span class="w"> </span>yhi
--4.1701120819606885<span class="w"> </span><span class="m">24</span>.75568979356097<span class="w"> </span>zlo<span class="w"> </span>zhi
+<span class="m">0.910777522101565</span><span class="w"> </span><span class="m">19.67480018949893</span><span class="w"> </span><span class="n">xlo</span><span class="w"> </span><span class="n">xhi</span>
+<span class="m">2.1092682236518137</span><span class="w"> </span><span class="m">18.476309487947546</span><span class="w"> </span><span class="n">ylo</span><span class="w"> </span><span class="n">yhi</span>
+<span class="o">-</span><span class="m">4.1701120819606885</span><span class="w"> </span><span class="m">24.75568979356097</span><span class="w"> </span><span class="n">zlo</span><span class="w"> </span><span class="n">zhi</span>
 
-Masses
+<span class="n">Masses</span>
 
-<span class="m">1</span><span class="w"> </span><span class="m">28</span>.0855
-<span class="m">2</span><span class="w"> </span><span class="m">15</span>.9994
+<span class="m">1</span><span class="w"> </span><span class="m">28.0855</span>
+<span class="m">2</span><span class="w"> </span><span class="m">15.9994</span>
 
-Atoms<span class="w"> </span><span class="c1"># full</span>
+<span class="n">Atoms</span><span class="w"> </span><span class="c"># full</span>
 
-<span class="o">(</span>...<span class="o">)</span>
+<span class="nv">(...)</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -554,31 +554,31 @@ Atoms<span class="w"> </span><span class="c1"># full</span>
 molecules. Modify the file so that it looks like that
 (with 4 atom types, 1 bond type, 1 angle type, and four masses):</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>LAMMPS<span class="w"> </span>data<span class="w"> </span>file<span class="w"> </span>via<span class="w"> </span>write_data,<span class="w"> </span>version<span class="w"> </span><span class="m">30</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">2021</span>,<span class="w"> </span><span class="nv">timestep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90000</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">LAMMPS</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="n">write_data</span>,<span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="n">Jul</span><span class="w"> </span><span class="m">2021</span>,<span class="w"> </span><span class="n">timestep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90000</span>
 
-<span class="m">576</span><span class="w"> </span>atoms
-<span class="m">4</span><span class="w"> </span>atom<span class="w"> </span>types
-<span class="m">1</span><span class="w"> </span>bond<span class="w"> </span>types
-<span class="m">1</span><span class="w"> </span>angle<span class="w"> </span>types
+<span class="m">576</span><span class="w"> </span><span class="n">atoms</span>
+<span class="m">4</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
+<span class="m">1</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">types</span>
+<span class="m">1</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">types</span>
 
-<span class="m">2</span><span class="w"> </span>extra<span class="w"> </span>bond<span class="w"> </span>per<span class="w"> </span>atom
-<span class="m">1</span><span class="w"> </span>extra<span class="w"> </span>angle<span class="w"> </span>per<span class="w"> </span>atom
-<span class="m">2</span><span class="w"> </span>extra<span class="w"> </span>special<span class="w"> </span>per<span class="w"> </span>atom
+<span class="m">2</span><span class="w"> </span><span class="n">extra</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">atom</span>
+<span class="m">1</span><span class="w"> </span><span class="n">extra</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">atom</span>
+<span class="m">2</span><span class="w"> </span><span class="n">extra</span><span class="w"> </span><span class="n">special</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">atom</span>
 
-<span class="m">0</span>.910777522101565<span class="w"> </span><span class="m">19</span>.67480018949893<span class="w"> </span>xlo<span class="w"> </span>xhi
-<span class="m">2</span>.1092682236518137<span class="w"> </span><span class="m">18</span>.476309487947546<span class="w"> </span>ylo<span class="w"> </span>yhi
--4.1701120819606885<span class="w"> </span><span class="m">24</span>.75568979356097<span class="w"> </span>zlo<span class="w"> </span>zhi
+<span class="m">0.910777522101565</span><span class="w"> </span><span class="m">19.67480018949893</span><span class="w"> </span><span class="n">xlo</span><span class="w"> </span><span class="n">xhi</span>
+<span class="m">2.1092682236518137</span><span class="w"> </span><span class="m">18.476309487947546</span><span class="w"> </span><span class="n">ylo</span><span class="w"> </span><span class="n">yhi</span>
+<span class="o">-</span><span class="m">4.1701120819606885</span><span class="w"> </span><span class="m">24.75568979356097</span><span class="w"> </span><span class="n">zlo</span><span class="w"> </span><span class="n">zhi</span>
 
-Masses
+<span class="n">Masses</span>
 
-<span class="m">1</span><span class="w"> </span><span class="m">28</span>.0855
-<span class="m">2</span><span class="w"> </span><span class="m">15</span>.9994
-<span class="m">3</span><span class="w"> </span><span class="m">15</span>.9994
-<span class="m">4</span><span class="w"> </span><span class="m">1</span>.008
+<span class="m">1</span><span class="w"> </span><span class="m">28.0855</span>
+<span class="m">2</span><span class="w"> </span><span class="m">15.9994</span>
+<span class="m">3</span><span class="w"> </span><span class="m">15.9994</span>
+<span class="m">4</span><span class="w"> </span><span class="m">1.008</span>
 
-Atoms<span class="w"> </span><span class="c1"># full</span>
+<span class="n">Atoms</span><span class="w"> </span><span class="c"># full</span>
 
-<span class="o">(</span>...<span class="o">)</span>
+<span class="nv">(...)</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -592,15 +592,15 @@ input.lammps file, by adding the system definition:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># System definition</span>
-<span class="w"> </span>read_data<span class="w"> </span>dilatedSiO.data
-<span class="w"> </span>molecule<span class="w"> </span>h2omol<span class="w"> </span>TIP4P2005.txt
-<span class="w"> </span>lattice<span class="w"> </span>sc<span class="w"> </span><span class="m">3</span>
-<span class="w"> </span>create_atoms<span class="w"> </span><span class="m">0</span><span class="w"> </span>box<span class="w"> </span>mol<span class="w"> </span>h2omol<span class="w"> </span><span class="m">45585</span>
-<span class="w"> </span>lattice<span class="w"> </span>none<span class="w"> </span><span class="m">1</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># System definition</span>
+<span class="k">read_data</span><span class="w"> </span><span class="n">dilatedSiO.data</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">TIP4P2005.txt</span>
+<span class="k">lattice</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="m">3</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">45585</span>
+<span class="k">lattice</span><span class="w"> </span><span class="n">none</span><span class="w"> </span><span class="m">1</span>
 
-<span class="w"> </span>group<span class="w"> </span>SiO<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
-<span class="w"> </span>group<span class="w"> </span>H2O<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+<span class="k">group </span><span class="nv nv-Identifier">SiO</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+<span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
 </pre></div>
 </div>
 </div>
@@ -618,20 +618,20 @@ settings of the simulation:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id10" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Simulation settings</span>
-<span class="w"> </span>pair_coeff<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>vashishta<span class="w"> </span>../SilicaBlock/SiO.1990.vashishta<span class="w"> </span>Si<span class="w"> </span>O<span class="w"> </span>NULL<span class="w"> </span>NULL
-<span class="w"> </span>pair_coeff<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">0</span>.0057<span class="w"> </span><span class="m">4</span>.42<span class="w"> </span><span class="c1"># epsilonSi = 0.00403, sigmaSi = 3.69</span>
-<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">0</span>.0043<span class="w"> </span><span class="m">3</span>.12<span class="w"> </span><span class="c1"># epsilonO = 0.0023, sigmaO = 3.091</span>
-<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">0</span>.008<span class="w"> </span><span class="m">3</span>.1589
-<span class="w"> </span>pair_coeff<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>lj/cut/tip4p/long<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0
-<span class="w"> </span>bond_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>.9572
-<span class="w"> </span>angle_coeff<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104</span>.52
-<span class="w"> </span>variable<span class="w"> </span>oxygen<span class="w"> </span>atom<span class="w"> </span><span class="s2">&quot;type==3&quot;</span>
-<span class="w"> </span>group<span class="w"> </span>oxygen<span class="w"> </span>dynamic<span class="w"> </span>all<span class="w"> </span>var<span class="w"> </span>oxygen
-<span class="w"> </span>variable<span class="w"> </span>nO<span class="w"> </span>equal<span class="w"> </span>count<span class="o">(</span>oxygen<span class="o">)</span>
-<span class="w"> </span>fix<span class="w"> </span>myat1<span class="w"> </span>all<span class="w"> </span>ave/time<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span>v_nO<span class="w"> </span>file<span class="w"> </span>numbermolecule.dat
-<span class="w"> </span>fix<span class="w"> </span>shak<span class="w"> </span>H2O<span class="w"> </span>shake<span class="w"> </span><span class="m">1</span>.0e-4<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>b<span class="w"> </span><span class="m">1</span><span class="w"> </span>a<span class="w"> </span><span class="m">1</span><span class="w"> </span>mol<span class="w"> </span>h2omol
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Simulation settings</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">vashishta</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">SilicaBlock</span><span class="o">/</span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0057</span><span class="w"> </span><span class="m">4.42</span><span class="w"> </span><span class="c"># epsilonSi = 0.00403, sigmaSi = 3.69</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0043</span><span class="w"> </span><span class="m">3.12</span><span class="w"> </span><span class="c"># epsilonO = 0.0023, sigmaO = 3.091</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.008</span><span class="w"> </span><span class="m">3.1589</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
+<span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.9572</span>
+<span class="k">angle_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104.52</span>
+<span class="k">variable </span><span class="nv nv-Identifier">oxygen</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="s">&quot;type==3&quot;</span>
+<span class="k">group </span><span class="nv nv-Identifier">oxygen</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="n">oxygen</span>
+<span class="k">variable </span><span class="nv nv-Identifier">nO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(oxygen)</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_nO</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">numbermolecule.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">shak</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span>
 </pre></div>
 </div>
 </div>
@@ -650,8 +650,8 @@ positions in a dump file:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id11" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>delete_atoms<span class="w"> </span>overlap<span class="w"> </span><span class="m">2</span><span class="w"> </span>H2O<span class="w"> </span>SiO<span class="w"> </span>mol<span class="w"> </span>yes
-<span class="w"> </span>dump<span class="w"> </span>dmp<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span><span class="m">1000</span><span class="w"> </span>dump.init.lammpstrj
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">SiO</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.init.lammpstrj</span>
 </pre></div>
 </div>
 </div>
@@ -660,18 +660,18 @@ positions in a dump file:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Run</span>
-<span class="w"> </span>compute_modify<span class="w"> </span>thermo_temp<span class="w"> </span>dynamic<span class="w"> </span>yes
-<span class="w"> </span>compute<span class="w"> </span>ctH2O<span class="w"> </span>H2O<span class="w"> </span>temp
-<span class="w"> </span>compute_modify<span class="w"> </span>ctH2O<span class="w"> </span>dynamic<span class="w"> </span>yes
-<span class="w"> </span>fix<span class="w"> </span>mynvt1<span class="w"> </span>H2O<span class="w"> </span>nvt<span class="w"> </span>temp<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0</span>.1
-<span class="w"> </span>fix_modify<span class="w"> </span>mynvt1<span class="w"> </span>temp<span class="w"> </span>ctH2O
-<span class="w"> </span>compute<span class="w"> </span>ctSiO<span class="w"> </span>SiO<span class="w"> </span>temp
-<span class="w"> </span>fix<span class="w"> </span>mynvt2<span class="w"> </span>SiO<span class="w"> </span>nvt<span class="w"> </span>temp<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0</span>.1
-<span class="w"> </span>fix_modify<span class="w"> </span>mynvt2<span class="w"> </span>temp<span class="w"> </span>ctSiO
-<span class="w"> </span>timestep<span class="w"> </span><span class="m">0</span>.001
-<span class="w"> </span>thermo<span class="w"> </span><span class="m">1000</span>
-<span class="w"> </span>run<span class="w"> </span><span class="m">5000</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Run</span>
+<span class="k">compute_modify</span><span class="w"> </span><span class="n">thermo_temp</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">compute </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">compute_modify</span><span class="w"> </span><span class="n">ctH2O</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">fix_modify</span><span class="w"> </span><span class="n">mynvt1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">ctH2O</span>
+<span class="k">compute </span><span class="nv nv-Identifier">ctSiO</span><span class="w"> </span><span class="nv nv-Identifier">SiO</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt2</span><span class="w"> </span><span class="nv nv-Identifier">SiO</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">fix_modify</span><span class="w"> </span><span class="n">mynvt2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">ctSiO</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">5000</span>
 </pre></div>
 </div>
 </div>
@@ -687,11 +687,11 @@ canonical Monte Carlo steps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id13" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>variable<span class="w"> </span>tfac<span class="w"> </span>equal<span class="w"> </span><span class="m">5</span>.0/3.0
-<span class="w"> </span>fix<span class="w"> </span>fgcmc<span class="w"> </span>H2O<span class="w"> </span>gcmc<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">65899</span><span class="w"> </span><span class="m">300</span><span class="w"> </span>-0.5<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>mol<span class="w"> </span>h2omol<span class="w"> </span>tfac_insert<span class="w"> </span><span class="si">${</span><span class="nv">tfac</span><span class="si">}</span><span class="w"> </span>group<span class="w"> </span>H2O<span class="w"> </span>shake<span class="w"> </span>shak<span class="w"> </span>full_energy<span class="w"> </span>pressure<span class="w"> </span><span class="m">10000</span>
-<span class="w"> </span>run<span class="w"> </span><span class="m">100000</span>
-<span class="w"> </span>write_data<span class="w"> </span>SiOwithwater.data
-<span class="w"> </span>write_dump<span class="w"> </span>all<span class="w"> </span>atom<span class="w"> </span>dump.lammpstrj
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">tfac</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5.0</span><span class="o">/</span><span class="m">3.0</span>
+<span class="k">fix </span><span class="nv nv-Identifier">fgcmc</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">gcmc</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">65899</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="o">-</span><span class="m">0.5</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">tfac_insert</span><span class="w"> </span><span class="nv">${tfac}</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="n">shak</span><span class="w"> </span><span class="n">full_energy</span><span class="w"> </span><span class="n">pressure</span><span class="w"> </span><span class="m">10000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">100000</span>
+<span class="k">write_data</span><span class="w"> </span><span class="n">SiOwithwater.data</span>
+<span class="k">write_dump </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
 </div>
 </div>
@@ -715,7 +715,7 @@ by looking at the log file:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id14" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Created<span class="w"> </span><span class="m">972</span><span class="w"> </span>atoms
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Created 972 atoms
 </pre></div>
 </div>
 </div>
@@ -724,9 +724,9 @@ by looking at the log file:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id15" title="Permalink to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Deleted<span class="w"> </span><span class="m">954</span><span class="w"> </span>atoms,<span class="w"> </span>new<span class="w"> </span><span class="nv">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">594</span>
-Deleted<span class="w"> </span><span class="m">636</span><span class="w"> </span>bonds,<span class="w"> </span>new<span class="w"> </span><span class="nv">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">12</span>
-Deleted<span class="w"> </span><span class="m">318</span><span class="w"> </span>angles,<span class="w"> </span>new<span class="w"> </span><span class="nv">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Deleted 954 atoms, new total = 594
+Deleted 636 bonds, new total = 12
+Deleted 318 angles, new total = 6
 </pre></div>
 </div>
 </div>

@@ -59,7 +59,7 @@ Input file
 
    Then, create a LAMMPS input file, call is input.lammps, and type in it:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input.lammps*
 
    # Initialisation
@@ -87,7 +87,7 @@ Input file
    Then, let us import the LAMMPS data file, and set the
    pair_coeff:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input.lammps*
 
    read_data carbon.data
@@ -99,7 +99,7 @@ Input file
    `here <../../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo>`__.
    The rest of the script is very similar to the previous tutorial (:ref:`graphene-label`):
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input.lammps*
 
    # Simulation settings
@@ -136,7 +136,7 @@ Equilibration
 
    First, as an equilibration step, let us set the velocity to 0.
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input.lammps*
 
    fix mysf1 gbot setforce NULL NULL 0
@@ -163,7 +163,7 @@ Equilibration
    (after a few picoseconds the temperature reaches the target
    value):
 
-..  code-block:: bash
+..  code-block:: bw
 
    Step          Temp          E_pair         E_mol          TotEng         Press     
    0   300           -5084.7276      0             -5058.3973     -1515.7017    
@@ -185,7 +185,7 @@ Deformation
 
    Then, let us set the velocity to 30 m/s and run for a longer time:
 
-..  code-block:: bash
+..  code-block:: lammps
    :caption: *to be copied in input.lammps*
 
    # 0.15 A/ps = 30 m/s

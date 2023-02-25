@@ -57,8 +57,8 @@ Generation of the silica block
     Create a new input file in the same folder as the downloaded
     dataSiO.data, and copy the following lines in it:
 
-..  code-block:: bash
-   :caption: *to be copied in SilicaBlock/input.lammps*
+..  code-block:: lammps
+    :caption: *to be copied in SilicaBlock/input.lammps*
 
     # Initialization
     units metal
@@ -100,8 +100,8 @@ Generation of the silica block
     add a dump command for printing out the positions of the
     atoms every 5000 steps:
 
-..  code-block:: bash
-   :caption: *to be copied in SilicaBlock/input.lammps*
+..  code-block:: lammps
+    :caption: *to be copied in SilicaBlock/input.lammps*
 
     # Simulation settings
     pair_coeff * * SiO.1990.vashishta Si O
@@ -122,8 +122,8 @@ Generation of the silica block
     making your own tests if you intend to publish your
     results.
 
-..  code-block:: bash
-   :caption: *to be copied in SilicaBlock/input.lammps*
+..  code-block:: lammps
+    :caption: *to be copied in SilicaBlock/input.lammps*
 
     # Run
     velocity all create 6000 4928459 rot yes dist gaussian
@@ -187,7 +187,7 @@ Cracking the silica
     crack. Create a new folder, called Cracking, and create a
     new input.lammps file starting with:
 
-..  code-block:: bash
+..  code-block:: lammps
     :caption: *to be copied in Cracking/input.lammps*
 
     # Initialization
@@ -216,7 +216,7 @@ Cracking the silica
     volume (therefore NPT would be inappropriate). Add the
     following lines to the input script:
 
-.. code-block:: bash
+.. code-block:: lammps
     :caption: *to be copied in Cracking/input.lammps*
 
     # Run
@@ -290,8 +290,8 @@ Adding water
     Create a new input file, and copy the following lines into
     it:
 
-..  code-block:: bash
-   :caption: *to be copied in Addingwater/input.lammps*
+..  code-block:: lammps
+    :caption: *to be copied in Addingwater/input.lammps*
 
     # Initialization
     units metal
@@ -323,7 +323,7 @@ Adding water
     we need four. Copy the previously generated dilatedSiO.data
     file within the present folder. It starts with:
 
-..  code-block:: bash
+..  code-block:: lammps
 
     LAMMPS data file via write_data, version 30 Jul 2021, timestep = 90000
 
@@ -349,7 +349,7 @@ Adding water
     molecules. Modify the file so that it looks like that 
     (with 4 atom types, 1 bond type, 1 angle type, and four masses):
 
-..  code-block:: bash
+..  code-block:: lammps
 
     LAMMPS data file via write_data, version 30 Jul 2021, timestep = 90000
 
@@ -388,8 +388,8 @@ Adding water
     We can continue to fill the
     input.lammps file, by adding the system definition:
 
-..  code-block:: bash
-   :caption: *to be copied in Addingwater/input.lammps*
+..  code-block:: lammps
+    :caption: *to be copied in Addingwater/input.lammps*
 
     # System definition
     read_data dilatedSiO.data
@@ -415,8 +415,8 @@ Adding water
     Then, add the following
     settings of the simulation:
 
-..  code-block:: bash
-   :caption: *to be copied in Addingwater/input.lammps*
+..  code-block:: lammps
+    :caption: *to be copied in Addingwater/input.lammps*
 
     # Simulation settings
     pair_coeff * * vashishta ../SilicaBlock/SiO.1990.vashishta Si O NULL NULL
@@ -448,8 +448,8 @@ Adding water
     Let us delete the overlapping water molecules, and print the 
     positions in a dump file:
 
-..  code-block:: bash
-   :caption: *to be copied in Addingwater/input.lammps*
+..  code-block:: lammps
+    :caption: *to be copied in Addingwater/input.lammps*
 
     delete_atoms overlap 2 H2O SiO mol yes
     dump dmp all atom 1000 dump.init.lammpstrj
@@ -458,8 +458,8 @@ Adding water
 
     Let us make a first equilibration step:
 
-..  code-block:: bash
-   :caption: *to be copied in Addingwater/input.lammps*
+..  code-block:: lammps
+    :caption: *to be copied in Addingwater/input.lammps*
 
     # Run
     compute_modify thermo_temp dynamic yes
@@ -486,8 +486,8 @@ Adding water
     Finally, let us use the gcmc fix and perform the grand
     canonical Monte Carlo steps:
 
-..  code-block:: bash
-   :caption: *to be copied in Addingwater/input.lammps*
+..  code-block:: lammps
+    :caption: *to be copied in Addingwater/input.lammps*
 
     variable tfac equal 5.0/3.0
     fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} group H2O shake shak full_energy pressure 10000
@@ -517,7 +517,7 @@ Adding water
     You can see that 
     by looking at the log file:
 
-..  code-block:: bash
+..  code-block:: bw
     :caption: *from the log file*
 
     Created 972 atoms
@@ -526,7 +526,7 @@ Adding water
 
     In my case 324 molecules were created.
 
-..  code-block:: bash
+..  code-block:: bw
     :caption: *from the log file*
 
     Deleted 954 atoms, new total = 594
