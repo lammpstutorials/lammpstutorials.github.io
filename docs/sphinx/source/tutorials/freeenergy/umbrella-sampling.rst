@@ -620,13 +620,3 @@ Going further with exercises
     of a molecule of your choice normally to a solid wall.
 
 .. include:: ../../contact/contactme.rst
-
-.. 
-
-    A non-equilibrated system containing a few ethanol
-    molecules can be downloaded:
-    `here <https://github.com/lammpstutorials/lammpstutorials.github.io/tree/main/inputs/06-FreeEnergy/exercice3>`__
-    (the method to create this system using molecules
-    structures downloaded from the ATB is given in the
-    `solutions to the
-    exercises <https://www.patreon.com/molecularsimulations>`__)

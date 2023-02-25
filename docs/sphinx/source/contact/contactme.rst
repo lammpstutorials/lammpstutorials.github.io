@@ -1,5 +1,6 @@
-.. container:: contact
+.. admonition:: Contact me
+    :class: mail
 
-    :ref:`contact-label` if you have any question or suggestion about these tutorials. 
+    :ref:`contact-label` me if you have any question or suggestion about these tutorials. 
 
 
