@@ -679,11 +679,15 @@ Restarting from a saved configuration
     By visualizing the previously generated dump.min.lammpstrj
     file, you may have noticed that some atoms have moved from
     one region to the other during minimisation, as seen in
-    `this video <https://www.youtube.com/embed/gfJ_n33-F6A>`__.
+    |this video|.
     In order to start the simulation from a clean state, with
     only atoms of type 2 within the cylinder and atoms of type
     1 outside the cylinder, let us delete the misplaced atoms
     by adding the following commands:
+
+.. |this video| raw:: html
+
+   <a href="https://www.youtube.com/embed/gfJ_n33-F6A" target="_blank">this video</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in input3.lammps*

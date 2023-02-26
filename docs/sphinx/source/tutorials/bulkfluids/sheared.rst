@@ -120,12 +120,15 @@ System generation
     defined lattice.
 
     In order to add the water molecules, we first need to
-    download the
-    `TIP4P2005.txt <../../../../../inputs/bulkfluids/sheared/SystemCreation/TIP4P2005.txt>`__
+    download the |download_TIP4P2005.txt|
     file and place it in the same folder. It contains all the
     necessary information about the water molecule, such as
     positions, bonds, and angle. Then, add the following lines
     to input.lammps:
+
+.. |download_TIP4P2005.txt| raw:: html
+
+   <a href="../../../../../inputs/bulkfluids/sheared/SystemCreation/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in SystemCreation/input.lammps*
@@ -484,8 +487,11 @@ Next, let us create a group for the water:
 
     If you look at the trajectory using VMD, you will see some
     of the atoms (the one that where initially in a problematic
-    position) slightly move from each others, as seen in `this
-    video <https://youtu.be/JWGZnFN4TOo>`__.
+    position) slightly move from each others, as seen in |youtube_video_lammps|.
+
+.. |youtube_video_lammps| raw:: html
+
+   <a href="https://youtu.be/JWGZnFN4TOo" target="_blank">this video</a>
 
 System equilibration
 ====================
@@ -756,8 +762,8 @@ Imposed nanoshearing
 
     From the force applied by the fluid on the solid, one can
     extract the stress within the fluid, which allows one to
-    measure its viscosity :math:`\dot{\eta}` according to
-    `gravelle2021 <https://pure.tudelft.nl/ws/portalfiles/portal/89280267/PhysRevFluids.6.034303.pdf>`__:
+    measure its viscosity :math:`\dot{\eta}` 
+    according to |reference_gravelle2021|:
     :math:`\eta = \tau / \dot{\gamma}` where :math:`\tau`
     is the stress applied bythe fluid on the shearing wall, and
     :math:`\dot{\gamma}` the shear rate (which is imposed
@@ -775,6 +781,10 @@ Imposed nanoshearing
     walls. Therefore one expect the present simulation to return 
     a viscosity that is slightly larger than what would be measured with 
     the fluid alone.
+
+.. |reference_gravelle2021| raw:: html
+
+   <a href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/PhysRevFluids.6.034303.pdf" target="_blank">gravelle2021</a>
 
 .. include:: ../../contact/accessfile.rst
 

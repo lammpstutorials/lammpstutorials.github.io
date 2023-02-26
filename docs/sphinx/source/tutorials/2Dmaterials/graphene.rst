@@ -38,8 +38,7 @@ Generation of the system
 ..  container:: justify
 
    The initial configuration (atoms positions, bonds, angles,
-   etc.) is generated using
-   `VMD <https://www.ks.uiuc.edu/Research/vmd/>`__. Open VMD,
+   etc.) is generated using |VMD_uiuc|. Open VMD,
    and go to Extensions, Modeling, Nanotube Builder. A window
    named Carbon Nanostructures opens up, allowing us to choose
    between generating sheet and nanotube of graphene or BN. For
@@ -49,6 +48,10 @@ Generation of the system
    Sheet(s)". You should something like the image on the right 
    (here I changed the original color a little bit, 
    but that is not necessary).
+
+.. |VMD_uiuc| raw:: html
+
+   <a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">VMD</a>
 
 .. figure:: ../figures/graphene/vmd_dark.png
     :alt: graphene in vacuum image VMD
@@ -93,11 +96,14 @@ Generation of the system
 ..  container:: justify
 
    More details about these commands can be found on the
-   personal page of `Axel
-   Kohlmeyer <https://sites.google.com/site/akohlmey/software/topotools>`__.
+   personal page of |Axel_webpage|.
    In short, Topotool deduces the location of bonds, angles,
    dihedrals, and impropers from the positions of the atoms,
    and generates a file that can be read by LAMMPS.
+
+.. |Axel_webpage| raw:: html
+
+   <a href="https://sites.google.com/site/akohlmey/software/topotools" target="_blank">Axel Kohlmeyer</a>
 
 ..  container:: justify
 
@@ -138,7 +144,11 @@ Generation of the system
    generation, we can start the molecular dynamics simulations.
 
    Alternatively, you can download the file I did generate 
-   by clicking `here <../../../../../inputs/2Dmaterials/graphene/carbon.data>`__.
+   by clicking  |download_carbon_data|.
+
+.. |download_carbon_data| raw:: html
+
+   <a href="../../../../../inputs/2Dmaterials/graphene/carbon.data" target="_blank">here</a>
 
 LAMMPS input script
 ===================
@@ -182,8 +192,11 @@ LAMMPS input script
    The bond, angle, dihedral, and improper styles specify the
    different potentials used to restrain the positions of the
    atoms. For more details, have a look at the LAMMPS website
-   (see for example the `OPLS dihedral
-   style <https://lammps.sandia.gov/doc/dihedral_opls.html>`__).
+   (see for example the |OPLS|).
+
+.. |OPLS| raw:: html
+
+   <a href="https://lammps.sandia.gov/doc/dihedral_opls.html" target="_blank">OPLS dihedral style</a>
 
 ..  container:: justify
 
@@ -425,11 +438,14 @@ Run
 
 ..  container:: justify
 
-   What you observe should resemble `this
-   video <https://www.youtube.com/embed/o5IoCVWpPKg>`__. The
+   What you observe should resemble |video_lammps_graphene|. The
    sheet is progressively elongated, and the carbon honeycombs
    are being deformed. You can increase the number of iteration
    of the loop (variable var) to force a larger elongation.
+
+.. |video_lammps_graphene| raw:: html
+
+   <a href="https://www.youtube.com/embed/o5IoCVWpPKg" target="_blank">this video</a>
 
 ..  container:: justify
 
