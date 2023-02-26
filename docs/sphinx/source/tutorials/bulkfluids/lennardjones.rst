@@ -112,7 +112,7 @@ The input script
 
 .. container:: justify
 
-    *Remark -* These five categories are not required in every
+    These five categories are not required in every
     input script, and should not necessarily be in that
     exact order. For instance parts 3 and 4 could be inverted, or
     part 4 could be omitted, or there could be several
@@ -293,19 +293,21 @@ The input script
     terminal every 10 timesteps. The second line asks LAMMPS to
     perform an energy minimization of the system.
 
-..  container:: justify
 
-    **About energy minimization**
+.. admonition:: About energy minimization
+    :class: info
+
     An energy minimization procedure consists in adjusting
-    the coordinates of the atoms until one of the stopping
+    the coordinates of the atoms that are too close from one another until one of the stopping
     criteria is reached. Here there are four stopping
     criteria:
 
     #. The change in energy between two iterations is less than 1.0e-4,
     #. The maximum force between two atoms in the system is lower than 1.0e-6,
     #. The maximum number of iterations is 1000,
-    #. The maximum number of times the force and the
-        energy have been evaluated is 10000.
+    #. The maximum number of times the force and the energy have been evaluated is 10000.
+
+..  container:: justify
 
     Now running the simulation, we can see how the thermodynamics
     variables evolve with time:

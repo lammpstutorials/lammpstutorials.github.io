@@ -191,10 +191,9 @@ LAMMPS input script
    previously generated with VMD, which contains the
    information about the box size, atoms positions, etc.
 
-.. container:: remark2
-
-   **About interaction between neighbors atoms:** 
-   
+.. admonition:: About interaction between neighbors atoms
+   :class: info
+      
    Atoms connected by bond do not typically interact through
    Lennard-Jones interaction. This is ensured here by the
    special_bonds command. The three numbers of the
@@ -292,9 +291,8 @@ Separate the atoms into 3 groups
    group gbot region rbot
    group gmid region rmid
 
-..  container:: remark2
-
-   **Tip** 
+.. admonition:: Tip
+   :class: info
    
    When running a simulation, the number of atoms in each
    group is printed in the terminal (and in the log.lammps
