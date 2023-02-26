@@ -199,7 +199,8 @@ Deformation
    video <https://www.youtube.com/watch?v=f1ve1j3yA6w>`__. Use
    the DynamicBonds representation.
 
-..  container:: remark2
+.. admonition:: About bonds in VMD
+   :class: info
 
    Note that VMD guesses bonds based on the distances
    between atoms, and not based on the presence of actual

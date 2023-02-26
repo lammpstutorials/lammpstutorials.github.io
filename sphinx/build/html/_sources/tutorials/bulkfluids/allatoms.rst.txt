@@ -115,17 +115,19 @@ Bulk water
    Coulombic interactions. The pppm style refers to
    particle-particle particle-mesh.
 
-..  container:: justify
+.. admonition:: About PPPM
+   :class: info
 
-   **About PPPM**
-   From `Luty and van Gunsteren'
-   paper <https://doi.org/10.1021/jp9518623>`__: "The PPPM
+   *The PPPM
    method is based on separating the total interaction
    between particles into the sum of short-range
    interactions, which are computed by direct
    particle-particle summation, and long-range interactions,
    which are calculated by solving Poisson's equation using
-   periodic boundary conditions (PBCs)."
+   periodic boundary conditions (PBCs).* 
+   `Luty and van Gunsteren <https://doi.org/10.1021/jp9518623>`__
+
+..  container:: justify
 
    Then, let us create a 3D simulation box of dimensions 8 x 3
    x 3 nm:math:`^3`, and make space for 7 atom types (1 and 2 for
