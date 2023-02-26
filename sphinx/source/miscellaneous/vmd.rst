@@ -17,10 +17,13 @@ Practical example
 
 .. container:: justify
 
-    If you want to try it yourself with the same system, you can 
-    `download <../../../../inputs/miscellaneous/vmd/dump.lammpstrj>`__
+    If you want to try it yourself with the same system, you can |dump_download|
     this LAMMPS trajectory file, which corresponds to a mixture of water and toluene,
     and can be opened with VMD by typing in a terminal:
+
+.. |dump_download| raw:: html
+
+   <a href="../../../../inputs/miscellaneous/vmd/dump.lammpstrj" target="_blank">download</a>
 
 ..  code-block:: bash
     
@@ -36,8 +39,7 @@ The representation
     another **Drawing Method**. My 2 favorite representations
     are **dynamic bonds** for large molecules or graphene,
     and **VDW** for single atoms or small molecules like water.
-    QuickSurf can also make nice results, like
-    `this video <https://www.youtube.com/watch?v=1ipJ8JQT0rc&t=3s>`__.
+    QuickSurf can also make nice results, like |video_vmd|.
     You can apply a representation
     only to a group of atoms, by choosing a selection in the windows
     **Selected Atoms**. 
@@ -54,6 +56,10 @@ The representation
     the ends of the bonds are rough. To smooth the representation:
 
     * create the fourth and last representation (VDW, radius 0.2) for types 3, 4, and 5.
+
+.. |video_vmd| raw:: html
+
+   <a href="https://www.youtube.com/watch?v=BSE9Vf6KhRo&ab_channel=LAMMPStutorials" target="_blank">this video</a>
 
 The colors
 ==========
@@ -188,5 +194,4 @@ Movie
 
 .. container:: justify
 
-    The result should look like `this
-    video <https://www.youtube.com/watch?v=BSE9Vf6KhRo&ab_channel=LAMMPStutorials>`__.
+    The result should look like |video_vmd|.

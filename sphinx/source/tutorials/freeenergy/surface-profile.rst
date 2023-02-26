@@ -28,7 +28,11 @@ Adsorption of ethanol
     The objective of this tutorial is to build a molecular
     dynamics system made of a flat crystal wall (NaCl) and
     ethanol molecules. The molecule topology files will be downloaded from
-    the `ATB repository <https://atb.uq.edu.au/>`__.
+    the |ATB_repository|.
+
+.. |ATB_repository| raw:: html
+
+   <a href="https://atb.uq.edu.au/" target="_blank">ATB repository</a>
 
 .. include:: ../../contact/needhelp.rst
 
@@ -43,29 +47,43 @@ Download ATB molecule
 
     You can skip the creation of the system and go directly to
     the `molecular dynamics <#equilibrium>`__ part by
-    downloading the input data file
-    `here <../../../../../inputs/freeenergy/SurfaceProfile/data.lammps>`__.
+    downloading the input data file |data_ethanol|.
 
     Create a EthanolMolecule/ folder.
 
-    Go to the `ATB
-    repository <https://atb.uq.edu.au/>`__ website (you will
+    Go to the |ATB_repository| website (you will
     need to register). Then go to Existing Molecules, choose a
-    molecule. I am choosing an `ethanol
-    molecule <https://atb.uq.edu.au/molecule.py?molid=514352#panel-md>`__,
+    molecule. I am choosing an |ethanol_molecule|,
     but you can choose another one (at your own risk) and follow
     this tutorial. Then, click on Molecular Dynamics (MD) Files,
-    choose LAMMPS format, and download the 
-    `GROMOS force field <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/GROMOS_54A7_ATB.lt>`__
-    and the 
-    `all-atom moltemplate <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/JRA4_allatom_optimized_geometry.lt>`__ 
+    choose LAMMPS format, and download the |GROMOS_force_field|
+    and the |all-atom_moltemplate|
     files into the EthanolMolecule/ folder.
 
     Inside the moltemplate file, there is an example of
-    \`system.lt\` allowing for the creation of LAMMPS input
-    file. Copy past it, and create a 
-    `system.lt <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/system.lt>`__
+    *system.lt* allowing for the creation of LAMMPS input
+    file. Copy past it, and create a |download_system.lt|
     file that looks like that:
+
+.. |data_ethanol| raw:: html
+
+   <a href="../../../../../inputs/freeenergy/SurfaceProfile/data.lammps" target="_blank">here</a>
+
+.. |ethanol_molecule| raw:: html
+
+   <a href="https://atb.uq.edu.au/molecule.py?molid=514352#panel-md" target="_blank">ethanol molecule</a>
+
+.. |GROMOS_force_field| raw:: html
+
+   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/GROMOS_54A7_ATB.lt" target="_blank">GROMOS force field</a>
+
+.. |all-atom_moltemplate| raw:: html
+
+   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/JRA4_allatom_optimized_geometry.lt" target="_blank">all-atom moltemplate</a>
+
+.. |download_system.lt| raw:: html
+
+   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/system.lt" target="_blank">system.lt</a>
 
 ..  code-block:: bw
 
@@ -94,7 +112,11 @@ Download ATB molecule
 
 ..  container:: justify
 
-    Run it using `Moltemplate <https://www.moltemplate.org/>`__,
+    Run it using |Moltemplate|,
+
+.. |Moltemplate| raw:: html
+
+   <a href="https://www.moltemplate.org/" target="_blank">Moltemplate</a>
 
 ..  code-block:: bw
 
@@ -116,17 +138,11 @@ Download ATB molecule
     read. 
     
     Let us arrange the data and isolate only the useful
-    information. Create four files, named 
-    `Positions.dat <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Positions.dat>`__,
-    `Bonds.dat <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat>`__,
-    `Angles.dat <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Angles.dat>`__, and
-    `Dihedrals.dat <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Dihedrals.dat>`__,
-    Then re-number the atoms
+    information. Create four files, named |download_Positions.dat|, |download_Bonds.dat|, |download_Angles.dat|,
+    |download_Dihedrals.dat|. Then re-number the atoms
     types, bonds, angles starting from 1. 
     
-    For the ethanol molecule, the 
-    `Bonds.dat <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat>`__
-    file looks like that:
+    For the ethanol molecule, the |download_Bonds.dat| file looks like that:
 
 ..  code-block:: lammps
 
@@ -161,17 +177,33 @@ Download ATB molecule
 
     Sorting out these files is a tedious task, to continue to follow this
     tutorial, you can download these files for ethanol 
-    (`Positions.dat <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Positions.dat>`__,
-    `Bonds.dat <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat>`__,
-    `Angles.dat <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Angles.dat>`__, and
-    `Dihedrals.dat <../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Dihedrals.dat>`__).
-    Alternatively, you can use `the
-    atb2lammps <https://github.com/simongravelle/atb2lammps>`__
-    code to create a clean initial configuration.
+    (|download_Positions.dat|, |download_Bonds.dat|, |download_Angles.dat|, and |download_Dihedrals.dat|).
+    Alternatively, you can use |atb2lammps|
+    script to create a clean initial configuration.
 
     If you choose another molecule, you may have additional
     impropers contraints, or may not have dihedral constraints. In that
     case you will have to make some modification to the following codes.
+
+.. |download_Positions.dat| raw:: html
+
+   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Positions.dat" target="_blank">Positions.dat</a>
+
+.. |download_Bonds.dat| raw:: html
+
+   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat" target="_blank">Bonds.dat</a>
+
+.. |download_Angles.dat| raw:: html
+
+   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Angles.dat" target="_blank">Angles.dat</a>
+
+.. |download_Dihedrals.dat| raw:: html
+
+   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Dihedrals.dat" target="_blank">Dihedrals.dat</a>
+
+.. |atb2lammps| raw:: html
+
+   <a href="https://github.com/simongravelle/atb2lammps" target="_blank">the atb2lammps</a>
 
 Initial configuration
 =====================
@@ -198,9 +230,12 @@ Initial configuration
 
 ..  container:: justify
 
-    Then, download this 
-    `Python script <../../../../../inputs/freeenergy/SurfaceProfile/generatedata.py>`__,
+    Then, download this |Python_script|
     next to the EthanolMolecule/ and NaCl/ folders, and run it using
+
+.. |Python_script| raw:: html
+
+   <a href="../../../../../inputs/freeenergy/SurfaceProfile/generatedata.py" target="_blank">Python script</a>
 
 ..  code-block:: bash
 
@@ -278,10 +313,13 @@ Initial configuration
 
     All the force field values for the ethanol come from
     the ATB, and from the GROMOS force field. The force field
-    values for NaCl have been taken from `this
-    paper <https://pubs.acs.org/doi/10.1021/acs.jpcb.1c05303>`__
+    values for NaCl have been taken from |Loche_paper|
     by Loche et al. The interaction parameters between atoms of
     types i and j will be calculated by LAMMPS using the arithmetic rule.
+
+.. |Loche_paper| raw:: html
+
+   <a href="https://pubs.acs.org/doi/10.1021/acs.jpcb.1c05303" target="_blank">this paper</a>
 
 Equilibrium
 ===========
@@ -471,8 +509,7 @@ Building the free energy profile
 ..  container:: justify
 
     In order to treat the data, we are going to use the WHAM
-    algorithm. You can download and compile the version of `Alan
-    Grossfield <http://membrane.urmc.rochester.edu/?page_id=126>`__.
+    algorithm. You can download and compile the version of |Grossfield_page|.
     In order to apply the WHAM algorithm to our simulation, we
     first need to create a metadata file. This file simply
     contains the paths of the data file, the value of
@@ -480,6 +517,10 @@ Building the free energy profile
     the file more easily, you can run this script using Octave
     (assuming that the wham algorithm is located in the same
     folder as the LAMMPS simulations).
+
+.. |Grossfield_page| raw:: html
+
+   <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a>
 
 ..  code-block:: bash
 
@@ -493,8 +534,11 @@ Building the free energy profile
 ..  container:: justify
 
     The generated file named metadata.dat looks like that
-    (alternatively you can download it
-    `here <../../../../../inputs/freeenergy/SurfaceProfile/metadata.dat>`__):
+    (alternatively you can download it |download_metadata_file|):
+
+.. |download_metadata_file| raw:: html
+
+   <a href="../../../../../inputs/freeenergy/SurfaceProfile/metadata.dat" target="_blank">here</a>
 
 ..  code-block:: bash
 

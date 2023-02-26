@@ -11,15 +11,15 @@ think about this website, or answer your LAMMPS-related questions.
 
 .. _email: simon.gravelle@live.fr
 
-Get help:
-=========
+Get help with your project:
+===========================
 
 .. figure:: images/patreon.png
     :height: 100
     :alt: Simon gravelle patreon for lammps/gromacs material
     :align: right
 
-Become a `patreon`_, and:
+Become a |patreon_simulation|, and:
 
 - Receive personalised advice for your project
 - Have your input scripts reviewed
@@ -27,20 +27,29 @@ Become a `patreon`_, and:
 - Obtain extra content such as the solutions to the exercises
 - Support the creation of content for LAMMPS
 
-.. _patreon: https://www.patreon.com/molecularsimulations
+.. |patreon_simulation| raw:: html
+
+   <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a>
 
 Follow me
 =========
 
-- on `twitter`_, where I post news about these tutorials and about my research
-- on `github`_, where I share many molecular simulation content
+- on |twitter_simon_gravelle|, where I post news about these tutorials and about my research
+- on |github_simon_gravelle|, where I share many molecular simulation content
 
-.. _twitter: https://twitter.com/GravelleSimon
-.. _github: https://github.com/simongravelle
+.. |twitter_simon_gravelle| raw:: html
+
+   <a href="https://twitter.com/GravelleSimon" target="_blank">twitter</a>
+
+.. |github_simon_gravelle| raw:: html
+
+   <a href="https://github.com/simongravelle" target="_blank">github</a>
 
 About me
 ========
 
-I am a physicist in soft matter and fluids at interfaces, see my `personal page`_.
+I am a physicist in soft matter and fluids at interfaces, see my |personal_page_simon_gravelle|.
 
-.. _personal page: https://simongravelle.github.io/
+.. |personal_page_simon_gravelle| raw:: html
+
+   <a href="https://simongravelle.github.io/" target="_blank">personal page</a>

@@ -495,9 +495,12 @@ WHAM algorithm
 ..  container:: justify
 
     In order to generate the free energy profile from the density distribution, we are going to use the WHAM
-    algorithm. You can download and compile the version of `Alan
-    Grossfield <http://membrane.urmc.rochester.edu/?page_id=126>`__.
+    algorithm. You can download and compile the version of |Grossfield|.
     It can be compiled by simply running:
+
+.. |Grossfield| raw:: html
+
+   <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a>
 
 ..  code-block:: bash
 
@@ -545,9 +548,12 @@ WHAM algorithm
 
 ..  container:: justify
 
-    Here you can download my `metadata.dat <../../../../../inputs/freeenergy/BiasedSampling/metadata.dat>`__ file.
-
+    Here you can download the |download_metadata| file.
     Then, simply run the following command in the terminal:
+
+.. |download_metadata| raw:: html
+
+   <a href="../../../../../inputs/freeenergy/BiasedSampling/metadata.dat" target="_blank">metadata.dat</a>
 
 ..  code-block:: bash
 

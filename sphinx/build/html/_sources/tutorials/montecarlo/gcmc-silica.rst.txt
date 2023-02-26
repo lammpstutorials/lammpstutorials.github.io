@@ -45,8 +45,7 @@ Generation of the silica block
     Let us generate a block of amorphous silica (SiO2). To do
     so, we are going to replicate a building block containing 3
     Si and 6 O atoms. The data file for the SiO atoms can be
-    downloaded by clicking
-    `here <../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.data>`__.
+    downloaded by clicking |download_SiO.data|.
     Save it in a folder called SilicaBlock. This data file
     contains the coordinates of the atoms, their masses, and
     their charges, and can be directly read by LAMMPS using the
@@ -56,6 +55,10 @@ Generation of the silica block
 
     Create a new input file in the same folder as the downloaded
     dataSiO.data, and copy the following lines in it:
+
+.. |download_SiO.data| raw:: html
+
+   <a href="../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.data" target="_blank">here</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in SilicaBlock/input.lammps*
@@ -74,13 +77,11 @@ Generation of the silica block
 
 ..  container:: justify
 
-    Download the Vashishta potential by clicking
-    `here <../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.1990.vashishta>`__,
+    Download the Vashishta potential by clicking |download_vashishta|,
     and copy it within the SilicaBlock folder.
 
     **About the Vashishta potential:** Metal units are used
-    as required by the Vashishta potential. The
-    `Vashishta <https://pubmed.ncbi.nlm.nih.gov/9993674/>`__
+    as required by the Vashishta potential. The |website_vashishta|
     potential is a bond-angle energy based potential, it
     deduces the bonds between atoms from their relative
     positions. Therefore, there is no need to provide bond
@@ -99,6 +100,14 @@ Generation of the silica block
     that the first atom is Si, and the second is O. Let us also
     add a dump command for printing out the positions of the
     atoms every 5000 steps:
+
+.. |download_vashishta| raw:: html
+
+   <a href="../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.1990.vashishta" target="_blank">here</a>
+
+.. |website_vashishta| raw:: html
+
+   <a href="https://pubmed.ncbi.nlm.nih.gov/9993674/" target="_blank">Vashishta</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in SilicaBlock/input.lammps*
@@ -156,9 +165,13 @@ Generation of the silica block
     amorphousSiO.data will be located in the same folder as your
     input file. Alternatively, if you are only interested in the
     next steps of this tutorial, you can download it by clicking
-    `here <../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/amorphousSiO.data>`__.
+    |download_silica_block|.
     The final system resembles the image below, where the oxygen
     atoms are in red and the silicon atoms in yellow:
+
+.. |download_silica_block| raw:: html
+
+   <a href="../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
 
 .. figure:: ../figures/gcmc-silica/generated-silica-dark.png
     :alt: silica block
@@ -239,16 +252,23 @@ Cracking the silica
 
     After the dilatation, a final equilibration step of 20
     picoseconds is performed. If you look at the dump file
-    produced after executing this script, or at `this
-    video <https://www.youtube.com/watch?v=8rBqYIcTgno&ab_channel=SimonGravelle>`__,
+    produced after executing this script, or at |video_dilatation|,
     you can see the dilatation occurring step-by-step and the
     atoms adjusting to the box size. At first, the deformations
     are reversible (elastic regime), but at some point, bonds
     start breaking and dislocations appear (plastic regime). You
     can download the final state directly by clicking
-    `here <../../../../../inputs/montecarlo/gcmc-silica/Cracking/dilatedSiO.data>`__.
+    |download_silica_dilated|.
 
     The final system, with the crack, resembles:
+
+.. |video_dilatation| raw:: html
+
+   <a href="https://www.youtube.com/watch?v=8rBqYIcTgno&ab_channel=SimonGravelle" target="_blank">this video</a>
+
+.. |download_silica_dilated| raw:: html
+
+   <a href="../../../../../inputs/montecarlo/gcmc-silica/Cracking/dilatedSiO.data" target="_blank">here</a>
 
 .. figure:: ../figures/gcmc-silica/cracked-dark.png
     :alt: silica block with crack
@@ -285,10 +305,13 @@ Adding water
     acceptance rule.
 
     In a new folder called Addingwater, add this template file
-    for the water molecule :
-    `TIP4P2005.txt <../../../../../inputs/montecarlo/gcmc-silica/AddingWater/TIP4P2005.txt>`__.
+    for the water molecule : |download_TIP4P2005|.
     Create a new input file, and copy the following lines into
     it:
+
+.. |download_TIP4P2005| raw:: html
+
+   <a href="../../../../../inputs/montecarlo/gcmc-silica/AddingWater/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in Addingwater/input.lammps*
@@ -583,9 +606,11 @@ Going further with exercises
     of relative humidity (RH). For that, you have to calibrate
     your simulation by measuring the equilibrium amount of water
     in an empty box for varying imposed chemical potential, see
-    `one of my
-    publication <https://aip.scitation.org/doi/full/10.1063/1.5126481>`__
-    for example.
+    |publication_RH| for example.
+
+.. |publication_RH| raw:: html
+
+   <a href="https://aip.scitation.org/doi/full/10.1063/1.5126481" target="_blank">one of my publication</a>
 
 **Isotherm**
 
@@ -604,8 +629,11 @@ Going further with exercises
 
     Using the GCMC procedure, you can measure the heat of
     adsorption by measuring the fluctuations in water molecule
-    and total energy of the system. See this `page for
-    details <https://github.com/simongravelle/how-to-lammps>`__.
+    and total energy of the system. See this |how_to_lammps|.
+
+.. |how_to_lammps| raw:: html
+
+   <a href="https://github.com/simongravelle/how-to-lammps" target="_blank">page for details</a>
 
 **Hybrid MD/GCMC**
 

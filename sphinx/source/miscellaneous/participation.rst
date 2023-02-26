@@ -14,22 +14,28 @@ You can also suggest idea for new a tutorial, or a new section to an existing tu
 As a tester
 ===========
 
-Report broken link and typo by `email`_ or by posting a new issue on `github`_.
+Report broken link and typo by `email`_ or by posting a new issue on |github-issue|.
 
 .. _email: simon.gravelle@live.fr
-.. _github: https://github.com/lammpstutorials/lammpstutorials.github.io/issues
+
+.. |github-issue| raw:: html
+
+   <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/issues" target="_blank">Github</a>
+
 
 As a writer
 ===========
 
 Propose a new tutorial or a modification to an existing tutorial.
 To do so, fork the lammpstutorials repository on github, make your changes,
-and submit a `pull request`_.
+and submit a |pull_request|.
 
-.. _pull request: https://github.com/lammpstutorials/lammpstutorials.github.io/pulls
+.. |pull_request| raw:: html
 
-Build lammpstutorial locally
-============================
+   <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/pulls" target="_blank">pull request</a>
+
+Build *lammpstutorial* locally
+==============================
 
 *lammpstutorial* can be build locally on your computer using sphinx. Fork
 the repository by typing in a terminal:

@@ -125,7 +125,11 @@ Bulk water
    particle-particle summation, and long-range interactions,
    which are calculated by solving Poisson's equation using
    periodic boundary conditions (PBCs).* 
-   `Luty and van Gunsteren <https://doi.org/10.1021/jp9518623>`__
+   |Luty and van Gunsteren|
+
+.. |Luty and van Gunsteren| raw:: html
+
+   <a href="https://doi.org/10.1021/jp9518623" target="_blank">Luty and van Gunsteren</a>
 
 ..  container:: justify
 
@@ -243,13 +247,11 @@ Bulk water
 
 ..  container:: justify
 
-   Alternatively, you can
-   `download <../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data>`__
+   Alternatively, you can |download_H20.data|
    the water reservoir I have equilibrated and continue with
    the tutorial.
 
-   The molecule template named H2OTip4p.txt must be
-   `downloaded <../../../../../inputs/bulkfluids/allatoms/pureH2O/H2OTip4p.txt>`__
+   The molecule template named H2OTip4p.txt must be |download_H2OTip4p.txt|
    and saved in the same folder (named pureH2O/) as the
    input.lammps file.
 
@@ -259,6 +261,14 @@ Bulk water
    groups of atoms are connected by angles, etc.
    Then, let us group the atoms of the water in a group named
    H2O, and then delete the overlapping molecules:
+
+.. |download_H20.data| raw:: html
+
+   <a href="../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data" target="_blank">download</a>
+
+.. |download_H2OTip4p.txt| raw:: html
+
+   <a href="../../../../../inputs/bulkfluids/allatoms/pureH2O/H2OTip4p.txt" target="_blank">downloaded</a>
 
 ..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
@@ -405,10 +415,13 @@ Bulk water
 
 ..  container:: justify
 
-   Alternatively, you can
-   `download <../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data>`__
+   Alternatively, you can |download_H2O.data|
    the water reservoir I have equilibrated and continue with
    the tutorial.
+
+.. |download_H2O.data| raw:: html
+
+   <a href="../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data" target="_blank">download</a>
 
 PEG molecule
 ============
@@ -455,17 +468,23 @@ PEG molecule
 
 ..  container:: justify
 
-   `Download <../../../../../inputs/bulkfluids/allatoms/singlePEG/init.data>`__
+   |download_init.data|
    the init.data file and save it in the singlePEG/ folder.
    It contains the initial parameters of the PEG molecules
-   (atoms, bonds, charges, etc.), and was prepared using a
-   Python script I wrote: `PEG
-   generator <https://github.com/simongravelle/PEGgenerator>`__.
+   (atoms, bonds, charges, etc.) that was prepared using |PEGgenerator|.
    To make our life simpler later, let use use the exact same
    box size for the PEG as for the water (the merging will be
    simpler, see below). Open the previously generate H2O.data
    file, and copy the 3 lines corresponding to the box
    dimensions. In my case, its:
+
+.. |download_init.data| raw:: html
+
+   <a href="../../../../../inputs/bulkfluids/allatoms/singlePEG/init.data" target="_blank">Download</a>
+
+.. |PEGgenerator| raw:: html
+
+   <a href="https://github.com/simongravelle/PEGgenerator" target="_blank">PEG generator</a>
 
 ..  code-block:: bw
 
@@ -570,9 +589,12 @@ PEG molecule
 
 ..  container:: justify
 
-   Alternatively, you can
-   `download <../../../../../inputs/bulkfluids/allatoms/singlePEG/PEG.data>`__
+   Alternatively, you can |download_PEG.data|
    the PEG molecule I have equilibrated and continue with the tutorial.
+
+.. |download_PEG.data| raw:: html
+
+   <a href="../../../../../inputs/bulkfluids/allatoms/singlePEG/PEG.data" target="_blank">download</a>
 
 Solvation of the PEG molecule
 =============================

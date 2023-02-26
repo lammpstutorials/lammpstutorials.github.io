@@ -37,19 +37,29 @@ Relax the amorphous silica structure
 
 ..  container:: justify
 
-    Create a folder, name it RelaxSilica/, and
-    `download <../../../../../inputs/reaxff/reax-silica/RelaxSilica/silica.data>`__
+    Create a folder, name it RelaxSilica/, and |download_silica_data|
     the initial topology of a small amorphous silica structure.
     The system was created by temperature annealing using another force field 
-    (`vashishta <../../../../../inputs/reaxff/reax-silica/CreateSilica/SiO.1990.vashishta>`__),
-    therefore the bond length, angle values, or charges are different from what is expected
+    (|download_SiO.1990.vashishta|), therefore the bond length, angle values, or charges are different from what is expected
     from reaxff force field. 
 
-    If you are interested, the input script for creating the initial topology are 
-    available `here <../../../../../inputs/reaxff/reax-silica/CreateSilica/input.lammps>`__,
+    If you are interested, the input script used for creating the initial topology are 
+    available |lammps_input_creating|,
     but it is not part of this tutorial.
 
     The Atoms section of the *silica.data* file starts like that:
+
+.. |download_silica_data| raw:: html
+
+   <a href="../../../../../inputs/reaxff/reax-silica/RelaxSilica/silica.data" target="_blank">download</a>
+
+.. |download_SiO.1990.vashishta| raw:: html
+
+   <a href="../../../../../inputs/reaxff/reax-silica/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>
+
+.. |lammps_input_creating| raw:: html
+
+   <a href="../../../../../inputs/reaxff/reax-silica/CreateSilica/input.lammps" target="_blank">here</a>
 
 ..  code-block:: lammps
 
@@ -113,8 +123,7 @@ Relax the amorphous silica structure
     are there for memory allocation issue. If not there, the segmentation faults and bondchk
     failed errors sometimes occur.
 
-    The pair_coeff uses the 
-    `reaxCHOFe.ff <../../../../../inputs/reaxff/reax-silica/RelaxSilica/reaxCHOFe.ff>`__
+    The pair_coeff uses the |reaxCHOFe|
     (which must be saved in the same folder), and we set the type 1 as silicon,
     and type 2 as oxygen.
 
@@ -127,6 +136,10 @@ Relax the amorphous silica structure
     Then, let us insert some familiar commands controlling the re-building of the 
     neighbor lists. Let us also
     print thermodynamic information as well as the charge of both atom types.
+
+.. |reaxCHOFe| raw:: html
+
+   <a href="../../../../../inputs/reaxff/reax-silica/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in RelaxSilica/input.lammps*
@@ -199,8 +212,11 @@ Relax the amorphous silica structure
 
     Distribution of charge of  silica (positive) and oxygen (negative) during equilibration. The data 
     were extracted from the dump.lammpstrj file using python, you can 
-    use this `notebook <../../../../../inputs/reaxff/reax-silica/RelaxSilica/plot_distribution.ipynb>`__
-    to do the same. 
+    use this |plot_distribution| to do the same. 
+
+.. |plot_distribution| raw:: html
+
+   <a href="../../../../../inputs/reaxff/reax-silica/RelaxSilica/plot_distribution.ipynb" target="_blank">notebook</a>
 
 ..  container:: justify
 

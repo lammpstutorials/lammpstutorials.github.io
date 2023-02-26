@@ -50,7 +50,11 @@ System creation
    distance that is too large, the bond may break. 
 
    Alternatively, you can download the file I did generate 
-   by clicking `here <../../../../../inputs/2Dmaterials/carbonnanotube/cnt.data>`__.
+   by clicking |download_CNT.data|.
+
+.. |download_CNT.data| raw:: html
+
+   <a href="../../../../../inputs/2Dmaterials/carbonnanotube/cnt.data" target="_blank">here</a>
 
 Input file
 ==========
@@ -95,9 +99,12 @@ Input file
 
 ..  container:: justify
 
-   The CH.airebo file can be downloaded
-   `here <../../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo>`__.
+   The CH.airebo file can be downloaded |download_CH.airebo|.
    The rest of the script is very similar to the previous tutorial (:ref:`graphene-label`):
+
+.. |download_CH.airebo| raw:: html
+
+   <a href="../../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo" target="_blank">here</a>
 
 ..  code-block:: lammps
    :caption: *to be copied in input.lammps*
@@ -195,9 +202,12 @@ Deformation
 ..  container:: justify
 
    When looking at the lammpstrj file using VMD, you will see
-   the bonds breaking, similar to `this
-   video <https://www.youtube.com/watch?v=f1ve1j3yA6w>`__. Use
+   the bonds breaking, similar to |video_lammps_cnt|. Use
    the DynamicBonds representation.
+
+.. |video_lammps_cnt| raw:: html
+
+   <a href="https://www.youtube.com/watch?v=f1ve1j3yA6w" target="_blank">this video</a>
 
 .. admonition:: About bonds in VMD
    :class: info

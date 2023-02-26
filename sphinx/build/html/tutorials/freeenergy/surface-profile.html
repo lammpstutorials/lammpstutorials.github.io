@@ -253,7 +253,7 @@
 <p>The objective of this tutorial is to build a molecular
 dynamics system made of a flat crystal wall (NaCl) and
 ethanol molecules. The molecule topology files will be downloaded from
-the <a class="reference external" href="https://atb.uq.edu.au/">ATB repository</a>.</p>
+the <a href="https://atb.uq.edu.au/" target="_blank">ATB repository</a>.</p>
 </div>
 <div class="patreon admonition">
 <p class="admonition-title">Looking for help with your project?</p>
@@ -267,25 +267,19 @@ field information from the Automated Topology Builder (ATB)
 and repository.</p>
 <p>You can skip the creation of the system and go directly to
 the <a class="reference external" href="#equilibrium">molecular dynamics</a> part by
-downloading the input data file
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/data.lammps">here</a>.</p>
+downloading the input data file <a href="../../../../../inputs/freeenergy/SurfaceProfile/data.lammps" target="_blank">here</a>.</p>
 <p>Create a EthanolMolecule/ folder.</p>
-<p>Go to the <a class="reference external" href="https://atb.uq.edu.au/">ATB
-repository</a> website (you will
+<p>Go to the <a href="https://atb.uq.edu.au/" target="_blank">ATB repository</a> website (you will
 need to register). Then go to Existing Molecules, choose a
-molecule. I am choosing an <a class="reference external" href="https://atb.uq.edu.au/molecule.py?molid=514352#panel-md">ethanol
-molecule</a>,
+molecule. I am choosing an <a href="https://atb.uq.edu.au/molecule.py?molid=514352#panel-md" target="_blank">ethanol molecule</a>,
 but you can choose another one (at your own risk) and follow
 this tutorial. Then, click on Molecular Dynamics (MD) Files,
-choose LAMMPS format, and download the
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/GROMOS_54A7_ATB.lt">GROMOS force field</a>
-and the
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/JRA4_allatom_optimized_geometry.lt">all-atom moltemplate</a>
+choose LAMMPS format, and download the <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/GROMOS_54A7_ATB.lt" target="_blank">GROMOS force field</a>
+and the <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/JRA4_allatom_optimized_geometry.lt" target="_blank">all-atom moltemplate</a>
 files into the EthanolMolecule/ folder.</p>
 <p>Inside the moltemplate file, there is an example of
-`system.lt` allowing for the creation of LAMMPS input
-file. Copy past it, and create a
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/system.lt">system.lt</a>
+<em>system.lt</em> allowing for the creation of LAMMPS input
+file. Copy past it, and create a <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/system.lt" target="_blank">system.lt</a>
 file that looks like that:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span># system.lt
@@ -313,7 +307,7 @@ mol1 = new JRA4.move(0.0,0.0,0.0)
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Run it using <a class="reference external" href="https://www.moltemplate.org/">Moltemplate</a>,</p>
+<p>Run it using <a href="https://www.moltemplate.org/" target="_blank">Moltemplate</a>,</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>moltemplate.sh ./system.lt
 </pre></div>
@@ -330,16 +324,10 @@ single molecule in vacuum, which you can run using LAMMPS:</p>
 information of the <em>entire</em> force field, which makes it unpleasant to
 read.</p>
 <p>Let us arrange the data and isolate only the useful
-information. Create four files, named
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Positions.dat">Positions.dat</a>,
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat">Bonds.dat</a>,
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Angles.dat">Angles.dat</a>, and
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Dihedrals.dat">Dihedrals.dat</a>,
-Then re-number the atoms
+information. Create four files, named <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Positions.dat" target="_blank">Positions.dat</a>, <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat" target="_blank">Bonds.dat</a>, <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Angles.dat" target="_blank">Angles.dat</a>,
+<a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Dihedrals.dat" target="_blank">Dihedrals.dat</a>. Then re-number the atoms
 types, bonds, angles starting from 1.</p>
-<p>For the ethanol molecule, the
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat">Bonds.dat</a>
-file looks like that:</p>
+<p>For the ethanol molecule, the <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat" target="_blank">Bonds.dat</a> file looks like that:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
 <span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
@@ -369,13 +357,9 @@ a bond length and energy are given:</p>
 indexes of the atoms linked together by a bond.</p>
 <p>Sorting out these files is a tedious task, to continue to follow this
 tutorial, you can download these files for ethanol
-(<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Positions.dat">Positions.dat</a>,
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat">Bonds.dat</a>,
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Angles.dat">Angles.dat</a>, and
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Dihedrals.dat">Dihedrals.dat</a>).
-Alternatively, you can use <a class="reference external" href="https://github.com/simongravelle/atb2lammps">the
-atb2lammps</a>
-code to create a clean initial configuration.</p>
+(<a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Positions.dat" target="_blank">Positions.dat</a>, <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat" target="_blank">Bonds.dat</a>, <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Angles.dat" target="_blank">Angles.dat</a>, and <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Dihedrals.dat" target="_blank">Dihedrals.dat</a>).
+Alternatively, you can use <a href="https://github.com/simongravelle/atb2lammps" target="_blank">the atb2lammps</a>
+script to create a clean initial configuration.</p>
 <p>If you choose another molecule, you may have additional
 impropers contraints, or may not have dihedral constraints. In that
 case you will have to make some modification to the following codes.</p>
@@ -404,8 +388,7 @@ positions of 8 NaCl atoms:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Then, download this
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/generatedata.py">Python script</a>,
+<p>Then, download this <a href="../../../../../inputs/freeenergy/SurfaceProfile/generatedata.py" target="_blank">Python script</a>
 next to the EthanolMolecule/ and NaCl/ folders, and run it using</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>generatedata.py
@@ -478,8 +461,7 @@ the different hydrogen, oxygen, and carbon atoms of the
 ethanol molecules.</p>
 <p>All the force field values for the ethanol come from
 the ATB, and from the GROMOS force field. The force field
-values for NaCl have been taken from <a class="reference external" href="https://pubs.acs.org/doi/10.1021/acs.jpcb.1c05303">this
-paper</a>
+values for NaCl have been taken from <a href="https://pubs.acs.org/doi/10.1021/acs.jpcb.1c05303" target="_blank">this paper</a>
 by Loche et al. The interaction parameters between atoms of
 types i and j will be calculated by LAMMPS using the arithmetic rule.</p>
 </div>
@@ -662,8 +644,7 @@ remain unperturbed by the additional harmonic potential and free to diffuse and 
 <h2>Building the free energy profile<a class="headerlink" href="#building-the-free-energy-profile" title="Permalink to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>In order to treat the data, we are going to use the WHAM
-algorithm. You can download and compile the version of <a class="reference external" href="http://membrane.urmc.rochester.edu/?page_id=126">Alan
-Grossfield</a>.
+algorithm. You can download and compile the version of <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a>.
 In order to apply the WHAM algorithm to our simulation, we
 first need to create a metadata file. This file simply
 contains the paths of the data file, the value of
@@ -682,8 +663,7 @@ end
 </div>
 <div class="justify docutils container">
 <p>The generated file named metadata.dat looks like that
-(alternatively you can download it
-<a class="reference external" href="../../../../../inputs/freeenergy/SurfaceProfile/metadata.dat">here</a>):</p>
+(alternatively you can download it <a href="../../../../../inputs/freeenergy/SurfaceProfile/metadata.dat" target="_blank">here</a>):</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./position.1.dat<span class="w"> </span>-99<span class="w"> </span><span class="m">0</span>.0205
 ./position.1.dat<span class="w"> </span>-20<span class="w"> </span><span class="m">0</span>.5
@@ -732,7 +712,7 @@ in between the molecule and the wall to screen the interaction.</p>
 much longer simulations must be performed.</p>
 </div>
 <p>You can access all the input scripts and data files that
-are used in these tutorials from <a class="reference external" href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs">Github</a>.</p>
+are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">Github</a>.</p>
 <div class="mail admonition">
 <p class="admonition-title">Contact me</p>
 <p><a class="reference internal" href="../../contact/contact.html#contact-label"><span class="std std-ref">Contact</span></a> me if you have any question or suggestion about these tutorials.</p>
