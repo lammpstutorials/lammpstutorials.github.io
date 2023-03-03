@@ -134,7 +134,7 @@ Bulk water
 ..  container:: justify
 
    Then, let us create a 3D simulation box of dimensions 8 x 3
-   x 3 nm:math:`^3`, and make space for 7 atom types (1 and 2 for
+   x 3 nm^3, and make space for 7 atom types (1 and 2 for
    the water oxygen and hydrogen, respectively, and 3, 4, 5, 6
    and 7 for the PEG molecule (see below)), 6 bond types, 9
    angle types, and 14 dihedrals types.
