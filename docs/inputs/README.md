@@ -4,4 +4,4 @@ Files corresponding to each tutorial of [lammps tutorials](https://lammpstutoria
 
 - LAMMPS data files
 - input files
-- python script for analysis
+- python script for analysing data and plotting figure
