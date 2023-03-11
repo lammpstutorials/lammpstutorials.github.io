@@ -215,4 +215,56 @@ Deformation
 
 .. include:: ../../contact/accessfile.rst
 
+Going further with exercises
+============================
+
+.. include::  ../../contact/requestsolution.rst
+
+.. figure:: ../figures/carbonnanotube/shared-dark.png
+    :alt: deformed membrane of CNT
+    :width: 200
+    :align: right
+    :class: only-dark
+
+.. figure:: ../figures/carbonnanotube/shared-light.png
+    :alt: deformed membrane of CNT
+    :width: 200
+    :align: right
+    :class: only-light
+
+**Exercise 1 : shear deformation of a CNT membrane**
+
+..  container:: justify
+
+   Replicate the CNT along x and y, and equilibrate the system to 
+   create a membrane, just like the image on the right. 
+
+   Then, apply a shear deformation along xy.
+
+   *Hint --* The box must be converted to triclinic to support deformation
+   along xy.
+
+.. figure:: ../figures/carbonnanotube/CH-dark.png
+    :alt: CNT with hydrogen atoms and N2 molecule
+    :width: 200
+    :align: right
+    :class: only-dark
+
+.. figure:: ../figures/carbonnanotube/CH-light.png
+    :alt: CNT with hydrogen atoms and N2 molecule
+    :width: 200
+    :align: right
+    :class: only-light
+
+**Exercise 2 : decorate the CNT with hydrogen**
+
+..  container:: justify
+
+   Add hydrogen atoms randomly to the system (using the same force field). 
+
+   Equilibrate the system. After some time, some hydrogen atoms will 
+   decorated the free carbon atoms at the edge of the CNT. Some 
+   other hydrogen atoms will bond and form H2 molecules. 
+
+
 .. include:: ../../contact/contactme.rst
