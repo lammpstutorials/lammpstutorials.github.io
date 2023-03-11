@@ -284,16 +284,12 @@ by clicking <a href="../../../../../inputs/2Dmaterials/carbonnanotube/cnt.data" 
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
-
 <span class="k">variable </span><span class="nv nv-Identifier">T</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">300</span>
 
 <span class="k">units</span><span class="w"> </span><span class="n">metal</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">airebo</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
-
-<span class="c"># System definition</span>
-<span class="k">read_data</span><span class="w"> </span><span class="n">cnt.data</span>
 </pre></div>
 </div>
 </div>
@@ -310,7 +306,8 @@ pair_coeff:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">carbon.data</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># System definition</span>
+<span class="k">read_data</span><span class="w"> </span><span class="n">cnt.data</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CH.airebo</span><span class="w"> </span><span class="n">C</span>
 </pre></div>
 </div>
@@ -322,7 +319,6 @@ The rest of the script is very similar to the previous tutorial (<a class="refer
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Simulation settings</span>
-
 <span class="k">group </span><span class="nv nv-Identifier">gcar</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
 <span class="k">variable </span><span class="nv nv-Identifier">zmax</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(gcar,zmax)</span><span class="o">-</span><span class="m">0.5</span>
 <span class="k">variable </span><span class="nv nv-Identifier">zmin</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(gcar,zmin)</span><span class="o">+</span><span class="m">0.5</span>
