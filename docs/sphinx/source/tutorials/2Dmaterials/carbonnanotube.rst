@@ -67,16 +67,12 @@ Input file
    :caption: *to be copied in input.lammps*
 
    # Initialisation
-
    variable T equal 300
 
    units metal
    atom_style full
    boundary p p p
    pair_style airebo 2.5 1 1
-
-   # System definition
-   read_data cnt.data
 
 ..  container:: justify
 
@@ -94,7 +90,8 @@ Input file
 ..  code-block:: lammps
    :caption: *to be copied in input.lammps*
 
-   read_data carbon.data
+   # System definition
+   read_data cnt.data
    pair_coeff * * CH.airebo C
 
 ..  container:: justify
@@ -110,7 +107,6 @@ Input file
    :caption: *to be copied in input.lammps*
 
    # Simulation settings
-
    group gcar type 1
    variable zmax equal bound(gcar,zmax)-0.5
    variable zmin equal bound(gcar,zmin)+0.5
