@@ -193,9 +193,11 @@ Deformation
 
    # 0.15 A/ps = 30 m/s
    velocity gtop set NULL NULL 0.15
-   run 250000
+   run 280000
 
 ..  container:: justify
+
+   The CNT should break around timestep 250000.
 
    When looking at the lammpstrj file using VMD, you will see
    the bonds breaking, similar to |video_lammps_cnt|. Use
@@ -212,6 +214,89 @@ Deformation
    between atoms, and not based on the presence of actual
    bonds between atoms in the LAMMPS simulation. Therefore what is seen
    in VMD can sometimes be misleading.
+
+Post-mortem analysis
+====================
+
+..  container:: justify
+
+   Analysis can be performed after the simulation is over, using
+   the atom coordinate saved in the lammpstrj file.
+
+   Here, let us use the open source Python library MDAnalysis.
+
+   Open a new Jupyter notebook within the same folder, call it bond_evolution.ipynb.
+   First, let us import libraries.
+
+..  code-block:: python
+   :caption: *to be copied in bond_evolution.ipynb*
+
+   import MDAnalysis as mda
+   import numpy as np
+
+..  container:: justify
+
+   Then, let us create a MDAnalysis universe using the LAMMPS
+   data file (for the topology information) and the dump file 
+   (for the coordinate evolution over time). Let us detect the
+   original bonds using the bond guesser of MDAnalysis.  Let us also create 
+   a single atom group containing all the carbon atoms: 
+
+..  code-block:: python
+   :caption: *to be copied in bond_evolution.ipynb*
+
+   # create a universe from the dump file
+   # guess bond based on distance from the initial topology
+   u = mda.Universe("cnt.data", "dump.lammpstrj",
+                  topology_format="data", format="lammpsdump",
+                  guess_bonds=True, vdwradii={'1':1.7})
+   # create a group
+   cnt = u.select_atoms("type 1")
+
+..  container:: justify
+
+   Note : The bond guesser will not update the list of bond over time, so we will 
+   need to use a few trick.
+
+   Then, let us loop over the trajectory and extract bond length and number over time:
+
+..  code-block:: python
+   :caption: *to be copied in bond_evolution.ipynb*
+
+   nbond_vs_time = []
+   lbond_vs_time = []
+   # loop over trajectory
+   for ts in u.trajectory:
+      # sabe the bond of the timestep ts in a list
+      all_bonds_ts = []
+      # loop over all initially detected bond
+      for id1, id2 in cnt.atoms.bonds.indices:
+         # detect positions
+         pos1 = u.atoms.positions[u.atoms.indices == id1]
+         pos2 = u.atoms.positions[u.atoms.indices == id2]
+         d = pos1-pos2
+         r = np.sqrt(d[:, 0]**2 + d[:, 1]**2 + d[:, 2]**2)
+         if r < 1.8: # assume that bond longer than 1.8 angstroms are broken
+               all_bonds_ts.append(r)
+      lbond_vs_time.append([ts.time*5000*0.0005, np.mean(all_bonds_ts)]) 
+      nbond_vs_time.append([ts.time*5000*0.0005, len(all_bonds_ts)/2]) # divide by 2 to avoid counting twice
+   nbond_vs_time = np.array(nbond_vs_time)
+   lbond_vs_time = np.array(lbond_vs_time)
+
+..  container:: justify
+
+   The array nbond_vs_time contains the number of bond as a function of time, and 
+   lbond_vs_time the bond length:
+
+.. figure:: ../figures/carbonnanotube/bond-dark.png
+    :alt: plot of the bond length and distance versus time
+    :class: only-dark
+
+.. figure:: ../figures/carbonnanotube/bond-light.png
+    :alt: plot of the bond length and distance versus time
+    :class: only-light
+
+    Evolution of the bond length (left) and number (right) as a function of time.
 
 .. include:: ../../contact/accessfile.rst
 
@@ -266,5 +351,15 @@ Going further with exercises
    decorated the free carbon atoms at the edge of the CNT. Some 
    other hydrogen atoms will bond and form H2 molecules. 
 
+**Exercise 3 : no thermostating**
+
+..  container:: justify
+
+   When a rubber band is streched up, it heats up due to entropy change. 
+   In the current simulation, the thermostating prevent to observe the evolution of 
+   the temperature.
+
+   Remove the thermostat and observe the evolution of the temperature of an
+   'isolated' carbon nanotube being deformed. Does it heat-up?
 
 .. include:: ../../contact/contactme.rst

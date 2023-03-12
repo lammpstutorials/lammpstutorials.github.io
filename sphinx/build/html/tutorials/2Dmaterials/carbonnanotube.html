@@ -402,11 +402,12 @@ value):</p>
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 0.15 A/ps = 30 m/s</span>
 <span class="k">velocity</span><span class="w"> </span><span class="n">gtop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0.15</span>
-<span class="k">run</span><span class="w"> </span><span class="m">250000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">280000</span>
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
+<p>The CNT should break around timestep 250000.</p>
 <p>When looking at the lammpstrj file using VMD, you will see
 the bonds breaking, similar to <a href="https://www.youtube.com/watch?v=f1ve1j3yA6w" target="_blank">this video</a>. Use
 the DynamicBonds representation.</p>
@@ -418,6 +419,84 @@ between atoms, and not based on the presence of actual
 bonds between atoms in the LAMMPS simulation. Therefore what is seen
 in VMD can sometimes be misleading.</p>
 </div>
+</section>
+<section id="post-mortem-analysis">
+<h2>Post-mortem analysis<a class="headerlink" href="#post-mortem-analysis" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Analysis can be performed after the simulation is over, using
+the atom coordinate saved in the lammpstrj file.</p>
+<p>Here, let us use the open source Python library MDAnalysis.</p>
+<p>Open a new Jupyter notebook within the same folder, call it bond_evolution.ipynb.
+First, let us import libraries.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">MDAnalysis</span> <span class="k">as</span> <span class="nn">mda</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Then, let us create a MDAnalysis universe using the LAMMPS
+data file (for the topology information) and the dump file
+(for the coordinate evolution over time). Let us detect the
+original bonds using the bond guesser of MDAnalysis.  Let us also create
+a single atom group containing all the carbon atoms:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a universe from the dump file</span>
+<span class="c1"># guess bond based on distance from the initial topology</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="s2">&quot;cnt.data&quot;</span><span class="p">,</span> <span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span>
+               <span class="n">topology_format</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;lammpsdump&quot;</span><span class="p">,</span>
+               <span class="n">guess_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vdwradii</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span><span class="mf">1.7</span><span class="p">})</span>
+<span class="c1"># create a group</span>
+<span class="n">cnt</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s2">&quot;type 1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Note : The bond guesser will not update the list of bond over time, so we will
+need to use a few trick.</p>
+<p>Then, let us loop over the trajectory and extract bond length and number over time:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">lbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># loop over trajectory</span>
+<span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
+   <span class="c1"># sabe the bond of the timestep ts in a list</span>
+   <span class="n">all_bonds_ts</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="c1"># loop over all initially detected bond</span>
+   <span class="k">for</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span> <span class="ow">in</span> <span class="n">cnt</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">indices</span><span class="p">:</span>
+      <span class="c1"># detect positions</span>
+      <span class="n">pos1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id1</span><span class="p">]</span>
+      <span class="n">pos2</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id2</span><span class="p">]</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="n">pos1</span><span class="o">-</span><span class="n">pos2</span>
+      <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mf">1.8</span><span class="p">:</span> <span class="c1"># assume that bond longer than 1.8 angstroms are broken</span>
+            <span class="n">all_bonds_ts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+   <span class="n">lbond_vs_time</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ts</span><span class="o">.</span><span class="n">time</span><span class="o">*</span><span class="mi">5000</span><span class="o">*</span><span class="mf">0.0005</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">all_bonds_ts</span><span class="p">)])</span>
+   <span class="n">nbond_vs_time</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ts</span><span class="o">.</span><span class="n">time</span><span class="o">*</span><span class="mi">5000</span><span class="o">*</span><span class="mf">0.0005</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_bonds_ts</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># divide by 2 to avoid counting twice</span>
+<span class="n">nbond_vs_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nbond_vs_time</span><span class="p">)</span>
+<span class="n">lbond_vs_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lbond_vs_time</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The array nbond_vs_time contains the number of bond as a function of time, and
+lbond_vs_time the bond length:</p>
+</div>
+<figure class="align-default">
+<img alt="plot of the bond length and distance versus time" class="only-dark" src="../../_images/bond-dark.png" />
+</figure>
+<figure class="align-default" id="id9">
+<img alt="plot of the bond length and distance versus time" class="only-light" src="../../_images/bond-light.png" />
+<figcaption>
+<p><span class="caption-text">Evolution of the bond length (left) and number (right) as a function of time.</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>You can access all the input scripts and data files that
 are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">Github</a>.</p>
 </section>
@@ -454,6 +533,14 @@ along xy.</p>
 <p>Equilibrate the system. After some time, some hydrogen atoms will
 decorated the free carbon atoms at the edge of the CNT. Some
 other hydrogen atoms will bond and form H2 molecules.</p>
+</div>
+<p><strong>Exercise 3 : no thermostating</strong></p>
+<div class="justify docutils container">
+<p>When a rubber band is streched up, it heats up due to entropy change.
+In the current simulation, the thermostating prevent to observe the evolution of
+the temperature.</p>
+<p>Remove the thermostat and observe the evolution of the temperature of an
+‘isolated’ carbon nanotube being deformed. Does it heat-up?</p>
 </div>
 <div class="mail admonition">
 <p class="admonition-title">Contact me</p>
@@ -518,6 +605,7 @@ other hydrogen atoms will bond and form H2 molecules.</p>
 <li><a class="reference internal" href="#input-file">Input file</a></li>
 <li><a class="reference internal" href="#equilibration">Equilibration</a></li>
 <li><a class="reference internal" href="#deformation">Deformation</a></li>
+<li><a class="reference internal" href="#post-mortem-analysis">Post-mortem analysis</a></li>
 <li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a></li>
 </ul>
 </li>
