@@ -41,7 +41,7 @@ velocity gtop set NULL NULL 0
 variable pos equal xcm(gtop,z)
 fix at1 all ave/time 10 100 1000 v_pos file cnt_deflection.dat
 fix at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
-dump mydmp all atom 15000 dump.lammpstrj
+dump mydmp all atom 5000 dump.lammpstrj
 
 fix myrct all recenter INIT INIT NULL
 
@@ -56,4 +56,4 @@ run 5000
 velocity gtop set NULL NULL 0.15
 # 0.05 A/ps = 10 m/s
 #velocity gtop set NULL NULL 0.05
-run 250000
+run 280000
