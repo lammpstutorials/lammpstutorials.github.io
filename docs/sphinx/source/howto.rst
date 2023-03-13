@@ -1,9 +1,9 @@
 How-to
 ******
 
-This page describes the structure of the LAMMPStutorials.github.io.
-Tutorials are grouped by thematic. Here some specificity
-present in each tutorial are also listed.
+This page describes the structure of LAMMPStutorials.github.io.
+Tutorials are grouped by theme. For absolute beginners, the :ref:`lennard-jones-label` tutorial
+is recommended.
 
 .. include:: contact/accessfile.rst
 
@@ -37,6 +37,7 @@ Bulk fluids
 #. :ref:`carbon-nanotube-label` - intermediate
     * use of reactive force field
     * constant velocity deformation of a structure
+    * post-mortem analysis using MDAnalysis/Python
 
 Monte Carlo
 ===========

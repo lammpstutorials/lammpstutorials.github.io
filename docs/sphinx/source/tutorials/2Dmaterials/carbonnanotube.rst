@@ -207,6 +207,25 @@ Deformation
 
    <a href="https://www.youtube.com/watch?v=f1ve1j3yA6w" target="_blank">this video</a>
 
+.. figure:: ../figures/carbonnanotube/deformed-dark.png
+   :alt: carbon nanotube with broken bonds
+   :height: 250
+   :align: right
+   :class: only-dark
+
+.. figure:: ../figures/carbonnanotube/deformed-light.png
+   :alt: carbon nanotube with broken bonds
+   :height: 250
+   :align: right
+   :class: only-light
+
+   Carbon nanotube after being broken.
+
+.. container:: justify
+
+   There are two main way to analyse data from a MD simulation: (1) on-the-fly analysis, 
+   like what we did with the two fix ave/time, and (2) post-mortem analysis. 
+
 .. admonition:: About bonds in VMD
    :class: info
 
@@ -218,7 +237,7 @@ Deformation
 Post-mortem analysis
 ====================
 
-..  container:: justify
+.. container:: justify
 
    Analysis can be performed after the simulation is over, using
    the atom coordinate saved in the lammpstrj file.
@@ -255,7 +274,7 @@ Post-mortem analysis
 
 ..  container:: justify
 
-   Note : The bond guesser will not update the list of bond over time, so we will 
+   Note : The bond guesser of MDAnalysis will not update the list of bond over time, so we will 
    need to use a few trick.
 
    Then, let us loop over the trajectory and extract bond length and number over time:
@@ -289,14 +308,14 @@ Post-mortem analysis
    lbond_vs_time the bond length:
 
 .. figure:: ../figures/carbonnanotube/bond-dark.png
-    :alt: plot of the bond length and distance versus time
-    :class: only-dark
+   :alt: plot of the bond length and distance versus time
+   :class: only-dark
 
 .. figure:: ../figures/carbonnanotube/bond-light.png
-    :alt: plot of the bond length and distance versus time
-    :class: only-light
+   :alt: plot of the bond length and distance versus time
+   :class: only-light
 
-    Evolution of the bond length (left) and number (right) as a function of time.
+   Evolution of the bond length (left) and number (right) as a function of time.
 
 .. include:: ../../contact/accessfile.rst
 
