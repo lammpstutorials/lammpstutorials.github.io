@@ -412,6 +412,19 @@ value):</p>
 the bonds breaking, similar to <a href="https://www.youtube.com/watch?v=f1ve1j3yA6w" target="_blank">this video</a>. Use
 the DynamicBonds representation.</p>
 </div>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../../_images/deformed-dark.png"><img alt="carbon nanotube with broken bonds" class="only-dark" src="../../_images/deformed-dark.png" style="height: 250px;" /></a>
+</figure>
+<figure class="align-right" id="id6">
+<a class="only-light reference internal image-reference" href="../../_images/deformed-light.png"><img alt="carbon nanotube with broken bonds" class="only-light" src="../../_images/deformed-light.png" style="height: 250px;" /></a>
+<figcaption>
+<p><span class="caption-text">Carbon nanotube after being broken.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>There are two main way to analyse data from a MD simulation: (1) on-the-fly analysis,
+like what we did with the two fix ave/time, and (2) post-mortem analysis.</p>
+</div>
 <div class="info admonition">
 <p class="admonition-title">About bonds in VMD</p>
 <p>Note that VMD guesses bonds based on the distances
@@ -429,8 +442,8 @@ the atom coordinate saved in the lammpstrj file.</p>
 <p>Open a new Jupyter notebook within the same folder, call it bond_evolution.ipynb.
 First, let us import libraries.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">MDAnalysis</span> <span class="k">as</span> <span class="nn">mda</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
@@ -443,8 +456,8 @@ data file (for the topology information) and the dump file
 original bonds using the bond guesser of MDAnalysis.  Let us also create
 a single atom group containing all the carbon atoms:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a universe from the dump file</span>
 <span class="c1"># guess bond based on distance from the initial topology</span>
 <span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="s2">&quot;cnt.data&quot;</span><span class="p">,</span> <span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span>
@@ -456,12 +469,12 @@ a single atom group containing all the carbon atoms:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Note : The bond guesser will not update the list of bond over time, so we will
+<p>Note : The bond guesser of MDAnalysis will not update the list of bond over time, so we will
 need to use a few trick.</p>
 <p>Then, let us loop over the trajectory and extract bond length and number over time:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">lbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="c1"># loop over trajectory</span>
@@ -491,10 +504,10 @@ lbond_vs_time the bond length:</p>
 <figure class="align-default">
 <img alt="plot of the bond length and distance versus time" class="only-dark" src="../../_images/bond-dark.png" />
 </figure>
-<figure class="align-default" id="id9">
+<figure class="align-default" id="id10">
 <img alt="plot of the bond length and distance versus time" class="only-light" src="../../_images/bond-light.png" />
 <figcaption>
-<p><span class="caption-text">Evolution of the bond length (left) and number (right) as a function of time.</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Evolution of the bond length (left) and number (right) as a function of time.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>You can access all the input scripts and data files that
