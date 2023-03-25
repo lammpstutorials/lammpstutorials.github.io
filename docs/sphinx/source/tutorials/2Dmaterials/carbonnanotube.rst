@@ -367,7 +367,7 @@ Going further with exercises
    Add hydrogen atoms randomly to the system (using the same force field). 
 
    Equilibrate the system. After some time, some hydrogen atoms will 
-   decorated the free carbon atoms at the edge of the CNT. Some 
+   decorate the free carbon atoms at the edge of the CNT. Some 
    other hydrogen atoms will bond and form H2 molecules. 
 
 **Exercise 3 : no thermostating**
@@ -375,8 +375,8 @@ Going further with exercises
 ..  container:: justify
 
    When a rubber band is streched up, it heats up due to entropy change. 
-   In the current simulation, the thermostating prevent to observe the evolution of 
-   the temperature.
+   In the current simulation, the thermostating prevent the temperature
+   to evolve with time.
 
    Remove the thermostat and observe the evolution of the temperature of an
    'isolated' carbon nanotube being deformed. Does it heat-up?
