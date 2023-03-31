@@ -25,13 +25,13 @@ Polymer in water
 
 ..  container:: justify
 
-   The objective of this tutorial is to use LAMMPS and
+   The goal of this tutorial is to use LAMMPS and
    create a small hydrophilic polymer (PEG -
    PolyEthylene Glycol) in a reservoir of water. 
    An all atoms description is used, with charged atoms 
    connected by bonds constraints.
 
-   Once the system created, a constant force will be applied to the 2
+   Once the system is created, a constant stretching force will be applied to both
    ends of the polymer, and its length will be measured with time.
 
 .. include:: ../../contact/needhelp.rst
@@ -65,7 +65,7 @@ Bulk water
    **Explanations:** There are many differences with respect to
    the previous tutorial (:ref:`lennard-jones-label`), mostly
    because here a system with molecules and charges will be
-   modeled (instead of neutral dot particles as in tutorial
+   modeled (instead of neutral particles as in tutorial
    01). With the unit style 'real', masses are in grams per
    mole, distances in Ångstroms, time in femtoseconds, energies
    in Kcal/mole. With the atom style 'full', each atom is a dot
@@ -81,14 +81,14 @@ Bulk water
    has already been anticipated as the charmm angle_style
    and dihedral_style are requirements of the PEG's model.
 
-   *Remark --* A rigid water model will be used, so the bond
-   and angle styles do not matter to the water, they will
+   *Remark --* A rigid water model will be used here, so the bond
+   and angle styles that are chosen have no consequence on the water model, they will
    only matter to the PEG when it is added.
 
    With the 'pair_style' named 'lj/cut/tip4p/long', atoms
    interact through both a Lennard-Jones (LJ) potential and
-   through Coulombic interactions. This style is specific to
-   four points water model, and automatically accounts for the
+   through Coulombic interactions. This pair style is specific to
+   four points water models, and automatically accounts for the
    additional massless site. The six numbers are, respectively,
 
 -  **1 -** the atom type for the oxygen O of the tip4p
@@ -104,14 +104,14 @@ Bulk water
 
    *Note --* The cutoff applies to both LJ and Coulombic
    interactions, but in a different way. For LJ 'cut'
-   interactions, atoms interact with each other only if they
+   interactions, atoms interact with each others only if they
    are separated by a distance smaller than the cutoff. For
    Coulombic 'long', interaction between atoms closer than
    the cutoff are computed directly, and interaction between
-   atoms outside that cutoff are computed in reciprocal
+   atoms outside that cutoff are computed in the reciprocal
    space.
 
-   Finally the kspace command defines the long-range solver for
+   Finally the kspace command defines the long-range solver for the (long)
    Coulombic interactions. The pppm style refers to
    particle-particle particle-mesh.
 
@@ -373,7 +373,7 @@ Bulk water
 .. admonition:: Running LAMMPS in parallel
     :class: info
 
-    This simulation may be a bit slow to complete on one single core.
+    This simulation may be a bit slow to complete on 1 single core.
     You can speed it up by running LAMMPS on multiple cores, by typing:
 
     .. code-block:: bash

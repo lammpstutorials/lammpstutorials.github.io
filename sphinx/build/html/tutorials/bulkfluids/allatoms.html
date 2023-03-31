@@ -250,12 +250,12 @@
 <a class="only-light reference internal image-reference" href="../../_images/main-light.png"><img alt="peg molecule in water" class="only-light" src="../../_images/main-light.png" style="height: 250px;" /></a>
 </figure>
 <div class="justify docutils container">
-<p>The objective of this tutorial is to use LAMMPS and
+<p>The goal of this tutorial is to use LAMMPS and
 create a small hydrophilic polymer (PEG -
 PolyEthylene Glycol) in a reservoir of water.
 An all atoms description is used, with charged atoms
 connected by bonds constraints.</p>
-<p>Once the system created, a constant force will be applied to the 2
+<p>Once the system is created, a constant stretching force will be applied to both
 ends of the polymer, and its length will be measured with time.</p>
 </div>
 <div class="patreon admonition">
@@ -288,7 +288,7 @@ lines in it:</p>
 <p><strong>Explanations:</strong> There are many differences with respect to
 the previous tutorial (<a class="reference internal" href="lennardjones.html#lennard-jones-label"><span class="std std-ref">Lennard Jones fluid</span></a>), mostly
 because here a system with molecules and charges will be
-modeled (instead of neutral dot particles as in tutorial
+modeled (instead of neutral particles as in tutorial
 01). With the unit style ‘real’, masses are in grams per
 mole, distances in Ångstroms, time in femtoseconds, energies
 in Kcal/mole. With the atom style ‘full’, each atom is a dot
@@ -302,13 +302,13 @@ impose the potential to use.</p>
 <p><em>Remark –</em> The future merging of the water with the PEG
 has already been anticipated as the charmm angle_style
 and dihedral_style are requirements of the PEG’s model.</p>
-<p><em>Remark –</em> A rigid water model will be used, so the bond
-and angle styles do not matter to the water, they will
+<p><em>Remark –</em> A rigid water model will be used here, so the bond
+and angle styles that are chosen have no consequence on the water model, they will
 only matter to the PEG when it is added.</p>
 <p>With the ‘pair_style’ named ‘lj/cut/tip4p/long’, atoms
 interact through both a Lennard-Jones (LJ) potential and
-through Coulombic interactions. This style is specific to
-four points water model, and automatically accounts for the
+through Coulombic interactions. This pair style is specific to
+four points water models, and automatically accounts for the
 additional massless site. The six numbers are, respectively,</p>
 </div>
 <ul class="simple">
@@ -324,13 +324,13 @@ water,</p></li>
 <div class="justify docutils container">
 <p><em>Note –</em> The cutoff applies to both LJ and Coulombic
 interactions, but in a different way. For LJ ‘cut’
-interactions, atoms interact with each other only if they
+interactions, atoms interact with each others only if they
 are separated by a distance smaller than the cutoff. For
 Coulombic ‘long’, interaction between atoms closer than
 the cutoff are computed directly, and interaction between
-atoms outside that cutoff are computed in reciprocal
+atoms outside that cutoff are computed in the reciprocal
 space.</p>
-<p>Finally the kspace command defines the long-range solver for
+<p>Finally the kspace command defines the long-range solver for the (long)
 Coulombic interactions. The pppm style refers to
 particle-particle particle-mesh.</p>
 </div>
@@ -568,7 +568,7 @@ in the H2O.data file, which will be used later.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Running LAMMPS in parallel</p>
-<p>This simulation may be a bit slow to complete on one single core.
+<p>This simulation may be a bit slow to complete on 1 single core.
 You can speed it up by running LAMMPS on multiple cores, by typing:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">4</span><span class="w"> </span>lmp<span class="w"> </span>-in<span class="w"> </span>input.lammps
 </pre></div>
