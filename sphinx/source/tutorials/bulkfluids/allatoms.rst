@@ -370,13 +370,21 @@ Bulk water
    At the end of the simulation, the final state is printed
    in the H2O.data file, which will be used later.
 
-   *Note -* This simulation may be a bit slow to complete.
-   You can speed it up by running it on multiple CPUs using
-   something like "mpirun -np 4 lmp -in input.lammps" (the
-   command may vary, depending on your OS and LAMMPS
-   version).
+.. admonition:: Running LAMMPS in parallel
+    :class: info
 
-   *Note -* No energy minimization was performed here (NPT
+    This simulation may be a bit slow to complete on one single core.
+    You can speed it up by running LAMMPS on multiple cores, by typing:
+
+    .. code-block:: bash
+
+        mpirun -np 4 lmp -in input.lammps
+
+    The command may vary, depending on your OS and LAMMPS installation.
+
+..  container:: justify
+
+   Note that no energy minimization was performed here (NPT
    molecular dynamics was started straight away). This is a
    bit risky, but it works here because overlapping
    molecules were deleted, and because the initial density
