@@ -326,6 +326,10 @@ consecutive runs.</p>
 <p>A line starting with a brace (#) is a comment
 that is ignored by LAMMPS. Use comments to structure
 your inputs and make them readable by others.</p>
+</div>
+<section id="system-creation">
+<h3>System creation<a class="headerlink" href="#system-creation" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
 <p>In the first section of the script, called ‘Initialization’,
 let us indicate to LAMMPS the type of simulation we are
 going to execute by specifying the most basic information,
@@ -346,7 +350,7 @@ following lines:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> The first line indicates that we want to
+<p>The first line indicates that we want to
 use the system of unit called ‘lj’ for which all quantities
 are unitless. The second line indicates that the simulation
 is 3D, the third line that the atomic style
@@ -395,7 +399,7 @@ Last command: atom_stile    atomic
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> The first line creates a region of space
+<p>The first line creates a region of space
 named <em>simulation_box</em> that is a block (a rectangular cuboid) and
 extends from -20 to 20 along all 3 directions of space, all expressed in
 non-dimensional units because we are using the lj system
@@ -439,7 +443,7 @@ atoms.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> The two first commands attribute a mass
+<p>The two first commands attribute a mass
 equal to 1 (unitless) to both atoms of type 1 and 2,
 respectively. The third line sets the Lennard-Jones
 coefficients for the interactions between atoms of type 1,
@@ -464,6 +468,9 @@ arithmetic rule is based on rigorous argument, so here
 the geometric rule will do just fine. Cross parameters
 can also be explicitly specified using ‘pair_coeff 1 2’.</p>
 </div>
+</section>
+<section id="energy-minimization">
+<h3>Energy minimization<a class="headerlink" href="#energy-minimization" title="Permalink to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>The input script is almost done, let us just fill the
 ‘Visualization’ and ‘Run’ sections:</p>
@@ -479,7 +486,7 @@ can also be explicitly specified using ‘pair_coeff 1 2’.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> The thermo command asks LAMMPS to print
+<p>The thermo command asks LAMMPS to print
 thermodynamic information (e.g. temperature, energy) in the
 terminal every 10 timesteps. The second line asks LAMMPS to
 perform an energy minimization of the system.</p>
@@ -534,6 +541,24 @@ to be satisfied was the energy:</p>
 Stopping criterion = energy tolerance
 </pre></div>
 </div>
+</section>
+<section id="molecular-dynamics">
+<h3>Molecular dynamics<a class="headerlink" href="#molecular-dynamics" title="Permalink to this heading">#</a></h3>
+<div class="dropdown admonition">
+<p class="admonition-title">What is molecular dynamics ?</p>
+<p>Molecular dynamics (MD) is based on the numerical solution of the Newtonian
+equations of motion (i.e. force = mass x acceleration) to predict the
+evolution of the positions and velocities of atoms and molecules over time.
+At every timestep, the following operations usually occur when
+performing a MD simulation:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>the forces between the atoms are calculated from the parameters (here the sigma and epsilon values) and potentials (here Lennard-Jones),</p></li>
+<li><p>the acceleration of each atom is evaluated from the Newtonian equation,</p></li>
+<li><p>the velocity and position of each atom are updated according to the acceleration, typically using the Verlet algorithm, or similar.</p></li>
+</ul>
+</div></blockquote>
+</div>
 <div class="justify docutils container">
 <p>The system is ready, now let us start the second part of the
 input script, the molecular dynamics simulation. In the same
@@ -559,8 +584,7 @@ lines:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Some remarks:</em>
-Since LAMMPS reads the input from top to
+<p>Since LAMMPS reads the input from top to
 bottom, these lines will be executed after the energy
 minimization. There is no need to initialize the system
 (part 1), define it (part 2), or specify the settings
@@ -569,7 +593,7 @@ so the previously entered value of ‘10’ will be replaced
 by the value of ‘1000’ as soon as the second run starts.</p>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> Three variables have been defined in order
+<p>Three variables have been defined in order
 to print the kinetic energy and the potential energy
 of the system in the file named <em>energy.dat</em>. Then,
 in the run section, the fix <em>nve</em> is used to update the
@@ -580,7 +604,7 @@ fix applies a Langevin thermostat to the atoms of group
 parameter of 0.1. The number <em>1530917</em> is a seed, you can
 change it to perform statistically independent simulations
 with the same system. Finally we choose the timestep
-and we ask LAMMPS to run for 10000 timesteps. After running
+and we ask LAMMPS to run for 10000 steps. After running
 the simulation, you should see the following information in
 the terminal:</p>
 </div>
@@ -655,6 +679,7 @@ the system over time:</p>
 an equilibrium value.</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+</section>
 </section>
 <section id="trajectory-visualisation">
 <h2>Trajectory visualisation<a class="headerlink" href="#trajectory-visualisation" title="Permalink to this heading">#</a></h2>
@@ -731,7 +756,7 @@ atoms of type 1 and 2 in each region respectively.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> The <em>side in</em> and <em>side out</em> keywords
+<p>The <em>side in</em> and <em>side out</em> keywords
 allow us to define regions that are respectively inside the
 cylinder, and everything that is not inside the cylinder.</p>
 <p>We can write the remaining of the input script as follow:</p>
@@ -756,7 +781,7 @@ cylinder, and everything that is not inside the cylinder.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> The novelty with respect to the previous
+<p>The novelty with respect to the previous
 input script is the command ‘write_data’. This command
 asks LAMMPS to print the final state of the simulation in
 a file named ‘minimized_coordinate.data’. This file will
@@ -796,7 +821,7 @@ positions and velocities of all the atoms:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> The columns of the Atoms section
+<p>The columns of the Atoms section
 correspond (from left to right) to the atom indexes (from 1
 to the total number of atoms, 1150), the atom types (1 or 2
 here), the atoms positions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span> and the
@@ -859,7 +884,7 @@ by adding the following commands:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> These commands will respectively recreate
+<p>These commands will respectively recreate
 the previously defined regions (regions are not saved by the
 write_data command), create groups, and finally delete the
 atoms of type 1 that are located within the cylinder, as
@@ -921,7 +946,7 @@ adding the following commands to the input file:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> As seen previously, the fixes ave/times
+<p>As seen previously, the fixes ave/times
 allow to evaluate previously defined variables and print
 the values (here every 10000 steps, averaged 10 times)
 into data file. The variables Ntype:math:<cite>*</cite> are used to count
@@ -944,7 +969,7 @@ section:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> There are a few differences with the
+<p>There are a few differences with the
 previous input script. First, the ‘velocity create’
 command attributes an initial velocity to all the atoms.
 The initial velocity is chosen so that the initial
@@ -1002,7 +1027,7 @@ Last command: run 10000
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p><em>Explanations:</em> The message indicates that LAMMPS lost
+<p>The message indicates that LAMMPS lost
 some of the atoms, then stopped. This is one of the most
 common error message that you will see. It is usually the
 consequence of badly constructed system or inappropriate
@@ -1097,7 +1122,12 @@ that the system is not <em>too</em> out-of-equilibrium.</p>
             <ul>
 <li><a class="reference internal" href="#">Lennard Jones fluid</a><ul>
 <li><a class="reference internal" href="#required-softwares">Required softwares</a></li>
-<li><a class="reference internal" href="#the-input-script">The input script</a></li>
+<li><a class="reference internal" href="#the-input-script">The input script</a><ul>
+<li><a class="reference internal" href="#system-creation">System creation</a></li>
+<li><a class="reference internal" href="#energy-minimization">Energy minimization</a></li>
+<li><a class="reference internal" href="#molecular-dynamics">Molecular dynamics</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#trajectory-visualisation">Trajectory visualisation</a></li>
 <li><a class="reference internal" href="#improving-the-script">Improving the script</a></li>
 <li><a class="reference internal" href="#restarting-from-a-saved-configuration">Restarting from a saved configuration</a></li>
