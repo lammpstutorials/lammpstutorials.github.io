@@ -367,9 +367,9 @@ Molecular dynamics
     evolution of the positions and velocities of atoms and molecules over time. 
     At every timestep, the following operations usually occur when 
     performing a MD simulation:
-        - the forces between the atoms are calculated from the parameters (here the sigma and epsilon values) and potentials (here Lennard-Jones),
-        - the acceleration of each atom is evaluated from the Newtonian equation,
-        - the velocity and position of each atom are updated according to the acceleration, typically using the Verlet algorithm, or similar.
+    - the forces between the atoms are calculated from the parameters (here the sigma and epsilon values) and potentials (here Lennard-Jones),
+    - the acceleration of each atom is evaluated from the Newtonian equation,
+    - the velocity and position of each atom are updated according to the acceleration, typically using the Verlet algorithm, or similar.
 
 ..  container:: justify
 
