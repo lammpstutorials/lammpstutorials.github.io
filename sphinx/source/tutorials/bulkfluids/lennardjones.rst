@@ -142,7 +142,7 @@ The input script
 
 ..  container:: justify
 
-    **Explanations:** The first line indicates that we want to
+    *Explanations:* The first line indicates that we want to
     use the system of unit called 'lj' for which all quantities
     are unitless. The second line indicates that the simulation
     is 3D, the third line that the atomic style
@@ -198,7 +198,7 @@ The input script
 
 ..  container:: justify
 
-    **Explanations:** The first line creates a region of space
+    *Explanations:* The first line creates a region of space
     named *simulation_box* that is a block (a rectangular cuboid) and
     extends from -20 to 20 along all 3 directions of space, all expressed in
     non-dimensional units because we are using the lj system
@@ -246,7 +246,7 @@ The input script
 
 ..  container:: justify
 
-    **Explanations:**\ The two first commands attribute a mass
+    *Explanations:* The two first commands attribute a mass
     equal to 1 (unitless) to both atoms of type 1 and 2,
     respectively. The third line sets the Lennard-Jones
     coefficients for the interactions between atoms of type 1,
@@ -288,7 +288,7 @@ The input script
 
 ..  container:: justify
 
-    **Explanations:** The thermo command asks LAMMPS to print
+    *Explanations:* The thermo command asks LAMMPS to print
     thermodynamic information (e.g. temperature, energy) in the
     terminal every 10 timesteps. The second line asks LAMMPS to
     perform an energy minimization of the system.
@@ -327,7 +327,7 @@ The input script
 
 ..  container:: justify
 
-    **Explanations:** These lines give us information concerning
+    *Explanations:* These lines give us information concerning
     the progress of the energy minimization. First, at the start
     of the simulation (step 0), the energy in the system is
     huge: 78840982 (unitless). This was expected because
@@ -374,7 +374,7 @@ The input script
 
 ..  container:: justify
 
-    **Some remarks:**
+    *Some remarks:*
     Since LAMMPS reads the input from top to
     bottom, these lines will be executed after the energy
     minimization. There is no need to initialize the system
@@ -385,7 +385,7 @@ The input script
 
 ..  container:: justify
 
-    **Explanations:** Three variables have been defined in order
+    *Explanations:* Three variables have been defined in order
     to print the kinetic energy and the potential energy 
     of the system in the file named *energy.dat*. Then,
     in the run section, the fix *nve* is used to update the
@@ -566,7 +566,7 @@ Improving the script
 
 ..  container:: justify
 
-    **Explanations:** The *side in* and *side out* keywords
+    *Explanations:* The *side in* and *side out* keywords
     allow us to define regions that are respectively inside the
     cylinder, and everything that is not inside the cylinder.
 
@@ -592,7 +592,7 @@ Improving the script
 
 ..  container:: justify
 
-    **Explanations:** The novelty with respect to the previous
+    *Explanations:* The novelty with respect to the previous
     input script is the command 'write_data'. This command
     asks LAMMPS to print the final state of the simulation in
     a file named 'minimized_coordinate.data'. This file will
@@ -637,7 +637,7 @@ Improving the script
 
 ..  container:: justify
 
-    **Explanations:** The columns of the Atoms section
+    *Explanations:* The columns of the Atoms section
     correspond (from left to right) to the atom indexes (from 1
     to the total number of atoms, 1150), the atom types (1 or 2
     here), the atoms positions :math:`x`, :math:`y`, :math:`z` and the
@@ -705,7 +705,7 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    **Explanations:** These commands will respectively recreate
+    *Explanations:* These commands will respectively recreate
     the previously defined regions (regions are not saved by the
     write_data command), create groups, and finally delete the
     atoms of type 1 that are located within the cylinder, as
@@ -769,7 +769,7 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    **Explanations:** As seen previously, the fixes ave/times
+    *Explanations:* As seen previously, the fixes ave/times
     allow to evaluate previously defined variables and print
     the values (here every 10000 steps, averaged 10 times)
     into data file. The variables Ntype:math:`*` are used to count
@@ -792,7 +792,7 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    **Explanations:** There are a few differences with the
+    *Explanations:* There are a few differences with the
     previous input script. First, the 'velocity create'
     command attributes an initial velocity to all the atoms.
     The initial velocity is chosen so that the initial
@@ -853,7 +853,7 @@ Going further with exercises
 
 ..  container:: justify
 
-    **Explanations:** The message indicates that LAMMPS lost
+    *Explanations:* The message indicates that LAMMPS lost
     some of the atoms, then stopped. This is one of the most
     common error message that you will see. It is usually the
     consequence of badly constructed system or inappropriate

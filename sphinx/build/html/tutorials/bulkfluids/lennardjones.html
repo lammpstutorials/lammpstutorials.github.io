@@ -18,6 +18,7 @@
         <title>Lennard Jones fluid - </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     
@@ -345,7 +346,7 @@ following lines:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> The first line indicates that we want to
+<p><em>Explanations:</em> The first line indicates that we want to
 use the system of unit called ‘lj’ for which all quantities
 are unitless. The second line indicates that the simulation
 is 3D, the third line that the atomic style
@@ -394,7 +395,7 @@ Last command: atom_stile    atomic
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> The first line creates a region of space
+<p><em>Explanations:</em> The first line creates a region of space
 named <em>simulation_box</em> that is a block (a rectangular cuboid) and
 extends from -20 to 20 along all 3 directions of space, all expressed in
 non-dimensional units because we are using the lj system
@@ -438,7 +439,7 @@ atoms.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong>The two first commands attribute a mass
+<p><em>Explanations:</em> The two first commands attribute a mass
 equal to 1 (unitless) to both atoms of type 1 and 2,
 respectively. The third line sets the Lennard-Jones
 coefficients for the interactions between atoms of type 1,
@@ -478,7 +479,7 @@ can also be explicitly specified using ‘pair_coeff 1 2’.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> The thermo command asks LAMMPS to print
+<p><em>Explanations:</em> The thermo command asks LAMMPS to print
 thermodynamic information (e.g. temperature, energy) in the
 terminal every 10 timesteps. The second line asks LAMMPS to
 perform an energy minimization of the system.</p>
@@ -513,7 +514,7 @@ variables evolve with time:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> These lines give us information concerning
+<p><em>Explanations:</em> These lines give us information concerning
 the progress of the energy minimization. First, at the start
 of the simulation (step 0), the energy in the system is
 huge: 78840982 (unitless). This was expected because
@@ -558,7 +559,7 @@ lines:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Some remarks:</strong>
+<p><em>Some remarks:</em>
 Since LAMMPS reads the input from top to
 bottom, these lines will be executed after the energy
 minimization. There is no need to initialize the system
@@ -568,7 +569,7 @@ so the previously entered value of ‘10’ will be replaced
 by the value of ‘1000’ as soon as the second run starts.</p>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> Three variables have been defined in order
+<p><em>Explanations:</em> Three variables have been defined in order
 to print the kinetic energy and the potential energy
 of the system in the file named <em>energy.dat</em>. Then,
 in the run section, the fix <em>nve</em> is used to update the
@@ -730,7 +731,7 @@ atoms of type 1 and 2 in each region respectively.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> The <em>side in</em> and <em>side out</em> keywords
+<p><em>Explanations:</em> The <em>side in</em> and <em>side out</em> keywords
 allow us to define regions that are respectively inside the
 cylinder, and everything that is not inside the cylinder.</p>
 <p>We can write the remaining of the input script as follow:</p>
@@ -755,7 +756,7 @@ cylinder, and everything that is not inside the cylinder.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> The novelty with respect to the previous
+<p><em>Explanations:</em> The novelty with respect to the previous
 input script is the command ‘write_data’. This command
 asks LAMMPS to print the final state of the simulation in
 a file named ‘minimized_coordinate.data’. This file will
@@ -795,7 +796,7 @@ positions and velocities of all the atoms:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> The columns of the Atoms section
+<p><em>Explanations:</em> The columns of the Atoms section
 correspond (from left to right) to the atom indexes (from 1
 to the total number of atoms, 1150), the atom types (1 or 2
 here), the atoms positions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span> and the
@@ -858,7 +859,7 @@ by adding the following commands:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> These commands will respectively recreate
+<p><em>Explanations:</em> These commands will respectively recreate
 the previously defined regions (regions are not saved by the
 write_data command), create groups, and finally delete the
 atoms of type 1 that are located within the cylinder, as
@@ -920,7 +921,7 @@ adding the following commands to the input file:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> As seen previously, the fixes ave/times
+<p><em>Explanations:</em> As seen previously, the fixes ave/times
 allow to evaluate previously defined variables and print
 the values (here every 10000 steps, averaged 10 times)
 into data file. The variables Ntype:math:<cite>*</cite> are used to count
@@ -943,7 +944,7 @@ section:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> There are a few differences with the
+<p><em>Explanations:</em> There are a few differences with the
 previous input script. First, the ‘velocity create’
 command attributes an initial velocity to all the atoms.
 The initial velocity is chosen so that the initial
@@ -1001,7 +1002,7 @@ Last command: run 10000
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> The message indicates that LAMMPS lost
+<p><em>Explanations:</em> The message indicates that LAMMPS lost
 some of the atoms, then stopped. This is one of the most
 common error message that you will see. It is usually the
 consequence of badly constructed system or inappropriate
@@ -1116,6 +1117,11 @@ that the system is not <em>too</em> out-of-equilibrium.</p>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/scripts/furo.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>
