@@ -773,9 +773,9 @@ top of this page.</p>
 <p>Let us improve the input script and perform slightly more
 advanced operations.</p>
 <p>Let us create the atoms of type 1 and 2 in two separate
-regions, respectively. Create a new input script, and call
-it input2.lammps. Similarly to what has been done
-in the previous part, copy the following lines
+regions, respectively, instead of creating them both randomly
+within the entire space as we did previously. Create a new input script, and call
+it input2.lammps. Similarly to what has been done previously, copy the following lines
 into the input script:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id9">
@@ -990,25 +990,38 @@ adding the following commands to the input file:</p>
 <span class="k">variable </span><span class="nv nv-Identifier">Ntype2ou</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype2,mycylou)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_Ntype1in</span><span class="w"> </span><span class="n">v_Ntype1ou</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">population1vstime.dat</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_Ntype2in</span><span class="w"> </span><span class="n">v_Ntype2ou</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">population2vstime.dat</span>
-<span class="k">compute </span><span class="nv nv-Identifier">coor12</span><span class="w"> </span><span class="nv nv-Identifier">type1</span><span class="w"> </span><span class="n">coord</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">type2</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>As seen previously, the fix ave/time
+allow to evaluate previously defined variables and print
+the values (here every 2000 steps, after averaging each quantities 200 times)
+into data file. The 4 variables starting with ‘Ntype’ are used to count
+the number of atoms of a specific group in a specific
+region.</p>
+<p>Let us also extract the coordination number per atom between atoms
+of type 1 and 2, i.e. the average number of atoms of type 2 in the vicinity
+of the atoms of type 1. This coordination number will be used as an indicator of the
+degree of mixing of our binary mixture.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id17" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">coor12</span><span class="w"> </span><span class="nv nv-Identifier">type1</span><span class="w"> </span><span class="n">coord</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">type2</span>
 <span class="k">compute </span><span class="nv nv-Identifier">sumcoor12</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">reduce</span><span class="w"> </span><span class="n">ave</span><span class="w"> </span><span class="n">c_coor12</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat3</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">c_sumcoor12</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">coordinationnumber12.dat</span>
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
-<p>As seen previously, the fixes ave/times
-allow to evaluate previously defined variables and print
-the values (here every 10000 steps, averaged 10 times)
-into data file. The variables Ntype:math:<cite>*</cite> are used to count
-the number of atoms of a specific group in a specific
-region. The compute ave is used to average the per atom
-coordination number resulting of the coord/atom compute.
-Finally, let us complete the script by adding the run
-section:</p>
+<p>The ‘compute ave’ is used to average the per atom
+coordination number that is calculated by the ‘coord/atom’ compute.
+This averaging is necessary as ‘coord/atom’ returns an array where each value corresponds
+to a certain couple of atom i-j. Such array can’t be printed by ‘fix ave/time’.
+Finally, let us complete the script by adding the run section:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id17" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id18" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 5) Run</span>
 <span class="k">velocity</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">4928459</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="n">gaussian</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
@@ -1038,10 +1051,10 @@ mixing:</p>
 <figure class="align-default">
 <img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-light" src="../../_images/population-light.png" />
 </figure>
-<figure class="align-default" id="id18">
+<figure class="align-default" id="id19">
 <img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-dark" src="../../_images/population-dark.png" />
 <figcaption>
-<p><span class="caption-text">Evolution of the poputation with time, as well as evolution of the coordination number.</span><a class="headerlink" href="#id18" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Evolution of the poputation with time, as well as evolution of the coordination number.</span><a class="headerlink" href="#id19" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>You can access all the input scripts and data files that
@@ -1051,8 +1064,9 @@ are used in these tutorials from <a href="https://github.com/lammpstutorials/lam
 <h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Permalink to this heading">#</a></h2>
 <div class="solution admonition">
 <p class="admonition-title">Solutions</p>
-<p>Request the solutions by <a class="reference external" href="mailto:simon&#46;gravelle&#37;&#52;&#48;live&#46;fr">email</a>, or register as a <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a>
-to access all the solutions as well as additional LAMMPS content.</p>
+<p>Request the solutions by <a class="reference external" href="mailto:simon&#46;gravelle&#37;&#52;&#48;live&#46;fr">email</a>, or register as a <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a> for 1 euro/month
+to access all the solutions as well as additional LAMMPS content and access
+an active LAMMPS dedicated forum.</p>
 </div>
 <div class="justify docutils container">
 <p><strong>Preamble : on the importance of energy minimisation</strong>

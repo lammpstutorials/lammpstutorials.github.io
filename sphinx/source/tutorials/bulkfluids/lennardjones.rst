@@ -619,9 +619,9 @@ Improving the script
     advanced operations.
 
     Let us create the atoms of type 1 and 2 in two separate
-    regions, respectively. Create a new input script, and call
-    it input2.lammps. Similarly to what has been done
-    in the previous part, copy the following lines
+    regions, respectively, instead of creating them both randomly 
+    within the entire space as we did previously. Create a new input script, and call
+    it input2.lammps. Similarly to what has been done previously, copy the following lines
     into the input script:
 
 ..  code-block:: lammps
@@ -850,21 +850,35 @@ Restarting from a saved configuration
     variable Ntype2ou equal count(mytype2,mycylou)
     fix myat1 all ave/time 10 200 2000 v_Ntype1in v_Ntype1ou file population1vstime.dat
     fix myat2 all ave/time 10 200 2000 v_Ntype2in v_Ntype2ou file population2vstime.dat
-    compute coor12 type1 coord/atom cutoff 2.0 group type2
-    compute sumcoor12 all reduce ave c_coor12
-    fix myat3 all ave/time 10 200 2000 c_sumcoor12 file coordinationnumber12.dat
 
 ..  container:: justify
 
-    As seen previously, the fixes ave/times
+    As seen previously, the fix ave/time
     allow to evaluate previously defined variables and print
-    the values (here every 10000 steps, averaged 10 times)
-    into data file. The variables Ntype:math:`*` are used to count
+    the values (here every 2000 steps, after averaging each quantities 200 times)
+    into data file. The 4 variables starting with 'Ntype' are used to count
     the number of atoms of a specific group in a specific
-    region. The compute ave is used to average the per atom
-    coordination number resulting of the coord/atom compute.
-    Finally, let us complete the script by adding the run
-    section:
+    region. 
+
+    Let us also extract the coordination number per atom between atoms 
+    of type 1 and 2, i.e. the average number of atoms of type 2 in the vicinity 
+    of the atoms of type 1. This coordination number will be used as an indicator of the 
+    degree of mixing of our binary mixture. 
+    
+..  code-block:: lammps
+    :caption: *to be copied in input3.lammps*
+
+    compute coor12 type1 coord/atom cutoff 2.0 group type2
+    compute sumcoor12 all reduce ave c_coor12
+    fix myat3 all ave/time 10 200 2000 c_sumcoor12 file coordinationnumber12.dat
+    
+..  container:: justify
+
+    The 'compute ave' is used to average the per atom
+    coordination number that is calculated by the 'coord/atom' compute.
+    This averaging is necessary as 'coord/atom' returns an array where each value corresponds 
+    to a certain couple of atom i-j. Such array can't be printed by 'fix ave/time'. 
+    Finally, let us complete the script by adding the run section:
 
 ..  code-block:: lammps
     :caption: *to be copied in input3.lammps*
