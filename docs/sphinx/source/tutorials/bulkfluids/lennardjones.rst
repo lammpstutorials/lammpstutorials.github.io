@@ -19,7 +19,7 @@ Lennard Jones fluid
 
 ..  container:: justify
 
-    The objective of this tutorial is to use the
+    The objective of this tutorial is to use
     LAMMPS to perform a simple molecular dynamics simulation
     of a binary fluid in the NVT ensemble (see the video on 
     the right). The system is a simple Lennard-Jones fluid
@@ -96,7 +96,7 @@ The input script
 
     In order to run a simulation using LAMMPS, one needs to
     write a series of commands in an input script. For clarity,
-    the input will be divided into five categories which we are going to
+    this script will be divided into five categories which we are going to
     fill up one by one. Create a blank text file, call it
     'input1.lammps', and copy the following lines in it:
 
@@ -130,7 +130,7 @@ System creation
     In the first section of the script, called 'Initialization',
     let us indicate to LAMMPS the type of simulation we are
     going to execute by specifying the most basic information,
-    such as the conditions at the boundaries of the box (e.g
+    such as the conditions at the boundaries of the box (i.e.
     periodic, non-periodic) or the type of atoms (e.g. uncharged
     single dots, spheres with angular velocities). Enter the
     following lines:
@@ -148,10 +148,38 @@ System creation
 ..  container:: justify
 
     The first line indicates that we want to
-    use the system of unit called 'lj' for which all quantities
-    are unitless. The second line indicates that the simulation
-    is 3D, the third line that the atomic style
-    will be used, therefore atoms are just a dot with a mass.
+    use the system of unit called 'lj', for lennard-jones, for which all quantities
+    are unitless. 
+    
+.. admonition:: Background Information (optional) -- About LJ units
+    :class: dropdown
+
+    Lennard-Jones (lj) units are a dimensionless system of units that are often used in molecular simulations
+    and theoretical calculations. When using lj units:
+
+    - energies are expressed in units of :math:`\epsilon`, where :math:`\epsilon` is the depth of the potential of the lj interaction,
+    - distances are expressed in units of :math:`\sigma`, where :math:`\sigma` is the distance at which the particle-particle potential energy is zero,
+    - masses are expressed in units of the atomic mass :math:`m`.
+
+    All the other quantities are normalised by a combination of :math:`\epsilon`, :math:`\sigma`,
+    and :math:`m`. For instance, time is expressed in units of :math:`\sqrt{ \epsilon / m \sigma^2}`. 
+
+..  container:: justify
+
+    The second line indicates that the simulation
+    is 3D, the third line that the 'atomic' style
+    will be used, therefore each atom is just a dot with a mass.
+
+.. admonition:: About the atom style
+    :class: info
+
+    While we are keeping it simple here,
+    in the following tutorials, different 'atom style' will be used,
+    allowing us to create atoms with a net charge, as well as to create bonds
+    between atoms of the same molecules. 
+
+..  container:: justify
+
     The fourth line indicates that atoms are going to interact
     through a Lennard-Jones potential with a cut-off equal to
     2.5 (unitless), and the last line indicates that the
@@ -180,13 +208,13 @@ System creation
 
     If there is a mistake in the input script, for example if
     'atom_stile' is written instead of 'atom_style', LAMMPS
-    gives you a warning:
+    gives you an explicit warning:
 
 ..  code-block:: bw
 
     LAMMPS (29 Sep 2021 - Update 2)
     ERROR: Unknown command: atom_stile  atomic (src/input.cpp:232)
-    Last command: atom_stile    atomic
+    Last command: atom_stile atomic
 
 ..  container:: justify
 
@@ -264,26 +292,36 @@ System creation
 .. admonition:: About cross parameters
     :class: info
 
-    By default, LAMMPS calculates the cross coefficients
-    (here for the interactions between atoms of type 1 and 2)
+    By default, LAMMPS calculates the cross coefficients between the different atom types
     using geometric average: 
     :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
     :math:`\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}`. 
+    In the present case, and even without specifying it explicitly, we thus have :
+
+    - :math:`\epsilon_{ij} = \sqrt{1.0 \times 0.5} = 0.707`, and 
+    - :math:`\sigma_{ij} = \sqrt{1.0 \times 3.0} = 1.732`.
+
+    Eventually, cross parameters could also be explicitly specified by adding the following 
+    line to the input file (but there is no need to do it here, its only necessary if you need 
+    to set custom parameters):
+
+    ..  code-block:: lammps
+        
+        pair_coeff 1 2 0.707 1.732 
+
     Note that the arithmetic rule, where 
     :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
     :math:`\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2`, 
-    is more commonly used. However neither the geometric nor the
-    arithmetic rule is based on rigorous argument, so here
-    the geometric rule will do just fine. Cross parameters
-    can also be explicitly specified using 'pair_coeff 1 2'.
+    is more common than the geometric rule. However, neither the geometric nor the
+    arithmetic rule are based on rigorous argument, so here
+    the geometric rule will do just fine. 
 
 Energy minimization
 -------------------
 
 ..  container:: justify
 
-    The input script is almost done, let us just fill the
-    'Visualization' and 'Run' sections:
+    Now that the system is fully defined, let us just fill the two last remaining sections:
 
 ..  code-block:: lammps
     :caption: *to be copied in input1.lammps*
@@ -298,17 +336,16 @@ Energy minimization
 
     The thermo command asks LAMMPS to print
     thermodynamic information (e.g. temperature, energy) in the
-    terminal every 10 timesteps. The second line asks LAMMPS to
+    terminal every 10 steps. The second line asks LAMMPS to
     perform an energy minimization of the system.
-
 
 .. admonition:: About energy minimization
     :class: info
 
     An energy minimization procedure consists in adjusting
     the coordinates of the atoms that are too close from one another until one of the stopping
-    criteria is reached. Here there are four stopping
-    criteria:
+    criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
+    Here there are four stopping criteria:
 
     #. The change in energy between two iterations is less than 1.0e-4,
     #. The maximum force between two atoms in the system is lower than 1.0e-6,
@@ -335,7 +372,7 @@ Energy minimization
 
 ..  container:: justify
 
-    *Explanations:* These lines give us information concerning
+    These lines give us information concerning
     the progress of the energy minimization. First, at the start
     of the simulation (step 0), the energy in the system is
     huge: 78840982 (unitless). This was expected because
@@ -344,8 +381,7 @@ Energy minimization
     resulting in a large initial energy which is the consequence
     of the repulsive part of the Lennard-Jones interaction
     potential. As the energy minimization progresses, the energy
-    rapidly decreases and reaches a negative and also more
-    acceptable value, indicating that the atoms have been
+    rapidly decreases and reaches a negative value, indicating that the atoms have been
     displaced at reasonable distances from one another. Other
     useful information have been printed in the terminal, for
     example, LAMMPS tells us that the first of the four criteria
@@ -384,9 +420,10 @@ Molecular dynamics
 
 ..  container:: justify
 
-    The system is ready, now let us start the second part of the
-    input script, the molecular dynamics simulation. In the same
-    script, after the minimization command, add the following
+    The system is now ready. Let us continue filling up the
+    input script and adding commands in order to perform an actual molecular dynamics
+    simulation that will start from the final state of the energy minimization.
+    In the same input script, after the 'minimization' command, add the following
     lines:
 
 ..  code-block:: lammps
@@ -410,10 +447,10 @@ Molecular dynamics
 
     Since LAMMPS reads the input from top to
     bottom, these lines will be executed after the energy
-    minimization. There is no need to initialize the system
-    (part 1), define it (part 2), or specify the settings
-    again (part 3). The thermo command is called a second time,
-    so the previously entered value of '10' will be replaced
+    minimization. There is no need to (re-)initialize the system
+    (part 1), (re-)define it (part 2), or (re-)specify the settings
+    (part 3). The 'thermo' command is called a second time within the 
+    same input, so the previously entered value of '10' will be replaced
     by the value of '1000' as soon as the second run starts.
 
 ..  container:: justify
@@ -483,7 +520,7 @@ Molecular dynamics
 
 ..  container:: justify
 
-    With this command, LAMMPS will rebuild the neighbour lists
+    With this command, LAMMPS will rebuild the neighbor lists
     more often. Re-run the simulation, and you should see a more
     positive outcome with 0 dangerous build:
 
@@ -512,6 +549,23 @@ Molecular dynamics
     Both quantities rapidly evolve at the beginning of the simulation, before reaching
     an equilibrium value.
 
+.. admonition:: On the necessity of plotting data efficiently
+    :class: info
+
+    When testing/debugging a molecular simulation, it is crucial to be able to control 
+    on-the-fly the outputs such as the energy to make sure the
+    system is behaving as expected. If you don't already have 
+    a favorite plotting tool, you can use xmgrace and simply type from the terminal:
+
+    .. code-block:: bash
+
+        xmgrace energy.dat
+
+    This command will automatically plot the second column as a function of the first column.
+
+    Here I am using pyplot for esthetic reason. If you want, you can download the Jupyter-notebook
+    from the |Github_repository| repository (in the bulkfluids/lennardjones/ folder).
+
 Trajectory visualisation
 ========================
 
@@ -526,7 +580,7 @@ Trajectory visualisation
     visualize the trajectories of the atoms. To do so, we need
     to dump the positions of the atoms in a file at a regular
     interval. Add the following command in the 'visualization'
-    section of PART 2:
+    section of PART B:
 
 ..  code-block:: lammps
 
