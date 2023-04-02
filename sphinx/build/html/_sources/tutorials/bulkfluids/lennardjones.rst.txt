@@ -359,15 +359,26 @@ Energy minimization
 Molecular dynamics
 ------------------
 
-.. admonition:: What is molecular dynamics ?
+.. admonition:: Background Information (optional) -- What is molecular dynamics?
     :class: dropdown
 
     Molecular dynamics (MD) is based on the numerical solution of the Newtonian
-    equations of motion (i.e. force = mass x acceleration) to predict the
+    equations of motion for every atom :math:`i`,
+
+    .. math::
+        
+        \sum_{j \ne i} \boldsymbol{F}_{ji} = m_i \times \boldsymbol{a}_i,
+    
+    where :math:`\sum` is the sum over all the atoms other than :math:`i`, 
+    :math:`\boldsymbol{F}_{ji}` the force between the atom pairs :math:`j-i`,
+    :math:`m_i` the mass of atom :math:`i`, and :math:`\boldsymbol{F}_i` its acceleration. 
+    The Newtonian equations are solved every timestep to predict the
     evolution of the positions and velocities of atoms and molecules over time. 
+    
     At every timestep, the following operations usually occur when 
     performing a MD simulation:
-    - the forces between the atoms are calculated from the parameters (here the sigma and epsilon values) and potentials (here Lennard-Jones),
+
+    - the forces between the atoms are calculated from the parameters (here the :math:`\epsilon` and :math:`\sigma` values) and potentials (here Lennard-Jones),
     - the acceleration of each atom is evaluated from the Newtonian equation,
     - the velocity and position of each atom are updated according to the acceleration, typically using the Verlet algorithm, or similar.
 
