@@ -6,8 +6,8 @@ Contact
 Email
 =====
 
-Feel free to contact me by `email`_. I am always happy to read what you
-think about this website, or answer your LAMMPS-related questions.
+Feel free to contact me by `email`_ to tell me what you
+think about this website or ask me any LAMMPS-related questions.
 
 .. _email: simon.gravelle@live.fr
 
@@ -21,6 +21,7 @@ Get help with your project:
 
 Become a |patreon_simulation|, and:
 
+- Join a community of 50+ members
 - Receive personalised advice for your project
 - Have your input scripts reviewed
 - Access a dedicated Discord forum
