@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to lammpstutorials's documentation!
-===========================================
+lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
+================================================================
 
 .. toctree::
    :maxdepth: 2
@@ -13,38 +13,28 @@ Welcome to lammpstutorials's documentation!
    howto.rst
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Bulk fluids
+    :maxdepth: 2
+    :caption: Level 0
 
-   tutorials/bulkfluids/lennardjones.rst
-   tutorials/bulkfluids/allatoms.rst
-   tutorials/bulkfluids/sheared.rst
+    tutorials/lennardjones.rst
+    tutorials/graphene.rst
 
 .. toctree::
-   :maxdepth: 2
-   :caption: 2D materials
+    :maxdepth: 2
+    :caption: Level 1
 
-   tutorials/2Dmaterials/graphene.rst
-   tutorials/2Dmaterials/carbonnanotube.rst
+    tutorials/allatoms.rst
+    tutorials/sheared.rst
+    tutorials/carbonnanotube.rst
    
 .. toctree::
-   :maxdepth: 2
-   :caption: Monte Carlo
+    :maxdepth: 2
+    :caption: Level 2
 
-   tutorials/montecarlo/gcmc-silica.rst
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Free energy
-
-   tutorials/freeenergy/umbrella-sampling.rst
-   tutorials/freeenergy/surface-profile.rst
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Reaxff
-
-   tutorials/reaxff/reax-silica.rst
+    tutorials/gcmc-silica.rst
+    tutorials/umbrella-sampling.rst
+    tutorials/surface-profile.rst
+    tutorials/reax-silica.rst
 
 .. toctree::
    :maxdepth: 2
