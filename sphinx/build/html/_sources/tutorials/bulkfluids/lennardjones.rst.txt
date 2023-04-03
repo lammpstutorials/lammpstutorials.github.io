@@ -956,6 +956,7 @@ Try another tutorial
     tutorial:
 
     - dealing with charged atoms and bounded molecules, as is necessary to model most existing molecules, solids, or structures, see for instance :ref:`all-atoms-label` and :ref:`sheared-confined-label`,
+    - dealing with non-constant volume
     - dealing with reactivity and bond formation/breaking, see :ref:`reax-silica-label`,
 
 Going further with exercises
@@ -1002,32 +1003,33 @@ Going further with exercises
 
 ..  container:: justify
 
-    **Exercise 1 : perform a minimization using fix langevin only**
-    Perform an energy minimization without using the minimize
-    command (this is sometimes usefull, particularly for rigid
-    water models using shake for whiches the minimize command
-    cant be used).
+    **Exercise 1 :  using the 'minimize' command**
+
+    Run the same simulation without using the 'minimize' command. The absence of energy minimization 
+    will have to be compensated in order to avoid triggering the 'Lost atoms' error message (see 
+    the previous paragraph).
 
 .. admonition:: Hints
     :class: dropdown
 
-    Adjust both the value of the timestep and the
-    damping factor of the fix langevin to prevent the system from 
-    exploding.
+    The value of the timestep and/or the damping factor of the fix langevin
+    can be tuned to prevent the system from exploding.
 
-    Perform as many consecutive runs with varying timestep and damping factor.
+    Perform as many consecutive runs with varying timestep and damping factor that 
+    you feel in necessary.
 
     Have a look at fix nve/limit (instead of nve), this command is
     made explicitely to prevent an unequilibrated system for exploding.
 
 ..  container:: justify
 
-    **Exercise 2 : perform an actual NVE simulation**
-    Despite using the NVE fix, simulations here are not
-    performed in the NVE ensemble but in the NVT ensemble (because of the use of the
-    thermostat). Perform a simulation in the NVE ensemble and extract the
-    energy over time. Is it conserved as expected? What if you
-    do the same with a 2D simulation?
+    **Exercise 2 : a simulation with no thermostat**
+
+    The present simulation is made using the NVT ensemble, with a constant number 
+    of atom N, constant volume V, and constant (or at least imposed) temperature T. 
+
+    Run the same simulation in the NVE ensemble and extract the
+    energy over time. Is the energy conserved over time (as usaully expected)?
 
 .. admonition:: Hints
     :class: dropdown
@@ -1037,7 +1039,7 @@ Going further with exercises
 
 ..  container:: justify
 
-    **Exercise 3 : induce a net flow**
+    **Exercise 3 : non-equilibrium simulation**
 
     So far, atoms were freely diffusing without contraint or external force.
     Add an external force to induce a net flow of atoms in one
@@ -1055,5 +1057,4 @@ Going further with exercises
     In general, this is something that you must avoid (unless you are studying
     non-linear effects). 
 
-
-
+.. include:: ../../contact/contactme.rst

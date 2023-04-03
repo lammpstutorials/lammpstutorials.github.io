@@ -821,3 +821,5 @@ Going further with exercises
 
     Question: Is the velocity profile you obtain consistent with
     Poiseuille's predictions?
+
+.. include:: ../../contact/contactme.rst
