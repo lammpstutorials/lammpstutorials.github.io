@@ -1001,10 +1001,10 @@ Going further with exercises
     large distances during the firsts timesteps, and LAMMPS
     loses them.
 
-..  container:: justify
+Exercise 1 :  do without the 'minimize' command
+-----------------------------------------------
 
-    Exercise 1 :  do without the 'minimize' command
-    -----------------------------------------------
+..  container:: justify
 
     Run the same simulation without using the 'minimize' command. The absence of energy minimization 
     will have to be compensated in order to avoid triggering the 'Lost atoms' error message (see 
@@ -1022,10 +1022,10 @@ Going further with exercises
     Have a look at fix nve/limit (instead of nve), this command is
     made explicitely to prevent an unequilibrated system for exploding.
 
-..  container:: justify
+Exercise 2 : a simulation with no thermostat
+--------------------------------------------
 
-    Exercise 2 : a simulation with no thermostat
-    --------------------------------------------
+..  container:: justify
 
     The present simulation is made using the NVT ensemble, with a constant number 
     of atom N, constant volume V, and constant (or at least imposed) temperature T. 
@@ -1039,10 +1039,10 @@ Going further with exercises
     Using a smaller value for the timestep gives better
     energy conservation.
 
-..  container:: justify
+Exercise 3 : non-equilibrium simulation
+---------------------------------------
 
-    Exercise 3 : non-equilibrium simulation
-    ---------------------------------------
+..  container:: justify
 
     So far, atoms were freely diffusing without contraint or external force.
     Add an external force to induce a net flow of atoms in one
