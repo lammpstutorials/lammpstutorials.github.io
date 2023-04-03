@@ -192,7 +192,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../freeenergy/umbrella-sampling.html">Simple free energy calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../freeenergy/surface-profile.html">Adsorption of ethanol</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reaxff [new]</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reaxff</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reaxff/reax-silica.html">Deforming silicon dioxide</a></li>
 </ul>
@@ -242,7 +242,7 @@
 <p>This tutorial is part of the <em>Bulk fluids</em> series.</p>
 </div>
 <div class="hatnote docutils container">
-<p>A small PEG molecule is immersed in water and its ends are pulled</p>
+<p>Solvating a small molecule in water before stretching it</p>
 </div>
 <figure class="align-right">
 <a class="only-dark reference internal image-reference" href="../../_images/main-dark.png"><img alt="peg molecule in water" class="only-dark" src="../../_images/main-dark.png" style="height: 250px;" /></a>
@@ -254,11 +254,14 @@
 <p>The goal of this tutorial is to use LAMMPS and
 create a small hydrophilic polymer (PEG -
 PolyEthylene Glycol) in a reservoir of water.
-An all atoms description is used, with charged atoms
-connected by bonds constraints.</p>
+An all-atom description is used, therefore all species considered here
+are made of charged atoms connected by bonds constraints.</p>
 <p>Once the system is created, a constant stretching force will be applied to both
 ends of the polymer, and its length will be measured with time.</p>
+<p>This tutorial was inspired by a very nice <a href="https://doi.org/10.1021/acsnano.6b07071" target="_blank">publication</a> by Liese and coworkers, in which
+they compare MD simulations with force spectroscopy experiments.</p>
 </div>
+<p>If you are completely new to LAMMPS, I recommend you to follow this simpler tutorial first : <a class="reference internal" href="lennardjones.html#lennard-jones-label"><span class="std std-ref">Lennard Jones fluid</span></a>.</p>
 <div class="patreon admonition">
 <p class="admonition-title">Do you think I can help you with your project?</p>
 <p>See the <a class="reference internal" href="../../contact/contact.html#contact-label"><span class="std std-ref">Contact</span></a> page.</p>
@@ -266,8 +269,8 @@ ends of the polymer, and its length will be measured with time.</p>
 <section id="bulk-water">
 <h2>Bulk water<a class="headerlink" href="#bulk-water" title="Permalink to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Here a rectangular box of water is created, then
-equilibrated at ambient temperature and ambient pressure.</p>
+<p>As a first step, a rectangular box of water is created and
+equilibrated at ambient temperature and ambient pressure (the PEG molecule will be added in the next sections).</p>
 <p>Create a folder named pureH2O/. Inside this folder, create
 an empty text file named input.lammps. Copy the following
 lines in it:</p>
@@ -286,11 +289,10 @@ lines in it:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> There are many differences with respect to
+<p>There are many differences with respect to
 the previous tutorial (<a class="reference internal" href="lennardjones.html#lennard-jones-label"><span class="std std-ref">Lennard Jones fluid</span></a>), mostly
-because here a system with molecules and charges will be
-modeled (instead of neutral particles as in tutorial
-01). With the unit style ‘real’, masses are in grams per
+because here a system with molecules and partial charges is
+modeled (instead of neutral particles). With the unit style ‘real’, masses are in grams per
 mole, distances in Ångstroms, time in femtoseconds, energies
 in Kcal/mole. With the atom style ‘full’, each atom is a dot
 with a mass and a charge. In addition, each atom can be
@@ -299,13 +301,18 @@ linked by bonds, angles, dihedrals and impropers potentials
 ‘angle_style’, and ‘dihedral_style’ commands define the
 styles of bond angle, and dihedrals used in the simulation,
 respectively, and the ‘harmonic’ and ‘charmm’ keywords
-impose the potential to use.</p>
-<p><em>Remark –</em> The future merging of the water with the PEG
+impose the type of potential to use.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">About the use of charmm style</p>
+<p>The future merging of the water with the PEG
 has already been anticipated as the charmm angle_style
 and dihedral_style are requirements of the PEG’s model.</p>
-<p><em>Remark –</em> A rigid water model will be used here, so the bond
+<p>A rigid water model will be used here, so the bond
 and angle styles that are chosen have no consequence on the water model, they will
 only matter to the PEG when it is added.</p>
+</div>
+<div class="justify docutils container">
 <p>With the ‘pair_style’ named ‘lj/cut/tip4p/long’, atoms
 interact through both a Lennard-Jones (LJ) potential and
 through Coulombic interactions. This pair style is specific to
@@ -313,17 +320,16 @@ four points water models, and automatically accounts for the
 additional massless site. The six numbers are, respectively,</p>
 </div>
 <ul class="simple">
-<li><p><strong>1 -</strong> the atom type for the oxygen O of the tip4p
-water,</p></li>
-<li><p><strong>2 -</strong> the atom type for the hydrogen H of the tip4p
-water,</p></li>
+<li><p><strong>1 -</strong> the atom type for the oxygen O of the tip4p water,</p></li>
+<li><p><strong>2 -</strong> the atom type for the hydrogen H of the tip4p water,</p></li>
 <li><p><strong>3 -</strong> the OH bond type,</p></li>
 <li><p><strong>4 -</strong> the HOH angle type,</p></li>
-<li><p><strong>5 -</strong> the distance from O atom to massless charge,</p></li>
-<li><p><strong>6 -</strong> the cutoff in Ångstroms.</p></li>
+<li><p><strong>5 -</strong> the distance from O atom to the massless charge (here 0.1546 Ångstroms is set by the water model),</p></li>
+<li><p><strong>6 -</strong> the cutoff (here of 12 Ångstroms).</p></li>
 </ul>
-<div class="justify docutils container">
-<p><em>Note –</em> The cutoff applies to both LJ and Coulombic
+<div class="info admonition">
+<p class="admonition-title">About cutoff in molecular dynamics</p>
+<p>The cutoff of 12 Ångstroms applies to both LJ and Coulombic
 interactions, but in a different way. For LJ ‘cut’
 interactions, atoms interact with each others only if they
 are separated by a distance smaller than the cutoff. For
@@ -331,12 +337,14 @@ Coulombic ‘long’, interaction between atoms closer than
 the cutoff are computed directly, and interaction between
 atoms outside that cutoff are computed in the reciprocal
 space.</p>
+</div>
+<div class="justify docutils container">
 <p>Finally the kspace command defines the long-range solver for the (long)
 Coulombic interactions. The pppm style refers to
 particle-particle particle-mesh.</p>
 </div>
-<div class="info admonition">
-<p class="admonition-title">About PPPM</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Background Information (optional) – About PPPM</p>
 <p><em>The PPPM
 method is based on separating the total interaction
 between particles into the sum of short-range
@@ -366,11 +374,18 @@ angle types, and 14 dihedrals types.</p>
 </pre></div>
 </div>
 </div>
+<div class="info admonition">
+<p class="admonition-title">About extra per atom commands</p>
+<p>The extra/[something]/per/atom commands are here for
+memory allocation, they ensure that enough space is left for a
+certain number of attribute for each atom. We wont worry
+about those commands in this tutorial, just keep that in mind if one day you see the following
+error message:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR:<span class="w"> </span>Molecule<span class="w"> </span>topology/atom<span class="w"> </span>exceeds<span class="w"> </span>system<span class="w"> </span>topology/atom<span class="w"> </span><span class="o">(</span>src/molecule.cpp:1767<span class="o">)</span>
+</pre></div>
+</div>
+</div>
 <div class="justify docutils container">
-<p><em>Note -</em> The extra/X/per/atom commands are related to
-memory allocation, they ensure space is left for a
-certain number of attribute for each atom, we wont worry
-about those commands in this tutorial.</p>
 <p>Let us include a parameter file containing all the
 parameters (masses, interaction energies, bond equilibrium
 distances, etc):</p>
@@ -460,17 +475,13 @@ H2OTip4p.txt, and randomly create 700 of those.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Alternatively, you can <a href="../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data" target="_blank">download</a>
-the water reservoir I have equilibrated and continue with
-the tutorial.</p>
 <p>The molecule template named H2OTip4p.txt must be <a href="../../../../../inputs/bulkfluids/allatoms/pureH2O/H2OTip4p.txt" target="_blank">downloaded</a>
 and saved in the same folder (named pureH2O/) as the
-input.lammps file.</p>
-<p>This template contains all the necessary structural
+input.lammps file. This template contains all the necessary structural
 information of a water molecule, such as the number of atoms,
 which pair of atoms are connected by bonds, which
-groups of atoms are connected by angles, etc.
-Then, let us group the atoms of the water in a group named
+groups of atoms are connected by angles, etc.</p>
+<p>Then, let us group the atoms of the water in a group named
 H2O, and then delete the overlapping molecules:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
@@ -481,13 +492,13 @@ H2O, and then delete the overlapping molecules:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Note –</em> Deleting overlapping molecules is required here
+<p>Deleting overlapping molecules is required here
 because the molecules where placed randomly in space by
 the “create_atoms” command, and some of them may be too
 close from each other, which may force the simulation to
 crash.</p>
 <p>Let us use the shake algorithm in order to constrain the
-shape of the water molecules. Let us also use the fix NPT to
+shape of the water molecules at all time. Let us also use the fix NPT to
 control both the temperature and the pressure:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id7">
@@ -498,18 +509,27 @@ control both the temperature and the pressure:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Explanations:</strong> The parameters of the fix shake specify to
+<p>The parameters of the fix shake specify to
 which group (H2O) the shake algorithm applied, with what
 tolerance (1e-5). Still in the shake command, we also supply
 the molecule template (h2omol) previously defined, and
 specify to which bond/angle type shake mush apply, i.e. the
 bond of type 1 and the angle of type 1.</p>
-<p><em>Note -</em> With shake, water molecules behave as rigid. If
+<p>The fix NPT allows us to impose both a temperature of 300 K (with a damping constant of 100 fs),
+and a pressure of 1 atmosphere (with a damping constant of 1000 fs). With the iso keyword, the
+three dimensions of the box will be re-scaled simultaneously, until the average pressure in the system
+corresponds to the desired imposed value of 1 atm.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">About rigid water model</p>
+<p>With shake, water molecules behave as rigid. If
 you want to study the vibration of the O-H bonds and
 H-O-H angles, you will have to use a flexible water
 model. If you want to study the hydrogen transfer, you
-will have to use a reactive force field.</p>
-<p><em>Note -</em> Here only the water molecules will be rigid, the
+will have to use a reactive force field, as done in <a class="reference internal" href="../reaxff/reax-silica.html#reax-silica-label"><span class="std std-ref">Deforming silicon dioxide</span></a>.</p>
+</div>
+<div class="justify docutils container">
+<p>Here only the water molecules will be rigid, the
 PEG molecule (which will be added in the next part) will
 be fully flexible.</p>
 <p>Let us print the atom positions in a dump file every 1000
@@ -531,17 +551,22 @@ print the information in the terminal every 1000 timesteps:</p>
 </pre></div>
 </div>
 </div>
+<div class="info admonition">
+<p class="admonition-title">The difference between ${var} and v_var</p>
+<p>Both ${var} and v_var can be used to call a previously defined variable named var.
+However, ${var} returns the initial value of var, while v_var returns the instantaneous
+value of var.</p>
+</div>
 <div class="justify docutils container">
-<p>Note that in the formula for the density (number of
+<p>In the formula for the density (number of
 molecule divided by volume), the underscore ‘_’ is used to
-call the volume variable because this variable is expected
-to evolve in time, but the dollar sign ‘$’ is used as the
+call myvol because the volume is expected
+to evolve in time when using fix NPT, but the dollar sign ‘$’ is used to call myoxy as the
 number of molecules is not expected to evolve during the
-simulation (the number of molecule changes after the
-delete_atoms command is used, but this is done before the
-simulation starts).
-Finally, let us set the timestep to 2.0 fs (allowed
-because we use shake), and run the simulation for 50 ps:</p>
+simulation. Note that the number of molecule changes after the
+delete_atoms command is used, but this is done only before the
+simulation starts.
+Finally, let us set the timestep to 2.0 fs, and run the simulation for 50 ps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in pureH2O/input.lammps</em></span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
@@ -570,11 +595,56 @@ in the H2O.data file, which will be used later.</p>
 <div class="info admonition">
 <p class="admonition-title">Running LAMMPS in parallel</p>
 <p>This simulation may be a bit slow to complete on 1 single core.
-You can speed it up by running LAMMPS on multiple cores, by typing:</p>
+You can speed it up by running LAMMPS on 2, 4 or even more cores, by typing:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">4</span><span class="w"> </span>lmp<span class="w"> </span>-in<span class="w"> </span>input.lammps
 </pre></div>
 </div>
-<p>The command may vary, depending on your OS and LAMMPS installation.</p>
+<p>Here 4 core are used. The command may vary, depending on your OS and LAMMPS installation.</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Background Information (optional) – Choosing the right number of cores</p>
+<p>When running a simulation in parallel using more than one CPU core, LAMMPS divides the system into
+blocks, and each core is assigned to a given block. Here, as can be seen from the terminal, when using ‘mpirun -np 4’, LAMMPS divides
+the system into 4 blocks along the x axis:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Created<span class="w"> </span>orthogonal<span class="w"> </span><span class="nv">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>-40.000000<span class="w"> </span>-15.000000<span class="w"> </span>-15.000000<span class="o">)</span><span class="w"> </span>to<span class="w"> </span><span class="o">(</span><span class="m">40</span>.000000<span class="w"> </span><span class="m">15</span>.000000<span class="w"> </span><span class="m">15</span>.000000<span class="o">)</span>
+<span class="w"> </span><span class="m">4</span><span class="w"> </span>by<span class="w"> </span><span class="m">1</span><span class="w"> </span>by<span class="w"> </span><span class="m">1</span><span class="w"> </span>MPI<span class="w"> </span>processor<span class="w"> </span>grid
+</pre></div>
+</div>
+<p>You can force LAMMPS to divide the system differently, let us say along both y and z axis,
+by using the command</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">processors</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span>
+</pre></div>
+</div>
+<p>However, communication between the different cores slows down the computation, so ideally you want
+to minimize the size of the surface between domains. Here the default choice of LAMMPS (i.e. processors 4 1 1)
+is certainly a better choice.</p>
+<p>If you don’t know what is the best number of processors or the best way to cut the system, just perform
+a short simulation and look at the log file. For instance, if I run the simulation on 1 core I get :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Performance:<span class="w"> </span><span class="m">31</span>.567<span class="w"> </span>ns/day,<span class="w"> </span><span class="m">0</span>.760<span class="w"> </span>hours/ns,<span class="w"> </span><span class="m">182</span>.680<span class="w"> </span>timesteps/s
+</pre></div>
+</div>
+<p>On 4 cores (keeping the default processors 4 1 1):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Performance:<span class="w"> </span><span class="m">109</span>.631<span class="w"> </span>ns/day,<span class="w"> </span><span class="m">0</span>.219<span class="w"> </span>hours/ns,<span class="w"> </span><span class="m">634</span>.440<span class="w"> </span>timesteps/s
+</pre></div>
+</div>
+<p>This is much faster, but this is not 4 times faster, because of the cost of communicating between processors.</p>
+<p>On 4 cores and enforcing the stupid choice: processors 1 2 2, I get</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Performance:<span class="w"> </span><span class="m">99</span>.864<span class="w"> </span>ns/day,<span class="w"> </span><span class="m">0</span>.240<span class="w"> </span>hours/ns,<span class="w"> </span><span class="m">577</span>.919<span class="w"> </span>timesteps/s
+</pre></div>
+</div>
+<p>Its not so bad but still not at good as 4 1 1.</p>
+<p>On 8 cores (the max I got), I get :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">4</span><span class="w"> </span>by<span class="w"> </span><span class="m">1</span><span class="w"> </span>by<span class="w"> </span><span class="m">2</span><span class="w"> </span>MPI<span class="w"> </span>processor<span class="w"> </span>grid
+
+...
+
+Performance:<span class="w"> </span><span class="m">152</span>.106<span class="w"> </span>ns/day,<span class="w"> </span><span class="m">0</span>.158<span class="w"> </span>hours/ns,<span class="w"> </span><span class="m">880</span>.243<span class="w"> </span>timesteps/s
+</pre></div>
+</div>
+<p>So LAMMPS chooses to divide the system once along z, and 4 times along x, and the speed is improved, but again the improvement
+is not linear with the number of cores.</p>
+<p><strong>Choose carefully the best number of cores for your simulation so that you don’t waste computational resource.
+Sometimes it is better to run 2 simulations on 2 cores each than 1 simulation on 4 cores.</strong></p>
 </div>
 <div class="justify docutils container">
 <p>Note that no energy minimization was performed here (NPT

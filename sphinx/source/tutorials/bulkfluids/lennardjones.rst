@@ -956,8 +956,8 @@ Try another tutorial
     tutorial:
 
     - dealing with charged atoms and bounded molecules, as is necessary to model most existing molecules, solids, or structures, see for instance :ref:`all-atoms-label` and :ref:`sheared-confined-label`,
-    - dealing with non-constant volume
-    - dealing with reactivity and bond formation/breaking, see :ref:`reax-silica-label`,
+    - dealing with non-constant volume,
+    - dealing with reactivity and bond formation/breaking, see :ref:`reax-silica-label`.
 
 Going further with exercises
 ============================
