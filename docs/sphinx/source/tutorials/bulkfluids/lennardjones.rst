@@ -1001,8 +1001,8 @@ Going further with exercises
     large distances during the firsts timesteps, and LAMMPS
     loses them.
 
-Exercise 1 :  do without the 'minimize' command
------------------------------------------------
+Do without the 'minimize' command
+---------------------------------
 
 ..  container:: justify
 
@@ -1022,8 +1022,8 @@ Exercise 1 :  do without the 'minimize' command
     Have a look at fix nve/limit (instead of nve), this command is
     made explicitely to prevent an unequilibrated system for exploding.
 
-Exercise 2 : a simulation with no thermostat
---------------------------------------------
+A simulation with no thermostat
+-------------------------------
 
 ..  container:: justify
 
@@ -1039,8 +1039,8 @@ Exercise 2 : a simulation with no thermostat
     Using a smaller value for the timestep gives better
     energy conservation.
 
-Exercise 3 : non-equilibrium simulation
----------------------------------------
+Non-equilibrium simulation
+--------------------------
 
 ..  container:: justify
 
