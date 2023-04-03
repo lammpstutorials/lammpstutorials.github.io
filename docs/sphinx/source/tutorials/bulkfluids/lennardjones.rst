@@ -1003,7 +1003,8 @@ Going further with exercises
 
 ..  container:: justify
 
-    **Exercise 1 :  using the 'minimize' command**
+    Exercise 1 :  do without the 'minimize' command
+    -----------------------------------------------
 
     Run the same simulation without using the 'minimize' command. The absence of energy minimization 
     will have to be compensated in order to avoid triggering the 'Lost atoms' error message (see 
@@ -1023,7 +1024,8 @@ Going further with exercises
 
 ..  container:: justify
 
-    **Exercise 2 : a simulation with no thermostat**
+    Exercise 2 : a simulation with no thermostat
+    --------------------------------------------
 
     The present simulation is made using the NVT ensemble, with a constant number 
     of atom N, constant volume V, and constant (or at least imposed) temperature T. 
@@ -1039,7 +1041,8 @@ Going further with exercises
 
 ..  container:: justify
 
-    **Exercise 3 : non-equilibrium simulation**
+    Exercise 3 : non-equilibrium simulation
+    ---------------------------------------
 
     So far, atoms were freely diffusing without contraint or external force.
     Add an external force to induce a net flow of atoms in one
