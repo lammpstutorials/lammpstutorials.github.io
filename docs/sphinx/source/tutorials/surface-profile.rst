@@ -3,21 +3,17 @@
 Adsorption of ethanol
 *********************
 
-..  container:: justify
-
-    This tutorial is part of the *Free energy* series.
-
 .. container:: hatnote
 
     Free energy profile of a gas of ethanol near a solid surface
 
-.. figure:: ../figures/surfaceprofile/avatar-light.png
+.. figure:: figures/surfaceprofile/avatar-light.png
     :height: 250
     :alt: Figure showing ethanol molecules adsorbed at the NaCl(100) surface.
     :class: only-light
     :align: right
 
-.. figure:: ../figures/surfaceprofile/avatar-dark.png
+.. figure:: figures/surfaceprofile/avatar-dark.png
     :height: 250
     :alt: Figure showing ethanol molecules adsorbed at the NaCl(100) surface.
     :class: only-dark
@@ -34,7 +30,7 @@ Adsorption of ethanol
 
    <a href="https://atb.uq.edu.au/" target="_blank">ATB repository</a>
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../contact/needhelp.rst
 
 Download ATB molecule
 =====================
@@ -67,7 +63,7 @@ Download ATB molecule
 
 .. |data_ethanol| raw:: html
 
-   <a href="../../../../../inputs/freeenergy/SurfaceProfile/data.lammps" target="_blank">here</a>
+   <a href="../../../../inputs/freeenergy/SurfaceProfile/data.lammps" target="_blank">here</a>
 
 .. |ethanol_molecule| raw:: html
 
@@ -75,15 +71,15 @@ Download ATB molecule
 
 .. |GROMOS_force_field| raw:: html
 
-   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/GROMOS_54A7_ATB.lt" target="_blank">GROMOS force field</a>
+   <a href="../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/GROMOS_54A7_ATB.lt" target="_blank">GROMOS force field</a>
 
 .. |all-atom_moltemplate| raw:: html
 
-   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/JRA4_allatom_optimized_geometry.lt" target="_blank">all-atom moltemplate</a>
+   <a href="../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/JRA4_allatom_optimized_geometry.lt" target="_blank">all-atom moltemplate</a>
 
 .. |download_system.lt| raw:: html
 
-   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/system.lt" target="_blank">system.lt</a>
+   <a href="../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/system.lt" target="_blank">system.lt</a>
 
 ..  code-block:: bw
 
@@ -187,19 +183,19 @@ Download ATB molecule
 
 .. |download_Positions.dat| raw:: html
 
-   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Positions.dat" target="_blank">Positions.dat</a>
+   <a href="../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Positions.dat" target="_blank">Positions.dat</a>
 
 .. |download_Bonds.dat| raw:: html
 
-   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat" target="_blank">Bonds.dat</a>
+   <a href="../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Bonds.dat" target="_blank">Bonds.dat</a>
 
 .. |download_Angles.dat| raw:: html
 
-   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Angles.dat" target="_blank">Angles.dat</a>
+   <a href="../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Angles.dat" target="_blank">Angles.dat</a>
 
 .. |download_Dihedrals.dat| raw:: html
 
-   <a href="../../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Dihedrals.dat" target="_blank">Dihedrals.dat</a>
+   <a href="../../../../inputs/freeenergy/SurfaceProfile/EthanolMolecule/Dihedrals.dat" target="_blank">Dihedrals.dat</a>
 
 .. |atb2lammps| raw:: html
 
@@ -235,7 +231,7 @@ Initial configuration
 
 .. |Python_script| raw:: html
 
-   <a href="../../../../../inputs/freeenergy/SurfaceProfile/generatedata.py" target="_blank">Python script</a>
+   <a href="../../../../inputs/freeenergy/SurfaceProfile/generatedata.py" target="_blank">Python script</a>
 
 ..  code-block:: bash
 
@@ -538,7 +534,7 @@ Building the free energy profile
 
 .. |download_metadata_file| raw:: html
 
-   <a href="../../../../../inputs/freeenergy/SurfaceProfile/metadata.dat" target="_blank">here</a>
+   <a href="../../../../inputs/freeenergy/SurfaceProfile/metadata.dat" target="_blank">here</a>
 
 ..  code-block:: bash
 
@@ -566,11 +562,11 @@ Building the free energy profile
     PMF.dat has been created, and contains the free energy
     profile in Kcal/mol:
 
-.. figure:: ../figures/surfaceprofile/freeenergy-light.png
+.. figure:: figures/surfaceprofile/freeenergy-light.png
     :alt: Figure showing the PMF calculated by umbrella sampling
     :class: only-light
 
-.. figure:: ../figures/surfaceprofile/freeenergy-dark.png
+.. figure:: figures/surfaceprofile/freeenergy-dark.png
     :alt: Figure showing the PMF calculated by umbrella sampling
     :class: only-dark
 
@@ -594,7 +590,7 @@ Building the free energy profile
     Note that if you intent to publish such PMF,
     much longer simulations must be performed.
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../contact/accessfile.rst
 
-.. include:: ../../contact/contactme.rst
+.. include:: ../contact/contactme.rst
 

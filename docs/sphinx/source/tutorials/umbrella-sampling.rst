@@ -3,21 +3,17 @@
 Simple free energy calculation
 ******************************
 
-..  container:: justify
-
-    This tutorial is part of the *Free energy* series.
-
 .. container:: hatnote
 
     A simple sampling of a free energy barrier using WHAM
 
-.. figure:: ../figures/umbrellasampling/avatar-light.png
+.. figure:: figures/umbrellasampling/avatar-light.png
     :height: 250
     :alt: Figure showing atoms simulated with LAMMPS
     :class: only-light
     :align: right
 
-.. figure:: ../figures/umbrellasampling/avatar-dark.png
+.. figure:: figures/umbrellasampling/avatar-dark.png
     :height: 250
     :alt: Figure showing atoms simulated with LAMMPS
     :class: only-dark
@@ -35,7 +31,7 @@ Simple free energy calculation
     for measuring adsorption barrier near a wall, or for calculating translocation
     barrier through a membrane).
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../contact/needhelp.rst
 
 Method 1: Free sampling
 =======================
@@ -144,11 +140,11 @@ System creation and settings
 
     The potential and force as a function of :math:`x` resemble:
 
-.. figure:: ../figures/umbrellasampling/potential-light.png
+.. figure:: figures/umbrellasampling/potential-light.png
    :alt: Imposed potential
    :class: only-light
 
-.. figure:: ../figures/umbrellasampling/potential-dark.png
+.. figure:: figures/umbrellasampling/potential-dark.png
    :alt: Averaged density profile
    :class: only-dark
 
@@ -237,11 +233,11 @@ Data analysis
     ns is long enough by looking at the 'density_evolution.dat'
     file (left panel):
 
-.. figure:: ../figures/umbrellasampling/density_evolution-light.png
+.. figure:: figures/umbrellasampling/density_evolution-light.png
    :alt: Number of particle in the central region as a function of time
    :class: only-light
 
-.. figure:: ../figures/umbrellasampling/density_evolution-dark.png
+.. figure:: figures/umbrellasampling/density_evolution-dark.png
    :alt: Number of particle in the central region as a function of time
    :class: only-dark
 
@@ -255,11 +251,11 @@ Data analysis
 
     Let us also plot the equilibrium density profile :math:`\rho`:
 
-.. figure:: ../figures/umbrellasampling/density_profile-light.png
+.. figure:: figures/umbrellasampling/density_profile-light.png
    :alt: Averaged density profile
    :class: only-light
 
-.. figure:: ../figures/umbrellasampling/density_profile-dark.png
+.. figure:: figures/umbrellasampling/density_profile-dark.png
    :alt: Averaged density profile
    :class: only-dark
 
@@ -271,11 +267,11 @@ Data analysis
     Then, let us plot :math:`-R T \ln(\rho/\rho_0)` and compare it
     with the imposed (reference) potential :math:`U`:
 
-.. figure:: ../figures/umbrellasampling/freesampling-potential-light.png
+.. figure:: figures/umbrellasampling/freesampling-potential-light.png
    :alt: Averaged density profile
    :class: only-light
 
-.. figure:: ../figures/umbrellasampling/freesampling-potential-dark.png
+.. figure:: figures/umbrellasampling/freesampling-potential-dark.png
    :alt: Averaged density profile
    :class: only-dark
 
@@ -288,11 +284,11 @@ Data analysis
     (despite a bit of noise in the central part). For longer simulations, the 
     agreement gets better:
 
-.. figure:: ../figures/umbrellasampling/freesampling-potential-longer-light.png
+.. figure:: figures/umbrellasampling/freesampling-potential-longer-light.png
    :alt: Averaged density profile
    :class: only-light
 
-.. figure:: ../figures/umbrellasampling/freesampling-potential-longer-dark.png
+.. figure:: figures/umbrellasampling/freesampling-potential-longer-dark.png
    :alt: Averaged density profile
    :class: only-dark
 
@@ -446,11 +442,11 @@ On the choice of k
     have some overlap in the density probability of two
     neighbor positions, like we have here:
 
-.. figure:: ../figures/umbrellasampling/overlap-light.png
+.. figure:: figures/umbrellasampling/overlap-light.png
     :alt: Averaged density profile
     :class: only-light
 
-.. figure:: ../figures/umbrellasampling/overlap-dark.png
+.. figure:: figures/umbrellasampling/overlap-dark.png
     :alt: Averaged density profile
     :class: only-dark
 
@@ -462,11 +458,11 @@ On the choice of k
     If :math:`k` is too small, the particle never explore the 
     region of interest:
 
-.. figure:: ../figures/umbrellasampling/overlap015-light.png
+.. figure:: figures/umbrellasampling/overlap015-light.png
     :alt: Averaged density profile
     :class: only-light
 
-.. figure:: ../figures/umbrellasampling/overlap015-dark.png
+.. figure:: figures/umbrellasampling/overlap015-dark.png
     :alt: Averaged density profile
     :class: only-dark
 
@@ -478,11 +474,11 @@ On the choice of k
     If :math:`k` is too large, the biasing potential is too large 
     compared to the thermal energy:
 
-.. figure:: ../figures/umbrellasampling/overlap15-light.png
+.. figure:: figures/umbrellasampling/overlap15-light.png
     :alt: Averaged density profile
     :class: only-light
 
-.. figure:: ../figures/umbrellasampling/overlap15-dark.png
+.. figure:: figures/umbrellasampling/overlap15-dark.png
     :alt: Averaged density profile
     :class: only-dark
 
@@ -553,7 +549,7 @@ WHAM algorithm
 
 .. |download_metadata| raw:: html
 
-   <a href="../../../../../inputs/freeenergy/BiasedSampling/metadata.dat" target="_blank">metadata.dat</a>
+   <a href="../../../../inputs/freeenergy/BiasedSampling/metadata.dat" target="_blank">metadata.dat</a>
 
 ..  code-block:: bash
 
@@ -574,23 +570,23 @@ WHAM algorithm
     the agreement in again quite good despite the very short
     calculation time:
 
-.. figure:: ../figures/umbrellasampling/freeenergy-light.png
+.. figure:: figures/umbrellasampling/freeenergy-light.png
     :alt: Result of the umbrella sampling
     :class: only-light
 
-.. figure:: ../figures/umbrellasampling/freeenergy-dark.png
+.. figure:: figures/umbrellasampling/freeenergy-dark.png
     :alt: Result of the umbrella sampling
     :class: only-dark
 
     Calculated potential using umbrella sampling compared to the imposed potential.
     The calculated potential is in blue.
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../contact/accessfile.rst
 
 Going further with exercises
 ============================
 
-.. include::  ../../contact/requestsolution.rst
+.. include::  ../contact/requestsolution.rst
         
 **Exercise 1: Monte Carlo versus molecular dynamics**
 
@@ -610,11 +606,11 @@ Going further with exercises
     different potential on them using addforce to create the
     following situation:
 
-.. figure:: ../figures/umbrellasampling/exercice2-light.png
+.. figure:: figures/umbrellasampling/exercice2-light.png
     :alt: Particles separated by a potential
     :class: only-light
 
-.. figure:: ../figures/umbrellasampling/exercice2-dark.png
+.. figure:: figures/umbrellasampling/exercice2-dark.png
     :alt: Particles separated by a potential
     :class: only-dark
 
@@ -625,4 +621,4 @@ Going further with exercises
     Apply umbrella sampling to calculate the free energy profile
     of a molecule of your choice normally to a solid wall.
 
-.. include:: ../../contact/contactme.rst
+.. include:: ../contact/contactme.rst

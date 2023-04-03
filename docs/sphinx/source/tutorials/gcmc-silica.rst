@@ -3,22 +3,18 @@
 Water adsorption in silica
 **************************
 
-..  container:: justify
-
-    This tutorial is part of the *Monte Carlo* series.
-
 .. container:: hatnote
 
     Adsorption of water in a silica crack using the
     grand canonical Monte Carlo method
 
-.. figure:: ../figures/gcmc-silica/main-light.png
+.. figure:: figures/gcmc-silica/main-light.png
     :height: 250
     :alt: Water molecule adsorbed in silica matrix
     :class: only-light
     :align: right
 
-.. figure:: ../figures/gcmc-silica/main-dark.png
+.. figure:: figures/gcmc-silica/main-dark.png
     :height: 250
     :alt: Water molecule adsorbed in silica matrix
     :class: only-dark
@@ -35,7 +31,7 @@ Water adsorption in silica
     ensemble in molecular simulation, an ensemble in which the number of 
     molecule/atom is not constant.
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../contact/needhelp.rst
 
 Generation of the silica block
 ==============================
@@ -58,7 +54,7 @@ Generation of the silica block
 
 .. |download_SiO.data| raw:: html
 
-   <a href="../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.data" target="_blank">here</a>
+   <a href="../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.data" target="_blank">here</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in SilicaBlock/input.lammps*
@@ -103,7 +99,7 @@ Generation of the silica block
 
 .. |download_vashishta| raw:: html
 
-   <a href="../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.1990.vashishta" target="_blank">here</a>
+   <a href="../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.1990.vashishta" target="_blank">here</a>
 
 .. |website_vashishta| raw:: html
 
@@ -171,13 +167,13 @@ Generation of the silica block
 
 .. |download_silica_block| raw:: html
 
-   <a href="../../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
+   <a href="../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
 
-.. figure:: ../figures/gcmc-silica/generated-silica-dark.png
+.. figure:: figures/gcmc-silica/generated-silica-dark.png
     :alt: silica block
     :class: only-dark
 
-.. figure:: ../figures/gcmc-silica/generated-silica-light.png
+.. figure:: figures/gcmc-silica/generated-silica-light.png
     :alt: silica block
     :class: only-light
 
@@ -268,13 +264,13 @@ Cracking the silica
 
 .. |download_silica_dilated| raw:: html
 
-   <a href="../../../../../inputs/montecarlo/gcmc-silica/Cracking/dilatedSiO.data" target="_blank">here</a>
+   <a href="../../../../inputs/montecarlo/gcmc-silica/Cracking/dilatedSiO.data" target="_blank">here</a>
 
-.. figure:: ../figures/gcmc-silica/cracked-dark.png
+.. figure:: figures/gcmc-silica/cracked-dark.png
     :alt: silica block with crack
     :class: only-dark
 
-.. figure:: ../figures/gcmc-silica/cracked-light.png
+.. figure:: figures/gcmc-silica/cracked-light.png
     :alt: silica block with crack
     :class: only-light
 
@@ -311,7 +307,7 @@ Adding water
 
 .. |download_TIP4P2005| raw:: html
 
-   <a href="../../../../../inputs/montecarlo/gcmc-silica/AddingWater/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
+   <a href="../../../../inputs/montecarlo/gcmc-silica/AddingWater/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in Addingwater/input.lammps*
@@ -569,11 +565,11 @@ Adding water
 
     In my case, the final state looks like this:
 
-.. figure:: ../figures/gcmc-silica/solvated-dark.png
+.. figure:: figures/gcmc-silica/solvated-dark.png
     :alt: silica block with water and crack
     :class: only-dark
 
-.. figure:: ../figures/gcmc-silica/solvated-light.png
+.. figure:: figures/gcmc-silica/solvated-light.png
     :alt: silica block with water and crack
     :class: only-light
 
@@ -585,4 +581,4 @@ Adding water
     very low probability of successfully inserting a molecule. Here 100000 steps (or 100 ps)
     are not enough to reach equilibrium.
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../contact/accessfile.rst

@@ -3,21 +3,17 @@
 Polymer in water
 ****************
 
-..  container:: justify
-
-   This tutorial is part of the *Bulk fluids* series.
-
 .. container:: hatnote
 
    Solvating a small molecule in water before stretching it
 
-.. figure:: ../figures/allatoms/main-dark.png
+.. figure:: figures/allatoms/main-dark.png
     :alt: peg molecule in water
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/allatoms/main-light.png
+.. figure:: figures/allatoms/main-light.png
     :alt: peg molecule in water
     :height: 250
     :align: right
@@ -41,9 +37,9 @@ Polymer in water
 
    <a href="https://doi.org/10.1021/acsnano.6b07071" target="_blank">publication</a>
 
-.. include:: ../../contact/recommand-lj.rst
+.. include:: ../contact/recommand-lj.rst
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../contact/needhelp.rst
 
 Bulk water
 ==========
@@ -281,11 +277,11 @@ Bulk water
 
 .. |download_H20.data| raw:: html
 
-   <a href="../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data" target="_blank">download</a>
+   <a href="../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data" target="_blank">download</a>
 
 .. |download_H2OTip4p.txt| raw:: html
 
-   <a href="../../../../../inputs/bulkfluids/allatoms/pureH2O/H2OTip4p.txt" target="_blank">downloaded</a>
+   <a href="../../../../inputs/bulkfluids/allatoms/pureH2O/H2OTip4p.txt" target="_blank">downloaded</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in pureH2O/input.lammps*
@@ -490,11 +486,11 @@ Bulk water
    If you open the dump.lammpstrj file using VMD, you should
    see the system reaching its equilibrium volume:
 
-.. figure:: ../figures/allatoms/water_light.webp
+.. figure:: figures/allatoms/water_light.webp
    :alt: Bulk water system
    :class: only-light
 
-.. figure:: ../figures/allatoms/water_dark.webp
+.. figure:: figures/allatoms/water_dark.webp
    :alt: Bulk water system
    :class: only-dark
 
@@ -506,11 +502,11 @@ Bulk water
    to ensure that the system converged toward an equilibrated
    liquid system during the 50 ps of simulation:
 
-.. figure:: ../figures/allatoms/equilibration_H2O_light.png
+.. figure:: figures/allatoms/equilibration_H2O_light.png
     :alt: Curves showing the equilibration of the water reservoir
     :class: only-light
 
-.. figure:: ../figures/allatoms/equilibration_H2O_dark.png
+.. figure:: figures/allatoms/equilibration_H2O_dark.png
     :alt: Curves showing the equilibration of the water reservoir
     :class: only-dark
 
@@ -526,7 +522,7 @@ Bulk water
 
 .. |download_H2O.data| raw:: html
 
-   <a href="../../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data" target="_blank">download</a>
+   <a href="../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data" target="_blank">download</a>
 
 PEG molecule
 ============
@@ -593,7 +589,7 @@ PEG molecule
 
 .. |download_init.data| raw:: html
 
-   <a href="../../../../../inputs/bulkfluids/allatoms/singlePEG/init.data" target="_blank">Download</a>
+   <a href="../../../../inputs/bulkfluids/allatoms/singlePEG/init.data" target="_blank">Download</a>
 
 .. |PEGgenerator| raw:: html
 
@@ -689,11 +685,11 @@ PEG molecule
     an extremely elongated and unrealistic shape, and 
     gently equilibrating until reaching a reasonable state.
 
-.. figure:: ../figures/allatoms/singlePEG-light.webp
+.. figure:: figures/allatoms/singlePEG-light.webp
     :alt: PEG in vacuum
     :class: only-light
 
-.. figure:: ../figures/allatoms/singlePEG-dark.webp
+.. figure:: figures/allatoms/singlePEG-dark.webp
     :alt: PEG in vacuum
     :class: only-dark
 
@@ -708,7 +704,7 @@ PEG molecule
 
 .. |download_PEG.data| raw:: html
 
-   <a href="../../../../../inputs/bulkfluids/allatoms/singlePEG/PEG.data" target="_blank">download</a>
+   <a href="../../../../inputs/bulkfluids/allatoms/singlePEG/PEG.data" target="_blank">download</a>
 
 Solvation of the PEG molecule
 =============================
@@ -835,11 +831,11 @@ Solvation of the PEG molecule
     see that the box dimension slightly shrink along x.
     The system looks like that:
 
-.. figure:: ../figures/allatoms/solvatedPEG_light.png
+.. figure:: figures/allatoms/solvatedPEG_light.png
    :alt: PEG in water
    :class: only-light
 
-.. figure:: ../figures/allatoms/solvatedPEG_dark.png
+.. figure:: figures/allatoms/solvatedPEG_dark.png
    :alt: PEG in water
    :class: only-dark
 
@@ -984,11 +980,11 @@ temperature of the entire system):
    If you open the dump.lammpstrj file using VMD, you should
    see this:
 
-.. figure:: ../figures/allatoms/pulled_peg_dark.png
+.. figure:: figures/allatoms/pulled_peg_dark.png
     :alt: PEG molecule in water
     :class: only-dark
 
-.. figure:: ../figures/allatoms/pulled_peg_light.png
+.. figure:: figures/allatoms/pulled_peg_light.png
     :alt: PEG molecule in water
     :class: only-light
 
@@ -1000,18 +996,18 @@ temperature of the entire system):
    distance over time shows the PEG adjusting
    to the external forcing:
 
-.. figure:: ../figures/allatoms/distance-dark.png
+.. figure:: figures/allatoms/distance-dark.png
     :alt: plot of the end-to-end distance versus time
     :class: only-dark
 
-.. figure:: ../figures/allatoms/distance-light.png
+.. figure:: figures/allatoms/distance-light.png
     :alt: plot of the end-to-end distance versus time
     :class: only-light
 
     Evolution of the end-to-end distance of the PEG molecule
     with time. The forcing starts at :math:`t = 10` ps.
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../contact/accessfile.rst
 
 What now?
 =========
@@ -1026,7 +1022,7 @@ What now?
 Going further with exercises
 ============================
 
-.. include::  ../../contact/requestsolution.rst
+.. include::  ../contact/requestsolution.rst
 
 Generate a PEG-H2O mixture
 --------------------------
@@ -1080,4 +1076,4 @@ Post-mortem analysis
 
         u = mda.Universe("dump.lammpstrj", format = "LAMMPSDUMP")
 
-.. include:: ../../contact/contactme.rst
+.. include:: ../contact/contactme.rst

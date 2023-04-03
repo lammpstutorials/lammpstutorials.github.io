@@ -3,10 +3,6 @@
 Breaking a carbon nanotube
 ***************************
 
-..  container:: justify
-
-   This tutorial is part of the *2D materials* series.
-
 .. container:: hatnote
 
    In this tutorial, the breaking of the bonds of a carbon nanotube under
@@ -18,19 +14,19 @@ Breaking a carbon nanotube
    This force field allows one to simulate the formation and breaking of chemical 
    bonds between the atoms of a structure.
 
-.. figure:: ../figures/carbonnanotube/cnt_dark.png
+.. figure:: figures/carbonnanotube/cnt_dark.png
     :alt: carbon nanotube image in vacuum
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/carbonnanotube/cnt_light.png
+.. figure:: figures/carbonnanotube/cnt_light.png
     :alt: carbon nanotube image in vacuum
     :height: 250
     :align: right
     :class: only-light
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../contact/needhelp.rst
 
 System creation
 ===============
@@ -54,7 +50,7 @@ System creation
 
 .. |download_CNT.data| raw:: html
 
-   <a href="../../../../../inputs/2Dmaterials/carbonnanotube/cnt.data" target="_blank">here</a>
+   <a href="../../../../inputs/2Dmaterials/carbonnanotube/cnt.data" target="_blank">here</a>
 
 Input file
 ==========
@@ -101,7 +97,7 @@ Input file
 
 .. |download_CH.airebo| raw:: html
 
-   <a href="../../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo" target="_blank">here</a>
+   <a href="../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo" target="_blank">here</a>
 
 ..  code-block:: lammps
    :caption: *to be copied in input.lammps*
@@ -207,13 +203,13 @@ Deformation
 
    <a href="https://www.youtube.com/watch?v=f1ve1j3yA6w" target="_blank">this video</a>
 
-.. figure:: ../figures/carbonnanotube/deformed-dark.png
+.. figure:: figures/carbonnanotube/deformed-dark.png
    :alt: carbon nanotube with broken bonds
    :height: 250
    :align: right
    :class: only-dark
 
-.. figure:: ../figures/carbonnanotube/deformed-light.png
+.. figure:: figures/carbonnanotube/deformed-light.png
    :alt: carbon nanotube with broken bonds
    :height: 250
    :align: right
@@ -307,30 +303,30 @@ Post-mortem analysis
    The array nbond_vs_time contains the number of bond as a function of time, and 
    lbond_vs_time the bond length:
 
-.. figure:: ../figures/carbonnanotube/bond-dark.png
+.. figure:: figures/carbonnanotube/bond-dark.png
    :alt: plot of the bond length and distance versus time
    :class: only-dark
 
-.. figure:: ../figures/carbonnanotube/bond-light.png
+.. figure:: figures/carbonnanotube/bond-light.png
    :alt: plot of the bond length and distance versus time
    :class: only-light
 
    Evolution of the bond length (left) and number (right) as a function of time.
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../contact/accessfile.rst
 
 Going further with exercises
 ============================
 
-.. include::  ../../contact/requestsolution.rst
+.. include::  ../contact/requestsolution.rst
 
-.. figure:: ../figures/carbonnanotube/shared-dark.png
+.. figure:: figures/carbonnanotube/shared-dark.png
     :alt: deformed membrane of CNT
     :width: 200
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/carbonnanotube/shared-light.png
+.. figure:: figures/carbonnanotube/shared-light.png
     :alt: deformed membrane of CNT
     :width: 200
     :align: right
@@ -348,13 +344,13 @@ Going further with exercises
    *Hint --* The box must be converted to triclinic to support deformation
    along xy.
 
-.. figure:: ../figures/carbonnanotube/CH-dark.png
+.. figure:: figures/carbonnanotube/CH-dark.png
     :alt: CNT with hydrogen atoms and N2 molecule
     :width: 200
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/carbonnanotube/CH-light.png
+.. figure:: figures/carbonnanotube/CH-light.png
     :alt: CNT with hydrogen atoms and N2 molecule
     :width: 200
     :align: right
@@ -381,4 +377,4 @@ Going further with exercises
    Remove the thermostat and observe the evolution of the temperature of an
    'isolated' carbon nanotube being deformed. Does it heat-up?
 
-.. include:: ../../contact/contactme.rst
+.. include:: ../contact/contactme.rst

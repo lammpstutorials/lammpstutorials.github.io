@@ -3,16 +3,12 @@
 Lennard Jones fluid
 *******************
 
-..  container:: justify
-
-    This tutorial is part of the *Bulk fluids* series.
-
 .. container:: hatnote
 
     The very basics of LAMMPS through a simple example:
     a Lennard-Jones binary fluid
 
-.. figure:: ../figures/lennardjones/binary_LJ_fluid.webp
+.. figure:: figures/lennardjones/binary_LJ_fluid.webp
     :alt: video of a binary fluid
     :height: 250
     :align: right
@@ -31,7 +27,7 @@ Lennard Jones fluid
     energy minimisation, integration of the equations of motion,
     and trajectory visualisation.
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../contact/needhelp.rst
 
 Required softwares
 ==================
@@ -538,11 +534,11 @@ Molecular dynamics
     plot the potential energy and the pressure of
     the system over time:
 
-.. figure:: ../figures/lennardjones/energy-light.png
+.. figure:: figures/lennardjones/energy-light.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-light
 
-.. figure:: ../figures/lennardjones/energy-dark.png
+.. figure:: figures/lennardjones/energy-dark.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-dark
 
@@ -569,7 +565,7 @@ Molecular dynamics
 Trajectory visualisation
 ========================
 
-.. figure:: ../figures/lennardjones/input1.png
+.. figure:: figures/lennardjones/input1.png
    :alt: binary fluid
    :width: 350 px
    :align: right
@@ -613,7 +609,7 @@ Improving the script
     Let us improve the input script and perform slightly more
     advanced operations.
 
-.. figure:: ../figures/lennardjones/input2.png
+.. figure:: figures/lennardjones/input2.png
    :alt: binary fluid
    :width: 350 px
    :align: right
@@ -913,17 +909,17 @@ Restarting from a saved configuration
     well as the evolution of the coordination number due to
     mixing:
 
-.. figure:: ../figures/lennardjones/population-light.png
+.. figure:: figures/lennardjones/population-light.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-light
 
-.. figure:: ../figures/lennardjones/population-dark.png
+.. figure:: figures/lennardjones/population-dark.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-dark
 
     Evolution of the poputation with time, as well as evolution of the coordination number. 
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../contact/accessfile.rst
 
 What now?
 =========
@@ -962,7 +958,7 @@ Try another tutorial
 Going further with exercises
 ============================
 
-.. include:: ../../contact/requestsolution.rst
+.. include:: ../contact/requestsolution.rst
 
 ..  container:: justify
 
@@ -1060,4 +1056,4 @@ Non-equilibrium simulation
     In general, this is something that you must avoid (unless you are studying
     non-linear effects). 
 
-.. include:: ../../contact/contactme.rst
+.. include:: ../contact/contactme.rst

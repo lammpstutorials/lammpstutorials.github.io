@@ -3,21 +3,17 @@
 Graphene under deformation
 **************************
 
-..  container:: justify
-
-   This tutorial is part of the *2D materials* series.
-
 .. container:: hatnote
 
    Longitudinal deformation of a small graphene sheet
 
-.. figure:: ../figures/graphene/graphene_dark.png
+.. figure:: figures/graphene/graphene_dark.png
     :alt: graphene in vacuum image VMD
     :width: 250
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/graphene/graphene_light.png
+.. figure:: figures/graphene/graphene_light.png
     :alt: graphene in vacuum image VMD
     :width: 250
     :align: right
@@ -30,7 +26,7 @@ Graphene under deformation
    deformed using an applied displacement (a method called
    *out-of-equilibrium molecular dynamics*).
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../contact/needhelp.rst
 
 Generation of the system
 ========================
@@ -53,13 +49,13 @@ Generation of the system
 
    <a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">VMD</a>
 
-.. figure:: ../figures/graphene/vmd_dark.png
+.. figure:: figures/graphene/vmd_dark.png
     :alt: graphene in vacuum image VMD
     :width: 250
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/graphene/vmd_light.png
+.. figure:: figures/graphene/vmd_light.png
     :alt: graphene in vacuum image VMD
     :width: 250
     :align: right
@@ -148,7 +144,7 @@ Generation of the system
 
 .. |download_carbon_data| raw:: html
 
-   <a href="../../../../../inputs/2Dmaterials/graphene/carbon.data" target="_blank">here</a>
+   <a href="../../../../inputs/2Dmaterials/graphene/carbon.data" target="_blank">here</a>
 
 LAMMPS input script
 ===================
@@ -459,6 +455,6 @@ Run
    such bond breaking, one has to use a reactive force
    field, which is done in the next tutorial (:ref:`carbon-nanotube-label`).
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../contact/accessfile.rst
 
-.. include:: ../../contact/contactme.rst
+.. include:: ../contact/contactme.rst

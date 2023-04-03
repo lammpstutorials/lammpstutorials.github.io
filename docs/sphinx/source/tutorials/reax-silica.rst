@@ -3,21 +3,17 @@
 Deforming silicon dioxide
 *************************
 
-..  container:: justify
-
-    This tutorial is part of the *Reaxff* series.
-
 .. container:: hatnote
 
     Using reaxff and deform a structure
 
-.. figure:: ../figures/reaxff/avatar-light.png
+.. figure:: figures/reaxff/avatar-light.png
     :height: 250
     :alt: Figure showing silicon dioxide structure with colored charges.
     :class: only-light
     :align: right
 
-.. figure:: ../figures/reaxff/avatar-dark.png
+.. figure:: figures/reaxff/avatar-dark.png
     :height: 250
     :alt: Figure showing silicon dioxide structure with colored charges.
     :class: only-dark
@@ -30,7 +26,7 @@ Deforming silicon dioxide
     it until it break. The reactive force field reaxff is used, and 
     a particular attention is given to the charge of the atoms. 
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../contact/needhelp.rst
 
 Relax the amorphous silica structure
 ====================================
@@ -51,15 +47,15 @@ Relax the amorphous silica structure
 
 .. |download_silica_data| raw:: html
 
-   <a href="../../../../../inputs/reaxff/reax-silica/RelaxSilica/silica.data" target="_blank">download</a>
+   <a href="../../../../inputs/reaxff/reax-silica/RelaxSilica/silica.data" target="_blank">download</a>
 
 .. |download_SiO.1990.vashishta| raw:: html
 
-   <a href="../../../../../inputs/reaxff/reax-silica/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>
+   <a href="../../../../inputs/reaxff/reax-silica/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>
 
 .. |lammps_input_creating| raw:: html
 
-   <a href="../../../../../inputs/reaxff/reax-silica/CreateSilica/input.lammps" target="_blank">here</a>
+   <a href="../../../../inputs/reaxff/reax-silica/CreateSilica/input.lammps" target="_blank">here</a>
 
 ..  code-block:: lammps
 
@@ -139,7 +135,7 @@ Relax the amorphous silica structure
 
 .. |reaxCHOFe| raw:: html
 
-   <a href="../../../../../inputs/reaxff/reax-silica/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a>
+   <a href="../../../../inputs/reaxff/reax-silica/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in RelaxSilica/input.lammps*
@@ -187,11 +183,11 @@ Relax the amorphous silica structure
     As the simulation runs, you can see that the charges of the atoms are fluctuating,
     as it adjusts to the topology:
 
-.. figure:: ../figures/reaxff/average-charge-light.png
+.. figure:: figures/reaxff/average-charge-light.png
     :alt: Charge of silica during equilibration with reaxff
     :class: only-light
 
-.. figure:: ../figures/reaxff/average-charge-dark.png
+.. figure:: figures/reaxff/average-charge-dark.png
     :alt: Charge of silica during equilibration with reaxff
     :class: only-dark
 
@@ -202,11 +198,11 @@ Relax the amorphous silica structure
     Moreover, instantaneously, each atom adopts its own charge value, therefore the
     charge are distributed around a mean value:
 
-.. figure:: ../figures/reaxff/distribution-charge-light.png
+.. figure:: figures/reaxff/distribution-charge-light.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
     :class: only-light
 
-.. figure:: ../figures/reaxff/distribution-charge-dark.png
+.. figure:: figures/reaxff/distribution-charge-dark.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
     :class: only-dark
 
@@ -216,7 +212,7 @@ Relax the amorphous silica structure
 
 .. |plot_distribution| raw:: html
 
-   <a href="../../../../../inputs/reaxff/reax-silica/RelaxSilica/plot_distribution.ipynb" target="_blank">notebook</a>
+   <a href="../../../../inputs/reaxff/reax-silica/RelaxSilica/plot_distribution.ipynb" target="_blank">notebook</a>
 
 ..  container:: justify
 
@@ -224,11 +220,11 @@ Relax the amorphous silica structure
     the atoms with the extreme-most charges are located at defects in the 
     amorphous structure (here dandling oxygen group):
 
-.. figure:: ../figures/reaxff/silicon-light.png
+.. figure:: figures/reaxff/silicon-light.png
     :alt: Amorphous silica colored by charges using VMD
     :class: only-light
 
-.. figure:: ../figures/reaxff/silicon-dark.png
+.. figure:: figures/reaxff/silicon-dark.png
     :alt: Amorphous silica colored by charges using VMD
     :class: only-dark
 
@@ -309,11 +305,11 @@ Deform the structure
     average value that differs from the starting charge, which is expected due to the
     presence of the new solid/vacuum interface:
 
-.. figure:: ../figures/reaxff/deformed-charge-light.png
+.. figure:: figures/reaxff/deformed-charge-light.png
     :alt: Charge of silica during deformation of the silicon oxide with reaxff
     :class: only-light
 
-.. figure:: ../figures/reaxff/deformed-charge-dark.png
+.. figure:: figures/reaxff/deformed-charge-dark.png
     :alt: Charge of silica during deformation of the silicon oxide with reaxff
     :class: only-dark
 
@@ -324,11 +320,11 @@ Deform the structure
     At the end of the deformation,  one can visualize the brocken material, not
     the different charge of atoms near the interface.
 
-.. figure:: ../figures/reaxff/deformed-light.png
+.. figure:: figures/reaxff/deformed-light.png
     :alt: Deformed amorphous silica colored by charges using VMD
     :class: only-light
 
-.. figure:: ../figures/reaxff/deformed-dark.png
+.. figure:: figures/reaxff/deformed-dark.png
     :alt: Deformed amorphous silica colored by charges using VMD
     :class: only-dark
 
@@ -341,11 +337,11 @@ Deform the structure
 
     One can have a look at the final charge distribution:
 
-.. figure:: ../figures/reaxff/deformed-distribution-charge-light.png
+.. figure:: figures/reaxff/deformed-distribution-charge-light.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
     :class: only-light
 
-.. figure:: ../figures/reaxff/deformed-distribution-charge-dark.png
+.. figure:: figures/reaxff/deformed-distribution-charge-dark.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
     :class: only-dark
 
@@ -356,14 +352,14 @@ Deform the structure
     The final charge distribution differs from the previously calculated, as a new peak 
     near -0.5e for the oxygen. 
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../contact/accessfile.rst
 
 Going further with exercises
 ============================
 
 ..  container:: justify
 
-    .. include::  ../../contact/requestsolution.rst
+    .. include::  ../contact/requestsolution.rst
 
 ..  container:: justify
 
@@ -373,15 +369,15 @@ Going further with exercises
     Add hydrogen atoms to the dandling oxygens. Then relax the structure using reaxff with LAMMPS.
     Hydrogen atoms can be added using create_atoms command, gcmc, or external python script as I did here:
 
-.. figure:: ../figures/reaxff/exercice-light.png
+.. figure:: figures/reaxff/exercice-light.png
     :alt: Silicon oxide decorated with hydrogens
     :class: only-light
 
-.. figure:: ../figures/reaxff/exercice-dark.png
+.. figure:: figures/reaxff/exercice-dark.png
     :alt: Silicon oxide decorated with hydrogens
     :class: only-dark
 
     Hydrogen atoms are in white, oxygen in red, and silicon in yellow.
 
-    .. include:: ../../contact/contactme.rst
+    .. include:: ../contact/contactme.rst
 

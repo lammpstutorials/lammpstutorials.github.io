@@ -3,22 +3,18 @@
 Nanosheared electrolyte
 ***********************
 
-..  container:: justify
-
-    This tutorial is part of the *Bulk fluids* series.
-
 .. container:: hatnote
 
     Molecular dynamics simulation of an aqueous NaCl
     solution sheared between two solid walls
 
-.. figure:: ../figures/sheared/nanoconfined-electrolyte-light.png
+.. figure:: figures/sheared/nanoconfined-electrolyte-light.png
     :height: 250
     :alt: Electrolyte nano-confined in a slit pore
     :class: only-light
     :align: right
 
-.. figure:: ../figures/sheared/nanoconfined-electrolyte-dark.png
+.. figure:: figures/sheared/nanoconfined-electrolyte-dark.png
     :height: 250
     :alt: Electrolyte nano-confined in a slit pore
     :class: only-dark
@@ -37,7 +33,7 @@ Nanosheared electrolyte
     All inputs and data files can be found on the
     Github repository of LAMMPStutorials.
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../contact/needhelp.rst
 
 System generation
 =================
@@ -128,7 +124,7 @@ System generation
 
 .. |download_TIP4P2005.txt| raw:: html
 
-   <a href="../../../../../inputs/bulkfluids/sheared/SystemCreation/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
+   <a href="../../../../inputs/bulkfluids/sheared/SystemCreation/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in SystemCreation/input.lammps*
@@ -285,11 +281,11 @@ System generation
     been created (look for lines like 'Created 3648 atoms'), or
     just look at the dump file with VMD:
 
-.. figure:: ../figures/sheared/systemcreation-light.png
+.. figure:: figures/sheared/systemcreation-light.png
     :alt: Generated electrolyte between walls
     :class: only-light
 
-.. figure:: ../figures/sheared/systemcreation-dark.png
+.. figure:: figures/sheared/systemcreation-dark.png
     :alt: Generated electrolyte between walls
     :class: only-dark
 
@@ -470,11 +466,11 @@ Next, let us create a group for the water:
     You can easily import log file into python using the
     `lammps_logfile`_ tool:
 
-.. figure:: ../figures/sheared/minimization-light.png
+.. figure:: figures/sheared/minimization-light.png
     :alt: Energy minimisation of the confined water and salt
     :class: only-light
 
-.. figure:: ../figures/sheared/minimization-dark.png
+.. figure:: figures/sheared/minimization-dark.png
     :alt: Energy minimisation of the confined water and salt
     :class: only-dark
 
@@ -607,11 +603,11 @@ System equilibration
     reduces until it reaches an equilibrium value, see the evolution
     of the distance between the walls (printed in a data file by fix myat1):
 
-.. figure:: ../figures/sheared/equilibration-light.png
+.. figure:: figures/sheared/equilibration-light.png
     :alt: Plot showing the distance between the walls as a function of time.
     :class: only-light
 
-.. figure:: ../figures/sheared/equilibration-dark.png
+.. figure:: figures/sheared/equilibration-dark.png
     :alt: Plot showing the distance between the walls as a function of time.
     :class: only-dark
 
@@ -748,11 +744,11 @@ Imposed nanoshearing
     The velocity profile I got (running for 200ps) is the
     following:
 
-.. figure:: ../figures/sheared/shearing-light.png
+.. figure:: figures/sheared/shearing-light.png
     :alt: Velocity of the nanosheared fluid Video of sheared fluid
     :class: only-light
 
-.. figure:: ../figures/sheared/shearing-dark.png
+.. figure:: figures/sheared/shearing-dark.png
     :alt: Velocity of the nanosheared fluid Video of sheared fluid
     :class: only-dark
 
@@ -786,12 +782,12 @@ Imposed nanoshearing
 
    <a href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/PhysRevFluids.6.034303.pdf" target="_blank">gravelle2021</a>
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../contact/accessfile.rst
 
 Going further with exercises
 ============================
 
-.. include::  ../../contact/requestsolution.rst
+.. include::  ../contact/requestsolution.rst
 
 **Exercise 1 : Extract more data from the simulation**
 
@@ -822,4 +818,4 @@ Going further with exercises
     Question: Is the velocity profile you obtain consistent with
     Poiseuille's predictions?
 
-.. include:: ../../contact/contactme.rst
+.. include:: ../contact/contactme.rst
