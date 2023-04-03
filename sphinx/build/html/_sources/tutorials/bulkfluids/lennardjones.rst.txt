@@ -925,6 +925,39 @@ Restarting from a saved configuration
 
 .. include:: ../../contact/accessfile.rst
 
+What now?
+=========
+
+..  container:: justify
+
+    Now that you have completed this simple molecular dynamics tutorials, what should you do?
+
+Play around
+-----------
+
+..  container:: justify
+
+    A good way to progress with LAMMPS and molecular dynamics
+    simulations is to play around with a script that is already
+    working and observe the differences and/or errors occurring:
+    Try adding new commands (you can choose from the documentation),
+    try removing some of the commands, try changing the parameter values
+    (see also the first exercice below).
+
+    The more you trigger warnings, the easier it will be for you to solve your
+    own simulation.
+
+Try another tutorial
+--------------------
+
+..  container:: justify
+
+    There are many common aspects of molecular simulations that were not dealt with in this
+    tutorial:
+
+    - dealing with charged atoms and bounded molecules, as is necessary to model most existing molecules, solids, or structures, see for instance :ref:`all-atoms-label` and :ref:`sheared-confined-label`,
+    - dealing with reactivity and bond formation/breaking, see :ref:`reax-silica-label`,
+
 Going further with exercises
 ============================
 
@@ -933,10 +966,8 @@ Going further with exercises
 ..  container:: justify
 
     **Preamble : on the importance of energy minimisation**
-    A good way to master LAMMPS and molecular dynamics
-    simulations is to play around with a script that is already
-    working and observe the differences and/or errors occurring.
-    For example, with the input file input_01.lammps, we can
+
+    With the curernt system, we can
     explore what happens if we don't perform a minimisation step
     and start the molecular dynamics directly. To do so, comment
     the two following lines:
@@ -1016,7 +1047,7 @@ Going further with exercises
 .. admonition:: Hints
     :class: dropdown
 
-    LAMMPS offer several option to add external force to a system, one 
+    LAMMPS offers several option to add external force to a system, one 
     being the fix addforce.
 
     If the system is too far from equilibrium, it enters the non-linear response 
