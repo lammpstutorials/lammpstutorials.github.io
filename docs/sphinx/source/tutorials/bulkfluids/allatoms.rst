@@ -9,7 +9,7 @@ Polymer in water
 
 .. container:: hatnote
 
-   A small PEG molecule is immersed in water and its ends are pulled
+   Solvating a small molecule in water before stretching it
 
 .. figure:: ../figures/allatoms/main-dark.png
     :alt: peg molecule in water
@@ -28,11 +28,20 @@ Polymer in water
    The goal of this tutorial is to use LAMMPS and
    create a small hydrophilic polymer (PEG -
    PolyEthylene Glycol) in a reservoir of water. 
-   An all atoms description is used, with charged atoms 
-   connected by bonds constraints.
+   An all-atom description is used, therefore all species considered here
+   are made of charged atoms connected by bonds constraints.
 
    Once the system is created, a constant stretching force will be applied to both
    ends of the polymer, and its length will be measured with time.
+
+   This tutorial was inspired by a very nice |Liese2017| by Liese and coworkers, in which
+   they compare MD simulations with force spectroscopy experiments.
+
+.. |Liese2017| raw:: html
+
+   <a href="https://doi.org/10.1021/acsnano.6b07071" target="_blank">publication</a>
+
+.. include:: ../../contact/recommand-lj.rst
 
 .. include:: ../../contact/needhelp.rst
 
@@ -41,8 +50,8 @@ Bulk water
 
 ..  container:: justify
 
-   Here a rectangular box of water is created, then
-   equilibrated at ambient temperature and ambient pressure.
+   As a first step, a rectangular box of water is created and
+   equilibrated at ambient temperature and ambient pressure (the PEG molecule will be added in the next sections).
 
    Create a folder named pureH2O/. Inside this folder, create
    an empty text file named input.lammps. Copy the following
@@ -62,11 +71,10 @@ Bulk water
 
 ..  container:: justify
 
-   **Explanations:** There are many differences with respect to
+   There are many differences with respect to
    the previous tutorial (:ref:`lennard-jones-label`), mostly
-   because here a system with molecules and charges will be
-   modeled (instead of neutral particles as in tutorial
-   01). With the unit style 'real', masses are in grams per
+   because here a system with molecules and partial charges is
+   modeled (instead of neutral particles). With the unit style 'real', masses are in grams per
    mole, distances in Ångstroms, time in femtoseconds, energies
    in Kcal/mole. With the atom style 'full', each atom is a dot
    with a mass and a charge. In addition, each atom can be
@@ -75,15 +83,20 @@ Bulk water
    'angle_style', and 'dihedral_style' commands define the
    styles of bond angle, and dihedrals used in the simulation,
    respectively, and the 'harmonic' and 'charmm' keywords
-   impose the potential to use.
+   impose the type of potential to use.
 
-   *Remark --* The future merging of the water with the PEG
-   has already been anticipated as the charmm angle_style
-   and dihedral_style are requirements of the PEG's model.
+.. admonition:: About the use of charmm style
+    :class: info
 
-   *Remark --* A rigid water model will be used here, so the bond
-   and angle styles that are chosen have no consequence on the water model, they will
-   only matter to the PEG when it is added.
+    The future merging of the water with the PEG
+    has already been anticipated as the charmm angle_style
+    and dihedral_style are requirements of the PEG's model.
+
+    A rigid water model will be used here, so the bond
+    and angle styles that are chosen have no consequence on the water model, they will
+    only matter to the PEG when it is added.
+
+..  container:: justify
 
    With the 'pair_style' named 'lj/cut/tip4p/long', atoms
    interact through both a Lennard-Jones (LJ) potential and
@@ -91,41 +104,42 @@ Bulk water
    four points water models, and automatically accounts for the
    additional massless site. The six numbers are, respectively,
 
--  **1 -** the atom type for the oxygen O of the tip4p
-   water,
--  **2 -** the atom type for the hydrogen H of the tip4p
-   water,
+-  **1 -** the atom type for the oxygen O of the tip4p water,
+-  **2 -** the atom type for the hydrogen H of the tip4p water,
 -  **3 -** the OH bond type,
 -  **4 -** the HOH angle type,
--  **5 -** the distance from O atom to massless charge,
--  **6 -** the cutoff in Ångstroms.
+-  **5 -** the distance from O atom to the massless charge (here 0.1546 Ångstroms is set by the water model),
+-  **6 -** the cutoff (here of 12 Ångstroms).
+
+.. admonition:: About cutoff in molecular dynamics
+    :class: info
+
+    The cutoff of 12 Ångstroms applies to both LJ and Coulombic
+    interactions, but in a different way. For LJ 'cut'
+    interactions, atoms interact with each others only if they
+    are separated by a distance smaller than the cutoff. For
+    Coulombic 'long', interaction between atoms closer than
+    the cutoff are computed directly, and interaction between
+    atoms outside that cutoff are computed in the reciprocal
+    space.
 
 ..  container:: justify
-
-   *Note --* The cutoff applies to both LJ and Coulombic
-   interactions, but in a different way. For LJ 'cut'
-   interactions, atoms interact with each others only if they
-   are separated by a distance smaller than the cutoff. For
-   Coulombic 'long', interaction between atoms closer than
-   the cutoff are computed directly, and interaction between
-   atoms outside that cutoff are computed in the reciprocal
-   space.
 
    Finally the kspace command defines the long-range solver for the (long)
    Coulombic interactions. The pppm style refers to
    particle-particle particle-mesh.
 
-.. admonition:: About PPPM
-   :class: info
+.. admonition:: Background Information (optional) -- About PPPM
+    :class: dropdown
 
-   *The PPPM
-   method is based on separating the total interaction
-   between particles into the sum of short-range
-   interactions, which are computed by direct
-   particle-particle summation, and long-range interactions,
-   which are calculated by solving Poisson's equation using
-   periodic boundary conditions (PBCs).* 
-   |Luty and van Gunsteren|
+    *The PPPM
+    method is based on separating the total interaction
+    between particles into the sum of short-range
+    interactions, which are computed by direct
+    particle-particle summation, and long-range interactions,
+    which are calculated by solving Poisson's equation using
+    periodic boundary conditions (PBCs).* 
+    |Luty and van Gunsteren|
 
 .. |Luty and van Gunsteren| raw:: html
 
@@ -151,16 +165,24 @@ Bulk water
    extra/angle/per/atom 1 &
    extra/special/per/atom 2
 
+.. admonition:: About extra per atom commands
+    :class: info
+
+    The extra/[something]/per/atom commands are here for
+    memory allocation, they ensure that enough space is left for a
+    certain number of attribute for each atom. We wont worry
+    about those commands in this tutorial, just keep that in mind if one day you see the following
+    error message:
+
+    ..  code-block:: bash
+
+        ERROR: Molecule topology/atom exceeds system topology/atom (src/molecule.cpp:1767)
+
 ..  container:: justify
 
-   *Note -* The extra/X/per/atom commands are related to
-   memory allocation, they ensure space is left for a
-   certain number of attribute for each atom, we wont worry
-   about those commands in this tutorial.
-
-   Let us include a parameter file containing all the
-   parameters (masses, interaction energies, bond equilibrium
-   distances, etc):
+    Let us include a parameter file containing all the
+    parameters (masses, interaction energies, bond equilibrium
+    distances, etc):
 
 ..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
@@ -247,18 +269,13 @@ Bulk water
 
 ..  container:: justify
 
-   Alternatively, you can |download_H20.data|
-   the water reservoir I have equilibrated and continue with
-   the tutorial.
-
    The molecule template named H2OTip4p.txt must be |download_H2OTip4p.txt|
    and saved in the same folder (named pureH2O/) as the
-   input.lammps file.
-
-   This template contains all the necessary structural
+   input.lammps file. This template contains all the necessary structural
    information of a water molecule, such as the number of atoms, 
    which pair of atoms are connected by bonds, which
    groups of atoms are connected by angles, etc.
+
    Then, let us group the atoms of the water in a group named
    H2O, and then delete the overlapping molecules:
 
@@ -278,14 +295,14 @@ Bulk water
 
 ..  container:: justify
 
-   *Note --* Deleting overlapping molecules is required here
+   Deleting overlapping molecules is required here
    because the molecules where placed randomly in space by
    the "create_atoms" command, and some of them may be too
    close from each other, which may force the simulation to
    crash.
 
    Let us use the shake algorithm in order to constrain the
-   shape of the water molecules. Let us also use the fix NPT to
+   shape of the water molecules at all time. Let us also use the fix NPT to
    control both the temperature and the pressure:
 
 ..  code-block:: lammps
@@ -296,20 +313,30 @@ Bulk water
 
 ..  container:: justify
 
-   **Explanations:** The parameters of the fix shake specify to
+   The parameters of the fix shake specify to
    which group (H2O) the shake algorithm applied, with what
    tolerance (1e-5). Still in the shake command, we also supply
    the molecule template (h2omol) previously defined, and
    specify to which bond/angle type shake mush apply, i.e. the
    bond of type 1 and the angle of type 1.
 
-   *Note -* With shake, water molecules behave as rigid. If
-   you want to study the vibration of the O-H bonds and
-   H-O-H angles, you will have to use a flexible water
-   model. If you want to study the hydrogen transfer, you
-   will have to use a reactive force field.
+   The fix NPT allows us to impose both a temperature of 300 K (with a damping constant of 100 fs),
+   and a pressure of 1 atmosphere (with a damping constant of 1000 fs). With the iso keyword, the
+   three dimensions of the box will be re-scaled simultaneously, until the average pressure in the system 
+   corresponds to the desired imposed value of 1 atm.
 
-   *Note -* Here only the water molecules will be rigid, the
+.. admonition:: About rigid water model
+    :class: info
+
+    With shake, water molecules behave as rigid. If
+    you want to study the vibration of the O-H bonds and
+    H-O-H angles, you will have to use a flexible water
+    model. If you want to study the hydrogen transfer, you
+    will have to use a reactive force field, as done in :ref:`reax-silica-label`.
+
+..  container:: justify
+
+   Here only the water molecules will be rigid, the
    PEG molecule (which will be added in the next part) will
    be fully flexible.
 
@@ -331,18 +358,24 @@ Bulk water
    fix myat3 all ave/time 10 10 100 v_mydensity file density.dat
    thermo 1000
 
+.. admonition:: The difference between ${var} and v_var
+    :class: info
+
+    Both ${var} and v_var can be used to call a previously defined variable named var. 
+    However, ${var} returns the initial value of var, while v_var returns the instantaneous 
+    value of var. 
+
 ..  container:: justify
 
-   Note that in the formula for the density (number of
-   molecule divided by volume), the underscore '_' is used to
-   call the volume variable because this variable is expected
-   to evolve in time, but the dollar sign '$' is used as the
-   number of molecules is not expected to evolve during the
-   simulation (the number of molecule changes after the
-   delete_atoms command is used, but this is done before the
-   simulation starts).
-   Finally, let us set the timestep to 2.0 fs (allowed
-   because we use shake), and run the simulation for 50 ps:
+    In the formula for the density (number of
+    molecule divided by volume), the underscore '_' is used to
+    call myvol because the volume is expected
+    to evolve in time when using fix NPT, but the dollar sign '$' is used to call myoxy as the
+    number of molecules is not expected to evolve during the
+    simulation. Note that the number of molecule changes after the
+    delete_atoms command is used, but this is done only before the
+    simulation starts.
+    Finally, let us set the timestep to 2.0 fs, and run the simulation for 50 ps:
 
 ..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
@@ -374,13 +407,75 @@ Bulk water
     :class: info
 
     This simulation may be a bit slow to complete on 1 single core.
-    You can speed it up by running LAMMPS on multiple cores, by typing:
+    You can speed it up by running LAMMPS on 2, 4 or even more cores, by typing:
 
     .. code-block:: bash
 
         mpirun -np 4 lmp -in input.lammps
 
-    The command may vary, depending on your OS and LAMMPS installation.
+    Here 4 core are used. The command may vary, depending on your OS and LAMMPS installation.
+
+.. admonition:: Background Information (optional) -- Choosing the right number of cores
+    :class: dropdown
+
+    When running a simulation in parallel using more than one CPU core, LAMMPS divides the system into
+    blocks, and each core is assigned to a given block. Here, as can be seen from the terminal, when using 'mpirun -np 4', LAMMPS divides 
+    the system into 4 blocks along the x axis:
+
+    .. code-block:: bash
+    
+        Created orthogonal box = (-40.000000 -15.000000 -15.000000) to (40.000000 15.000000 15.000000)
+         4 by 1 by 1 MPI processor grid
+
+    You can force LAMMPS to divide the system differently, let us say along both y and z axis,
+    by using the command 
+
+    ..  code-block:: lammps
+
+        processors 1 2 2
+
+    However, communication between the different cores slows down the computation, so ideally you want 
+    to minimize the size of the surface between domains. Here the default choice of LAMMPS (i.e. processors 4 1 1)
+    is certainly a better choice.
+
+    If you don't know what is the best number of processors or the best way to cut the system, just perform 
+    a short simulation and look at the log file. For instance, if I run the simulation on 1 core I get : 
+
+    .. code-block:: bash
+
+        Performance: 31.567 ns/day, 0.760 hours/ns, 182.680 timesteps/s
+
+    On 4 cores (keeping the default processors 4 1 1):
+
+    .. code-block:: bash
+
+        Performance: 109.631 ns/day, 0.219 hours/ns, 634.440 timesteps/s
+
+    This is much faster, but this is not 4 times faster, because of the cost of communicating between processors.
+
+    On 4 cores and enforcing the stupid choice: processors 1 2 2, I get
+
+    .. code-block:: bash
+
+        Performance: 99.864 ns/day, 0.240 hours/ns, 577.919 timesteps/s
+
+    Its not so bad but still not at good as 4 1 1. 
+
+    On 8 cores (the max I got), I get :
+
+    .. code-block:: bash
+
+        4 by 1 by 2 MPI processor grid
+
+        ...
+
+        Performance: 152.106 ns/day, 0.158 hours/ns, 880.243 timesteps/s
+
+    So LAMMPS chooses to divide the system once along z, and 4 times along x, and the speed is improved, but again the improvement 
+    is not linear with the number of cores. 
+
+    **Choose carefully the best number of cores for your simulation so that you don't waste computational resource.
+    Sometimes it is better to run 2 simulations on 2 cores each than 1 simulation on 4 cores.**
 
 ..  container:: justify
 
