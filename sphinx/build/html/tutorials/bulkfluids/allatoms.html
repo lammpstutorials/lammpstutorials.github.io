@@ -497,6 +497,7 @@ because the molecules where placed randomly in space by
 the “create_atoms” command, and some of them may be too
 close from each other, which may force the simulation to
 crash.</p>
+<p>The “mol yes” option ensures that entire water molecules are deleted and not just single atoms.</p>
 <p>Let us use the shake algorithm in order to constrain the
 shape of the water molecules at all time. Let us also use the fix NPT to
 control both the temperature and the pressure:</p>
@@ -690,7 +691,7 @@ the tutorial.</p>
 <h2>PEG molecule<a class="headerlink" href="#peg-molecule" title="Permalink to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>Now that the water box is ready, let us prepare the PEG
-molecule. Create a second folder next to pureH2O/, call it
+molecule in an empty box. Create a second folder next to pureH2O/, call it
 singlePEG/, and create a new blank file called input.lammps
 in it. Copy the same first lines as previously:</p>
 </div>
@@ -708,17 +709,24 @@ in it. Copy the same first lines as previously:</p>
 </div>
 <div class="justify docutils container">
 <p>Let us also add the special_bonds command to cancel the
-Lennard-Jones and Coulomb interactions between the closest
+Lennard-Jones interactions between the closest
 atoms of a same molecule:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id13" title="Permalink to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">coul</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span>
 </pre></div>
 </div>
 </div>
+<div class="info admonition">
+<p class="admonition-title">About special_bonds</p>
+<p>Usually, force fields like charmm are parametrized assuming that the first neighbors within a molecule do not
+interact directly. Here, since we use 0.0 0.0 0.5, the first (for example C-O) and second (for example C-O-H) neighbors don’t interact
+with each other through LJ and Coulomb potentials, and therefore they only interact through direct bond interactions.
+For the third neighbor (for example H-C-C-H), only half of the LJ and Coulomb interaction will be added.</p>
+</div>
 <div class="justify docutils container">
-<p>Let us include the original position of the PEG molecule, as
+<p>Let us read the original positions for the atoms of the PEG molecule, as
 well as the same parameter file as previously:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id14">
@@ -832,8 +840,9 @@ gently equilibrating until reaching a reasonable state.</p>
 <figure class="align-default" id="id21">
 <img alt="PEG in vacuum" class="only-dark" src="../../_images/singlePEG-dark.webp" />
 <figcaption>
-<p><span class="caption-text">A PEG molecule in vacuum during an energy
-minimisation step, followed by a short NVT molecular dynamics.</span><a class="headerlink" href="#id21" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">The PEG molecule in vacuum during an energy
+minimisation step, followed by a short NVT molecular dynamics.
+The carbon atoms are in dark, the oxygen atoms in red, and the hydrogen atoms in white.</span><a class="headerlink" href="#id21" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -844,16 +853,26 @@ the PEG molecule I have equilibrated and continue with the tutorial.</p>
 <section id="solvation-of-the-peg-molecule">
 <h2>Solvation of the PEG molecule<a class="headerlink" href="#solvation-of-the-peg-molecule" title="Permalink to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Now, we merge the PEG molecule and the equilibrated
-water reservoir. We do it by (1) importing both
-previously generated data files (PEG.data and
-H2O.data) into the same simulation, (2) deleting the
-overlapping molecules, and (3) re-equilibrating the new
-system.</p>
+<p>Now, we merge the PEG molecule and the
+water reservoir. We do it by:</p>
+<ul class="simple">
+<li><ol class="arabic simple">
+<li><p>importing both previously generated data files (PEG.data and H2O.data) into the same simulation,</p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="2">
+<li><p>deleting the overlapping molecules, and</p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="3">
+<li><p>re-equilibrating the new system.</p></li>
+</ol>
+</li>
+</ul>
 <p>Create a third folder alongside pureH2O/ and singlePEG/,
 and call it mergePEGH2O/. Create a new blank file in it,
-called input.lammps. Copy the same first lines as
-previously in it:</p>
+called input.lammps. Within input.lammps, copy the same first lines as
+previously:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id22">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id22" title="Permalink to this code">#</a></div>
@@ -864,12 +883,12 @@ previously in it:</p>
 <span class="k">dihedral_style</span><span class="w"> </span><span class="n">charmm</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
-<span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span>
+<span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">coul</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span>
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Then, import the two previously generated data files:</p>
+<p>Then, import the two previously generated data files, as well as the same parameter file:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id23">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id23" title="Permalink to this code">#</a></div>
@@ -881,8 +900,9 @@ previously in it:</p>
 </div>
 <div class="justify docutils container">
 <p>When using the read_data command more than once, one needs
-to use the <em>add append</em> keyword. In that case the
-simulation box is only initialized by the first read_data.
+to use the <em>add append</em> keyword. When doing so, the
+simulation box is initialized by the first read_data only, and the
+second read_data only imports additional atoms.
 Let us create 2 groups to differentiate the PEG from the H2O:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id24">
@@ -903,13 +923,12 @@ deleted to avoid crashing:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Note –</em> The value of 2 Angstroms was fixed arbitrary,
-and can be chosen through trial and error. The “mol yes”
-option ensures that entire molecule are deleted and not
-just single atoms.</p>
+<p>Here the value of 2 Angstroms for the overlap cutoff was fixed arbitrarily,
+and can be chosen through trial and error. If the cutoff is too small, the
+simulation will crash. If the cutoff it too long, too many water molecules will unnecessarily be deleted.</p>
 <p>Finally, let us use shake to keep the water
-molecules as rigid, and use the NPT command to control the
-temperature, as well as the pressure along x:</p>
+molecules rigid, and use the NPT command to control the
+temperature, as well as the pressure along the x axis:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id26">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id26" title="Permalink to this code">#</a></div>
@@ -920,8 +939,7 @@ temperature, as well as the pressure along x:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p><em>Note –</em> The box dimension will only adjust along the
-x dimension here.</p>
+<p>The box dimension will only adjust along the x axis here.</p>
 <p>Once more, let us dump the atom positions and a few
 information about the evolution simulation:</p>
 </div>
@@ -1004,7 +1022,7 @@ in the input file:</p>
 <span class="k">dihedral_style</span><span class="w"> </span><span class="n">charmm</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
-<span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span>
+<span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">coul</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span>
 </pre></div>
 </div>
 </div>
@@ -1022,7 +1040,7 @@ system, and include again the parameters:</p>
 <div class="justify docutils container">
 <p>Then, let us create 4 atom groups: H2O and PEG (as
 previously) as well as 2 groups containing one single atom
-corresponding respectively to the oxygen atoms ocated at the
+corresponding respectively to the oxygen atoms located at the
 ends of the PEG molecule:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id34">
@@ -1045,13 +1063,17 @@ ends of the PEG molecule:</p>
 </pre></div>
 </div>
 </div>
-<div class="justify docutils container">
-<p><em>Note –</em> To generate smaller dump files, use the
+<div class="info admonition">
+<p class="admonition-title">Use less disk space by using the xtc format</p>
+<p>To generate smaller dump files, use the
 compressed xtc format. You can do it by commenting the
 mydmp line and by uncommenting both the write_dump and
-myxtc lines. This is useful for generating higher
-resolution trajectories without using too much space.</p>
-<p>Let us use a simple thermostating and shake:</p>
+myxtc lines. Note that xtc files are compressed, and not readable
+by humans, contrarily to the LAMMPS native format lammpstrj.</p>
+</div>
+<div class="justify docutils container">
+<p>Let us use a simple thermostating for all atoms
+and use shake for the rigid water molecules:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id36">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in pullonPEG/input.lammps</em></span><a class="headerlink" href="#id36" title="Permalink to this code">#</a></div>
@@ -1076,11 +1098,7 @@ temperature of the entire system):</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>The distance between the two ends are here extracted
-directly using the LAMMPS internal commands, but the same
-information can also be extracted from the dump file after
-the simulation is over.
-Finally, let us run the simulation for 10 ps (without
+<p>Finally, let us run the simulation for 10 ps (without
 any external forcing):</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id38">
@@ -1090,7 +1108,9 @@ any external forcing):</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Then, let us apply a forcing on the 2 oxygen atoms using 2
+<p>This 10 ps serves as an extra small equilibration. In principle,
+it is not necessary as equilibration was properly performed during the
+previous step. Then, let us apply a forcing on the 2 oxygen atoms using 2
 add_force commands, and run for 100 ps (for a total duration
 of the simulation of 110 ps):</p>
 </div>
@@ -1103,9 +1123,8 @@ of the simulation of 110 ps):</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>If you open the dump.lammpstrj file using VMD , you should
-see this (here the water is represented as a continuum
-field):</p>
+<p>If you open the dump.lammpstrj file using VMD, you should
+see this:</p>
 </div>
 <figure class="align-default">
 <img alt="PEG molecule in water" class="only-dark" src="../../_images/pulled_peg_dark.png" />
@@ -1113,12 +1132,12 @@ field):</p>
 <figure class="align-default" id="id40">
 <img alt="PEG molecule in water" class="only-light" src="../../_images/pulled_peg_light.png" />
 <figcaption>
-<p><span class="caption-text">PEG molecule streched in water.</span><a class="headerlink" href="#id40" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">PEG molecule streched in water. Water is represented as a continuous field for clarity.</span><a class="headerlink" href="#id40" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
 <p>The evolution of the end-to-end
-distance over time show the PEG adjusting
+distance over time shows the PEG adjusting
 to the external forcing:</p>
 </div>
 <figure class="align-default">
@@ -1134,6 +1153,15 @@ with time. The forcing starts at <span class="math notranslate nohighlight">\(t 
 <p>You can access all the input scripts and data files that
 are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">Github</a>.</p>
 </section>
+<section id="what-now">
+<h2>What now?<a class="headerlink" href="#what-now" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Now that you have completed this relatively advanced molecular dynamics tutorials, and
+that all input scripts are working, I suggest you to mess around with the inputs and
+try to trigger warnings and error. The more warning and error you trigger from a working input, the
+easier it will be to solve future issue in your own input.</p>
+</div>
+</section>
 <section id="going-further-with-exercises">
 <h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Permalink to this heading">#</a></h2>
 <div class="solution admonition">
@@ -1142,41 +1170,54 @@ are used in these tutorials from <a href="https://github.com/lammpstutorials/lam
 to access all the solutions as well as additional LAMMPS content and access
 an active LAMMPS dedicated forum.</p>
 </div>
-<p><strong>Exercise 1 : generate a PEG-H2O mixture</strong></p>
+<section id="generate-a-peg-h2o-mixture">
+<h3>Generate a PEG-H2O mixture<a class="headerlink" href="#generate-a-peg-h2o-mixture" title="Permalink to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Use the same script and a similar procedure and create a
 PEG-H2O mixture with several PEG molecules hydrated in a
 cubic box.</p>
-<p>Hint: LAMMPS has internal commands allowing to replicate
-a molecule or a system.</p>
 </div>
-<p><strong>Exercise 2 : end-to-end distance</strong></p>
+<div class="dropdown admonition">
+<p class="admonition-title">Hints</p>
+<p>LAMMPS has internal commands allowing to replicate
+a molecule or a system.</p>
+<p>There is no obligation to equilibrate the water molecules separately from the PEG,
+as we did here. You can also create the water molecules directly around the PEG molcule
+using the create_atom command.</p>
+</div>
+</section>
+<section id="compare-end-to-end-distance">
+<h3>Compare end-to-end distance<a class="headerlink" href="#compare-end-to-end-distance" title="Permalink to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Create 2 simulations, one with a PEG molecule in vacuum, one
 with a PEG molecule in water, and measure their respective
 end-to-end equilibrium distance. PEG are hydrophilic and
 form hbonds with water molecules, therefore, when immersed
-in water, a PEG molecule slightly unfold, which changes it
-equilibrium end-to-end length.</p>
+in water, PEG molecules slightly unfold, which changes the
+equilibrium end-to-end distance.</p>
 </div>
-<p><strong>Exercise 3 : post-mortem analysis</strong></p>
+</section>
+<section id="post-mortem-analysis">
+<h3>Post-mortem analysis<a class="headerlink" href="#post-mortem-analysis" title="Permalink to this heading">#</a></h3>
 <div class="justify docutils container">
+<p>In today research, most data analyses are
+done after the simulation is over, and it is important for
+LAMMPS users to know how to do it.</p>
 <p>Import the trajectory using Python, and re-extract the
 end-to-end distance.</p>
-<p>Hint: you can import lammpstrj file using MDAnalysis:</p>
 </div>
+<div class="dropdown admonition">
+<p class="admonition-title">Hints</p>
+<p>You can import lammpstrj file using MDAnalysis:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;LAMMPSDUMP&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
-<p><strong>Motivation:</strong> In today research, most data analyses are
-done after the simulation is over, and it is important for
-LAMMPS users to know how to do it.</p>
 </div>
 <div class="mail admonition">
 <p class="admonition-title">Contact me</p>
 <p>Feel free to <a class="reference internal" href="../../contact/contact.html#contact-label"><span class="std std-ref">Contact</span></a> me if you have any question or suggestion about these tutorials.</p>
 </div>
+</section>
 </section>
 </section>
 
@@ -1236,7 +1277,13 @@ LAMMPS users to know how to do it.</p>
 <li><a class="reference internal" href="#peg-molecule">PEG molecule</a></li>
 <li><a class="reference internal" href="#solvation-of-the-peg-molecule">Solvation of the PEG molecule</a></li>
 <li><a class="reference internal" href="#stretching-the-peg-molecule">Stretching the PEG molecule</a></li>
-<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a></li>
+<li><a class="reference internal" href="#what-now">What now?</a></li>
+<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
+<li><a class="reference internal" href="#generate-a-peg-h2o-mixture">Generate a PEG-H2O mixture</a></li>
+<li><a class="reference internal" href="#compare-end-to-end-distance">Compare end-to-end distance</a></li>
+<li><a class="reference internal" href="#post-mortem-analysis">Post-mortem analysis</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

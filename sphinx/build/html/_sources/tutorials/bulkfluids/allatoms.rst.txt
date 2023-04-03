@@ -288,42 +288,44 @@ Bulk water
    <a href="../../../../../inputs/bulkfluids/allatoms/pureH2O/H2OTip4p.txt" target="_blank">downloaded</a>
 
 ..  code-block:: lammps
-   :caption: *to be copied in pureH2O/input.lammps*
+    :caption: *to be copied in pureH2O/input.lammps*
 
-   group H2O type 1 2
-   delete_atoms overlap 2 H2O H2O mol yes
+    group H2O type 1 2
+    delete_atoms overlap 2 H2O H2O mol yes
 
 ..  container:: justify
 
-   Deleting overlapping molecules is required here
-   because the molecules where placed randomly in space by
-   the "create_atoms" command, and some of them may be too
-   close from each other, which may force the simulation to
-   crash.
+    Deleting overlapping molecules is required here
+    because the molecules where placed randomly in space by
+    the "create_atoms" command, and some of them may be too
+    close from each other, which may force the simulation to
+    crash.
 
-   Let us use the shake algorithm in order to constrain the
-   shape of the water molecules at all time. Let us also use the fix NPT to
-   control both the temperature and the pressure:
+    The "mol yes" option ensures that entire water molecules are deleted and not just single atoms.
+
+    Let us use the shake algorithm in order to constrain the
+    shape of the water molecules at all time. Let us also use the fix NPT to
+    control both the temperature and the pressure:
 
 ..  code-block:: lammps
-   :caption: *to be copied in pureH2O/input.lammps*
+    :caption: *to be copied in pureH2O/input.lammps*
 
-   fix myshk H2O shake 1.0e-5 200 0 b 1 a 1 mol h2omol
-   fix mynpt all npt temp 300 300 100 iso 1 1 1000
+    fix myshk H2O shake 1.0e-5 200 0 b 1 a 1 mol h2omol
+    fix mynpt all npt temp 300 300 100 iso 1 1 1000
 
 ..  container:: justify
 
-   The parameters of the fix shake specify to
-   which group (H2O) the shake algorithm applied, with what
-   tolerance (1e-5). Still in the shake command, we also supply
-   the molecule template (h2omol) previously defined, and
-   specify to which bond/angle type shake mush apply, i.e. the
-   bond of type 1 and the angle of type 1.
+    The parameters of the fix shake specify to
+    which group (H2O) the shake algorithm applied, with what
+    tolerance (1e-5). Still in the shake command, we also supply
+    the molecule template (h2omol) previously defined, and
+    specify to which bond/angle type shake mush apply, i.e. the
+    bond of type 1 and the angle of type 1.
 
-   The fix NPT allows us to impose both a temperature of 300 K (with a damping constant of 100 fs),
-   and a pressure of 1 atmosphere (with a damping constant of 1000 fs). With the iso keyword, the
-   three dimensions of the box will be re-scaled simultaneously, until the average pressure in the system 
-   corresponds to the desired imposed value of 1 atm.
+    The fix NPT allows us to impose both a temperature of 300 K (with a damping constant of 100 fs),
+    and a pressure of 1 atmosphere (with a damping constant of 1000 fs). With the iso keyword, the
+    three dimensions of the box will be re-scaled simultaneously, until the average pressure in the system 
+    corresponds to the desired imposed value of 1 atm.
 
 .. admonition:: About rigid water model
     :class: info
@@ -336,14 +338,14 @@ Bulk water
 
 ..  container:: justify
 
-   Here only the water molecules will be rigid, the
-   PEG molecule (which will be added in the next part) will
-   be fully flexible.
+    Here only the water molecules will be rigid, the
+    PEG molecule (which will be added in the next part) will
+    be fully flexible.
 
-   Let us print the atom positions in a dump file every 1000
-   timesteps (i.e. 1 ps), print the temperature volume, and
-   density every 100 timesteps in 3 separate data files, and
-   print the information in the terminal every 1000 timesteps:
+    Let us print the atom positions in a dump file every 1000
+    timesteps (i.e. 1 ps), print the temperature volume, and
+    density every 100 timesteps in 3 separate data files, and
+    print the information in the terminal every 1000 timesteps:
 
 ..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
@@ -531,43 +533,51 @@ PEG molecule
 
 ..  container:: justify
 
-   Now that the water box is ready, let us prepare the PEG
-   molecule. Create a second folder next to pureH2O/, call it
-   singlePEG/, and create a new blank file called input.lammps
-   in it. Copy the same first lines as previously:
+    Now that the water box is ready, let us prepare the PEG
+    molecule in an empty box. Create a second folder next to pureH2O/, call it
+    singlePEG/, and create a new blank file called input.lammps
+    in it. Copy the same first lines as previously:
 
 ..  code-block:: lammps
-   :caption: *to be copied in singlePEG/input.lammps*
+    :caption: *to be copied in singlePEG/input.lammps*
 
-   units real
-   atom_style full
-   bond_style harmonic
-   angle_style charmm
-   dihedral_style charmm
-   pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
-   kspace_style pppm/tip4p 1.0e-4
+    units real
+    atom_style full
+    bond_style harmonic
+    angle_style charmm
+    dihedral_style charmm
+    pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+    kspace_style pppm/tip4p 1.0e-4
 
 ..  container:: justify
 
-   Let us also add the special_bonds command to cancel the
-   Lennard-Jones and Coulomb interactions between the closest
-   atoms of a same molecule:
+    Let us also add the special_bonds command to cancel the
+    Lennard-Jones interactions between the closest
+    atoms of a same molecule:
 
 ..  code-block:: lammps
-   :caption: *to be copied in singlePEG/input.lammps*
+    :caption: *to be copied in singlePEG/input.lammps*
 
-   special_bonds lj 0.0 0.0 0.5
+    special_bonds lj/coul 0.0 0.0 0.5
+
+.. admonition:: About special_bonds
+    :class: info
+
+    Usually, force fields like charmm are parametrized assuming that the first neighbors within a molecule do not
+    interact directly. Here, since we use 0.0 0.0 0.5, the first (for example C-O) and second (for example C-O-H) neighbors don't interact
+    with each other through LJ and Coulomb potentials, and therefore they only interact through direct bond interactions.
+    For the third neighbor (for example H-C-C-H), only half of the LJ and Coulomb interaction will be added.   
 
 ..  container:: justify
 
-   Let us include the original position of the PEG molecule, as
-   well as the same parameter file as previously:
+    Let us read the original positions for the atoms of the PEG molecule, as
+    well as the same parameter file as previously:
 
 ..  code-block:: lammps
-   :caption: *to be copied in singlePEG/input.lammps*
+    :caption: *to be copied in singlePEG/input.lammps*
 
-   read_data init.data
-   include ../PARM.lammps
+    read_data init.data
+    include ../PARM.lammps
 
 ..  container:: justify
 
@@ -605,79 +615,79 @@ PEG molecule
    energy minimization will be short):
 
 ..  code-block:: lammps
-   :caption: *to be copied in singlePEG/input.lammps*
+    :caption: *to be copied in singlePEG/input.lammps*
 
-   dump mydmp all atom 10 dump.lammpstrj
-   thermo 1
+    dump mydmp all atom 10 dump.lammpstrj
+    thermo 1
 
 ..  container:: justify
 
-   Next, let us perform a minimisation of energy. Here, this
-   step is required because the initial configuration of the
-   PEG molecule is really far from equilibrium.
+    Next, let us perform a minimisation of energy. Here, this
+    step is required because the initial configuration of the
+    PEG molecule is really far from equilibrium.
 
 ..  code-block:: lammps
-   :caption: *to be copied in singlePEG/input.lammps*
+    :caption: *to be copied in singlePEG/input.lammps*
 
-   minimize 1.0e-4 1.0e-6 100 1000
+    minimize 1.0e-4 1.0e-6 100 1000
 
 ..  container:: justify
 
-   After the minimisation, the high resolution dump command is
-   cancelled, and a new dump command with lower frequency is
-   used (see below). We also reset the time to 0 with
-   reset_timestep command:
+    After the minimisation, the high resolution dump command is
+    cancelled, and a new dump command with lower frequency is
+    used (see below). We also reset the time to 0 with
+    reset_timestep command:
 
 ..  code-block:: lammps
-   :caption: *to be copied in singlePEG/input.lammps*
+    :caption: *to be copied in singlePEG/input.lammps*
 
-   undump mydmp
-   reset_timestep 0
+    undump mydmp
+    reset_timestep 0
 
 ..  container:: justify
 
-   The PEG is then equilibrated in the NVT ensemble (fix NVE +
-   temperature control = NVT). No box relaxation is required as
-   the PEG is in vacuum:
+    The PEG is then equilibrated in the NVT ensemble (fix NVE +
+    temperature control = NVT). No box relaxation is required as
+    the PEG is in vacuum:
 
 ..  code-block:: lammps
-   :caption: *to be copied in singlePEG/input.lammps*
+    :caption: *to be copied in singlePEG/input.lammps*
 
-   fix mynve all nve
-   fix myber all temp/berendsen 300 300 100
+    fix mynve all nve
+    fix myber all temp/berendsen 300 300 100
 
 ..  container:: justify
 
-   Let us print the temperature in a file:
+    Let us print the temperature in a file:
 
 ..  code-block:: lammps
-   :caption: *to be copied in singlePEG/input.lammps*
+    :caption: *to be copied in singlePEG/input.lammps*
 
-   dump mydmp all atom 1000 dump.lammpstrj
-   dump_modify mydmp append yes
-   thermo 1000
-   variable mytemp equal temp
-   fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
+    dump mydmp all atom 1000 dump.lammpstrj
+    dump_modify mydmp append yes
+    thermo 1000
+    variable mytemp equal temp
+    fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
 
 ..  container:: justify
 
-   The *dump_modify* ensures that the coordinates are written 
-   in the existing dump.lammpstrj file. 
-   Finally let us run the simulation for a very short time (10 ps):
+    The *dump_modify* ensures that the coordinates are written 
+    in the existing dump.lammpstrj file. 
+    Finally let us run the simulation for a very short time (10 ps):
 
 ..  code-block:: lammps
-   :caption: *to be copied in singlePEG/input.lammps*
+    :caption: *to be copied in singlePEG/input.lammps*
 
-   timestep 1
-   run 10000
-   write_data PEG.data
+    timestep 1
+    run 10000
+    write_data PEG.data
 
 ..  container:: justify
 
-   If you open the dump.lammpstrj file
-   using VMD, you can see the PEG molecule starting from
-   an extremely elongated and unrealistic shape, and 
-   gently equilibrating until reaching a reasonable state.
+    If you open the dump.lammpstrj file
+    using VMD, you can see the PEG molecule starting from
+    an extremely elongated and unrealistic shape, and 
+    gently equilibrating until reaching a reasonable state.
 
 .. figure:: ../figures/allatoms/singlePEG-light.webp
     :alt: PEG in vacuum
@@ -687,9 +697,10 @@ PEG molecule
     :alt: PEG in vacuum
     :class: only-dark
 
-    A PEG molecule in vacuum during an energy
+    The PEG molecule in vacuum during an energy
     minimisation step, followed by a short NVT molecular dynamics.
-
+    The carbon atoms are in dark, the oxygen atoms in red, and the hydrogen atoms in white. 
+    
 ..  container:: justify
 
    Alternatively, you can |download_PEG.data|
@@ -704,74 +715,74 @@ Solvation of the PEG molecule
 
 ..  container:: justify
 
-   Now, we merge the PEG molecule and the equilibrated
-   water reservoir. We do it by (1) importing both
-   previously generated data files (PEG.data and
-   H2O.data) into the same simulation, (2) deleting the
-   overlapping molecules, and (3) re-equilibrating the new
-   system. 
+    Now, we merge the PEG molecule and the
+    water reservoir. We do it by:
 
-   Create a third folder alongside pureH2O/ and singlePEG/,
-   and call it mergePEGH2O/. Create a new blank file in it,
-   called input.lammps. Copy the same first lines as
-   previously in it:
+    - (1) importing both previously generated data files (PEG.data and H2O.data) into the same simulation,
+    - (2) deleting the overlapping molecules, and 
+    - (3) re-equilibrating the new system. 
+
+    Create a third folder alongside pureH2O/ and singlePEG/,
+    and call it mergePEGH2O/. Create a new blank file in it,
+    called input.lammps. Within input.lammps, copy the same first lines as
+    previously:
 
 ..  code-block:: lammps
-   :caption: *to be copied in mergePEGH2O/input.lammps*
+    :caption: *to be copied in mergePEGH2O/input.lammps*
 
-   units real
-   atom_style full
-   bond_style harmonic
-   angle_style charmm
-   dihedral_style charmm
-   pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
-   kspace_style pppm/tip4p 1.0e-4
-   special_bonds lj 0.0 0.0 0.5
+    units real
+    atom_style full
+    bond_style harmonic
+    angle_style charmm
+    dihedral_style charmm
+    pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+    kspace_style pppm/tip4p 1.0e-4
+    special_bonds lj/coul 0.0 0.0 0.5
 
 ..  container:: justify
 
-   Then, import the two previously generated data files:
+    Then, import the two previously generated data files, as well as the same parameter file:
 
 ..  code-block:: lammps
-   :caption: *to be copied in mergePEGH2O/input.lammps*
+    :caption: *to be copied in mergePEGH2O/input.lammps*
 
-   read_data ../singlePEG/PEG.data
-   read_data ../pureH2O/H2O.data add append
-   include ../PARM.lammps
+    read_data ../singlePEG/PEG.data
+    read_data ../pureH2O/H2O.data add append
+    include ../PARM.lammps
 
 ..  container:: justify
 
-   When using the read_data command more than once, one needs
-   to use the *add append* keyword. In that case the
-   simulation box is only initialized by the first read_data.
-   Let us create 2 groups to differentiate the PEG from the H2O:
+    When using the read_data command more than once, one needs
+    to use the *add append* keyword. When doing so, the
+    simulation box is initialized by the first read_data only, and the 
+    second read_data only imports additional atoms.
+    Let us create 2 groups to differentiate the PEG from the H2O:
 
 ..  code-block:: lammps
-   :caption: *to be copied in mergePEGH2O/input.lammps*
+    :caption: *to be copied in mergePEGH2O/input.lammps*
 
-   group H2O type 1 2
-   group PEG type 3 4 5 6 7
+    group H2O type 1 2
+    group PEG type 3 4 5 6 7
 
 ..  container:: justify
 
-   Water molecules that are overlapping with the PEG must be
-   deleted to avoid crashing:
+    Water molecules that are overlapping with the PEG must be
+    deleted to avoid crashing:
 
 ..  code-block:: lammps
-   :caption: *to be copied in mergePEGH2O/input.lammps*
+    :caption: *to be copied in mergePEGH2O/input.lammps*
 
-   delete_atoms overlap 2.0 H2O PEG mol yes
+    delete_atoms overlap 2.0 H2O PEG mol yes
 
 ..  container:: justify
 
-   *Note --* The value of 2 Angstroms was fixed arbitrary,
-   and can be chosen through trial and error. The "mol yes"
-   option ensures that entire molecule are deleted and not
-   just single atoms.
+    Here the value of 2 Angstroms for the overlap cutoff was fixed arbitrarily,
+    and can be chosen through trial and error. If the cutoff is too small, the 
+    simulation will crash. If the cutoff it too long, too many water molecules will unnecessarily be deleted.
 
-   Finally, let us use shake to keep the water
-   molecules as rigid, and use the NPT command to control the
-   temperature, as well as the pressure along x:
+    Finally, let us use shake to keep the water
+    molecules rigid, and use the NPT command to control the
+    temperature, as well as the pressure along the x axis:
 
 ..  code-block:: lammps
    :caption: *to be copied in mergePEGH2O/input.lammps*
@@ -782,48 +793,47 @@ Solvation of the PEG molecule
 
 ..  container:: justify
 
-   *Note --* The box dimension will only adjust along the
-   x dimension here.
+   The box dimension will only adjust along the x axis here.
 
    Once more, let us dump the atom positions and a few
    information about the evolution simulation:
 
 ..  code-block:: lammps
-   :caption: *to be copied in mergePEGH2O/input.lammps*
+    :caption: *to be copied in mergePEGH2O/input.lammps*
 
-   dump mydmp all atom 100 dump.lammpstrj
-   thermo 100
-   variable mytemp equal temp
-   variable myvol equal vol
-   fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
-   fix myat2 all ave/time 10 10 100 v_myvol file volume.dat
+    dump mydmp all atom 100 dump.lammpstrj
+    thermo 100
+    variable mytemp equal temp
+    variable myvol equal vol
+    fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
+    fix myat2 all ave/time 10 10 100 v_myvol file volume.dat
 
 ..  container:: justify
 
-   Let us also print the total enthalpy:
+    Let us also print the total enthalpy:
 
 ..  code-block:: lammps
-   :caption: *to be copied in mergePEGH2O/input.lammps*
+    :caption: *to be copied in mergePEGH2O/input.lammps*
 
-   variable myenthalpy equal enthalpy
-   fix myat3 all ave/time 10 10 100 v_myenthalpy file enthalpy.dat
+    variable myenthalpy equal enthalpy
+    fix myat3 all ave/time 10 10 100 v_myenthalpy file enthalpy.dat
 
 ..  container:: justify
 
-   Finally, let us perform a short equilibration and print the
-   final state in a data file:
+    Finally, let us perform a short equilibration and print the
+    final state in a data file:
 
 ..  code-block:: lammps
-   :caption: *to be copied in mergePEGH2O/input.lammps*
+    :caption: *to be copied in mergePEGH2O/input.lammps*
 
-   run 10000
-   write_data mix.data
+    run 10000
+    write_data mix.data
 
 ..  container:: justify
 
-   If you open the dump.lammpstrj file using VMD, you should
-   see that the box dimension slightly shrink along x.
-   The system looks like that:
+    If you open the dump.lammpstrj file using VMD, you should
+    see that the box dimension slightly shrink along x.
+    The system looks like that:
 
 .. figure:: ../figures/allatoms/solvatedPEG_light.png
    :alt: PEG in water
@@ -870,7 +880,7 @@ Stretching the PEG molecule
    dihedral_style charmm
    pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
    kspace_style pppm/tip4p 1.0e-4
-   special_bonds lj 0.0 0.0 0.5
+   special_bonds lj/coul 0.0 0.0 0.5
 
 ..  container:: justify
 
@@ -887,7 +897,7 @@ Stretching the PEG molecule
 
    Then, let us create 4 atom groups: H2O and PEG (as
    previously) as well as 2 groups containing one single atom
-   corresponding respectively to the oxygen atoms ocated at the
+   corresponding respectively to the oxygen atoms located at the
    ends of the PEG molecule:
 
 ..  code-block:: lammps
@@ -909,22 +919,26 @@ Stretching the PEG molecule
    # write_dump all atom dump.lammpstrj
    # dump myxtc xtc atom 1000 dump.xtc
 
+.. admonition:: Use less disk space by using the xtc format
+    :class: info
+    
+    To generate smaller dump files, use the
+    compressed xtc format. You can do it by commenting the
+    mydmp line and by uncommenting both the write_dump and
+    myxtc lines. Note that xtc files are compressed, and not readable
+    by humans, contrarily to the LAMMPS native format lammpstrj. 
+
 ..  container:: justify
 
-   *Note --* To generate smaller dump files, use the
-   compressed xtc format. You can do it by commenting the
-   mydmp line and by uncommenting both the write_dump and
-   myxtc lines. This is useful for generating higher
-   resolution trajectories without using too much space.
-
-   Let us use a simple thermostating and shake:
+    Let us use a simple thermostating for all atoms 
+    and use shake for the rigid water molecules:
 
 ..  code-block:: lammps
-   :caption: *to be copied in pullonPEG/input.lammps*
+    :caption: *to be copied in pullonPEG/input.lammps*
 
-   timestep 1
-   fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
-   fix mynvt all nvt temp 300 300 100
+    timestep 1
+    fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
+    fix mynvt all nvt temp 300 300 100
 
 Let us print the end-to-end distance of the PEG (and the
 temperature of the entire system):
@@ -942,10 +956,6 @@ temperature of the entire system):
 
 ..  container:: justify
 
-   The distance between the two ends are here extracted
-   directly using the LAMMPS internal commands, but the same
-   information can also be extracted from the dump file after
-   the simulation is over.
    Finally, let us run the simulation for 10 ps (without
    any external forcing):
 
@@ -956,7 +966,9 @@ temperature of the entire system):
 
 ..  container:: justify
 
-   Then, let us apply a forcing on the 2 oxygen atoms using 2
+   This 10 ps serves as an extra small equilibration. In principle, 
+   it is not necessary as equilibration was properly performed during the 
+   previous step. Then, let us apply a forcing on the 2 oxygen atoms using 2
    add_force commands, and run for 100 ps (for a total duration
    of the simulation of 110 ps):
 
@@ -969,9 +981,8 @@ temperature of the entire system):
 
 ..  container:: justify
 
-   If you open the dump.lammpstrj file using VMD , you should
-   see this (here the water is represented as a continuum
-   field):
+   If you open the dump.lammpstrj file using VMD, you should
+   see this:
 
 .. figure:: ../figures/allatoms/pulled_peg_dark.png
     :alt: PEG molecule in water
@@ -981,12 +992,12 @@ temperature of the entire system):
     :alt: PEG molecule in water
     :class: only-light
 
-    PEG molecule streched in water.
+    PEG molecule streched in water. Water is represented as a continuous field for clarity.
 
 ..  container:: justify
 
    The evolution of the end-to-end
-   distance over time show the PEG adjusting
+   distance over time shows the PEG adjusting
    to the external forcing:
 
 .. figure:: ../figures/allatoms/distance-dark.png
@@ -1002,12 +1013,23 @@ temperature of the entire system):
 
 .. include:: ../../contact/accessfile.rst
 
+What now?
+=========
+
+..  container:: justify
+
+    Now that you have completed this relatively advanced molecular dynamics tutorials, and 
+    that all input scripts are working, I suggest you to mess around with the inputs and 
+    try to trigger warnings and error. The more warning and error you trigger from a working input, the 
+    easier it will be to solve future issue in your own input. 
+
 Going further with exercises
 ============================
 
 .. include::  ../../contact/requestsolution.rst
 
-**Exercise 1 : generate a PEG-H2O mixture**
+Generate a PEG-H2O mixture
+--------------------------
 
 ..  container:: justify
 
@@ -1015,10 +1037,18 @@ Going further with exercises
    PEG-H2O mixture with several PEG molecules hydrated in a
    cubic box.
 
-   Hint: LAMMPS has internal commands allowing to replicate
-   a molecule or a system.
+.. admonition:: Hints
+    :class: dropdown
 
-**Exercise 2 : end-to-end distance**
+    LAMMPS has internal commands allowing to replicate
+    a molecule or a system.
+
+    There is no obligation to equilibrate the water molecules separately from the PEG,
+    as we did here. You can also create the water molecules directly around the PEG molcule
+    using the create_atom command.
+
+Compare end-to-end distance
+---------------------------
 
 ..  container:: justify
 
@@ -1026,26 +1056,28 @@ Going further with exercises
    with a PEG molecule in water, and measure their respective
    end-to-end equilibrium distance. PEG are hydrophilic and
    form hbonds with water molecules, therefore, when immersed
-   in water, a PEG molecule slightly unfold, which changes it
-   equilibrium end-to-end length.
+   in water, PEG molecules slightly unfold, which changes the
+   equilibrium end-to-end distance.
 
-**Exercise 3 : post-mortem analysis**
-
-..  container:: justify
-
-   Import the trajectory using Python, and re-extract the
-   end-to-end distance.
-
-   Hint: you can import lammpstrj file using MDAnalysis:
-
-..  code-block:: python
-
-   u = mda.Universe("dump.lammpstrj", format = "LAMMPSDUMP")
+Post-mortem analysis
+--------------------
 
 ..  container:: justify
 
-   **Motivation:** In today research, most data analyses are
-   done after the simulation is over, and it is important for
-   LAMMPS users to know how to do it.
+    In today research, most data analyses are
+    done after the simulation is over, and it is important for
+    LAMMPS users to know how to do it.
+
+    Import the trajectory using Python, and re-extract the
+    end-to-end distance.
+
+.. admonition:: Hints
+    :class: dropdown
+
+    You can import lammpstrj file using MDAnalysis:
+
+    ..  code-block:: python
+
+        u = mda.Universe("dump.lammpstrj", format = "LAMMPSDUMP")
 
 .. include:: ../../contact/contactme.rst
