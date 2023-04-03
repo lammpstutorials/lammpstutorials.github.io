@@ -608,15 +608,20 @@ Trajectory visualisation
 Improving the script
 ====================
 
+..  container:: justify
+
+    Let us improve the input script and perform slightly more
+    advanced operations.
+
 .. figure:: ../figures/lennardjones/input2.png
    :alt: binary fluid
    :width: 350 px
    :align: right
 
-..  container:: justify
+Control the initial atom positions
+----------------------------------
 
-    Let us improve the input script and perform slightly more
-    advanced operations.
+..  container:: justify
 
     Let us create the atoms of type 1 and 2 in two separate
     regions, respectively, instead of creating them both randomly 
@@ -731,7 +736,7 @@ Improving the script
     atoms velocities :math:`v_x`, :math:`v_y`, :math:`v_z`.
 
 Restarting from a saved configuration
-=====================================
+-------------------------------------
 
 ..  container:: justify
 
@@ -972,31 +977,52 @@ Going further with exercises
     water models using shake for whiches the minimize command
     cant be used).
 
-    *Hint --* adjust both the value of the timestep and the
-    damping factor of the fix langevin
+.. admonition:: Hints
+    :class: dropdown
 
-    *Hint --* perform several consecutive runs (the very
-    first run with small timestep, the last one with normal
-    timestep)
+    Adjust both the value of the timestep and the
+    damping factor of the fix langevin to prevent the system from 
+    exploding.
 
-    *Hint --* have a look at fix nve/limit, this command is
-    made explicitely to prevent an unequilibrated system for
-    exploding
+    Perform as many consecutive runs with varying timestep and damping factor.
+
+    Have a look at fix nve/limit (instead of nve), this command is
+    made explicitely to prevent an unequilibrated system for exploding.
+
+..  container:: justify
 
     **Exercise 2 : perform an actual NVE simulation**
     Despite using the NVE fix, simulations here are not
-    performed in the NVE ensemble (because of the use of the
-    thermostat). Starting from the system of the Exercise 2a,
-    perform a simulation in the NVE ensemble and extract the
+    performed in the NVE ensemble but in the NVT ensemble (because of the use of the
+    thermostat). Perform a simulation in the NVE ensemble and extract the
     energy over time. Is it conserved as expected? What if you
     do the same with a 2D simulation?
 
-    *Hint --* a smaller value for the timestep gives better
-    energy conservation
+.. admonition:: Hints
+    :class: dropdown
+
+    Using a smaller value for the timestep gives better
+    energy conservation.
+
+..  container:: justify
 
     **Exercise 3 : induce a net flow**
 
-    So far, atoms were freely diffusing. Add an external
-    acceleration to induce a net flow of atoms in aone
-    direction. The value for the acceleration must be chosen so
-    that the system is not *too* out-of-equilibrium.
+    So far, atoms were freely diffusing without contraint or external force.
+    Add an external force to induce a net flow of atoms in one
+    direction. The magnitude of the force must be chosen so
+    that the system is not *too far* from equilibrium.
+
+.. admonition:: Hints
+    :class: dropdown
+
+    LAMMPS offer several option to add external force to a system, one 
+    being the fix addforce.
+
+    If the system is too far from equilibrium, it enters the non-linear response 
+    regimes and its properties and parameters will differ from its equilibrium values.
+    In general, this is something that you must avoid (unless you are studying
+    non-linear effects). 
+
+
+
