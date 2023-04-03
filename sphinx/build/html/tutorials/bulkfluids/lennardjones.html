@@ -766,12 +766,16 @@ top of this page.</p>
 </section>
 <section id="improving-the-script">
 <h2>Improving the script<a class="headerlink" href="#improving-the-script" title="Permalink to this heading">#</a></h2>
-<figure class="align-right">
-<a class="reference internal image-reference" href="../../_images/input2.png"><img alt="binary fluid" src="../../_images/input2.png" style="width: 350px;" /></a>
-</figure>
 <div class="justify docutils container">
 <p>Let us improve the input script and perform slightly more
 advanced operations.</p>
+</div>
+<figure class="align-right">
+<a class="reference internal image-reference" href="../../_images/input2.png"><img alt="binary fluid" src="../../_images/input2.png" style="width: 350px;" /></a>
+</figure>
+<section id="control-the-initial-atom-positions">
+<h3>Control the initial atom positions<a class="headerlink" href="#control-the-initial-atom-positions" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
 <p>Let us create the atoms of type 1 and 2 in two separate
 regions, respectively, instead of creating them both randomly
 within the entire space as we did previously. Create a new input script, and call
@@ -880,7 +884,7 @@ atoms velocities <span class="math notranslate nohighlight">\(v_x\)</span>, <spa
 </div>
 </section>
 <section id="restarting-from-a-saved-configuration">
-<h2>Restarting from a saved configuration<a class="headerlink" href="#restarting-from-a-saved-configuration" title="Permalink to this heading">#</a></h2>
+<h3>Restarting from a saved configuration<a class="headerlink" href="#restarting-from-a-saved-configuration" title="Permalink to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>We are going to create a new input file and start a
 molecular dynamics simulation directly from the previously
@@ -1060,6 +1064,7 @@ mixing:</p>
 <p>You can access all the input scripts and data files that
 are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">Github</a>.</p>
 </section>
+</section>
 <section id="going-further-with-exercises">
 <h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Permalink to this heading">#</a></h2>
 <div class="solution admonition">
@@ -1108,28 +1113,44 @@ Perform an energy minimization without using the minimize
 command (this is sometimes usefull, particularly for rigid
 water models using shake for whiches the minimize command
 cant be used).</p>
-<p><em>Hint –</em> adjust both the value of the timestep and the
-damping factor of the fix langevin</p>
-<p><em>Hint –</em> perform several consecutive runs (the very
-first run with small timestep, the last one with normal
-timestep)</p>
-<p><em>Hint –</em> have a look at fix nve/limit, this command is
-made explicitely to prevent an unequilibrated system for
-exploding</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Hints</p>
+<p>Adjust both the value of the timestep and the
+damping factor of the fix langevin to prevent the system from
+exploding.</p>
+<p>Perform as many consecutive runs with varying timestep and damping factor.</p>
+<p>Have a look at fix nve/limit (instead of nve), this command is
+made explicitely to prevent an unequilibrated system for exploding.</p>
+</div>
+<div class="justify docutils container">
 <p><strong>Exercise 2 : perform an actual NVE simulation</strong>
 Despite using the NVE fix, simulations here are not
-performed in the NVE ensemble (because of the use of the
-thermostat). Starting from the system of the Exercise 2a,
-perform a simulation in the NVE ensemble and extract the
+performed in the NVE ensemble but in the NVT ensemble (because of the use of the
+thermostat). Perform a simulation in the NVE ensemble and extract the
 energy over time. Is it conserved as expected? What if you
 do the same with a 2D simulation?</p>
-<p><em>Hint –</em> a smaller value for the timestep gives better
-energy conservation</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Hints</p>
+<p>Using a smaller value for the timestep gives better
+energy conservation.</p>
+</div>
+<div class="justify docutils container">
 <p><strong>Exercise 3 : induce a net flow</strong></p>
-<p>So far, atoms were freely diffusing. Add an external
-acceleration to induce a net flow of atoms in aone
-direction. The value for the acceleration must be chosen so
-that the system is not <em>too</em> out-of-equilibrium.</p>
+<p>So far, atoms were freely diffusing without contraint or external force.
+Add an external force to induce a net flow of atoms in one
+direction. The magnitude of the force must be chosen so
+that the system is not <em>too far</em> from equilibrium.</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Hints</p>
+<p>LAMMPS offer several option to add external force to a system, one
+being the fix addforce.</p>
+<p>If the system is too far from equilibrium, it enters the non-linear response
+regimes and its properties and parameters will differ from its equilibrium values.
+In general, this is something that you must avoid (unless you are studying
+non-linear effects).</p>
 </div>
 </section>
 </section>
@@ -1194,8 +1215,11 @@ that the system is not <em>too</em> out-of-equilibrium.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#trajectory-visualisation">Trajectory visualisation</a></li>
-<li><a class="reference internal" href="#improving-the-script">Improving the script</a></li>
+<li><a class="reference internal" href="#improving-the-script">Improving the script</a><ul>
+<li><a class="reference internal" href="#control-the-initial-atom-positions">Control the initial atom positions</a></li>
 <li><a class="reference internal" href="#restarting-from-a-saved-configuration">Restarting from a saved configuration</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a></li>
 </ul>
 </li>
