@@ -6,8 +6,8 @@
 variable T equal 300
 
 units real
-atom_style full
-boundary p p p
+atom_style molecular
+boundary f f f
 pair_style lj/cut 14
 
 bond_style harmonic
@@ -16,12 +16,17 @@ dihedral_style opls
 improper_style harmonic
 special_bonds lj 0.0 0.0 0.5
 
-# System definition
 read_data carbon.data
 include PARM.lammps
 
-# Simulation settings
 group gcar type 1
+variable xcm equal -1*xcm(gcar,x)
+variable ycm equal -1*xcm(gcar,y)
+variable zcm equal -1*xcm(gcar,z)
+displace_atoms gcar move ${xcm} ${ycm} ${zcm}
+
+change_box all x final -35.0 35.0 y final -35.0 35.0 z final -15.0 15.0
+
 variable xmax equal bound(gcar,xmax)-0.5
 variable xmin equal bound(gcar,xmin)+0.5
 region rtop block ${xmax} INF INF INF INF INF
