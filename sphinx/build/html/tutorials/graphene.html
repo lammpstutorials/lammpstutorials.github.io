@@ -244,8 +244,7 @@
 <div class="justify docutils container">
 <p>In this tutorial, a graphene sheet
 is generated using VMD and topotool, and is then
-deformed using an applied displacement (a method called
-<em>out-of-equilibrium molecular dynamics</em>).</p>
+deformed using an applied displacement.</p>
 </div>
 <div class="patreon admonition">
 <p class="admonition-title">Do you think I can help you with your project?</p>
@@ -296,11 +295,15 @@ to generate the LAMMPS data file, enter the following command:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text"><em>to be written in the VMD terminal</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>topo writelammpsdata carbon.data full
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>topo writelammpsdata carbon.data molecular
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
+<p>Here molecular refers to the LAMMPS atom_style, and carbon.data
+to the name of the file.</p>
+<p>Note that I am using TopoTools v1.7. Older or newer versions
+may require slightly different commands.</p>
 <p>More details about these commands can be found on the
 personal page of <a href="https://sites.google.com/site/akohlmey/software/topotools" target="_blank">Axel Kohlmeyer</a>.
 In short, Topotool deduces the location of bonds, angles,
@@ -315,7 +318,7 @@ dihedral coefficients, etc.) will be given later.</p>
 <p>A new file named “carbon.data” has been created, it starts
 like that:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">LAMMPS</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">file.</span><span class="w"> </span><span class="n">CGCMM</span><span class="w"> </span><span class="n">style.</span><span class="w"> </span><span class="n">atom_style</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="n">generated</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">VMD</span><span class="o">/</span><span class="n">TopoTools</span><span class="w"> </span><span class="n">v1.7</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">Sat</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">15:44:40</span><span class="w"> </span><span class="n">CET</span><span class="w"> </span><span class="m">2023</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">LAMMPS</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">file.</span><span class="w"> </span><span class="n">CGCMM</span><span class="w"> </span><span class="n">style.</span><span class="w"> </span><span class="n">atom_style</span><span class="w"> </span><span class="n">molecular</span><span class="w"> </span><span class="n">generated</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">VMD</span><span class="o">/</span><span class="n">TopoTools</span><span class="w"> </span><span class="n">v1.7</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">Tue</span><span class="w"> </span><span class="n">Apr</span><span class="w"> </span><span class="m">04</span><span class="w"> </span><span class="m">15:58:11</span><span class="w"> </span><span class="n">CEST</span><span class="w"> </span><span class="m">2023</span>
 <span class="m">680</span><span class="w"> </span><span class="n">atoms</span>
 <span class="m">983</span><span class="w"> </span><span class="n">bonds</span>
 <span class="m">1894</span><span class="w"> </span><span class="n">angles</span>
@@ -337,10 +340,11 @@ about the positions of the carbons atoms, as well as the
 identity of the atoms that are linked by bonds, angles, dihedrals,
 and impropers constraints.</p>
 <p>Save the “carbon.data” file in the same folder as your
-future LAMMPS input script. We are done with the system
+future LAMMPS input script.</p>
+<p>We are done with the system
 generation, we can start the molecular dynamics simulations.</p>
 <p>Alternatively, you can download the file I did generate
-by clicking  <a href="../../../../inputs/2Dmaterials/graphene/carbon.data" target="_blank">here</a>.</p>
+by clicking  <a href="../../../../inputs/2Dmaterials/graphene/carbon.data" target="_blank">here</a>, and continue with the tutorial.</p>
 </div>
 </section>
 <section id="lammps-input-script">
@@ -356,8 +360,8 @@ following lines in it:</p>
 <span class="k">variable </span><span class="nv nv-Identifier">T</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">300</span>
 
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
-<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
-<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">molecular</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">f</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="m">14</span>
 
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
@@ -367,15 +371,17 @@ following lines in it:</p>
 
 <span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span>
 
-<span class="c"># System definition</span>
 <span class="k">read_data</span><span class="w"> </span><span class="n">carbon.data</span>
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Most of these command lines have been seen already in
-previous tutorials (see the bulk fluids series for instance), with a few
-differences: first, the pair style here is lj/cut with
+<p>The unit system is real (distance are in Angstrom, time in femtosecond),
+atom style is molecular (atoms are dots that can be bonded with each other),
+and the boundary conditions are fixed. The boundary conditions
+do not matter much here, as the box boundaries are far from the graphene sheet.</p>
+<p>Here the pair style is lj/cut (i.e. a Lennard Jones potential
+with a short range cutoff) with
 parameter 14, which means that the atoms closer than 14
 Angstroms from each others interact through a Lennard-Jones
 potential. Notice that there is no Coulombic interaction
@@ -392,16 +398,18 @@ information about the box size, atoms positions, etc.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About interaction between neighbors atoms</p>
-<p>Atoms connected by bond do not typically interact through
+<p>Atoms connected by a bond do not typically interact through
 Lennard-Jones interaction. This is ensured here by the
 special_bonds command. The three numbers of the
 special_bonds command are weighting factors for the
 Lennard-Jones interaction between atoms connected by bond
-(respectively directly bounded, separated by two bonds,
-etc.). For instance, the first weighting factor, with a
+(respectively directly bounded C-C, separated by two bonds C-C-C,
+and separated by three bonds C-C-C-C). For instance, the
+first weighting factor, with a
 value of 0, imposes that two atoms connected by a bond do
 not interact through a Lennard-Jones potential (therefore
-they only interact through bonded potentials).</p>
+they only interact through the harmonic potential that bond the atoms
+of the graphene).</p>
 </div>
 </section>
 <section id="parameters-for-the-graphene">
@@ -444,21 +452,65 @@ simulation by adding the following line to input.lammps:</p>
 </div>
 </div>
 </section>
-<section id="separate-the-atoms-into-3-groups">
-<h2>Separate the atoms into 3 groups<a class="headerlink" href="#separate-the-atoms-into-3-groups" title="Permalink to this heading">#</a></h2>
+<section id="recenter-the-atoms-in-the-box">
+<h2>Recenter the atoms in the box<a class="headerlink" href="#recenter-the-atoms-in-the-box" title="Permalink to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>The goal of the present simulation is to impose a
-deformation to the sheet. To do so, we will isolate the
-atoms of two edges of the graphene sheets into groups, and
-the displacement will be applied to the atoms of the edge.
-Add the following lines to the input script :</p>
+<p>The graphene sheet generated by topotool is not centered in the box.
+The box itself is not symmetric, as its coordinates are</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="m">20.965628</span><span class="w"> </span><span class="m">59.034372</span><span class="w">  </span><span class="n">xlo</span><span class="w"> </span><span class="n">xhi</span>
+<span class="o">-</span><span class="m">19.438999</span><span class="w"> </span><span class="m">60.561001</span><span class="w">  </span><span class="n">ylo</span><span class="w"> </span><span class="n">yhi</span>
+<span class="o">-</span><span class="m">40.000000</span><span class="w"> </span><span class="m">40.000000</span><span class="w">  </span><span class="n">zlo</span><span class="w"> </span><span class="n">zhi</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Let us create a cleaner initial state by recentering the graphene
+at the origin (0, 0, 0), and symmetrize the box.</p>
+<p>In the LAMMPS input, copy:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Simulation settings</span>
-
-<span class="k">group </span><span class="nv nv-Identifier">gcar</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
-<span class="k">variable </span><span class="nv nv-Identifier">xmax</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(gcar,xmax)</span><span class="o">-</span><span class="m">0.5</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">gcar</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
+<span class="k">variable </span><span class="nv nv-Identifier">xcm</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="o">*</span><span class="n">xcm</span><span class="nv">(gcar,x)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">ycm</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="o">*</span><span class="n">xcm</span><span class="nv">(gcar,y)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">zcm</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="o">*</span><span class="n">xcm</span><span class="nv">(gcar,z)</span>
+<span class="k">displace_atoms</span><span class="w"> </span><span class="n">gcar</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="nv">${xcm}</span><span class="w"> </span><span class="nv">${ycm}</span><span class="w"> </span><span class="nv">${zcm}</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The first command includes all of the atoms of type one
+(i.e. all the atoms here) in a group named ‘gcar’.
+The 3 variables measure the current position of the group gcar
+along all 3 directions, respectively. Then, the displace atoms
+command move the group gcar, ensuring that its center of mass
+is located at the origin (0, 0, 0).</p>
+<p>Let us also slightly reduce the box size, and give it cleaner and symmetric value.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">35.0</span><span class="w"> </span><span class="m">35.0</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">35.0</span><span class="w"> </span><span class="m">35.0</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">15.0</span><span class="w"> </span><span class="m">15.0</span>
+</pre></div>
+</div>
+</div>
+<div class="info admonition">
+<p class="admonition-title">About the atom style</p>
+<p>A cleaner initial state, as we did here, wont make any difference to the simulation, but
+can make the future data analysis more practical.</p>
+</div>
+</section>
+<section id="separate-the-atoms-into-3-groups">
+<h2>Separate the atoms into 3 groups<a class="headerlink" href="#separate-the-atoms-into-3-groups" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>The main goal of the present tutorial is to impose a
+deformation to the sheet. To do so, we will isolate the
+atoms from the two edges of the graphene sheets and place them into groups.
+Then, the displacement will be applied to the atoms of the edges.
+Add the following lines to the input script :</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">xmax</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(gcar,xmax)</span><span class="o">-</span><span class="m">0.5</span>
 <span class="k">variable </span><span class="nv nv-Identifier">xmin</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(gcar,xmin)</span><span class="o">+</span><span class="m">0.5</span>
 <span class="k">region </span><span class="nv nv-Identifier">rtop</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="nv">${xmax}</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span>
 <span class="k">region </span><span class="nv nv-Identifier">rbot</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="nv">${xmin}</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span>
@@ -467,9 +519,7 @@ Add the following lines to the input script :</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>The first command includes all of the atoms of type one
-(i.e. all the atoms here) in a group named gcar. Then, two
-variables are defined: <span class="math notranslate nohighlight">\(x_\mathrm{max}\)</span> corresponds to
+<p>The variable <span class="math notranslate nohighlight">\(x_\mathrm{max}\)</span> corresponds to
 the coordinate of the last atoms along \(x\) minus 0.5
 Angstroms, and <span class="math notranslate nohighlight">\(x_\mathrm{min}\)</span> to the coordinate of
 the first atoms along <span class="math notranslate nohighlight">\(x\)</span> plus 0.5 Angstroms. Then, 3
@@ -480,19 +530,41 @@ regions are defined, and correspond respectively to: <span class="math notransla
 corresponding to the atoms located in each of the 3 regions,
 respectively:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">gtop</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtop</span>
 <span class="k">group </span><span class="nv nv-Identifier">gbot</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span>
 <span class="k">group </span><span class="nv nv-Identifier">gmid</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rmid</span>
 </pre></div>
 </div>
 </div>
+<div class="justify docutils container">
+<p>The atoms of the edges as selected within the gtop and gbot groups
+are represented by spheres:</p>
+</div>
+<figure class="align-default">
+<img alt="graphene in vacuum image VMD with selected groups at the edges" class="only-dark" src="../_images/group-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="graphene in vacuum image VMD with selected groups at the edges" class="only-light" src="../_images/group-light.png" />
+</figure>
 <div class="info admonition">
 <p class="admonition-title">Tip</p>
+<div class="justify docutils container">
 <p>When running a simulation, the number of atoms in each
 group is printed in the terminal (and in the log.lammps
 file). Alway control that the number of atoms is the one you expect.</p>
+<p>Here I see:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">20</span><span class="w"> </span>atoms<span class="w"> </span><span class="k">in</span><span class="w"> </span>group<span class="w"> </span>gtop
+<span class="m">20</span><span class="w"> </span>atoms<span class="w"> </span><span class="k">in</span><span class="w"> </span>group<span class="w"> </span>gbot
+<span class="m">640</span><span class="w"> </span>atoms<span class="w"> </span><span class="k">in</span><span class="w"> </span>group<span class="w"> </span>gmid
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>which is consistent with what I expect when looking at the system
+using VMD.</p>
+</div>
 </div>
 </section>
 <section id="thermalisation-and-dynamics">
@@ -501,8 +573,8 @@ file). Alway control that the number of atoms is the one you expect.</p>
 <p>Let us specify the thermalisation and the dynamics of the
 system. Add the following lines to input.lammps:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id10" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity</span><span class="w"> </span><span class="n">gmid</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">compute </span><span class="nv nv-Identifier">Tmid</span><span class="w"> </span><span class="nv nv-Identifier">gmid</span><span class="w"> </span><span class="n">temp</span>
@@ -530,8 +602,8 @@ be restrained in the next part of the input.</p>
 <p>To restrain the motion of the atoms at the edges, add the
 following commands:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id11" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">gtop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">gbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
 <span class="k">velocity</span><span class="w"> </span><span class="n">gtop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
@@ -559,8 +631,8 @@ the two edges as well as the force applied on the edges. Let
 us also add a command to print the atoms coordinates in a
 lammpstrj file every 1000 timeteps:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id10" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">L</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(gtop,x)</span><span class="o">-</span><span class="n">xcm</span><span class="nv">(gbot,x)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">at1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_L</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">length.dat</span>
 <span class="k">fix </span><span class="nv nv-Identifier">at2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">f_mysf1[1]</span><span class="w"> </span><span class="n">f_mysf2[1]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">force.dat</span>
@@ -583,8 +655,8 @@ before its cancellation.</p>
 <div class="justify docutils container">
 <p>Let us run a small equilibration step:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id11" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id13" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">thermo</span><span class="w"> </span><span class="m">100</span>
 <span class="k">thermo_modify</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tmid</span>
 
@@ -604,8 +676,8 @@ system is not relevant). Then, let us perform a loop. At
 each step of the loop, the edges are slightly displaced, and
 the simulation runs for a short time.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id14" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">var</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">10</span>
 <span class="k">label</span><span class="w"> </span><span class="n">loop</span>
 <span class="k">displace_atoms</span><span class="w"> </span><span class="n">gtop</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
@@ -696,6 +768,7 @@ are used in these tutorials from <a href="https://github.com/lammpstutorials/lam
 <li><a class="reference internal" href="#generation-of-the-system">Generation of the system</a></li>
 <li><a class="reference internal" href="#lammps-input-script">LAMMPS input script</a></li>
 <li><a class="reference internal" href="#parameters-for-the-graphene">Parameters for the graphene</a></li>
+<li><a class="reference internal" href="#recenter-the-atoms-in-the-box">Recenter the atoms in the box</a></li>
 <li><a class="reference internal" href="#separate-the-atoms-into-3-groups">Separate the atoms into 3 groups</a></li>
 <li><a class="reference internal" href="#thermalisation-and-dynamics">Thermalisation and dynamics</a></li>
 <li><a class="reference internal" href="#restrain-the-motion-of-the-edges">Restrain the motion of the edges</a></li>
