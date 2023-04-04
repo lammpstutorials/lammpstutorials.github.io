@@ -43,27 +43,34 @@ compute Tmid gmid temp
 fix myber gmid temp/berendsen ${T} ${T} 100
 fix_modify myber temp Tmid
 
+fix at1 all ave/time 10 100 1000 c_Tmid file temperature.dat
+
 fix mysf1 gtop setforce 0 NULL 0
 fix mysf2 gbot setforce 0 NULL 0
 velocity gtop set 0 NULL 0
 velocity gbot set 0 NULL 0
 
 variable L equal xcm(gtop,x)-xcm(gbot,x)
-fix at1 all ave/time 10 100 1000 v_L file length.dat
-fix at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
+fix at2 all ave/time 10 100 1000 v_L file length.dat
+fix at3 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
 dump mydmp all atom 1000 dump.lammpstrj
 
 thermo 100
 thermo_modify temp Tmid
 
-# Run
 timestep 1.0
 run 5000
 
-variable var loop 100
-label loop
-displace_atoms gtop move 0.1 0 0
-displace_atoms gbot move -0.1 0 0
-run 1000
-next var
-jump SELF loop
+# Incremental elongation 
+#variable var loop 100
+#label loop
+#displace_atoms gtop move 0.1 0 0
+#displace_atoms gbot move -0.1 0 0
+#run 1000
+#next var
+#jump SELF loop
+
+# Constant-velocity elongation
+velocity gtop set 0.0005 NULL 0
+velocity gbot set -0.0005 NULL 0
+run 2000

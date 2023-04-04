@@ -152,7 +152,7 @@ Generation of the system
 
 .. |download_carbon_data| raw:: html
 
-   <a href="../../../../inputs/2Dmaterials/graphene/carbon.data" target="_blank">here</a>
+   <a href="../../../../inputs/graphene-under-deformation/carbon.data" target="_blank">here</a>
 
 LAMMPS input script
 ===================
@@ -416,14 +416,31 @@ Thermalisation and dynamics
 
    The "velocity create" command gives initial velocities to
    the atoms of the group gmid, assuring an initial temperature
-   of 300 K for these atoms. NVE fix is applied to all
-   atoms, thus ensuring that atoms positions are recalculated
-   in time, and a Berendsen thermostat is applied to the atoms
+   of 300 K for these atoms. 
+   
+   The fix nve is applied to all
+   atoms so that atoms positions are recalculated
+   every timestep, and a Berendsen thermostat is applied to the atoms
    of the group gmid only. The "fix modify" ensures that the
    fix Berendsen uses the temperature of the group gmid as an
-   input, instead of the temperature of whole system. The atoms
+   input, instead of the temperature of whole system (as the 
+   frozen edges would biase the temperature). The atoms
    of the edges are not thermalised because their motion will
    be restrained in the next part of the input.
+
+.. admonition:: Deal with semi-frozen system
+    :class: info
+
+    Always be carefull when part of a system is frozen. In that 
+    case, the total temperature of the system is effectively lower
+    than the applied temperature because the frozen atoms 
+    have a temperature of 0. If you have any doubt about the procedure
+    you are using, simply print the temperature of the non-frozen group using fix ave/time:
+
+    ..  code-block:: lammps
+        :caption: *to be copied in input.lammps*
+
+        fix at1 all ave/time 10 100 1000 c_Tmid file temperature.dat
 
 Restrain the motion of the edges
 ================================
@@ -444,88 +461,108 @@ Restrain the motion of the edges
 ..  container:: justify
 
    The two setforce commands cancel the forces applied on the
-   atoms of the two edges, respectively, during the whole
-   simulation along :math:`x` and :math:`z`, and the velocity
+   atoms of the two edges, respectively. Fix setforce apply during the whole
+   simulation, and are here applying only along :math:`x` and :math:`z`. The two velocity
    commands set the initial velocities along :math:`x` and
    :math:`z` to 0 for the atoms of the edges. Therefore, the
    atoms of the edges will remain immobile during the
-   simulation (or they would if no other command was applied to
-   them).
+   simulation (or at least they would if no other command was applied to them).
+
+.. admonition:: On imposing a constant velocity to a system
+    :class: info
+
+    The 'velocity set' commands impose the velocity of a group of atoms *when it is 
+    read*, but do not enforce the velocity during the entire simulation. 
+
+    When 'velocity set' is used in combination with 'setforce 0', the atoms will
+    feel no force from the rest of the simulation. Accoring to the Newton equation,
+    no force means no acceleration, meaning that the initial velocity will persist.
 
 Data extraction
 ===============
 
 ..  container:: justify
 
-   Next, in order to measure the strain and stress in the
-   graphene sheet, let us extract the distance :math:`L` between
-   the two edges as well as the force applied on the edges. Let
-   us also add a command to print the atoms coordinates in a
-   lammpstrj file every 1000 timeteps:
+    Next, in order to measure the strain and stress suffered by the
+    graphene sheet, let us extract the distance :math:`L` between
+    the two edges as well as the force applied on the edges. Let
+    us also add a command to print the atom coordinates in a
+    lammpstrj file every 1000 timeteps:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input.lammps*
+    :caption: *to be copied in input.lammps*
 
-   variable L equal xcm(gtop,x)-xcm(gbot,x)
-   fix at1 all ave/time 10 100 1000 v_L file length.dat
-   fix at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
-   dump mydmp all atom 1000 dump.lammpstrj
+    variable L equal xcm(gtop,x)-xcm(gbot,x)
+    fix at2 all ave/time 10 100 1000 v_L file length.dat
+    fix at3 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
+    dump mydmp all atom 1000 dump.lammpstrj
 
-..  container:: justify
+.. admonition:: About `f_`, `v_`, and `c_`
+    :class: info
 
-   Notice that the values of the force on each edge are
-   extracted from the fixes setforce 'mysf1' and 'mysf2', by
-   calling them using `f_`, the same way variables are called
-   using `v_` and computes are called using `c_`. A fix
-   setforce cancels all the forces on a group of atoms every
-   timestep, but allows one to extract the values of the force
-   before its cancellation.
+    Notice that the values of the force on each edge are
+    extracted from the fixes setforce 'mysf1' and 'mysf2', by
+    calling them using `f_`, the same way variables are called
+    using `v_` and computes are called using `c_`. A fix
+    setforce cancels all the forces on a group of atoms every
+    timestep, but allows one to extract the values of the force
+    before its cancellation.
 
 Run
 ===
 
 ..  container:: justify
 
-   Let us run a small equilibration step:
+    Let us run a small equilibration step to bring the system 
+    to the required temperature without applying any deformation:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input.lammps*
+    :caption: *to be copied in input.lammps*
 
-   thermo 100
-   thermo_modify temp Tmid
+    thermo 100
+    thermo_modify temp Tmid
 
-   # Run
-
-   timestep 1.0
-   run 5000
+    timestep 1.0
+    run 5000
 
 ..  container:: justify
 
-   With the thermo_modify command, we specify to LAMMPS that we
-   want the temperature :math:`T_\mathrm{mid}` to be printed in
-   the terminal, not the temperature of the entire system
-   (because of the frozen edges, the temperature of the entire
-   system is not relevant). Then, let us perform a loop. At
-   each step of the loop, the edges are slightly displaced, and
-   the simulation runs for a short time.
-
-..  code-block:: lammps
-   :caption: *to be copied in input.lammps*
-
-   variable var loop 10
-   label loop
-   displace_atoms gtop move 0.1 0 0
-   displace_atoms gbot move -0.1 0 0
-   run 1000
-   next var
-   jump input.lammps loop
-
+    With the 'thermo_modify' command, we specify to LAMMPS that we
+    want the temperature :math:`T_\mathrm{mid}` to be printed in
+    the terminal, not the temperature of the entire system
+    (because of the frozen edges, the temperature of the entire
+    system is not relevant). 
+    
+Option A: Incremental elongation  
+--------------------------------
+    
 ..  container:: justify
 
-   What you observe should resemble |video_lammps_graphene|. The
-   sheet is progressively elongated, and the carbon honeycombs
-   are being deformed. You can increase the number of iteration
-   of the loop (variable var) to force a larger elongation.
+    Let us perform a loop:
+
+..  code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    variable var loop 10
+        label loop
+        displace_atoms gtop move 0.1 0 0
+        displace_atoms gbot move -0.1 0 0
+        run 1000
+        next var
+        jump input.lammps loop
+
+..  container:: justify
+    
+    At each step of the loop, the edges are slightly displaced, and
+    the simulation runs for 1000. Then the variable 'var' is iterated
+    by the 'next var', and the simulation 'jumps' back to the beginning of 
+    the loop. It will be repeated 10 times, for a total elongation of the 
+    graphene sheet of 2 x 0.1 x 10 = 2 Angstroms.
+
+    What you observe should resemble |video_lammps_graphene|. The
+    sheet is progressively elongated, and the carbon honeycombs
+    are being deformed. You can increase the number of iteration
+    of the loop (variable var) to force a larger elongation.
 
 .. |video_lammps_graphene| raw:: html
 
@@ -543,6 +580,62 @@ Run
    such bond breaking, one has to use a reactive force
    field, which is done in the next tutorial (:ref:`carbon-nanotube-label`).
 
+Option B: Constant-velocity elongation
+--------------------------------------
+
+..  container:: justify
+
+    Instead of the loop, the deformation of the sheet can be ensured 
+    using the velocity set command + the fix setforce (which are already there).
+
+    To obtain the same elongation as previously (i.e. 2 Angstroms, or 1 Angstrom 
+    per edge), using a velocity 
+    for each edge of 0.0005 Angstroms per femtosecond (i.e. 50 meters per second), the simulation 
+    must last 1 / 0.0005 = 2000 femtoseconds. 
+
+..  code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    velocity gtop set 0.0005 NULL 0
+    velocity gbot set -0.0005 NULL 0
+    run 2000
+
 .. include:: ../contact/accessfile.rst
+
+Going further with exercices
+============================
+
+Strain-stress curve (with solution)
+-----------------------------------
+
+Adapt the current script and extract a full strain-stress curve.
+
+.. figure:: figures/graphene/strain-stain-curve-dark.png
+    :alt: strain stain curve for determining the young modulus of graphene
+    :class: only-dark
+
+.. figure:: figures/graphene/strain-stain-curve-light.png
+    :alt: strain stain curve for determining the young modulus of graphene
+    :class: only-light
+
+.. admonition:: Solution
+    :class: dropdown
+
+    The following steps are optional, but give a better result:
+
+    - move fix at2 and at3 after the equilibration, so that it only records during the production run
+    - reduce the velocity to perform a nice and slow graphene pull
+    - increase the magnitude of the total elongation (10 Angstroms in total per edge)
+
+    The strain can be calculated as the relative elongation of the sheet: strain = L - Linit / Linit,
+    and the stress, in pressure unit, can be calculated as the force divided by the surface area
+    of the graphene sheet: A = Ly x dC, where Ly in the length of the graphene sheet along y, here 4 nanometers,
+    and dC the diameter of the carbon atoms (I used dC = 3.4 Angstrom, this choice is debatable).
+
+    The python script I used to generate the stress-strain curve is |jupyter-notebook-stress-strain|. 
+
+.. |jupyter-notebook-stress-strain| raw:: html
+
+    <a href="../../../../inputs/graphene-under-deformation/exercice-stress-strain-curve/plot_stress_strain.py" target="_blank">here</a>
 
 .. include:: ../contact/contactme.rst
