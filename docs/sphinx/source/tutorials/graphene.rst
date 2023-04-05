@@ -578,7 +578,7 @@ Option A: Incremental elongation
    With the present force field, no matter how large is the
    imposed deformation, the bonds will never break. To study
    such bond breaking, one has to use a reactive force
-   field, which is done in the next tutorial (:ref:`carbon-nanotube-label`).
+   field, which is done in some other tutorials here (like :ref:`carbon-nanotube-label`).
 
 Option B: Constant-velocity elongation
 --------------------------------------
