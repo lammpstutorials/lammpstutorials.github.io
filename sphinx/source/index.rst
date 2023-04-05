@@ -23,6 +23,7 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     :caption: Level 1
 
     tutorials/graphene.rst
+    tutorials/carbonnanotube.rst
 
 .. toctree::
     :maxdepth: 2
@@ -30,7 +31,6 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
 
     tutorials/allatoms.rst
     tutorials/sheared.rst
-    tutorials/carbonnanotube.rst
    
 .. toctree::
     :maxdepth: 2

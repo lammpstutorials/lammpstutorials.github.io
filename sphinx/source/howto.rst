@@ -28,6 +28,11 @@ For beginners
     * stepwise versus constant velocity deformation
     * stress-strain curve
 
+#. :ref:`carbon-nanotube-label`
+    * use of reactive force field
+    * constant velocity deformation of a structure
+    * post-mortem analysis using MDAnalysis/Python
+
 Level 2
 =======
 
@@ -43,11 +48,6 @@ For intermediate users
     * thermostating of individual groups
     * advanced control of subgroups of atoms
     * non-equilibrium dynamics
-
-#. :ref:`carbon-nanotube-label`
-    * use of reactive force field
-    * constant velocity deformation of a structure
-    * post-mortem analysis using MDAnalysis/Python
 
 Level 3
 =======
