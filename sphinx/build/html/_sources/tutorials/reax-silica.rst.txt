@@ -26,6 +26,8 @@ Deforming silicon dioxide
     it until it break. The reactive force field reaxff is used, and 
     a particular attention is given to the charge of the atoms. 
 
+.. include:: ../contact/recommand-lj.rst
+
 .. include:: ../contact/needhelp.rst
 
 Relax the amorphous silica structure

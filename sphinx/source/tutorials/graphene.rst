@@ -25,6 +25,8 @@ Graphene under deformation
    is generated using VMD and topotool, and is then
    deformed using an applied displacement.
 
+.. include:: ../contact/recommand-lj.rst
+
 .. include:: ../contact/needhelp.rst
 
 Generation of the system
@@ -203,7 +205,7 @@ LAMMPS input script
 
 .. |OPLS| raw:: html
 
-   <a href="https://lammps.sandia.gov/doc/dihedral_opls.html" target="_blank">OPLS dihedral style</a>
+    <a href="https://lammps.sandia.gov/doc/dihedral_opls.html" target="_blank">OPLS dihedral style</a>
 
 ..  container:: justify
 

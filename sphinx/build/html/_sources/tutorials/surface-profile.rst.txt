@@ -30,6 +30,8 @@ Adsorption of ethanol
 
    <a href="https://atb.uq.edu.au/" target="_blank">ATB repository</a>
 
+.. include:: ../contact/recommand-lj.rst
+
 .. include:: ../contact/needhelp.rst
 
 Download ATB molecule

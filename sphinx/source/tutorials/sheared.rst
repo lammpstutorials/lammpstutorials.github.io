@@ -33,6 +33,8 @@ Nanosheared electrolyte
     All inputs and data files can be found on the
     Github repository of LAMMPStutorials.
 
+.. include:: ../contact/recommand-lj.rst
+
 .. include:: ../contact/needhelp.rst
 
 System generation

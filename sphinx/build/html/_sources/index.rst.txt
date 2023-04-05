@@ -17,11 +17,16 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     :caption: Level 0
 
     tutorials/lennardjones.rst
-    tutorials/graphene.rst
 
 .. toctree::
     :maxdepth: 2
     :caption: Level 1
+
+    tutorials/graphene.rst
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Level 2
 
     tutorials/allatoms.rst
     tutorials/sheared.rst
@@ -29,7 +34,7 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
    
 .. toctree::
     :maxdepth: 2
-    :caption: Level 2
+    :caption: Level 3
 
     tutorials/gcmc-silica.rst
     tutorials/umbrella-sampling.rst
