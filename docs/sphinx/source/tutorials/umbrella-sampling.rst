@@ -31,6 +31,8 @@ Simple free energy calculation
     for measuring adsorption barrier near a wall, or for calculating translocation
     barrier through a membrane).
 
+.. include:: ../contact/recommand-lj.rst
+
 .. include:: ../contact/needhelp.rst
 
 Method 1: Free sampling

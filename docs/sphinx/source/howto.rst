@@ -9,7 +9,7 @@ Tutorials are grouped by level, 0 being absolute LAMMPS beginners.
 Level 0
 =======
 
-For beginners
+For absolute beginners
 
 #. :ref:`lennard-jones-label`
     * list of required softwares
@@ -17,11 +17,18 @@ For beginners
     * use of classic NVT ensemble
     * overview of some basic LAMMPS aspect (input, trajectory, restart, etc.)
 
+Level 1
+=======
+
+For beginners
+
 #. :ref:`graphene-label`
     * topology generation using VMD
-    * stepwise deformation of a structure 
+    * simulation of neutral dots connected by bonds
+    * stepwise versus constant velocity deformation
+    * stress-strain curve
 
-Level 1
+Level 2
 =======
 
 For intermediate users
@@ -42,14 +49,15 @@ For intermediate users
     * constant velocity deformation of a structure
     * post-mortem analysis using MDAnalysis/Python
 
-Level 2
-========
+Level 3
+=======
 
 For advanced users
 
 #. :ref:`gcmc-silica-label`
     * simulation of charged and bonded atomic model
     * use of the grand-canonical ensemble
+    * fixed relative humidity simulation
 
 #. :ref:`umbrella-sampling-label`
     * simulation of neutral dots
@@ -63,5 +71,5 @@ For advanced users
 
 #. :ref:`reax-silica-label`
     * simulation of charged reactive species
+    * use of REAXff
     * use of charge equilibration
-    * constant velocity deformation of a structure

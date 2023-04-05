@@ -26,6 +26,8 @@ Breaking a carbon nanotube
     :align: right
     :class: only-light
 
+.. include:: ../contact/recommand-lj.rst
+
 .. include:: ../contact/needhelp.rst
 
 System creation
