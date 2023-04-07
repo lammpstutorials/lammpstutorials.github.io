@@ -5,14 +5,16 @@ Breaking a carbon nanotube
 
 .. container:: hatnote
 
-   In this tutorial, the breaking of the bonds of a carbon nanotube under
-   extreme deformation is simulated.
+    Breaking of the bonds of a carbon nanotube under
+    extreme deformation
    
 ..  container:: justify
    
-   The main aspect of this tutorial is that a reactive force field (airebo) is used.
-   This force field allows one to simulate the formation and breaking of chemical 
-   bonds between the atoms of a structure.
+    In this tutorial, a reactive force field (airebo) is used to simulate the 
+    breaking of C-C bonds during the plastic deformation of a carbon nanotube.
+    
+    Reactive force fields like airebo and reaxff (see :ref:`reax-silica-label`) allow one to simulate the
+    formation and breaking of chemical bonds between the atoms of a structure.
 
 .. figure:: figures/carbonnanotube/cnt_dark.png
     :alt: carbon nanotube image in vacuum
@@ -35,20 +37,39 @@ System creation
 
 ..  container:: justify
 
-   Use the same protocol as the one used in the
-   previous tutorial (:ref:`graphene-label`) to
-   generate a carbon nanotube. Use topotool to 
-   save the topology in a file called cnt.data.
-   Before generating the CNT, untick "bonds".
+    Here we use the same protocol as the one in :ref:`graphene-label` to
+    generate a carbon nanotube. 
 
-   The reason the bonds are not needed here is that 
-   a reactive force field is used. Such force field 
-   deduces the bonds between atoms on the fly based on the positions of the atoms.
-   When two initially bonded atoms are separated by a 
-   distance that is too large, the bond may break. 
+    Open VMD, go to Extensions, Modeling, Nanotube Builder, and 
+    generate a carbon nanotube. Change the box size using 
 
-   Alternatively, you can download the file I did generate 
-   by clicking |download_CNT.data|.
+..  code-block:: bw
+    :caption: *to be written in the VMD terminal*
+
+    molinfo top set a 80  
+    molinfo top set b 80            
+    molinfo top set c 80  
+   
+..  container:: justify
+
+    Then use topotool to save the topology in a file called cnt.data
+    (Before generating the CNT, untick "bonds"):
+
+..  code-block:: bw
+    :caption: *to be written in the VMD terminal*
+
+    topo writelammpsdata cnt.data molecular
+
+..  container:: justify
+
+    The reason the bond information is not needed here is that 
+    a reactive force field is used. Such force field 
+    deduces the bonds between atoms on the fly based on the positions of the atoms.
+    When two initially bonded atoms are separated by a 
+    distance that is too large, the bond may break. 
+
+    You can also download the file I did generate 
+    by clicking |download_CNT.data|.
 
 .. |download_CNT.data| raw:: html
 
@@ -59,76 +80,80 @@ Input file
 
 ..  container:: justify
 
-   Then, create a LAMMPS input file, call is input.lammps, and type in it:
+    Then, create a LAMMPS input file, call is input.lammps, and type in it:
 
 ..  code-block:: lammps
-   :caption: *to be copied in input.lammps*
+    :caption: *to be copied in input.lammps*
 
-   # Initialisation
-   variable T equal 300
+    # Initialisation
+    variable T equal 300
 
-   units metal
-   atom_style full
-   boundary p p p
-   pair_style airebo 2.5 1 1
+    units metal
+    atom_style full
+    boundary p p p
+    pair_style airebo 2.5 1 1
 
 ..  container:: justify
 
-   The first difference with the previous tutorial (:ref:`graphene-label`) 
-   is the units: 'metal' instead of 'real', a choice
-   that is imposed by the force field we are going to use
-   (careful, the time is in pico second with 'metal' instead of femto
-   second with 'real'). The second
-   difference is the pair_style. We use airebo, which is a
-   reactive force field.
+    A difference with the previous tutorial (:ref:`graphene-label`) 
+    is the units: 'metal' instead of 'real', a choice
+    that is imposed by the airebo force field.
 
-   Then, let us import the LAMMPS data file, and set the
-   pair_coeff:
+.. admonition:: About metal units
+    :class: info
 
-..  code-block:: lammps
-   :caption: *to be copied in input.lammps*
-
-   # System definition
-   read_data cnt.data
-   pair_coeff * * CH.airebo C
+    With metal units, the time is in pico second, 
+    distance in Angstrom, and the energy in eV.
 
 ..  container:: justify
 
-   The CH.airebo file can be downloaded |download_CH.airebo|.
-   The rest of the script is very similar to the previous tutorial (:ref:`graphene-label`):
+    Then, let us import the LAMMPS data file, and set the
+    pair_coeff:
+
+..  code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    # System definition
+    read_data cnt.data
+    pair_coeff * * CH.airebo C
+
+..  container:: justify
+
+    The CH.airebo file can be downloaded |download_CH.airebo|.
+    The rest of the script is very similar to the tutorial :ref:`graphene-label`:
 
 .. |download_CH.airebo| raw:: html
 
-   <a href="../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo" target="_blank">here</a>
+    <a href="../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo" target="_blank">here</a>
 
 ..  code-block:: lammps
-   :caption: *to be copied in input.lammps*
+    :caption: *to be copied in input.lammps*
 
-   # Simulation settings
-   group gcar type 1
-   variable zmax equal bound(gcar,zmax)-0.5
-   variable zmin equal bound(gcar,zmin)+0.5
-   region rtop block INF INF INF INF ${zmax} INF
-   region rbot block INF INF INF INF INF ${zmin}
-   region rmid block INF INF INF INF ${zmin} ${zmax}
+    # Simulation settings
+    group gcar type 1
+    variable zmax equal bound(gcar,zmax)-0.5
+    variable zmin equal bound(gcar,zmin)+0.5
+    region rtop block INF INF INF INF ${zmax} INF
+    region rbot block INF INF INF INF INF ${zmin}
+    region rmid block INF INF INF INF ${zmin} ${zmax}
 
-   group gtop region rtop
-   group gbot region rbot
-   group gmid region rmid
+    group gtop region rtop
+    group gbot region rbot
+    group gmid region rmid
 
-   velocity gmid create ${T} 48455 mom yes rot yes
-   fix mynve all nve
-   compute Tmid gmid temp
-   fix myber gmid temp/berendsen ${T} ${T} 0.1
-   fix_modify myber temp Tmid
+    velocity gmid create ${T} 48455 mom yes rot yes
+    fix mynve all nve
+    compute Tmid gmid temp
+    fix myber gmid temp/berendsen ${T} ${T} 0.1
+    fix_modify myber temp Tmid
 
 ..  container:: justify
 
-   For a change, let us impose a constant velocity to the atoms
-   of one edge, while maintaining the other edge fix. Do to so,
-   one needs to cancel the forces (thus the acceleration) on
-   the atoms of the edges using the setforce command, and set
-   the value of the velocity along the z direction.
+    Let us impose a constant velocity deformation using the atoms
+    of one edge, while maintaining the other edge fix. Do to so,
+    one needs to cancel the forces (thus the acceleration) on
+    the atoms of the edges using the setforce command, and set
+    the value of the velocity along the z direction.
 
 Equilibration
 =============

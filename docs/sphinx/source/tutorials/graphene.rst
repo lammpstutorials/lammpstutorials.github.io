@@ -38,7 +38,7 @@ Generation of the system
    etc.) is generated using |VMD_uiuc|. Open VMD,
    and go to Extensions, Modeling, Nanotube Builder. A window
    named Carbon Nanostructures opens up, allowing us to choose
-   between generating sheet and nanotube of graphene or BN. For
+   between generating sheet or nanotube of graphene or BN. For
    this tutorial, let us generate a 4 nm per 4 nm sheet of
    graphene. Simply change the values of "Edge length along x"
    and "Edge length along y" to 4, and click on "Generate
