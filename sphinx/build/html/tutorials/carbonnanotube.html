@@ -236,13 +236,14 @@
           <section id="breaking-a-carbon-nanotube">
 <span id="carbon-nanotube-label"></span><h1>Breaking a carbon nanotube<a class="headerlink" href="#breaking-a-carbon-nanotube" title="Permalink to this heading">#</a></h1>
 <div class="hatnote docutils container">
-<p>In this tutorial, the breaking of the bonds of a carbon nanotube under
-extreme deformation is simulated.</p>
+<p>Breaking of the bonds of a carbon nanotube under
+extreme deformation</p>
 </div>
 <div class="justify docutils container">
-<p>The main aspect of this tutorial is that a reactive force field (airebo) is used.
-This force field allows one to simulate the formation and breaking of chemical
-bonds between the atoms of a structure.</p>
+<p>In this tutorial, a reactive force field (airebo) is used to simulate the
+breaking of C-C bonds during the plastic deformation of a carbon nanotube.</p>
+<p>Reactive force fields like airebo and reaxff (see <a class="reference internal" href="reax-silica.html#reax-silica-label"><span class="std std-ref">Deforming silicon dioxide</span></a>) allow one to simulate the
+formation and breaking of chemical bonds between the atoms of a structure.</p>
 </div>
 <figure class="align-right">
 <a class="only-dark reference internal image-reference" href="../_images/cnt_dark.png"><img alt="carbon nanotube image in vacuum" class="only-dark" src="../_images/cnt_dark.png" style="height: 250px;" /></a>
@@ -258,17 +259,36 @@ bonds between the atoms of a structure.</p>
 <section id="system-creation">
 <h2>System creation<a class="headerlink" href="#system-creation" title="Permalink to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Use the same protocol as the one used in the
-previous tutorial (<a class="reference internal" href="graphene.html#graphene-label"><span class="std std-ref">Graphene under deformation</span></a>) to
-generate a carbon nanotube. Use topotool to
-save the topology in a file called cnt.data.
-Before generating the CNT, untick “bonds”.</p>
-<p>The reason the bonds are not needed here is that
+<p>Here we use the same protocol as the one in <a class="reference internal" href="graphene.html#graphene-label"><span class="std std-ref">Graphene under deformation</span></a> to
+generate a carbon nanotube.</p>
+<p>Open VMD, go to Extensions, Modeling, Nanotube Builder, and
+generate a carbon nanotube. Change the box size using</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be written in the VMD terminal</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>molinfo top set a 80
+molinfo top set b 80
+molinfo top set c 80
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Then use topotool to save the topology in a file called cnt.data
+(Before generating the CNT, untick “bonds”):</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be written in the VMD terminal</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>topo writelammpsdata cnt.data molecular
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The reason the bond information is not needed here is that
 a reactive force field is used. Such force field
 deduces the bonds between atoms on the fly based on the positions of the atoms.
 When two initially bonded atoms are separated by a
 distance that is too large, the bond may break.</p>
-<p>Alternatively, you can download the file I did generate
+<p>You can also download the file I did generate
 by clicking <a href="../../../../inputs/2Dmaterials/carbonnanotube/cnt.data" target="_blank">here</a>.</p>
 </div>
 </section>
@@ -277,8 +297,8 @@ by clicking <a href="../../../../inputs/2Dmaterials/carbonnanotube/cnt.data" tar
 <div class="justify docutils container">
 <p>Then, create a LAMMPS input file, call is input.lammps, and type in it:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
 <span class="k">variable </span><span class="nv nv-Identifier">T</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">300</span>
 
@@ -290,18 +310,21 @@ by clicking <a href="../../../../inputs/2Dmaterials/carbonnanotube/cnt.data" tar
 </div>
 </div>
 <div class="justify docutils container">
-<p>The first difference with the previous tutorial (<a class="reference internal" href="graphene.html#graphene-label"><span class="std std-ref">Graphene under deformation</span></a>)
+<p>A difference with the previous tutorial (<a class="reference internal" href="graphene.html#graphene-label"><span class="std std-ref">Graphene under deformation</span></a>)
 is the units: ‘metal’ instead of ‘real’, a choice
-that is imposed by the force field we are going to use
-(careful, the time is in pico second with ‘metal’ instead of femto
-second with ‘real’). The second
-difference is the pair_style. We use airebo, which is a
-reactive force field.</p>
+that is imposed by the airebo force field.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">About metal units</p>
+<p>With metal units, the time is in pico second,
+distance in Angstrom, and the energy in eV.</p>
+</div>
+<div class="justify docutils container">
 <p>Then, let us import the LAMMPS data file, and set the
 pair_coeff:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># System definition</span>
 <span class="k">read_data</span><span class="w"> </span><span class="n">cnt.data</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CH.airebo</span><span class="w"> </span><span class="n">C</span>
@@ -310,10 +333,10 @@ pair_coeff:</p>
 </div>
 <div class="justify docutils container">
 <p>The CH.airebo file can be downloaded <a href="../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo" target="_blank">here</a>.
-The rest of the script is very similar to the previous tutorial (<a class="reference internal" href="graphene.html#graphene-label"><span class="std std-ref">Graphene under deformation</span></a>):</p>
+The rest of the script is very similar to the tutorial <a class="reference internal" href="graphene.html#graphene-label"><span class="std std-ref">Graphene under deformation</span></a>:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Simulation settings</span>
 <span class="k">group </span><span class="nv nv-Identifier">gcar</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
 <span class="k">variable </span><span class="nv nv-Identifier">zmax</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(gcar,zmax)</span><span class="o">-</span><span class="m">0.5</span>
@@ -335,7 +358,7 @@ The rest of the script is very similar to the previous tutorial (<a class="refer
 </div>
 </div>
 <div class="justify docutils container">
-<p>For a change, let us impose a constant velocity to the atoms
+<p>Let us impose a constant velocity deformation using the atoms
 of one edge, while maintaining the other edge fix. Do to so,
 one needs to cancel the forces (thus the acceleration) on
 the atoms of the edges using the setforce command, and set
@@ -347,8 +370,8 @@ the value of the velocity along the z direction.</p>
 <div class="justify docutils container">
 <p>First, as an equilibration step, let us set the velocity to 0.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">gbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">gtop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
 <span class="k">velocity</span><span class="w"> </span><span class="n">gbot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
@@ -394,8 +417,8 @@ value):</p>
 <div class="justify docutils container">
 <p>Then, let us set the velocity to 30 m/s and run for a longer time:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 0.15 A/ps = 30 m/s</span>
 <span class="k">velocity</span><span class="w"> </span><span class="n">gtop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0.15</span>
 <span class="k">run</span><span class="w"> </span><span class="m">280000</span>
@@ -411,10 +434,10 @@ the DynamicBonds representation.</p>
 <figure class="align-right">
 <a class="only-dark reference internal image-reference" href="../_images/deformed-dark.png"><img alt="carbon nanotube with broken bonds" class="only-dark" src="../_images/deformed-dark.png" style="height: 250px;" /></a>
 </figure>
-<figure class="align-right" id="id6">
+<figure class="align-right" id="id8">
 <a class="only-light reference internal image-reference" href="../_images/deformed-light.png"><img alt="carbon nanotube with broken bonds" class="only-light" src="../_images/deformed-light.png" style="height: 250px;" /></a>
 <figcaption>
-<p><span class="caption-text">Carbon nanotube after being broken.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Carbon nanotube after being broken.</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -438,8 +461,8 @@ the atom coordinate saved in the lammpstrj file.</p>
 <p>Open a new Jupyter notebook within the same folder, call it bond_evolution.ipynb.
 First, let us import libraries.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">MDAnalysis</span> <span class="k">as</span> <span class="nn">mda</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
@@ -452,8 +475,8 @@ data file (for the topology information) and the dump file
 original bonds using the bond guesser of MDAnalysis.  Let us also create
 a single atom group containing all the carbon atoms:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id10" title="Permalink to this code">#</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a universe from the dump file</span>
 <span class="c1"># guess bond based on distance from the initial topology</span>
 <span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="s2">&quot;cnt.data&quot;</span><span class="p">,</span> <span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span>
@@ -469,8 +492,8 @@ a single atom group containing all the carbon atoms:</p>
 need to use a few trick.</p>
 <p>Then, let us loop over the trajectory and extract bond length and number over time:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id11" title="Permalink to this code">#</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">lbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="c1"># loop over trajectory</span>
@@ -500,10 +523,10 @@ lbond_vs_time the bond length:</p>
 <figure class="align-default">
 <img alt="plot of the bond length and distance versus time" class="only-dark" src="../_images/bond-dark.png" />
 </figure>
-<figure class="align-default" id="id10">
+<figure class="align-default" id="id12">
 <img alt="plot of the bond length and distance versus time" class="only-light" src="../_images/bond-light.png" />
 <figcaption>
-<p><span class="caption-text">Evolution of the bond length (left) and number (right) as a function of time.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Evolution of the bond length (left) and number (right) as a function of time.</span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>You can access all the input scripts and data files that
