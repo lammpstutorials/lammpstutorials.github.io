@@ -52,8 +52,7 @@ System creation
    
 ..  container:: justify
 
-    Then use topotool to save the topology in a file called cnt.data
-    (Before generating the CNT, untick "bonds"):
+    Then, untick "bonds", and use topotool to save the topology in a file called cnt.data:
 
 ..  code-block:: bw
     :caption: *to be written in the VMD terminal*
@@ -80,7 +79,7 @@ Input file
 
 ..  container:: justify
 
-    Then, create a LAMMPS input file, call is input.lammps, and type in it:
+    Create a LAMMPS input file, call it input.lammps, and type in it:
 
 ..  code-block:: lammps
     :caption: *to be copied in input.lammps*
@@ -96,19 +95,19 @@ Input file
 ..  container:: justify
 
     A difference with the previous tutorial (:ref:`graphene-label`) 
-    is the units: 'metal' instead of 'real', a choice
+    is the unit system, here 'metal' instead of 'real', a choice
     that is imposed by the airebo force field.
 
 .. admonition:: About metal units
     :class: info
 
     With metal units, the time is in pico second, 
-    distance in Angstrom, and the energy in eV.
+    distances are in Angstrom, and the energy is in eV.
 
 ..  container:: justify
 
     Then, let us import the LAMMPS data file, and set the
-    pair_coeff:
+    pair coefficients:
 
 ..  code-block:: lammps
     :caption: *to be copied in input.lammps*
@@ -118,6 +117,8 @@ Input file
     pair_coeff * * CH.airebo C
 
 ..  container:: justify
+
+    Here, there is one single atom type of type carbon, as indicated by the letter C.
 
     The CH.airebo file can be downloaded |download_CH.airebo|.
     The rest of the script is very similar to the tutorial :ref:`graphene-label`:
