@@ -277,7 +277,7 @@ lines in it:</p>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">charmm</span>
 <span class="k">dihedral_style</span><span class="w"> </span><span class="n">charmm</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.105</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 </pre></div>
 </div>
@@ -286,7 +286,8 @@ lines in it:</p>
 <p>There are many differences with respect to
 the previous tutorial (<a class="reference internal" href="lennardjones.html#lennard-jones-label"><span class="std std-ref">Lennard Jones fluid</span></a>), mostly
 because here a system with molecules and partial charges is
-modeled (instead of neutral particles). With the unit style ‘real’, masses are in grams per
+modeled (instead of neutral particles). With the unit style ‘real’,
+masses are in grams per
 mole, distances in Ångstroms, time in femtoseconds, energies
 in Kcal/mole. With the atom style ‘full’, each atom is a dot
 with a mass and a charge. In addition, each atom can be
@@ -318,7 +319,7 @@ additional massless site. The six numbers are, respectively,</p>
 <li><p><strong>2 -</strong> the atom type for the hydrogen H of the tip4p water,</p></li>
 <li><p><strong>3 -</strong> the OH bond type,</p></li>
 <li><p><strong>4 -</strong> the HOH angle type,</p></li>
-<li><p><strong>5 -</strong> the distance from O atom to the massless charge (here 0.1546 Ångstroms is set by the water model),</p></li>
+<li><p><strong>5 -</strong> the distance from O atom to the massless charge (here 0.105 Ångstroms is set by the TIP4P/epsilon water model),</p></li>
 <li><p><strong>6 -</strong> the cutoff (here of 12 Ångstroms).</p></li>
 </ul>
 <div class="info admonition">
@@ -406,7 +407,7 @@ PARM.lammps and copy the following lines in it:</p>
 <span class="k">mass</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">1.008</span><span class="w"> </span><span class="c"># HCP1</span>
 
 <span class="c"># Pair Coeff</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.185199</span><span class="w"> </span><span class="m">3.1589</span><span class="w"> </span><span class="c"># H2O O</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.18479</span><span class="w"> </span><span class="m">3.165</span><span class="w"> </span><span class="c"># H2O - TIP4P - epsilon water model</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="c"># H2O H</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0.056</span><span class="w"> </span><span class="m">3.58141</span><span class="w"> </span><span class="c"># CC32A</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0.100</span><span class="w"> </span><span class="m">2.93997</span><span class="w"> </span><span class="c"># OC30A</span>
@@ -696,7 +697,7 @@ in it. Copy the same first lines as previously:</p>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">charmm</span>
 <span class="k">dihedral_style</span><span class="w"> </span><span class="n">charmm</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.105</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 </pre></div>
 </div>
@@ -875,7 +876,7 @@ previously:</p>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">charmm</span>
 <span class="k">dihedral_style</span><span class="w"> </span><span class="n">charmm</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.105</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 <span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">coul</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span>
 </pre></div>
@@ -1014,7 +1015,7 @@ in the input file:</p>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">charmm</span>
 <span class="k">dihedral_style</span><span class="w"> </span><span class="n">charmm</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.105</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 <span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">coul</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span>
 </pre></div>

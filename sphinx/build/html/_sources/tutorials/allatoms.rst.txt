@@ -62,7 +62,7 @@ Bulk water
    bond_style harmonic
    angle_style charmm
    dihedral_style charmm
-   pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+   pair_style lj/cut/tip4p/long 1 2 1 1 0.105 12.0
    kspace_style pppm/tip4p 1.0e-4
 
 ..  container:: justify
@@ -70,7 +70,8 @@ Bulk water
    There are many differences with respect to
    the previous tutorial (:ref:`lennard-jones-label`), mostly
    because here a system with molecules and partial charges is
-   modeled (instead of neutral particles). With the unit style 'real', masses are in grams per
+   modeled (instead of neutral particles). With the unit style 'real',
+   masses are in grams per
    mole, distances in Ångstroms, time in femtoseconds, energies
    in Kcal/mole. With the atom style 'full', each atom is a dot
    with a mass and a charge. In addition, each atom can be
@@ -104,7 +105,7 @@ Bulk water
 -  **2 -** the atom type for the hydrogen H of the tip4p water,
 -  **3 -** the OH bond type,
 -  **4 -** the HOH angle type,
--  **5 -** the distance from O atom to the massless charge (here 0.1546 Ångstroms is set by the water model),
+-  **5 -** the distance from O atom to the massless charge (here 0.105 Ångstroms is set by the TIP4P/epsilon water model),
 -  **6 -** the cutoff (here of 12 Ångstroms).
 
 .. admonition:: About cutoff in molecular dynamics
@@ -203,7 +204,7 @@ Bulk water
    mass 7 1.008 # HCP1
 
    # Pair Coeff
-   pair_coeff 1 1 0.185199 3.1589 # H2O O
+   pair_coeff 1 1 0.18479 3.165 # H2O - TIP4P - epsilon water model
    pair_coeff 2 2 0.0 0.0 # H2O H
    pair_coeff 3 3 0.056 3.58141 # CC32A
    pair_coeff 4 4 0.100 2.93997 # OC30A
@@ -542,7 +543,7 @@ PEG molecule
     bond_style harmonic
     angle_style charmm
     dihedral_style charmm
-    pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+    pair_style lj/cut/tip4p/long 1 2 1 1 0.105 12.0
     kspace_style pppm/tip4p 1.0e-4
 
 ..  container:: justify
@@ -731,7 +732,7 @@ Solvation of the PEG molecule
     bond_style harmonic
     angle_style charmm
     dihedral_style charmm
-    pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+    pair_style lj/cut/tip4p/long 1 2 1 1 0.105 12.0
     kspace_style pppm/tip4p 1.0e-4
     special_bonds lj/coul 0.0 0.0 0.5
 
@@ -874,7 +875,7 @@ Stretching the PEG molecule
    bond_style harmonic
    angle_style charmm
    dihedral_style charmm
-   pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+   pair_style lj/cut/tip4p/long 1 2 1 1 0.105 12.0
    kspace_style pppm/tip4p 1.0e-4
    special_bonds lj/coul 0.0 0.0 0.5
 
