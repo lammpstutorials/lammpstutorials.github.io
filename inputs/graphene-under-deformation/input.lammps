@@ -1,0 +1,76 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# lammpstutorials.github.io
+
+# Initialisation
+variable T equal 300
+
+units real
+atom_style molecular
+boundary f f f
+pair_style lj/cut 14
+
+bond_style harmonic
+angle_style harmonic
+dihedral_style opls
+improper_style harmonic
+special_bonds lj 0.0 0.0 0.5
+
+read_data carbon.data
+include PARM.lammps
+
+group gcar type 1
+variable xcm equal -1*xcm(gcar,x)
+variable ycm equal -1*xcm(gcar,y)
+variable zcm equal -1*xcm(gcar,z)
+displace_atoms gcar move ${xcm} ${ycm} ${zcm}
+
+change_box all x final -35.0 35.0 y final -35.0 35.0 z final -15.0 15.0
+
+variable xmax equal bound(gcar,xmax)-0.5
+variable xmin equal bound(gcar,xmin)+0.5
+region rtop block ${xmax} INF INF INF INF INF
+region rbot block INF ${xmin} INF INF INF INF
+region rmid block ${xmin} ${xmax} INF INF INF INF
+
+group gtop region rtop
+group gbot region rbot
+group gmid region rmid
+
+velocity gmid create ${T} 48455 mom yes rot yes
+fix mynve all nve
+compute Tmid gmid temp
+fix myber gmid temp/berendsen ${T} ${T} 100
+fix_modify myber temp Tmid
+
+fix at1 all ave/time 10 100 1000 c_Tmid file temperature.dat
+
+fix mysf1 gtop setforce 0 NULL 0
+fix mysf2 gbot setforce 0 NULL 0
+velocity gtop set 0 NULL 0
+velocity gbot set 0 NULL 0
+
+variable L equal xcm(gtop,x)-xcm(gbot,x)
+fix at2 all ave/time 10 100 1000 v_L file length.dat
+fix at3 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
+dump mydmp all atom 1000 dump.lammpstrj
+
+thermo 100
+thermo_modify temp Tmid
+
+timestep 1.0
+run 5000
+
+# Incremental elongation 
+#variable var loop 100
+#label loop
+#displace_atoms gtop move 0.1 0 0
+#displace_atoms gbot move -0.1 0 0
+#run 1000
+#next var
+#jump SELF loop
+
+# Constant-velocity elongation
+velocity gtop set 0.0005 NULL 0
+velocity gbot set -0.0005 NULL 0
+run 2000

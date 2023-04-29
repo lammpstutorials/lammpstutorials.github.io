@@ -1,0 +1,56 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# lammpstutorials.github.io
+
+# define a bunch of variables
+variable sigma equal 3.405 # Angstrom
+variable epsilon equal 0.238 # Kcal/mol
+variable U0 equal 10*${epsilon} # Kcal/mol
+variable dlt equal 0.5 # Angstrom
+variable x0 equal 5.0 # Angstrom
+variable k equal 1.5 # Kcal/mol/Angstrom^2
+
+# initialise the simulation
+units real
+atom_style atomic
+pair_style lj/cut 3.822 # 2^(1/6) * 3.405 WCA potential
+pair_modify shift yes
+boundary p p p
+
+# define the system
+region myreg block -25 25 -20 20 -20 20
+create_box 2 myreg
+create_atoms 2 single 0 0 0
+create_atoms 1 random 5 341341 myreg
+
+# settings
+mass * 39.948
+pair_coeff * * ${epsilon} ${sigma}
+neigh_modify every 1 delay 4 check yes
+group topull type 2
+
+# run
+variable U atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
+variable F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
+fix pot all addforce v_F 0.0 0.0 energy v_U
+
+fix mynve all nve
+fix mylgv all langevin 119.8 119.8 100 1530917
+timestep 2.0
+thermo 100000
+run 2000000
+reset_timestep 0
+
+dump mydmp all atom 1000000 dump.lammpstrj
+
+variable a loop 50
+label loop
+variable xdes equal ${a}-25
+variable xave equal xcm(topull,x)
+fix mytth topull spring tether ${k} ${xdes} 0 0 0
+run 200000 # equilibrate
+fix myat1 all ave/time 10 10 100 v_xave v_xdes file position.${a}.dat
+run 1000000 # data aquisition
+unfix myat1
+next a
+jump SELF loop

@@ -1,0 +1,30 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# lammpstutorials.github.io
+
+# Initialisation
+
+variable T equal 300
+
+units metal
+atom_style full
+boundary p p p
+pair_style airebo 2.5 1 1
+
+# System definition
+read_data ../cnt.data
+pair_coeff * * ../CH.airebo C
+
+velocity all create ${T} 48455 mom yes rot yes
+fix mynve all nve
+fix myber all temp/berendsen ${T} ${T} 0.1
+
+dump mydmp all atom 500 dump.lammpstrj
+
+fix myrct all recenter INIT INIT NULL
+
+thermo 100
+
+# Run
+timestep 0.0005
+run 5000

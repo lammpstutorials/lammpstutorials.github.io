@@ -1,0 +1,22 @@
+# system.lt
+# simulation of a single molecule in a box of size 50x50x50 Angstroms^3
+
+write_once("Data Boundary") {
+-25.0 25.0 xlo xhi
+-25.0 25.0 ylo yhi
+-25.0 25.0 zlo zhi
+}
+
+write_once("In Init") {
+# a variable named `cutoff` is required by GROMOS_54A7_ATB.lt
+variable cutoff equal 14.0 # Angstroms
+boundary p p p
+}
+
+# import the forcefield file
+import "GROMOS_54A7_ATB.lt"
+# import molecule building block file
+import "JRA4_allatom_optimized_geometry.lt"
+
+# create a single copy of this molecule at position 0,0,0
+mol1 = new JRA4.move(0.0,0.0,0.0)

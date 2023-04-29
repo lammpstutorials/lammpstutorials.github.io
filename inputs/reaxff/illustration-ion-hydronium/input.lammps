@@ -1,0 +1,42 @@
+# Two single water molecule in vacuum
+
+#dielectric 80
+
+units real
+atom_style full
+
+read_data water_init.data
+
+pair_style reaxff NULL safezone 3.0 mincap 150
+pair_coeff * * qeq_ff.water O O H H
+
+neighbor 1 bin
+neigh_modify every 1 delay 0 check yes
+
+# define groups 
+group gO type 1 2
+group gH type 3 4
+group dummy type 5
+
+# help the qeq/reax by setting reasonable charge from the start
+set group gO charge -1
+set group gH charge 0.5
+
+# initial dynamics with small timestep (because of box change during NPT)
+fix mynve all nve/limit 0.1 
+fix myber all temp/berendsen 1 1 1
+fix myqeq all qeq/reax 1 0.0 10.0 1e-6 param.qeq.reax
+fix myspr gO spring/self 5.0
+timestep 0.25
+
+include output.lammps
+
+run 10000
+unfix mynve
+unfix myber
+
+# npt dynamics 100 atm
+fix mynve all nve
+fix mylng all langevin 360 360 23.0 694835
+
+run 1500000

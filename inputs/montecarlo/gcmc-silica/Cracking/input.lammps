@@ -1,0 +1,31 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# lammpstutorials.github.io
+
+# Initialization
+units metal
+boundary p p p
+atom_style full
+neighbor 1.0 bin
+neigh_modify delay 1
+
+# System definition
+read_data ../SilicaBlock/amorphousSiO.data
+
+# Simulation settings
+pair_style vashishta
+pair_coeff * * ../SilicaBlock/SiO.1990.vashishta Si O
+dump dmp all atom 1000 dump.lammpstrj
+
+# Run
+fix nvt1 all nvt temp 300 300 0.1
+timestep 0.001
+thermo 1000
+variable var loop 45
+label loop
+change_box all z scale 1.005 remap
+run 2000
+next var
+jump input.lammps loop
+run 20000
+write_data dilatedSiO.data
