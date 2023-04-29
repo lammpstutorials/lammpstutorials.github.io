@@ -30,12 +30,12 @@ author = 'Simon Gravelle'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinxcontrib.googleanalytics', 'sphinx_togglebutton']
-
+extensions = ['sphinxcontrib.googleanalytics',
+              'sphinx_togglebutton',
+              'sphinx_favicon']
 
 # google analytics
 googleanalytics_id = 'G-W1WGEC5GQ8'
-
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -84,6 +84,10 @@ html_logo = "../../figures/logo.png"
 #    "light_logo": "../static/logo_MAICOS_light.png",
  #   "dark_logo": "../static/logo_MAICOS_dark.png",
 #}
+
+favicons = [
+    {"href": "favicon-32x32.png"},
+]
 
 # hide extra stuff
 html_show_copyright = False
