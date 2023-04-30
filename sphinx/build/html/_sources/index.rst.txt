@@ -7,10 +7,10 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
 ================================================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Main  
+    :maxdepth: 2
+    :caption: Main  
 
-   howto.rst
+    howto.rst
 
 .. toctree::
     :maxdepth: 2
@@ -42,20 +42,19 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     tutorials/reax-silica.rst
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Extra content
+    :maxdepth: 2
+    :caption: Extra content
 
-   contact/contact.rst
-   miscellaneous/participation.rst
-   history/history.rst
-   miscellaneous/vmd.rst
+    contact/contact.rst
+    miscellaneous/participation.rst
+    history/history.rst
+    miscellaneous/vmd.rst
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Alternative
+    :maxdepth: 2
+    :caption: Alternative
 
     miscellaneous/gromacs.rst
-
 
 Indices and tables
 ==================
