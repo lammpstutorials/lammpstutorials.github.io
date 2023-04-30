@@ -50,6 +50,13 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
    history/history.rst
    miscellaneous/vmd.rst
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Alternative
+
+    miscellaneous/gromacs.rst
+
+
 Indices and tables
 ==================
 
