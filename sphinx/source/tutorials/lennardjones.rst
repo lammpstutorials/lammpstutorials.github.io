@@ -560,7 +560,7 @@ Molecular dynamics
     This command will automatically plot the second column as a function of the first column.
 
     Here I am using pyplot for esthetic reason. If you want, you can download the Jupyter-notebook
-    from the |Github_repository| repository (in the bulkfluids/lennardjones/ folder).
+    from the |Github_repository| repository (in the lennardjones/ folder).
 
 Trajectory visualisation
 ========================

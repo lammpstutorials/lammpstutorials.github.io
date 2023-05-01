@@ -126,7 +126,7 @@ System generation
 
 .. |download_TIP4P2005.txt| raw:: html
 
-   <a href="../../../../inputs/bulkfluids/sheared/SystemCreation/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
+   <a href="../../../../inputs/sheared/SystemCreation/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in SystemCreation/input.lammps*

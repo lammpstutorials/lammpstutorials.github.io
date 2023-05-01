@@ -72,7 +72,7 @@ System creation
 
 .. |download_CNT.data| raw:: html
 
-   <a href="../../../../inputs/2Dmaterials/carbonnanotube/cnt.data" target="_blank">here</a>
+   <a href="../../../../inputs/carbonnanotube/cnt.data" target="_blank">here</a>
 
 Input file
 ==========
@@ -125,7 +125,7 @@ Input file
 
 .. |download_CH.airebo| raw:: html
 
-    <a href="../../../../inputs/2Dmaterials/carbonnanotube/CH.airebo" target="_blank">here</a>
+    <a href="../../../../inputs/carbonnanotube/CH.airebo" target="_blank">here</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in input.lammps*

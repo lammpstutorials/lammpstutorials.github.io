@@ -23,7 +23,7 @@ pygments_style = 'tango'
 
 source_suffix = ['.rst']
 
-html_logo = "../../figures/logo.png"
+html_logo = "_static/logo.png"
 
 favicons = [
     {"href": "favicon-32x32.png"},

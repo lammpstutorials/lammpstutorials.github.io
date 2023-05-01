@@ -278,11 +278,11 @@ Bulk water
 
 .. |download_H20.data| raw:: html
 
-   <a href="../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data" target="_blank">download</a>
+   <a href="../../../../inputs/allatoms/pureH2O/H2O.data" target="_blank">download</a>
 
 .. |download_H2OTip4p.txt| raw:: html
 
-   <a href="../../../../inputs/bulkfluids/allatoms/pureH2O/H2OTip4p.txt" target="_blank">downloaded</a>
+   <a href="../../../../inputs/allatoms/pureH2O/H2OTip4p.txt" target="_blank">downloaded</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in pureH2O/input.lammps*
@@ -523,7 +523,7 @@ Bulk water
 
 .. |download_H2O.data| raw:: html
 
-   <a href="../../../../inputs/bulkfluids/allatoms/pureH2O/H2O.data" target="_blank">download</a>
+   <a href="../../../../inputs/allatoms/pureH2O/H2O.data" target="_blank">download</a>
 
 PEG molecule
 ============
@@ -590,7 +590,7 @@ PEG molecule
 
 .. |download_init.data| raw:: html
 
-   <a href="../../../../inputs/bulkfluids/allatoms/singlePEG/init.data" target="_blank">Download</a>
+   <a href="../../../../inputs/allatoms/singlePEG/init.data" target="_blank">Download</a>
 
 .. |PEGgenerator| raw:: html
 
@@ -705,7 +705,7 @@ PEG molecule
 
 .. |download_PEG.data| raw:: html
 
-   <a href="../../../../inputs/bulkfluids/allatoms/singlePEG/PEG.data" target="_blank">download</a>
+   <a href="../../../../inputs/allatoms/singlePEG/PEG.data" target="_blank">download</a>
 
 Solvation of the PEG molecule
 =============================
