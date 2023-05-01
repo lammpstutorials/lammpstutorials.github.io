@@ -1,0 +1,59 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# lammpstutorials.github.io
+
+# Initialisation
+
+variable T equal 300
+
+units metal
+atom_style full
+boundary p p p
+pair_style airebo 2.5 1 1
+
+# System definition
+read_data cnt.data
+pair_coeff * * CH.airebo C
+
+# Simulation settings
+group gcar type 1
+variable zmax equal bound(gcar,zmax)-0.5
+variable zmin equal bound(gcar,zmin)+0.5
+region rtop block INF INF INF INF ${zmax} INF
+region rbot block INF INF INF INF INF ${zmin}
+region rmid block INF INF INF INF ${zmin} ${zmax}
+
+group gtop region rtop
+group gbot region rbot
+group gmid region rmid
+
+velocity gmid create ${T} 48455 mom yes rot yes
+fix mynve all nve
+compute Tmid gmid temp
+fix myber gmid temp/berendsen ${T} ${T} 0.1
+fix_modify myber temp Tmid
+
+fix mysf1 gbot setforce NULL NULL 0
+fix mysf2 gtop setforce NULL NULL 0
+velocity gbot set NULL NULL 0
+velocity gtop set NULL NULL 0
+
+variable pos equal xcm(gtop,z)
+fix at1 all ave/time 10 100 1000 v_pos file cnt_deflection.dat
+fix at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
+dump mydmp all atom 5000 dump.lammpstrj
+
+fix myrct all recenter INIT INIT NULL
+
+thermo 100
+thermo_modify temp Tmid
+
+# Run
+timestep 0.0005
+run 5000
+
+# 0.025 A/ps = 5 m/s
+velocity gtop set NULL NULL 0.15
+# 0.05 A/ps = 10 m/s
+#velocity gtop set NULL NULL 0.05
+run 280000

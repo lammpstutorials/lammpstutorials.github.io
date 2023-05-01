@@ -56,7 +56,7 @@ Generation of the silica block
 
 .. |download_SiO.data| raw:: html
 
-   <a href="../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.data" target="_blank">here</a>
+   <a href="../../../../inputs/gcmc-silica/SilicaBlock/SiO.data" target="_blank">here</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in SilicaBlock/input.lammps*
@@ -101,7 +101,7 @@ Generation of the silica block
 
 .. |download_vashishta| raw:: html
 
-   <a href="../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/SiO.1990.vashishta" target="_blank">here</a>
+   <a href="../../../../inputs/gcmc-silica/SilicaBlock/SiO.1990.vashishta" target="_blank">here</a>
 
 .. |website_vashishta| raw:: html
 
@@ -169,7 +169,7 @@ Generation of the silica block
 
 .. |download_silica_block| raw:: html
 
-   <a href="../../../../inputs/montecarlo/gcmc-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
+   <a href="../../../../inputs/gcmc-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
 
 .. figure:: figures/gcmc-silica/generated-silica-dark.png
     :alt: silica block
@@ -266,7 +266,7 @@ Cracking the silica
 
 .. |download_silica_dilated| raw:: html
 
-   <a href="../../../../inputs/montecarlo/gcmc-silica/Cracking/dilatedSiO.data" target="_blank">here</a>
+   <a href="../../../../inputs/gcmc-silica/Cracking/dilatedSiO.data" target="_blank">here</a>
 
 .. figure:: figures/gcmc-silica/cracked-dark.png
     :alt: silica block with crack
@@ -309,7 +309,7 @@ Adding water
 
 .. |download_TIP4P2005| raw:: html
 
-   <a href="../../../../inputs/montecarlo/gcmc-silica/AddingWater/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
+   <a href="../../../../inputs/gcmc-silica/AddingWater/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in Addingwater/input.lammps*

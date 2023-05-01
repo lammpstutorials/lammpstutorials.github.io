@@ -1,0 +1,35 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# lammpstutorials.github.io
+
+# Initialization
+units metal
+boundary p p p
+atom_style full
+pair_style vashishta
+neighbor 1.0 bin
+neigh_modify delay 1
+
+# System definition
+read_data data.SiO
+replicate 4 4 4
+
+# Simulation settings
+pair_coeff * *  SiO.1990.vashishta Si O
+dump dmp all atom 5000 dump.lammpstrj
+
+# Run
+velocity all create 6000 4928459 rot yes dist gaussian
+fix nvt1 all nvt temp 6000 6000 0.1
+timestep 0.001
+thermo 1000
+run 5000
+unfix nvt1
+fix npt1 all npt temp 6000 4000 0.1 aniso 100 100 1
+run 50000
+fix npt1 all npt temp 4000 300 0.1 aniso 100 1 1
+run 200000
+fix npt1 all npt temp 300 300 0.1 aniso 1 1 1
+run 4000
+write_data data.amorphousSiO
+
