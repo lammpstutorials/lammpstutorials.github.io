@@ -1,5 +1,4 @@
-<a href="https://lammpstutorials.github.io">
-<img src="docs/figures/welcome.png" width="80%" /></a>
+# LAMMPS tutorials
 
 This is the repository of the [LAMMPS Tutorials 2.0](https://lammpstutorials.github.io/) webpage. 
 All input scripts and data files can be found in the [inputs](docs/inputs/) folder.
