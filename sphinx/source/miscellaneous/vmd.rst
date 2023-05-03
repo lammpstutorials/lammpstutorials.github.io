@@ -1,7 +1,7 @@
 .. _vmd-label:
 
-VMD tips
-********
+Make gorgeous image
+*******************
 
 .. container:: hatnote
 
