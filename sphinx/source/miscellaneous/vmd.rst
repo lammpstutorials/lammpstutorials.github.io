@@ -5,19 +5,27 @@ VMD tips
 
 .. container:: hatnote
 
-    Generate good looking image/movie with VMD
+    Generate good looking images and movies with VMD
 
 Practical example
 =================
 
-.. figure:: figures/vmd/avatar_light.png
+.. figure:: figures/vmd/video-avatar-dark.webp
     :alt: Image of the lammps polymer-water system generated with VMD visual representation 
     :height: 250
     :align: right
+    :class: only-dark
+
+.. figure:: figures/vmd/video-avatar-light.webp
+    :alt: Image of the lammps polymer-water system generated with VMD visual representation 
+    :height: 250
+    :align: right
+    :class: only-light
+
 
 .. container:: justify
 
-    If you want to try it yourself with the same system, you can |dump_download|
+    To follow this tutorial, |dump_download|
     this LAMMPS trajectory file, which corresponds to a mixture of water and toluene,
     and can be opened with VMD by typing in a terminal:
 
@@ -29,56 +37,83 @@ Practical example
     
     vmd dump.lammpstrj
 
+.. container:: justify
+
+    Go to **Display**, and change the view to **Orthographic**. 
+
+    This is what I see:
+
+.. figure:: figures/vmd/step1-dark.png
+    :alt: VMD tutorial for LAMMPS
+    :class: only-dark
+
+.. figure:: figures/vmd/step1-light.png
+    :alt: VMD tutorial for LAMMPS
+    :class: only-light
+
 The representation
 ==================
 
 .. container:: justify
 
-    You can change the representation of the atoms by going in
-    **Graphics, Representations**, and then choose
-    another **Drawing Method**. My 2 favorite representations
-    are **dynamic bonds** for large molecules or graphene,
-    and **VDW** for single atoms or small molecules like water.
-    QuickSurf can also make nice results, like |video_vmd|.
-    You can apply a representation
-    only to a group of atoms, by choosing a selection in the windows
-    **Selected Atoms**. 
-    
-    To obtain the same result as me:
+    In the main windows of VMD, go to **Graphics, Representations**.
+    Within the *Selected Atoms* windows, replace *all* by *type 1*.
+    Here, *type 1* corresponds to the oxygen of the water molecule. 
+    Change the **Drawing Method** from *Lines* to *VDW*. Tune the *Sphere Scale*
+    to 0.8, and increase the resolution  to 42.
 
-    * replace **All** by **type 1** in the windows to select the oxygen of the water molecules,
-    * tune the radius to 0.8, and increase the resolution (>32 at least),
-    * click on **Create Rep** to create a second representation for the hydrogen of water (type 2), and change the radius to 0.4,
-    * create a third representation for all 3 atom types of toluene by entering **type 3 4 5** (hydrogen, oxygen, and carbon atoms),
-    * choose **DynamicBonds** and increase the resolution
-     
-    You can see that 'DynamicBonds' is not really good looking by itself,
-    the ends of the bonds are rough. To smooth the representation:
+    Click on **Create Rep** to create a second representation for the hydrogen
+    of water, select *type 2*, and change the *Sphere Scale* to 0.4.
 
-    * create the fourth and last representation (VDW, radius 0.2) for types 3, 4, and 5.
+    Create a third representation for *type 3 4 5*,
+    i.e. all 3 atom types of toluene, respectively hydrogen, oxygen, and carbon atoms.
 
-.. |video_vmd| raw:: html
+    Choose *DynamicBonds* and increase the *bond resolution* to 42.
+    With *DynamicBonds*, the ends of the bonds are rough. 
+    To smooth out the representation, create the fourth and last representation
+    (*VDW* with *Sphere Scale* 0.2) for *type 3 4 5*.
 
-   <a href="https://www.youtube.com/watch?v=BSE9Vf6KhRo&ab_channel=LAMMPStutorials" target="_blank">this video</a>
+    This is what I see:
+
+.. figure:: figures/vmd/step2-dark.png
+    :alt: VMD tutorial for LAMMPS
+    :class: only-dark
+
+.. figure:: figures/vmd/step2-light.png
+    :alt: VMD tutorial for LAMMPS
+    :class: only-light
 
 The colors
 ==========
 
 .. container:: justify
 
-    To change the colurs:
-    
-    * go to **Graphics, Colors**,
-    * click on **Display**, then **Background**, and choose white instead of black,
-    * click on **Name**, and **5** (this is the oxygen atoms), and choose red,
-    * do the same for 4 (carbon → pink), 3 (hydrogen → white), 2 (hydrogen → white),
-    
-    These three colours are standard for oxygen,
-    carbon, and hydrogen. To mark the difference between the water and
-    the toluene:
-    
-    * choose a different colour for atoms of type 1 by entering manually the values 0 0.6, 0.88 in the RGB box.
+    To change the colors, go to **Graphics, Colors**,
+    click on **Display**, then **Background**, and choose 
+    the color you prefer (white is better for publication, black
+    can be good looking on presentation with dark background).
 
+    Still in the **Color Controls** windows, in *Categories*,
+    click *Name*, in *Names* choose *5* (this is the oxygen atoms),
+    and choose red. Then, do the same for 4 (carbon → pink),
+    3 (hydrogen → white), 2 (hydrogen → white),
+    
+    These three colors are standard for oxygen,
+    carbon, and hydrogen, respectively. To mark the difference
+    between the water and the toluene, let us choose a different
+    color for the atoms of type 1 (oxygens of the water molecules) by
+    choosing *cyan*, and then modyfing it by entering
+    manually the values 0, 1.0 and 0.88 in the RGB box.
+
+    This is what I see:
+
+.. figure:: figures/vmd/step3-dark.png
+    :alt: VMD tutorial for LAMMPS
+    :class: only-dark
+
+.. figure:: figures/vmd/step3-light.png
+    :alt: VMD tutorial for LAMMPS
+    :class: only-light
 
 The materials
 =============
@@ -91,32 +126,34 @@ The materials
     
     In the **Representations** windows, you can choose
     among several materials. I prefer to create my own. To do so, 
+    go in **Graphics, Materials**. Click on **Opaque**
+    (this is the one used by default), and hit **Create New** twice.
     
-    *go in **Graphics, Materials**. Click on **Opaque** (this is the one used by default), 
+    Two new materials should have appeared, called something like
+    Material23 and Material24. You can rename them to MWater and MToluene,
+    although it is not important. 
 
-    * hit **Create New** twice
-    
-    Two new materials should have appeared, called something like Material23 and Material24.
-    Rename them to MWater and MToluene. 
-    
-    For MWater:
+    For MWater, change *Diffuse*, *Specular*, and *Shininess*, to 0.43,
+    0.48, and 0.35, respectively. For MToluene, use 0.78, 0.33, and 0.32.
 
-    * change **Diffuse**, **Specular**, and **Shininess**, to 0.43, 0.48, and 0.35, respectively,
-    * from the **Representations** windows, change the **Material** from **Opaque** to **MWater** for the two representations that concern water molecules,
-    * do the same for toluene, with values of 0.78, 0.33, and 0.32 for MToluene.
+    Then, from the **Representations** windows, change the
+    *Material* from *Opaque* to *MWater** for the 2 first representations,
+    and *MToluene* for the 2 last.
 
-The view
-========
+    This is what I see:
+
+.. figure:: figures/vmd/step4-dark.png
+    :alt: VMD tutorial for LAMMPS
+    :class: only-dark
+
+.. figure:: figures/vmd/step4-light.png
+    :alt: VMD tutorial for LAMMPS
+    :class: only-light
+
+Box border
+==========
 
 .. container:: justify
-
-    Currently the view is *perspective*, which is not always the best choice:
-
-    * go to **Display**,
-    * click **Orthographic**. 
-
-    You can zoom with the mouse wheel. That is it, the
-    system is ready to be rendered in high resolution.
 
     Optionally, you can visualize the borders of your box by typing in the VMD terminal:
 
@@ -131,44 +168,40 @@ Saving a state
 
     If you don't
     want do redo these steps every time you open VMD, you can save the VMD state by
-    clicking **File → Save vizualisation state**.
+    clicking **File → Save vizualisation state**. This state can then be re-opened 
+    simply by clicking **File → Load vizualisation state**.
 
 Rendering
 =========
 
 .. container:: justify
 
-    To generate high a resolution image:
+    To generate high a resolution image, go in **File → Render**,
+    choose **Tachyon**, hit **Start Rendering**.
 
-    * go in **File → Render**,
-    * choose **Tachyon**, 
-    * add **-res 1000 1000** in the **Render command** cell,
-    * hit **Start Rendering**. 
+    Optionally, add **-res 1000 1000** in the **Render command** cell to 
+    increase the resolution.
 
-    A high resolution image has been created by VMD. You can remove the borders using GIMP or Inkscape for
-    example.
-
-Movie
-=====
+High quality movie
+==================
 
 .. container:: justify
 
-    To generate a high resolution movie:
+    To generate a high resolution movie, go in **Extension, Vizualisation**,
+    and **Movie Maker**.
     
-    * go in **Extension, Vizualisation**, and **Movie Maker**.
-    
-    If hit **Make Movie** directly, the movie generated by VMD will be of poor quality.
+    If you hit **Make Movie** directly, the movie generated by VMD will be
+    of poor quality.
     Instead, we are going to generate a sequence of high resolution
     images, and assemble these images ourselves:
     
-    * go in **Movie Settings**,
-    * hit **Trajectory** (so the movie will show the system evolving in time, and not rotating on itself),
-    * uncheck **Delete image files**,
-    * In **Rendered**, choose **Tachyon**, then **Make Movie**. 
-    
-    When its done, you can close VMD. 
+    Go in **Movie Settings**, hit *Trajectory* (so the movie will show
+    the system evolving in time, and not rotating on itself),
+    Uncheck *Delete image files*.
+    In *Rendered*, choose *Tachyon*, then hit *Make Movie*. 
 
-    From the terminal, assemble the image into a movie by typing:
+    From the linux terminal (not the VMD terminal), assemble the images
+    (all starting with *untitled*) into a single movie by typing:
 
 ..  code-block:: bash
 
@@ -194,4 +227,12 @@ Movie
 
 .. container:: justify
 
-    The result should look like |video_vmd|.
+    This is what I made:
+
+.. figure:: figures/vmd/video-vmd-dark.webp
+    :alt: VMD tutorial for LAMMPS
+    :class: only-dark
+
+.. figure:: figures/vmd/video-vmd-light.webp
+    :alt: VMD tutorial for LAMMPS
+    :class: only-light
