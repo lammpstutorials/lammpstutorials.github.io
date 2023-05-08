@@ -8,10 +8,10 @@ pair_style lj/cut 2.5
 boundary p p p
     
 # 2) System definition
-region simulation_box block -40 40 -40 40 -40 40
+region simulation_box block -4 4 -4 4 -4 4
 create_box 2 simulation_box
-region start block -3 3 -3 3 -3 3
-create_atoms 1 random 12 341341 start
+region start block -4 4 -4 4 -4 4
+create_atoms 1 random 20 341341 start
 create_atoms 2 random 3 127569 start
 
 # 3) Simulation settings
@@ -30,11 +30,11 @@ minimize 1.0e-4 1.0e-6 1000 10000
 # PART B - MOLECULAR DYNAMICS
 
 # 4) Visualization
-dump mydmp all atom 100 dump.lammpstrj
+dump mydmp all atom 5000 dump.lammpstrj
 thermo 1000
 
 # 5) Run
 fix mynve all nve
 fix mylgv all langevin 1.0 1.0 0.1 1530917
 timestep 0.005
-run 4000
+run 100000
