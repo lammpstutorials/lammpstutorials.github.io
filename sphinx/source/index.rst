@@ -46,8 +46,6 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     :caption: Extra content
 
     contact/contact.rst
-    miscellaneous/participation.rst
-    history/history.rst
     miscellaneous/vmd.rst
 
 .. toctree::

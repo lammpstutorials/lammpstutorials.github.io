@@ -1,7 +1,7 @@
 .. _contact-label:
 
-Contact
-*******
+Contact me
+**********
 
 Email
 =====
@@ -18,11 +18,12 @@ Get help with your project:
     :height: 100
     :alt: Simon gravelle patreon for lammps/gromacs material
     :align: right
+    :target: https://www.patreon.com/molecularsimulations
 
 Become a |patreon_simulation|, and:
 
 - Join a community of 50+ members
-- Receive personalised advice for your project
+- Receive personalized advice for your project
 - Have your input scripts reviewed
 - Access a dedicated Discord forum
 - Obtain extra content such as the solutions to the exercises
@@ -35,8 +36,8 @@ Become a |patreon_simulation|, and:
 Follow me
 =========
 
-- on |twitter_simon_gravelle|, where I post news about these tutorials and about my research
-- on |github_simon_gravelle|, where I share many molecular simulation content
+- On |twitter_simon_gravelle|, where I post news about these tutorials and about my research
+- On |github_simon_gravelle|, where I share more molecular simulation content
 
 .. |twitter_simon_gravelle| raw:: html
 
