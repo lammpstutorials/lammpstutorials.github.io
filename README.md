@@ -7,12 +7,12 @@ The previous version (1.0) of LAMMPS tutorial is still visible [here](https://la
 
 <p float="left">
   <a href="https://lammpstutorials.github.io">
-  <img src="docs/sphinx/source/_static/_screenshot_readme_lammps_tutorials_1.png" width="100%" /></a>
+  <img src="docs/sphinx/source/_static/screenshot_readme_lammps_tutorials_1.png" width="100%" /></a>
 </p>
 
 <p float="left">
   <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/surface-profile.html">
-  <img src="docs/sphinx/source/_static/_screenshot_readme_lammps_tutorials_2.png" width="100%" /></a>
+  <img src="docs/sphinx/source/_static/screenshot_readme_lammps_tutorials_2.png" width="100%" /></a>
 </p>
 
 ### You noticed a mistake in one of the tutorial?
