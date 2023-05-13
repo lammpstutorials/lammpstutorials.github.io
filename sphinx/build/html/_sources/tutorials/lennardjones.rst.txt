@@ -312,6 +312,8 @@ System creation
     arithmetic rule are based on rigorous argument, so here
     the geometric rule will do just fine. 
 
+.. include:: ../contact/supportme.rst
+
 Energy minimization
 -------------------
 
