@@ -118,6 +118,8 @@ The input script
     that is ignored by LAMMPS. Use comments to structure 
     your inputs and make them readable by others.
 
+.. include:: ../contact/supportme.rst
+
 System creation
 ---------------
 
@@ -311,8 +313,6 @@ System creation
     is more common than the geometric rule. However, neither the geometric nor the
     arithmetic rule are based on rigorous argument, so here
     the geometric rule will do just fine. 
-
-.. include:: ../contact/supportme.rst
 
 Energy minimization
 -------------------

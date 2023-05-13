@@ -232,6 +232,8 @@ Relax the amorphous silica structure
 
     Amorphous silica colored by charges using VMD. Dandling oxygen groups appear in green.
 
+.. include:: ../contact/supportme.rst
+
 Deform the structure
 ====================
 

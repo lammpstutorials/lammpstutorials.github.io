@@ -315,6 +315,8 @@ The limits of free sampling
     such as umbrella sampling, to extract free energy profiles.
     This is what we are going to do next.
 
+.. include:: ../contact/supportme.rst
+
 Method 2: Umbrella sampling
 ===========================
 

@@ -156,6 +156,8 @@ Generation of the system
 
    <a href="../../../../inputs/graphene-under-deformation/carbon.data" target="_blank">here</a>
 
+.. include:: ../contact/supportme.rst
+
 LAMMPS input script
 ===================
 

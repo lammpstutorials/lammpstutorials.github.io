@@ -189,6 +189,8 @@ Generation of the silica block
     compare them to experimental data. This is beyond the
     scope of this tutorial.
 
+.. include:: ../contact/supportme.rst
+
 Cracking the silica
 ===================
 
