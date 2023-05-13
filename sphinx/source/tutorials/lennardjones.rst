@@ -1008,7 +1008,7 @@ Do without the 'minimize' command
     will have to be compensated in order to avoid triggering the 'Lost atoms' error message (see 
     the previous paragraph).
 
-.. admonition:: Hints
+.. admonition:: Hints (click to reveal)
     :class: dropdown
 
     The value of the timestep and/or the damping factor of the fix langevin
@@ -1031,7 +1031,7 @@ A simulation with no thermostat
     Run the same simulation in the NVE ensemble and extract the
     energy over time. Is the energy conserved over time (as usaully expected)?
 
-.. admonition:: Hints
+.. admonition:: Hints (click to reveal)
     :class: dropdown
 
     Using a smaller value for the timestep gives better
@@ -1047,7 +1047,7 @@ Non-equilibrium simulation
     direction. The magnitude of the force must be chosen so
     that the system is not *too far* from equilibrium.
 
-.. admonition:: Hints
+.. admonition:: Hints (click to reveal)
     :class: dropdown
 
     LAMMPS offers several option to add external force to a system, one 
