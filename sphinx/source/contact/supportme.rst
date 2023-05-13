@@ -1,5 +1,5 @@
 .. admonition:: Support me for 1 euro per month
-    :class: patreon-red
+    :class: patreon
 
     Become a |patreon| and support the creation of content for LAMMPS 
 
