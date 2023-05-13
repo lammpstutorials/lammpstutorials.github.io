@@ -525,6 +525,8 @@ Bulk water
 
    <a href="../../../../inputs/allatoms/pureH2O/H2O.data" target="_blank">download</a>
 
+.. include:: ../contact/supportme.rst
+
 PEG molecule
 ============
 

@@ -74,6 +74,8 @@ System creation
 
    <a href="../../../../inputs/carbonnanotube/cnt.data" target="_blank">here</a>
 
+.. include:: ../contact/supportme.rst
+
 Input file
 ==========
 

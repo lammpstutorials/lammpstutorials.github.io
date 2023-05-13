@@ -319,6 +319,8 @@ Initial configuration
 
    <a href="https://pubs.acs.org/doi/10.1021/acs.jpcb.1c05303" target="_blank">this paper</a>
 
+.. include:: ../contact/supportme.rst
+
 Equilibrium
 ===========
 

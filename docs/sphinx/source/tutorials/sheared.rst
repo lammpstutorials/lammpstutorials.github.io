@@ -303,6 +303,8 @@ System generation
     by showing the periodic images. Atomic defects often
     occur at the boundary.
 
+.. include:: ../contact/supportme.rst
+
 Energy minimisation
 ===================
 
