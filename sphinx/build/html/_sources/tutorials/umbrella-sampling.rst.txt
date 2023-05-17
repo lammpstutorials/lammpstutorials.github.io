@@ -335,7 +335,8 @@ Method 2: Umbrella sampling
     the bias and eventually deduce the unbiased free energy
     profile.
 
-**LAMMPS input script**
+LAMMPS input script
+------------------
 
 ..  container:: justify
 
