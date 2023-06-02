@@ -197,12 +197,12 @@ Relax the structure
     :alt: Charge of silica during equilibration with reaxff and LAMMPS
     :class: only-dark
 
-    Average charge of silica during equilibration
+    Average charge of the silicon (Si) atoms during equilibration using reaxff.
 
 ..  container:: justify
 
-    Moreover, instantaneously, each atom adopts its own charge value, therefore the
-    charge are distributed around a mean value:
+    Moreover, as each atom instantaneously adopts its own charge value, the charges are distributed
+    around a mean value:
 
 .. figure:: figures/reaxff/distribution-charge-light.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
@@ -212,9 +212,9 @@ Relax the structure
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
     :class: only-dark
 
-    Distribution of charge of  silica (positive) and oxygen (negative) during equilibration. The data 
+    Distribution of charge of silicon (positive) and oxygen (negative) atoms during equilibration. The data 
     were extracted from the dump.lammpstrj file using python, you can 
-    use this |plot_distribution| to do the same. 
+    download this |plot_distribution| to plot the charge distribution using Python, NumPy, and Matplotlib. 
 
 .. |plot_distribution| raw:: html
 
@@ -224,7 +224,7 @@ Relax the structure
 
     Using VMD and coloring the atoms by their charges, one can see that 
     the atoms with the extreme-most charges are located at defects in the 
-    amorphous structure (here dandling oxygen group):
+    amorphous structure (here at the positions of the dandling oxygen group):
 
 .. figure:: figures/reaxff/silicon-light.png
     :alt: Amorphous silica colored by charges using VMD
