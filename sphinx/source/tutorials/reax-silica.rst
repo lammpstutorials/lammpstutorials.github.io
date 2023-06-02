@@ -46,8 +46,8 @@ Relax the structure
     can be expected to be slightly different, and the structure will need 
     to be relaxed again using reaxff. 
 
-    If you are interested, the input files used for creating the initial topology are 
-    available |lammps_input_creating|, but their description is not part of this tutorial.
+    If you are interested, the input file used for creating the initial topology is 
+    available |lammps_input_creating|, but its description is not part of this tutorial.
 
     The Atoms section of the *silica.data* file starts like that:
 
@@ -61,7 +61,7 @@ Relax the structure
 
 .. |lammps_input_creating| raw:: html
 
-   <a href="../../../../inputs/reaxff/reax-silica/CreateSilica/" target="_blank">here</a>
+   <a href="../../../../inputs/reaxff/reax-silica/CreateSilica/input.lammps" target="_blank">here</a>
 
 ..  code-block:: lammps
 
