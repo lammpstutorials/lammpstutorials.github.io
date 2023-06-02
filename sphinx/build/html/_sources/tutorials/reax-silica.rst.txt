@@ -32,20 +32,22 @@ Reactive silicon dioxide
 
 .. include:: ../contact/needhelp.rst
 
-Relax the amorphous silica structure
-====================================
+Relax the structure
+===================
 
 ..  container:: justify
 
     Create a folder, name it RelaxSilica/, and |download_silica_data|
     the initial topology of a small amorphous silica structure.
     The system was created by temperature annealing using another force field 
-    (|download_SiO.1990.vashishta|), therefore the bond length, angle values, or charges are different from what is expected
-    from reaxff force field. 
+    (|download_SiO.1990.vashishta|), therefore the structure is slightly
+    different to what is expected from the reaxff force field. 
+    For instance, the average bond lengths, angles, or charges 
+    can be expected to be slightly different, and the structure will need 
+    to be relaxed again using reaxff. 
 
-    If you are interested, the input script used for creating the initial topology are 
-    available |lammps_input_creating|,
-    but it is not part of this tutorial.
+    If you are interested, the input files used for creating the initial topology are 
+    available |lammps_input_creating|, but their description is not part of this tutorial.
 
     The Atoms section of the *silica.data* file starts like that:
 
@@ -59,7 +61,7 @@ Relax the amorphous silica structure
 
 .. |lammps_input_creating| raw:: html
 
-   <a href="../../../../inputs/reaxff/reax-silica/CreateSilica/input.lammps" target="_blank">here</a>
+   <a href="../../../../inputs/reaxff/reax-silica/CreateSilica/" target="_blank">here</a>
 
 ..  code-block:: lammps
 
