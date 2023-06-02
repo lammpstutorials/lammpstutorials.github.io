@@ -1,11 +1,11 @@
 .. _reax-silica-label:
 
-Deforming silicon dioxide
-*************************
+Reactive silicon dioxide
+************************
 
 .. container:: hatnote
 
-    Using reaxff and deform a structure
+    Deforming a chemically reactive structure using reaxff
 
 .. figure:: figures/reaxff/avatar-light.png
     :height: 250
@@ -21,10 +21,12 @@ Deforming silicon dioxide
 
 ..  container:: justify
 
-    The objective of this tutorial is to use molecular
+    The objective of this tutorial is to use a molecular
     dynamics system made of silicon dioxide (SiO2), and deform 
-    it until it break. The reactive force field reaxff is used, and 
-    a particular attention is given to the charge of the atoms. 
+    it until it breaks. The reactive force field reaxff is used, and 
+    a particular attention is given to the evolution
+    of the charge of the atoms during
+    the deformation of the structure. 
 
 .. include:: ../contact/recommand-lj.rst
 
