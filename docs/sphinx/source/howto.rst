@@ -71,5 +71,5 @@ For advanced users
 
 #. :ref:`reax-silica-label`
     * simulation of charged reactive species
-    * use of REAXff
+    * use of REAX force field
     * use of charge equilibration
