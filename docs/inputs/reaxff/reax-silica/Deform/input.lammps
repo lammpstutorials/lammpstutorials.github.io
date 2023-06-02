@@ -28,11 +28,13 @@ dump dmp all custom 100 dump-deform.lammpstrj id type q x y z
 thermo 100
 thermo_style custom step temp etotal press vol v_qSi v_qO
 
-fix mydef all deform 1 x erate 5e-5
 fix mynvt all nvt temp 300.0 300.0 100
 timestep 0.5 
 
-thermo 100
+run 2000
+
+fix mydef all deform 1 x erate 5e-5
+
 run 25000
 unfix mydef
 undump dmp
