@@ -3,6 +3,14 @@
 Contact me
 **********
 
+I am a physicist in soft matter and fluids at interfaces.
+I have been using LAMMPS for research and education since 2012.
+See my |personal_page_simon_gravelle|.
+
+.. |personal_page_simon_gravelle| raw:: html
+
+   <a href="https://simongravelle.github.io/" target="_blank">personal page</a>
+
 Email
 =====
 
@@ -11,8 +19,8 @@ think about this website or ask me any LAMMPS-related questions.
 
 .. _email: simon.gravelle@live.fr
 
-Get help with your project:
-===========================
+Get help
+========
 
 .. figure:: images/patreon.png
     :height: 100
@@ -46,12 +54,3 @@ Follow me
 .. |github_simon_gravelle| raw:: html
 
    <a href="https://github.com/simongravelle" target="_blank">github</a>
-
-About me
-========
-
-I am a physicist in soft matter and fluids at interfaces, see my |personal_page_simon_gravelle|.
-
-.. |personal_page_simon_gravelle| raw:: html
-
-   <a href="https://simongravelle.github.io/" target="_blank">personal page</a>
