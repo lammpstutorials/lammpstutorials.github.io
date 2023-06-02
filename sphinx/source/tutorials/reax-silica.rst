@@ -24,8 +24,7 @@ Reactive silicon dioxide
     The objective of this tutorial is to use a molecular
     dynamics system made of silicon dioxide (SiO2), and deform 
     it until it breaks. The reactive force field reaxff is used, and 
-    a particular attention is given to the evolution
-    of the charge of the atoms during
+    a particular attention is given to the evolution of the charges of the atoms during
     the deformation of the structure. 
 
 .. include:: ../contact/recommand-lj.rst
