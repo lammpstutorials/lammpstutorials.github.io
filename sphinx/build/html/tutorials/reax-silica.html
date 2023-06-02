@@ -425,6 +425,10 @@ amorphous structure (here at the positions of the dandling oxygen group):</p>
 <p><span class="caption-text">Amorphous silica colored by charges using VMD. Dandling oxygen groups appear in green.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<div class="justify docutils container">
+<p>Note for VMD user: to color the atoms by their charge, use <em>Charge</em> as coloring method in the
+representation windows, and then tune the <em>Color scale</em> in the <em>Color control windows</em>.</p>
+</div>
 <div class="patreon admonition">
 <p class="admonition-title">Support me for 1 euro per month</p>
 <p>Become a <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a> and support the creation of content for LAMMPS</p>
@@ -433,8 +437,8 @@ amorphous structure (here at the positions of the dandling oxygen group):</p>
 <section id="deform-the-structure">
 <h2>Deform the structure<a class="headerlink" href="#deform-the-structure" title="Permalink to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Now, let us apply a deformation to the structure in order to force some bonds
-to break and eventually re-form.</p>
+<p>Let us apply a deformation to the structure in order to force some bonds
+to dynamically break and reassemble.</p>
 <p>Next to RelaxSilica/, create a folder, call it Deform/ and create a
 file named input.lammps in it. Copy the following lines:</p>
 </div>
@@ -470,11 +474,13 @@ file named input.lammps in it. Copy the following lines:</p>
 <span class="k">thermo</span><span class="w"> </span><span class="m">100</span>
 <span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="n">v_qSi</span><span class="w"> </span><span class="n">v_qO</span>
 
-<span class="k">fix </span><span class="nv nv-Identifier">mydef</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">deform</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">erate</span><span class="w"> </span><span class="m">5e-5</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">100</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
 
-<span class="k">thermo</span><span class="w"> </span><span class="m">100</span>
+<span class="k">run</span><span class="w"> </span><span class="m">2000</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">mydef</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">deform</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">erate</span><span class="w"> </span><span class="m">5e-5</span>
+
 <span class="k">run</span><span class="w"> </span><span class="m">25000</span>
 <span class="k">unfix </span><span class="nv nv-Identifier">mydef</span>
 <span class="k">undump </span><span class="nv nv-Identifier">dmp</span>
@@ -496,23 +502,26 @@ file named input.lammps in it. Copy the following lines:</p>
 <p>After a first run of 25000 steps, a short run of 2000 steps is performed
 in order to extract the final charges of the atoms from an structure that is not
 under deformation.</p>
-<p>During the deformation, the charges progressively changes, until the structure
-breaks. After the structure breaks, the charges equilibrates near a new
+<p>During the deformation, the charges progressively changes, until the structure eventually
+breaks up. After the structure breaks, the charges equilibrates near a new
 average value that differs from the starting charge, which is expected due to the
 presence of the new solid/vacuum interface:</p>
 </div>
 <figure class="align-default">
-<img alt="Charge of silica during deformation of the silicon oxide with reaxff" class="only-light" src="../_images/deformed-charge-light.png" />
+<img alt="Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff" class="only-light" src="../_images/deformed-charge-light.png" />
 </figure>
 <figure class="align-default" id="id9">
-<img alt="Charge of silica during deformation of the silicon oxide with reaxff" class="only-dark" src="../_images/deformed-charge-dark.png" />
+<img alt="Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff" class="only-dark" src="../_images/deformed-charge-dark.png" />
 <figcaption>
-<p><span class="caption-text">Charge of silica during deformation of the silicon oxide with reaxff</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Charge of silica during deformation of the silicon oxide block using LAMMPS and reaxff. The vertical
+dashed lines show the limit of the 3 consecutive runs of respective durations; 2000 steps (or 1000 fs),
+25000 steps, and 2000 steps.</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
-<p>At the end of the deformation,  one can visualize the brocken material, not
-the different charge of atoms near the interface.</p>
+<p>At the end of the deformation,  one can visualize the broken material. Notice
+the different charge of the atoms located near the interface and compared to the
+atoms located in the bulk of the material:</p>
 </div>
 <figure class="align-default">
 <img alt="Deformed amorphous silica colored by charges using VMD" class="only-light" src="../_images/deformed-light1.png" />
@@ -520,7 +529,9 @@ the different charge of atoms near the interface.</p>
 <figure class="align-default" id="id10">
 <img alt="Deformed amorphous silica colored by charges using VMD" class="only-dark" src="../_images/deformed-dark1.png" />
 <figcaption>
-<p><span class="caption-text">Amorphous silicon oxide after deformation colored by charges using VMD</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Amorphous silicon oxide after deformation. The atoms are colored by charges using VMD.
+The small dots correspond are the charge measured with the previous undeformed
+structure. Notice the difference near q=-0.5e and q=1.25e.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -544,8 +555,8 @@ near -0.5e for the oxygen.</p>
 <p>You can access all the input scripts and data files that
 are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">Github</a>.</p>
 </section>
-<section id="going-further-with-exercises">
-<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Permalink to this heading">#</a></h2>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
 <div class="justify docutils container">
 <div class="solution admonition">
 <p class="admonition-title">Solutions</p>
@@ -632,7 +643,7 @@ Hydrogen atoms can be added using create_atoms command, gcmc, or external python
 <li><a class="reference internal" href="#">Reactive silicon dioxide</a><ul>
 <li><a class="reference internal" href="#relax-the-structure">Relax the structure</a></li>
 <li><a class="reference internal" href="#deform-the-structure">Deform the structure</a></li>
-<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a></li>
+<li><a class="reference internal" href="#exercises">Exercises</a></li>
 </ul>
 </li>
 </ul>

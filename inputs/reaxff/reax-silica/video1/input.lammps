@@ -3,16 +3,13 @@
 units real
 atom_style full
 
-read_data silica.data
-
-#change_box all x final -30 30 y final -30 30 z final -30 30
-#fix mydef all deform 1 x final -20 20 y final -20 20 z final -20 20
+read_data ../RelaxSilica/silica.data
 
 mass 1 28.0855 # Si
 mass 2 15.999 # O
 
 pair_style reaxff NULL safezone 3.0 mincap 150
-pair_coeff * * reaxCHOFe.ff Si O
+pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O
 fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
 neighbor 0.5 bin
@@ -37,7 +34,6 @@ timestep 0.5
 
 run 500
 unfix mynve
-#unfix mydef
 unfix mylangevin
 
 fix mynvt all nvt temp 1.0 300.0 1

@@ -235,6 +235,11 @@ Relax the structure
 
     Amorphous silica colored by charges using VMD. Dandling oxygen groups appear in green.
 
+..  container:: justify
+
+    Note for VMD user: to color the atoms by their charge, use *Charge* as coloring method in the 
+    representation windows, and then tune the *Color scale* in the *Color control windows*.
+
 .. include:: ../contact/supportme.rst
 
 Deform the structure
@@ -242,8 +247,8 @@ Deform the structure
 
 ..  container:: justify
 
-    Now, let us apply a deformation to the structure in order to force some bonds 
-    to break and eventually re-form. 
+    Let us apply a deformation to the structure in order to force some bonds 
+    to dynamically break and reassemble. 
 
     Next to RelaxSilica/, create a folder, call it Deform/ and create a
     file named input.lammps in it. Copy the following lines:
@@ -281,11 +286,13 @@ Deform the structure
     thermo 100
     thermo_style custom step temp etotal press vol v_qSi v_qO
 
-    fix mydef all deform 1 x erate 5e-5
     fix mynvt all nvt temp 300.0 300.0 100
     timestep 0.5 
 
-    thermo 100
+    run 2000
+
+    fix mydef all deform 1 x erate 5e-5
+
     run 25000
     unfix mydef
     undump dmp
@@ -307,25 +314,28 @@ Deform the structure
     in order to extract the final charges of the atoms from an structure that is not 
     under deformation.
 
-    During the deformation, the charges progressively changes, until the structure 
-    breaks. After the structure breaks, the charges equilibrates near a new 
+    During the deformation, the charges progressively changes, until the structure eventually
+    breaks up. After the structure breaks, the charges equilibrates near a new 
     average value that differs from the starting charge, which is expected due to the
     presence of the new solid/vacuum interface:
 
 .. figure:: figures/reaxff/deformed-charge-light.png
-    :alt: Charge of silica during deformation of the silicon oxide with reaxff
+    :alt: Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff
     :class: only-light
 
 .. figure:: figures/reaxff/deformed-charge-dark.png
-    :alt: Charge of silica during deformation of the silicon oxide with reaxff
+    :alt: Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff
     :class: only-dark
 
-    Charge of silica during deformation of the silicon oxide with reaxff
+    Charge of silica during deformation of the silicon oxide block using LAMMPS and reaxff. The vertical
+    dashed lines show the limit of the 3 consecutive runs of respective durations; 2000 steps (or 1000 fs),
+    25000 steps, and 2000 steps.
 
 ..  container:: justify
 
-    At the end of the deformation,  one can visualize the brocken material, not
-    the different charge of atoms near the interface.
+    At the end of the deformation,  one can visualize the broken material. Notice
+    the different charge of the atoms located near the interface and compared to the 
+    atoms located in the bulk of the material:
 
 .. figure:: figures/reaxff/deformed-light.png
     :alt: Deformed amorphous silica colored by charges using VMD
@@ -335,7 +345,9 @@ Deform the structure
     :alt: Deformed amorphous silica colored by charges using VMD
     :class: only-dark
 
-    Amorphous silicon oxide after deformation colored by charges using VMD
+    Amorphous silicon oxide after deformation. The atoms are colored by charges using VMD.
+    The small dots correspond are the charge measured with the previous undeformed 
+    structure. Notice the difference near q=-0.5e and q=1.25e. 
 
 ..  container:: justify
 
@@ -361,8 +373,8 @@ Deform the structure
 
 .. include:: ../contact/accessfile.rst
 
-Going further with exercises
-============================
+Exercises
+=========
 
 ..  container:: justify
 
