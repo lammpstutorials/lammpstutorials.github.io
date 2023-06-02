@@ -81,18 +81,17 @@ Relax the structure
     183 21 1 1.1 1.777618482333677 6.145548171417662 3.999369841948803 -5 -5 -3
     95 11 2 -0.55 4.561227581704491 2.3474960588346616 0.6330321107351076 -1 -6 3
     105 12 2 -0.55 5.0710009155644125 3.8511969818510208 5.143556706337486 -1 0 5
+    (...)
 
 ..  container:: justify
 
-    Due to the use of vashishta force field, all silicon atoms have the same charge (1.1e).
-    Similarly, all oxygen atoms have the same charge (-0.55e). This is common to most classical force field. 
+    Due to the use of vashishta force field, all silicon atoms have the same charge (1.1e),
+    and all oxygen atoms as well (-0.55e). This is common to most classical force field. 
     Let us keep that in mind before we start using reaxff.
 
-    The first step is to relax the structure. We are going to track the changes and make 
-    sure that the system equilibrates nicely. 
-    
-    Note that this silica structure is a bit small, all full of defects, but it will 
-    make the effect of reaxff more easily more visible.
+    The first step is to relax the structure, which we are gonna do using molecular
+    dynamcis. To make sure that system equilibrates nicely, let us track the changes in our system
+    over time. 
 
     Create an input file called input.lammps in RelaxSilica/, and copy in it: 
 
@@ -109,8 +108,9 @@ Relax the structure
 
 ..  container:: justify
 
-    So far, the input is very silica to what is seen in the other tutorials here.
-    Now let us enter the 3 most important line of a reaxff simulation:
+    So far, the input is very similar to what is seen in the other tutorials here,
+    with some basic parameters being defined (units, atom_style and masses), and 
+    our data file being read. Now let us enter 3 crucial lines:
 
 ..  code-block:: lammps
     :caption: *to be copied in RelaxSilica/input.lammps*
@@ -121,23 +121,23 @@ Relax the structure
 
 ..  container:: justify
 
-    Here the reaxff pair_style is used with no control file, and safezone and mincap
+    Here, the reaxff pair_style is used with no control file, and safezone and mincap
     are there for memory allocation issue. If not there, the segmentation faults and bondchk
     failed errors sometimes occur.
 
-    The pair_coeff uses the |reaxCHOFe|
-    (which must be saved in the same folder), and we set the type 1 as silicon,
-    and type 2 as oxygen.
+    The pair_coeff uses the |reaxCHOFe| file which is assumed to be saved in the same folder as the input. 
+    The atoms of type 1 are set as silicon (Si),
+    and type 2 as oxygen (O) in order to be consistent with our .data file and previous mass definition.
 
     Finally, qeq/reaxff is used to perform charge equilibration every timestep. The values 0 and 10.0
     are low and high cutoffs, and 1.0e-6 a tolerance. Finally, maxiter sets a limit to the number of 
     attempt to equilibrate the charge. If the charge does not properly equilibrate
-    despite the 400 attempts, a WARNING will appear. It can happen when the initial 
+    despite the 400 attempts, a warning will appear. Such warning are likely to appear if the initial 
     charges are too far from equilibrium values. 
 
-    Then, let us insert some familiar commands controlling the re-building of the 
-    neighbor lists. Let us also
-    print thermodynamic information as well as the charge of both atom types.
+    Then, let us insert some familiar commands controlling the building of the 
+    neighbor lists. Let us also print thermodynamic information, the charge of both atom types,
+    and create a dump file for visualization.
 
 .. |reaxCHOFe| raw:: html
 
@@ -164,9 +164,9 @@ Relax the structure
 
 ..  container:: justify
 
-    Let us also print 
-    particle charges and positions in a dump file, and let us perform a very short
-    run using anisotropic NPT, thus allowing for the box to relax. 
+    Let us perform a very short
+    run using anisotropic NPT command, thus allowing for the box
+    volume to relax. 
 
 ..  code-block:: lammps
     :caption: *to be copied in RelaxSilica/input.lammps*
@@ -180,21 +180,21 @@ Relax the structure
 
 ..  container:: justify
 
-    Here I choose values of 10 fs for the temperature damping parameter and 100 fs
+    Here, I choose values of 10 fs for the temperature damping parameter and 100 fs
     for the pressure. These choices were made to reach equilibrium faster and 
-    allow very short run to be performed. For your research, use longer equilibration 
-    and larger damping (100 and 1000 for temperature and pressure respectively are 
-    usually used).
+    allow very short run to be performed. For an actual simulation (and not a tutorial), longer equilibration 
+    and larger damping times should be used (100 fs and 1000 fs for temperature and pressure respectively are 
+    usually used for atomic systems).
 
     As the simulation runs, you can see that the charges of the atoms are fluctuating,
     as it adjusts to the topology:
 
 .. figure:: figures/reaxff/average-charge-light.png
-    :alt: Charge of silica during equilibration with reaxff
+    :alt: Charge of silica during equilibration with reaxff and LAMMPS
     :class: only-light
 
 .. figure:: figures/reaxff/average-charge-dark.png
-    :alt: Charge of silica during equilibration with reaxff
+    :alt: Charge of silica during equilibration with reaxff and LAMMPS
     :class: only-dark
 
     Average charge of silica during equilibration
