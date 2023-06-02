@@ -7,15 +7,15 @@ Reactive silicon dioxide
 
     Deforming a chemically reactive structure using reaxff
 
-.. figure:: figures/reaxff/avatar-light.png
+.. figure:: figures/reaxff/SiO_gif_light.webp
     :height: 250
-    :alt: Figure showing silicon dioxide structure with colored charges.
+    :alt: Figure showing silicon dioxide structure with colored charges as simulated with lammps and reaxff
     :class: only-light
     :align: right
 
-.. figure:: figures/reaxff/avatar-dark.png
+.. figure:: figures/reaxff/SiO_gif_dark.webp
     :height: 250
-    :alt: Figure showing silicon dioxide structure with colored charges.
+    :alt: Figure showing silicon dioxide structure with colored charges as simulated with lammps and reaxff
     :class: only-dark
     :align: right
 
@@ -175,7 +175,6 @@ Relax the structure
     fix mynpt all npt temp 300.0 300.0 10 aniso 1.0 1.0 100
     timestep 0.5
 
-    thermo 100
     run 2000
 
 ..  container:: justify
