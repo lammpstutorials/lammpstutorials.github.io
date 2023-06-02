@@ -336,7 +336,7 @@ Method 2: Umbrella sampling
     profile.
 
 LAMMPS input script
-------------------
+-------------------
 
 ..  container:: justify
 
