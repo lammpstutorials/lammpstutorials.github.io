@@ -5,6 +5,9 @@ atom_style full
 
 read_data silica.data
 
+#change_box all x final -30 30 y final -30 30 z final -30 30
+#fix mydef all deform 1 x final -20 20 y final -20 20 z final -20 20
+
 mass 1 28.0855 # Si
 mass 2 15.999 # O
 
@@ -24,14 +27,29 @@ variable nO equal count(grpO)
 variable qSi equal v_totqSi/${nSi}
 variable qO equal v_totqO/${nO}
 
-dump dmp all custom 100 dump.lammpstrj id type q xs ys zs
-thermo 10
+thermo 100
 thermo_style custom step temp etotal press vol v_qSi v_qO
 
 velocity all create 300.0 3482028
-fix mynpt all npt temp 300.0 300.0 10 aniso 1.0 1.0 100
+fix mynve all nve
+fix mylangevin all langevin 300.0 300.0 10 767678
 timestep 0.5 
 
+run 500
+unfix mynve
+#unfix mydef
+unfix mylangevin
+
+fix mynvt all nvt temp 1.0 300.0 1
+
+run 500
+
+fix mynvt all nvt temp 300.0 300.0 100
+
 run 2000
+
+dump dmp all custom 1 dump.lammpstrj id type q x y z
+
+run 500
 
 write_data silica-relaxed.data
