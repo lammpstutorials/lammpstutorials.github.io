@@ -370,6 +370,128 @@ Deform the structure
     The final charge distribution differs from the previously calculated, as a new peak 
     near -0.5e for the oxygen. 
 
+Add O2 molecules
+================
+
+..  container:: justify
+
+    Let us add more O2 molecule to our previously equilibrated structure, equilibrate it again, 
+    and extract the charge density profile along the x axis.
+
+    Create a new folder, named it AddOxygen, and create a new molecule file in it:
+
+..  code-block:: lammps
+    :caption: *to be copied in AddOxygen/O2.mol*
+
+    # O2 reaxff file
+
+    2 atoms
+
+    Coords
+
+    1 -0.6 0 0
+    2 0.6 0 0
+
+    Types
+
+    1        2
+    2        2   
+
+    Charges 
+
+    1	0.0
+    2	0.0
+
+..  container:: justify
+
+    This O2 molecule is simply made of 2 oxygen (type 2) atoms that are not 
+    connected by any bond (because there is no need with reaxff).
+
+    Then, create a new input.lammps file, and copy the same first lines as
+    previously in it: 
+
+..  code-block:: lammps
+    :caption: *to be copied in AddOxygen/input.lammps*
+
+    units real
+    atom_style full
+
+    read_data ../Deform/silica-deformed.data
+
+    mass 1 28.0855 # Si
+    mass 2 15.999 # O
+
+    pair_style reaxff NULL safezone 3.0 mincap 150
+    pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O
+    fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
+
+    neighbor 0.5 bin
+    neigh_modify every 5 delay 0 check yes 
+
+..  container:: justify
+
+    Optionally, let us shift the structure to recenter it in the box. The best value 
+    for the shift may be different in your case. This step is not necessary.
+
+..  code-block:: lammps
+    :caption: *to be copied in AddOxygen/input.lammps*
+
+    displace_atoms all move -13 0 0 units box
+
+..  container:: justify
+
+    Then, let us import the molecule template O2.mol and create a few molecules. 
+    The overlap and maxtry keywords allow us to prevent overlapping between the atoms:
+
+..  code-block:: lammps
+    :caption: *to be copied in AddOxygen/input.lammps*
+
+    molecule O2mol O2.mol
+    create_atoms 0 random 10 456415 NULL mol O2mol 454756 overlap 3.0 maxtry 50
+
+..  container:: justify
+
+    Finally, let us minimize the energy of the system, and run for a relatively long time:
+
+..  code-block:: lammps
+    :caption: *to be copied in AddOxygen/input.lammps*
+
+    minimize 1.0e-4 1.0e-6 100 1000
+    reset_timestep 0
+
+    group grpSi type 1
+    group grpO type 2
+    variable totqSi equal charge(grpSi)
+    variable totqO equal charge(grpO)
+    variable nSi equal count(grpSi)
+    variable nO equal count(grpO)
+    variable qSi equal v_totqSi/${nSi}
+    variable qO equal v_totqO/${nO}
+
+    dump dmp all custom 1000 dump.lammpstrj id type q x y z
+    thermo 1000
+    thermo_style custom step temp etotal press vol v_qSi v_qO
+
+    fix mynvt all nvt temp 300.0 300.0 100
+    timestep 0.5 
+
+    run 100000
+
+..  container:: justify
+
+    Run the simulation. You should seen additional O2 molecules in it:
+
+.. figure:: figures/reactive-silicon-dioxide/O2_light.png
+    :alt: Silicon oxide with additional O2 molecules
+    :class: only-light
+
+.. figure:: figures/reactive-silicon-dioxide/O2_dark.png
+    :alt: Silicon oxide with additional O2 molecules
+    :class: only-dark
+
+    Deformed structure with additional O2 molecules
+
+
 .. include:: ../contact/accessfile.rst
 
 Exercises
