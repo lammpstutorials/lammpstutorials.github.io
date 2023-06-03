@@ -69,7 +69,7 @@ For advanced users
     * use of biasing potential
     * use of WHAM algorithm
 
-#. :ref:`reax-silica-label`
+#. :ref:`reactive-silicon-dioxide-label`
     * simulation of charged reactive species
     * use of REAX force field
     * use of charge equilibration

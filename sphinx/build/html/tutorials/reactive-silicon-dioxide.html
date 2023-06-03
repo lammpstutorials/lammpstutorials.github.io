@@ -236,7 +236,7 @@
         </div>
         <article role="main">
           <section id="reactive-silicon-dioxide">
-<span id="reax-silica-label"></span><h1>Reactive silicon dioxide<a class="headerlink" href="#reactive-silicon-dioxide" title="Permalink to this heading">#</a></h1>
+<span id="reactive-silicon-dioxide-label"></span><h1>Reactive silicon dioxide<a class="headerlink" href="#reactive-silicon-dioxide" title="Permalink to this heading">#</a></h1>
 <div class="hatnote docutils container">
 <p>Deforming a chemically reactive structure using reaxff</p>
 </div>
@@ -261,16 +261,16 @@ the deformation of the structure.</p>
 <section id="relax-the-structure">
 <h2>Relax the structure<a class="headerlink" href="#relax-the-structure" title="Permalink to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Create a folder, name it RelaxSilica/, and <a href="../../../../inputs/reaxff/reax-silica/RelaxSilica/silica.data" target="_blank">download</a>
+<p>Create a folder, name it RelaxSilica/, and <a href="../../../../inputs/reactive-silicon-dioxide/RelaxSilica/silica.data" target="_blank">download</a>
 the initial topology of a small amorphous silica structure.
 The system was created by temperature annealing using another force field
-(<a href="../../../../inputs/reaxff/reax-silica/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>), therefore the structure is slightly
+(<a href="../../../../inputs/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>), therefore the structure is slightly
 different to what is expected from the reaxff force field.
 For instance, the average bond lengths, angles, or charges
 can be expected to be slightly different, and the structure will need
 to be relaxed again using reaxff.</p>
 <p>If you are interested, the input file used for creating the initial topology is
-available <a href="../../../../inputs/reaxff/reax-silica/CreateSilica/input.lammps" target="_blank">here</a>, but its description is not part of this tutorial.</p>
+available <a href="../../../../inputs/reactive-silicon-dioxide/CreateSilica/input.lammps" target="_blank">here</a>, but its description is not part of this tutorial.</p>
 <p>The Atoms section of the <em>silica.data</em> file starts like that:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">Atoms</span><span class="w"> </span><span class="c"># full</span>
@@ -330,7 +330,7 @@ our data file being read. Now let us enter 3 crucial lines:</p>
 <p>Here, the reaxff pair_style is used with no control file, and safezone and mincap
 are there for memory allocation issue. If not there, the segmentation faults and bondchk
 failed errors sometimes occur.</p>
-<p>The pair_coeff uses the <a href="../../../../inputs/reaxff/reax-silica/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a> file which is assumed to be saved in the same folder as the input.
+<p>The pair_coeff uses the <a href="../../../../inputs/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a> file which is assumed to be saved in the same folder as the input.
 The atoms of type 1 are set as silicon (Si),
 and type 2 as oxygen (O) in order to be consistent with our .data file and previous mass definition.</p>
 <p>Finally, qeq/reaxff is used to perform charge equilibration every timestep. The values 0 and 10.0
@@ -407,7 +407,7 @@ around a mean value:</p>
 <figcaption>
 <p><span class="caption-text">Distribution of charge of silicon (positive) and oxygen (negative) atoms during equilibration. The data
 were extracted from the dump.lammpstrj file using python, you can
-download this <a href="../../../../inputs/reaxff/reax-silica/RelaxSilica/plot_distribution.ipynb" target="_blank">notebook</a> to plot the charge distribution using Python, NumPy, and Matplotlib.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+download this <a href="../../../../inputs/reactive-silicon-dioxide/RelaxSilica/plot_distribution.ipynb" target="_blank">notebook</a> to plot the charge distribution using Python, NumPy, and Matplotlib.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">

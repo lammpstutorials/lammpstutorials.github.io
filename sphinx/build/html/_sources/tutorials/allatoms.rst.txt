@@ -331,7 +331,7 @@ Bulk water
     you want to study the vibration of the O-H bonds and
     H-O-H angles, you will have to use a flexible water
     model. If you want to study the hydrogen transfer, you
-    will have to use a reactive force field, as done in :ref:`reax-silica-label`.
+    will have to use a reactive force field, as done in :ref:`reactive-silicon-dioxide-label`.
 
 ..  container:: justify
 

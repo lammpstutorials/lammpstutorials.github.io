@@ -36,7 +36,7 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     tutorials/gcmc-silica.rst
     tutorials/umbrella-sampling.rst
     tutorials/surface-profile.rst
-    tutorials/reax-silica.rst
+    tutorials/reactive-silicon-dioxide.rst
 
 .. toctree::
     :maxdepth: 2
