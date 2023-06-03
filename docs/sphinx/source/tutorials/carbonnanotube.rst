@@ -13,7 +13,7 @@ Breaking a carbon nanotube
     In this tutorial, a reactive force field (airebo) is used to simulate the 
     breaking of C-C bonds during the plastic deformation of a carbon nanotube.
     
-    Reactive force fields like airebo and reaxff (see :ref:`reax-silica-label`) allow one to simulate the
+    Reactive force fields like airebo and reaxff (see :ref:`reactive-silicon-dioxide-label`) allow one to simulate the
     formation and breaking of chemical bonds between the atoms of a structure.
 
 .. figure:: figures/carbonnanotube/cnt_dark.png
