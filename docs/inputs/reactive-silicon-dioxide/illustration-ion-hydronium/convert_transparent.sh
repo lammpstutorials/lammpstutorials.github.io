@@ -15,6 +15,6 @@ img2webp -o ../../../../docs/sphinx/source/tutorials/figures/reactive-silicon-di
 for file in _dark.*.ppm; 
 do 
 	echo ${file:0:11}.png
-	convert $file -resize 421x221 -resize  -transparent black ${file:0:11}.png;
+	convert $file -resize 421x221 -transparent black ${file:0:11}.png;
 done
 img2webp -o ../../../../docs/sphinx/source/tutorials/figures/reactive-silicon-dioxide/hydronium_transfert_dark.webp -q 30 -mixed -d 11.11 _dark*.png
