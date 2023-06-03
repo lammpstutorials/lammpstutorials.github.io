@@ -397,5 +397,21 @@ Exercises
 
     Hydrogen atoms are in white, oxygen in red, and silicon in yellow.
 
+.. admonition:: Hints (click to reveal)
+    :class: dropdown
+
+    ..  container:: justify
+
+        The structure can be imported in MDAnysis/Python using:
+
+    ..  code-block:: python
+
+        u = mda.Universe("silica-deformed.data")
+
+    ..  container:: justify
+
+        Then dandling oxygen can be detected by counting the number of neighbor (oxygen with only 
+        one connected silicon is dandling and should be completed with an hydrogen).
+
     .. include:: ../contact/contactme.rst
 
