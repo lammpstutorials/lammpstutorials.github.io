@@ -580,7 +580,7 @@ Hydrogen atoms can be added using create_atoms command, gcmc, or external python
 </figcaption>
 </figure>
 <div class="dropdown admonition">
-<p class="admonition-title">Hints (click to reveal)</p>
+<p class="admonition-title">Hint n°1</p>
 <div class="justify docutils container">
 <p>The structure can be imported in MDAnalysis/Python using:</p>
 </div>
@@ -590,6 +590,23 @@ Hydrogen atoms can be added using create_atoms command, gcmc, or external python
 <div class="justify docutils container">
 <p>Then dandling oxygen can be detected by counting the number of neighbor (oxygen with only
 one connected silicon is dandling and should be completed with an hydrogen).</p>
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Hint n°2</p>
+<div class="justify docutils container">
+<p>Once hydrogen have been added, run LAMMPS using:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">28.0855</span><span class="w"> </span><span class="c"># Si</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">15.999</span><span class="w"> </span><span class="c"># O</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1.008</span><span class="w"> </span><span class="c"># H</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>and:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">reaxCHOFe.ff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span>
+</pre></div>
 </div>
 </div>
 <div class="justify docutils container">
