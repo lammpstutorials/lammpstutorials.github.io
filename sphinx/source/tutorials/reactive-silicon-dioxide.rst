@@ -440,7 +440,7 @@ Add O2 molecules
 
 ..  container:: justify
 
-    Then, let us import the molecule template O2.mol and create a few molecules. 
+    Then, let us import the molecule template O2.mol and create 10 molecules. 
     The overlap and maxtry keywords allow us to prevent overlapping between the atoms:
 
 ..  code-block:: lammps
@@ -490,7 +490,6 @@ Add O2 molecules
     :class: only-dark
 
     Deformed structure with additional O2 molecules
-
 
 .. include:: ../contact/accessfile.rst
 
