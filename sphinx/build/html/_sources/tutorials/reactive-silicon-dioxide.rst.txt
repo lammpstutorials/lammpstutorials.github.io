@@ -345,8 +345,6 @@ Deform the structure
     :class: only-dark
 
     Amorphous silicon oxide after deformation. The atoms are colored by charges using VMD.
-    The small dots correspond are the charge measured with the previous undeformed 
-    structure. Notice the difference near q=-0.5e and q=1.25e. 
 
 ..  container:: justify
 
@@ -364,6 +362,8 @@ Deform the structure
     :class: only-dark
 
     Distribution of charge of silica (positive) and oxygen (negative) after deformation.
+    The small dots correspond are the charge measured with the previous undeformed 
+    structure. Notice the difference near q=-0.5e and q=1.25e. 
 
 ..  container:: justify
 
@@ -396,6 +396,24 @@ Exercises
     :class: only-dark
 
     Hydrogen atoms are in white, oxygen in red, and silicon in yellow.
+
+.. admonition:: Hints (click to reveal)
+    :class: dropdown
+
+    ..  container:: justify
+
+        The structure can be imported in MDAnalysis/Python using:
+
+    ..  code-block:: python
+
+        u = mda.Universe("silica-deformed.data")
+
+    ..  container:: justify
+
+        Then dandling oxygen can be detected by counting the number of neighbor (oxygen with only 
+        one connected silicon is dandling and should be completed with an hydrogen).
+
+..  container:: justify
 
     .. include:: ../contact/contactme.rst
 

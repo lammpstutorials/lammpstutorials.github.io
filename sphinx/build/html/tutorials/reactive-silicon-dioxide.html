@@ -528,9 +528,7 @@ atoms located in the bulk of the material:</p>
 <figure class="align-default" id="id10">
 <img alt="Deformed amorphous silica colored by charges using VMD" class="only-dark" src="../_images/deformed-dark1.png" />
 <figcaption>
-<p><span class="caption-text">Amorphous silicon oxide after deformation. The atoms are colored by charges using VMD.
-The small dots correspond are the charge measured with the previous undeformed
-structure. Notice the difference near q=-0.5e and q=1.25e.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Amorphous silicon oxide after deformation. The atoms are colored by charges using VMD.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -544,7 +542,9 @@ most likely because the rate of deformation was really high.</p>
 <figure class="align-default" id="id11">
 <img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-dark" src="../_images/deformed-distribution-charge-dark.png" />
 <figcaption>
-<p><span class="caption-text">Distribution of charge of silica (positive) and oxygen (negative) after deformation.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Distribution of charge of silica (positive) and oxygen (negative) after deformation.
+The small dots correspond are the charge measured with the previous undeformed
+structure. Notice the difference near q=-0.5e and q=1.25e.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -577,14 +577,27 @@ Hydrogen atoms can be added using create_atoms command, gcmc, or external python
 <img alt="Silicon oxide decorated with hydrogens" class="only-dark" src="../_images/exercice-dark.png" />
 <figcaption>
 <p><span class="caption-text">Hydrogen atoms are in white, oxygen in red, and silicon in yellow.</span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
-<div class="legend">
+</figcaption>
+</figure>
+<div class="dropdown admonition">
+<p class="admonition-title">Hints (click to reveal)</p>
+<div class="justify docutils container">
+<p>The structure can be imported in MDAnalysis/Python using:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="s2">&quot;silica-deformed.data&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then dandling oxygen can be detected by counting the number of neighbor (oxygen with only
+one connected silicon is dandling and should be completed with an hydrogen).</p>
+</div>
+</div>
+<div class="justify docutils container">
 <div class="mail admonition">
 <p class="admonition-title">Contact me</p>
 <p>Feel free to <a class="reference internal" href="../contact/contact.html#contact-label"><span class="std std-ref">Contact me</span></a> me if you have any question or suggestion about these tutorials.</p>
 </div>
 </div>
-</figcaption>
-</figure>
 </section>
 </section>
 
