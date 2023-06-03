@@ -397,7 +397,7 @@ Exercises
 
     Hydrogen atoms are in white, oxygen in red, and silicon in yellow.
 
-.. admonition:: Hints (click to reveal)
+.. admonition:: Hint n°1
     :class: dropdown
 
     ..  container:: justify
@@ -412,6 +412,27 @@ Exercises
 
         Then dandling oxygen can be detected by counting the number of neighbor (oxygen with only 
         one connected silicon is dandling and should be completed with an hydrogen).
+
+.. admonition:: Hint n°2
+    :class: dropdown
+
+    ..  container:: justify
+
+        Once hydrogen have been added, run LAMMPS using:
+
+    ..  code-block:: lammps
+
+        mass 1 28.0855 # Si
+        mass 2 15.999 # O
+        mass 3 1.008 # H
+
+    ..  container:: justify
+
+        and:
+
+    ..  code-block:: lammps
+
+        pair_coeff * * reaxCHOFe.ff Si O H
 
 ..  container:: justify
 
