@@ -173,8 +173,8 @@ System creation
 
     While we are keeping it simple here,
     in the following tutorials, different 'atom style' will be used,
-    allowing us to create atoms with a net charge, as well as to create bonds
-    between atoms of the same molecules. 
+    allowing us to create atoms with a net charge and to define 
+    bonds between atoms to form molecules.
 
 ..  container:: justify
 
