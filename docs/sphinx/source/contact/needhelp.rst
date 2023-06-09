@@ -1,4 +1,4 @@
-.. admonition:: Do you think I can help you with your project?
+.. admonition:: Need assistance with your LAMMPS project?
     :class: patreon
 
     See the :ref:`contact-label` page. 
