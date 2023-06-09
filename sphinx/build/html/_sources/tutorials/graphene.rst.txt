@@ -589,12 +589,12 @@ Option B: Constant-velocity elongation
 
 ..  container:: justify
 
-    Instead of the loop, the deformation of the sheet can be ensured 
-    using the velocity set command + the fix setforce (which are already there).
+    To ensure the deformation of the sheet instead of using a loop, we can combine the velocity
+    set command and the fix setforce. 
 
-    To obtain the same elongation as previously (i.e. 2 Angstroms, or 1 Angstrom 
-    per edge), using a velocity 
-    for each edge of 0.0005 Angstroms per femtosecond (i.e. 50 meters per second), the simulation 
+    To obtain the same elongation as previously (i.e. 1 Angstrom 
+    per edge) when using a velocity for each edge of 0.0005 Angstroms per
+    femtosecond (or 50 meters per second), the simulation 
     must last 1 / 0.0005 = 2000 femtoseconds. 
 
 ..  code-block:: lammps
@@ -612,7 +612,9 @@ Going further with exercices
 Strain-stress curve (with solution)
 -----------------------------------
 
-Adapt the current script and extract a full strain-stress curve.
+..  container:: justify
+
+    Adapt the current script and extract a full strain-stress curve.
 
 .. figure:: figures/graphene/strain-stain-curve-dark.png
     :alt: strain stain curve for determining the young modulus of graphene
@@ -628,8 +630,8 @@ Adapt the current script and extract a full strain-stress curve.
     The following steps are optional, but give a better result:
 
     - move fix at2 and at3 after the equilibration, so that it only records during the production run
-    - reduce the velocity to perform a nice and slow graphene pull
-    - increase the magnitude of the total elongation (10 Angstroms in total per edge)
+    - reduce the velocity to perform a nice and slow pulling of the graphene sheet
+    - increase the magnitude of the total elongation (I used 10 Angstroms per edge)
 
     The strain can be calculated as the relative elongation of the sheet: strain = L - Linit / Linit,
     and the stress, in pressure unit, can be calculated as the force divided by the surface area

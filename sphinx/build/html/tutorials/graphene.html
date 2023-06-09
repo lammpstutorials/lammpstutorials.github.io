@@ -749,11 +749,11 @@ field, which is done in some other tutorials here (like <a class="reference inte
 <section id="option-b-constant-velocity-elongation">
 <h3>Option B: Constant-velocity elongation<a class="headerlink" href="#option-b-constant-velocity-elongation" title="Permalink to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Instead of the loop, the deformation of the sheet can be ensured
-using the velocity set command + the fix setforce (which are already there).</p>
-<p>To obtain the same elongation as previously (i.e. 2 Angstroms, or 1 Angstrom
-per edge), using a velocity
-for each edge of 0.0005 Angstroms per femtosecond (i.e. 50 meters per second), the simulation
+<p>To ensure the deformation of the sheet instead of using a loop, we can combine the velocity
+set command and the fix setforce.</p>
+<p>To obtain the same elongation as previously (i.e. 1 Angstrom
+per edge) when using a velocity for each edge of 0.0005 Angstroms per
+femtosecond (or 50 meters per second), the simulation
 must last 1 / 0.0005 = 2000 femtoseconds.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id16">
@@ -772,7 +772,9 @@ are used in these tutorials from <a href="https://github.com/lammpstutorials/lam
 <h2>Going further with exercices<a class="headerlink" href="#going-further-with-exercices" title="Permalink to this heading">#</a></h2>
 <section id="strain-stress-curve-with-solution">
 <h3>Strain-stress curve (with solution)<a class="headerlink" href="#strain-stress-curve-with-solution" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
 <p>Adapt the current script and extract a full strain-stress curve.</p>
+</div>
 <figure class="align-default">
 <img alt="strain stain curve for determining the young modulus of graphene" class="only-dark" src="../_images/strain-stain-curve-dark.png" />
 </figure>
@@ -784,8 +786,8 @@ are used in these tutorials from <a href="https://github.com/lammpstutorials/lam
 <p>The following steps are optional, but give a better result:</p>
 <ul class="simple">
 <li><p>move fix at2 and at3 after the equilibration, so that it only records during the production run</p></li>
-<li><p>reduce the velocity to perform a nice and slow graphene pull</p></li>
-<li><p>increase the magnitude of the total elongation (10 Angstroms in total per edge)</p></li>
+<li><p>reduce the velocity to perform a nice and slow pulling of the graphene sheet</p></li>
+<li><p>increase the magnitude of the total elongation (I used 10 Angstroms per edge)</p></li>
 </ul>
 <p>The strain can be calculated as the relative elongation of the sheet: strain = L - Linit / Linit,
 and the stress, in pressure unit, can be calculated as the force divided by the surface area
