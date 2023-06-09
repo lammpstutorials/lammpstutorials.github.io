@@ -11,22 +11,14 @@ See my |personal_page_simon_gravelle|.
 
    <a href="https://simongravelle.github.io/" target="_blank">personal page</a>
 
-Email
-=====
-
-Feel free to contact me by `email`_ to tell me what you
-think about this website or ask me any LAMMPS-related questions.
-
-.. _email: simon.gravelle@live.fr
-
-Get help
-========
-
 .. figure:: images/patreon.png
     :height: 100
     :alt: Simon gravelle patreon for lammps/gromacs material
     :align: right
     :target: https://www.patreon.com/molecularsimulations
+
+Get help
+========
 
 Become a |patreon_simulation|, and:
 
@@ -40,6 +32,13 @@ Become a |patreon_simulation|, and:
 .. |patreon_simulation| raw:: html
 
    <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a>
+
+Give feedback / Report error
+============================
+
+Feel free to contact me by `email`_ if you have remark about this website.
+
+.. _email: simon.gravelle@live.fr
 
 Follow me
 =========
