@@ -33,8 +33,8 @@ Become a |patreon_simulation|, and:
 
    <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a>
 
-Give feedback / Report error
-============================
+Send me feedback
+================
 
 Feel free to contact me by `email`_ if you have remark about this website.
 
