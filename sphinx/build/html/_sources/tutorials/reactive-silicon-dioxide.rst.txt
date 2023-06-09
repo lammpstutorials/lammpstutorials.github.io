@@ -479,7 +479,7 @@ Add O2 molecules
 
 ..  container:: justify
 
-    Run the simulation. You should seen additional O2 molecules in it:
+    Run the simulation. You should seen additional O2 molecules in the system:
 
 .. figure:: figures/reactive-silicon-dioxide/O2_light.png
     :alt: Silicon oxide with additional O2 molecules
@@ -503,7 +503,8 @@ Exercises
 ..  container:: justify
 
     Under ambient conditions, dandling oxygen are typically terminated by hydrogen atoms. 
-    The current structure can be decorated with hydrogen atoms then relaxed using reaxff. 
+    Let us improve the current structure by decorating some of the dandling oxygen with
+    hydrogen atoms, before relaxing it thanks to reaxff. 
 
     Add hydrogen atoms to the dandling oxygens. Then relax the structure using reaxff with LAMMPS.
     Hydrogen atoms can be added using create_atoms command, gcmc, or external python script as I did here:
