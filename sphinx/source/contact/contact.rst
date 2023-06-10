@@ -3,7 +3,36 @@
 Contact me
 **********
 
-I am a physicist in soft matter and fluids at interfaces.
+.. figure:: images/patreon.png
+    :height: 100
+    :alt: Simon gravelle patreon for lammps/gromacs material
+    :align: right
+    :target: https://www.patreon.com/molecularsimulations
+
+Need help ?
+===========
+
+Feel free to ask me LAMMPS-related question by `email`_, 
+or on |twitter_simon_gravelle| with the tag @lammpstutorials. 
+
+Alternatively, you can become a |patreon_simulation|, and:
+
+- Receive personalized advice for your project
+- Have your input scripts reviewed
+- Access a dedicated Discord forum
+- Obtain extra content such as the solutions to the exercises
+- Join a community of 50+ members
+- Support the creation of content for LAMMPS
+
+.. |patreon_simulation| raw:: html
+
+   <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a>
+
+.. _email: simon.gravelle@live.fr
+
+About me
+========
+
 I have been using LAMMPS for research and education since 2012.
 See my |personal_page_simon_gravelle|.
 
@@ -11,40 +40,8 @@ See my |personal_page_simon_gravelle|.
 
    <a href="https://simongravelle.github.io/" target="_blank">personal page</a>
 
-.. figure:: images/patreon.png
-    :height: 100
-    :alt: Simon gravelle patreon for lammps/gromacs material
-    :align: right
-    :target: https://www.patreon.com/molecularsimulations
-
-Get help
-========
-
-Become a |patreon_simulation|, and:
-
-- Join a community of 50+ members
-- Receive personalized advice for your project
-- Have your input scripts reviewed
-- Access a dedicated Discord forum
-- Obtain extra content such as the solutions to the exercises
-- Support the creation of content for LAMMPS
-
-.. |patreon_simulation| raw:: html
-
-   <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a>
-
-Send me feedback
-================
-
-Feel free to contact me by `email`_ if you have remark about this website.
-
-.. _email: simon.gravelle@live.fr
-
-Follow me
-=========
-
-- On |twitter_simon_gravelle|, where I post news about these tutorials and about my research
-- On |github_simon_gravelle|, where I share more molecular simulation content
+Follow me on |twitter_simon_gravelle|, where I post news about these tutorials and about my research,
+or follow me on |github_simon_gravelle|, where I share more molecular simulation content.
 
 .. |twitter_simon_gravelle| raw:: html
 
