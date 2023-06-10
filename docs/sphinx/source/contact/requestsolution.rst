@@ -10,4 +10,3 @@
 .. |patreon_simulation| raw:: html
 
    <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a>
-

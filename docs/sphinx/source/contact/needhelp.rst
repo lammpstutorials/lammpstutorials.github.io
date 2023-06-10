@@ -2,5 +2,3 @@
     :class: patreon
 
     See the :ref:`contact-label` page. 
-
-
