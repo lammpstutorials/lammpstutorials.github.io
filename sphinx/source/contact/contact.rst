@@ -3,17 +3,17 @@
 Contact me
 **********
 
-.. figure:: images/patreon.png
-    :height: 100
-    :alt: Simon gravelle patreon for lammps/gromacs material
-    :align: right
-    :target: https://www.patreon.com/molecularsimulations
-
 Need help ?
 ===========
 
 Feel free to ask me LAMMPS-related question by `email`_, 
 or on |twitter_simon_gravelle| with the tag @lammpstutorials. 
+
+.. figure:: images/patreon.png
+    :height: 100
+    :alt: Simon gravelle patreon for lammps/gromacs material
+    :align: right
+    :target: https://www.patreon.com/molecularsimulations
 
 Alternatively, you can become a |patreon_simulation|, and:
 
