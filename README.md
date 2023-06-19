@@ -3,8 +3,6 @@
 This is the script of the [LAMMPS Tutorials 2.0](https://lammpstutorials.github.io/) webpage. 
 All the LAMMPS input scripts and data files can be found in the [inputs](docs/inputs/) folder.
 
-The previous version (1.0) of LAMMPS tutorial is still visible [here](https://lammpstutorials.github.io/lammpstutorials-version1.0/).
-
 <p float="left">
   <a href="https://lammpstutorials.github.io">
   <img src="docs/sphinx/source/_static/screenshot_readme_lammps_tutorials_1.png" width="100%" /></a>
