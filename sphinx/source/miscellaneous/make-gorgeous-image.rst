@@ -7,6 +7,12 @@ Make gorgeous image
 
     Generate good looking images and movies with VMD
 
+.. container:: justify
+
+    VMD is a great free software that has been used for all the snapshots
+    in this website. Here I provide some tips to make good looking picture
+    of molecular systems.
+
 Practical example
 =================
 
