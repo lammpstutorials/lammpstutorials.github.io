@@ -554,7 +554,7 @@ near -0.5e for the oxygen.</p>
 <div class="justify docutils container">
 <p>Let us add more O2 molecule to our previously equilibrated structure, equilibrate it again,
 and extract the charge density profile along the x axis.</p>
-<p>Create a new folder, named it AddOxygen, and create a new molecule file in it:</p>
+<p>Create a new folder, name it AddOxygen/, and create a new molecule file named O2.mol in it:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/O2.mol</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
@@ -580,7 +580,7 @@ and extract the charge density profile along the x axis.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>This O2 molecule is simply made of 2 oxygen (type 2) atoms that are not
+<p>Here the O2 molecule is simply made of 2 oxygen (type 2) atoms that are not
 connected by any bond (because there is no need with reaxff).</p>
 <p>Then, create a new input.lammps file, and copy the same first lines as
 previously in it:</p>
@@ -606,7 +606,8 @@ previously in it:</p>
 </div>
 <div class="justify docutils container">
 <p>Optionally, let us shift the structure to recenter it in the box. The best value
-for the shift may be different in your case. This step is not necessary.</p>
+for the shift may be different in your case. This step is not necessary, but the
+recentered system looks better.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id14" title="Permalink to this code">#</a></div>
@@ -616,7 +617,8 @@ for the shift may be different in your case. This step is not necessary.</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us import the molecule template O2.mol and create 10 molecules.
-The overlap and maxtry keywords allow us to prevent overlapping between the atoms:</p>
+The overlap and maxtry keywords allow us to prevent overlapping
+between the atoms:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id15" title="Permalink to this code">#</a></div>
@@ -626,6 +628,9 @@ The overlap and maxtry keywords allow us to prevent overlapping between the atom
 </div>
 </div>
 <div class="justify docutils container">
+<p>The value of 3 Angstroms for the minimum interatomic overlapping allowed is
+very safe for the present system. Smaller values may lead to molecules being
+too close from each others.</p>
 <p>Finally, let us minimize the energy of the system, and run for a relatively long time:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id16">
@@ -654,7 +659,7 @@ The overlap and maxtry keywords allow us to prevent overlapping between the atom
 </div>
 </div>
 <div class="justify docutils container">
-<p>Run the simulation. You should seen additional O2 molecules in the system:</p>
+<p>Run the simulation. You should see additional O2 molecules in the system:</p>
 </div>
 <figure class="align-default">
 <img alt="Silicon oxide with additional O2 molecules" class="only-light" src="../_images/O2_light.png" />
