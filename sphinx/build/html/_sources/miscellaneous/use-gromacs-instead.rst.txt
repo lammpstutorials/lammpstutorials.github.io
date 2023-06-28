@@ -4,8 +4,8 @@ Use GROMACS instead
 *******************
 
 |gromacstutorials| is another molecular dynamics package.
-It can be more than 10 times faster
-than LAMMPS, which makes it a powerful alternative to LAMMPS.
+Although less flexible than LAMMPS, GROMACS can be more than 10 times faster,
+which makes it a powerful alternative to LAMMPS in some situations.
 
 .. |gromacstutorials| raw:: html
 

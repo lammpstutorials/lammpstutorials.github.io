@@ -6,12 +6,12 @@ Contact me
 Need help ?
 ===========
 
-Feel free to ask me LAMMPS-related question by `email`_, 
+Feel free to ask me LAMMPS-related question by `email`_,
 or on |twitter_simon_gravelle| with the tag @lammpstutorials. 
 
-.. figure:: images/patreon.png
+.. figure:: figures/contact-me/patreon.png
     :height: 100
-    :alt: Simon gravelle patreon for lammps/gromacs material
+    :alt: Simon gravelle patreon for lammps and gromacs material
     :align: right
     :target: https://www.patreon.com/molecularsimulations
 
