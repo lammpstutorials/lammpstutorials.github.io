@@ -10,18 +10,17 @@ Make gorgeous image
 Practical example
 =================
 
-.. figure:: figures/vmd/video-avatar-dark.webp
+.. figure:: figures/make-gorgeous-image/video-avatar-dark.webp
     :alt: Image of the lammps polymer-water system generated with VMD visual representation 
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: figures/vmd/video-avatar-light.webp
+.. figure:: figures/make-gorgeous-image/video-avatar-light.webp
     :alt: Image of the lammps polymer-water system generated with VMD visual representation 
     :height: 250
     :align: right
     :class: only-light
-
 
 .. container:: justify
 
@@ -43,11 +42,11 @@ Practical example
 
     This is what I see:
 
-.. figure:: figures/vmd/step1-dark.png
+.. figure:: figures/make-gorgeous-image/step1-dark.png
     :alt: VMD tutorial for LAMMPS
     :class: only-dark
 
-.. figure:: figures/vmd/step1-light.png
+.. figure:: figures/make-gorgeous-image/step1-light.png
     :alt: VMD tutorial for LAMMPS
     :class: only-light
 
@@ -75,11 +74,11 @@ The representation
 
     This is what I see:
 
-.. figure:: figures/vmd/step2-dark.png
+.. figure:: figures/make-gorgeous-image/step2-dark.png
     :alt: VMD tutorial for LAMMPS
     :class: only-dark
 
-.. figure:: figures/vmd/step2-light.png
+.. figure:: figures/make-gorgeous-image/step2-light.png
     :alt: VMD tutorial for LAMMPS
     :class: only-light
 
@@ -107,11 +106,11 @@ The colors
 
     This is what I see:
 
-.. figure:: figures/vmd/step3-dark.png
+.. figure:: figures/make-gorgeous-image/step3-dark.png
     :alt: VMD tutorial for LAMMPS
     :class: only-dark
 
-.. figure:: figures/vmd/step3-light.png
+.. figure:: figures/make-gorgeous-image/step3-light.png
     :alt: VMD tutorial for LAMMPS
     :class: only-light
 
@@ -142,11 +141,11 @@ The materials
 
     This is what I see:
 
-.. figure:: figures/vmd/step4-dark.png
+.. figure:: figures/make-gorgeous-image/step4-dark.png
     :alt: VMD tutorial for LAMMPS
     :class: only-dark
 
-.. figure:: figures/vmd/step4-light.png
+.. figure:: figures/make-gorgeous-image/step4-light.png
     :alt: VMD tutorial for LAMMPS
     :class: only-light
 
@@ -229,10 +228,10 @@ High quality movie
 
     This is what I made:
 
-.. figure:: figures/vmd/video-vmd-dark.webp
+.. figure:: figures/make-gorgeous-image/video-vmd-dark.webp
     :alt: VMD tutorial for LAMMPS
     :class: only-dark
 
-.. figure:: figures/vmd/video-vmd-light.webp
+.. figure:: figures/make-gorgeous-image/video-vmd-light.webp
     :alt: VMD tutorial for LAMMPS
     :class: only-light

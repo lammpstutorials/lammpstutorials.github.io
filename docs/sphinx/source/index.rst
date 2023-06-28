@@ -42,14 +42,9 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     :maxdepth: 2
     :caption: Extra content
 
-    contact/contact.rst
-    miscellaneous/vmd.rst
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Alternative
-
-    miscellaneous/gromacs.rst
+    miscellaneous/contact-me.rst
+    miscellaneous/make-gorgeous-image.rst
+    miscellaneous/use-gromacs-instead.rst
 
 Indices and tables
 ==================
