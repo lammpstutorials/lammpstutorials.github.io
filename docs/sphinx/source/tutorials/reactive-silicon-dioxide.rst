@@ -378,7 +378,7 @@ Add O2 molecules
     Let us add more O2 molecule to our previously equilibrated structure, equilibrate it again, 
     and extract the charge density profile along the x axis.
 
-    Create a new folder, named it AddOxygen, and create a new molecule file in it:
+    Create a new folder, name it AddOxygen/, and create a new molecule file named O2.mol in it:
 
 ..  code-block:: lammps
     :caption: *to be copied in AddOxygen/O2.mol*
@@ -404,7 +404,7 @@ Add O2 molecules
 
 ..  container:: justify
 
-    This O2 molecule is simply made of 2 oxygen (type 2) atoms that are not 
+    Here the O2 molecule is simply made of 2 oxygen (type 2) atoms that are not 
     connected by any bond (because there is no need with reaxff).
 
     Then, create a new input.lammps file, and copy the same first lines as
@@ -431,7 +431,8 @@ Add O2 molecules
 ..  container:: justify
 
     Optionally, let us shift the structure to recenter it in the box. The best value 
-    for the shift may be different in your case. This step is not necessary.
+    for the shift may be different in your case. This step is not necessary, but the
+    recentered system looks better.
 
 ..  code-block:: lammps
     :caption: *to be copied in AddOxygen/input.lammps*
@@ -441,7 +442,8 @@ Add O2 molecules
 ..  container:: justify
 
     Then, let us import the molecule template O2.mol and create 10 molecules. 
-    The overlap and maxtry keywords allow us to prevent overlapping between the atoms:
+    The overlap and maxtry keywords allow us to prevent overlapping
+    between the atoms:
 
 ..  code-block:: lammps
     :caption: *to be copied in AddOxygen/input.lammps*
@@ -450,6 +452,10 @@ Add O2 molecules
     create_atoms 0 random 10 456415 NULL mol O2mol 454756 overlap 3.0 maxtry 50
 
 ..  container:: justify
+
+    The value of 3 Angstroms for the minimum interatomic overlapping allowed is 
+    very safe for the present system. Smaller values may lead to molecules being 
+    too close from each others.
 
     Finally, let us minimize the energy of the system, and run for a relatively long time:
 
@@ -479,7 +485,7 @@ Add O2 molecules
 
 ..  container:: justify
 
-    Run the simulation. You should seen additional O2 molecules in the system:
+    Run the simulation. You should see additional O2 molecules in the system:
 
 .. figure:: figures/reactive-silicon-dioxide/O2_light.png
     :alt: Silicon oxide with additional O2 molecules
