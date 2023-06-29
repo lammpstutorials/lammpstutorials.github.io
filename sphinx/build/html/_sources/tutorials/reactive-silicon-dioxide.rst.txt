@@ -453,7 +453,7 @@ Add O2 molecules
 
 ..  container:: justify
 
-    The value of 3 Angstroms for the minimum interatomic overlapping allowed is 
+    The value of 3 Angstroms for the minimum interatomic overlapping is 
     very safe for the present system. Smaller values may lead to molecules being 
     too close from each others.
 
