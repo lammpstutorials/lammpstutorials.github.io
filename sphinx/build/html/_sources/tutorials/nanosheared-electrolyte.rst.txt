@@ -37,8 +37,8 @@ System generation
 
 ..  container:: justify
 
-    Create a new folder called SystemCreation/. Open a blank
-    page in it using a text editor, and call it input.lammps.
+    Create a new folder called SystemCreation/. Within SystemCreation/,
+    open a blank page using a text editor, and call it input.lammps.
     Copy the following lines into input.lammps:
 
 ..  code-block:: lammps
@@ -51,6 +51,15 @@ System generation
     angle_style harmonic
     pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
     kspace_style pppm/tip4p 1.0e-4
+
+.. admonition:: About lj/cut/tip4p/long pair stayle
+    :class: info
+
+    The lj/cut/tip4p/long pair style is similar to the conventional 
+    Lennard Jones + Coulomb interaction, except that it is made specifically 
+    for four point water model (tip4p). The atom of the water model
+    will be type 1 (O) and 2 (H). All the other atoms of the simulations 
+    are treated *normally* with long range coulomb interaction.
 
 ..  container:: justify
 
@@ -134,21 +143,21 @@ System generation
 
 ..  container:: justify
 
-    **Explanations:** With the last four lines, a region used to
-    deposit the water is created on the last defined lattice,
-    which is 'fcc 4.04'. Then, on the next line, we define a new
-    simple cubic lattice in order to place the water
+    With the last four lines, a region for
+    depositing the water molecules is created based on the last defined lattice,
+    which is 'fcc 4.04'. A new
+    simple cubic lattice is also defined in order to place the water
     molecules on it, with a distance of 4.04 Ångstroms between
     each water molecule (note: the new lattice replaces the
     previous one: LAMMPS reads a script from top to bottom).
-    THe distance of 4.04 Ångstroms is larger than the typical
+    The distance of 4.04 Ångstroms is larger than the typical
     equilibrium distance between water molecules in a liquid,
-    but this will allow us to insert ions more safely. Then, the
-    'molecule' command opens the 'TIP4P2005.txt' file, and names
+    but this will allow us to insert ions more safely. The
+    'molecule' command opens up the 'TIP4P2005.txt' file, and names
     the associated molecule 'h2omol'. Finally, molecules are
     created on the sc lattice by the 'create_atoms' command. The
     first parameter is '0' because we use the atom id from the
-    'TIP4P2005.txt' file. The number '482793' is a seed that is
+    'TIP4P2005.txt' file without change. The number '482793' is a seed that is
     required by LAMMPS, it can be any positive integer.
 
     Finally, let us deposit 20 ions (10 Na+, 10
