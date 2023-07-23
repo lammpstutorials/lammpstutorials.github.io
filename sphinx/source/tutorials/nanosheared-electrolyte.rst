@@ -230,7 +230,7 @@ System generation
 
 ..  container:: justify
 
-    Explanations: The parameters for water (mass 1, mass 2,
+    The parameters for water (mass 1, mass 2,
     pair_coeff 1 1, pair coeff 2 2, bond_coeff 1 and angle_coeff
     1) are given by the TIP4P/2005 force field, the parameters
     for Na+ and Cl- (mass 3, mass 4, pair_coeff 3
@@ -242,8 +242,8 @@ System generation
     in Kcal/mole, and the distance at which the
     particle-particle potential energy in Ångstrom.
 
-    Only assigned pairwise interaction between atoms of
-    identical type we assign. By default, LAMMPS calculates
+    Only pairwise interaction between atoms of
+    identical type were assign. By default, LAMMPS calculates
     the pair coefficients for the interactions between atoms
     of different types (i and j) by using geometrical
     average: :math:`\epsilon_{ij} = \epsilon_i + \epsilon_j)/2`, 
@@ -279,11 +279,11 @@ System generation
 
 ..  container:: justify
 
-    **Explanations:** With 'run 10', the simulation will run for
-    10 timesteps.
+    With 'run 10', the simulation will run for 10 steps only.
 
     The value of the timestep (1 fs by default) does not
-    matter yet because the atoms are not moving.
+    matter yet because the atoms wont be moving: there are 
+    not fix integrating the equation of motion such as fix nve.
 
     We also need to specify the charge of the newly added ions,
     which is done using the 'set' commands. The write
@@ -320,7 +320,7 @@ System generation
 
 .. include:: ../contact/supportme.rst
 
-Energy minimisation
+Energy minimization
 ===================
 
 ..  container:: justify
