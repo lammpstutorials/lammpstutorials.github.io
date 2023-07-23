@@ -182,6 +182,14 @@ System generation
     To keep the system charge neutral, always insert the same number of 
     Na+ and Cl-.
 
+.. admonition:: Alternative
+    :class: dropdown
+
+    Alternatively to the fix deposit, the create_atoms command with both 
+    overlap and maxtry keywords can be used to place the ions in the system.
+
+..  container:: justify
+
     We need to define the parameters of the simulation: the mass
     of the 6 atoms (O, H, Na+, Cl-, and wall), the
     pairwise interaction parameters (here the parameters for the
@@ -372,7 +380,7 @@ Energy minimisation
     definition of the simulation box and the positions of the
     atoms.
 
-Next, let us create a group for the water:
+    Next, let us create a group for the water:
 
 ..  code-block:: lammps
     :caption: *to be copied in Minimization/input.lammps*
