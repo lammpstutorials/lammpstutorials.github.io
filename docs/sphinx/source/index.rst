@@ -27,7 +27,7 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     :caption: Level 2
 
     tutorials/allatoms.rst
-    tutorials/sheared.rst
+    tutorials/nanosheared-electrolyte.rst
    
 .. toctree::
     :maxdepth: 2

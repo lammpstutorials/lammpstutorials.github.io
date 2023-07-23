@@ -5,8 +5,7 @@ Nanosheared electrolyte
 
 .. container:: hatnote
 
-    Molecular dynamics simulation of an aqueous NaCl
-    solution sheared between two solid walls
+    Aqueous NaCl solution sheared by two walls
 
 .. figure:: figures/sheared/nanoconfined-electrolyte-light.png
     :height: 250
@@ -22,16 +21,12 @@ Nanosheared electrolyte
 
 ..  container:: justify
 
-    The objective of this tutorial is to use molecular
-    dynamics and simulate an electrolyte sheared by two
-    walls. The velocity profile of the electrolyte 
-    will be extracted. 
+    The objective of this tutorial is to use molecular dynamics and
+    simulate an electrolyte sheared by two walls. Some properties
+    of the fluid, such the time averaged velocity profile will be extracted. 
 
-    This tutorial illustrates some aspects of
+    This tutorial illustrates some important aspects of
     combining a fluid and a solid in the same simulation.
-
-    All inputs and data files can be found on the
-    Github repository of LAMMPStutorials.
 
 .. include:: ../contact/recommand-lj.rst
 
@@ -77,7 +72,7 @@ System generation
 
 ..  container:: justify
 
-    **Explanations:** The 'lattice' command defines the unit
+    The 'lattice' command defines the unit
     cell. Here face-centered cubic (fcc) with a scale factor of
     4.04 has been chosen for the future positioning of the atoms
     of the walls. The 'region' command defines a geometric
