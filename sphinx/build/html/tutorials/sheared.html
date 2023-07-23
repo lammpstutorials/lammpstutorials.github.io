@@ -355,14 +355,14 @@ to input.lammps:</p>
 <p><strong>Explanations:</strong> With the last four lines, a region used to
 deposit the water is created on the last defined lattice,
 which is ‘fcc 4.04’. Then, on the next line, we define a new
-simple cubic lattice in order to position the water
+simple cubic lattice in order to place the water
 molecules on it, with a distance of 4.04 Ångstroms between
 each water molecule (note: the new lattice replaces the
-previous one as LAMMPS reads a script from top to bottom).
-Note that 4.04 Ångstroms is larger than the typical
+previous one: LAMMPS reads a script from top to bottom).
+THe distance of 4.04 Ångstroms is larger than the typical
 equilibrium distance between water molecules in a liquid,
 but this will allow us to insert ions more safely. Then, the
-‘molecule’ command opens the ‘TIP4P2005.txt’ file, and name
+‘molecule’ command opens the ‘TIP4P2005.txt’ file, and names
 the associated molecule ‘h2omol’. Finally, molecules are
 created on the sc lattice by the ‘create_atoms’ command. The
 first parameter is ‘0’ because we use the atom id from the
@@ -386,6 +386,8 @@ make a very short simulation of 10 timesteps and save the
 generated configuration. Feel free to increase the salt
 concentration by increasing both number of steps and number
 of desired ions in the ‘deposit’ fixes.</p>
+<p>To keep the system charge neutral, always insert the same number of
+Na+ and Cl-.</p>
 <p>We need to define the parameters of the simulation: the mass
 of the 6 atoms (O, H, Na+, Cl-, and wall), the
 pairwise interaction parameters (here the parameters for the
