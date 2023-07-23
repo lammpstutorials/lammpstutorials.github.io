@@ -599,7 +599,7 @@ System equilibration
     - 2) the thermostating imposes a temperature of 300 K, for which the fluid is expected to behave as a liquid,
     - 3) two thermostats are used instead of one: one for the fluid, one for the solid (fix_modify ensure that the right temperature is used by the temp/berenden).
 
-    Run the input script. Note, I am running on 4 CPU using:
+    Run the input script. Note, I am running on 4 cores CPU using:
 
 ..  code-block:: bw
 
