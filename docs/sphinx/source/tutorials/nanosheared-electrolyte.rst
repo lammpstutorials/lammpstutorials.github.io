@@ -7,13 +7,13 @@ Nanosheared electrolyte
 
     Aqueous NaCl solution sheared by two walls
 
-.. figure:: figures/sheared/nanoconfined-electrolyte-light.png
+.. figure:: figures/nanosheared-electrolyte/nanoconfined-electrolyte-light.png
     :height: 250
     :alt: Electrolyte nano-confined in a slit pore
     :class: only-light
     :align: right
 
-.. figure:: figures/sheared/nanoconfined-electrolyte-dark.png
+.. figure:: figures/nanosheared-electrolyte/nanoconfined-electrolyte-dark.png
     :height: 250
     :alt: Electrolyte nano-confined in a slit pore
     :class: only-dark
@@ -130,7 +130,7 @@ System generation
 
 .. |download_TIP4P2005.txt| raw:: html
 
-   <a href="../../../../inputs/sheared/SystemCreation/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
+   <a href="../../../../inputs/nanosheared-electrolyte/SystemCreation/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in SystemCreation/input.lammps*
@@ -290,11 +290,11 @@ System generation
     been created (look for lines like 'Created 3648 atoms'), or
     just look at the dump file with VMD:
 
-.. figure:: figures/sheared/systemcreation-light.png
+.. figure:: figures/nanosheared-electrolyte/systemcreation-light.png
     :alt: Generated electrolyte between walls
     :class: only-light
 
-.. figure:: figures/sheared/systemcreation-dark.png
+.. figure:: figures/nanosheared-electrolyte/systemcreation-dark.png
     :alt: Generated electrolyte between walls
     :class: only-dark
 
@@ -477,11 +477,11 @@ Next, let us create a group for the water:
     You can easily import log file into python using the
     `lammps_logfile`_ tool:
 
-.. figure:: figures/sheared/minimization-light.png
+.. figure:: figures/nanosheared-electrolyte/minimization-light.png
     :alt: Energy minimisation of the confined water and salt
     :class: only-light
 
-.. figure:: figures/sheared/minimization-dark.png
+.. figure:: figures/nanosheared-electrolyte/minimization-dark.png
     :alt: Energy minimisation of the confined water and salt
     :class: only-dark
 
@@ -614,11 +614,11 @@ System equilibration
     reduces until it reaches an equilibrium value, see the evolution
     of the distance between the walls (printed in a data file by fix myat1):
 
-.. figure:: figures/sheared/equilibration-light.png
+.. figure:: figures/nanosheared-electrolyte/equilibration-light.png
     :alt: Plot showing the distance between the walls as a function of time.
     :class: only-light
 
-.. figure:: figures/sheared/equilibration-dark.png
+.. figure:: figures/nanosheared-electrolyte/equilibration-dark.png
     :alt: Plot showing the distance between the walls as a function of time.
     :class: only-dark
 
@@ -755,11 +755,11 @@ Imposed nanoshearing
     The velocity profile I got (running for 200ps) is the
     following:
 
-.. figure:: figures/sheared/shearing-light.png
+.. figure:: figures/nanosheared-electrolyte/shearing-light.png
     :alt: Velocity of the nanosheared fluid Video of sheared fluid
     :class: only-light
 
-.. figure:: figures/sheared/shearing-dark.png
+.. figure:: figures/nanosheared-electrolyte/shearing-dark.png
     :alt: Velocity of the nanosheared fluid Video of sheared fluid
     :class: only-dark
 
