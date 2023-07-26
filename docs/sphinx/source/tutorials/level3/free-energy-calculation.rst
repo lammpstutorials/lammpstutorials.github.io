@@ -5,7 +5,7 @@ Simple free energy calculation
 
 .. container:: hatnote
 
-    A simple sampling of a free energy barrier using WHAM
+    Simple sampling of a free energy barrier
 
 .. figure:: ../figures/level3/free-energy-calculation/avatar-light.png
     :height: 250

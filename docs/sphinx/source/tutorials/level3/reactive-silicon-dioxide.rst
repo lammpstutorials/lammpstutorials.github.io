@@ -5,7 +5,7 @@ Reactive silicon dioxide
 
 .. container:: hatnote
 
-    Deforming a chemically reactive structure using reaxff
+    Chemically reactive structure (reaxff)
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/SiO_gif_light.webp
     :height: 250
