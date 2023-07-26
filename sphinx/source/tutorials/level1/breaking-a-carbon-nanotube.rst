@@ -5,8 +5,7 @@ Breaking a carbon nanotube
 
 .. container:: hatnote
 
-    Breaking of the bonds of a carbon nanotube under
-    extreme deformation
+    Breaking the bonds of a carbon nanotube under deformation
    
 ..  container:: justify
    

@@ -5,8 +5,7 @@ Lennard Jones fluid
 
 .. container:: hatnote
 
-    The very basics of LAMMPS through a simple example:
-    a Lennard-Jones binary fluid
+    The very basics of LAMMPS through a simple example
 
 .. figure:: ../figures/level0/lennard-jones-fluid/binary_LJ_fluid.webp
     :alt: video of a binary fluid

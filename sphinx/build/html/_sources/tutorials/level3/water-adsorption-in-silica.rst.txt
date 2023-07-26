@@ -5,8 +5,7 @@ Water adsorption in silica
 
 .. container:: hatnote
 
-    Adsorption of water in a silica crack using the
-    grand canonical Monte Carlo method
+    Using the grand canonical Monte Carlo method
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/main-light.png
     :height: 250

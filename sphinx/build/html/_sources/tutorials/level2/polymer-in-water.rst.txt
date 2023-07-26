@@ -5,7 +5,7 @@ Polymer in water
 
 .. container:: hatnote
 
-   Solvating a small molecule in water before stretching it
+   Stretching a small solvating molecule
 
 .. figure:: ../figures/level2/polymer-in-water/main-dark.png
     :alt: peg molecule in water
