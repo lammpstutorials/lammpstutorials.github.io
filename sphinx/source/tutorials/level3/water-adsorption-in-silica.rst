@@ -435,8 +435,7 @@ Adding water
     overlapping water molecules will be deleted before 
     starting the simulation. 
 
-    Then, add the following
-    settings of the simulation:
+    Then, add the following settings of the simulation:
 
 ..  code-block:: lammps
     :caption: *to be copied in Addingwater/input.lammps*

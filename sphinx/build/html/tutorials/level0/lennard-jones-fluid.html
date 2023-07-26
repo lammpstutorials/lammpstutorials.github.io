@@ -1098,27 +1098,25 @@ tutorial:</p>
 <p>Register as a <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a> for 1 euro/month
 to access all the solutions.</p>
 </div>
-<div class="justify docutils container">
-<p><strong>Preamble : on the importance of energy minimisation</strong></p>
+<section id="do-without-the-minimize-command">
+<h3>Do without the ‘minimize’ command<a class="headerlink" href="#do-without-the-minimize-command" title="Permalink to this heading">#</a></h3>
+<div class="dropdown admonition">
+<p class="admonition-title">Preamble : on the importance of energy minimisation (click to reveal)</p>
 <p>With the curernt system, we can
 explore what happens if we don’t perform a minimisation step
 and start the molecular dynamics directly. To do so, comment
 the two following lines:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># thermo 10</span>
 <span class="c"># minimize  1.0e-4 1.0e-6 1000 10000</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>If you run LAMMPS again, you should get something like:</p>
-</div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Step Temp E_pair E_mol TotEng Press
 0 5.8997404e+14 0 5.8997404e+14 1.5732641e+15
 ERROR: Lost atoms: original 1600 current 272 (src/thermo.cpp:438)
 Last command: run 10000
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>The message indicates that LAMMPS lost
 some of the atoms, then stopped. This is one of the most
 common error message that you will see. It is usually the
@@ -1129,8 +1127,6 @@ enormous acceleration. As a consequence, atoms are moving by
 large distances during the firsts timesteps, and LAMMPS
 loses them.</p>
 </div>
-<section id="do-without-the-minimize-command">
-<h3>Do without the ‘minimize’ command<a class="headerlink" href="#do-without-the-minimize-command" title="Permalink to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Run the same simulation without using the ‘minimize’ command. The absence of energy minimization
 will have to be compensated in order to avoid triggering the ‘Lost atoms’ error message (see
@@ -1155,11 +1151,6 @@ of atom N, constant volume V, and constant (or at least imposed) temperature T.<
 <p>Run the same simulation in the NVE ensemble and extract the
 energy over time. Is the energy conserved over time (as usaully expected)?</p>
 </div>
-<div class="dropdown admonition">
-<p class="admonition-title">Hints (click to reveal)</p>
-<p>Using a smaller value for the timestep gives better
-energy conservation.</p>
-</div>
 </section>
 <section id="non-equilibrium-simulation">
 <h3>Non-equilibrium simulation<a class="headerlink" href="#non-equilibrium-simulation" title="Permalink to this heading">#</a></h3>
@@ -1173,10 +1164,28 @@ that the system is not <em>too far</em> from equilibrium.</p>
 <p class="admonition-title">Hints (click to reveal)</p>
 <p>LAMMPS offers several option to add external force to a system, one
 being the fix addforce.</p>
-<p>If the system is too far from equilibrium, it enters the non-linear response
+<p>Note: If the system is too far from equilibrium, it enters the non-linear response
 regimes and its properties and parameters will differ from its equilibrium values.
 In general, this is something that you must avoid (unless you are studying
 non-linear effects).</p>
+</div>
+</section>
+<section id="dumbbell-molecules">
+<h3>Dumbbell molecules<a class="headerlink" href="#dumbbell-molecules" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Add a bond between couple of identical atoms to create
+dumbbell molecules, just like in the image:</p>
+</div>
+<figure class="align-default">
+<a class="only-dark reference internal image-reference" href="../../_images/dumbell-dark.png"><img alt="Dumbbell Lennard-Jones molecules" class="only-dark" src="../../_images/dumbell-dark.png" style="width: 400px;" /></a>
+</figure>
+<figure class="align-default">
+<a class="only-light reference internal image-reference" href="../../_images/dumbell-light.png"><img alt="Dumbbell Lennard-Jones molecules" class="only-light" src="../../_images/dumbell-light.png" style="width: 400px;" /></a>
+</figure>
+<div class="dropdown admonition">
+<p class="admonition-title">Hints (click to reveal)</p>
+<p>Use molecule template to easily insert as many atoms connected
+by bonds (i.e. molecule) as you want.</p>
 </div>
 <div class="mail admonition">
 <p class="admonition-title">Contact me</p>
@@ -1260,6 +1269,7 @@ non-linear effects).</p>
 <li><a class="reference internal" href="#do-without-the-minimize-command">Do without the ‘minimize’ command</a></li>
 <li><a class="reference internal" href="#a-simulation-with-no-thermostat">A simulation with no thermostat</a></li>
 <li><a class="reference internal" href="#non-equilibrium-simulation">Non-equilibrium simulation</a></li>
+<li><a class="reference internal" href="#dumbbell-molecules">Dumbbell molecules</a></li>
 </ul>
 </li>
 </ul>
