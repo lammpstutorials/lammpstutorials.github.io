@@ -52,15 +52,15 @@ Relax the structure
 
 .. |download_silica_data| raw:: html
 
-   <a href="../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/silica.data" target="_blank">download</a>
+   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/silica.data" target="_blank">download</a>
 
 .. |download_SiO.1990.vashishta| raw:: html
 
-   <a href="../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>
+   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>
 
 .. |lammps_input_creating| raw:: html
 
-   <a href="../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/input.lammps" target="_blank">here</a>
+   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/input.lammps" target="_blank">here</a>
 
 ..  code-block:: lammps
 
@@ -140,7 +140,7 @@ Relax the structure
 
 .. |reaxCHOFe| raw:: html
 
-   <a href="../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a>
+   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in RelaxSilica/input.lammps*
@@ -216,7 +216,7 @@ Relax the structure
 
 .. |plot_distribution| raw:: html
 
-   <a href="../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/plot_distribution.ipynb" target="_blank">notebook</a>
+   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/plot_distribution.ipynb" target="_blank">notebook</a>
 
 ..  container:: justify
 

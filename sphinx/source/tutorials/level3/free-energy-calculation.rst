@@ -554,7 +554,7 @@ WHAM algorithm
 
 .. |download_metadata| raw:: html
 
-   <a href="../../../../inputs/level3/free-energy-calculation/BiasedSampling/metadata.dat" target="_blank">metadata.dat</a>
+   <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/metadata.dat" target="_blank">metadata.dat</a>
 
 ..  code-block:: bash
 
