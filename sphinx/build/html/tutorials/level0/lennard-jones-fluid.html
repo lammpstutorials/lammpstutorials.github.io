@@ -1,0 +1,1287 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-W1WGEC5GQ8');
+    </script>
+        <link href="../../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Graphene under deformation" href="../level1/graphene-under-deformation.html" /><link rel="prev" title="Contact me" href="../../miscellaneous/contact-me.html" />
+
+    <!-- Generated with Sphinx 7.1.0 and Furo 2023.07.26 -->
+        <title>Lennard Jones fluid - </title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=7e8505bb" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">    </div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">    </span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/site-walkthrough.html">Site walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/contact-me.html">Contact me</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Level 0</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Lennard Jones fluid</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Level 1</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../level1/graphene-under-deformation.html">Graphene under deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level1/breaking-a-carbon-nanotube.html">Breaking a carbon nanotube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Level 2</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../level2/polymer-in-water.html">Polymer in water</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level2/nanosheared-electrolyte.html">Nanosheared electrolyte</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Level 3</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../level3/water-adsorption-in-silica.html">Water adsorption in silica</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level3/free-energy-calculation.html">Simple free energy calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level3/reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/make-gorgeous-image.html">Make gorgeous image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/use-gromacs-instead.html">Use GROMACS instead</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="lennard-jones-fluid">
+<span id="lennard-jones-label"></span><h1>Lennard Jones fluid<a class="headerlink" href="#lennard-jones-fluid" title="Permalink to this heading">#</a></h1>
+<div class="hatnote docutils container">
+<p>The very basics of LAMMPS through a simple example:
+a Lennard-Jones binary fluid</p>
+</div>
+<figure class="align-right">
+<a class="reference internal image-reference" href="../../_images/binary_LJ_fluid.webp"><img alt="video of a binary fluid" src="../../_images/binary_LJ_fluid.webp" style="height: 250px;" /></a>
+</figure>
+<div class="justify docutils container">
+<p>The objective of this tutorial is to use
+LAMMPS to perform a simple molecular dynamics simulation
+of a binary fluid in the NVT ensemble (see the video on
+the right). The system is a simple Lennard-Jones fluid
+made of neutral dots with a Langevin thermostating. The
+simulation box is cubic with periodic boundary conditions.</p>
+<p>This tutorial illustrates the use of several ingredients of
+molecular dynamics simulations, such as system initialization,
+energy minimisation, integration of the equations of motion,
+and trajectory visualisation.</p>
+</div>
+<div class="patreon admonition">
+<p class="admonition-title">I provide personal assistance for LAMMPS projects</p>
+<p>See the <a class="reference internal" href="../../miscellaneous/contact-me.html#contact-label"><span class="std std-ref">Contact me</span></a> page.</p>
+</div>
+<section id="required-softwares">
+<h2>Required softwares<a class="headerlink" href="#required-softwares" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Download and install LAMMPS by following the instructions of the <a href="https://lammps.sandia.gov" target="_blank">LAMMPS website</a>.
+Alternatively, if you are using Ubuntu OS, you can simply execute the
+following command in a terminal:</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>sudo apt-get install lammps
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>You can verify that LAMMPS is indeed installed on your
+computer by typing in a terminal :</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>lmp
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>You should see the version of LAMMPS that has been
+installed. On my computer I see</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>LAMMPS (29 Sep 2021 - Update 2)
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>In addition to LAMMPS, you will also need <a href="https://help.gnome.org/users/gedit/stable/" target="_blank">(1) a basic text editing software</a>
+such as Vim, Gedit, or Notepad++, <a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">(2) a visualization software</a>, here I
+will use VMD (note: VMD is free but you have to register to
+the uiuc website in order to download it. If you don’t want
+to, you can also use Ovito.), <a href="https://plasma-gate.weizmann.ac.il/Grace/" target="_blank">(3) a plotting tool</a> like
+XmGrace or pyplot.</p>
+</div>
+</section>
+<section id="the-input-script">
+<h2>The input script<a class="headerlink" href="#the-input-script" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>In order to run a simulation using LAMMPS, one needs to
+write a series of commands in an input script. For clarity,
+this script will be divided into five categories which we are going to
+fill up one by one. Create a blank text file, call it
+‘input1.lammps’, and copy the following lines in it:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input1.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># PART A - ENERGY MINIMIZATION</span>
+<span class="w"> </span><span class="c"># 1) Initialization</span>
+<span class="w"> </span><span class="c"># 2) System definition</span>
+<span class="w"> </span><span class="c"># 3) Simulation settings</span>
+<span class="w"> </span><span class="c"># 4) Visualization</span>
+<span class="w"> </span><span class="c"># 5) Run</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>These five categories are not required in every
+input script, and should not necessarily be in that
+exact order. For instance parts 3 and 4 could be inverted, or
+part 4 could be omitted, or there could be several
+consecutive runs.</p>
+<p>A line starting with a brace (#) is a comment
+that is ignored by LAMMPS. Use comments to structure
+your inputs and make them readable by others.</p>
+</div>
+<div class="patreon admonition">
+<p class="admonition-title">Support me for 1 euro per month</p>
+<p>Become a <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a> and support the creation of content for LAMMPS</p>
+</div>
+<section id="system-creation">
+<h3>System creation<a class="headerlink" href="#system-creation" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>In the first section of the script, called ‘Initialization’,
+let us indicate to LAMMPS the type of simulation we are
+going to execute by specifying the most basic information,
+such as the conditions at the boundaries of the box (i.e.
+periodic, non-periodic) or the type of atoms (e.g. uncharged
+single dots, spheres with angular velocities). Enter the
+following lines:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input1.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 1) Initialization</span>
+<span class="k">units</span><span class="w"> </span><span class="n">lj</span>
+<span class="k">dimension</span><span class="w"> </span><span class="m">3</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">atomic</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="m">2.5</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The first line indicates that we want to
+use the system of unit called ‘lj’, for lennard-jones, for which all quantities
+are unitless.</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Background Information (optional) – About LJ units</p>
+<p>Lennard-Jones (lj) units are a dimensionless system of units that are often used in molecular simulations
+and theoretical calculations. When using lj units:</p>
+<ul class="simple">
+<li><p>energies are expressed in units of <span class="math notranslate nohighlight">\(\epsilon\)</span>, where <span class="math notranslate nohighlight">\(\epsilon\)</span> is the depth of the potential of the lj interaction,</p></li>
+<li><p>distances are expressed in units of <span class="math notranslate nohighlight">\(\sigma\)</span>, where <span class="math notranslate nohighlight">\(\sigma\)</span> is the distance at which the particle-particle potential energy is zero,</p></li>
+<li><p>masses are expressed in units of the atomic mass <span class="math notranslate nohighlight">\(m\)</span>.</p></li>
+</ul>
+<p>All the other quantities are normalised by a combination of <span class="math notranslate nohighlight">\(\epsilon\)</span>, <span class="math notranslate nohighlight">\(\sigma\)</span>,
+and <span class="math notranslate nohighlight">\(m\)</span>. For instance, time is expressed in units of <span class="math notranslate nohighlight">\(\sqrt{ \epsilon / m \sigma^2}\)</span>.</p>
+</div>
+<div class="justify docutils container">
+<p>The second line indicates that the simulation
+is 3D, the third line that the ‘atomic’ style
+will be used, therefore each atom is just a dot with a mass.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">About the atom style</p>
+<p>While we are keeping it simple here,
+in the following tutorials, different ‘atom style’ will be used,
+allowing us to create atoms with a net charge and to define
+bonds between atoms to form molecules.</p>
+</div>
+<div class="justify docutils container">
+<p>The fourth line indicates that atoms are going to interact
+through a Lennard-Jones potential with a cut-off equal to
+2.5 (unitless), and the last line indicates that the
+periodic boundary conditions will be used along all three
+directions of space (the three ‘p’ stand for ‘x’, ‘y’, ‘z’,
+respectively).</p>
+<p>At this point, you have a LAMMPS script that does nothing.
+You can execute it to verify that there is no mistake by
+running the following command in the terminal:</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>lmp -in input_01.lammps
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Which should return something like</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>LAMMPS (29 Sep 2021 - Update 2)
+Total wall time: 0:00:00
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>If there is a mistake in the input script, for example if
+‘atom_stile’ is written instead of ‘atom_style’, LAMMPS
+gives you an explicit warning:</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>LAMMPS (29 Sep 2021 - Update 2)
+ERROR: Unknown command: atom_stile  atomic (src/input.cpp:232)
+Last command: atom_stile atomic
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Let us fill the second part the of the input script:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input1.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 2) System definition</span>
+<span class="k">region </span><span class="nv nv-Identifier">simulation_box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
+<span class="k">create_box</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">simulation_box</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">1500</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">simulation_box</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">127569</span><span class="w"> </span><span class="n">simulation_box</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The first line creates a region of space
+named <em>simulation_box</em> that is a block (a rectangular cuboid) and
+extends from -20 to 20 along all 3 directions of space, all expressed in
+non-dimensional units because we are using the lj system
+of units. The second line creates a simulation box based on
+the region <em>simulation_box</em> with ‘2’ types of atoms. The third
+command specifies that 1500 atoms of type 1 must be created
+randomly in the region <em>simulation_box</em>. The integer <em>341341</em> is a
+seed that can be changed in order to create different
+initial conditions for the simulation. The fourth line
+creates 100 atoms of type 2.</p>
+<p>If you run LAMMPS, you should see the following in the
+terminal:</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>LAMMPS (29 Sep 2021 - Update 2)
+Created orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+1 by 1 by 1 MPI processor grid
+Created 1500 atoms
+using lattice units in orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+create_atoms CPU = 0.001 seconds
+Created 100 atoms
+using lattice units in orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+create_atoms CPU = 0.000 seconds
+Total wall time: 0:00:00
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>From what is printed in the terminal, it is clear that
+LAMMPS correctly interpreted the commands, and first created
+the box with desired dimensions, then 1500 atoms, then 100
+atoms.</p>
+<p>Let us fill the third section of the input script, the settings:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input1.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 3) Simulation settings</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="m">3.0</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The two first commands attribute a mass
+equal to 1 (unitless) to both atoms of type 1 and 2,
+respectively. The third line sets the Lennard-Jones
+coefficients for the interactions between atoms of type 1,
+respectively the depth of the potential well
+<span class="math notranslate nohighlight">\(\epsilon\)</span> and the distance at which the
+particle-particle potential energy is zero <span class="math notranslate nohighlight">\(\sigma\)</span>.
+The last line sets the Lennard-Jones coefficients for
+the interactions between atoms of type 2.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">About cross parameters</p>
+<p>By default, LAMMPS calculates the cross coefficients between the different atom types
+using geometric average:
+<span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\)</span>,
+<span class="math notranslate nohighlight">\(\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}\)</span>.
+In the present case, and even without specifying it explicitly, we thus have :</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{1.0 \times 0.5} = 0.707\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{ij} = \sqrt{1.0 \times 3.0} = 1.732\)</span>.</p></li>
+</ul>
+<p>Eventually, cross parameters could also be explicitly specified by adding the following
+line to the input file (but there is no need to do it here, its only necessary if you need
+to set custom parameters):</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.707</span><span class="w"> </span><span class="m">1.732</span>
+</pre></div>
+</div>
+<p>Note that the arithmetic rule, where
+<span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\)</span>,
+<span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2\)</span>,
+is more common than the geometric rule. However, neither the geometric nor the
+arithmetic rule are based on rigorous argument, so here
+the geometric rule will do just fine.</p>
+</div>
+</section>
+<section id="energy-minimization">
+<h3>Energy minimization<a class="headerlink" href="#energy-minimization" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Now that the system is fully defined, let us just fill the two last remaining sections:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input1.lammps</em></span><a class="headerlink" href="#id5" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 4) Visualization</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">10</span>
+
+<span class="c"># 5) Run</span>
+<span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">10000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The thermo command asks LAMMPS to print
+thermodynamic information (e.g. temperature, energy) in the
+terminal every 10 steps. The second line asks LAMMPS to
+perform an energy minimization of the system.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">About energy minimization</p>
+<p>An energy minimization procedure consists in adjusting
+the coordinates of the atoms that are too close from one another until one of the stopping
+criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
+Here there are four stopping criteria:</p>
+<ol class="arabic simple">
+<li><p>The change in energy between two iterations is less than 1.0e-4,</p></li>
+<li><p>The maximum force between two atoms in the system is lower than 1.0e-6,</p></li>
+<li><p>The maximum number of iterations is 1000,</p></li>
+<li><p>The maximum number of times the force and the energy have been evaluated is 10000.</p></li>
+</ol>
+</div>
+<div class="justify docutils container">
+<p>Now running the simulation, we can see how the thermodynamics
+variables evolve with time:</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Step         Temp       E_pair        E_mol       TotEng         Press
+   0            0     78840982            0     78840982       7884122
+  10            0    169.90532            0    169.90532     17.187291
+  20            0  -0.22335386            0  -0.22335386 -0.0034892297
+  30            0  -0.31178296            0  -0.31178296 -0.0027290466
+  40            0  -0.38135002            0  -0.38135002 -0.0016419218
+  50            0  -0.42686621            0  -0.42686621 -0.0015219081
+  60            0  -0.46153953            0  -0.46153953 -0.0010659992
+  70            0  -0.48581568            0  -0.48581568 -0.0014849169
+  80            0  -0.51799572            0  -0.51799572 -0.0012995545
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>These lines give us information concerning
+the progress of the energy minimization. First, at the start
+of the simulation (step 0), the energy in the system is
+huge: 78840982 (unitless). This was expected because
+the atoms have been created at random positions within the
+simulation box, and some of them are probably overlapping,
+resulting in a large initial energy which is the consequence
+of the repulsive part of the Lennard-Jones interaction
+potential. As the energy minimization progresses, the energy
+rapidly decreases and reaches a negative value, indicating that the atoms have been
+displaced at reasonable distances from one another. Other
+useful information have been printed in the terminal, for
+example, LAMMPS tells us that the first of the four criteria
+to be satisfied was the energy:</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Minimization stats:
+Stopping criterion = energy tolerance
+</pre></div>
+</div>
+</section>
+<section id="molecular-dynamics">
+<h3>Molecular dynamics<a class="headerlink" href="#molecular-dynamics" title="Permalink to this heading">#</a></h3>
+<div class="dropdown admonition">
+<p class="admonition-title">Background Information (optional) – What is molecular dynamics?</p>
+<p>Molecular dynamics (MD) is based on the numerical solution of the Newtonian
+equations of motion for every atom <span class="math notranslate nohighlight">\(i\)</span>,</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\sum_{j \ne i} \boldsymbol{F}_{ji} = m_i \times \boldsymbol{a}_i,\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(\sum\)</span> is the sum over all the atoms other than <span class="math notranslate nohighlight">\(i\)</span>,
+<span class="math notranslate nohighlight">\(\boldsymbol{F}_{ji}\)</span> the force between the atom pairs <span class="math notranslate nohighlight">\(j-i\)</span>,
+<span class="math notranslate nohighlight">\(m_i\)</span> the mass of atom <span class="math notranslate nohighlight">\(i\)</span>, and <span class="math notranslate nohighlight">\(\boldsymbol{F}_i\)</span> its acceleration.
+The Newtonian equations are solved every timestep to predict the
+evolution of the positions and velocities of atoms and molecules over time.</p>
+<p>At every timestep, the following operations usually occur when
+performing a MD simulation:</p>
+<ul class="simple">
+<li><p>the forces between the atoms are calculated from the parameters (here the <span class="math notranslate nohighlight">\(\epsilon\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> values) and potentials (here Lennard-Jones),</p></li>
+<li><p>the acceleration of each atom is evaluated from the Newtonian equation,</p></li>
+<li><p>the velocity and position of each atom are updated according to the acceleration, typically using the Verlet algorithm, or similar.</p></li>
+</ul>
+</div>
+<div class="justify docutils container">
+<p>The system is now ready. Let us continue filling up the
+input script and adding commands in order to perform an actual molecular dynamics
+simulation that will start from the final state of the energy minimization.
+In the same input script, after the ‘minimization’ command, add the following
+lines:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input1.lammps</em></span><a class="headerlink" href="#id6" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># PART B - MOLECULAR DYNAMICS</span>
+<span class="c"># 4) Visualization</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">variable </span><span class="nv nv-Identifier">kinetic_energy</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">ke</span>
+<span class="k">variable </span><span class="nv nv-Identifier">potential_energy</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">pe</span>
+<span class="k">variable </span><span class="nv nv-Identifier">pressure</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">press</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">v_kinetic_energy</span><span class="w"> </span><span class="n">v_potential_energy</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">energy.dat</span>
+
+<span class="c"># 5) Run</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="m">1530917</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.005</span>
+<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Since LAMMPS reads the input from top to
+bottom, these lines will be executed after the energy
+minimization. There is no need to (re-)initialize the system
+(part 1), (re-)define it (part 2), or (re-)specify the settings
+(part 3). The ‘thermo’ command is called a second time within the
+same input, so the previously entered value of ‘10’ will be replaced
+by the value of ‘1000’ as soon as the second run starts.</p>
+</div>
+<div class="justify docutils container">
+<p>Three variables have been defined in order
+to print the kinetic energy and the potential energy
+of the system in the file named <em>energy.dat</em>. Then,
+in the run section, the fix <em>nve</em> is used to update the
+positions and the velocities of the atoms in the group
+<em>all</em> (this is the most important command here). The second
+fix applies a Langevin thermostat to the atoms of group
+<em>all</em>, with a desired temperature of 1 and a damping
+parameter of 0.1. The number <em>1530917</em> is a seed, you can
+change it to perform statistically independent simulations
+with the same system. Finally we choose the timestep
+and we ask LAMMPS to run for 10000 steps. After running
+the simulation, you should see the following information in
+the terminal:</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span> Step         Temp       E_pair        E_mol       TotEng        Press
+  388            0  -0.95476642            0  -0.95476642 -0.000304834
+ 1000    0.9880227  -0.31773089            0    1.1633769  0.021818374
+ 2000    1.0434396  -0.26534383            0    1.2988374   0.02287591
+ 3000   0.97269039  -0.23946371            0      1.21866  0.022394592
+ 4000    1.0192798  -0.23174747            0    1.2962167  0.024978385
+ 5000    1.0319547  -0.23284134            0    1.3141233  0.024342347
+ 6000   0.98137972  -0.22477315            0    1.2463764  0.022074749
+ 7000    1.0144842  -0.23803792            0    1.2827372  0.023846178
+ 8000    1.0102062  -0.23305477            0    1.2813075     0.023146
+ 9000    1.0236358  -0.22539436            0    1.3090996  0.024357378
+10000   0.98915906  -0.22159572            0    1.2612155   0.02397044
+10388   0.99354192  -0.22377029            0    1.2656111  0.022751609
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The second column shows that the temperature
+starts from 0, but rapidly reaches the
+expected value near <span class="math notranslate nohighlight">\(T=1\)</span>, as requested.
+Note that  In the terminal, you may also see</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Total (number) of neighbors = 8560
+Ave neighs/atom = 5.35
+Neighbor list builds = 999
+Dangerous builds = 998
+Total wall time: 0:00:02
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Note : If you see ‘Dangerous builds = 0’, as could be
+the case with some LAMMPS versions, you can ignore
+the next part.</p>
+<p>During the simulation, they have been 998 dangerous builds.
+This is an indication that something is wrong: some atoms
+have moved more than expected in between two calculations of
+the neighbor lists. Let us add the following command in the
+‘Simulation settings’ section:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input1.lammps</em></span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>With this command, LAMMPS will rebuild the neighbor lists
+more often. Re-run the simulation, and you should see a more
+positive outcome with 0 dangerous build:</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Total (number) of neighbors = 2024
+Ave neighs/atom = 1.2650000
+Neighbor list builds = 1253
+Dangerous builds = 0
+Total wall time: 0:00:02
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>From what has been printed in the energy.dat file, let us
+plot the potential energy and the pressure of
+the system over time:</p>
+</div>
+<figure class="align-default">
+<img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-light" src="../../_images/energy-light.png" />
+</figure>
+<figure class="align-default" id="id8">
+<img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-dark" src="../../_images/energy-dark.png" />
+<figcaption>
+<p><span class="caption-text">Both quantities rapidly evolve at the beginning of the simulation, before reaching
+an equilibrium value.</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="info admonition">
+<p class="admonition-title">On the necessity of plotting data efficiently</p>
+<p>When testing/debugging a molecular simulation, it is crucial to be able to control
+on-the-fly the outputs such as the energy to make sure the
+system is behaving as expected. If you don’t already have
+a favorite plotting tool, you can use xmgrace and simply type from the terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>xmgrace<span class="w"> </span>energy.dat
+</pre></div>
+</div>
+<p>This command will automatically plot the second column as a function of the first column.</p>
+<p>Here I am using pyplot for esthetic reason. If you want, you can download the Jupyter-notebook
+from the <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">Github</a> repository (in the lennardjones/ folder).</p>
+</div>
+</section>
+</section>
+<section id="trajectory-visualisation">
+<h2>Trajectory visualisation<a class="headerlink" href="#trajectory-visualisation" title="Permalink to this heading">#</a></h2>
+<figure class="align-right">
+<a class="reference internal image-reference" href="../../_images/input1.png"><img alt="binary fluid" src="../../_images/input1.png" style="width: 350px;" /></a>
+</figure>
+<div class="justify docutils container">
+<p>The simulation is running well, but we would like to
+visualize the trajectories of the atoms. To do so, we need
+to dump the positions of the atoms in a file at a regular
+interval. Add the following command in the ‘visualization’
+section of PART B:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Run LAMMPS again. A file named dump.lammpstrj must appear in
+the same folder as your input. This file can be opened using
+VMD or Ovito. In Ubuntu, if VMD is installed, you can simply
+execute in the terminal:</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>vmd dump.lammpstrj
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Otherwise, you can open VMD and import the dump.lammpstrj
+file manually using file -&gt; molecule. You should see a cloud
+of lines, but you can improve the representation and make it
+look like the figure on the right, or the video at the
+top of this page.</p>
+</div>
+</section>
+<section id="improving-the-script">
+<h2>Improving the script<a class="headerlink" href="#improving-the-script" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Let us improve the input script and perform slightly more
+advanced operations.</p>
+</div>
+<figure class="align-right">
+<a class="reference internal image-reference" href="../../_images/input2.png"><img alt="binary fluid" src="../../_images/input2.png" style="width: 350px;" /></a>
+</figure>
+<section id="control-the-initial-atom-positions">
+<h3>Control the initial atom positions<a class="headerlink" href="#control-the-initial-atom-positions" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Let us create the atoms of type 1 and 2 in two separate
+regions, respectively, instead of creating them both randomly
+within the entire space as we did previously. Create a new input script, and call
+it input2.lammps. Similarly to what has been done previously, copy the following lines
+into the input script:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input2.lammps</em></span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 1) Initialization</span>
+<span class="k">units</span><span class="w"> </span><span class="n">lj</span>
+<span class="k">dimension</span><span class="w"> </span><span class="m">3</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">atomic</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="m">2.5</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Let us create a box from a predefined region,
+and create two additional regions and generate
+atoms of type 1 and 2 in each region respectively.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input2.lammps</em></span><a class="headerlink" href="#id10" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 2) System definition</span>
+<span class="k">region </span><span class="nv nv-Identifier">simulation_box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
+<span class="k">create_box</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">simulation_box</span>
+<span class="k">region </span><span class="nv nv-Identifier">mycylin</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">in</span>
+<span class="k">region </span><span class="nv nv-Identifier">mycylou</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">out</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">mycylou</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">150</span><span class="w"> </span><span class="m">127569</span><span class="w"> </span><span class="n">mycylin</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The <em>side in</em> and <em>side out</em> keywords
+allow us to define regions that are respectively inside the
+cylinder, and everything that is not inside the cylinder.</p>
+<p>We can write the remaining of the input script as follow:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input2.lammps</em></span><a class="headerlink" href="#id11" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 3) Simulation settings</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="m">3.0</span>
+<span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
+
+<span class="c"># 4) Visualization</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">10</span>
+<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">dump.min.lammpstrj</span>
+
+<span class="c"># 5) Run</span>
+<span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">10000</span>
+<span class="k">write_data</span><span class="w"> </span><span class="n">minimized_coordinate.data</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The novelty with respect to the previous
+input script is the command ‘write_data’. This command
+asks LAMMPS to print the final state of the simulation in
+a file named ‘minimized_coordinate.data’. This file will
+be used later to restart the simulation from the final
+state of the energy minimisation step.</p>
+<p>Run LAMMPS using the input2.lammps script. If everything
+goes well, a dump file named dump.min.lammpstrj will
+appear in the folder, allowing you to visualize the atoms
+trajectories during minimization. In
+addition, a file named minimized_coordinate.data will be
+created. If you open this file, you will see that it
+contains all the information necessary to restart the
+simulation, such as the number of atoms and the size of
+the box:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">1150</span><span class="w"> </span><span class="n">atoms</span>
+<span class="m">2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
+
+<span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="n">xlo</span><span class="w"> </span><span class="n">xhi</span>
+<span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="n">ylo</span><span class="w"> </span><span class="n">yhi</span>
+<span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="n">zlo</span><span class="w"> </span><span class="n">zhi</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The minimized_coordinate.data file also contains the final
+positions and velocities of all the atoms:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">Atoms</span><span class="w"> </span><span class="c"># atomic</span>
+
+<span class="m">345</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.8836527978635523</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.9323791349242530</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">979</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.9382597284003467</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.8335352105920894</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">435</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.5412729704650008</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.9697644643809667</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">533</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.5033422381244598</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.8519424750144708</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">347</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.4330866813628781</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.9373591404712414</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">448</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.3610197298718113</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.8518785172533800</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="nv">(...)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The columns of the Atoms section
+correspond (from left to right) to the atom indexes (from 1
+to the total number of atoms, 1150), the atom types (1 or 2
+here), the atoms positions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span> and the
+atoms velocities <span class="math notranslate nohighlight">\(v_x\)</span>, <span class="math notranslate nohighlight">\(v_y\)</span>, <span class="math notranslate nohighlight">\(v_z\)</span>.</p>
+</div>
+</section>
+<section id="restarting-from-a-saved-configuration">
+<h3>Restarting from a saved configuration<a class="headerlink" href="#restarting-from-a-saved-configuration" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>We are going to create a new input file and start a
+molecular dynamics simulation directly from the previously
+saved configuration. In the same folder, create a new file
+named input3.lammps and copy the same lines as previously:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 1) Initialization</span>
+<span class="k">units</span><span class="w"> </span><span class="n">lj</span>
+<span class="k">dimension</span><span class="w"> </span><span class="m">3</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">atomic</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="m">2.5</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Now, instead of creating a new region and adding atoms, we
+simply add the following command:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id13" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 2) System definition</span>
+<span class="k">read_data</span><span class="w"> </span><span class="n">minimized_coordinate.data</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>By visualizing the previously generated dump.min.lammpstrj
+file, you may have noticed that some atoms have moved from
+one region to the other during minimisation, as seen in
+<a href="https://www.youtube.com/embed/gfJ_n33-F6A" target="_blank">this video</a>.
+In order to start the simulation from a clean state, with
+only atoms of type 2 within the cylinder and atoms of type
+1 outside the cylinder, let us delete the misplaced atoms
+by adding the following commands:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id14" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">mycylin</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">in</span>
+<span class="k">region </span><span class="nv nv-Identifier">mycylou</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">out</span>
+<span class="k">group </span><span class="nv nv-Identifier">mytype1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
+<span class="k">group </span><span class="nv nv-Identifier">mytype2</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
+<span class="k">group </span><span class="nv nv-Identifier">incyl</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">mycylin</span>
+<span class="k">group </span><span class="nv nv-Identifier">oucyl</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">mycylou</span>
+<span class="k">group </span><span class="nv nv-Identifier">type1in</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">mytype1</span><span class="w"> </span><span class="n">incyl</span>
+<span class="k">group </span><span class="nv nv-Identifier">type2ou</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">mytype2</span><span class="w"> </span><span class="n">oucyl</span>
+<span class="k">delete_atoms</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">type1in</span>
+<span class="k">delete_atoms</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">type2ou</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>These commands will respectively recreate
+the previously defined regions (regions are not saved by the
+write_data command), create groups, and finally delete the
+atoms of type 1 that are located within the cylinder, as
+well as the atoms of type 2 that are located outside the
+cylinder. If you run LAMMPS, you can see in the terminal how
+many atoms are in each group, and how many atoms have been
+deleted:</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>1000 atoms in group mytype1
+150 atoms in group mytype2
+149 atoms in group incyl
+1001 atoms in group oucyl
+0 atoms in group type1in
+1 atoms in group type2ou
+Deleted 0 atoms, new total = 1150
+Deleted 1 atoms, new total = 1149
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Similarly to previously, add the following simulation
+settings:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id15" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 3) Simulation settings</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="m">3.0</span>
+<span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">group </span><span class="nv nv-Identifier">type1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
+<span class="k">group </span><span class="nv nv-Identifier">type2</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
+
+<span class="c"># 4) Visualization</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.run.lammpstrj</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Note that 2 atom groups have been defined, they are useful
+here to extract the coordination number between atoms of
+type 1 and 2. Let us extract this coordination number, as
+well as the number of atoms of each type in each region, by
+adding the following commands to the input file:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id16" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">Ntype1in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype1,mycylin)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">Ntype1ou</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype1,mycylou)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">Ntype2in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype2,mycylin)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">Ntype2ou</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype2,mycylou)</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_Ntype1in</span><span class="w"> </span><span class="n">v_Ntype1ou</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">population1vstime.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_Ntype2in</span><span class="w"> </span><span class="n">v_Ntype2ou</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">population2vstime.dat</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>As seen previously, the fix ave/time
+allow to evaluate previously defined variables and print
+the values (here every 2000 steps, after averaging each quantities 200 times)
+into data file. The 4 variables starting with ‘Ntype’ are used to count
+the number of atoms of a specific group in a specific
+region.</p>
+<p>Let us also extract the coordination number per atom between atoms
+of type 1 and 2, i.e. the average number of atoms of type 2 in the vicinity
+of the atoms of type 1. This coordination number will be used as an indicator of the
+degree of mixing of our binary mixture.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id17" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">coor12</span><span class="w"> </span><span class="nv nv-Identifier">type1</span><span class="w"> </span><span class="n">coord</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">type2</span>
+<span class="k">compute </span><span class="nv nv-Identifier">sumcoor12</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">reduce</span><span class="w"> </span><span class="n">ave</span><span class="w"> </span><span class="n">c_coor12</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat3</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">c_sumcoor12</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">coordinationnumber12.dat</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>The ‘compute ave’ is used to average the per atom
+coordination number that is calculated by the ‘coord/atom’ compute.
+This averaging is necessary as ‘coord/atom’ returns an array where each value corresponds
+to a certain couple of atom i-j. Such array can’t be printed by ‘fix ave/time’.
+Finally, let us complete the script by adding the run section:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id18" title="Permalink to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 5) Run</span>
+<span class="k">velocity</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">4928459</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="n">gaussian</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="m">1530917</span><span class="w"> </span><span class="n">zero</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.005</span>
+<span class="k">run</span><span class="w"> </span><span class="m">300000</span>
+<span class="k">write_data</span><span class="w"> </span><span class="n">mixed.data</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>There are a few differences with the
+previous input script. First, the ‘velocity create’
+command attributes an initial velocity to all the atoms.
+The initial velocity is chosen so that the initial
+temperature is equal to 1 (unitless). The additional
+keywords ensure that no linear momentum and no angular
+momentum are given to the system, and that the generated
+velocities are distributed as a Gaussian. Another novelty
+is the ‘zero yes’ keyword in the Langevin thermostat, that
+ensures that the total random force is equal to zero.
+After running the simulation, you can observe the number
+of atoms in each region from the generated data files, as
+well as the evolution of the coordination number due to
+mixing:</p>
+</div>
+<figure class="align-default">
+<img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-light" src="../../_images/population-light.png" />
+</figure>
+<figure class="align-default" id="id19">
+<img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-dark" src="../../_images/population-dark.png" />
+<figcaption>
+<p><span class="caption-text">Evolution of the poputation with time, as well as evolution of the coordination number.</span><a class="headerlink" href="#id19" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>You can access all the input scripts and data files that
+are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">Github</a>.</p>
+</section>
+</section>
+<section id="what-now">
+<h2>What now?<a class="headerlink" href="#what-now" title="Permalink to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Now that you have completed this simple molecular dynamics tutorials, what should you do?</p>
+</div>
+<section id="play-around">
+<h3>Play around<a class="headerlink" href="#play-around" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>A good way to progress with LAMMPS and molecular dynamics
+simulations is to play around with a script that is already
+working and observe the differences and/or errors occurring:
+Try adding new commands (you can choose from the documentation),
+try removing some of the commands, try changing the parameter values
+(see also the first exercice below).</p>
+<p>The more you trigger warnings, the easier it will be for you to solve your
+own simulation.</p>
+</div>
+</section>
+<section id="try-another-tutorial">
+<h3>Try another tutorial<a class="headerlink" href="#try-another-tutorial" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>There are many common aspects of molecular simulations that were not dealt with in this
+tutorial:</p>
+<ul class="simple">
+<li><p>dealing with charged atoms and bounded molecules, as is necessary to model most existing molecules, solids, or structures, see for instance <a class="reference internal" href="../level2/polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a> and <a class="reference internal" href="../level2/nanosheared-electrolyte.html#sheared-confined-label"><span class="std std-ref">Nanosheared electrolyte</span></a>,</p></li>
+<li><p>dealing with non-constant volume,</p></li>
+<li><p>dealing with reactivity and bond formation/breaking, see <a class="reference internal" href="../level3/reactive-silicon-dioxide.html#reactive-silicon-dioxide-label"><span class="std std-ref">Reactive silicon dioxide</span></a>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="going-further-with-exercises">
+<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Permalink to this heading">#</a></h2>
+<div class="solution admonition">
+<p class="admonition-title">Solutions</p>
+<p>Request the solutions by <a class="reference external" href="mailto:simon&#46;gravelle&#37;&#52;&#48;live&#46;fr">email</a>, or register as a <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a> for 1 euro/month
+to access all the solutions as well as additional LAMMPS content and access
+an active LAMMPS dedicated forum.</p>
+</div>
+<div class="justify docutils container">
+<p><strong>Preamble : on the importance of energy minimisation</strong></p>
+<p>With the curernt system, we can
+explore what happens if we don’t perform a minimisation step
+and start the molecular dynamics directly. To do so, comment
+the two following lines:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># thermo 10</span>
+<span class="c"># minimize  1.0e-4 1.0e-6 1000 10000</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>If you run LAMMPS again, you should get something like:</p>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Step Temp E_pair E_mol TotEng Press
+0 5.8997404e+14 0 5.8997404e+14 1.5732641e+15
+ERROR: Lost atoms: original 1600 current 272 (src/thermo.cpp:438)
+Last command: run 10000
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The message indicates that LAMMPS lost
+some of the atoms, then stopped. This is one of the most
+common error message that you will see. It is usually the
+consequence of badly constructed system or inappropriate
+dynamics. In the present case, atoms are too close to each
+others initially, so the forces are huge, leading to
+enormous acceleration. As a consequence, atoms are moving by
+large distances during the firsts timesteps, and LAMMPS
+loses them.</p>
+</div>
+<section id="do-without-the-minimize-command">
+<h3>Do without the ‘minimize’ command<a class="headerlink" href="#do-without-the-minimize-command" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Run the same simulation without using the ‘minimize’ command. The absence of energy minimization
+will have to be compensated in order to avoid triggering the ‘Lost atoms’ error message (see
+the previous paragraph).</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Hints (click to reveal)</p>
+<p>The value of the timestep and/or the damping factor of the fix langevin
+can be tuned to prevent the system from exploding.</p>
+<p>Perform as many consecutive runs with varying timestep and damping factor that
+you feel in necessary.</p>
+<p>Have a look at fix nve/limit (instead of nve), this command is
+made explicitely to prevent an unequilibrated system for exploding.</p>
+</div>
+</section>
+<section id="a-simulation-with-no-thermostat">
+<h3>A simulation with no thermostat<a class="headerlink" href="#a-simulation-with-no-thermostat" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>The present simulation is made using the NVT ensemble, with a constant number
+of atom N, constant volume V, and constant (or at least imposed) temperature T.</p>
+<p>Run the same simulation in the NVE ensemble and extract the
+energy over time. Is the energy conserved over time (as usaully expected)?</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Hints (click to reveal)</p>
+<p>Using a smaller value for the timestep gives better
+energy conservation.</p>
+</div>
+</section>
+<section id="non-equilibrium-simulation">
+<h3>Non-equilibrium simulation<a class="headerlink" href="#non-equilibrium-simulation" title="Permalink to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>So far, atoms were freely diffusing without contraint or external force.
+Add an external force to induce a net flow of atoms in one
+direction. The magnitude of the force must be chosen so
+that the system is not <em>too far</em> from equilibrium.</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Hints (click to reveal)</p>
+<p>LAMMPS offers several option to add external force to a system, one
+being the fix addforce.</p>
+<p>If the system is too far from equilibrium, it enters the non-linear response
+regimes and its properties and parameters will differ from its equilibrium values.
+In general, this is something that you must avoid (unless you are studying
+non-linear effects).</p>
+</div>
+<div class="mail admonition">
+<p class="admonition-title">Contact me</p>
+<p>Feel free to <a class="reference internal" href="../../miscellaneous/contact-me.html#contact-label"><span class="std std-ref">Contact me</span></a> me if you have any question or suggestion about these tutorials.</p>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../level1/graphene-under-deformation.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Graphene under deformation</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../../miscellaneous/contact-me.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Contact me</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Lennard Jones fluid</a><ul>
+<li><a class="reference internal" href="#required-softwares">Required softwares</a></li>
+<li><a class="reference internal" href="#the-input-script">The input script</a><ul>
+<li><a class="reference internal" href="#system-creation">System creation</a></li>
+<li><a class="reference internal" href="#energy-minimization">Energy minimization</a></li>
+<li><a class="reference internal" href="#molecular-dynamics">Molecular dynamics</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#trajectory-visualisation">Trajectory visualisation</a></li>
+<li><a class="reference internal" href="#improving-the-script">Improving the script</a><ul>
+<li><a class="reference internal" href="#control-the-initial-atom-positions">Control the initial atom positions</a></li>
+<li><a class="reference internal" href="#restarting-from-a-saved-configuration">Restarting from a saved configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-now">What now?</a><ul>
+<li><a class="reference internal" href="#play-around">Play around</a></li>
+<li><a class="reference internal" href="#try-another-tutorial">Try another tutorial</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
+<li><a class="reference internal" href="#do-without-the-minimize-command">Do without the ‘minimize’ command</a></li>
+<li><a class="reference internal" href="#a-simulation-with-no-thermostat">A simulation with no thermostat</a></li>
+<li><a class="reference internal" href="#non-equilibrium-simulation">Non-equilibrium simulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>
