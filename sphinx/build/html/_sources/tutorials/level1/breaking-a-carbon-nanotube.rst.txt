@@ -362,7 +362,8 @@ Going further with exercises
     :align: right
     :class: only-light
 
-**Exercise 1 : shear deformation of a CNT membrane**
+Deforming membrane
+------------------
 
 ..  container:: justify
 
@@ -386,7 +387,8 @@ Going further with exercises
     :align: right
     :class: only-light
 
-**Exercise 2 : decorate the CNT with hydrogen**
+Decorate the CNT
+----------------
 
 ..  container:: justify
 
@@ -396,7 +398,8 @@ Going further with exercises
    decorate the free carbon atoms at the edge of the CNT. Some 
    other hydrogen atoms will bond and form H2 molecules. 
 
-**Exercise 3 : no thermostating**
+No thermostating
+----------------
 
 ..  container:: justify
 
