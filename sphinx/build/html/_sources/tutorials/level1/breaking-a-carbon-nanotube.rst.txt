@@ -72,7 +72,7 @@ System creation
 
 .. |download_CNT.data| raw:: html
 
-   <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/cnt.data" target="_blank">here</a>
+   <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/cnt.data" target="_blank">here</a>
 
 .. include:: ../../contact/supportme.rst
 
@@ -127,7 +127,7 @@ Input file
 
 .. |download_CH.airebo| raw:: html
 
-    <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/CH.airebo" target="_blank">here</a>
+    <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/CH.airebo" target="_blank">here</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in input.lammps*

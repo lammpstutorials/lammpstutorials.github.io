@@ -278,11 +278,11 @@ Bulk water
 
 .. |download_H20.data| raw:: html
 
-   <a href="../../../../inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a>
+   <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a>
 
 .. |download_H2OTip4p.txt| raw:: html
 
-   <a href="../../../../inputs/level2/polymer-in-water/pureH2O/H2OTip4p.txt" target="_blank">downloaded</a>
+   <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/H2OTip4p.txt" target="_blank">downloaded</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in pureH2O/input.lammps*
@@ -523,7 +523,7 @@ Bulk water
 
 .. |download_H2O.data| raw:: html
 
-   <a href="../../../../inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a>
+   <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a>
 
 .. include:: ../../contact/supportme.rst
 
@@ -592,7 +592,7 @@ PEG molecule
 
 .. |download_init.data| raw:: html
 
-   <a href="../../../../inputs/level2/polymer-in-water/singlePEG/init.data" target="_blank">Download</a>
+   <a href="../../../../../inputs/level2/polymer-in-water/singlePEG/init.data" target="_blank">Download</a>
 
 .. |PEGgenerator| raw:: html
 
@@ -707,7 +707,7 @@ PEG molecule
 
 .. |download_PEG.data| raw:: html
 
-   <a href="../../../../inputs/level2/polymer-in-water/singlePEG/PEG.data" target="_blank">download</a>
+   <a href="../../../../../inputs/level2/polymer-in-water/singlePEG/PEG.data" target="_blank">download</a>
 
 Solvation of the PEG molecule
 =============================

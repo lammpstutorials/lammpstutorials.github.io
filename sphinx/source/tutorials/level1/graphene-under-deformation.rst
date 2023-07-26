@@ -154,7 +154,7 @@ Generation of the system
 
 .. |download_carbon_data| raw:: html
 
-   <a href="../../../../inputs/level1/graphene-under-deformation/carbon.data" target="_blank">here</a>
+   <a href="../../../../../inputs/level1/graphene-under-deformation/carbon.data" target="_blank">here</a>
 
 .. include:: ../../contact/supportme.rst
 
@@ -642,6 +642,6 @@ Strain-stress curve (with solution)
 
 .. |jupyter-notebook-stress-strain| raw:: html
 
-    <a href="../../../../inputs/level1/graphene-under-deformation/exercice-stress-strain-curve/plot_stress_strain.py" target="_blank">here</a>
+    <a href="../../../../../inputs/level1/graphene-under-deformation/exercice-stress-strain-curve/plot_stress_strain.py" target="_blank">here</a>
 
 .. include:: ../../contact/contactme.rst
