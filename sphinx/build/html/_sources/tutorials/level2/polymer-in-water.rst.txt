@@ -1078,5 +1078,3 @@ Post-mortem analysis
     ..  code-block:: python
 
         u = mda.Universe("dump.lammpstrj", format = "LAMMPSDUMP")
-
-.. include:: ../../contact/contactme.rst

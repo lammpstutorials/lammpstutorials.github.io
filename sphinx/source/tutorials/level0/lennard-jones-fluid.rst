@@ -1070,6 +1070,19 @@ Dumbbell molecules
     :class: dropdown
 
     Use molecule template to easily insert as many atoms connected
-    by bonds (i.e. molecule) as you want.
+    by bonds (i.e. molecule) as you want. A molecule 
+    template typically begins as follow:
 
-.. include:: ../../contact/contactme.rst
+    ..  code-block:: lammps
+
+        # Dumbell molecule
+
+        2 atoms
+        1 bonds
+
+        Coords
+
+        1 0.5 0 0
+        2 -0.5 0 0
+
+        (...)

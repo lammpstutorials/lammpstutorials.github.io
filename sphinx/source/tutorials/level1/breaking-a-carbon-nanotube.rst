@@ -409,5 +409,3 @@ No thermostating
 
    Remove the thermostat and observe the evolution of the temperature of an
    'isolated' carbon nanotube being deformed. Does it heat-up?
-
-.. include:: ../../contact/contactme.rst

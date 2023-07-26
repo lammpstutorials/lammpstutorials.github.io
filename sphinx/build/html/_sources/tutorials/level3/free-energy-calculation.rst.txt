@@ -632,5 +632,3 @@ Adsorption of ethanol at a solid wall
 
     Apply umbrella sampling to calculate the free energy profile
     of a molecule of your choice normally to a solid wall.
-
-.. include:: ../../contact/contactme.rst
