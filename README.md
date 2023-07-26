@@ -1,7 +1,8 @@
 # LAMMPS tutorials
 
-This is the script of the [LAMMPS Tutorials 2.0](https://lammpstutorials.github.io/) webpage. 
-All the LAMMPS input scripts and data files can be found in the [inputs](docs/inputs/) folder.
+Welcome to the repository of the [LAMMPS Tutorials 2.0](https://lammpstutorials.github.io/)
+webpage. All the input scripts and data files can be found in the [inputs](docs/inputs/) folder.
+The python/pyplot scripts used to generate the dark and white figures are also provided.
 
 <p float="left">
   <a href="https://lammpstutorials.github.io">
