@@ -808,7 +808,8 @@ Going further with exercises
 
 .. include:: ../../contact/requestsolution.rst
 
-**Exercise 1 : Extract more data from the simulation**
+Density profiles
+----------------
 
 ..  container:: justify
 
@@ -821,7 +822,8 @@ Going further with exercises
     + fix ave/time), or (2) using a post-processing analysis
     tool (e.g. Python).
 
-**Exercise 2 : Poiseuille flow**
+Poiseuille flow
+---------------
 
 ..  container:: justify
 

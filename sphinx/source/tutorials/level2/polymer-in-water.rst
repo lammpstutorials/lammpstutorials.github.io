@@ -1046,8 +1046,8 @@ Generate a PEG-H2O mixture
     as we did here. You can also create the water molecules directly around the PEG molcule
     using the create_atom command.
 
-Compare end-to-end distance
----------------------------
+End-to-end distance
+-------------------
 
 ..  container:: justify
 

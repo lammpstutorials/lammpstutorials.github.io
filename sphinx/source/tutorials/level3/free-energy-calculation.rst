@@ -593,7 +593,8 @@ Going further with exercises
 
 .. include::  ../../contact/requestsolution.rst
         
-**Exercise 1: Monte Carlo versus molecular dynamics**
+Monte Carlo versus molecular dynamics
+-------------------------------------
 
 ..  container:: justify
 
@@ -603,7 +604,8 @@ Going further with exercises
 
     Pure MC move can be made using the fix gcmc.
 
-**Exercise 2 : Binary fluid simulation**
+Binary fluid
+------------
 
 ..  container:: justify
 
@@ -619,7 +621,12 @@ Going further with exercises
     :alt: Particles separated by a potential
     :class: only-dark
 
-**Exercise 3 : Adsorption energy of a molecule at a solid wall**
+..  container:: justify
+
+    Optional: use particle swapping to exchange between the 2 populations.
+
+Adsorption of ethanol at a solid wall
+-------------------------------------
 
 ..  container:: justify
 

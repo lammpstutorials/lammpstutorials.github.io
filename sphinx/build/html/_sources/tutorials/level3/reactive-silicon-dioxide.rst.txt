@@ -506,6 +506,9 @@ Exercises
 
     .. include:: ../../contact/requestsolution.rst
 
+Decorate dandling oxygens
+-------------------------
+
 ..  container:: justify
 
     Under ambient conditions, dandling oxygen are typically terminated by hydrogen atoms. 
