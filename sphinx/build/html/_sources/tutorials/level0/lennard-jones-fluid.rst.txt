@@ -962,6 +962,18 @@ Going further with exercises
 
 .. include:: ../../contact/requestsolution.rst
 
+A simulation with no thermostat
+-------------------------------
+
+..  container:: justify
+
+    The present simulation is made using the NVT ensemble, with a constant number 
+    of atom N, constant volume V, and constant (or at least imposed) temperature T. 
+
+    Run the same simulation in the NVE ensemble and extract the
+    energy over time. Is the energy conserved over time (as usaully expected)?
+
+
 Do without the 'minimize' command
 ---------------------------------
 
@@ -1000,8 +1012,7 @@ Do without the 'minimize' command
 ..  container:: justify
 
     Run the same simulation without using the 'minimize' command. The absence of energy minimization 
-    will have to be compensated in order to avoid triggering the 'Lost atoms' error message (see 
-    the previous paragraph).
+    will have to be compensated in order to avoid triggering the 'Lost atoms' error message.
 
 .. admonition:: Hints (click to reveal)
     :class: dropdown
@@ -1015,17 +1026,6 @@ Do without the 'minimize' command
     Have a look at fix nve/limit. This command was
     made to prevent an unequilibrated system from exploding
     by preventing atoms to travel too far every timestep.
-
-A simulation with no thermostat
--------------------------------
-
-..  container:: justify
-
-    The present simulation is made using the NVT ensemble, with a constant number 
-    of atom N, constant volume V, and constant (or at least imposed) temperature T. 
-
-    Run the same simulation in the NVE ensemble and extract the
-    energy over time. Is the energy conserved over time (as usaully expected)?
 
 Non-equilibrium simulation
 --------------------------
