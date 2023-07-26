@@ -564,8 +564,3 @@ Decorate dandling oxygens
     ..  code-block:: lammps
 
         pair_coeff * * reaxCHOFe.ff Si O H
-
-..  container:: justify
-
-    .. include:: ../../contact/contactme.rst
-

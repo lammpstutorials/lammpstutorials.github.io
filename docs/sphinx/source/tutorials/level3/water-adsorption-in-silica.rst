@@ -583,5 +583,3 @@ Adding water
     Note that gcmc simulations of dense phases are usually slow to converge due to the
     very low probability of successfully inserting a molecule. Here 100000 steps (or 100 ps)
     are not enough to reach equilibrium.
-
-.. include:: ../../contact/accessfile.rst
