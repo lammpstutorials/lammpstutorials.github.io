@@ -962,32 +962,30 @@ Going further with exercises
 
 .. include:: ../../contact/requestsolution.rst
 
-..  container:: justify
+Do without the 'minimize' command
+---------------------------------
 
-    **Preamble : on the importance of energy minimisation**
+.. admonition:: Preamble : on the importance of energy minimisation (click to reveal)
+    :class: dropdown
 
     With the curernt system, we can
     explore what happens if we don't perform a minimisation step
     and start the molecular dynamics directly. To do so, comment
     the two following lines:
 
-..  code-block:: lammps
+    ..  code-block:: lammps
 
-    # thermo 10
-    # minimize  1.0e-4 1.0e-6 1000 10000
-
-..  container:: justify
+        # thermo 10
+        # minimize  1.0e-4 1.0e-6 1000 10000
 
     If you run LAMMPS again, you should get something like:
 
-..  code-block:: bw
+    ..  code-block:: bw
 
-    Step Temp E_pair E_mol TotEng Press
-    0 5.8997404e+14 0 5.8997404e+14 1.5732641e+15
-    ERROR: Lost atoms: original 1600 current 272 (src/thermo.cpp:438)
-    Last command: run 10000
-
-..  container:: justify
+        Step Temp E_pair E_mol TotEng Press
+        0 5.8997404e+14 0 5.8997404e+14 1.5732641e+15
+        ERROR: Lost atoms: original 1600 current 272 (src/thermo.cpp:438)
+        Last command: run 10000
 
     The message indicates that LAMMPS lost
     some of the atoms, then stopped. This is one of the most
@@ -998,9 +996,6 @@ Going further with exercises
     enormous acceleration. As a consequence, atoms are moving by
     large distances during the firsts timesteps, and LAMMPS
     loses them.
-
-Do without the 'minimize' command
----------------------------------
 
 ..  container:: justify
 
@@ -1032,12 +1027,6 @@ A simulation with no thermostat
     Run the same simulation in the NVE ensemble and extract the
     energy over time. Is the energy conserved over time (as usaully expected)?
 
-.. admonition:: Hints (click to reveal)
-    :class: dropdown
-
-    Using a smaller value for the timestep gives better
-    energy conservation.
-
 Non-equilibrium simulation
 --------------------------
 
@@ -1054,9 +1043,33 @@ Non-equilibrium simulation
     LAMMPS offers several option to add external force to a system, one 
     being the fix addforce.
 
-    If the system is too far from equilibrium, it enters the non-linear response 
+    Note: If the system is too far from equilibrium, it enters the non-linear response 
     regimes and its properties and parameters will differ from its equilibrium values.
     In general, this is something that you must avoid (unless you are studying
     non-linear effects). 
+
+Dumbbell molecules
+------------------
+
+..  container:: justify
+
+    Add a bond between couple of identical atoms to create
+    dumbbell molecules, just like in the image:
+
+.. figure:: ../figures/level0/lennard-jones-fluid/dumbell-dark.png
+    :alt: Dumbbell Lennard-Jones molecules
+    :width: 400
+    :class: only-dark
+
+.. figure:: ../figures/level0/lennard-jones-fluid/dumbell-light.png
+    :alt: Dumbbell Lennard-Jones molecules
+    :width: 400
+    :class: only-light 
+
+.. admonition:: Hints (click to reveal)
+    :class: dropdown
+
+    Use molecule template to easily insert as many atoms connected
+    by bonds (i.e. molecule) as you want.
 
 .. include:: ../../contact/contactme.rst
