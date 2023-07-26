@@ -1014,11 +1014,12 @@ Do without the 'minimize' command
     The value of the timestep and/or the damping factor of the fix langevin
     can be tuned to prevent the system from exploding.
 
-    Perform as many consecutive runs with varying timestep and damping factor that 
-    you feel in necessary.
+    Perform as many consecutive runs with varying timestep and damping
+    factors that you feel are necessary.
 
-    Have a look at fix nve/limit (instead of nve), this command is
-    made explicitely to prevent an unequilibrated system for exploding.
+    Have a look at fix nve/limit. This command was
+    made to prevent an unequilibrated system from exploding
+    by preventing atoms to travel too far every timestep.
 
 A simulation with no thermostat
 -------------------------------
