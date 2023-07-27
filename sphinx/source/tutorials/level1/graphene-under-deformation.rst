@@ -537,8 +537,8 @@ Run
     (because of the frozen edges, the temperature of the entire
     system is not relevant). 
     
-Option A: Incremental elongation  
---------------------------------
+Option A: Incremental  
+---------------------
     
 ..  container:: justify
 
@@ -584,8 +584,8 @@ Option A: Incremental elongation
    such bond breaking, one has to use a reactive force
    field, which is done in some other tutorials here (like :ref:`carbon-nanotube-label`).
 
-Option B: Constant-velocity elongation
---------------------------------------
+Option B: Constant-velocity
+---------------------------
 
 ..  container:: justify
 
@@ -606,8 +606,8 @@ Option B: Constant-velocity elongation
 
 .. include:: ../../contact/accessfile.rst
 
-Going further with exercices
-============================
+Exercices
+=========
 
 Strain-stress curve (with solution)
 -----------------------------------

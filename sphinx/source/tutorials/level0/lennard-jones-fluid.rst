@@ -956,8 +956,8 @@ Try another tutorial
     - dealing with non-constant volume,
     - dealing with reactivity and bond formation/breaking, see :ref:`reactive-silicon-dioxide-label`.
 
-Going further with exercises
-============================
+Exercises
+=========
 
 .. include:: ../../contact/requestsolution.rst
 
@@ -966,12 +966,14 @@ A simulation with no thermostat
 
 ..  container:: justify
 
-    The present simulation is made using the NVT ensemble, with a constant number 
-    of atom N, constant volume V, and constant (or at least imposed) temperature T. 
+    So far, simulations were made using the NVT ensemble [constant number 
+    of atoms, N, constant volume V, and constant (or at least imposed)
+    temperature T].
 
-    Run the same simulation in the NVE ensemble and extract the
-    energy over time. Is the energy conserved over time (as usaully expected)?
-
+    Run a similar simulation in the NVE ensemble, and extract the
+    total energy of the system over time.
+    
+    Is the energy conserved over time?
 
 Do without the 'minimize' command
 ---------------------------------
