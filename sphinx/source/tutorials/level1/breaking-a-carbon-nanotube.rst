@@ -349,6 +349,19 @@ Going further with exercises
 
 .. include:: ../../contact/requestsolution.rst
 
+Isolated nanotube
+-----------------
+
+..  container:: justify
+
+   When a rubber band is streched up, it heats up due to entropy change. 
+   In the current simulation, the constant exchange of enerrgy with the 
+   thermostat prevents the temperature to evolve significantly, even under
+   strong deformation.
+
+   Remove the thermostat and observe the evolution of the temperature of an
+   'isolated' carbon nanotube being deformed. Does it heat-up?
+
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/shared-dark.png
     :alt: deformed membrane of CNT
     :width: 200
@@ -396,15 +409,3 @@ Decorate the CNT
    Equilibrate the system. After some time, some hydrogen atoms will 
    decorate the free carbon atoms at the edge of the CNT. Some 
    other hydrogen atoms will bond and form H2 molecules. 
-
-No thermostating
-----------------
-
-..  container:: justify
-
-   When a rubber band is streched up, it heats up due to entropy change. 
-   In the current simulation, the thermostating prevent the temperature
-   to evolve with time.
-
-   Remove the thermostat and observe the evolution of the temperature of an
-   'isolated' carbon nanotube being deformed. Does it heat-up?
