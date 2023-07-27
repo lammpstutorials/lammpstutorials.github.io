@@ -973,7 +973,7 @@ A simulation with no thermostat
     Run a similar simulation in the NVE ensemble, and extract the
     total energy of the system over time.
     
-    Is the energy conserved over time?
+    Make sure that the total energy is conserved over time.
 
 Do without the 'minimize' command
 ---------------------------------
