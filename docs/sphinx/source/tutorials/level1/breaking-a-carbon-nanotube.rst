@@ -354,13 +354,13 @@ Isolated nanotube
 
 ..  container:: justify
 
-   When a rubber band is streched up, it heats up due to entropy change. 
-   In the current simulation, the constant exchange of enerrgy with the 
-   thermostat prevents the temperature to evolve significantly, even under
-   strong deformation.
+    When a rubber band is streched up, it heats up due to entropy change. 
+    In the current simulation, the constant exchange of enerrgy with the 
+    thermostat prevents the temperature to evolve significantly, even under
+    strong deformation.
 
-   Remove the thermostat and observe the evolution of the temperature of an
-   'isolated' carbon nanotube being deformed. Does it heat-up?
+    Remove the thermostat and observe the evolution of the temperature of an
+    'isolated' carbon nanotube being deformed. Does it heat-up?
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/shared-dark.png
     :alt: deformed membrane of CNT
@@ -379,16 +379,16 @@ Deforming membrane
 
 ..  container:: justify
 
-   Replicate the CNT along x and y, and equilibrate the system to 
-   create a membrane, just like the image on the right. 
+    Replicate the CNT along x and y, and equilibrate the system to 
+    create a membrane, just like the image on the right. 
 
-   Then, apply a shear deformation along xy.
+    Then, apply a shear deformation along xy.
 
 .. admonition:: Hints (click to reveal)
     :class: dropdown
 
-   The box must be converted to triclinic to support deformation
-   along xy.
+    The box must be converted to triclinic to support deformation
+    along xy.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/CH-dark.png
     :alt: CNT with hydrogen atoms and N2 molecule
