@@ -972,8 +972,20 @@ A simulation with no thermostat
 
     Run a similar simulation in the NVE ensemble, and extract the
     total energy of the system over time.
-    
-    Make sure that the total energy is conserved over time.
+        
+.. admonition:: Expected output (click to reveal)
+    :class: dropdown
+
+    Make sure that the total energy is conserved over time, as see here. Note also 
+    that the kinetic energy constantly exchanges with the potential energy.
+
+    .. figure:: ../figures/level0/lennard-jones-fluid/exercice-energy-dark.png
+        :alt: NVE energy as a function of time
+        :class: only-dark
+
+    .. figure:: ../figures/level0/lennard-jones-fluid/exercice-energy-light.png
+        :alt: NVE energy as a function of time
+        :class: only-light 
 
 Do without the 'minimize' command
 ---------------------------------
