@@ -384,7 +384,10 @@ Deforming membrane
 
    Then, apply a shear deformation along xy.
 
-   *Hint --* The box must be converted to triclinic to support deformation
+.. admonition:: Hints (click to reveal)
+    :class: dropdown
+
+   The box must be converted to triclinic to support deformation
    along xy.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/CH-dark.png
