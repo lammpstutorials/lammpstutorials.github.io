@@ -34,7 +34,7 @@ Level 2: intermediate users
 
 * :ref:`all-atoms-label`
     * simulation of charged and bonded atomic model
-    * use of isotropic and anisotropic NPT ensemble
+    * isotropic and anisotropic NPT ensemble
     * advanced control of subgroups of atoms
 
 * :ref:`sheared-confined-label`
@@ -47,16 +47,16 @@ Level 3: advanced users
 -----------------------
 
 * :ref:`gcmc-silica-label`
-    * simulation of charged and bonded atomic model
-    * use of the grand-canonical ensemble
-    * fixed relative humidity simulation
+    * grand-canonical ensemble
+    * fixed relative humidity / chemical potential
+    * GCMC (grand-canonical Monte Carlo)
 
 * :ref:`umbrella-sampling-label`
-    * simulation of neutral dots
-    * use of biasing potential
-    * use of WHAM algorithm
+    * biasing potential
+    * WHAM algorithm
+    * umbrella sampling
 
 * :ref:`reactive-silicon-dioxide-label`
-    * simulation of charged reactive species
-    * use of REAX force field
-    * use of charge equilibration
+    * charged reactive species
+    * reactive (REAX) force field
+    * charge equilibration
