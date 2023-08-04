@@ -31,8 +31,11 @@ Breaking a carbon nanotube
 
 .. include:: ../../contact/needhelp.rst
 
+Unbreakable bonds
+=================
+
 System creation
-===============
+***************
 
 ..  container:: justify
 
