@@ -563,6 +563,10 @@ Molecular dynamics
     Here I am using pyplot for esthetic reason. If you want, you can download the Jupyter-notebook
     from the |Github_repository| repository (in the lennardjones/ folder).
 
+.. |Github_repository| raw:: html
+
+   <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">Github</a>
+
 Trajectory visualisation
 ========================
 
