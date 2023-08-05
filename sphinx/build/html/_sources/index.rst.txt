@@ -19,7 +19,6 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     :maxdepth: 2
     :caption: Level 1
 
-    tutorials/level1/graphene-under-deformation.rst
     tutorials/level1/breaking-a-carbon-nanotube.rst
 
 .. toctree::
