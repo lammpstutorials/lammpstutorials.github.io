@@ -7,13 +7,13 @@ Breaking a carbon nanotube
 
     Breaking the bonds of a carbon nanotube under deformation
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/cnt_dark.png
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_gif_dark.webp
     :alt: carbon nanotube image in vacuum
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/cnt_light.png
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_gif_light.webp
     :alt: carbon nanotube image in vacuum
     :height: 250
     :align: right
@@ -21,8 +21,10 @@ Breaking a carbon nanotube
    
 ..  container:: justify
    
-    In this tutorial, a reactive force field (airebo) is used to simulate the 
-    breaking of C-C bonds during the plastic deformation of a carbon nanotube.
+    In this tutorial, two force field, a classic one and a reactive one (airebo) 
+    are used to simulate the deformation of a carbon nanotube (CNT). With the reactive 
+    force field, the breaking of the C-C bonds during the plastic deformation of the CNT are 
+    simulated.
     
     Reactive force fields like airebo and reaxff (see :ref:`reactive-silicon-dioxide-label`) allow one to simulate the
     formation and breaking of chemical bonds between the atoms of a structure.
@@ -33,7 +35,6 @@ Breaking a carbon nanotube
 
 Unbreakable bonds
 =================
-
 
 System creation
 ---------------
@@ -147,8 +148,8 @@ System creation
 
    <a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">VMD</a>
 
-LAMMPS input script
--------------------
+Generic options
+---------------
 
 .. container:: justify
 
@@ -221,6 +222,377 @@ LAMMPS input script
     they only interact through the harmonic potential that bond the atoms
     of the graphene).
 
+Parameters
+----------
+
+..  container:: justify
+
+    We need to specify the parameters of both bonded and
+    non-bonded functions. Create a new text file in the same
+    folder and name it "parm.lammps". Copy the following lines
+    in it:
+
+..  code-block:: lammps
+    :caption: *to be copied in parm.lammps*
+
+    pair_coeff 1 1 0.066047 3.4
+    bond_coeff 1 469 1.4
+    angle_coeff 1 63 120
+    dihedral_coeff 1 0 7.25 0 0
+    improper_coeff 1 5 180
+
+..  container:: justify
+
+    The pair_coeff command sets the Lennard-jones parameters
+    :math:`\epsilon` and :math:`\sigma` for the only type of
+    atom of the simulation: carbon atom of type 1. The
+    bond_coeff provides the equilibrium distance :math:`r_0` as
+    well as the spring constant :math:`K` for the harmonic
+    potential imposed between two neighboring carbon atoms,
+    where the potential is :math:`E = K_r ( r - r_0)^2`. The
+    angle_coeff gives the equilibrium angle \\(\\theta_0\\) and
+    constant for the potential between three neighbors atoms :
+    :math:`E = K_\theta ( \theta - \theta_0)^2`. The dihedral_coeff
+    and improper_coeff give the potential for the constraints
+    between 4 atoms. The file PARM.lammps need to be included in the
+    simulation by adding the following line to input.lammps:
+
+..  code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    include parm.lammps
+
+Prepare initial state
+---------------------
+
+..  container:: justify
+
+    Depending on VMD and topotool version, the CNT may or may not be centered in 
+    the box. Let us make sure that we start from a clean initial state by
+    recentering the CNT at the origin (0, 0, 0). In addition, the box boundaries 
+    are not symmetric with respect to (0, 0, 0):
+
+..  code-block:: lammps
+    :caption: *what I see in cnt_molecular.data*
+
+    -40.000000 40.000000  xlo xhi
+    -40.000000 40.000000  ylo yhi
+    -12.130411 67.869589  zlo zhi
+    
+..  container:: justify
+
+    Let us recenter the CNT:
+
+..  code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    group carbon_atoms type 1
+    variable carbon_xcm equal -1*xcm(carbon_atoms,x)
+    variable carbon_ycm equal -1*xcm(carbon_atoms,y)
+    variable carbon_zcm equal -1*xcm(carbon_atoms,z)
+    displace_atoms carbon_atoms move ${carbon_xcm} ${carbon_ycm} ${carbon_zcm}
+
+..  container:: justify
+
+    The first command includes all of the atoms of type one
+    (i.e. all the atoms here) in a group named 'carbon_atoms'. 
+    The 3 variables measure the current position of the group carbon_atoms
+    along all 3 directions, respectively. Then, the displace atoms 
+    command move the group carbon_atoms, ensuring that its center of mass 
+    is located at the origin (0, 0, 0).
+
+    Let us also change the box boundaries:
+
+.. code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    change_box all x final -40 40 y final -40 40 z final -40 40
+
+.. admonition:: Note
+    :class: info
+
+    Such cleaner and more symmetrical initial state can simplify
+    future data analysis.
+
+.. container:: justify
+
+    In order to impose a force to the edges of the CNT, let us isolate the
+    atoms from the two edges of the CNT and place them into different groups.
+    Later, the displacement will be applied to the atoms of the edges.
+    Add the following lines to the input script :
+
+.. code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    variable zmax equal bound(carbon_atoms,zmax)-0.5
+    variable zmin equal bound(carbon_atoms,zmin)+0.5
+    region rtop block INF INF INF INF ${zmax} INF
+    region rbot block INF INF INF INF INF ${zmin}
+    region rmid block INF INF INF INF ${zmin} ${zmax}
+
+.. container:: justify
+   
+    The variable :math:`z_\mathrm{max}` corresponds to
+    the coordinate of the last atoms along \\(z\\) minus 0.5
+    Angstroms, and :math:`z_\mathrm{min}` to the coordinate of
+    the first atoms along :math:`z` plus 0.5 Angstroms. Then, 3
+    regions are defined, and correspond respectively to: :math:`z < z_\mathrm{min}`, (bottom)
+    :math:`z_\mathrm{min} > z > z_\mathrm{max}` (middle), and  
+    :math:`z > z_\mathrm{max}` (top).
+
+    Finally, let us define 3 groups of atoms
+    corresponding to the atoms located in each of the 3 regions,
+    respectively:
+
+.. code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    group carbon_top region rtop
+    group carbon_bot region rbot
+    group carbon_mid region rmid
+
+.. container:: justify
+
+    The atoms of the edges as selected within the carbon_top and carbon_bot groups 
+    are represented with a different color:
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/dark_colored_edges.png
+    :alt: CNT in graphene in vacuum image VMD with selected groups at the edges
+    :class: only-dark
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/light_colored_edges.png
+    :alt: CNT in graphene in vacuum image VMD with selected groups at the edges
+    :class: only-light
+
+.. admonition:: Tip
+    :class: info
+
+    .. container:: justify
+
+        When running a simulation, the number of atoms in each
+        group is printed in the terminal (and in the log.lammps
+        file). Always make sure that the number of atoms in each group 
+        is reasonable, just like here:
+
+    .. code-block:: bash
+
+        10 atoms in group carbon_top
+        10 atoms in group carbon_bot
+        680 atoms in group carbon_mid
+
+Thermalisation and dynamics
+---------------------------
+
+.. container:: justify
+
+   Let us specify the thermalisation and the dynamics of the
+   system. Add the following lines to input.lammps:
+
+.. code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    velocity carbon_mid create ${T} 48455 mom yes rot yes
+    fix mynve all nve
+    compute Tmid carbon_mid temp
+    fix myber carbon_mid temp/berendsen ${T} ${T} 100
+    fix_modify myber temp Tmid
+
+.. container:: justify
+
+    The "velocity_create" command gives initial velocities to
+    the atoms of the middle group carbon_mid, ensuring an initial temperature
+    of 300 K for these atoms with no overall translational momentum (mom yes)
+    nor rotational momentum (rot yes).
+
+    The fix ""nve" is applied to all atoms so that every atoms position is recalculated
+    every timestep. 
+    
+    A Berendsen thermostat is applied to the atoms
+    of the group carbon_mid only. The "fix_modify myber" ensures that the
+    fix Berendsen uses the temperature of the group carbon_mid as an
+    input, instead of the temperature of whole system. This is necessary
+    to make sure that the frozen edges wont biase the temperature. Note that the atoms
+    of the edges are not thermalised because their motion will
+    be restrained in the next part of the input.
+
+.. admonition:: Deal with semi-frozen system
+    :class: info
+
+    Always be careful when part of a system is frozen. In that 
+    case, the total temperature of the system is effectively lower
+    than the applied temperature because the frozen atoms 
+    have no thermal motion. If you have any doubt about the procedure
+    you are using, simply check the temperature of the non-frozen group, for
+    example using the fix ave/time:
+
+    ..  code-block:: lammps
+        :caption: *to be copied in input.lammps*
+
+        fix at1 all ave/time 10 100 1000 c_Tmid file temperature_middle_group.dat
+
+Deal with frozen edges
+----------------------
+
+..  container:: justify
+
+   To restrain the motion of the atoms at the edges, let us add the
+   following commands:
+
+..  code-block:: lammps
+   :caption: *to be copied in input.lammps*
+
+    fix mysf1 carbon_top setforce 0 0 0
+    fix mysf2 carbon_bot setforce 0 0 0
+    velocity carbon_top set 0 0 0
+    velocity carbon_bot set 0 0 0
+
+..  container:: justify
+
+   The two "setforce" commands cancel the forces applied on the
+   atoms of the two edges, respectively. A fix setforce apply during the whole
+   simulation, and are here applying along all 3 directions: :math:`x`, :math:`y`
+   and :math:`z`. The two velocity commands set the initial velocities along :math:`x`,
+   :math:`y`, and :math:`z` to 0 for the atoms of the edges. 
+   
+   Therefore, the atoms of the edges will remain immobile during the
+   simulation (or at least they would if no other command was applied to them).
+
+.. admonition:: On imposing a constant velocity to a system
+    :class: info
+
+    The 'velocity set' commands impose the velocity of a group of atoms *when it is 
+    read*, but do not enforce the velocity during the entire simulation. 
+
+    When 'velocity set' is used in combination with 'setforce 0', the atoms
+    feel no force. Accoring to the Newton equation,
+    no force means no acceleration, meaning that the initial velocity will persist.
+
+Data extraction
+---------------
+
+..  container:: justify
+
+    Next, in order to measure the strain and stress suffered by the
+    CNT, let us extract the distance :math:`L` between
+    the two edges as well as the force applied on the edges. Let
+    us also add a command to print the atom coordinates in a
+    lammpstrj file every 1000 steps:
+
+..  code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    variable L equal xcm(gtop,x)-xcm(gbot,x)
+    fix at2 all ave/time 10 100 1000 v_L file length.dat
+    fix at3 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
+    dump mydmp all atom 1000 dump.lammpstrj
+
+.. admonition:: About `f_`, `v_`, and `c_`
+    :class: info
+
+    Notice that the values of the force on each edge are
+    extracted from the fixes setforce 'mysf1' and 'mysf2', simply by
+    calling them using `f_`, the same way variables are called
+    using `v_` and computes are called using `c_`. A fix
+    setforce cancels all the forces on a group of atoms at every
+    step, but allows one to extract the values of the force
+    before its cancellation.
+
+Molecular dynamics run
+----------------------
+
+..  container:: justify
+
+    Let us run a small equilibration step to bring the system 
+    to the required temperature without applying any deformation:
+
+..  code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    thermo 100
+    thermo_modify temp Tmid
+
+    timestep 1.0
+    run 5000
+
+..  container:: justify
+
+    With the 'thermo_modify' command, we specify to LAMMPS that we
+    want the temperature :math:`T_\mathrm{mid}` to be printed in
+    the terminal, not the temperature of the entire system
+    (because of the frozen edges, the temperature of the entire
+    system is not relevant). 
+    
+Option A: Incremental deformation
+---------------------------------
+    
+..  container:: justify
+
+    The first possibility to deform the CNT is to 
+    use the loop function of LAMMPS. 
+
+    Let us perform a loop:
+
+..  code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    variable var loop 10
+        label loop
+        displace_atoms gtop move 0.1 0 0
+        displace_atoms gbot move -0.1 0 0
+        run 1000
+        next var
+        jump input.lammps loop
+
+..  container:: justify
+    
+    At each step of the loop, the edges are slightly displaced, and
+    the simulation runs for 1000. Then the variable 'var' is iterated
+    by the 'next var', and the simulation 'jumps' back to the beginning of 
+    the loop. It will be repeated 10 times, for a total elongation of the 
+    graphene sheet of 2 x 0.1 x 10 = 2 Angstroms.
+
+    What you observe should resemble |video_lammps_graphene|. The
+    sheet is progressively elongated, and the carbon honeycombs
+    are being deformed. You can increase the number of iteration
+    of the loop (variable var) to force a larger elongation.
+
+.. |video_lammps_graphene| raw:: html
+
+   <a href="https://www.youtube.com/embed/o5IoCVWpPKg" target="_blank">this video</a>
+
+..  container:: justify
+
+   Always remember that what you measure and observe is only
+   as good as your force field.
+
+..  container:: justify
+
+   With the present force field, no matter how large is the
+   imposed deformation, the bonds will never break. To study
+   such bond breaking, one has to use a reactive force
+   field, which is done in some other tutorials here (like :ref:`carbon-nanotube-label`).
+
+Option B: Constant-velocity
+---------------------------
+
+..  container:: justify
+
+    To ensure the deformation of the sheet instead of using a loop, we can combine the velocity
+    set command and the fix setforce. 
+
+    To obtain the same elongation as previously (i.e. 1 Angstrom 
+    per edge) when using a velocity for each edge of 0.0005 Angstroms per
+    femtosecond (or 50 meters per second), the simulation 
+    must last 1 / 0.0005 = 2000 femtoseconds. 
+
+..  code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
+    velocity gtop set 0.0005 NULL 0
+    velocity gbot set -0.0005 NULL 0
+    run 2000
+
+.. include:: ../../contact/accessfile.rst
 
 
 
@@ -238,18 +610,13 @@ LAMMPS input script
 
 
 
+.. container:: justify
 
-
-
-
-
-
-
-
-
-
-
-
+    STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP
+    STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP
+    STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP
+    STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP
+    STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP
 
 .. container:: justify
 
