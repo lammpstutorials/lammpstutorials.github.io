@@ -1,1 +1,1 @@
-Level 1 is meant for LAMMPS advanced users.
+Level 3 is meant for LAMMPS advanced users.
