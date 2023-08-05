@@ -1004,3 +1004,27 @@ Decorate the CNT
    Equilibrate the system. After some time, some hydrogen atoms will 
    decorate the free carbon atoms at the edge of the CNT. Some 
    other hydrogen atoms will bond and form H2 molecules. 
+
+Strain-stress curve
+-------------------
+
+..  container:: justify
+
+    Adapt the current script and extract a full strain-stress curve.
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/strain-stain-curve-dark.png
+    :alt: strain stain curve for determining the young modulus of a CNT
+    :class: only-dark
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/strain-stain-curve-light.png
+    :alt: strain stain curve for determining the young modulus of a CNT
+    :class: only-light
+
+.. admonition:: Hints
+    :class: dropdown
+
+    The following steps are optional, but give a better result:
+
+    - only record data during the production run, not the equilibration
+    - reduce the velocity to perform a nice and slow pulling of the graphene sheet
+    - increase the magnitude of the total elongation (I used 10 Angstroms per edge)
