@@ -481,9 +481,9 @@ Data extraction
 .. code-block:: lammps
     :caption: *to be copied in input.lammps*
 
-    variable L equal xcm(gtop,x)-xcm(gbot,x)
+    variable L equal xcm(gtop,z)-xcm(gbot,z)
     fix at2 all ave/time 10 100 1000 v_L file length.dat
-    fix at3 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
+    fix at3 all ave/time 10 100 1000 f_mysf1[3] f_mysf2[3] file force.dat
     dump mydmp all atom 1000 dump.lammpstrj
 
 .. admonition:: About `f_`, `v_`, and `c_`
@@ -765,7 +765,7 @@ Equilibration
 
     variable pos equal xcm(carbon_top,z)
     fix at1 all ave/time 10 100 1000 v_pos file cnt_deflection.dat
-    fix at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file edge_force.dat
+    fix at2 all ave/time 10 100 1000 f_mysf1[3] f_mysf2[3] file edge_force.dat
     dump mydmp all atom 1000 dump.lammpstrj
 
     thermo 100
@@ -1027,4 +1027,4 @@ Strain-stress curve
 
     - only record data during the production run, not the equilibration
     - reduce the velocity to perform a nice and slow pulling of the graphene sheet
-    - increase the magnitude of the total elongation (I used 10 Angstroms per edge)
+    - increase the magnitude of the total elongation

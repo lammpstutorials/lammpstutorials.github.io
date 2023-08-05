@@ -48,7 +48,7 @@ fix mysf2 carbon_bot setforce 0 NULL 0
 velocity carbon_top set 0 NULL 0
 velocity carbon_bot set 0 NULL 0
 
-variable L equal xcm(carbon_top,x)-xcm(carbon_bot,x)
+variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
 fix at2 all ave/time 10 100 1000 v_L file cnt_length.dat
 fix at3 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file edge_force.dat
 dump mydmp all atom 1000 dump.lammpstrj
