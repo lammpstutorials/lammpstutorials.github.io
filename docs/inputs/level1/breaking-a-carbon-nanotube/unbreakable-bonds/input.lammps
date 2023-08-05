@@ -59,3 +59,16 @@ thermo_modify temp Tmid
 timestep 1.0
 run 5000
 
+# uncomment for option A
+#variable var loop 10
+#	label loop
+#	displace_atoms carbon_top move 0 0 0.1
+#	displace_atoms carbon_bot move 0 0 -0.1
+#	run 5000
+#	next var
+#	jump input.lammps loop
+	
+# uncomment for option B
+velocity carbon_top set NULL NULL 0.0005
+velocity carbon_bot set NULL NULL -0.0005
+run 10000
