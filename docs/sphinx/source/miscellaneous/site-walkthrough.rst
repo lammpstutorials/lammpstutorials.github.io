@@ -18,15 +18,10 @@ Level 0: absolute beginners
 Level 1: beginners
 ------------------
 
-* :ref:`graphene-label`
-    * topology generation using VMD
-    * simulation of neutral dots connected by bonds
-    * stepwise versus constant velocity deformation
-    * stress-strain curve
-
 * :ref:`carbon-nanotube-label`
     * use of reactive force field
-    * constant velocity deformation of a structure
+    * stepwise versus constant velocity deformation
+    * stress-strain curve
     * post-mortem analysis using MDAnalysis/Python
 
 Level 2: intermediate users
