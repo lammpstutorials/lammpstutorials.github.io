@@ -585,49 +585,85 @@ Option B: Constant-velocity
 
 .. include:: ../../contact/accessfile.rst
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Breakable bonds
+===============
 
 .. container:: justify
 
-    STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP
-    STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP
-    STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP
-    STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP
-    STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP STOP
+    Let us do the same type of simulation, but using a reactive force field 
+    instead, allowing for the bonds to break.
+
+Input file
+----------
 
 .. container:: justify
 
-    Change the box size using 
+    In a different folder, create a LAMMPS input file, call it
+    input.lammps, and type in it:
 
-.. code-block:: bw
-    :caption: *to be written in the VMD terminal*
+.. code-block:: lammps
+    :caption: *to be copied in input.lammps*
 
-    molinfo top set a 80  
-    molinfo top set b 80            
-    molinfo top set c 80  
-   
+    # Initialisation
+    variable T equal 300
+
+    units metal
+    atom_style molecular
+    boundary p p p
+    pair_style airebo 2.5 1 1
+
 .. container:: justify
 
-    Then, untick "bonds", and use topotool to save the topology in a file called cnt.data:
+    A difference with the previous part
+    is the unit system, here 'metal' instead of 'real', a choice
+    that is imposed by the airebo force field.
 
-.. code-block:: bw
-    :caption: *to be written in the VMD terminal*
+.. admonition:: About metal units
+    :class: info
 
-    topo writelammpsdata cnt.data molecular
+    With metal units, the time is in pico second, 
+    distances are in Angstrom, and the energy is in eV.
+
+.. container:: justify
+
+    Let us prepare the data file. Duplicate the 
+    previous file *cnt_molecular.data*, name the copy *cnt_atom.data*,
+    place it within the 
+    current folder, and remove all bond, angle, and dihedral 
+    information so that *cnt_atom.data* look like that: 
+
+.. code-block:: lammps
+    :caption: *what cnt_atom.data should look like:*
+
+    700 atoms
+    1 atom types
+    -40.000000 40.000000  xlo xhi
+    -40.000000 40.000000  ylo yhi
+    -12.130411 67.869589  zlo zhi
+
+    Masses
+
+    1 12.010700 # CA
+
+    Atoms # molecular
+
+    1 1 1 5.162323 0.464617 8.843235 # CA CNT
+    2 2 1 4.852682 1.821242 9.111212 # CA CNT
+    (...)
+
+.. container:: justify
+
+    Remove also everything that comes after for *Bonds*
+    keyword, so that the last lines of the file look like that:
+
+.. code-block:: lammps
+    :caption: *what cnt_atom.data should look like:*
+
+    (...)
+    697 697 1 4.669892 -2.248901 45.824036 # CA CNT
+    698 698 1 5.099893 -0.925494 46.092010 # CA CNT
+    699 699 1 5.162323 -0.464617 47.431896 # CA CNT
+    700 700 1 5.099893 0.925494 47.699871 # CA CNT
 
 .. container:: justify
 
@@ -642,43 +678,9 @@ Option B: Constant-velocity
 
 .. |download_CNT.data| raw:: html
 
-   <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/cnt.data" target="_blank">here</a>
+   <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/cnt_atom.data" target="_blank">here</a>
 
 .. include:: ../../contact/supportme.rst
-
-Breakable bonds
-===============
-
-
-Input file
-----------
-
-.. container:: justify
-
-    Create a LAMMPS input file, call it input.lammps, and type in it:
-
-.. code-block:: lammps
-    :caption: *to be copied in input.lammps*
-
-    # Initialisation
-    variable T equal 300
-
-    units metal
-    atom_style full
-    boundary p p p
-    pair_style airebo 2.5 1 1
-
-.. container:: justify
-
-    A difference with the previous tutorial (:ref:`graphene-label`) 
-    is the unit system, here 'metal' instead of 'real', a choice
-    that is imposed by the airebo force field.
-
-.. admonition:: About metal units
-    :class: info
-
-    With metal units, the time is in pico second, 
-    distances are in Angstrom, and the energy is in eV.
 
 .. container:: justify
 
@@ -689,42 +691,54 @@ Input file
     :caption: *to be copied in input.lammps*
 
     # System definition
-    read_data cnt.data
+    read_data cnt_atom.data
     pair_coeff * * CH.airebo C
 
 .. container:: justify
 
-    Here, there is one single atom type of type carbon, as indicated by the letter C.
+    Here, there is one single atom type. We impose this type
+    to be carbon by using the the letter C.
 
     The CH.airebo file can be downloaded |download_CH.airebo|.
-    The rest of the script is very similar to the tutorial :ref:`graphene-label`:
+    The rest of the script is very similar to the previous one:
 
 .. |download_CH.airebo| raw:: html
 
-    <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/CH.airebo" target="_blank">here</a>
+    <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/CH.airebo" target="_blank">here</a>
 
 .. code-block:: lammps
     :caption: *to be copied in input.lammps*
 
-    # Simulation settings
-    group gcar type 1
-    variable zmax equal bound(gcar,zmax)-0.5
-    variable zmin equal bound(gcar,zmin)+0.5
+    change_box all x final -40 40 y final -40 40 z final -60 60
+
+    group carbon_atoms type 1
+    variable carbon_xcm equal -1*xcm(carbon_atoms,x)
+    variable carbon_ycm equal -1*xcm(carbon_atoms,y)
+    variable carbon_zcm equal -1*xcm(carbon_atoms,z)
+    displace_atoms carbon_atoms move ${carbon_xcm} ${carbon_ycm} ${carbon_zcm}
+
+    variable zmax equal bound(carbon_atoms,zmax)-0.5
+    variable zmin equal bound(carbon_atoms,zmin)+0.5
     region rtop block INF INF INF INF ${zmax} INF
     region rbot block INF INF INF INF INF ${zmin}
     region rmid block INF INF INF INF ${zmin} ${zmax}
 
-    group gtop region rtop
-    group gbot region rbot
-    group gmid region rmid
+    group carbon_top region rtop
+    group carbon_bot region rbot
+    group carbon_mid region rmid
 
-    velocity gmid create ${T} 48455 mom yes rot yes
+    velocity carbon_mid create ${T} 48455 mom yes rot yes
     fix mynve all nve
-    compute Tmid gmid temp
-    fix myber gmid temp/berendsen ${T} ${T} 0.1
+    compute Tmid carbon_mid temp
+    fix myber carbon_mid temp/berendsen ${T} ${T} 0.1
     fix_modify myber temp Tmid
 
 .. container:: justify
+
+    Note that a larger distance was used for the box size along 
+    the z axis, to allow for larger deformation. The change_box
+    was placed before the displace_atoms to avoid issue with the 
+    CNT crossing the edge of the box.
 
     Let us impose a constant velocity deformation using the atoms
     of one edge, while maintaining the other edge fix. Do to so,
@@ -733,38 +747,38 @@ Input file
     the value of the velocity along the z direction.
 
 Equilibration
-=============
+-------------
 
 .. container:: justify
 
-   First, as an equilibration step, let us set the velocity to 0.
+    First, as an equilibration step, let us set the velocity to 0
+    for the atoms of the edge. Let us fully constraint the bottom edge, 
+    and constraint the top edge only along z.
 
 .. code-block:: lammps
-   :caption: *to be copied in input.lammps*
+    :caption: *to be copied in input.lammps*
 
-   fix mysf1 gbot setforce NULL NULL 0
-   fix mysf2 gtop setforce NULL NULL 0
-   velocity gbot set NULL NULL 0
-   velocity gtop set NULL NULL 0
+    fix mysf1 carbon_bot setforce 0 0 0
+    fix mysf2 carbon_top setforce NULL NULL 0
+    velocity carbon_bot set 0 0 0
+    velocity carbon_top set NULL NULL 0
 
-   variable pos equal xcm(gtop,z)
-   fix at1 all ave/time 10 100 1000 v_pos file cnt_deflection.dat
-   fix at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file force.dat
-   dump mydmp all atom 1000 dump.lammpstrj
+    variable pos equal xcm(carbon_top,z)
+    fix at1 all ave/time 10 100 1000 v_pos file cnt_deflection.dat
+    fix at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file edge_force.dat
+    dump mydmp all atom 1000 dump.lammpstrj
 
-   thermo 100
-   thermo_modify temp Tmid
+    thermo 100
+    thermo_modify temp Tmid
 
-   # Run
-   timestep 0.0005
-   run 5000
+    timestep 0.0005
+    run 5000
 
 .. container:: justify
 
-   At the start of the equilibration, you can see that the
-   temperature deviates from the target temperature of 300 K
-   (after a few picoseconds the temperature reaches the target
-   value):
+    At the start of the equilibration, you can see that the
+    temperature deviates from the target temperature of 300 K, but
+    after a few picoseconds it reaches the target value:
 
 .. code-block:: bw
 
@@ -780,24 +794,27 @@ Equilibration
    800   289.85177     -5066.5482      0             -5041.1086     -259.84893    
    900   279.34891     -5065.0216      0             -5040.5038     -1390.8508    
    1000   312.27343     -5067.6245      0             -5040.217      -465.74352
+   (...)
 
 Deformation
-===========
+-----------
 
 .. container:: justify
 
-   Then, let us set the velocity to 30 m/s and run for a longer time:
+   Afer equilibration, let us set the velocity to 30 m/s and run for
+   a longer time:
 
 .. code-block:: lammps
    :caption: *to be copied in input.lammps*
 
    # 0.15 A/ps = 30 m/s
-   velocity gtop set NULL NULL 0.15
+   velocity carbon_top set NULL NULL 0.15
    run 280000
 
 .. container:: justify
 
-   The CNT should break around timestep 250000.
+   The CNT should break around the step 250000. If not, either 
+   run for a longer time or for a slightly larger velocity.
 
    When looking at the lammpstrj file using VMD, you will see
    the bonds breaking, similar to |video_lammps_cnt|. Use
@@ -819,12 +836,9 @@ Deformation
    :align: right
    :class: only-light
 
-   Carbon nanotube after being broken.
-
 .. container:: justify
 
-   There are two main way to analyse data from a MD simulation: (1) on-the-fly analysis, 
-   like what we did with the two fix ave/time, and (2) post-mortem analysis. 
+   Figure : Carbon nanotube after being broken.
 
 .. admonition:: About bonds in VMD
    :class: info
@@ -834,18 +848,20 @@ Deformation
    bonds between atoms in the LAMMPS simulation. Therefore what is seen
    in VMD can sometimes be misleading.
 
-Post-mortem analysis
-====================
+Post-mortem analysis (Python)
+-----------------------------
 
 .. container:: justify
 
-   Analysis can be performed after the simulation is over, using
+   There are two main ways to analyse data from a MD simulation:
+   (1) on-the-fly analysis, like what we did with the two fix ave/time,
+   and (2) post-mortem analysis. Post-mortem analysis can be performed using
    the atom coordinate saved in the lammpstrj file.
 
    Here, let us use the open source Python library MDAnalysis.
 
-   Open a new Jupyter notebook within the same folder, call it bond_evolution.ipynb.
-   First, let us import libraries.
+   Open a new Jupyter notebook within the same folder, call it
+   bond_evolution.ipynb. First, let us import libraries:
 
 .. code-block:: python
    :caption: *to be copied in bond_evolution.ipynb*
@@ -858,7 +874,7 @@ Post-mortem analysis
    Then, let us create a MDAnalysis universe using the LAMMPS
    data file (for the topology information) and the dump file 
    (for the coordinate evolution over time). Let us detect the
-   original bonds using the bond guesser of MDAnalysis.  Let us also create 
+   original bonds using the bond guesser of MDAnalysis. Let us also create 
    a single atom group containing all the carbon atoms: 
 
 .. code-block:: python
@@ -866,7 +882,7 @@ Post-mortem analysis
 
    # create a universe from the dump file
    # guess bond based on distance from the initial topology
-   u = mda.Universe("cnt.data", "dump.lammpstrj",
+   u = mda.Universe("cnt_atom.data", "dump.lammpstrj",
                   topology_format="data", format="lammpsdump",
                   guess_bonds=True, vdwradii={'1':1.7})
    # create a group
@@ -874,10 +890,11 @@ Post-mortem analysis
 
 .. container:: justify
 
-   Note : The bond guesser of MDAnalysis will not update the list of bond over time, so we will 
-   need to use a few trick.
+   Note : The bond guesser of MDAnalysis will not update the list of bond
+   over time, so we will need to use a few trick.
 
-   Then, let us loop over the trajectory and extract bond length and number over time:
+   Then, let us loop over the trajectory and extract bond length and number
+   over time:
 
 .. code-block:: python
    :caption: *to be copied in bond_evolution.ipynb*
