@@ -21,13 +21,10 @@ Breaking a carbon nanotube
    
 .. container:: justify
    
-    In this tutorial, two force field, a classic one and a reactive one (airebo) 
+    In this tutorial, two force fields, a classic one and a reactive one (airebo) 
     are used to simulate the deformation of a carbon nanotube (CNT). With the reactive 
-    force field, the breaking of the C-C bonds during the plastic deformation of the CNT are 
+    force field, the breaking of the C-C bonds during the plastic deformation of the CNT is 
     simulated.
-    
-    Reactive force fields like airebo and reaxff (see :ref:`reactive-silicon-dioxide-label`) allow one to simulate the
-    formation and breaking of chemical bonds between the atoms of a structure.
 
 .. include:: ../../contact/recommand-lj.rst
 
@@ -51,10 +48,9 @@ System creation
     Nanotube". You should something like the image on the top right 
     of this page.
 
-    At this point, this is not a molecular dynamics simulations,
-    but a cloud of dots that looks like a carbon nanotube. 
-    In the VMD terminal, set the box dimensions by typing the following
-    command in the VMD terminal:
+    At this point, this is not a molecular dynamics simulation,
+    but a cloud of unconnected dots. In the VMD terminal, set the
+    box dimensions by typing the following commands in the VMD terminal:
 
 .. code-block:: bw
     :caption: *to be written in the VMD terminal*
