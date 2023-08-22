@@ -477,7 +477,7 @@ Data extraction
 .. code-block:: lammps
     :caption: *to be copied in input.lammps*
 
-    variable L equal xcm(gtop,z)-xcm(gbot,z)
+    variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
     fix at2 all ave/time 10 100 1000 v_L file length.dat
     fix at3 all ave/time 10 100 1000 f_mysf1[3] f_mysf2[3] file force.dat
     dump mydmp all atom 1000 dump.lammpstrj

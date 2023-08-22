@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,7 +14,7 @@
     </script>
         <link href="../../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Make gorgeous image" href="../../miscellaneous/make-gorgeous-image.html" /><link rel="prev" title="Simple free energy calculation" href="free-energy-calculation.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
+    <!-- Generated with Sphinx 7.2.2 and Furo 2023.08.19 -->
         <title>Reactive silicon dioxide - </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
@@ -230,7 +230,7 @@
         </div>
         <article role="main">
           <section id="reactive-silicon-dioxide">
-<span id="reactive-silicon-dioxide-label"></span><h1>Reactive silicon dioxide<a class="headerlink" href="#reactive-silicon-dioxide" title="Permalink to this heading">#</a></h1>
+<span id="reactive-silicon-dioxide-label"></span><h1>Reactive silicon dioxide<a class="headerlink" href="#reactive-silicon-dioxide" title="Link to this heading">#</a></h1>
 <div class="hatnote docutils container">
 <p>Chemically reactive structure (reaxff)</p>
 </div>
@@ -253,7 +253,7 @@ the deformation of the structure.</p>
 <p>See the <a class="reference internal" href="../../miscellaneous/contact-me.html#contact-label"><span class="std std-ref">Contact me</span></a> page.</p>
 </div>
 <section id="relax-the-structure">
-<h2>Relax the structure<a class="headerlink" href="#relax-the-structure" title="Permalink to this heading">#</a></h2>
+<h2>Relax the structure<a class="headerlink" href="#relax-the-structure" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>Create a folder, name it RelaxSilica/, and <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/silica.data" target="_blank">download</a>
 the initial topology of a small amorphous silica structure.
@@ -296,7 +296,7 @@ over time.</p>
 <p>Create an input file called input.lammps in RelaxSilica/, and copy in it:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 
@@ -313,7 +313,7 @@ with some basic parameters being defined (units, atom_style and masses), and
 our data file being read. Now let us enter 3 crucial lines:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_style</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">safezone</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mincap</span><span class="w"> </span><span class="m">150</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">reaxCHOFe.ff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myqeq</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">qeq</span><span class="o">/</span><span class="n">reaxff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">maxiter</span><span class="w"> </span><span class="m">400</span>
@@ -337,7 +337,7 @@ neighbor lists. Let us also print thermodynamic information, the charge of both 
 and create a dump file for visualization.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">neighbor</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">bin</span>
 <span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
 
@@ -362,7 +362,7 @@ run using anisotropic NPT command, thus allowing for the box
 volume to relax.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">3482028</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">100</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
@@ -386,7 +386,7 @@ as it adjusts to the topology:</p>
 <figure class="align-default" id="id5">
 <img alt="Charge of silica during equilibration with reaxff and LAMMPS" class="only-dark" src="../../_images/average-charge-dark.png" />
 <figcaption>
-<p><span class="caption-text">Average charge of the silicon (Si) atoms during equilibration using reaxff.</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Average charge of the silicon (Si) atoms during equilibration using reaxff.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -401,7 +401,7 @@ around a mean value:</p>
 <figcaption>
 <p><span class="caption-text">Distribution of charge of silicon (positive) and oxygen (negative) atoms during equilibration. The data
 were extracted from the dump.lammpstrj file using python, you can
-download this <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/plot_distribution.ipynb" target="_blank">notebook</a> to plot the charge distribution using Python, NumPy, and Matplotlib.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+download this <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/plot_distribution.ipynb" target="_blank">notebook</a> to plot the charge distribution using Python, NumPy, and Matplotlib.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -415,7 +415,7 @@ amorphous structure (here at the positions of the dandling oxygen group):</p>
 <figure class="align-default" id="id7">
 <img alt="Amorphous silica colored by charges using VMD" class="only-dark" src="../../_images/silicon-dark.png" />
 <figcaption>
-<p><span class="caption-text">Amorphous silica colored by charges using VMD. Dandling oxygen groups appear in green.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Amorphous silica colored by charges using VMD. Dandling oxygen groups appear in green.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -428,7 +428,7 @@ representation windows, and then tune the <em>Color scale</em> in the <em>Color 
 </div>
 </section>
 <section id="deform-the-structure">
-<h2>Deform the structure<a class="headerlink" href="#deform-the-structure" title="Permalink to this heading">#</a></h2>
+<h2>Deform the structure<a class="headerlink" href="#deform-the-structure" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>Let us apply a deformation to the structure in order to force some bonds
 to dynamically break and reassemble.</p>
@@ -436,7 +436,7 @@ to dynamically break and reassemble.</p>
 file named input.lammps in it. Copy the following lines:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Deform/input.lammps</em></span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Deform/input.lammps</em></span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># SiO amorphous silica deformed with reaxff potential</span>
 
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
@@ -508,7 +508,7 @@ presence of the new solid/vacuum interface:</p>
 <figcaption>
 <p><span class="caption-text">Charge of silica during deformation of the silicon oxide block using LAMMPS and reaxff. The vertical
 dashed lines show the limit of the 3 consecutive runs of respective durations; 2000 steps (or 1000 fs),
-25000 steps, and 2000 steps.</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+25000 steps, and 2000 steps.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -522,7 +522,7 @@ atoms located in the bulk of the material:</p>
 <figure class="align-default" id="id10">
 <img alt="Deformed amorphous silica colored by charges using VMD" class="only-dark" src="../../_images/deformed-dark1.png" />
 <figcaption>
-<p><span class="caption-text">Amorphous silicon oxide after deformation. The atoms are colored by charges using VMD.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Amorphous silicon oxide after deformation. The atoms are colored by charges using VMD.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -538,7 +538,7 @@ most likely because the rate of deformation was really high.</p>
 <figcaption>
 <p><span class="caption-text">Distribution of charge of silica (positive) and oxygen (negative) after deformation.
 The small dots correspond are the charge measured with the previous undeformed
-structure. Notice the difference near q=-0.5e and q=1.25e.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+structure. Notice the difference near q=-0.5e and q=1.25e.</span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -547,14 +547,14 @@ near -0.5e for the oxygen.</p>
 </div>
 </section>
 <section id="add-o2-molecules">
-<h2>Add O2 molecules<a class="headerlink" href="#add-o2-molecules" title="Permalink to this heading">#</a></h2>
+<h2>Add O2 molecules<a class="headerlink" href="#add-o2-molecules" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>Let us add more O2 molecule to our previously equilibrated structure, equilibrate it again,
 and extract the charge density profile along the x axis.</p>
 <p>Create a new folder, name it AddOxygen/, and create a new molecule file named O2.mol in it:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/O2.mol</em></span><a class="headerlink" href="#id12" title="Permalink to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/O2.mol</em></span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># O2 reaxff file</span>
 
 <span class="m">2</span><span class="w"> </span><span class="n">atoms</span>
@@ -583,7 +583,7 @@ connected by any bond (because there is no need with reaxff).</p>
 previously in it:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id13" title="Permalink to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 
@@ -607,7 +607,7 @@ for the shift may be different in your case. This step is not necessary, but the
 recentered system looks better.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id14" title="Permalink to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">displace_atoms</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="o">-</span><span class="m">13</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="n">box</span>
 </pre></div>
 </div>
@@ -618,7 +618,7 @@ The overlap and maxtry keywords allow us to prevent overlapping
 between the atoms:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id15" title="Permalink to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">O2mol</span><span class="w"> </span><span class="n">O2.mol</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">456415</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">O2mol</span><span class="w"> </span><span class="m">454756</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 </pre></div>
@@ -631,7 +631,7 @@ too close from each others.</p>
 <p>Finally, let us minimize the energy of the system, and run for a relatively long time:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id16" title="Permalink to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
 <span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 
@@ -664,14 +664,14 @@ too close from each others.</p>
 <figure class="align-default" id="id17">
 <img alt="Silicon oxide with additional O2 molecules" class="only-dark" src="../../_images/O2_dark.png" />
 <figcaption>
-<p><span class="caption-text">Deformed structure with additional O2 molecules</span><a class="headerlink" href="#id17" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Deformed structure with additional O2 molecules</span><a class="headerlink" href="#id17" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>You can access all the input scripts and data files that
 are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">Github</a>.</p>
 </section>
 <section id="exercises">
-<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <div class="solution admonition">
 <p class="admonition-title">Solutions</p>
@@ -680,7 +680,7 @@ to access all the solutions.</p>
 </div>
 </div>
 <section id="decorate-dandling-oxygens">
-<h3>Decorate dandling oxygens<a class="headerlink" href="#decorate-dandling-oxygens" title="Permalink to this heading">#</a></h3>
+<h3>Decorate dandling oxygens<a class="headerlink" href="#decorate-dandling-oxygens" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Under ambient conditions, dandling oxygen are typically terminated by hydrogen atoms.
 Let us improve the current structure by decorating some of the dandling oxygen with
@@ -694,7 +694,7 @@ Hydrogen atoms can be added using create_atoms command, gcmc, or external python
 <figure class="align-default" id="id18">
 <img alt="Silicon oxide decorated with hydrogens" class="only-dark" src="../../_images/exercice-dark.png" />
 <figcaption>
-<p><span class="caption-text">Hydrogen atoms are in white, oxygen in red, and silicon in yellow.</span><a class="headerlink" href="#id18" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Hydrogen atoms are in white, oxygen in red, and silicon in yellow.</span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="dropdown admonition">
@@ -801,14 +801,15 @@ one connected silicon is dandling and should be completed with an hydrogen).</p>
       
     </aside>
   </div>
-</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
+</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     </body>
 </html>
