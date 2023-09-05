@@ -400,16 +400,16 @@ Thermalisation and dynamics
     of 300 K for these atoms with no overall translational momentum (mom yes)
     nor rotational momentum (rot yes).
 
-    The fix ""nve" is applied to all atoms so that every atoms position is recalculated
+    The fix "nve" is applied to all atoms so that all atom positions are recalculated
     every timestep. 
     
     A Berendsen thermostat is applied to the atoms
     of the group carbon_mid only. The "fix_modify myber" ensures that the
     fix Berendsen uses the temperature of the group carbon_mid as an
     input, instead of the temperature of whole system. This is necessary
-    to make sure that the frozen edges wont biase the temperature. Note that the atoms
-    of the edges are not thermalised because their motion will
-    be restrained in the next part of the input.
+    to make sure that the frozen edges won't bias the temperature. Note that the atoms
+    of the edges do not need a thermostat because their motion will
+    be restrained, see below.
 
 .. admonition:: Deal with semi-frozen system
     :class: info
@@ -445,13 +445,14 @@ Deal with frozen edges
 .. container:: justify
 
    The two "setforce" commands cancel the forces applied on the
-   atoms of the two edges, respectively. A fix setforce apply during the whole
+   atoms of the two edges, respectively. A fix setforce applies at every step of the
    simulation, and are here applying along all 3 directions: :math:`x`, :math:`y`
    and :math:`z`. The two velocity commands set the initial velocities along :math:`x`,
    :math:`y`, and :math:`z` to 0 for the atoms of the edges. 
    
-   Therefore, the atoms of the edges will remain immobile during the
-   simulation (or at least they would if no other command was applied to them).
+   As a consequence of these last four commands, the atoms of the edges will remain
+   immobile during the simulation (or at least they would if no other command was
+   applied to them).
 
 .. admonition:: On imposing a constant velocity to a system
     :class: info
@@ -459,8 +460,8 @@ Deal with frozen edges
     The 'velocity set' commands impose the velocity of a group of atoms *when it is 
     read*, but do not enforce the velocity during the entire simulation. 
 
-    When 'velocity set' is used in combination with 'setforce 0', the atoms
-    feel no force. Accoring to the Newton equation,
+    When 'velocity set' is used in combination with 'setforce 0 0 0', the atoms
+    wont feel any force during the entire simulation. According to the Newton equation,
     no force means no acceleration, meaning that the initial velocity will persist.
 
 Data extraction

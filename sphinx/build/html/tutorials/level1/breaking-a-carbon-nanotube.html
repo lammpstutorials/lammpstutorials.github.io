@@ -14,7 +14,7 @@
     </script>
         <link href="../../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Polymer in water" href="../level2/polymer-in-water.html" /><link rel="prev" title="Lennard Jones fluid" href="../level0/lennard-jones-fluid.html" />
 
-    <!-- Generated with Sphinx 7.2.2 and Furo 2023.08.19 -->
+    <!-- Generated with Sphinx 7.2.5 and Furo 2023.08.19 -->
         <title>Breaking a carbon nanotube - </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
@@ -576,15 +576,15 @@ system. Add the following lines to input.lammps:</p>
 the atoms of the middle group carbon_mid, ensuring an initial temperature
 of 300 K for these atoms with no overall translational momentum (mom yes)
 nor rotational momentum (rot yes).</p>
-<p>The fix “”nve” is applied to all atoms so that every atoms position is recalculated
+<p>The fix “nve” is applied to all atoms so that all atom positions are recalculated
 every timestep.</p>
 <p>A Berendsen thermostat is applied to the atoms
 of the group carbon_mid only. The “fix_modify myber” ensures that the
 fix Berendsen uses the temperature of the group carbon_mid as an
 input, instead of the temperature of whole system. This is necessary
-to make sure that the frozen edges wont biase the temperature. Note that the atoms
-of the edges are not thermalised because their motion will
-be restrained in the next part of the input.</p>
+to make sure that the frozen edges won’t bias the temperature. Note that the atoms
+of the edges do not need a thermostat because their motion will
+be restrained, see below.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Deal with semi-frozen system</p>
@@ -619,19 +619,20 @@ following commands:</p>
 </div>
 <div class="justify docutils container">
 <p>The two “setforce” commands cancel the forces applied on the
-atoms of the two edges, respectively. A fix setforce apply during the whole
+atoms of the two edges, respectively. A fix setforce applies at every step of the
 simulation, and are here applying along all 3 directions: <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>
 and <span class="math notranslate nohighlight">\(z\)</span>. The two velocity commands set the initial velocities along <span class="math notranslate nohighlight">\(x\)</span>,
 <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> to 0 for the atoms of the edges.</p>
-<p>Therefore, the atoms of the edges will remain immobile during the
-simulation (or at least they would if no other command was applied to them).</p>
+<p>As a consequence of these last four commands, the atoms of the edges will remain
+immobile during the simulation (or at least they would if no other command was
+applied to them).</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">On imposing a constant velocity to a system</p>
 <p>The ‘velocity set’ commands impose the velocity of a group of atoms <em>when it is
 read</em>, but do not enforce the velocity during the entire simulation.</p>
-<p>When ‘velocity set’ is used in combination with ‘setforce 0’, the atoms
-feel no force. Accoring to the Newton equation,
+<p>When ‘velocity set’ is used in combination with ‘setforce 0 0 0’, the atoms
+wont feel any force during the entire simulation. According to the Newton equation,
 no force means no acceleration, meaning that the initial velocity will persist.</p>
 </div>
 </section>
