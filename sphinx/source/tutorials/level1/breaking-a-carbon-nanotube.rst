@@ -471,9 +471,7 @@ Data extraction
 
     Next, in order to measure the strain and stress suffered by the
     CNT, let us extract the distance :math:`L` between
-    the two edges as well as the force applied on the edges. Let
-    us also add a command to print the atom coordinates in a
-    lammpstrj file every 1000 steps:
+    the two edges as well as the force applied on the edges.
 
 .. code-block:: lammps
     :caption: *to be copied in input.lammps*
@@ -481,6 +479,15 @@ Data extraction
     variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
     fix at2 all ave/time 10 100 1000 v_L file length.dat
     fix at3 all ave/time 10 100 1000 f_mysf1[3] f_mysf2[3] file force.dat
+
+.. container:: justify
+
+    Let us also add a command to print the atom coordinates in a
+    lammpstrj file every 1000 steps.
+
+.. code-block:: lammps
+    :caption: *to be copied in input.lammps*
+
     dump mydmp all atom 1000 dump.lammpstrj
 
 .. admonition:: About `f_`, `v_`, and `c_`
@@ -524,10 +531,10 @@ Option A: Incremental deformation
     
 .. container:: justify
 
-    The first possibility to deform the CNT is to 
+    A first possibility to deform the CNT is to 
     use the loop function of LAMMPS. 
 
-    Let us perform a loop:
+    Let us perform a loop (indentation is optional):
 
 .. code-block:: lammps
     :caption: *to be copied in input.lammps*

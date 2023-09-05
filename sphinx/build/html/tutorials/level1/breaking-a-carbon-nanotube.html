@@ -641,16 +641,23 @@ no force means no acceleration, meaning that the initial velocity will persist.<
 <div class="justify docutils container">
 <p>Next, in order to measure the strain and stress suffered by the
 CNT, let us extract the distance <span class="math notranslate nohighlight">\(L\)</span> between
-the two edges as well as the force applied on the edges. Let
-us also add a command to print the atom coordinates in a
-lammpstrj file every 1000 steps:</p>
+the two edges as well as the force applied on the edges.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">L</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(carbon_top,z)</span><span class="o">-</span><span class="n">xcm</span><span class="nv">(carbon_bot,z)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">at2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_L</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">length.dat</span>
 <span class="k">fix </span><span class="nv nv-Identifier">at3</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">f_mysf1[3]</span><span class="w"> </span><span class="n">f_mysf2[3]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">force.dat</span>
-<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Let us also add a command to print the atom coordinates in a
+lammpstrj file every 1000 steps.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
 </div>
 </div>
@@ -671,8 +678,8 @@ before its cancellation.</p>
 <p>Let us run a small equilibration step to bring the system
 to the required temperature without applying any deformation:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">thermo</span><span class="w"> </span><span class="m">100</span>
 <span class="k">thermo_modify</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tmid</span>
 
@@ -692,12 +699,12 @@ system is not relevant).</p>
 <section id="option-a-incremental-deformation">
 <h3>Option A: Incremental deformation<a class="headerlink" href="#option-a-incremental-deformation" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>The first possibility to deform the CNT is to
+<p>A first possibility to deform the CNT is to
 use the loop function of LAMMPS.</p>
-<p>Let us perform a loop:</p>
+<p>Let us perform a loop (indentation is optional):</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">var</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">50</span>
 <span class="w">    </span><span class="n">label</span><span class="w"> </span><span class="n">loop</span>
 <span class="w">    </span><span class="n">displace_atoms</span><span class="w"> </span><span class="n">carbon_top</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.1</span>
@@ -735,8 +742,8 @@ femtosecond (or 50 meters per second), the simulation
 must last 5 / 0.0005 = 10000 femtoseconds.</p>
 <p>Remove the previous loop and replace it with:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity</span><span class="w"> </span><span class="n">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0.0005</span>
 <span class="k">velocity</span><span class="w"> </span><span class="n">carbon_bot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="o">-</span><span class="m">0.0005</span>
 <span class="k">run</span><span class="w"> </span><span class="m">10000</span>
@@ -759,8 +766,8 @@ instead, allowing for the bonds to break.</p>
 <p>In a different folder, create a LAMMPS input file, call it
 input.lammps, and type in it:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
 <span class="k">variable </span><span class="nv nv-Identifier">T</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">300</span>
 
@@ -788,8 +795,8 @@ place it within the
 current folder, and remove all bond, angle, and dihedral
 information so that <em>cnt_atom.data</em> look like that:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text"><em>what cnt_atom.data should look like:</em></span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text"><em>what cnt_atom.data should look like:</em></span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">700</span><span class="w"> </span><span class="n">atoms</span>
 <span class="m">1</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
 <span class="o">-</span><span class="m">40.000000</span><span class="w"> </span><span class="m">40.000000</span><span class="w">  </span><span class="n">xlo</span><span class="w"> </span><span class="n">xhi</span>
@@ -812,8 +819,8 @@ information so that <em>cnt_atom.data</em> look like that:</p>
 <p>Remove also everything that comes after for <em>Bonds</em>
 keyword, so that the last lines of the file look like that:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text"><em>what cnt_atom.data should look like:</em></span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text"><em>what cnt_atom.data should look like:</em></span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
 <span class="m">697</span><span class="w"> </span><span class="m">697</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4.669892</span><span class="w"> </span><span class="o">-</span><span class="m">2.248901</span><span class="w"> </span><span class="m">45.824036</span><span class="w"> </span><span class="c"># CA CNT</span>
 <span class="m">698</span><span class="w"> </span><span class="m">698</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.099893</span><span class="w"> </span><span class="o">-</span><span class="m">0.925494</span><span class="w"> </span><span class="m">46.092010</span><span class="w"> </span><span class="c"># CA CNT</span>
@@ -839,8 +846,8 @@ by clicking <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/bre
 <p>Then, let us import the LAMMPS data file, and set the
 pair coefficients:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># System definition</span>
 <span class="k">read_data</span><span class="w"> </span><span class="n">cnt_atom.data</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CH.airebo</span><span class="w"> </span><span class="n">C</span>
@@ -853,8 +860,8 @@ to be carbon by using the the letter C.</p>
 <p>The CH.airebo file can be downloaded <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/CH.airebo" target="_blank">here</a>.
 The rest of the script is very similar to the previous one:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id23" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">40</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">40</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">60</span><span class="w"> </span><span class="m">60</span>
 
 <span class="k">group </span><span class="nv nv-Identifier">carbon_atoms</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
@@ -900,8 +907,8 @@ the value of the velocity along the z direction.</p>
 for the atoms of the edge. Let us fully constraint the bottom edge,
 and constraint the top edge only along z.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id23" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id24" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
 <span class="k">velocity</span><span class="w"> </span><span class="n">carbon_bot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
@@ -947,8 +954,8 @@ after a few picoseconds it reaches the target value:</p>
 <p>Afer equilibration, let us set the velocity to 30 m/s and run for
 a longer time:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id24" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id25" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 0.15 A/ps = 30 m/s</span>
 <span class="k">velocity</span><span class="w"> </span><span class="n">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0.15</span>
 <span class="k">run</span><span class="w"> </span><span class="m">280000</span>
@@ -990,8 +997,8 @@ the atom coordinate saved in the lammpstrj file.</p>
 <p>Open a new Jupyter notebook within the same folder, call it
 bond_evolution.ipynb. First, let us import libraries:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id25" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id26" title="Link to this code">#</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">MDAnalysis</span> <span class="k">as</span> <span class="nn">mda</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
@@ -1004,8 +1011,8 @@ data file (for the topology information) and the dump file
 original bonds using the bond guesser of MDAnalysis. Let us also create
 a single atom group containing all the carbon atoms:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id26" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id27" title="Link to this code">#</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a universe from the dump file</span>
 <span class="c1"># guess bond based on distance from the initial topology</span>
 <span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="s2">&quot;cnt_atom.data&quot;</span><span class="p">,</span> <span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span>
@@ -1022,8 +1029,8 @@ over time, so we will need to use a few trick.</p>
 <p>Then, let us loop over the trajectory and extract bond length and number
 over time:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id27" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in bond_evolution.ipynb</em></span><a class="headerlink" href="#id28" title="Link to this code">#</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">lbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="c1"># loop over trajectory</span>
@@ -1053,10 +1060,10 @@ lbond_vs_time the bond length:</p>
 <figure class="align-default">
 <img alt="plot of the bond length and distance versus time" class="only-dark" src="../../_images/bond-dark.png" />
 </figure>
-<figure class="align-default" id="id28">
+<figure class="align-default" id="id29">
 <img alt="plot of the bond length and distance versus time" class="only-light" src="../../_images/bond-light.png" />
 <figcaption>
-<p><span class="caption-text">Evolution of the bond length (left) and number (right) as a function of time.</span><a class="headerlink" href="#id28" title="Link to this image">#</a></p>
+<p><span class="caption-text">Evolution of the bond length (left) and number (right) as a function of time.</span><a class="headerlink" href="#id29" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>You can access all the input scripts and data files that
