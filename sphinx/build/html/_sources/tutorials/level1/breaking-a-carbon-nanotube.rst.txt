@@ -805,7 +805,7 @@ Deformation
 
 .. container:: justify
 
-   Afer equilibration, let us set the velocity to 30 m/s and run for
+   After equilibration, let us set the velocity to 30 m/s and run for
    a longer time:
 
 .. code-block:: lammps
@@ -951,12 +951,12 @@ Isolated nanotube
 .. container:: justify
 
     When a rubber band is streched up, it heats up due to entropy change. 
-    In the current simulation, the constant exchange of enerrgy with the 
+    In the current simulation, the constant exchange of energy with the 
     thermostat prevents the temperature to evolve significantly, even under
     strong deformation.
 
     Remove the thermostat and observe the evolution of the temperature of an
-    'isolated' carbon nanotube being deformed. Does it heat-up?
+    'isolated' carbon nanotube being deformed. Does it heat-up? Or does it cool down?
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/shared-dark.png
     :alt: deformed membrane of CNT
@@ -1003,7 +1003,8 @@ Decorate the CNT
 
 .. container:: justify
 
-   Add hydrogen atoms randomly to the system (using the same force field). 
+   Add hydrogen atoms randomly to the system (using the same
+   airebo force field). 
 
    Equilibrate the system. After some time, some hydrogen atoms will 
    decorate the free carbon atoms at the edge of the CNT. Some 
