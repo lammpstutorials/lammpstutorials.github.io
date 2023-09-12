@@ -23,7 +23,7 @@ Nanosheared electrolyte
 
     The objective of this tutorial is to use molecular dynamics and
     simulate an electrolyte sheared by two walls. Some properties
-    of the fluid, such the time averaged velocity profile will be extracted. 
+    of the fluid, such as the time-averaged velocity profile will be extracted. 
 
     This tutorial illustrates some important aspects of
     combining a fluid and a solid in the same simulation.
@@ -552,9 +552,9 @@ System equilibration
 
 ..  container:: justify
 
-    Here several groups to differentiate between solid, liquid
-    (salt+water), Na\\(^+\\), etc. have been defined (although
-    not all are used). In addition, groups containing only the
+    Here several groups have been defined in order to differentiate
+    between solid, liquid (salt+water), Na\\(^+\\), etc. (although
+    not all of them are used). In addition, groups containing only the
     top wall (gwalltop) and the bottom wall (gwallbot) have been
     created using the intersect keyword: the intersection
     between all the atom on the top part of the box (gtop) and
