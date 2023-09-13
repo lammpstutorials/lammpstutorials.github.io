@@ -644,8 +644,8 @@ Adsorption of ethanol at a solid wall
     :class: dropdown
 
     Countless molecules can be downloaded online from the Automated Topology Builder (ATB).
-    You can make your life simpler by choosing one of the smallest molecule. For the correction,
-    I use ethanol.
+    You can make your life simpler by choosing one of the smallest molecule (something like
+    CO2, a small alcohol, or even water).
 
     Any solid wall would do. You can find graphene-based solid or NaCl crystal surface in
     my |Github_repository|.
