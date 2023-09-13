@@ -599,10 +599,14 @@ Monte Carlo versus molecular dynamics
 ..  container:: justify
 
     Use a Monte Carlo procedure to equilibrate the system
-    instead of molecular dynamics. Is it more efficient than
-    molecular dynamics?
+    instead of molecular dynamics. 
+    
+    Is it more computationally efficient than molecular dynamics?
 
-    Pure MC move can be made using the fix gcmc.
+.. admonition:: Hints (click to reveal)
+    :class: dropdown
+
+    Monte Carlo displacement can be made using the fix gcmc command.
 
 Binary fluid
 ------------
@@ -611,7 +615,9 @@ Binary fluid
 
     Create a molecular simulation with two species, and apply a
     different potential on them using addforce to create the
-    following situation:
+    following situation, where one species is mainly trapped in 
+    the central part, while the other is mainly trapped in the 
+    external part:
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice2-light.png
     :alt: Particles separated by a potential
@@ -623,7 +629,8 @@ Binary fluid
 
 ..  container:: justify
 
-    Optional: use particle swapping to exchange between the 2 populations.
+    Optional: use particle swapping to exchange between the 2 populations and reach 
+    equilibrium faster than with simple molecular dynamics.
 
 Adsorption of ethanol at a solid wall
 -------------------------------------
@@ -631,4 +638,18 @@ Adsorption of ethanol at a solid wall
 ..  container:: justify
 
     Apply umbrella sampling to calculate the free energy profile
-    of a molecule of your choice normally to a solid wall.
+    of a molecule of your choice normal to a solid wall.
+
+.. admonition:: Hints (click to reveal)
+    :class: dropdown
+
+    Countless molecules can be downloaded online from the Automated Topology Builder (ATB).
+    You can make your life simpler by choosing one of the smallest molecule. For the correction,
+    I use ethanol.
+
+    Any solid wall would do. You can find graphene-based solid or NaCl crystal surface in
+    my |Github_repository|.
+
+.. |Github_repository| raw:: html
+
+   <a href="https://github.com/simongravelle/lammps-input-files" target="_blank">Github repository</a>
