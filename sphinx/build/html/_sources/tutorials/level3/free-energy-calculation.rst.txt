@@ -7,15 +7,15 @@ Simple free energy calculation
 
     Simple sampling of a free energy barrier
 
-.. figure:: ../figures/level3/free-energy-calculation/avatar-light.png
+.. figure:: ../figures/level3/free-energy-calculation/avatar_light.webp
     :height: 250
-    :alt: Figure showing atoms simulated with LAMMPS
+    :alt: Lennard Jones atoms simulated with LAMMPS
     :class: only-light
     :align: right
 
-.. figure:: ../figures/level3/free-energy-calculation/avatar-dark.png
+.. figure:: ../figures/level3/free-energy-calculation/avatar_dark.webp
     :height: 250
-    :alt: Figure showing atoms simulated with LAMMPS
+    :alt: Lennard Jones atoms simulated with LAMMPS
     :class: only-dark
     :align: right
 
