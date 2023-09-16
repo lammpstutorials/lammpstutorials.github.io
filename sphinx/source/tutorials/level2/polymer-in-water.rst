@@ -5,16 +5,16 @@ Polymer in water
 
 .. container:: hatnote
 
-   Stretching a small solvating molecule
+   Stretching a small solvated molecule
 
-.. figure:: ../figures/level2/polymer-in-water/main-dark.png
-    :alt: peg molecule in water
+.. figure:: ../figures/level2/polymer-in-water/video-PEG-dark.webp
+    :alt: Movie of a peg molecule in water as simulated with LAMMPS
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/level2/polymer-in-water/main-light.png
-    :alt: peg molecule in water
+.. figure:: ../figures/level2/polymer-in-water/video-PEG-light.webp
+    :alt: Movie of a peg molecule in water as simulated with LAMMPS
     :height: 250
     :align: right
     :class: only-light
