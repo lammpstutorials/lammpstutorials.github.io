@@ -4,4 +4,6 @@ Files corresponding to each tutorial of [lammps tutorials](https://lammpstutoria
 
 - LAMMPS data files
 - input files
-- python script for analysing data and plotting figure
+- Python script for analysing data
+- Python script for generating the figures of [lammps tutorials](https://lammpstutorials.github.io/)
+- bash script for creating the Gif
