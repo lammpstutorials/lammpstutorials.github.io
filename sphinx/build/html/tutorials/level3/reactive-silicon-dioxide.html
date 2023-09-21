@@ -243,9 +243,9 @@
 <div class="justify docutils container">
 <p>The objective of this tutorial is to use a molecular
 dynamics system made of silicon dioxide (SiO2), and deform
-it until it breaks. The reactive force field reaxff is used, and
-a particular attention is given to the evolution of the charges of the atoms during
-the deformation of the structure.</p>
+it until it breaks. The reactive force field <em>reaxff</em> is used, and
+a particular attention is given to the evolution of the charges
+of the atoms during the deformation of the structure.</p>
 </div>
 <p>If you are completely new to LAMMPS, I recommend you to follow this simpler tutorial first : <a class="reference internal" href="../level0/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard Jones fluid</span></a>.</p>
 <div class="patreon admonition">
@@ -260,8 +260,8 @@ the initial topology of a small amorphous silica structure.
 The system was created by temperature annealing using another force field
 (<a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>), therefore the structure is slightly
 different to what is expected from the reaxff force field.
-For instance, the average bond lengths, angles, or charges
-can be expected to be slightly different, and the structure will need
+For instance, the average bond lengths, angles, and charges
+are likely to be different, and the structure needs
 to be relaxed again using reaxff.</p>
 <p>If you are interested, the input file used for creating the initial topology is
 available <a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/input.lammps" target="_blank">here</a>, but its description is not part of this tutorial.</p>
@@ -287,12 +287,13 @@ available <a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateS
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Due to the use of vashishta force field, all silicon atoms have the same charge (1.1e),
-and all oxygen atoms as well (-0.55e). This is common to most classical force field.
-Let us keep that in mind before we start using reaxff.</p>
+<p>Due to the use of vashishta force field for creating the initial configuration,
+all silicon atoms have the same charge q = 1.1e,
+and all oxygen atoms the charge q = -0.55e. This is common to most
+classical force field. Let us keep that in mind before we start using <em>reaxff</em>.</p>
 <p>The first step is to relax the structure, which we are gonna do using molecular
-dynamcis. To make sure that system equilibrates nicely, let us track the changes in our system
-over time.</p>
+dynamics. To make sure that the system equilibrates nicely, let us track the
+changes in our system over time.</p>
 <p>Create an input file called input.lammps in RelaxSilica/, and copy in it:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id1">
@@ -310,7 +311,8 @@ over time.</p>
 <div class="justify docutils container">
 <p>So far, the input is very similar to what is seen in the other tutorials here,
 with some basic parameters being defined (units, atom_style and masses), and
-our data file being read. Now let us enter 3 crucial lines:</p>
+the data file being imported by the <em>read_data</em> command.
+Now let us enter 3 crucial lines:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
@@ -321,18 +323,25 @@ our data file being read. Now let us enter 3 crucial lines:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Here, the reaxff pair_style is used with no control file, and safezone and mincap
-are there for memory allocation issue. If not there, the segmentation faults and bondchk
-failed errors sometimes occur.</p>
-<p>The pair_coeff uses the <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a> file which is assumed to be saved in the same folder as the input.
-The atoms of type 1 are set as silicon (Si),
-and type 2 as oxygen (O) in order to be consistent with our .data file and previous mass definition.</p>
-<p>Finally, qeq/reaxff is used to perform charge equilibration every timestep. The values 0 and 10.0
-are low and high cutoffs, and 1.0e-6 a tolerance. Finally, maxiter sets a limit to the number of
-attempt to equilibrate the charge. If the charge does not properly equilibrate
-despite the 400 attempts, a warning will appear. Such warning are likely to appear if the initial
-charges are too far from equilibrium values.</p>
-<p>Then, let us insert some familiar commands controlling the building of the
+<p>Here, the reaxff pair_style is used with no control file, and the <em>safezone</em> and <em>mincap</em>
+keywords have been added for memory allocation issue. If not there, the segmentation
+faults and bondchk failed errors sometimes occur.</p>
+<p>The pair_coeff uses the <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a> file which is assumed to be saved in the
+same folder as the input. The atoms of type 1 are set as silicon (Si),
+and type 2 as oxygen (O) in order to be consistent with the data file and
+mass definition.</p>
+<p>Finally, the fix <em>qeq/reaxff</em> is used to perform charge equilibration every timestep. The values 0 and 10.0
+are low and high cutoffs, respectively, and 1.0e-6 a tolerance. Finally, maxiter sets
+a limit to the number of attempt to equilibrate the charge.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">Note</p>
+<p>If the charge does not
+properly equilibrate despite the 400 attempts, a warning will appear. Such warning
+are likely to appear if the initial charges are too far from equilibrium values.</p>
+</div>
+<div class="justify docutils container">
+<p>Then, let us use some (familiar) commands controlling the building of the
 neighbor lists. Let us also print thermodynamic information, the charge of both atom types,
 and create a dump file for visualization.</p>
 </div>
@@ -357,9 +366,8 @@ and create a dump file for visualization.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Let us perform a very short
-run using anisotropic NPT command, thus allowing for the box
-volume to relax.</p>
+<p>Let us perform a very short run using anisotropic NPT command
+and relax the density of the system.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
@@ -371,14 +379,17 @@ volume to relax.</p>
 </pre></div>
 </div>
 </div>
-<div class="justify docutils container">
+<div class="info admonition">
+<p class="admonition-title">Note</p>
 <p>Here, I choose values of 10 fs for the temperature damping parameter and 100 fs
 for the pressure. These choices were made to reach equilibrium faster and
-allow very short run to be performed. For an actual simulation (and not a tutorial), longer equilibration
-and larger damping times should be used (100 fs and 1000 fs for temperature and pressure respectively are
-usually used for atomic systems).</p>
+allow very short run to be performed. For an actual simulation (and not a tutorial),
+longer equilibration and larger damping times should be used (100 fs and 1000 fs
+for temperature and pressure respectively are usually used for atomic systems).</p>
+</div>
+<div class="justify docutils container">
 <p>As the simulation runs, you can see that the charges of the atoms are fluctuating,
-as it adjusts to the topology:</p>
+as the atoms adjust themselves to the topology:</p>
 </div>
 <figure class="align-default">
 <img alt="Charge of silica during equilibration with reaxff and LAMMPS" class="only-light" src="../../_images/average-charge-light.png" />
@@ -390,8 +401,8 @@ as it adjusts to the topology:</p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
-<p>Moreover, as each atom instantaneously adopts its own charge value, the charges are distributed
-around a mean value:</p>
+<p>Moreover, and because each atom adopts its own fluctuating charge value,
+the charges are distributed around a mean value:</p>
 </div>
 <figure class="align-default">
 <img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-light" src="../../_images/distribution-charge-light.png" />
@@ -407,7 +418,7 @@ download this <a href="../../../../../inputs/level3/reactive-silicon-dioxide/Rel
 <div class="justify docutils container">
 <p>Using VMD and coloring the atoms by their charges, one can see that
 the atoms with the extreme-most charges are located at defects in the
-amorphous structure (here at the positions of the dandling oxygen group):</p>
+amorphous structure (here at the positions of the dandling oxygen groups):</p>
 </div>
 <figure class="align-default">
 <img alt="Amorphous silica colored by charges using VMD" class="only-light" src="../../_images/silicon-light.png" />
