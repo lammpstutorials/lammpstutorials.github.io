@@ -444,7 +444,7 @@ thermostat because we want to impose a deformation of the
 volume.</p>
 </div>
 <div class="dropdown admonition">
-<p class="admonition-title">NVT vs two-dimensional barostat</p>
+<p class="admonition-title">NVT vs 2D barostat</p>
 <p>Here, box deformations are applied in the z-direction, while the
 x and y box dimensions are kept constants.</p>
 <p>Another possible choice would be to apply a barostat along the x and y
@@ -472,17 +472,18 @@ direction, allowing the system more freedom to deform.</p>
 </div>
 <div class="justify docutils container">
 <p>Feel free to play with the factor (1.005) and the number of
-loop (45) to generate more or less large cracking in the silica.</p>
+loop (45) to generate different cracking in the silica.</p>
 <p>After the dilatation, a final equilibration step of 20
 picoseconds is performed. If you look at the dump file
 produced after executing this script, or at <a href="https://www.youtube.com/watch?v=8rBqYIcTgno&ab_channel=SimonGravelle" target="_blank">this video</a>,
-you can see the dilatation occurring step-by-step and the
-atoms adjusting to the box size. At first, the deformations
-are reversible (elastic regime), but at some point, bonds
-start breaking and dislocations appear (plastic regime). You
+you can see the dilatation occurring step-by-step, and the
+atoms adjusting progressively to the box size.</p>
+<p>At first, the deformations
+are reversible (elastic regime). At some point, bonds
+start breaking and dislocations appear (plastic regime).</p>
+<p>Alternatively, you
 can download the final state directly by clicking
-<a href="../../../../../inputs/level3/water-adsorption-in-silica/Cracking/dilatedSiO.data" target="_blank">here</a>.</p>
-<p>The final system, with the crack, resembles:</p>
+<a href="../../../../../inputs/level3/water-adsorption-in-silica/Cracking/dilatedSiO.data" target="_blank">here</a>. The final system, with the crack, resembles:</p>
 </div>
 <figure class="align-default">
 <img alt="silica block with crack" class="only-dark" src="../../_images/cracked-dark.png" />
@@ -515,12 +516,10 @@ ensemble (GCMC). In short, the system is put into contact
 with a virtual reservoir of given chemical potential
 <span class="math notranslate nohighlight">\(\mu\)</span>, and multiple attempts to insert water
 molecules at random positions are made. Attempts are
-either accepted or rejected based on a Monte Carlo
-acceptance rule.</p>
-<p>In a new folder called Addingwater, add this template file
-for the water molecule : <a href="../../../../../inputs/level3/water-adsorption-in-silica/AddingWater/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>.
-Create a new input file, and copy the following lines into
-it:</p>
+either accepted or rejected based on energy consideration.</p>
+<p>In a new folder called <em>Addingwater/</em>, add this template file
+for the water molecule: <a href="../../../../../inputs/level3/water-adsorption-in-silica/AddingWater/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>.</p>
+<p>Create a new input file, and copy the following lines into it:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
@@ -539,18 +538,17 @@ it:</p>
 </div>
 <div class="justify docutils container">
 <p>There are several differences with the previous input files
-used in this tutorial. All these differences are here
-because this simulation will combine water and silica.
-First, we have to combine two force fields, vashishta for
-SiO, and lj/cut/tip4p/long for TIP4P water model. Combining
-force fields in LAMMPS can be done using the hybrid/overlay
-pair style. We also need a kspace solver to solve the long
+used in this tutorial because, from now on, the system will combine water and silica.</p>
+<p>We have to combine two force fields, Vashishta for
+SiO, and lj/cut/tip4p/long for TIP4P water model, which can
+be done using the hybrid/overlay pair style.</p>
+<p>We also need a kspace solver to solve the long
 range Coulomb interactions associated with tip4p/long.
 Finally, we need to define the style for the bond and angle
 of the water molecules.</p>
 <p>Before going
-further, we need to make a few change to our data file.
-Currently, dilatedSiO.data only includes two atom types, but
+further, we also need to make a few change to our data file.
+Currently, <em>dilatedSiO.data</em> only includes two atom types, but
 we need four. Copy the previously generated dilatedSiO.data
 file within the present folder. It starts with:</p>
 </div>
@@ -607,11 +605,11 @@ molecules. Modify the file so that it looks like that
 </div>
 <div class="justify docutils container">
 <p>Doing so, we anticipate that there will be 4 atoms types in
-the simulations, with O and H of H2O being indexes 3 and 4,
+the simulations, with O and H of H2O having indexes 3 and 4,
 respectively. There will also be 1 bond type and 1 angle
 type. The extra bond, extra angle, and extra special lines
-are for memory allocation.</p>
-<p>We can continue to fill the
+also need to be added for memory allocation.</p>
+<p>We can continue to fill in the
 input.lammps file, by adding the system definition:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id10">
@@ -634,10 +632,10 @@ from the txt file, the create_atoms command is used to
 include some water molecules in the system on a
 simple cubic lattice. Not adding a molecule before starting the
 GCMC steps usually lead to failure. Note that here,
-most water molecules are overlapping with the silica. THose
+most water molecules are overlapping with the silica. These
 overlapping water molecules will be deleted before
 starting the simulation.</p>
-<p>Then, add the following settings of the simulation:</p>
+<p>Then, add the following settings:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
@@ -659,15 +657,16 @@ starting the simulation.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>The force field vashishta applies only to Si and O of SiO,
-and not to the O and H of H2O thanks to the NULL
-parameters. Pair coefficients for lj/cut/tip4p/long are
+<p>The force field Vashishta applies only to Si and O of SiO,
+and not to the O and H of H2O, thanks to the NULL
+parameters.</p>
+<p>Pair coefficients for lj/cut/tip4p/long are
 defined between O atoms, as well as between
-O(SiO)-O(H2O) and Si(SiO)-O(H2O). Finally, the
-number of oxygen atoms will be printed in the file
+O(SiO)-O(H2O) and Si(SiO)-O(H2O).</p>
+<p>Finally, the number of oxygen atoms will be printed in the file
 numbermolecule.dat, and the shake algorithm is used to
 maintain the shape of the water molecule over time. Some of
-these features have been seen in other tutorials.</p>
+these features have been seen in previous tutorials.</p>
 <p>Let us delete the overlapping water molecules, and print the
 positions in a dump file:</p>
 </div>
@@ -699,13 +698,13 @@ positions in a dump file:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>We use two different thermostats for SiO and H2O, which is
-better when you have two species, such as one solid and one
+<p>We use two different thermostats for SiO and for H2O, respectively. Using
+separate thermostat is usually better when the system contains two separate species, such as one solid and one
 liquid. It is particularly important to use two thermostats
-here as the number of water molecules will fluctuate with time. We use
+here, because the number of water molecules will fluctuate with time. We use
 a compute_modify ‘dynamic yes’ for water to specify that the
 number of molecules is not constant.</p>
-<p>Finally, let us use the gcmc fix and perform the grand
+<p>Finally, let us use the fix gcmc and perform the grand
 canonical Monte Carlo steps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id14">
@@ -724,17 +723,17 @@ made for the temperature of the inserted water molecules by
 taking into account the internal degrees of freedom. Running
 this simulation, you should see the number of molecule
 increasing progressively. When using the pressure argument,
-LAMMPS ignore the value of the chemical potential (here <span class="math notranslate nohighlight">\(\mu = -0.5\)</span> eV
-which corresponds roughly to ambient conditions (i.e. RH approx 50%).)
+LAMMPS ignores the value of the chemical potential [here <span class="math notranslate nohighlight">\(\mu = -0.5\)</span> eV
+which corresponds roughly to ambient conditions (i.e. RH approx 50%).]
 The large pressure value of 10000 bars was chosen to ensure that
 some successful insertions of molecules would occur during the
 relatively short duration of the simulation.</p>
 <p>When you run the simulation, make sure that some water molecules
-remain in the system after the delete_atoms command.</p>
+remain in the system after the delete_atoms command. You can control
+that either using the log file, or using the <em>numbermolecule.dat</em> data file.</p>
 <p>Depending on your LAMMPS version, you may have to run LAMMPS
-on a single CPU, due to some restrictions of the fix gcmc.</p>
-<p>You can see that
-by looking at the log file:</p>
+on a single cpu core, due to some restrictions of the fix gcmc.</p>
+<p>You can see, by looking at the log file, that 324 molecules (the exact number may differ):</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
@@ -743,7 +742,8 @@ by looking at the log file:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>In my case 324 molecules were created.</p>
+<p>You can also see that 318 molecules where immediately deleted,
+leaving 16 water molecules (the exact number may differ):</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
@@ -754,13 +754,11 @@ Deleted 318 angles, new total = 6
 </div>
 </div>
 <div class="justify docutils container">
-<p>Then 318 molecules where immediately deleted, leaving 16 molecules.</p>
-<p>After 100000 steps, you should see that the number of molecule did fluctuate.
+<p>After 100000 steps, you should see that the number of molecule did indeed fluctuate with time.
 This number will vary from one simulation to
 another, depending on the space available for insertion. The
-number of molecules also depends on the imposed pressure,
-temperature, and on the interaction between water
-and silica.</p>
+final number of molecules also depends on the imposed pressure,
+temperature, and on the interaction between water and silica.</p>
 <p>In my case, the final state looks like this:</p>
 </div>
 <figure class="align-default">
@@ -773,7 +771,7 @@ and silica.</p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
-<p>Note that gcmc simulations of dense phases are usually slow to converge due to the
+<p>Note that gcmc simulations of such dense phases are usually slow to converge due to the
 very low probability of successfully inserting a molecule. Here 100000 steps (or 100 ps)
 are not enough to reach equilibrium.</p>
 </div>
