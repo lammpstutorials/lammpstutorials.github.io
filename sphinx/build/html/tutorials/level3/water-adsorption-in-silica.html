@@ -261,12 +261,22 @@ so, we are going to replicate a building block containing 3
 Si and 6 O atoms.</p>
 <p>The data file for the SiO atoms can be
 downloaded by clicking <a href="../../../../../inputs/level3/water-adsorption-in-silica/SilicaBlock/SiO.data" target="_blank">here</a>.
-Save it in a folder called SilicaBlock. This data file
-contains the coordinates of the atoms, their masses, and
-their charges, and can be directly read by LAMMPS using the
-read_file command. Let us replicate these atoms using
+Save it in a folder called <em>SilicaBlock/</em>. This data file
+contains the coordinates of the 9 atoms, their masses, and
+their charges. The fine can be directly read by LAMMPS using the
+<em>read_file</em> command. Let us replicate these atoms using
 LAMMPS, and apply an annealing procedure to obtain a block
 of amorphous silica.</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">About annealing procedure</p>
+<p>The annealing procedure consists of adjusting the system temperature in successive steps.
+Here, a large initial temperature is chosen to ensure the melting of the SiO2 structure.
+Then, several steps are used to progressively cool down the system until it solidifies and forms
+amorphous silica. Depending on the material, different cooling velocities can sometimes
+lead to different crystal structure or different degree of defect.</p>
+</div>
+<div class="justify docutils container">
 <p>Create a new input file in the same folder as the downloaded
 dataSiO.data, and copy the following lines in it:</p>
 </div>
