@@ -221,8 +221,6 @@ Generation of the silica block
     can both be compared to experimental values. This is beyond the
     scope of this tutorial.
 
-.. include:: ../../contact/supportme.rst
-
 Cracking the silica
 ===================
 
@@ -319,8 +317,9 @@ Cracking the silica
     atoms. For the sake of simplicity, we are not going to
     decorate our silica with hydrogen atoms in this tutorial.
     It would require a procedure to properly insert hydrogen
-    atoms at the right place, or/and the use of another
-    potential.
+    atoms at the right place, or/and the use of another potential.
+
+.. include:: ../../contact/supportme.rst
 
 Adding water
 ============
