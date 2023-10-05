@@ -5,17 +5,17 @@ Water adsorption in silica
 
 .. container:: hatnote
 
-    Using the grand canonical Monte Carlo method
+    Dealing with varying molecule number
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/main-light.png
     :height: 250
-    :alt: Water molecule adsorbed in silica matrix
+    :alt: Water molecules adsorbed in silica SiO2 porous inorganic material
     :class: only-light
     :align: right
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/main-dark.png
     :height: 250
-    :alt: Water molecule adsorbed in silica matrix
+    :alt: Water molecules adsorbed in silica SiO2 porous inorganic material
     :class: only-dark
     :align: right
 
@@ -23,12 +23,11 @@ Water adsorption in silica
 
     The objective of this tutorial is to combine molecular
     dynamics and grand canonical Monte Carlo simulations to
-    simulate the adsorption of water molecules in a cracked
-    silica.
+    compute the adsorption of water molecules in a cracked silica material.
 
     This tutorial illustrates the use of the grand canonical
-    ensemble in molecular simulation, an ensemble in which the number of 
-    molecule/atom is not constant.
+    ensemble in molecular simulation, an open ensemble in which the number of 
+    molecules or atoms is not constant.
 
 .. include:: ../../contact/recommand-lj.rst
 
@@ -39,9 +38,11 @@ Generation of the silica block
 
 ..  container:: justify
 
-    Let us generate a block of amorphous silica (SiO2). To do
+    Let us first generate a block of amorphous silica (SiO2). To do
     so, we are going to replicate a building block containing 3
-    Si and 6 O atoms. The data file for the SiO atoms can be
+    Si and 6 O atoms. 
+    
+    The data file for the SiO atoms can be
     downloaded by clicking |download_SiO.data|.
     Save it in a folder called SilicaBlock. This data file
     contains the coordinates of the atoms, their masses, and
