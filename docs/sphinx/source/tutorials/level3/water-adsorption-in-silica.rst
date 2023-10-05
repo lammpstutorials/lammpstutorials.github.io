@@ -44,12 +44,23 @@ Generation of the silica block
     
     The data file for the SiO atoms can be
     downloaded by clicking |download_SiO.data|.
-    Save it in a folder called SilicaBlock. This data file
-    contains the coordinates of the atoms, their masses, and
-    their charges, and can be directly read by LAMMPS using the
-    read_file command. Let us replicate these atoms using
+    Save it in a folder called *SilicaBlock/*. This data file
+    contains the coordinates of the 9 atoms, their masses, and
+    their charges. The fine can be directly read by LAMMPS using the
+    *read_file* command. Let us replicate these atoms using
     LAMMPS, and apply an annealing procedure to obtain a block
     of amorphous silica.
+
+.. admonition:: About annealing procedure
+    :class: dropdown
+
+    The annealing procedure consists of adjusting the system temperature in successive steps.
+    Here, a large initial temperature is chosen to ensure the melting of the SiO2 structure.
+    Then, several steps are used to progressively cool down the system until it solidifies and forms 
+    amorphous silica. Depending on the material, different cooling velocities can sometimes
+    lead to different crystal structure or different degree of defect.
+
+..  container:: justify
 
     Create a new input file in the same folder as the downloaded
     dataSiO.data, and copy the following lines in it:
