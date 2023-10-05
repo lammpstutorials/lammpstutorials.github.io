@@ -62,8 +62,8 @@ Generation of the silica block
 
 ..  container:: justify
 
-    Create a new input file in the same folder as the downloaded
-    dataSiO.data, and copy the following lines in it:
+    Create a new input file in the *SilicaBlock/* folder, and copy
+    the following lines in it:
 
 .. |download_SiO.data| raw:: html
 
@@ -80,33 +80,47 @@ Generation of the silica block
     neighbor 1.0 bin
     neigh_modify delay 1
 
-    # System definition
-    read_data SiO.data
-    replicate 4 4 4
-
 ..  container:: justify
 
-    Download the Vashishta potential by clicking |download_vashishta|,
-    and copy it within the SilicaBlock folder.
+    The main difference between the previous tutorials is the use of 
+    the Vashishta pair style. Download the Vashishta potential by
+    clicking |download_vashishta|, and copy it within the *SilicaBlock/* folder.
 
-    **About the Vashishta potential:** Metal units are used
-    as required by the Vashishta potential. The |website_vashishta|
+.. admonition:: About the Vashishta potential
+    :class: info
+
+    The |website_vashishta|
     potential is a bond-angle energy based potential, it
     deduces the bonds between atoms from their relative
     positions. Therefore, there is no need to provide bond
     and angle information as we do with classic force fields
-    like GROMOS or AMBER. Bond-angle energy based potentials
+    like GROMOS or AMBER.
+    
+    Note that Vashishta potential requires the use of metal units system. 
+    
+    Bond-angle energy based potentials
     are more computationally heavy than classical force
     fields and require the use of a smaller timestep, but
     they allow for the modelling of bond formation and
     breaking, which is what we need here as we want to create
     a crack in the silica.
 
-    The system is then replicated four times in all three
-    directions of space.
+..  container:: justify
+
+    Let us then import the system made of 9 atoms, replicate it four times in all three
+    directions of space, thus creating a system with 576 atoms.
+
+..  code-block:: lammps
+    :caption: *to be copied in SilicaBlock/input.lammps*
+
+    # System definition
+    read_data SiO.data
+    replicate 4 4 4
+
+..  container:: justify
 
     Then, let us specify the pair coefficients by indicating
-    that the first atom is Si, and the second is O. Let us also
+    that the first atom type is Si, and the second is O. Let us also
     add a dump command for printing out the positions of the
     atoms every 5000 steps:
 
@@ -158,17 +172,19 @@ Generation of the silica block
     run 4000
     write_data amorphousSiO.data
 
+.. admonition:: Anisotropic versus isotropic barostat
+    :class: info
+
+    Here, an anisotropic barostat is used; therefore all three
+    directions of space are adjusted independently from one another. Such
+    anisotropic barostat is usually a better choice for a solid phase, 
+    when there is no reason for the final solid phase to
+    have the same dimensions along all 3 axis. For a
+    liquid or a gas, the isotropic barostat is usually the best choice.
+
 ..  container:: justify
 
-    **Anisotropic versus isotropic barostat:** Here an
-    anisotropic barostat is used, therefore all three
-    directions of space are managed independently. An
-    anisotropic barostat is better for a solid phase, 
-    as there is no reason for the final solid phase to
-    have the same dimensions along all 3 axis, but for a
-    liquid of a gas, use an isotropic barostat instead.
-
-    The simulation takes about 15-20 minutes on four cpus.
+    The simulation takes about 15-20 minutes on 4 cpu cores.
 
     After running the simulation, the final configuration
     amorphousSiO.data will be located in the same folder as your
