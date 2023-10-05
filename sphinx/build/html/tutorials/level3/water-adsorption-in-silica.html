@@ -411,8 +411,8 @@ scope of this tutorial.</p>
 <section id="cracking-the-silica">
 <h2>Cracking the silica<a class="headerlink" href="#cracking-the-silica" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>We are now going to dilate the block of silica to create a
-crack. Create a new folder, called Cracking, and create a
+<p>Let us dilate the block of silica to create a
+crack. Create a new folder called <em>Cracking/</em> next to <em>SilicaBlock/</em>, and create a
 new input.lammps file starting with:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
@@ -435,14 +435,23 @@ new input.lammps file starting with:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Then, we are going to progressively increase the size of the
-box over z, thus forcing the silica to crack. To do
+<p>Then, let us progressively increase the size of the
+box in the z direction, thus forcing the silica to deform and crack. To do
 so, we are going to make a loop using the jump command. At
 every step of the loop, the box dimension over z will
-be multiplied by a factor 1.005. For this step, we use a NVT
+be multiplied by a factor 1.005. Here, we use a NVT
 thermostat because we want to impose a deformation of the
-volume (therefore NPT would be inappropriate). Add the
-following lines to the input script:</p>
+volume.</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">NVT vs two-dimensional barostat</p>
+<p>Here, box deformations are applied in the z-direction, while the
+x and y box dimensions are kept constants.</p>
+<p>Another possible choice would be to apply a barostat along the x and y
+direction, allowing the system more freedom to deform.</p>
+</div>
+<div class="justify docutils container">
+<p>Add the following lines to the input script:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Cracking/input.lammps</em></span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>

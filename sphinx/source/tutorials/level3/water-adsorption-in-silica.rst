@@ -226,8 +226,8 @@ Cracking the silica
 
 ..  container:: justify
 
-    We are now going to dilate the block of silica to create a
-    crack. Create a new folder, called Cracking, and create a
+    Let us dilate the block of silica to create a
+    crack. Create a new folder called *Cracking/* next to *SilicaBlock/*, and create a
     new input.lammps file starting with:
 
 ..  code-block:: lammps
@@ -250,14 +250,26 @@ Cracking the silica
 
 ..  container:: justify
 
-    Then, we are going to progressively increase the size of the
-    box over z, thus forcing the silica to crack. To do
+    Then, let us progressively increase the size of the
+    box in the z direction, thus forcing the silica to deform and crack. To do
     so, we are going to make a loop using the jump command. At
     every step of the loop, the box dimension over z will
-    be multiplied by a factor 1.005. For this step, we use a NVT
+    be multiplied by a factor 1.005. Here, we use a NVT
     thermostat because we want to impose a deformation of the
-    volume (therefore NPT would be inappropriate). Add the
-    following lines to the input script:
+    volume.
+
+.. admonition:: NVT vs two-dimensional barostat
+    :class: dropdown
+
+    Here, box deformations are applied in the z-direction, while the 
+    x and y box dimensions are kept constants. 
+
+    Another possible choice would be to apply a barostat along the x and y 
+    direction, allowing the system more freedom to deform.
+
+..  container:: justify
+    
+    Add the following lines to the input script:
 
 .. code-block:: lammps
     :caption: *to be copied in Cracking/input.lammps*
