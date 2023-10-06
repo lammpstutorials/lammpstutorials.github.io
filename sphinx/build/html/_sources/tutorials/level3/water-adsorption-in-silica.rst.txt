@@ -42,9 +42,12 @@ Generation of the silica block
     so, we are going to replicate a building block containing 3
     Si and 6 O atoms. 
     
-    The data file for the SiO atoms can be
+    Create two folders side by side, and name them respectively *Potential/*
+    and *SilicaBlock/*.
+
+    An initial data file for the SiO atoms can be
     downloaded by clicking |download_SiO.data|.
-    Save it in a folder called *SilicaBlock/*. This data file
+    Save it in *SilicaBlock/*. This data file
     contains the coordinates of the 9 atoms, their masses, and
     their charges. The fine can be directly read by LAMMPS using the
     *read_file* command. Let us replicate these atoms using
@@ -62,7 +65,7 @@ Generation of the silica block
 
 ..  container:: justify
 
-    Create a new input file in the *SilicaBlock/* folder, and copy
+    Create a new input file named *input.lammps* in the *SilicaBlock/* folder, and copy
     the following lines in it:
 
 .. |download_SiO.data| raw:: html
@@ -72,7 +75,6 @@ Generation of the silica block
 ..  code-block:: lammps
     :caption: *to be copied in SilicaBlock/input.lammps*
 
-    # Initialization
     units metal
     boundary p p p
     atom_style full
@@ -84,7 +86,7 @@ Generation of the silica block
 
     The main difference between the previous tutorials is the use of 
     the Vashishta pair style. Download the Vashishta potential by
-    clicking |download_vashishta|, and copy it within the *SilicaBlock/* folder.
+    clicking |download_vashishta|, and copy it within the *Potential/* folder.
 
 .. admonition:: About the Vashishta potential
     :class: info
@@ -113,7 +115,6 @@ Generation of the silica block
 ..  code-block:: lammps
     :caption: *to be copied in SilicaBlock/input.lammps*
 
-    # System definition
     read_data SiO.data
     replicate 4 4 4
 
@@ -126,7 +127,7 @@ Generation of the silica block
 
 .. |download_vashishta| raw:: html
 
-   <a href="../../../../../inputs/level3/water-adsorption-in-silica/SilicaBlock/SiO.1990.vashishta" target="_blank">here</a>
+   <a href="../../../../../inputs/level3/water-adsorption-in-silica/Potential/SiO.1990.vashishta" target="_blank">here</a>
 
 .. |website_vashishta| raw:: html
 
@@ -135,9 +136,26 @@ Generation of the silica block
 ..  code-block:: lammps
     :caption: *to be copied in SilicaBlock/input.lammps*
 
-    # Simulation settings
-    pair_coeff * * SiO.1990.vashishta Si O
+    pair_coeff * * ../Potential/SiO.1990.vashishta Si O
+
+..  container:: justify
+
+    Let us add some commands to help us follow the evolution of the system,
+    such as its temperature, volume, and potential-energy:
+
+..  code-block:: lammps
+    :caption: *to be copied in SilicaBlock/input.lammps*
+
     dump dmp all atom 5000 dump.lammpstrj
+    variable myvol equal vol
+    variable mylx equal lx
+    variable myly equal ly
+    variable mylz equal lz
+    variable mypot equal pe
+    fix myat1 all ave/time 10 100 1000 v_mytemp file temperature.dat
+    fix myat2 all ave/time 10 100 1000 v_myvol v_mylx v_myly v_mylz file dimensions.dat
+    fix myat3 all ave/time 10 100 1000 v_mypot file potential-energy.dat
+    thermo 1000
 
 ..  container:: justify
 
@@ -157,26 +175,25 @@ Generation of the silica block
 ..  code-block:: lammps
     :caption: *to be copied in SilicaBlock/input.lammps*
 
-    # Run
     velocity all create 6000 4928459 rot yes dist gaussian
-    fix nvt1 all nvt temp 6000 6000 0.1
+    fix npt1 all npt temp 6000 6000 0.1 iso 100 100 1
     timestep 0.001
-    thermo 1000
-    run 5000
-    unfix nvt1
+    run 50000
     fix npt1 all npt temp 6000 4000 0.1 aniso 100 100 1
     run 50000
     fix npt1 all npt temp 4000 300 0.1 aniso 100 1 1
     run 200000
     fix npt1 all npt temp 300 300 0.1 aniso 1 1 1
-    run 4000
+    run 50000
+
     write_data amorphousSiO.data
 
 .. admonition:: Anisotropic versus isotropic barostat
     :class: info
 
-    Here, an anisotropic barostat is used; therefore all three
-    directions of space are adjusted independently from one another. Such
+    Here, an isotropic barostat is used for the melted phase at 6000 K, and then 
+    an anisotropic barostat when cooling down the system. With the anisotropic 
+    barostat, all three directions of space are adjusted independently from one another. Such
     anisotropic barostat is usually a better choice for a solid phase, 
     when there is no reason for the final solid phase to
     have the same dimensions along all 3 axis. For a
@@ -185,6 +202,33 @@ Generation of the silica block
 ..  container:: justify
 
     The simulation takes about 15-20 minutes on 4 cpu cores.
+
+    Let us check the evolution of the temperature from the *temperature.dat* file.
+    Apart from an initial spike (may be due to an initial bad configuration, probably harmless here),
+    the temperature follows well the desired annealing procedure:
+
+.. figure:: ../figures/level3/water-adsorption-in-silica/temperature_evolution-dark.png
+    :alt: silica temperature during annealing, from melt to solid
+    :class: only-dark
+
+.. figure:: ../figures/level3/water-adsorption-in-silica/temperature_evolution-light.png
+    :alt: silica temperature during annealing, from melt to solid
+    :class: only-light
+
+..  container:: justify
+
+    Let us also make sure that the box was indeed deformed isotropically during the first 
+    stage of the simulation, and then anisotropically by plotting lx (blue), ly (orange), and lz:
+
+.. figure:: ../figures/level3/water-adsorption-in-silica/dimensions_evolution-dark.png
+    :alt: box dimensions during annealing, from melt to solid
+    :class: only-dark
+
+.. figure:: ../figures/level3/water-adsorption-in-silica/dimensions_evolution-light.png
+    :alt: box dimensions during annealing, from melt to solid
+    :class: only-light
+
+..  container:: justify
 
     After running the simulation, the final LAMMPS topology file named
     *amorphousSiO.data* will be located in *SilicaBlock/*. Alternatively, if you are only interested in the
@@ -245,7 +289,7 @@ Cracking the silica
 
     # Simulation settings
     pair_style vashishta
-    pair_coeff * * ../SilicaBlock/SiO.1990.vashishta Si O
+    pair_coeff * * ../Potential/SiO.1990.vashishta Si O
     dump dmp all atom 1000 dump.lammpstrj
 
 ..  container:: justify
@@ -486,7 +530,7 @@ Adding water
     :caption: *to be copied in Addingwater/input.lammps*
 
     # Simulation settings
-    pair_coeff * * vashishta ../SilicaBlock/SiO.1990.vashishta Si O NULL NULL
+    pair_coeff * * vashishta ../Potential/SiO.1990.vashishta Si O NULL NULL
     pair_coeff * * lj/cut/tip4p/long 0 0
     pair_coeff 1 3 lj/cut/tip4p/long 0.0057 4.42 # epsilonSi = 0.00403, sigmaSi = 3.69
     pair_coeff 2 3 lj/cut/tip4p/long 0.0043 3.12 # epsilonO = 0.0023, sigmaO = 3.091
