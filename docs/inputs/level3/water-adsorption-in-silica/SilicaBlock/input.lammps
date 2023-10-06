@@ -2,7 +2,6 @@
 # author : Simon Gravelle
 # lammpstutorials.github.io
 
-# Initialization
 units metal
 boundary p p p
 atom_style full
@@ -10,26 +9,33 @@ pair_style vashishta
 neighbor 1.0 bin
 neigh_modify delay 1
 
-# System definition
 read_data SiO.data
 replicate 4 4 4
 
-# Simulation settings
-pair_coeff * *  SiO.1990.vashishta Si O
-dump dmp all atom 5000 dump.lammpstrj
+pair_coeff * *  ../Potential/SiO.1990.vashishta Si O
 
-# Run
-velocity all create 6000 4928459 rot yes dist gaussian
-fix nvt1 all nvt temp 6000 6000 0.1
-timestep 0.001
+dump dmp all atom 5000 dump.lammpstrj
+variable mytemp equal temp
+variable myvol equal vol
+variable mylx equal lx
+variable myly equal ly
+variable mylz equal lz
+variable mypot equal pe
+fix myat1 all ave/time 10 100 1000 v_mytemp file temperature.dat
+fix myat2 all ave/time 10 100 1000 v_myvol v_mylx v_myly v_mylz file dimensions.dat
+fix myat3 all ave/time 10 100 1000 v_mypot file potential-energy.dat
 thermo 1000
-run 5000
-unfix nvt1
+
+velocity all create 6000 4928459 rot yes dist gaussian
+fix npt1 all npt temp 6000 6000 0.1 iso 100 100 1
+timestep 0.001
+run 50000
 fix npt1 all npt temp 6000 4000 0.1 aniso 100 100 1
 run 50000
 fix npt1 all npt temp 4000 300 0.1 aniso 100 1 1
 run 200000
 fix npt1 all npt temp 300 300 0.1 aniso 1 1 1
-run 4000
+run 50000
+
 write_data amorphousSiO.data
 
