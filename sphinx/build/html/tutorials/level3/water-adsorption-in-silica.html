@@ -278,6 +278,8 @@ Then, several steps are used to progressively cool down the system until it soli
 amorphous silica. Depending on the material, different cooling velocities can sometimes
 lead to different crystal structure or different degree of defect.</p>
 </div>
+<section id="vashishta-potential">
+<h3>Vashishta potential<a class="headerlink" href="#vashishta-potential" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Create a new input file named <em>input.lammps</em> in the <em>SilicaBlock/</em> folder, and copy
 the following lines in it:</p>
@@ -356,6 +358,9 @@ such as its temperature, volume, and potential-energy:</p>
 </pre></div>
 </div>
 </div>
+</section>
+<section id="annealing-procedure">
+<h3>Annealing procedure<a class="headerlink" href="#annealing-procedure" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Finally, let us create the last part of our script. The
 annealing procedure is the following: we first start with a
@@ -445,6 +450,7 @@ can both be compared to experimental values. This is beyond the
 scope of this tutorial.</p>
 </div>
 </section>
+</section>
 <section id="cracking-the-silica">
 <h2>Cracking the silica<a class="headerlink" href="#cracking-the-silica" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
@@ -454,17 +460,14 @@ new input.lammps file starting with:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Cracking/input.lammps</em></span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialization</span>
-<span class="k">units</span><span class="w"> </span><span class="n">metal</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">metal</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">neighbor</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">bin</span>
 <span class="k">neigh_modify</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">1</span>
 
-<span class="c"># System definition</span>
 <span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">SilicaBlock</span><span class="o">/</span><span class="n">amorphousSiO.data</span>
 
-<span class="c"># Simulation settings</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">vashishta</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Potential</span><span class="o">/</span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
 <span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
@@ -475,30 +478,38 @@ new input.lammps file starting with:</p>
 <p>Then, let us progressively increase the size of the
 box in the z direction, thus forcing the silica to deform and crack. To do
 so, we are going to make a loop using the jump command. At
-every step of the loop, the box dimension over z will
+every step of the loop, the box dimension over x will
 be multiplied by a factor 1.005. Here, we use a NVT
 thermostat because we want to impose a deformation of the
 volume.</p>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">NVT vs 2D barostat</p>
-<p>Here, box deformations are applied in the z-direction, while the
-x and y box dimensions are kept constants.</p>
-<p>Another possible choice would be to apply a barostat along the x and y
-direction, allowing the system more freedom to deform.</p>
+<p>Here, box deformations are applied in the x-direction, while the
+y and z box dimensions are kept constants.</p>
+<p>Another possible choice would be to apply a barostat along the y and z
+direction, allowing the system more freedom to deform. In LAMMPS, this
+can be done by using :</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">npt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>instead of:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+</pre></div>
+</div>
+<p>Here, the latter command will be used (see below), but feel free to improvise.</p>
 </div>
 <div class="justify docutils container">
 <p>Add the following lines to the input script:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Cracking/input.lammps</em></span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Run</span>
-<span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
 <span class="k">variable </span><span class="nv nv-Identifier">var</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">45</span>
 <span class="k">label</span><span class="w"> </span><span class="n">loop</span>
-<span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="m">1.005</span><span class="w"> </span><span class="n">remap</span>
+<span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="m">1.005</span><span class="w"> </span><span class="n">remap</span>
 <span class="k">run</span><span class="w"> </span><span class="m">2000</span>
 <span class="k">next</span><span class="w"> </span><span class="n">var</span>
 <span class="k">jump</span><span class="w"> </span><span class="n">input.lammps</span><span class="w"> </span><span class="n">loop</span>
@@ -508,8 +519,8 @@ direction, allowing the system more freedom to deform.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Feel free to play with the factor (1.005) and the number of
-loop (45) to generate different cracking in the silica.</p>
+<p>Use different factor (1.005) or different number of
+loop (45) if you want to generate different defects in the silica.</p>
 <p>After the dilatation, a final equilibration step of 20
 picoseconds is performed. If you look at the dump file
 produced after executing this script, or at <a href="https://www.youtube.com/watch?v=8rBqYIcTgno&ab_channel=SimonGravelle" target="_blank">this video</a>,
@@ -531,12 +542,14 @@ can download the final state directly by clicking
 <p><span class="caption-text">Block of silica with holes and deformed bonds.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="justify docutils container">
+<div class="dropdown admonition">
+<p class="admonition-title">Passivated silica</p>
 <p>In ambient conditions, silicon (Si) atoms are chemically
 passivated by forming covalent bonds with hydrogen (H)
 atoms. For the sake of simplicity, we are not going to
-decorate our silica with hydrogen atoms in this tutorial.
-It would require a procedure to properly insert hydrogen
+decorate the silica with hydrogen atoms in this tutorial.
+It would require a procedure to properly insert hydrogen (as done in one
+exercise from this tutorial : <a class="reference internal" href="reactive-silicon-dioxide.html#reactive-silicon-dioxide-label"><span class="std std-ref">Reactive silicon dioxide</span></a>)
 atoms at the right place, or/and the use of another potential.</p>
 </div>
 <div class="patreon admonition">
@@ -546,7 +559,8 @@ atoms at the right place, or/and the use of another potential.</p>
 </section>
 <section id="adding-water">
 <h2>Adding water<a class="headerlink" href="#adding-water" title="Link to this heading">#</a></h2>
-<div class="justify docutils container">
+<div class="info admonition">
+<p class="admonition-title">About the GCMC method</p>
 <p>In order to add the water molecules to the silica, we are
 going to use the Monte Carlo method in the grand canonical
 ensemble (GCMC). In short, the system is put into contact
@@ -554,14 +568,19 @@ with a virtual reservoir of given chemical potential
 <span class="math notranslate nohighlight">\(\mu\)</span>, and multiple attempts to insert water
 molecules at random positions are made. Attempts are
 either accepted or rejected based on energy consideration.</p>
+<p>If you are interested in learning more about GCMC, I am developing
+another website with the goal of delving deeper into the algorithms: <a href="https://mdcourse.github.io" target="_blank">mdcourse.github.io</a>.</p>
+</div>
+<section id="using-hydrid-potentials">
+<h3>Using hydrid potentials<a class="headerlink" href="#using-hydrid-potentials" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
 <p>In a new folder called <em>Addingwater/</em>, add this template file
 for the water molecule: <a href="../../../../../inputs/level3/water-adsorption-in-silica/AddingWater/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>.</p>
 <p>Create a new input file, and copy the following lines into it:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialization</span>
-<span class="k">units</span><span class="w"> </span><span class="n">metal</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">metal</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">neighbor</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">bin</span>
@@ -575,28 +594,28 @@ for the water molecule: <a href="../../../../../inputs/level3/water-adsorption-i
 </div>
 <div class="justify docutils container">
 <p>There are several differences with the previous input files
-used in this tutorial because, from now on, the system will combine water and silica.</p>
-<p>We have to combine two force fields, Vashishta for
-SiO, and lj/cut/tip4p/long for TIP4P water model, which can
-be done using the hybrid/overlay pair style.</p>
-<p>We also need a kspace solver to solve the long
+used in this tutorial because, from now on, the system will combine water and silica.
+Two force fields are combined, Vashishta for
+SiO, and lj/cut/tip4p/long for TIP4P water model, which is
+done using the hybrid/overlay pair style.
+The kspace solver is used to calculate the long
 range Coulomb interactions associated with tip4p/long.
-Finally, we need to define the style for the bond and angle
-of the water molecules.</p>
-<p>Before going
-further, we also need to make a few change to our data file.
+Finally, the style for the bonds and angles
+of the water molecules are defined (although not important
+since its a rigid water model).</p>
+<p>Before going further, we also need to make a few change to our data file.
 Currently, <em>dilatedSiO.data</em> only includes two atom types, but
-we need four. Copy the previously generated dilatedSiO.data
-file within the present folder. It starts with:</p>
+we need four. Copy the previously generated <em>dilatedSiO.data</em>
+file within <em>Addingwater/</em>. Currently, <em>dilatedSiO.data</em> starts with:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">LAMMPS</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="n">write_data</span>,<span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="n">Jul</span><span class="w"> </span><span class="m">2021</span>,<span class="w"> </span><span class="n">timestep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90000</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">LAMMPS</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="n">write_data</span>,<span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="m">2023</span>,<span class="w"> </span><span class="n">timestep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">110000</span>,<span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">metal</span>
 
 <span class="m">576</span><span class="w"> </span><span class="n">atoms</span>
 <span class="m">2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
 
-<span class="m">0.910777522101565</span><span class="w"> </span><span class="m">19.67480018949893</span><span class="w"> </span><span class="n">xlo</span><span class="w"> </span><span class="n">xhi</span>
-<span class="m">2.1092682236518137</span><span class="w"> </span><span class="m">18.476309487947546</span><span class="w"> </span><span class="n">ylo</span><span class="w"> </span><span class="n">yhi</span>
-<span class="o">-</span><span class="m">4.1701120819606885</span><span class="w"> </span><span class="m">24.75568979356097</span><span class="w"> </span><span class="n">zlo</span><span class="w"> </span><span class="n">zhi</span>
+<span class="o">-</span><span class="m">5.512084438507452</span><span class="w"> </span><span class="m">26.09766215010596</span><span class="w"> </span><span class="n">xlo</span><span class="w"> </span><span class="n">xhi</span>
+<span class="o">-</span><span class="m">0.12771230207837192</span><span class="w"> </span><span class="m">20.71329001367807</span><span class="w"> </span><span class="n">ylo</span><span class="w"> </span><span class="n">yhi</span>
+<span class="m">3.211752393088563</span><span class="w"> </span><span class="m">17.373825318513106</span><span class="w"> </span><span class="n">zlo</span><span class="w"> </span><span class="n">zhi</span>
 
 <span class="n">Masses</span>
 
@@ -609,8 +628,8 @@ file within the present folder. It starts with:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>We need to make some changes for the addition of water
-molecules. Modify the file so that it looks like that
+<p>Make the following changes to allow for the addition of water
+molecules. Modify the file so that it looks like the following
 (with 4 atom types, 1 bond type, 1 angle type, and four masses):</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">LAMMPS</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="n">write_data</span>,<span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="n">Jul</span><span class="w"> </span><span class="m">2021</span>,<span class="w"> </span><span class="n">timestep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90000</span>
@@ -651,8 +670,7 @@ input.lammps file, by adding the system definition:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># System definition</span>
-<span class="k">read_data</span><span class="w"> </span><span class="n">dilatedSiO.data</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">dilatedSiO.data</span>
 <span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">TIP4P2005.txt</span>
 <span class="k">lattice</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="m">3</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">45585</span>
@@ -665,7 +683,7 @@ input.lammps file, by adding the system definition:</p>
 </div>
 <div class="justify docutils container">
 <p>After reading the data file and defining the h2omol molecule
-from the txt file, the create_atoms command is used to
+from the txt file, the <em>create_atoms</em> command is used to
 include some water molecules in the system on a
 simple cubic lattice. Not adding a molecule before starting the
 GCMC steps usually lead to failure. Note that here,
@@ -676,8 +694,7 @@ starting the simulation.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Simulation settings</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">vashishta</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Potential</span><span class="o">/</span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">vashishta</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Potential</span><span class="o">/</span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0057</span><span class="w"> </span><span class="m">4.42</span><span class="w"> </span><span class="c"># epsilonSi = 0.00403, sigmaSi = 3.69</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0043</span><span class="w"> </span><span class="m">3.12</span><span class="w"> </span><span class="c"># epsilonO = 0.0023, sigmaO = 3.091</span>
@@ -685,23 +702,27 @@ starting the simulation.</p>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
 <span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.9572</span>
 <span class="k">angle_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104.52</span>
+
 <span class="k">variable </span><span class="nv nv-Identifier">oxygen</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="s">&quot;type==3&quot;</span>
 <span class="k">group </span><span class="nv nv-Identifier">oxygen</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="n">oxygen</span>
 <span class="k">variable </span><span class="nv nv-Identifier">nO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(oxygen)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_nO</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">numbermolecule.dat</span>
+
 <span class="k">fix </span><span class="nv nv-Identifier">shak</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span>
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
-<p>The force field Vashishta applies only to Si and O of SiO,
+<p>The force field Vashishta applies only to Si (type 1) and O of SiO2 (type 2),
 and not to the O and H of H2O, thanks to the NULL
-parameters.</p>
+parameters used for atoms of types 3 and 4.</p>
 <p>Pair coefficients for lj/cut/tip4p/long are
 defined between O atoms, as well as between
-O(SiO)-O(H2O) and Si(SiO)-O(H2O).</p>
-<p>Finally, the number of oxygen atoms will be printed in the file
-numbermolecule.dat, and the shake algorithm is used to
+O(SiO)-O(H2O) and Si(SiO)-O(H2O). Therefore, the fluid-solid
+interactions will be set by Lennard Jones and Coulomb potential.</p>
+<p>The number of oxygen atoms from water molecule (i.e. the number of molecule)
+will be printed in the file <em>numbermolecule.dat</em>.</p>
+<p>The shake algorithm is used to
 maintain the shape of the water molecule over time. Some of
 these features have been seen in previous tutorials.</p>
 <p>Let us delete the overlapping water molecules, and print the
@@ -714,13 +735,15 @@ positions in a dump file:</p>
 </pre></div>
 </div>
 </div>
+</section>
+<section id="gcmc-simulation">
+<h3>GCMC simulation<a class="headerlink" href="#gcmc-simulation" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Let us make a first equilibration step:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Run</span>
-<span class="k">compute_modify</span><span class="w"> </span><span class="n">thermo_temp</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute_modify</span><span class="w"> </span><span class="n">thermo_temp</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">compute </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">compute_modify</span><span class="w"> </span><span class="n">ctH2O</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
@@ -734,12 +757,15 @@ positions in a dump file:</p>
 </pre></div>
 </div>
 </div>
-<div class="justify docutils container">
-<p>We use two different thermostats for SiO and for H2O, respectively. Using
+<div class="info admonition">
+<p class="admonition-title">On thermostating groups instead of the entire system</p>
+<p>Two different thermostats are used for SiO and for H2O, respectively. Using
 separate thermostat is usually better when the system contains two separate species, such as one solid and one
 liquid. It is particularly important to use two thermostats
-here, because the number of water molecules will fluctuate with time. We use
-a compute_modify ‘dynamic yes’ for water to specify that the
+here, because the number of water molecules will fluctuate with time.</p>
+</div>
+<div class="justify docutils container">
+<p>The compute_modify ‘dynamic yes’ for water is used to specify that the
 number of molecules is not constant.</p>
 <p>Finally, let us use the fix gcmc and perform the grand
 canonical Monte Carlo steps:</p>
@@ -747,12 +773,24 @@ canonical Monte Carlo steps:</p>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">tfac</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5.0</span><span class="o">/</span><span class="m">3.0</span>
-<span class="k">fix </span><span class="nv nv-Identifier">fgcmc</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">gcmc</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">65899</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="o">-</span><span class="m">0.5</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">tfac_insert</span><span class="w"> </span><span class="nv">${tfac}</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="n">shak</span><span class="w"> </span><span class="n">full_energy</span><span class="w"> </span><span class="n">pressure</span><span class="w"> </span><span class="m">10000</span>
-<span class="k">run</span><span class="w"> </span><span class="m">100000</span>
+<span class="k">variable </span><span class="nv nv-Identifier">xlo</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xlo</span><span class="o">+</span><span class="m">0.1</span>
+<span class="k">variable </span><span class="nv nv-Identifier">xhi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xhi</span><span class="o">-</span><span class="m">0.1</span>
+<span class="k">variable </span><span class="nv nv-Identifier">ylo</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">ylo</span><span class="o">+</span><span class="m">0.1</span>
+<span class="k">variable </span><span class="nv nv-Identifier">yhi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">yhi</span><span class="o">-</span><span class="m">0.1</span>
+<span class="k">variable </span><span class="nv nv-Identifier">zlo</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">zlo</span><span class="o">+</span><span class="m">0.1</span>
+<span class="k">variable </span><span class="nv nv-Identifier">zhi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">zhi</span><span class="o">-</span><span class="m">0.1</span>
+<span class="k">region </span><span class="nv nv-Identifier">system</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="nv">${xlo}</span><span class="w"> </span><span class="nv">${xhi}</span><span class="w"> </span><span class="nv">${ylo}</span><span class="w"> </span><span class="nv">${yhi}</span><span class="w"> </span><span class="nv">${zlo}</span><span class="w"> </span><span class="nv">${zhi}</span>
+<span class="k">fix </span><span class="nv nv-Identifier">fgcmc</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">gcmc</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">65899</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="o">-</span><span class="m">0.5</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">tfac_insert</span><span class="w"> </span><span class="nv">${tfac}</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="n">shak</span><span class="w"> </span><span class="n">full_energy</span><span class="w"> </span><span class="n">pressure</span><span class="w"> </span><span class="m">10000</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">system</span>
+<span class="k">run</span><span class="w"> </span><span class="m">25000</span>
 <span class="k">write_data</span><span class="w"> </span><span class="n">SiOwithwater.data</span>
 <span class="k">write_dump </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
 </div>
+</div>
+<div class="info admonition">
+<p class="admonition-title">Dirty fix</p>
+<p>The <em>system</em> was created to avoid the error “Fix gcmc region extends outside simulation box”
+which seems to occur with some LAMMPS version.</p>
 </div>
 <div class="justify docutils container">
 <p>The tfac_insert option ensures that the correct estimate is
@@ -770,7 +808,8 @@ remain in the system after the delete_atoms command. You can control
 that either using the log file, or using the <em>numbermolecule.dat</em> data file.</p>
 <p>Depending on your LAMMPS version, you may have to run LAMMPS
 on a single cpu core, due to some restrictions of the fix gcmc.</p>
-<p>You can see, by looking at the log file, that 324 molecules (the exact number may differ):</p>
+<p>You can see, by looking at the log file, that 324 molecules
+were added in total (the exact number may differ):</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
@@ -791,11 +830,18 @@ Deleted 318 angles, new total = 6
 </div>
 </div>
 <div class="justify docutils container">
-<p>After 100000 steps, you should see that the number of molecule did indeed fluctuate with time.
-This number will vary from one simulation to
-another, depending on the space available for insertion. The
-final number of molecules also depends on the imposed pressure,
-temperature, and on the interaction between water and silica.</p>
+<p>After 100000 steps, you should see that the number of molecules increases with time,
+and reaches a plateau:</p>
+</div>
+<figure class="align-default">
+<img alt="number of water molecules added by the LAMMPS gcmc" class="only-dark" src="../../_images/number_evolution-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="number of water molecules added by the LAMMPS gcmc" class="only-light" src="../../_images/number_evolution-light.png" />
+</figure>
+<div class="justify docutils container">
+<p>Note that the final number of molecules depends on the imposed pressure,
+temperature, and on the interaction between water and silica (its hydrophilicity).</p>
 <p>In my case, the final state looks like this:</p>
 </div>
 <figure class="align-default">
@@ -809,9 +855,15 @@ temperature, and on the interaction between water and silica.</p>
 </figure>
 <div class="justify docutils container">
 <p>Note that gcmc simulations of such dense phases are usually slow to converge due to the
-very low probability of successfully inserting a molecule. Here 100000 steps (or 100 ps)
-are not enough to reach equilibrium.</p>
+very low probability of successfully inserting a molecule. Here, the short simulation
+duration was made possible by the use of a huge pressure.</p>
 </div>
+<div class="info admonition">
+<p class="admonition-title">Vizualising varying number of molecules</p>
+<p>By default, VMD fails to properly render systems with varying number of atoms,
+but Ovito does it well.</p>
+</div>
+</section>
 </section>
 </section>
 
@@ -867,9 +919,17 @@ are not enough to reach equilibrium.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Water adsorption in silica</a><ul>
-<li><a class="reference internal" href="#generation-of-the-silica-block">Generation of the silica block</a></li>
+<li><a class="reference internal" href="#generation-of-the-silica-block">Generation of the silica block</a><ul>
+<li><a class="reference internal" href="#vashishta-potential">Vashishta potential</a></li>
+<li><a class="reference internal" href="#annealing-procedure">Annealing procedure</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#cracking-the-silica">Cracking the silica</a></li>
-<li><a class="reference internal" href="#adding-water">Adding water</a></li>
+<li><a class="reference internal" href="#adding-water">Adding water</a><ul>
+<li><a class="reference internal" href="#using-hydrid-potentials">Using hydrid potentials</a></li>
+<li><a class="reference internal" href="#gcmc-simulation">GCMC simulation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
