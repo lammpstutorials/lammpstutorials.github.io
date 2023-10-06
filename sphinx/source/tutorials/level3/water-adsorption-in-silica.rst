@@ -5,18 +5,18 @@ Water adsorption in silica
 
 .. container:: hatnote
 
-    Dealing with varying molecule number
-
-.. figure:: ../figures/level3/water-adsorption-in-silica/main-light.png
-    :height: 250
-    :alt: Water molecules adsorbed in silica SiO2 porous inorganic material
-    :class: only-light
-    :align: right
+    Dealing with a varying number of molecules
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/main-dark.png
     :height: 250
     :alt: Water molecules adsorbed in silica SiO2 porous inorganic material
     :class: only-dark
+    :align: right
+
+.. figure:: ../figures/level3/water-adsorption-in-silica/main-light.png
+    :height: 250
+    :alt: Water molecules adsorbed in silica SiO2 porous inorganic material
+    :class: only-light
     :align: right
 
 ..  container:: justify
