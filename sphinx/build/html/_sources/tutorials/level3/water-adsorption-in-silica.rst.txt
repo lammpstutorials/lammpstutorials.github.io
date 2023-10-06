@@ -390,7 +390,7 @@ Cracking the silica
     passivated by forming covalent bonds with hydrogen (H)
     atoms. For the sake of simplicity, we are not going to
     decorate the silica with hydrogen atoms in this tutorial.
-    It would require a procedure to properly insert hydrogen (as done in one 
+    This requires a procedure to properly insert hydrogen (as done in one 
     exercise from this tutorial : :ref:`reactive-silicon-dioxide-label`)
     atoms at the right place, or/and the use of another potential.
 

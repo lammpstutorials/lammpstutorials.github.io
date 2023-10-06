@@ -342,9 +342,9 @@ display dof_fnumber 64.000000
 display dof_focaldist 0.700000
 mol new dump.lammpstrj type lammpstrj first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
 mol delrep 0 top
-mol representation Lines 6.000000
+mol representation VDW 0.800000 47.000000
 mol color Name
-mol selection {all}
+mol selection {type 3 and x > 7.5 and x < 20 and z < 15}
 mol material Opaque
 mol addrep top
 mol selupdate 0 top 0
@@ -376,10 +376,9 @@ mol clipplane center 5 0 top {0.0 0.0 0.0}
 mol clipplane color  5 0 top {0.5 0.5 0.5 }
 mol clipplane normal 5 0 top {0.0 0.0 1.0}
 mol clipplane status 5 0 top {0}
-mol showrep top 0 0
-mol representation VDW 0.800000 47.000000
+mol representation VDW 0.400000 47.000000
 mol color Name
-mol selection {type 3}
+mol selection {type 4 and x > 7.5 and x < 20 and z < 15}
 mol material Opaque
 mol addrep top
 mol selupdate 1 top 0
@@ -411,9 +410,9 @@ mol clipplane center 5 1 top {0.0 0.0 0.0}
 mol clipplane color  5 1 top {0.5 0.5 0.5 }
 mol clipplane normal 5 1 top {0.0 0.0 1.0}
 mol clipplane status 5 1 top {0}
-mol representation VDW 0.400000 47.000000
+mol representation VDW 1.100000 47.000000
 mol color Name
-mol selection {type 4}
+mol selection {type 1 and x > 7.5 and x < 20 and z < 14}
 mol material Opaque
 mol addrep top
 mol selupdate 2 top 0
@@ -445,9 +444,9 @@ mol clipplane center 5 2 top {0.0 0.0 0.0}
 mol clipplane color  5 2 top {0.5 0.5 0.5 }
 mol clipplane normal 5 2 top {0.0 0.0 1.0}
 mol clipplane status 5 2 top {0}
-mol representation VDW 1.100000 47.000000
+mol representation VDW 0.800000 47.000000
 mol color Name
-mol selection {type 1}
+mol selection {type 2 and x > 7.5 and x < 20 and z < 14}
 mol material Opaque
 mol addrep top
 mol selupdate 3 top 0
@@ -479,45 +478,11 @@ mol clipplane center 5 3 top {0.0 0.0 0.0}
 mol clipplane color  5 3 top {0.5 0.5 0.5 }
 mol clipplane normal 5 3 top {0.0 0.0 1.0}
 mol clipplane status 5 3 top {0}
-mol representation VDW 0.800000 47.000000
-mol color Name
-mol selection {type 2}
-mol material Opaque
-mol addrep top
-mol selupdate 4 top 0
-mol colupdate 4 top 0
-mol scaleminmax top 4 0.000000 0.000000
-mol smoothrep top 4 0
-mol drawframes top 4 {now}
-mol clipplane center 0 4 top {0.0 0.0 0.0}
-mol clipplane color  0 4 top {0.5 0.5 0.5 }
-mol clipplane normal 0 4 top {0.0 0.0 1.0}
-mol clipplane status 0 4 top {0}
-mol clipplane center 1 4 top {0.0 0.0 0.0}
-mol clipplane color  1 4 top {0.5 0.5 0.5 }
-mol clipplane normal 1 4 top {0.0 0.0 1.0}
-mol clipplane status 1 4 top {0}
-mol clipplane center 2 4 top {0.0 0.0 0.0}
-mol clipplane color  2 4 top {0.5 0.5 0.5 }
-mol clipplane normal 2 4 top {0.0 0.0 1.0}
-mol clipplane status 2 4 top {0}
-mol clipplane center 3 4 top {0.0 0.0 0.0}
-mol clipplane color  3 4 top {0.5 0.5 0.5 }
-mol clipplane normal 3 4 top {0.0 0.0 1.0}
-mol clipplane status 3 4 top {0}
-mol clipplane center 4 4 top {0.0 0.0 0.0}
-mol clipplane color  4 4 top {0.5 0.5 0.5 }
-mol clipplane normal 4 4 top {0.0 0.0 1.0}
-mol clipplane status 4 4 top {0}
-mol clipplane center 5 4 top {0.0 0.0 0.0}
-mol clipplane color  5 4 top {0.5 0.5 0.5 }
-mol clipplane normal 5 4 top {0.0 0.0 1.0}
-mol clipplane status 5 4 top {0}
 mol rename top dump.lammpstrj
-set viewpoints([molinfo top]) {{{1 0 0 -10.1667} {0 1 0 -10.2807} {0 0 1 -10.4052} {0 0 0 1}} {{1 0 0 0} {0 1.00583e-07 1 0} {0 -1 1.00583e-07 0} {0 0 0 1}} {{0.0274062 0 0 0} {0 0.0274062 0 0} {0 0 0.0274062 0} {0 0 0 1}} {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}}
+set viewpoints([molinfo top]) {{{1 0 0 -10.1667} {0 1 0 -10.2807} {0 0 1 -10.4052} {0 0 0 1}} {{0.99913 0.0331865 0.025286 0} {0.0258303 -0.0160764 -0.999537 0} {-0.0327647 0.99932 -0.0169191 0} {0 0 0 1}} {{0.0273624 0 0 0} {0 0.0273624 0 0} {0 0 0.0273624 0} {0 0 0 1}} {{1 0 0 -0.11} {0 1 0 -0.03} {0 0 1 0} {0 0 0 1}}}
 lappend viewplist [molinfo top]
 set topmol [molinfo top]
-# done with molecule 0
+# done with molecule 1
 foreach v $viewplist {
   molinfo $v set {center_matrix rotate_matrix scale_matrix global_matrix} $viewpoints($v)
 }
@@ -543,7 +508,6 @@ color scale colors BlkW {0.0 0.0 0.0} {0.5 0.5 0.5} {1.0 1.0 1.0}
 color scale colors WBlk {1.0 1.0 1.0} {0.5 0.5 0.5} {0.0 0.0 0.0}
   color scale method RWB
   set colorcmds {
-    {color Display {Background} white}
     {color Display {BackgroundTop} black}
     {color Display {BackgroundBot} blue2}
     {color Display {FPS} white}
@@ -669,6 +633,8 @@ color scale colors WBlk {1.0 1.0 1.0} {0.5 0.5 0.5} {0.0 0.0 0.0}
     {color Segname {} blue}
     {color Conformation {all} blue}
     {color Molecule {0} blue}
+    {color Molecule {1} red}
+    {color Molecule {dump.lammpstrj} red}
     {color Structure {3_10_Helix} blue}
     {color Surface {Grasp} gray}
     {color Labels {Springs} orange}
