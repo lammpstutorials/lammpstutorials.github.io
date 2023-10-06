@@ -808,24 +808,24 @@ remain in the system after the delete_atoms command. You can control
 that either using the log file, or using the <em>numbermolecule.dat</em> data file.</p>
 <p>Depending on your LAMMPS version, you may have to run LAMMPS
 on a single cpu core, due to some restrictions of the fix gcmc.</p>
-<p>You can see, by looking at the log file, that 324 molecules
-were added in total (the exact number may differ):</p>
+<p>You can see, by looking at the log file, that 280 molecules
+were added by the <em>create_atoms</em> command (the exact number may differ):</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Created 972 atoms
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Created 840 atoms
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
-<p>You can also see that 318 molecules where immediately deleted,
-leaving 16 water molecules (the exact number may differ):</p>
+<p>You can also see that 258 molecules where immediately deleted,
+leaving 24 water molecules (the exact number may differ):</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id17">
 <div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Deleted 954 atoms, new total = 594
-Deleted 636 bonds, new total = 12
-Deleted 318 angles, new total = 6
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Deleted 774 atoms, new total = 642
+Deleted 516 bonds, new total = 44
+Deleted 258 angles, new total = 22
 </pre></div>
 </div>
 </div>
@@ -842,7 +842,8 @@ and reaches a plateau:</p>
 <div class="justify docutils container">
 <p>Note that the final number of molecules depends on the imposed pressure,
 temperature, and on the interaction between water and silica (its hydrophilicity).</p>
-<p>In my case, the final state looks like this:</p>
+<p>Here is the final state, with the oxygen of the
+water molecules represented in cyan to improve the contrast with the silica:</p>
 </div>
 <figure class="align-default">
 <img alt="silica block with water and crack" class="only-dark" src="../../_images/solvated-dark.png" />
@@ -850,7 +851,7 @@ temperature, and on the interaction between water and silica (its hydrophilicity
 <figure class="align-default" id="id18">
 <img alt="silica block with water and crack" class="only-light" src="../../_images/solvated-light.png" />
 <figcaption>
-<p><span class="caption-text">Cracked silica with a few water molecules.</span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
+<p><span class="caption-text">Cracked silica with adsorbed water molecules (in cyan).</span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">

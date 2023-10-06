@@ -678,25 +678,25 @@ GCMC simulation
     Depending on your LAMMPS version, you may have to run LAMMPS
     on a single cpu core, due to some restrictions of the fix gcmc.
 
-    You can see, by looking at the log file, that 324 molecules
-    were added in total (the exact number may differ):
+    You can see, by looking at the log file, that 280 molecules
+    were added by the *create_atoms* command (the exact number may differ):
 
 ..  code-block:: bw
     :caption: *from the log file*
 
-    Created 972 atoms
+    Created 840 atoms
 
 ..  container:: justify
 
-    You can also see that 318 molecules where immediately deleted,
-    leaving 16 water molecules (the exact number may differ):
+    You can also see that 258 molecules where immediately deleted,
+    leaving 24 water molecules (the exact number may differ):
 
 ..  code-block:: bw
     :caption: *from the log file*
 
-    Deleted 954 atoms, new total = 594
-    Deleted 636 bonds, new total = 12
-    Deleted 318 angles, new total = 6
+    Deleted 774 atoms, new total = 642
+    Deleted 516 bonds, new total = 44
+    Deleted 258 angles, new total = 22
 
 ..  container:: justify
 
@@ -716,7 +716,8 @@ GCMC simulation
     Note that the final number of molecules depends on the imposed pressure, 
     temperature, and on the interaction between water and silica (its hydrophilicity). 
 
-    In my case, the final state looks like this:
+    Here is the final state, with the oxygen of the
+    water molecules represented in cyan to improve the contrast with the silica:
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/solvated-dark.png
     :alt: silica block with water and crack
@@ -726,7 +727,7 @@ GCMC simulation
     :alt: silica block with water and crack
     :class: only-light
 
-    Cracked silica with a few water molecules.
+    Cracked silica with adsorbed water molecules (in cyan).
 
 ..  container:: justify
 
