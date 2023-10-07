@@ -1,4 +1,4 @@
-import numpy as np
+import os
 import matplotlib.pyplot as plt
 import matplotlib.transforms as mtransforms
 from matplotlib.ticker import AutoMinorLocator
@@ -100,9 +100,20 @@ def complete_panel(ax, xlabel, ylabel, cancel_x=False, cancel_y=False, font=font
         ax.tick_params(axis='x', which='both', colors=axis_color)
 
 def save_figure(fig, mode, git_root, path_figures, filename):
+    assert os.path.exists(git_root + path_figures)
     fig.tight_layout()
     if mode == 'light':
         plt.savefig(git_root + path_figures + filename + "-light.png", bbox_inches = 'tight', pad_inches = 0.062, transparent=True)
     else:
         plt.savefig(git_root + path_figures + filename + "-dark.png", bbox_inches = 'tight', pad_inches = 0.062, transparent=True)
     plt.show()
+
+def set_boundaries(plt, x_boundaries=None, x_ticks=None, y_boundaries=None, y_ticks=None):
+    if x_boundaries is not None:
+        plt.xlim(x_boundaries)
+    if x_ticks is not None:
+        plt.xticks(x_ticks)
+    if y_boundaries is not None:
+        plt.ylim(y_boundaries)
+    if y_ticks is not None:
+        plt.yticks(y_ticks)  
