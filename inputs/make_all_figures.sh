@@ -1,7 +1,5 @@
 
-
-
-
+#!/bin/bash
 
 for x in level3/water-adsorption-in-silica/*/plot*.ipynb;
 do 

@@ -700,8 +700,8 @@ GCMC simulation
 
 ..  container:: justify
 
-    After 100000 steps, you should see that the number of molecules increases with time, 
-    and reaches a plateau:
+    After just a few GCMC steps, you should see that the number of molecules increases with time.
+    When the crack is fully filled, the number of molecule reaches a plateau:
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/number_evolution-dark.png
     :alt: number of water molecules added by the LAMMPS gcmc
@@ -716,8 +716,8 @@ GCMC simulation
     Note that the final number of molecules depends on the imposed pressure, 
     temperature, and on the interaction between water and silica (its hydrophilicity). 
 
-    Here is the final state, with the oxygen of the
-    water molecules represented in cyan to improve the contrast with the silica:
+    Here is a snapshot of the final state, with the oxygen of the
+    water molecules represented in cyan:
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/solvated-dark.png
     :alt: silica block with water and crack
@@ -727,7 +727,7 @@ GCMC simulation
     :alt: silica block with water and crack
     :class: only-light
 
-    Cracked silica with adsorbed water molecules (in cyan).
+    Cracked silica with adsorbed water molecules (in cyan & while).
 
 ..  container:: justify
 
