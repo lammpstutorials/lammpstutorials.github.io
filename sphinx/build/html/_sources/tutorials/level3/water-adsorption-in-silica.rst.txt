@@ -386,13 +386,13 @@ Cracking the silica
 .. admonition:: Passivated silica
     :class: dropdown
 
-    In ambient conditions, silicon (Si) atoms are chemically
+    In ambient conditions, Some of the surface SiO2 atoms are chemically
     passivated by forming covalent bonds with hydrogen (H)
     atoms. For the sake of simplicity, we are not going to
-    decorate the silica with hydrogen atoms in this tutorial.
-    This requires a procedure to properly insert hydrogen (as done in one 
-    exercise from this tutorial : :ref:`reactive-silicon-dioxide-label`)
-    atoms at the right place, or/and the use of another potential.
+    add surface hydrogen atoms here. 
+    
+    An example of procedure allowing for properly inserting hydrogen atoms is given in one 
+    exercise from this tutorial: :ref:`reactive-silicon-dioxide-label`.
 
 .. include:: ../../contact/supportme.rst
 
