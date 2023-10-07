@@ -12,10 +12,10 @@ kspace_style pppm/tip4p 1.0e-4
 bond_style harmonic
 angle_style harmonic
 
-read_data dilatedSiO.data
+read_data SiOwithwater.data # dilatedSiO.data
 molecule h2omol TIP4P2005.txt
 lattice sc 3
-create_atoms 0 box mol h2omol 45585
+#create_atoms 0 box mol h2omol 45585
 lattice none 1
 
 group SiO type 1 2
@@ -33,13 +33,13 @@ angle_coeff 1 0 104.52
 variable oxygen atom "type==3"
 group oxygen dynamic all var oxygen
 variable nO equal count(oxygen)
-fix myat1 all ave/time 100 10 1000 v_nO file numbermolecule.dat
+#fix myat1 all ave/time 100 10 1000 v_nO file numbermolecule.dat
 
 fix shak H2O shake 1.0e-4 200 0 b 1 a 1 mol h2omol
 
-delete_atoms overlap 2 H2O SiO mol yes
+#delete_atoms overlap 2 H2O SiO mol yes
 
-dump dmp all atom 1000 dump.init.lammpstrj
+#dump dmp all atom 1000 dump.init.lammpstrj
 
 compute_modify thermo_temp dynamic yes
 compute ctH2O H2O temp
@@ -51,7 +51,7 @@ fix mynvt2 SiO nvt temp 300 300 0.1
 fix_modify mynvt2 temp ctSiO
 timestep 0.001
 thermo 1000
-run 5000
+#run 5000
 
 variable tfac equal 5.0/3.0
 variable xlo equal xlo+0.1
@@ -62,6 +62,17 @@ variable zlo equal zlo+0.1
 variable zhi equal zhi-0.1
 region system block ${xlo} ${xhi} ${ylo} ${yhi} ${zlo} ${zhi} 
 fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} group H2O shake shak full_energy pressure 10000 region system
-run 25000
+#run 25000
 write_data SiOwithwater.data
-write_dump all atom dump.lammpstrj
+#write_dump all atom dump.lammpstrj
+
+region forvideo block -3 23 5 19 5 16
+group in region forvideo
+group water_in intersect H2O in 
+group water_in include molecule
+group SiO_in intersect SiO in
+group forvideo union water_in SiO_in
+
+dump dmp forvideo atom 5 dump.lammpstrj
+
+run 2000
