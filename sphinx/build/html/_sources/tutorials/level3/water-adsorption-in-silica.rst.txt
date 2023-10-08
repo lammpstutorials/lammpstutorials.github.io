@@ -662,7 +662,7 @@ GCMC simulation
 .. admonition:: Dirty fix
     :class: info
 
-    The *system* was created to avoid the error "Fix gcmc region extends outside simulation box"
+    The region *system* was created to avoid the error "Fix gcmc region extends outside simulation box"
     which seems to occur with some LAMMPS version.
 
 ..  container:: justify
