@@ -926,7 +926,7 @@ Post-mortem analysis (Python)
 .. container:: justify
 
    The array nbond_vs_time contains the number of bond as a function of time, and 
-   lbond_vs_time the bond length:
+   lbond_vs_time the bond length. Let us plot both of them:
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/bond-dark.png
    :alt: plot of the bond length and distance versus time
@@ -936,7 +936,7 @@ Post-mortem analysis (Python)
    :alt: plot of the bond length and distance versus time
    :class: only-light
 
-   Evolution of the bond length (left) and number (right) as a function of time.
+   Evolution of the bond length and bond number as a function of time.
 
 .. include:: ../../contact/accessfile.rst
 

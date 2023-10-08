@@ -19,7 +19,7 @@ colors = {
   "darkgray": [0.9, 0.9, 0.9],
 }
 
-def add_subplotlabels(fig, ax, labels, shift=-1.5, specific_shift=None):
+def add_subplotlabels(fig, ax, labels, shift=-1.5, specific_shift=None, color=None):
     """Add a labels to each axis of a figure."""
     assert len(ax) == len(labels)
 
@@ -30,15 +30,27 @@ def add_subplotlabels(fig, ax, labels, shift=-1.5, specific_shift=None):
         else:
             trans = mtransforms.ScaledTranslation(
                 specific_shift[i], 0, fig.dpi_scale_trans) 
-        ax[i].text(
-            0.0,
-            1.0,
-            subplotlabel,
-            transform=ax[i].transAxes + trans,
-            va="top",
-            bbox=dict(facecolor="white", alpha=0.5, edgecolor="none", pad=3.0),
-            fontdict = font
-        )
+        if color is None:
+            ax[i].text(
+                0.0,
+                1.0,
+                subplotlabel,
+                transform=ax[i].transAxes + trans,
+                va="top",
+                bbox=dict(facecolor="white", alpha=0.5, edgecolor="none", pad=3.0),
+                fontdict = font,
+            )
+        else:
+            ax[i].text(
+                0.0,
+                1.0,
+                subplotlabel,
+                transform=ax[i].transAxes + trans,
+                va="top",
+                bbox=dict(facecolor="white", alpha=0.5, edgecolor="none", pad=3.0),
+                fontdict = font,
+                color=color
+            )     
 
 
 def complete_panel(ax, xlabel, ylabel, cancel_x=False, cancel_y=False, font=font, fontsize=fontsize, linewidth=2, tickwidth1=2.5, tickwidth2=2, legend=True, ncol=1, locator_x = 2, locator_y = 2, title=None, axis_color=None):
