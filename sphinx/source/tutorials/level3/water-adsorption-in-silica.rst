@@ -773,17 +773,17 @@ Apply GCMC to water in ZIF-8
     :align: right
 
 ..  container:: justify
-
-    Download the initial Zif-8 |Zif-8-structure| and |Zif-8-parameters| by clicking here.
-    Download this new |water-template| as well.
-    Use the same protocole to add water to the system. A snapshot of the system with a 
+    
+    Use the same protocole as the one implemented in this tutorial to add water
+    molecules to a Zif-8 nanoporous material. A snapshot of the system with a 
     few water molecules is presented on the right.
 
-    The ZIF-8 structure is made of 7 atom types (C1, C2, C3, H2, H3, N, Zn), connected
+    Download the initial Zif-8 |Zif-8-structure|, the |Zif-8-parameters| file, and this
+    new |water-template|. The ZIF-8 structure is made of 7 atom types (C1, C2, C3, H2, H3, N, Zn), connected
     by bonds, angles, dihedrals, and impropers. It uses the same *pair_style* as water,
     so there is no need to use the *hybrid* functionality (see the hints below).
 
-    Here, water occupies indexes 1 and 2, instead of 3 and 4 in the case of SiO2.
+    Note that, here, water occupies the atom types 1 and 2, instead of 3 and 4 in the case of SiO2.
 
 .. admonition:: Hints: *pair_style* and *special_bonds*
     :class: info
