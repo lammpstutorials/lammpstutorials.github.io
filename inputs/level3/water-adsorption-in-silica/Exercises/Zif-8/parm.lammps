@@ -1,0 +1,163 @@
+# LAMMPS parameter script
+# author : Simon Gravelle
+# lammpstutorials.github.io
+
+
+###########
+## Water ##
+###########
+
+
+# Pair Coeffs and charges
+
+variable OW index 1
+variable HW index 2
+
+set type ${OW} charge -1.054
+set type ${HW} charge 0.527
+
+pair_coeff ${OW} ${OW} 0.1848 3.165
+pair_coeff ${HW} ${HW} 0.0000 0.000
+
+
+# Bond Coeffs
+
+variable OW_HW index 1
+
+bond_coeff ${OW_HW} 0.0 0.9572
+
+
+# Angle Coeffs
+
+variable HW_OW_HW index 1
+
+angle_coeff ${HW_OW_HW} 0 104.52
+
+
+################################
+## Zif-8 (credit : FX Coudert) #
+################################
+
+
+# Pair Coeffs and charges
+
+variable C1 index 3
+variable C2 index 4
+variable C3 index 5
+variable H2 index 6
+variable H3 index 7
+variable N index 8
+variable Zn index 9
+
+set type ${Zn} charge 0.736043478261
+set type ${N} charge -0.300956521739
+set type ${C1} charge 0.433743478261
+set type ${C2} charge -0.192556521739
+set type ${C3} charge -0.602556521739
+set type ${H2} charge 0.158343478261
+set type ${H3} charge 0.157043478261
+
+pair_coeff ${Zn} ${Zn} 0.0125 1.960
+pair_coeff ${N} ${N} 0.1700 3.250
+pair_coeff ${C1} ${C1} 0.0860 3.400
+pair_coeff ${C2} ${C2} 0.0860 3.400
+pair_coeff ${C3} ${C3} 0.1094 3.400
+pair_coeff ${H2} ${H2} 0.0150 2.511
+pair_coeff ${H3} ${H3} 0.0157 2.650
+
+
+# Bond Coeffs
+
+variable C1_C3 index 2
+variable C1_N index 3
+variable C2_C2 index 4
+variable C2_H2 index 5
+variable C2_N index 6
+variable C3_H3 index 7
+variable N_Zn index 8
+
+bond_coeff ${C1_C3} 346.543 1.490
+bond_coeff ${C1_N} 488.000 1.335
+bond_coeff ${C2_C2} 540.249 1.350
+bond_coeff ${C2_H2} 367.000 1.080
+bond_coeff ${C2_N} 440.2210 1.370
+bond_coeff ${C3_H3} 340.000 1.090
+bond_coeff ${N_Zn} 78.500 2.011
+
+
+# Angle Coeffs
+
+variable C1_C3_H3 index 2
+variable C1_N_C2 index 3
+variable C1_N_Zn index 4
+variable C2_C2_H2 index 5
+variable C2_C2_N index 6
+variable C2_N_Zn index 7
+variable C3_C1_N index 8
+variable H2_C2_N index 9
+variable H3_C3_H3 index 10
+variable N_C1_N index 11
+variable N_Zn_N index 12
+
+angle_coeff ${C1_C3_H3} 48.088 109.32
+angle_coeff ${C1_N_C2} 71.254 105.27
+angle_coeff ${C1_N_Zn} 48.680 128.33
+angle_coeff ${C2_C2_H2} 49.451 125.67
+angle_coeff ${C2_C2_N} 76.750 108.65
+angle_coeff ${C2_N_Zn} 32.477 126.40
+angle_coeff ${C3_C1_N} 66.015 123.92
+angle_coeff ${H2_C2_N} 49.954 125.68
+angle_coeff ${H3_C3_H3} 35.000 109.50
+angle_coeff ${N_C1_N} 75.484 112.16
+angle_coeff ${N_Zn_N} 35.240 109.48
+
+
+# Dihedrals Coeffs
+
+variable C1_N_Zn_N index 1
+variable C2_C2_N_C1 index 2
+variable C2_C2_N_Zn index 3
+variable C2_N_Zn_N index 4
+variable C3_C1_N_C2 index 5
+variable C3_C1_N_Zn index 6
+variable H2_C2_C2_H2 index 7
+variable H2_C2_C2_N index 8
+variable H2_C2_N_C1 index 9
+variable H2_C2_N_Zn index 10
+variable H3_C3_C1_N index 11
+variable N_C1_N_C2 index 12
+variable N_C1_N_Zn index 13
+variable N_C2_C2_N index 14
+
+variable X_C2_N_X equal 2.325
+variable X_C2_C2_X equal 5.150
+variable X_C1_N_X equal 5.000
+
+dihedral_coeff * 0.0 0 0 0.0
+dihedral_coeff ${C2_C2_N_C1} ${X_C2_N_X} 2 180 0.0
+dihedral_coeff ${C2_C2_N_Zn} ${X_C2_N_X} 2 180 0.0
+dihedral_coeff ${H2_C2_N_Zn} ${X_C2_N_X} 2 180 0.0
+dihedral_coeff ${H2_C2_N_C1} ${X_C2_N_X} 2 180 0.0
+dihedral_coeff ${C3_C1_N_C2} ${X_C1_N_X} 2 180 0.0
+dihedral_coeff ${C3_C1_N_Zn} ${X_C1_N_X} 2 180 0.0
+dihedral_coeff ${N_C1_N_C2} ${X_C1_N_X} 2 180 0.0
+dihedral_coeff ${N_C1_N_Zn} ${X_C1_N_X} 2 180 0.0
+dihedral_coeff ${H2_C2_C2_H2} ${X_C2_C2_X} 2 180 0.0
+dihedral_coeff ${H2_C2_C2_N} ${X_C2_C2_X} 2 180 0.0
+dihedral_coeff ${N_C2_C2_N} ${X_C2_C2_X} 2 180 0.0
+
+
+# Impropers Coeffs
+
+variable C1_C3_H3_H3 index 1
+variable C1_N_C2_Zn index 2
+variable C2_C2_H2_N index 3
+variable C3_C1_N_N index 4
+variable H3_C3_H3_H3 index 5
+variable N_Zn_N_N index 6
+
+improper_coeff * 0 0
+
+improper_coeff ${C1_N_C2_Zn} 2.0 180.0
+improper_coeff ${C2_C2_H2_N} 2.0 180.0
+improper_coeff ${C3_C1_N_N} 2.0 180.0
