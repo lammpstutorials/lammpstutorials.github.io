@@ -781,9 +781,9 @@ Apply GCMC to water in ZIF-8
 
     The ZIF-8 structure is made of 7 atom types (C1, C2, C3, H2, H3, N, Zn), connected
     by bonds, angles, dihedrals, and impropers. It uses the same *pair_style* as water,
-    so there is no need to use *hybrid* (see the hints below).
+    so there is no need to use the *hybrid* functionality (see the hints below).
 
-    Here, water occupies indexes 1 and 2 here, instead of 3 and 4 in the case of SiO2.
+    Here, water occupies indexes 1 and 2, instead of 3 and 4 in the case of SiO2.
 
 .. admonition:: Hints: *pair_style* and *special_bonds*
     :class: info
