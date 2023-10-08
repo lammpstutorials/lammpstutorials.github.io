@@ -1,0 +1,47 @@
+# Initialisation
+
+units metal
+atom_style molecular
+boundary p p p
+pair_style airebo 2.5 1 1
+
+read_data cnt_atom.data
+pair_coeff * * CH.airebo C
+
+change_box all x final -40 40 y final -40 40 z final -80 80
+
+group carbon_atoms type 1
+variable carbon_xcm equal -1*xcm(carbon_atoms,x)
+variable carbon_ycm equal -1*xcm(carbon_atoms,y)
+variable carbon_zcm equal -1*xcm(carbon_atoms,z)
+displace_atoms carbon_atoms move ${carbon_xcm} ${carbon_ycm} ${carbon_zcm}
+
+variable zmax equal bound(carbon_atoms,zmax)+2.5
+variable zmin equal bound(carbon_atoms,zmin)-2.5
+region rtop block INF INF INF INF ${zmax} INF
+region rbot block INF INF INF INF INF ${zmin}
+region rmid block INF INF INF INF ${zmin} ${zmax}
+group carbon_top region rtop
+group carbon_bot region rbot
+group carbon_mid region rmid
+
+# velocity carbon_mid create ${T} 48455 mom yes rot yes
+
+# delete_atoms random fraction 0.005 yes all NULL 482793
+
+fix mynve all nve
+compute Tmid carbon_mid temp
+fix myber carbon_mid temp/berendsen 1 1000 0.1
+fix_modify myber temp Tmid
+
+dump mydmp all atom 1000 dump.lammpstrj
+
+thermo 100
+thermo_modify temp Tmid
+
+timestep 0.0005
+#run 5000
+
+# 0.15 A/ps = 30 m/s
+#velocity carbon_top set NULL NULL 1.5
+run 28000
