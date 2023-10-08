@@ -1,6 +1,6 @@
 #!/usr/local/bin/vmd
-# VMD script written by save_state $Revision: 1.47 $
-# VMD version: 1.9.3
+# VMD script written by save_state $Revision: 1.48 $
+# VMD version: 1.9.4a57
 set viewplist {}
 set fixedlist {}
 proc vmdrestoremymaterials {} {
@@ -219,9 +219,9 @@ proc vmdrestoremymaterials {} {
   material change outlinewidth RTChrome 0.000000
   material change transmode RTChrome 0.000000
   material change ambient perso1 0.000000
-  material change diffuse perso1 0.530000
-  material change specular perso1 0.370000
-  material change shininess perso1 0.330000
+  material change diffuse perso1 0.520000
+  material change specular perso1 0.210000
+  material change shininess perso1 0.390000
   material change mirror perso1 0.000000
   material change opacity perso1 1.000000
   material change outline perso1 0.000000
@@ -332,7 +332,7 @@ display eyesep       0.065000
 display focallength  2.000000
 display height       1.000000
 display distance     -2.000000
-display projection   Perspective
+display projection   Orthographic
 display nearclip set 0.500000
 display farclip  set 10.000000
 display depthcue   off
@@ -420,7 +420,7 @@ mol clipplane color  5 1 top {0.5 0.5 0.5 }
 mol clipplane normal 5 1 top {0.0 0.0 1.0}
 mol clipplane status 5 1 top {0}
 mol rename top dump.lammpstrj
-set viewpoints([molinfo top]) {{{1 0 0 0.535672} {0 1 0 0.288029} {0 0 1 -0.80521} {0 0 0 1}} {{0.980229 -0.179731 -0.0825587 0} {-0.161286 -0.484754 -0.859635 0} {0.114482 0.855969 -0.504164 0} {0 0 0 1}} {{0.0370749 0 0 0} {0 0.0370749 0 0} {0 0 0.0370749 0} {0 0 0 1}} {{1 0 0 -0.01} {0 1 0 -0.01} {0 0 1 0} {0 0 0 1}}}
+set viewpoints([molinfo top]) {{{1 0 0 0.240886} {0 1 0 0.159584} {0 0 1 0.180328} {0 0 0 1}} {{0.480286 0.815059 0.324041 0} {0.821865 -0.289158 -0.490837 0} {-0.306363 0.502061 -0.808749 0} {0 0 0 1}} {{0.0325141 0 0 0} {0 0.0325141 0 0} {0 0 0.0325141 0} {0 0 0 1}} {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}}
 lappend viewplist [molinfo top]
 set topmol [molinfo top]
 # done with molecule 1
@@ -447,6 +447,30 @@ color scale colors GWB {0.0 1.0 0.0} {1.0 1.0 1.0} {0.0 0.0 1.0}
 color scale colors BWG {0.0 0.0 1.0} {1.0 1.0 1.0} {0.0 1.0 0.0}
 color scale colors BlkW {0.0 0.0 0.0} {0.5 0.5 0.5} {1.0 1.0 1.0}
 color scale colors WBlk {1.0 1.0 1.0} {0.5 0.5 0.5} {0.0 0.0 0.0}
+color scale colors cividis {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors viridis {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors magma {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors plasma {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors inferno {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_L3 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_L8 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_L9 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_L16 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_L17 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_L18 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_L19 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_L20 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_C2 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_C4 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_C6 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_C7 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_I1 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_I2 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_I3 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_D11 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_D12 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors turbo {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
+color scale colors CET_R2 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
   color scale method RWB
   set colorcmds {
     {color Display {BackgroundTop} black}
@@ -589,7 +613,7 @@ color scale colors WBlk {1.0 1.0 1.0} {0.5 0.5 0.5} {0.0 0.0 0.0}
   color change rgb 6 0.6000000238418579 0.6000000238418579 0.6000000238418579
   color change rgb 7 0.0 1.0 0.0
   color change rgb 9 1.0 0.6000000238418579 0.6000000238418579
-  color change rgb 10 0.0 0.3799999952316284 0.5
+  color change rgb 10 0.0 0.3296642601490021 0.7014925479888916
   color change rgb 11 0.6499999761581421 0.0 0.6499999761581421
   color change rgb 12 0.5 0.8999999761581421 0.4000000059604645
   color change rgb 13 0.8999999761581421 0.4000000059604645 0.699999988079071
@@ -598,7 +622,7 @@ color scale colors WBlk {1.0 1.0 1.0} {0.5 0.5 0.5} {0.0 0.0 0.0}
   color change rgb 17 0.8799999952316284 0.9700000286102295 0.019999999552965164
   color change rgb 18 0.550000011920929 0.8999999761581421 0.019999999552965164
   color change rgb 19 0.0 0.8999999761581421 0.03999999910593033
-  color change rgb 20 0.0 0.6800000071525574 0.41999998688697815
+  color change rgb 20 0.0 1.0 0.617647111415863
   color change rgb 21 0.0 0.8799999952316284 1.0
   color change rgb 22 0.0 0.5299999713897705 1.0
   color change rgb 23 0.019999999552965164 0.3799999952316284 0.6700000166893005
