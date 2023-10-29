@@ -94,11 +94,11 @@ def complete_panel(ax, xlabel, ylabel, cancel_x=False, cancel_y=False, font=font
     ax.yaxis.set_minor_locator(minor_locator_y)
 
     if legend:
-        ax.legend(frameon=False, fontsize=fontsize, 
+        ax.legend(frameon=False, fontsize=fontsize, labelcolor=axis_color,
                 loc='best', handletextpad=0.5, ncol=ncol,
                 handlelength = 0.86, borderpad = 0.3, 
                 labelspacing=0.3)
-        
+                
     if axis_color is not None:
         ax.xaxis.label.set_color(axis_color)
         ax.yaxis.label.set_color(axis_color)
