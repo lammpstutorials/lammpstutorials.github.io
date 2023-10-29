@@ -259,8 +259,6 @@ Annealing procedure
 
    <a href="../../../../../inputs/level3/water-adsorption-in-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
 
-..  container:: justify
-
 .. admonition:: Tip for research project
     :class: dropdown
 

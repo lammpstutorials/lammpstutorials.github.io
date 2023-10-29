@@ -5,7 +5,7 @@
 # define some variables
 variable sigma equal 3.405 # Angstrom
 variable epsilon equal 0.238 # Kcal/mol
-variable U0 equal 2*${epsilon} # Kcal/mol
+variable U0 equal 1.5*${epsilon} # Kcal/mol
 variable dlt equal 0.5 # Angstrom
 variable x0 equal 5.0 # Angstrom
 
@@ -17,9 +17,9 @@ pair_modify shift yes
 boundary p p p
 
 # define the system
-region myreg block -25 25 -20 20 -20 20
+region myreg block -25 25 -5 5 -25 25
 create_box 1 myreg
-create_atoms 1 random 60 341341 myreg
+create_atoms 1 random 60 341341 myreg overlap 1.0 maxtry 50
 
 # settings
 mass * 39.95
@@ -35,26 +35,22 @@ variable F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^
 fix myadf all addforce v_F 0.0 0.0 energy v_U
 
 fix mynve all nve
-fix mylgv all langevin 119.8 119.8 100 1530917
+fix mylgv all langevin 119.8 119.8 50 1530917
 
-region mymes block -5 5 INF INF INF INF 
+region mymes block -${x0} ${x0} INF INF INF INF 
 variable n_center equal count(all,mymes)
-fix myat all ave/time 100 500 50000 v_n_center file density_evolution.dat
+fix myat all ave/time 10 50 500 v_n_center file density_evolution.dat
 
 timestep 2.0
-thermo 100000
-run 2000000
+thermo 10000
+run 500000
+
 unfix myat # important
 reset_timestep 0
 
 compute cc1 all chunk/atom bin/1d x 0.0 1.0
-fix myac all ave/chunk 10 1000000 10000000 cc1 density/number file density_profile_10run.dat
-dump mydmp all atom 1000000 dump.lammpstrj
+fix myac all ave/chunk 10 400000 4000000 cc1 density/number file density_profile_8ns.dat
+dump mydmp all atom 200000 dump.lammpstrj
 
-run 10000000
-
-# uncomment to perform long run
-# unfix myac
-# reset_timestep 0
-# fix myac all ave/chunk 10 10000000 100000000 cc1 density/number file density_profile_100run.dat
-# run 100000000
+thermo 100000
+run 4000000

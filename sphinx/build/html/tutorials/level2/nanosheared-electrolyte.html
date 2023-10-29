@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=7e8505bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=78146171" />
     
     
 
@@ -188,7 +188,7 @@
 <p class="caption" role="heading"><span class="caption-text">Level 3</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../level3/water-adsorption-in-silica.html">Water adsorption in silica</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../level3/free-energy-calculation.html">Simple free energy calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level3/free-energy-calculation.html">Free energy calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../level3/reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
@@ -288,7 +288,7 @@ input file:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># ------------- System definition</span>
 <span class="k">lattice</span><span class="w"> </span><span class="n">fcc</span><span class="w"> </span><span class="m">4.04</span>
 <span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">13</span><span class="w"> </span><span class="m">13</span>
-<span class="k">create_box</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="k">create_box </span><span class="nv nv-Identifier">5</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="w">            </span><span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="w">            </span><span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="w">            </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
@@ -475,7 +475,7 @@ potential (also 0) and the equilibrium angle is in degree.</p>
 <span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="m">1.0</span>
 <span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="o">-</span><span class="m">1.0</span>
 
-<span class="k">write_data</span><span class="w"> </span><span class="n">system.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 <span class="k">write_dump </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
 </div>
@@ -654,7 +654,7 @@ others) and run for 1000 timesteps (with the command thermo
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">50</span>
 <span class="k">run</span><span class="w"> </span><span class="m">10000</span>
-<span class="k">write_data</span><span class="w"> </span><span class="n">system.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 </pre></div>
 </div>
 </div>
@@ -770,16 +770,16 @@ calculates the difference between the two centers of mass.</p>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="k">fix_modify</span><span class="w"> </span><span class="n">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
 <span class="k">compute </span><span class="nv nv-Identifier">twall</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="k">fix_modify</span><span class="w"> </span><span class="n">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">twall</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">twall</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">INIT</span>
 
 <span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
 <span class="k">run</span><span class="w"> </span><span class="m">20000</span>
-<span class="k">write_data</span><span class="w"> </span><span class="n">system.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 </pre></div>
 </div>
 </div>
@@ -871,10 +871,10 @@ create a new input that starts like the previous ones:</p>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="k">fix_modify</span><span class="w"> </span><span class="n">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
 <span class="k">compute </span><span class="nv nv-Identifier">twall</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="k">fix_modify</span><span class="w"> </span><span class="n">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">twall</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">twall</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">INIT</span>
 </pre></div>
@@ -894,8 +894,8 @@ and set the value of the velocity along x:</p>
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
-<span class="k">velocity</span><span class="w"> </span><span class="n">gwallbot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">-</span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
-<span class="k">velocity</span><span class="w"> </span><span class="n">gwalltop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">-</span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 </pre></div>
 </div>
 </div>
@@ -933,7 +933,7 @@ comment/uncomment the appropriate lines):</p>
 <span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
 <span class="c">#run 200000 # tag:200ps</span>
 <span class="k">run</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="c"># tag:20ps</span>
-<span class="k">write_data</span><span class="w"> </span><span class="n">system.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 </pre></div>
 </div>
 </div>

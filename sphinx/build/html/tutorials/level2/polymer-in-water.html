@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=7e8505bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=78146171" />
     
     
 
@@ -188,7 +188,7 @@
 <p class="caption" role="heading"><span class="caption-text">Level 3</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../level3/water-adsorption-in-silica.html">Water adsorption in silica</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../level3/free-energy-calculation.html">Simple free energy calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level3/free-energy-calculation.html">Free energy calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../level3/reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
@@ -355,7 +355,7 @@ angle types, and 14 dihedrals types.</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in pureH2O/input.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">40</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span>
-<span class="k">create_box</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="k">create_box </span><span class="nv nv-Identifier">7</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">dihedral</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="o">&amp;</span>
@@ -564,7 +564,7 @@ Finally, let us set the timestep to 2.0 fs, and run the simulation for 50 ps:</p
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in pureH2O/input.lammps</em></span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">2.0</span>
 <span class="k">run</span><span class="w"> </span><span class="m">25000</span>
-<span class="k">write_data</span><span class="w"> </span><span class="n">H2O.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">H2O.data</span>
 </pre></div>
 </div>
 </div>
@@ -803,7 +803,7 @@ the PEG is in vacuum:</p>
 <div class="literal-block-wrapper docutils container" id="id19">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
-<span class="k">dump_modify</span><span class="w"> </span><span class="n">mydmp</span><span class="w"> </span><span class="n">append</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="n">append</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
 <span class="k">variable </span><span class="nv nv-Identifier">mytemp</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_mytemp</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">temperature.dat</span>
@@ -819,7 +819,7 @@ Finally let us run the simulation for a very short time (10 ps):</p>
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in singlePEG/input.lammps</em></span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">1</span>
 <span class="k">run</span><span class="w"> </span><span class="m">10000</span>
-<span class="k">write_data</span><span class="w"> </span><span class="n">PEG.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">PEG.data</span>
 </pre></div>
 </div>
 </div>
@@ -966,7 +966,7 @@ final state in a data file:</p>
 <div class="literal-block-wrapper docutils container" id="id29">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in mergePEGH2O/input.lammps</em></span><a class="headerlink" href="#id29" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">10000</span>
-<span class="k">write_data</span><span class="w"> </span><span class="n">mix.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">mix.data</span>
 </pre></div>
 </div>
 </div>

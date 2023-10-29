@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=7e8505bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=78146171" />
     
     
 
@@ -188,7 +188,7 @@
 <p class="caption" role="heading"><span class="caption-text">Level 3</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../level3/water-adsorption-in-silica.html">Water adsorption in silica</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../level3/free-energy-calculation.html">Simple free energy calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level3/free-energy-calculation.html">Free energy calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../level3/reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
@@ -470,7 +470,7 @@ are not symmetric with respect to (0, 0, 0):</p>
 <span class="k">variable </span><span class="nv nv-Identifier">carbon_xcm</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="o">*</span><span class="n">xcm</span><span class="nv">(carbon_atoms,x)</span>
 <span class="k">variable </span><span class="nv nv-Identifier">carbon_ycm</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="o">*</span><span class="n">xcm</span><span class="nv">(carbon_atoms,y)</span>
 <span class="k">variable </span><span class="nv nv-Identifier">carbon_zcm</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="o">*</span><span class="n">xcm</span><span class="nv">(carbon_atoms,z)</span>
-<span class="k">displace_atoms</span><span class="w"> </span><span class="n">carbon_atoms</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="nv">${carbon_xcm}</span><span class="w"> </span><span class="nv">${carbon_ycm}</span><span class="w"> </span><span class="nv">${carbon_zcm}</span>
+<span class="k">displace_atoms </span><span class="nv nv-Identifier">carbon_atoms</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="nv">${carbon_xcm}</span><span class="w"> </span><span class="nv">${carbon_ycm}</span><span class="w"> </span><span class="nv">${carbon_zcm}</span>
 </pre></div>
 </div>
 </div>
@@ -563,11 +563,11 @@ system. Add the following lines to input.lammps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity</span><span class="w"> </span><span class="n">carbon_mid</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">compute </span><span class="nv nv-Identifier">Tmid</span><span class="w"> </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">100</span>
-<span class="k">fix_modify</span><span class="w"> </span><span class="n">myber</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tmid</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tmid</span>
 </pre></div>
 </div>
 </div>
@@ -612,8 +612,8 @@ following commands:</p>
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="w"> </span><span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="n">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="n">carbon_bot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="w"> </span><span class="k">velocity </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="w"> </span><span class="k">velocity </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 </pre></div>
 </div>
 </div>
@@ -706,12 +706,12 @@ use the loop function of LAMMPS.</p>
 <div class="literal-block-wrapper docutils container" id="id17">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">var</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">50</span>
-<span class="w">    </span><span class="n">label</span><span class="w"> </span><span class="n">loop</span>
-<span class="w">    </span><span class="n">displace_atoms</span><span class="w"> </span><span class="n">carbon_top</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.1</span>
-<span class="w">    </span><span class="n">displace_atoms</span><span class="w"> </span><span class="n">carbon_bot</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">-</span><span class="m">0.1</span>
+<span class="w">    </span><span class="k">label </span><span class="sc">loop</span>
+<span class="w">    </span><span class="k">displace_atoms </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.1</span>
+<span class="w">    </span><span class="k">displace_atoms </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">-</span><span class="m">0.1</span>
 <span class="w">    </span><span class="n">run</span><span class="w"> </span><span class="m">1000</span>
-<span class="w">    </span><span class="n">next</span><span class="w"> </span><span class="n">var</span>
-<span class="w">    </span><span class="n">jump</span><span class="w"> </span><span class="n">input.lammps</span><span class="w"> </span><span class="n">loop</span>
+<span class="w">    </span><span class="k">next </span><span class="nv nv-Identifier">var</span>
+<span class="w">    </span><span class="k">jump </span><span class="sc">input.lammps</span><span class="w"> </span><span class="n">loop</span>
 </pre></div>
 </div>
 </div>
@@ -744,8 +744,8 @@ must last 5 / 0.0005 = 10000 femtoseconds.</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id18">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity</span><span class="w"> </span><span class="n">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0.0005</span>
-<span class="k">velocity</span><span class="w"> </span><span class="n">carbon_bot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="o">-</span><span class="m">0.0005</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0.0005</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="o">-</span><span class="m">0.0005</span>
 <span class="k">run</span><span class="w"> </span><span class="m">10000</span>
 </pre></div>
 </div>
@@ -868,7 +868,7 @@ The rest of the script is very similar to the previous one:</p>
 <span class="k">variable </span><span class="nv nv-Identifier">carbon_xcm</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="o">*</span><span class="n">xcm</span><span class="nv">(carbon_atoms,x)</span>
 <span class="k">variable </span><span class="nv nv-Identifier">carbon_ycm</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="o">*</span><span class="n">xcm</span><span class="nv">(carbon_atoms,y)</span>
 <span class="k">variable </span><span class="nv nv-Identifier">carbon_zcm</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="o">*</span><span class="n">xcm</span><span class="nv">(carbon_atoms,z)</span>
-<span class="k">displace_atoms</span><span class="w"> </span><span class="n">carbon_atoms</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="nv">${carbon_xcm}</span><span class="w"> </span><span class="nv">${carbon_ycm}</span><span class="w"> </span><span class="nv">${carbon_zcm}</span>
+<span class="k">displace_atoms </span><span class="nv nv-Identifier">carbon_atoms</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="nv">${carbon_xcm}</span><span class="w"> </span><span class="nv">${carbon_ycm}</span><span class="w"> </span><span class="nv">${carbon_zcm}</span>
 
 <span class="k">variable </span><span class="nv nv-Identifier">zmax</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(carbon_atoms,zmax)</span><span class="o">-</span><span class="m">0.5</span>
 <span class="k">variable </span><span class="nv nv-Identifier">zmin</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(carbon_atoms,zmin)</span><span class="o">+</span><span class="m">0.5</span>
@@ -880,11 +880,11 @@ The rest of the script is very similar to the previous one:</p>
 <span class="k">group </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span>
 <span class="k">group </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rmid</span>
 
-<span class="k">velocity</span><span class="w"> </span><span class="n">carbon_mid</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">compute </span><span class="nv nv-Identifier">Tmid</span><span class="w"> </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">0.1</span>
-<span class="k">fix_modify</span><span class="w"> </span><span class="n">myber</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tmid</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tmid</span>
 </pre></div>
 </div>
 </div>
@@ -911,8 +911,8 @@ and constraint the top edge only along z.</p>
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id24" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
-<span class="k">velocity</span><span class="w"> </span><span class="n">carbon_bot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="k">velocity</span><span class="w"> </span><span class="n">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
 
 <span class="k">variable </span><span class="nv nv-Identifier">pos</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(carbon_top,z)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">at1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_pos</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">cnt_deflection.dat</span>
@@ -957,7 +957,7 @@ a longer time:</p>
 <div class="literal-block-wrapper docutils container" id="id25">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id25" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 0.15 A/ps = 30 m/s</span>
-<span class="k">velocity</span><span class="w"> </span><span class="n">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0.15</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0.15</span>
 <span class="k">run</span><span class="w"> </span><span class="m">280000</span>
 </pre></div>
 </div>

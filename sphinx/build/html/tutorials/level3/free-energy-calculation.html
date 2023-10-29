@@ -15,12 +15,12 @@
         <link href="../../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Reactive silicon dioxide" href="reactive-silicon-dioxide.html" /><link rel="prev" title="Water adsorption in silica" href="water-adsorption-in-silica.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>Simple free energy calculation - </title>
+        <title>Free energy calculation - </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=7e8505bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=78146171" />
     
     
 
@@ -188,7 +188,7 @@
 <p class="caption" role="heading"><span class="caption-text">Level 3</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="water-adsorption-in-silica.html">Water adsorption in silica</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Simple free energy calculation</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Free energy calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
@@ -229,10 +229,10 @@
           </label>
         </div>
         <article role="main">
-          <section id="simple-free-energy-calculation">
-<span id="umbrella-sampling-label"></span><h1>Simple free energy calculation<a class="headerlink" href="#simple-free-energy-calculation" title="Link to this heading">#</a></h1>
+          <section id="free-energy-calculation">
+<span id="umbrella-sampling-label"></span><h1>Free energy calculation<a class="headerlink" href="#free-energy-calculation" title="Link to this heading">#</a></h1>
 <div class="hatnote docutils container">
-<p>Simple sampling of a free energy barrier</p>
+<p>Simple sampling of a free energy barrier using umbrella sampling</p>
 </div>
 <figure class="align-right">
 <a class="only-light reference internal image-reference" href="../../_images/avatar_light.webp"><img alt="Lennard Jones atoms simulated with LAMMPS" class="only-light" src="../../_images/avatar_light.webp" style="height: 250px;" /></a>
@@ -242,28 +242,37 @@
 </figure>
 <div class="justify docutils container">
 <p>The objective of this tutorial is to measure the free
-energy profile across a barrier potential using two methods:
-free sampling and umbrella sampling. For the sake of
-simplicity and in order to reduce computation time, the
+energy profile across a barrier potential using two methods;
+<a class="reference internal" href="#method1"><span class="std std-ref">free sampling</span></a> and <a class="reference internal" href="#method2"><span class="std std-ref">umbrella sampling</span></a>.</p>
+<p>For the sake of simplicity and in order to reduce the computation time, the
 barrier potential will be imposed artificially to the atoms.
 The procedure is valid for more complex
-systems, and can be adapted to many other situations (e.g.
+systems, and can be adapted to many other situations, for instance
 for measuring adsorption barrier near a wall, or for calculating translocation
-barrier through a membrane).</p>
+barrier through a membrane.</p>
 </div>
 <p>If you are completely new to LAMMPS, I recommend you to follow this simpler tutorial first : <a class="reference internal" href="../level0/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard Jones fluid</span></a>.</p>
 <div class="patreon admonition">
 <p class="admonition-title">I provide personal assistance for LAMMPS projects</p>
 <p>See the <a class="reference internal" href="../../miscellaneous/contact-me.html#contact-label"><span class="std std-ref">Contact me</span></a> page.</p>
 </div>
+<div class="version docutils container">
+<p>This tutorial was tested with the <em>2Aug2023</em> LAMMPS version.</p>
+</div>
 <section id="method-1-free-sampling">
-<h2>Method 1: Free sampling<a class="headerlink" href="#method-1-free-sampling" title="Link to this heading">#</a></h2>
+<span id="method1"></span><h2>Method 1: Free sampling<a class="headerlink" href="#method-1-free-sampling" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>One way to calculate the free energy profile is to extract
+<p>The most direct way to calculate a free energy profile is to extract
 the partition function from a classic (unbiased) molecular
 dynamics simulation, and then to estimate the Gibbs free
-energy using <span class="math notranslate nohighlight">\(\Delta G = -RT \ln(p/p_0)\)</span>, where
-<span class="math notranslate nohighlight">\(\Delta G\)</span> is the free energy difference, R the
+energy using</p>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\Delta G = -RT \ln(p/p_0),\]</div>
+</div>
+<div class="justify docutils container">
+<p>where <span class="math notranslate nohighlight">\(\Delta G\)</span> is the free energy difference, R the
 gas constant, T the temperature, p the
 pressure, and <span class="math notranslate nohighlight">\(p_0\)</span> the reference pressure.
 As an illustration, let us apply this method to an
@@ -275,16 +284,17 @@ of the box a relatively unfavourable area to explore.</p>
 <section id="basic-lammps-parameters">
 <h3>Basic LAMMPS parameters<a class="headerlink" href="#basic-lammps-parameters" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Create a folder named FreeSampling/, and create an input script named input.lammps in it. Copy the following lines:</p>
+<p>Create a folder named <em>FreeSampling/</em>, and create an input script
+named <em>input.lammps</em> in it. Copy the following lines:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># define some variables</span>
 <span class="k">variable </span><span class="nv nv-Identifier">sigma</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">3.405</span><span class="w"> </span><span class="c"># Angstrom</span>
 <span class="k">variable </span><span class="nv nv-Identifier">epsilon</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.238</span><span class="w"> </span><span class="c"># Kcal/mol</span>
-<span class="k">variable </span><span class="nv nv-Identifier">U0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="nv">${epsilon}</span><span class="w"> </span><span class="c"># Kcal/mol</span>
-<span class="k">variable </span><span class="nv nv-Identifier">dlt</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="c"># Angstrom</span>
-<span class="k">variable </span><span class="nv nv-Identifier">x0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5</span><span class="w">  </span><span class="c"># Angstrom</span>
+<span class="k">variable </span><span class="nv nv-Identifier">U0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">1.5</span><span class="o">*</span><span class="nv">${epsilon}</span><span class="w"> </span><span class="c"># Kcal/mol</span>
+<span class="k">variable </span><span class="nv nv-Identifier">dlt</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="c"># Angstrom</span>
+<span class="k">variable </span><span class="nv nv-Identifier">x0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">10.0</span><span class="w">  </span><span class="c"># Angstrom</span>
 
 <span class="c"># initialise the simulation</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
@@ -296,7 +306,7 @@ of the box a relatively unfavourable area to explore.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Here we start by defining variables for the Lennard-Jones
+<p>Here, we start by defining variables for the Lennard-Jones
 interaction <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\epsilon\)</span> and for
 the repulsive potential <span class="math notranslate nohighlight">\(U (x)\)</span>: <span class="math notranslate nohighlight">\(U_0\)</span>, <span class="math notranslate nohighlight">\(\delta\)</span>, and <span class="math notranslate nohighlight">\(x_0\)</span>,
 see the analytical expression below.</p>
@@ -319,9 +329,9 @@ the cut-off using the pair_modify.</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># define the system</span>
-<span class="k">region </span><span class="nv nv-Identifier">myreg</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
-<span class="k">create_box</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">myreg</span>
-<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">myreg</span>
+<span class="k">region </span><span class="nv nv-Identifier">myreg</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span>
+<span class="k">create_box </span><span class="nv nv-Identifier">1</span><span class="w"> </span><span class="nv nv-Identifier">myreg</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">myreg</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 
 <span class="c"># settings</span>
 <span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.95</span>
@@ -331,29 +341,29 @@ the cut-off using the pair_modify.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Argon has been chosen as the gas of interest, which explains
-the values of the Lennard-Jones parameters <span class="math notranslate nohighlight">\(\sigma\)</span> and
-<span class="math notranslate nohighlight">\(\epsilon\)</span>, as well as the mass m = 39.95
-grams/mole. The variables <span class="math notranslate nohighlight">\(U_0\)</span>, <span class="math notranslate nohighlight">\(\delta\)</span>, and
-<span class="math notranslate nohighlight">\(x_0\)</span> are used to create the potential. I have chosen it
-to be of the form:</p>
+<p>Here I am using the argon’s values of the Lennard-Jones parameters <span class="math notranslate nohighlight">\(\sigma\)</span> and
+<span class="math notranslate nohighlight">\(\epsilon\)</span>, as well as the mass <span class="math notranslate nohighlight">\(m = 39.95\)</span>
+grams/mole.</p>
+<p>In the previous subsection, the variables <span class="math notranslate nohighlight">\(U_0\)</span>, <span class="math notranslate nohighlight">\(\delta\)</span>, and
+<span class="math notranslate nohighlight">\(x_0\)</span> were defined. They are used to create the repulsive potential
+restricting the atoms to explore the center of the box:</p>
 </div>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[U(x) / U_0 = \arctan \left( \dfrac{x+x_0}{\delta} \right)- \arctan \left(\dfrac{x-x_0}{\delta} \right).\]</div>
+\[U(x) = U_0 \left[ \arctan \left( \dfrac{x+x_0}{\delta} \right) - \arctan \left(\dfrac{x-x_0}{\delta} \right) \right].\]</div>
 </div>
 <div class="justify docutils container">
 <p>From the derivative of the
 potential with respect to <span class="math notranslate nohighlight">\(x\)</span>, we obtain the expression
-for the force that we are going to impose to the particles
-in the simulation,</p>
+for the force that will be imposed to the atoms:</p>
 </div>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[F(x)=U_0/((x-x_0)^2/\delta^2+1)/\delta-U_0/((x+x_0)^2/\delta^2+1)/\delta.\]</div>
+\[F(x)= \dfrac{U_0}{\delta} \left[ \dfrac{1}{(x-x_0)^2/\delta^2+1} - \dfrac{1}{(x+x_0)^2/\delta^2+1} \right].\]</div>
 </div>
 <div class="justify docutils container">
-<p>The potential and force as a function of <span class="math notranslate nohighlight">\(x\)</span> resemble:</p>
+<p>The potential and force along the <span class="math notranslate nohighlight">\(x\)</span>
+axis resemble:</p>
 </div>
 <figure class="align-default">
 <img alt="Imposed potential" class="only-light" src="../../_images/potential-light.png" />
@@ -361,14 +371,13 @@ in the simulation,</p>
 <figure class="align-default" id="id3">
 <img alt="Averaged density profile" class="only-dark" src="../../_images/potential-dark.png" />
 <figcaption>
-<p><span class="caption-text">Potential <span class="math notranslate nohighlight">\(U\)</span> and force <span class="math notranslate nohighlight">\(F\)</span> imposed to the particle.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+<p><span class="caption-text">Potential <span class="math notranslate nohighlight">\(U (x)\)</span> (top) and force <span class="math notranslate nohighlight">\(F (x)\)</span> (bottom) imposed to the atoms.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>Energy minimization and equilibration</strong></p>
 <div class="justify docutils container">
-<p>Let us minimize the energy, and then impose \(F(x)\) to
-all of the atoms in the simulation using the ‘addforce’
-command:</p>
+<p>Let us apply energy minimization to the system, and then impose
+the force \(F(x)\) to all of the atoms in the simulation using the ‘addforce’ command:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
@@ -386,25 +395,26 @@ command:</p>
 <p>Finally, let us combine the fix nve with a Langevin
 thermostat to run a molecular dynamics simulation. With
 these two commands, the MD simulation is effectively in the
-NVT ensemble (constant number of atoms:math:<cite>N</cite>, constant
+NVT ensemble: constant number of atoms <span class="math notranslate nohighlight">\(N\)</span>, constant
 volume <span class="math notranslate nohighlight">\(V\)</span>, and constant temperature <span class="math notranslate nohighlight">\(T\)</span>. Let us
-perform an equilibration step of 2000000 timestep (4
-nanoseconds). To make sure that 4 ns is long enough, let us
+perform an equilibration of 500000 steps in total,
+using a timestep of 2 ps (i.e. a total duration of 1
+nanoseconds). To make sure that 1 ns is long enough, let us
 record the evolution of the number of atoms in the central
-(energetically unfavorable) region called ‘mymes’:</p>
+(energetically unfavorable) region called <em>mymes</em>:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in FreeSampling/input.lammps</em></span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
-<span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1530917</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">1530917</span>
 
-<span class="k">region </span><span class="nv nv-Identifier">mymes</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span>
+<span class="k">region </span><span class="nv nv-Identifier">mymes</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="nv">${x0}</span><span class="w"> </span><span class="nv">${x0}</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span>
 <span class="k">variable </span><span class="nv nv-Identifier">n_center</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(all,mymes)</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="m">50000</span><span class="w"> </span><span class="n">v_n_center</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">density_evolution.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="n">v_n_center</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">density_evolution.dat</span>
 
 <span class="k">timestep</span><span class="w"> </span><span class="m">2.0</span>
-<span class="k">thermo</span><span class="w"> </span><span class="m">100000</span>
-<span class="k">run</span><span class="w"> </span><span class="m">2000000</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">10000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">500000</span>
 </pre></div>
 </div>
 </div>
@@ -414,7 +424,7 @@ record the evolution of the number of atoms in the central
 <div class="justify docutils container">
 <p>Finally, let us record the density profile of the atoms
 along the <span class="math notranslate nohighlight">\(x\)</span> axis using the ‘ave/chunk’ command. A
-total of ten density profiles will be printed. Timestep is
+total of ten density profiles will be printed. Step counts are
 reset to 0 to synchronize with the output times of
 density/number, and the fix ‘myat’ is canceled (it has to be
 canceled before a reset time).</p>
@@ -425,79 +435,81 @@ canceled before a reset time).</p>
 <span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 
 <span class="k">compute </span><span class="nv nv-Identifier">cc1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1000000</span><span class="w"> </span><span class="m">10000000</span><span class="w"> </span><span class="n">cc1</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">number</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">density_profile_10run.dat</span>
-<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">100000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">400000</span><span class="w"> </span><span class="m">4000000</span><span class="w"> </span><span class="n">cc1</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">number</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">density_profile_8ns.dat</span>
+<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 
-<span class="k">run</span><span class="w"> </span><span class="m">10000000</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">100000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">4000000</span>
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
-<p>The simulation needs a few minutes to complete. You can
-visualize the dump file using VMD.</p>
+<p>This simulation with a duration of 8 ns needs a few
+minutes to complete. Feel free to increase the
+duration of the run for smoother results.</p>
+<p>You can visualize the dump file using VMD:</p>
 </div>
+<figure class="align-default">
+<img alt="Lennard jones atoms simulated with LAMMPS MD code" class="only-light" src="../../_images/system-light.png" />
+</figure>
+<figure class="align-default" id="id7">
+<img alt="Lennard jones atoms simulated with LAMMPS MD code" class="only-dark" src="../../_images/system-dark.png" />
+<figcaption>
+<p><span class="caption-text">Notice that the density of atoms is lower in the central part of the box,
+due to the additional force <span class="math notranslate nohighlight">\(F (x)\)</span>.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="data-analysis">
 <h3>Data analysis<a class="headerlink" href="#data-analysis" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>First, let us make sure that the equilibration duration of 4
-ns is long enough by looking at the ‘density_evolution.dat’
-file (left panel):</p>
+<p>First, let us make sure that the equilibration duration of 1
+ns is long enough by looking at the ‘density_evolution.dat’ file:</p>
 </div>
 <figure class="align-default">
 <img alt="Number of particle in the central region as a function of time" class="only-light" src="../../_images/density_evolution-light.png" />
 </figure>
-<figure class="align-default" id="id7">
+<figure class="align-default" id="id8">
 <img alt="Number of particle in the central region as a function of time" class="only-dark" src="../../_images/density_evolution-dark.png" />
 <figcaption>
-<p><span class="caption-text">Evolution of the number of atoms in the central region during equilibration.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+<p><span class="caption-text">Evolution of the number of atoms in the central region during equilibration.</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
-<p>Here we can clearly see that the number of atom in the
-central region quickly evolves to an equilibrium value.
-Therefore the chosen equilibration of 4 ns is long enough.</p>
+<p>Here, we can clearly see that the number of atoms in the
+central region, <span class="math notranslate nohighlight">\(n_\mathrm{central}\)</span>, evolves to its equilibrium value
+after about 0.1 ns.</p>
 <p>Let us also plot the equilibrium density profile <span class="math notranslate nohighlight">\(\rho\)</span>:</p>
 </div>
 <figure class="align-default">
 <img alt="Averaged density profile" class="only-light" src="../../_images/density_profile-light.png" />
 </figure>
-<figure class="align-default" id="id8">
+<figure class="align-default" id="id9">
 <img alt="Averaged density profile" class="only-dark" src="../../_images/density_profile-dark.png" />
 <figcaption>
-<p><span class="caption-text">Averaged density profile (the dashed line is a 200 ns simulation, the full line is 20 ns).
-The value <span class="math notranslate nohighlight">\(\rho_0 = 0.0011\)</span> was estimated from the raw density profile.</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+<p><span class="caption-text">Averaged density profiles for the 8 ns run.
+The value for the reference density <span class="math notranslate nohighlight">\(\rho_\mathrm{bulk} = 0.0033\)</span>
+was estimated from the raw density profiles.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
-<p>Then, let us plot <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_0)\)</span> and compare it
+<p>Then, let us plot <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_\mathrm{bulk})\)</span> and compare it
 with the imposed (reference) potential <span class="math notranslate nohighlight">\(U\)</span>:</p>
 </div>
 <figure class="align-default">
 <img alt="Averaged density profile" class="only-light" src="../../_images/freesampling-potential-light.png" />
 </figure>
-<figure class="align-default" id="id9">
+<figure class="align-default" id="id10">
 <img alt="Averaged density profile" class="only-dark" src="../../_images/freesampling-potential-dark.png" />
 <figcaption>
-<p><span class="caption-text">Calculated potential <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_0)\)</span> compared to imposed potential.
-The calculated potential is in blue. The simulation is 20 ns long.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+<p><span class="caption-text">Calculated potential <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_\mathrm{bulk})\)</span> compared to imposed potential.
+The calculated potential is in blue.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
-<p>The agreement with the expected energy profile
-(despite a bit of noise in the central part). For longer simulations, the
-agreement gets better:</p>
+<p>The agreement with the expected energy profile is reasonable,
+despite some noise in the central part.</p>
 </div>
-<figure class="align-default">
-<img alt="Averaged density profile" class="only-light" src="../../_images/freesampling-potential-longer-light.png" />
-</figure>
-<figure class="align-default" id="id10">
-<img alt="Averaged density profile" class="only-dark" src="../../_images/freesampling-potential-longer-dark.png" />
-<figcaption>
-<p><span class="caption-text">Calculated potential <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_0)\)</span> compared to imposed potential.
-The calculated potential is in blue. The simulation is 200 ns long.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
 </section>
 <section id="the-limits-of-free-sampling">
 <h3>The limits of free sampling<a class="headerlink" href="#the-limits-of-free-sampling" title="Link to this heading">#</a></h3>
@@ -505,14 +517,9 @@ The calculated potential is in blue. The simulation is 200 ns long.</span><a cla
 <p>If we increase the value of <span class="math notranslate nohighlight">\(U_0\)</span>, the average number of
 atoms in the central region will decrease, making it
 difficult to obtain a good resolution for the free energy
-profile. For instance, multiplying <span class="math notranslate nohighlight">\(F\)</span> by a factor of 5,
-one gets an average concentration <span class="math notranslate nohighlight">\(\rho \sim 0\)</span> in
-the central part, which makes it impossible to estimate
-<span class="math notranslate nohighlight">\(U (x)\)</span> (unless running the simulation for a much longer
-time (possibly days)).</p>
-<p>In that case, it is better to use more evolved methods,
-such as umbrella sampling, to extract free energy profiles.
-This is what we are going to do next.</p>
+profile.</p>
+<p>In that case, it is better to use the umbrella sampling method
+to extract free energy profiles, see the next section.</p>
 </div>
 <div class="patreon admonition">
 <p class="admonition-title">Support me for 1 euro per month</p>
@@ -521,26 +528,26 @@ This is what we are going to do next.</p>
 </section>
 </section>
 <section id="method-2-umbrella-sampling">
-<h2>Method 2: Umbrella sampling<a class="headerlink" href="#method-2-umbrella-sampling" title="Link to this heading">#</a></h2>
+<span id="method2"></span><h2>Method 2: Umbrella sampling<a class="headerlink" href="#method-2-umbrella-sampling" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Umbrella sampling is a ‘biased molecular dynamics’ method,
-i.e a method in which additional forces are added to the
-atoms in order to make the ‘unfavourable states’ more likely
-to be explored: here, we are going to force a single atom to
-explore the central region. Starting from the same system as
-previously, we are going to add a potential <span class="math notranslate nohighlight">\(V\)</span> to one
+<p>Umbrella sampling is a biased molecular dynamics method,
+i.e. a method in which additional forces are added to the
+atoms in order to make the unfavourable states more likely
+to occur.</p>
+<p>Keeping the present configuration, we are going to force one of the atom to
+explore the central region of the box. To do so, we
+are going to add a potential <span class="math notranslate nohighlight">\(V\)</span> to one
 of the particle, and force it to move along the axe <span class="math notranslate nohighlight">\(x\)</span>.
 The chosen path is called the axe of reaction. The final
-simulation will be analysed using the weighted histogram
+simulation will be analyzed using the weighted histogram
 analysis method (WHAM), which allows to remove the effect of
-the bias and eventually deduce the unbiased free energy
-profile.</p>
+the bias and eventually deduce the unbiased free energy profile.</p>
 </div>
 <section id="lammps-input-script">
 <h3>LAMMPS input script<a class="headerlink" href="#lammps-input-script" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Create a new folder called BiasedSampling/, and create a new input file
-named input.lammps in it, copy the following lines:</p>
+<p>Create a new folder called <em>BiasedSampling/</em>, create a new input file
+named <em>input.lammps</em> in it, and copy the following lines:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in BiasedSampling/input.lammps</em></span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
@@ -560,8 +567,8 @@ named input.lammps in it, copy the following lines:</p>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 
 <span class="c"># define the system</span>
-<span class="k">region </span><span class="nv nv-Identifier">myreg</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
-<span class="k">create_box</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">myreg</span>
+<span class="k">region </span><span class="nv nv-Identifier">myreg</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span>
+<span class="k">create_box </span><span class="nv nv-Identifier">2</span><span class="w"> </span><span class="nv nv-Identifier">myreg</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">myreg</span>
 
@@ -577,10 +584,10 @@ named input.lammps in it, copy the following lines:</p>
 <span class="k">fix </span><span class="nv nv-Identifier">pot</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U</span>
 
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
-<span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1530917</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">1530917</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">2.0</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">100000</span>
-<span class="k">run</span><span class="w"> </span><span class="m">2000000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">500000</span>
 <span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 
 <span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
@@ -591,30 +598,32 @@ named input.lammps in it, copy the following lines:</p>
 <p>So far, this code resembles the one of Method 1,
 except for the additional particle of type 2. This
 particle is identical to the particles of type 1 (same
-mass and Lennard-Jones parameters), and will be the only
-one to feel the biasing potential.</p>
-<p>The value of the potential <span class="math notranslate nohighlight">\(U_0\)</span> was chosen to be larger than in part 1,
-just because we can.</p>
-<p>Let us create a loop with 67 steps, and move progressively
-the centre of the bias potential by increment of 0.3 nm:</p>
+mass and Lennard-Jones parameters), but will be exposed to the
+biasing potential.</p>
+<p>The value of the potential <span class="math notranslate nohighlight">\(U_0\)</span> was chosen to be much larger than in part 1,
+just to proof that umbrella sampling can easily deal with huge potential value,
+while free sampling couldn’t.</p>
+<p>Let us create a loop with 50 steps, and move progressively
+the centre of the bias potential by increment of 0.1 nm:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in BiasedSampling/input.lammps</em></span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">a</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">50</span>
-<span class="k">label</span><span class="w"> </span><span class="n">loop</span>
+<span class="k">label </span><span class="sc">loop</span>
 <span class="k">variable </span><span class="nv nv-Identifier">xdes</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="nv">${a}</span><span class="o">-</span><span class="m">25</span>
 <span class="k">variable </span><span class="nv nv-Identifier">xave</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(topull,x)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mytth</span><span class="w"> </span><span class="nv nv-Identifier">topull</span><span class="w"> </span><span class="n">spring</span><span class="w"> </span><span class="n">tether</span><span class="w"> </span><span class="nv">${k}</span><span class="w"> </span><span class="nv">${xdes}</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">run</span><span class="w"> </span><span class="m">200000</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_xave</span><span class="w"> </span><span class="n">v_xdes</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">position.</span><span class="nv">${a}</span><span class="n">.dat</span>
-<span class="k">run</span><span class="w"> </span><span class="m">200000</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_xave</span><span class="w"> </span><span class="n">v_xdes</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">data</span><span class="o">-</span><span class="n">k1.5</span><span class="o">/</span><span class="n">position.</span><span class="nv">${a}</span><span class="n">.dat</span>
+<span class="k">run</span><span class="w"> </span><span class="m">1000000</span>
 <span class="k">unfix </span><span class="nv nv-Identifier">myat1</span>
-<span class="k">next</span><span class="w"> </span><span class="n">a</span>
-<span class="k">jump</span><span class="w"> </span><span class="n">SELF</span><span class="w"> </span><span class="n">loop</span>
+<span class="k">next </span><span class="nv nv-Identifier">a</span>
+<span class="k">jump </span><span class="sc">SELF</span><span class="w"> </span><span class="n">loop</span>
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
+<p>A folder named <em>data-k1.5/</em> needs to be created within <em>BiasedSampling/</em>.</p>
 <p>The spring command serves to impose the
 additional harmonic potential with spring constant <span class="math notranslate nohighlight">\(k\)</span>.
 Note that the value of <span class="math notranslate nohighlight">\(k\)</span> should be chosen with care,
@@ -623,13 +632,11 @@ center, if its too large, there will be no overlapping between the
 different windows.</p>
 <p>The centre of the harmonic potential <span class="math notranslate nohighlight">\(x_\text{des}\)</span>
 successively takes values from -25 to 25. For each value of
-<span class="math notranslate nohighlight">\(x_\text{des}\)</span>, an equilibration step of 400 ps is
-performed, followed by a step of 400 ps during which the
+<span class="math notranslate nohighlight">\(x_\text{des}\)</span>, an equilibration step of 0.4 ns is
+performed, followed by a step of 2 ns during which the
 position along <span class="math notranslate nohighlight">\(x\)</span> of the particle is saved in data
 files (one data file per value of <span class="math notranslate nohighlight">\(x_\text{des}\)</span>). You
-can increase the duration of the run for better samplings,
-but 0.4 ps returns reasonable results despite being really
-fast (it should only take a few minutes).</p>
+can always increase the duration of the runs for better samplings.</p>
 </div>
 </section>
 <section id="on-the-choice-of-k">
@@ -684,8 +691,8 @@ Note the bad overlap between neighbor windows.</span><a class="headerlink" href=
 <section id="wham-algorithm">
 <h3>WHAM algorithm<a class="headerlink" href="#wham-algorithm" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>In order to generate the free energy profile from the density distribution, we are going to use the WHAM
-algorithm. You can download and compile the version of <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a>.
+<p>In order to generate the free energy profile from the density distribution, we are going to use
+the WHAM algorithm. You can download and compile the version of <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a>.
 It can be compiled by simply running:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>wham
@@ -695,7 +702,7 @@ make
 </div>
 <div class="justify docutils container">
 <p>It creates an executable called wham that you can
-copy in the BiasedSampling folder.</p>
+copy in the <em>BiasedSampling/</em> folder.</p>
 <p>In order to apply the WHAM algorithm to our simulation, we
 first need to create a metadata file. This file simply
 contains the paths of the data files, the value of
@@ -706,24 +713,23 @@ the same folder as the LAMMPS simulations):</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">file</span><span class="o">=</span>fopen<span class="o">(</span><span class="s1">&#39;metadata.dat&#39;</span>,<span class="s1">&#39;wt&#39;</span><span class="o">)</span><span class="p">;</span>
 <span class="k">for</span><span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="m">1</span>:50
-<span class="w">    </span><span class="nv">X</span><span class="o">=[</span><span class="s1">&#39;./position.&#39;</span>,num2str<span class="o">(</span>a<span class="o">)</span>,<span class="s1">&#39;.dat &#39;</span>,num2str<span class="o">(</span>a-25<span class="o">)</span>,<span class="s1">&#39; 1.5&#39;</span><span class="o">]</span><span class="p">;</span>
+<span class="w">    </span><span class="nv">X</span><span class="o">=[</span><span class="s1">&#39;./data-k1.5/position.&#39;</span>,num2str<span class="o">(</span>a<span class="o">)</span>,<span class="s1">&#39;.dat &#39;</span>,num2str<span class="o">(</span>a-25<span class="o">)</span>,<span class="s1">&#39; 1.5&#39;</span><span class="o">]</span><span class="p">;</span>
 <span class="w">    </span>fprintf<span class="o">(</span>file,X<span class="o">)</span><span class="p">;</span>
 <span class="w">    </span>fprintf<span class="o">(</span>file,<span class="s1">&#39;\n&#39;</span><span class="o">)</span><span class="p">;</span>
 end
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The generated file named metadata.dat looks like that:</p>
+<p>The generated file named <em>metadata.dat</em> looks like that:</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./position.1.dat<span class="w"> </span>-24<span class="w"> </span><span class="m">1</span>.5
-./position.2.dat<span class="w"> </span>-23<span class="w"> </span><span class="m">1</span>.5
-./position.3.dat<span class="w"> </span>-22<span class="w"> </span><span class="m">1</span>.5
-./position.4.dat<span class="w"> </span>-21<span class="w"> </span><span class="m">1</span>.5
-./position.5.dat<span class="w"> </span>-20<span class="w"> </span><span class="m">1</span>.5
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./data-k1.5/position.1.dat<span class="w"> </span>-24<span class="w"> </span><span class="m">1</span>.5
+./data-k1.5/position.2.dat<span class="w"> </span>-23<span class="w"> </span><span class="m">1</span>.5
+./data-k1.5/position.3.dat<span class="w"> </span>-22<span class="w"> </span><span class="m">1</span>.5
+./data-k1.5/position.4.dat<span class="w"> </span>-21<span class="w"> </span><span class="m">1</span>.5
 <span class="o">(</span>...<span class="o">)</span>
-./position.48.dat<span class="w"> </span><span class="m">23</span><span class="w"> </span><span class="m">1</span>.5
-./position.49.dat<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">1</span>.5
-./position.50.dat<span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="m">1</span>.5
+./data-k1.5/position.48.dat<span class="w"> </span><span class="m">23</span><span class="w"> </span><span class="m">1</span>.5
+./data-k1.5/position.49.dat<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">1</span>.5
+./data-k1.5/position.50.dat<span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="m">1</span>.5
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -867,7 +873,7 @@ my <a href="https://github.com/simongravelle/lammps-input-files" target="_blank"
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Simple free energy calculation</a><ul>
+<li><a class="reference internal" href="#">Free energy calculation</a><ul>
 <li><a class="reference internal" href="#method-1-free-sampling">Method 1: Free sampling</a><ul>
 <li><a class="reference internal" href="#basic-lammps-parameters">Basic LAMMPS parameters</a></li>
 <li><a class="reference internal" href="#system-creation-and-settings">System creation and settings</a></li>
