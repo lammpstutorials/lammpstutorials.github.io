@@ -773,21 +773,47 @@ Surface adsorption of a molecule
 
 ..  container:: justify
 
-    
-
     Apply umbrella sampling to calculate the free energy profile
-    of a molecule of your choice normal to a solid wall.
+    of ethanol in the direction normal to a crystal solid surface (here made of sodium chloride). 
+    Find the |topology-ethanol|, |parameter-ethanol|, and a |input-ethanol|.
 
-.. admonition:: Hints (click to reveal)
-    :class: dropdown
+.. figure:: ../figures/level3/free-energy-calculation/ethanol-light.png
+    :alt: Ethanol molecule next to NaCl
+    :class: only-light
 
-    Countless molecules can be downloaded online from the Automated Topology Builder (ATB).
-    You can make your life simpler by choosing one of the smallest molecule (something like
-    CO2, a small alcohol, or even water).
+.. figure:: ../figures/level3/free-energy-calculation/ethanol-dark.png
+    :alt: Ethanol molecule next to NaCl
+    :class: only-dark
 
-    Any solid wall would do. You can find graphene-based solid or NaCl crystal surface in
-    my |Github_repository|.
+..  container:: justify
 
-.. |Github_repository| raw:: html
+    The PMF I find looks like that, with the position of the wall being near :math:`x=0`.
 
-   <a href="https://github.com/simongravelle/lammps-input-files" target="_blank">Github repository</a>
+.. figure:: ../figures/level3/free-energy-calculation/exercice-ethanol-light.png
+    :alt: PMF for ethanol molecule next to NaCl
+    :class: only-light
+
+.. figure:: ../figures/level3/free-energy-calculation/exercice-ethanol-dark.png
+    :alt: PMF for ethanol molecule next to NaCl
+    :class: only-dark
+
+    PMF for a single ethanol molecule next to a NaCl solid surface.
+
+.. |topology-ethanol| raw:: html
+
+   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/system/" target="_blank">topology files</a>
+
+.. |parameter-ethanol| raw:: html
+
+   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/PARM.lammps" target="_blank">parameter file</a>
+
+.. |input-ethanol| raw:: html
+
+   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/input-minimalist.lammps" target="_blank">minimal input file</a>
+
+
+..  container:: justify
+
+    Alternatively to using ethanol, feel free to download the molecule of your choice, for 
+    instance from the  Automated Topology Builder (ATB). You will make your life simpler
+    by choosing one small molecule, like for instance CO2, a small alcohol, water, etc.
