@@ -768,10 +768,12 @@ Particles under convection
         Optional: use particle swapping to exchange between the 2 populations and reach 
         equilibrium faster than with simple molecular dynamics.
 
-Adsorption of ethanol at a solid wall
--------------------------------------
+Surface adsorption of a molecule
+--------------------------------
 
 ..  container:: justify
+
+    
 
     Apply umbrella sampling to calculate the free energy profile
     of a molecule of your choice normal to a solid wall.
