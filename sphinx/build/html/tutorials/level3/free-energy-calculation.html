@@ -570,7 +570,7 @@ named <em>input.lammps</em> in it, and copy the following lines:</p>
 <span class="k">region </span><span class="nv nv-Identifier">myreg</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span>
 <span class="k">create_box </span><span class="nv nv-Identifier">2</span><span class="w"> </span><span class="nv nv-Identifier">myreg</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">myreg</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">myreg</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 
 <span class="c"># settings</span>
 <span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.948</span>
@@ -639,61 +639,13 @@ files (one data file per value of <span class="math notranslate nohighlight">\(x
 can always increase the duration of the runs for better samplings.</p>
 </div>
 </section>
-<section id="on-the-choice-of-k">
-<h3>On the choice of k<a class="headerlink" href="#on-the-choice-of-k" title="Link to this heading">#</a></h3>
-<div class="justify docutils container">
-<p>As already stated, the difficult part is to choose the value of <span class="math notranslate nohighlight">\(k\)</span>. You
-want the biasing potential to be strong enough to force
-the atom to move along the axis, and you also want the
-fluctuations of the atom position to be large enough to
-have some overlap in the density probability of two
-neighbor positions, like we have here:</p>
-</div>
-<figure class="align-default">
-<img alt="Averaged density profile" class="only-light" src="../../_images/overlap-light.png" />
-</figure>
-<figure class="align-default" id="id13">
-<img alt="Averaged density profile" class="only-dark" src="../../_images/overlap-dark.png" />
-<figcaption>
-<p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 1.5\)</span> Kcal/mol/Å^2. Note the good
-overlapping between neighbor distributions.</span><a class="headerlink" href="#id13" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<div class="justify docutils container">
-<p>If <span class="math notranslate nohighlight">\(k\)</span> is too small, the particle never explore the
-region of interest:</p>
-</div>
-<figure class="align-default">
-<img alt="Averaged density profile" class="only-light" src="../../_images/overlap015-light.png" />
-</figure>
-<figure class="align-default" id="id14">
-<img alt="Averaged density profile" class="only-dark" src="../../_images/overlap015-dark.png" />
-<figcaption>
-<p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 0.15\)</span> Kcal/mol/Å^2.
-The particle doesn’t even explore the middle region.</span><a class="headerlink" href="#id14" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<div class="justify docutils container">
-<p>If <span class="math notranslate nohighlight">\(k\)</span> is too large, the biasing potential is too large
-compared to the thermal energy:</p>
-</div>
-<figure class="align-default">
-<img alt="Averaged density profile" class="only-light" src="../../_images/overlap15-light.png" />
-</figure>
-<figure class="align-default" id="id15">
-<img alt="Averaged density profile" class="only-dark" src="../../_images/overlap15-dark.png" />
-<figcaption>
-<p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 15\)</span> Kcal/mol/Å^2.
-Note the bad overlap between neighbor windows.</span><a class="headerlink" href="#id15" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-</section>
 <section id="wham-algorithm">
 <h3>WHAM algorithm<a class="headerlink" href="#wham-algorithm" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>In order to generate the free energy profile from the density distribution, we are going to use
-the WHAM algorithm. You can download and compile the version of <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a>.
-It can be compiled by simply running:</p>
+the WHAM algorithm. You can download it from <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a> website, or alternatively use
+the <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham-release-2.0.11.tgz" target="_blank">version 2.0.11</a> I have downloaded, or try your luck with the version
+i did precompile; <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham" target="_blank">precompiled wham</a>. After extraction, it can be compiled by simply running:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>wham
 make<span class="w"> </span>clean
@@ -701,22 +653,37 @@ make
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>It creates an executable called wham that you can
+<p>The compilation creates an executable called <em>wham</em> that you can
 copy in the <em>BiasedSampling/</em> folder.</p>
 <p>In order to apply the WHAM algorithm to our simulation, we
 first need to create a metadata file. This file simply
-contains the paths of the data files, the value of
-<span class="math notranslate nohighlight">\(x_\text{des}\)</span>, and the values of <span class="math notranslate nohighlight">\(k\)</span>. To generate
-the file more easily, you can run this script using Octave
-or Matlab (assuming that the wham algorithm is located in
-the same folder as the LAMMPS simulations):</p>
+contains</p>
+<ul class="simple">
+<li><p>the paths to all the data files,</p></li>
+<li><p>the value of <span class="math notranslate nohighlight">\(x_\text{des}\)</span>,</p></li>
+<li><p>and the values of <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+</ul>
+<p>To generate the <em>metadata.txt</em> file, you can run this Python script
+from the <em>BiasedSampling/</em> folder:</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">file</span><span class="o">=</span>fopen<span class="o">(</span><span class="s1">&#39;metadata.dat&#39;</span>,<span class="s1">&#39;wt&#39;</span><span class="o">)</span><span class="p">;</span>
-<span class="k">for</span><span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="m">1</span>:50
-<span class="w">    </span><span class="nv">X</span><span class="o">=[</span><span class="s1">&#39;./data-k1.5/position.&#39;</span>,num2str<span class="o">(</span>a<span class="o">)</span>,<span class="s1">&#39;.dat &#39;</span>,num2str<span class="o">(</span>a-25<span class="o">)</span>,<span class="s1">&#39; 1.5&#39;</span><span class="o">]</span><span class="p">;</span>
-<span class="w">    </span>fprintf<span class="o">(</span>file,X<span class="o">)</span><span class="p">;</span>
-<span class="w">    </span>fprintf<span class="o">(</span>file,<span class="s1">&#39;\n&#39;</span><span class="o">)</span><span class="p">;</span>
-end
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">k</span><span class="o">=</span><span class="mf">1.5</span> <span class="c1"># set the value of  k in kCal/mol</span>
+<span class="n">folder</span><span class="o">=</span><span class="s1">&#39;data-k1.5/&#39;</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;metadata.dat&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">datafile</span><span class="o">=</span><span class="n">folder</span><span class="o">+</span><span class="s1">&#39;position.&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.dat&#39;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">datafile</span><span class="p">):</span>
+        <span class="c1"># read the imposed position is the expected one</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">datafile</span><span class="p">)</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="n">firstline</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="n">imposed_position</span> <span class="o">=</span> <span class="n">firstline</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># write one file per file</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">datafile</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">imposed_position</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -725,7 +692,6 @@ end
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./data-k1.5/position.1.dat<span class="w"> </span>-24<span class="w"> </span><span class="m">1</span>.5
 ./data-k1.5/position.2.dat<span class="w"> </span>-23<span class="w"> </span><span class="m">1</span>.5
 ./data-k1.5/position.3.dat<span class="w"> </span>-22<span class="w"> </span><span class="m">1</span>.5
-./data-k1.5/position.4.dat<span class="w"> </span>-21<span class="w"> </span><span class="m">1</span>.5
 <span class="o">(</span>...<span class="o">)</span>
 ./data-k1.5/position.48.dat<span class="w"> </span><span class="m">23</span><span class="w"> </span><span class="m">1</span>.5
 ./data-k1.5/position.49.dat<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">1</span>.5
@@ -733,7 +699,7 @@ end
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here you can download the <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/metadata.dat" target="_blank">metadata.dat</a> file.
+<p>Alternatively, you can download my <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/metadata.dat" target="_blank">metadata.dat</a> file.
 Then, simply run the following command in the terminal:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./wham<span class="w"> </span>-25<span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="m">50</span><span class="w"> </span>1e-8<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">0</span><span class="w"> </span>metadata.dat<span class="w"> </span>PMF.dat
@@ -747,61 +713,171 @@ profile in Kcal/mol.</p>
 </div>
 <p><strong>Results</strong></p>
 <div class="justify docutils container">
-<p>We can compare the PMF with we the imposed potential, and
-the agreement in again quite good despite the very short
-calculation time:</p>
+<p>We can compare the result of the PMF with the imposed potential <span class="math notranslate nohighlight">\(U\)</span>:</p>
 </div>
 <figure class="align-default">
 <img alt="Result of the umbrella sampling" class="only-light" src="../../_images/freeenergy-light.png" />
 </figure>
-<figure class="align-default" id="id16">
+<figure class="align-default" id="id13">
 <img alt="Result of the umbrella sampling" class="only-dark" src="../../_images/freeenergy-dark.png" />
 <figcaption>
 <p><span class="caption-text">Calculated potential using umbrella sampling compared to the imposed potential.
-The calculated potential is in blue.</span><a class="headerlink" href="#id16" title="Link to this image">#</a></p>
+The calculated potential is in blue.</span><a class="headerlink" href="#id13" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<div class="justify docutils container">
+<p>We can see that the agreement is quite good despite the very short calculation time
+and the very high value for the energy barrier.</p>
+</div>
 <p>You can access all the input scripts and data files that
-are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">Github</a>.</p>
+are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a> on Github.</p>
+</section>
+<section id="side-note-on-the-choice-of-k">
+<h3>Side note: on the choice of k<a class="headerlink" href="#side-note-on-the-choice-of-k" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>As already stated, one difficult part of umbrella sampling is to choose the value of <span class="math notranslate nohighlight">\(k\)</span>.
+Ideally, you want the biasing potential to be strong enough to force
+the chosen atom to move along the axis, and you also want the
+fluctuations of the atom position to be large enough to
+have some overlap in the density probability of two
+neighbor positions, like we have here with <span class="math notranslate nohighlight">\(k = 1.5\)</span>:</p>
+</div>
+<figure class="align-default">
+<img alt="Averaged density profile" class="only-light" src="../../_images/overlap-light.png" />
+</figure>
+<figure class="align-default" id="id14">
+<img alt="Averaged density profile" class="only-dark" src="../../_images/overlap-dark.png" />
+<figcaption>
+<p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 1.5\)</span> Kcal/mol/Å^2.</span><a class="headerlink" href="#id14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>If <span class="math notranslate nohighlight">\(k\)</span> is too small, the biasing potential is too weak to force the particle to explores the
+region of interest, making it impossible to reconstruct the PMF:</p>
+</div>
+<figure class="align-default">
+<img alt="Averaged density profile" class="only-light" src="../../_images/overlap015-light.png" />
+</figure>
+<figure class="align-default" id="id15">
+<img alt="Averaged density profile" class="only-dark" src="../../_images/overlap015-dark.png" />
+<figcaption>
+<p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 0.15\)</span> Kcal/mol/Å^2.</span><a class="headerlink" href="#id15" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="justify docutils container">
+<p>If <span class="math notranslate nohighlight">\(k\)</span> is too large, the biasing potential is too large
+compared to the potential one want to probe, which reduces the
+sensitivity of the method. In that case, note the bad overlap between neighbor windows:</p>
+</div>
+<figure class="align-default">
+<img alt="Averaged density profile" class="only-light" src="../../_images/overlap15-light.png" />
+</figure>
+<figure class="align-default" id="id16">
+<img alt="Averaged density profile" class="only-dark" src="../../_images/overlap15-dark.png" />
+<figcaption>
+<p><span class="caption-text">Density probability for each run with <span class="math notranslate nohighlight">\(k = 15\)</span> Kcal/mol/Å^2.</span><a class="headerlink" href="#id16" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 <section id="going-further-with-exercises">
 <h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">#</a></h2>
-<div class="solution admonition">
-<p class="admonition-title">Solutions</p>
-<p>Register as a <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a> for 1 euro/month
-to access all the solutions.</p>
-</div>
-<section id="monte-carlo-versus-molecular-dynamics">
-<h3>Monte Carlo versus molecular dynamics<a class="headerlink" href="#monte-carlo-versus-molecular-dynamics" title="Link to this heading">#</a></h3>
+<p>You can access the full solutions for these exercises from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a> on Github.</p>
+<section id="the-binary-fluid-that-wont-mix">
+<h3>The binary fluid that wont mix<a class="headerlink" href="#the-binary-fluid-that-wont-mix" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Use a Monte Carlo procedure to equilibrate the system
-instead of molecular dynamics.</p>
-<p>Is it more computationally efficient than molecular dynamics?</p>
+<p><strong>1 - Create the system</strong></p>
+<p>Create a molecular simulation with two species of respective types 1 and 2.
+Apply different potentials <span class="math notranslate nohighlight">\(U1\)</span> and <span class="math notranslate nohighlight">\(U2\)</span> on particles of types 1 and 2, respectively,
+so that particles of type 1 are excluded from the center of the box, while at the same time particles
+of type 2 are excluded from the rest of the box, as seen here:</p>
 </div>
+<figure class="align-default">
+<img alt="Particles of type 1 and 2 separated by two different potentials" class="only-light" src="../../_images/exercice2-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="Particles of type 1 and 2 separated by two different potentials" class="only-dark" src="../../_images/exercice2-dark.png" />
+</figure>
 <div class="dropdown admonition">
-<p class="admonition-title">Hints (click to reveal)</p>
-<p>Monte Carlo displacement can be made using the fix gcmc command.</p>
+<p class="admonition-title">Solution</p>
+<div class="justify docutils container">
+<p>One possibility is to create two groups, here named <em>t1</em> and <em>t2</em>,
+and apply the two potentials <em>U1</em> and <em>U2</em> to each group, respectively.
+To to so, two separate <em>fix addforce</em> are used:</p>
 </div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">t1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
+<span class="k">variable </span><span class="nv nv-Identifier">U1</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
+<span class="k">variable </span><span class="nv nv-Identifier">F1</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myadf1</span><span class="w"> </span><span class="nv nv-Identifier">t1</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U1</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myadf1</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">yes</span>
+
+<span class="k">group </span><span class="nv nv-Identifier">t2</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
+<span class="k">variable </span><span class="nv nv-Identifier">U2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="o">+</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
+<span class="k">variable </span><span class="nv nv-Identifier">F2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="o">+</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myadf2</span><span class="w"> </span><span class="nv nv-Identifier">t2</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F2</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U2</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myadf2</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">yes</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>On the side note, in the above image, created 60 particles of each type, and gave them the exact same
+properties using:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.95</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">${epsilon}</span><span class="w"> </span><span class="nv">${sigma}</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Feel free to insert some size or mass asymmetry in the mixture, and test how/if
+it impacts the potential.</p>
+</div>
+</div>
+<div class="justify docutils container">
+<p><strong>2 - Measure the PMFs</strong></p>
+<p>Using the same protocole as the one used in the tutorial (i.e. umbrella sampling with the wham algorithm),
+extract the PMF for each particle type:</p>
+</div>
+<figure class="align-default">
+<img alt="PMF in the presence of binary species" class="only-light" src="../../_images/exercice-binary-light.png" />
+</figure>
+<figure class="align-default" id="id17">
+<img alt="PMF in the presence of binary species" class="only-dark" src="../../_images/exercice-binary-dark.png" />
+<figcaption>
+<p><span class="caption-text">PMFs calculated for both atom types.</span><a class="headerlink" href="#id17" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
-<section id="binary-fluid">
-<h3>Binary fluid<a class="headerlink" href="#binary-fluid" title="Link to this heading">#</a></h3>
+<section id="particles-under-convection">
+<h3>Particles under convection<a class="headerlink" href="#particles-under-convection" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Create a molecular simulation with two species, and apply a
-different potential on them using addforce to create the
-following situation, where one species is mainly trapped in
-the central part, while the other is mainly trapped in the
-external part:</p>
+<p>Use a similar simulation as the one from the tutorial, with a repulsive potential in the center
+of the box. Add a forcing to the particles and force them to flow in the <span class="math notranslate nohighlight">\(x\)</span> direction.</p>
+<p>Re-measure the potential in presence of the net convection of particles. You should see the
+potential getting tilted as a consequence of the additional force that makes it easier for
+the particles to cross the potential in one of the direction. The barrer will also
+reduced.</p>
 </div>
 <figure class="align-default">
-<img alt="Particles separated by a potential" class="only-light" src="../../_images/exercice2-light.png" />
+<img alt="PMF in the presence of forcing" class="only-light" src="../../_images/exercice-convection-light.png" />
 </figure>
-<figure class="align-default">
-<img alt="Particles separated by a potential" class="only-dark" src="../../_images/exercice2-dark.png" />
+<figure class="align-default" id="id18">
+<img alt="PMF in the presence of forcing" class="only-dark" src="../../_images/exercice-convection-dark.png" />
+<figcaption>
+<p><span class="caption-text">PMF calculated in the presence of a net forcing inducing the convection of the particles
+from left to right.</span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
+</figcaption>
 </figure>
+<div class="dropdown admonition">
+<p class="admonition-title">Solution</p>
 <div class="justify docutils container">
-<p>Optional: use particle swapping to exchange between the 2 populations and reach
-equilibrium faster than with simple molecular dynamics.</p>
+<p>Add a forcing to all the particles using:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myconv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="m">2e-6</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>It is crutial to choose a forcing that is not <em>too large</em>, or the simulation may crash.
+A forcing that is <em>too weak</em> wont have any effect on the PMF.</p>
+</div>
 </div>
 </section>
 <section id="adsorption-of-ethanol-at-a-solid-wall">
@@ -884,13 +960,13 @@ my <a href="https://github.com/simongravelle/lammps-input-files" target="_blank"
 </li>
 <li><a class="reference internal" href="#method-2-umbrella-sampling">Method 2: Umbrella sampling</a><ul>
 <li><a class="reference internal" href="#lammps-input-script">LAMMPS input script</a></li>
-<li><a class="reference internal" href="#on-the-choice-of-k">On the choice of k</a></li>
 <li><a class="reference internal" href="#wham-algorithm">WHAM algorithm</a></li>
+<li><a class="reference internal" href="#side-note-on-the-choice-of-k">Side note: on the choice of k</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
-<li><a class="reference internal" href="#monte-carlo-versus-molecular-dynamics">Monte Carlo versus molecular dynamics</a></li>
-<li><a class="reference internal" href="#binary-fluid">Binary fluid</a></li>
+<li><a class="reference internal" href="#the-binary-fluid-that-wont-mix">The binary fluid that wont mix</a></li>
+<li><a class="reference internal" href="#particles-under-convection">Particles under convection</a></li>
 <li><a class="reference internal" href="#adsorption-of-ethanol-at-a-solid-wall">Adsorption of ethanol at a solid wall</a></li>
 </ul>
 </li>

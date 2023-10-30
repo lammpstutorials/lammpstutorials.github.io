@@ -568,11 +568,11 @@ Molecular dynamics
     This command will automatically plot the second column as a function of the first column.
 
     Here I am using pyplot for esthetic reason. If you want, you can download the Jupyter-notebook
-    from the |Github_repository| repository (in the lennardjones/ folder).
+    from the |Github_repository_input| repository (in the *level0/lennard-jones-fluid/* folder).
 
-.. |Github_repository| raw:: html
+.. |Github_repository_input| raw:: html
 
-   <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">Github</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a>
 
 Trajectory visualisation
 ========================
