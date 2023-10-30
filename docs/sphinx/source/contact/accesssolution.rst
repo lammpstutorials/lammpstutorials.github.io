@@ -1,5 +1,4 @@
-You can access all the input scripts and data files that
-are used in these tutorials from |Github_repository_input| on Github.
+You can access the full solutions for these exercises from |Github_repository_input| on Github.
 
 .. |Github_repository_input| raw:: html
 

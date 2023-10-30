@@ -378,7 +378,7 @@ LAMMPS input script
     region myreg block -25 25 -5 5 -25 25
     create_box 2 myreg
     create_atoms 2 single 0 0 0
-    create_atoms 1 random 5 341341 myreg
+    create_atoms 1 random 5 341341 myreg overlap 1.0 maxtry 50
 
     # settings
     mass * 39.948
@@ -449,73 +449,27 @@ LAMMPS input script
     files (one data file per value of :math:`x_\text{des}`). You
     can always increase the duration of the runs for better samplings.
 
-On the choice of k
-------------------
-
-..  container:: justify
-
-    As already stated, the difficult part is to choose the value of :math:`k`. You
-    want the biasing potential to be strong enough to force
-    the atom to move along the axis, and you also want the
-    fluctuations of the atom position to be large enough to
-    have some overlap in the density probability of two
-    neighbor positions, like we have here:
-
-.. figure:: ../figures/level3/free-energy-calculation/overlap-light.png
-    :alt: Averaged density profile
-    :class: only-light
-
-.. figure:: ../figures/level3/free-energy-calculation/overlap-dark.png
-    :alt: Averaged density profile
-    :class: only-dark
-
-    Density probability for each run with :math:`k = 1.5` Kcal/mol/Å^2. Note the good
-    overlapping between neighbor distributions.
-
-..  container:: justify
-
-    If :math:`k` is too small, the particle never explore the 
-    region of interest:
-
-.. figure:: ../figures/level3/free-energy-calculation/overlap015-light.png
-    :alt: Averaged density profile
-    :class: only-light
-
-.. figure:: ../figures/level3/free-energy-calculation/overlap015-dark.png
-    :alt: Averaged density profile
-    :class: only-dark
-
-    Density probability for each run with :math:`k = 0.15` Kcal/mol/Å^2. 
-    The particle doesn't even explore the middle region.
-
-..  container:: justify
-
-    If :math:`k` is too large, the biasing potential is too large 
-    compared to the thermal energy:
-
-.. figure:: ../figures/level3/free-energy-calculation/overlap15-light.png
-    :alt: Averaged density profile
-    :class: only-light
-
-.. figure:: ../figures/level3/free-energy-calculation/overlap15-dark.png
-    :alt: Averaged density profile
-    :class: only-dark
-
-    Density probability for each run with :math:`k = 15` Kcal/mol/Å^2. 
-    Note the bad overlap between neighbor windows.
-
 WHAM algorithm
 --------------
 
 ..  container:: justify
 
     In order to generate the free energy profile from the density distribution, we are going to use
-    the WHAM algorithm. You can download and compile the version of |Grossfield|.
-    It can be compiled by simply running:
+    the WHAM algorithm. You can download it from |Grossfield| website, or alternatively use 
+    the |wham-version| I have downloaded, or try your luck with the version 
+    i did precompile; |wham-precompiled|. After extraction, it can be compiled by simply running:
 
 .. |Grossfield| raw:: html
 
    <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a>
+
+.. |wham-version| raw:: html
+
+   <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham-release-2.0.11.tgz" target="_blank">version 2.0.11</a>
+
+.. |wham-precompiled| raw:: html
+
+   <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham" target="_blank">precompiled wham</a>
 
 ..  code-block:: bash
 
@@ -525,25 +479,40 @@ WHAM algorithm
 
 ..  container:: justify
 
-    It creates an executable called wham that you can 
+    The compilation creates an executable called *wham* that you can 
     copy in the *BiasedSampling/* folder.
 
     In order to apply the WHAM algorithm to our simulation, we
     first need to create a metadata file. This file simply
-    contains the paths of the data files, the value of
-    :math:`x_\text{des}`, and the values of :math:`k`. To generate
-    the file more easily, you can run this script using Octave
-    or Matlab (assuming that the wham algorithm is located in
-    the same folder as the LAMMPS simulations):
+    contains 
+    
+    - the paths to all the data files,
+    - the value of :math:`x_\text{des}`,
+    - and the values of :math:`k`.
+    
+    To generate the *metadata.txt* file, you can run this Python script
+    from the *BiasedSampling/* folder:
 
-..  code-block:: bash
+..  code-block:: python
 
-    file=fopen('metadata.dat','wt');
-    for a=1:50
-        X=['./data-k1.5/position.',num2str(a),'.dat ',num2str(a-25),' 1.5'];
-        fprintf(file,X);
-        fprintf(file,'\n');
-    end
+    import os
+
+    k=1.5 # set the value of  k in kCal/mol
+    folder='data-k1.5/'
+
+    f = open("metadata.dat", "w")
+    for n in range(-50,50):
+        datafile=folder+'position.'+str(n)+'.dat'
+        if os.path.exists(datafile):
+            # read the imposed position is the expected one
+            with open(datafile) as g:
+                _ = g.readline()
+                _ = g.readline()
+                firstline = g.readline()
+            imposed_position = firstline.split(' ')[-1][:-1]
+            # write one file per file
+            f.write(datafile+' '+str(imposed_position)+' '+str(k)+'\n')
+    f.close()
 
 ..  container:: justify
 
@@ -554,7 +523,6 @@ WHAM algorithm
     ./data-k1.5/position.1.dat -24 1.5
     ./data-k1.5/position.2.dat -23 1.5
     ./data-k1.5/position.3.dat -22 1.5
-    ./data-k1.5/position.4.dat -21 1.5
     (...)
     ./data-k1.5/position.48.dat 23 1.5
     ./data-k1.5/position.49.dat 24 1.5
@@ -562,7 +530,7 @@ WHAM algorithm
 
 ..  container:: justify
 
-    Here you can download the |download_metadata| file.
+    Alternatively, you can download my |download_metadata| file.
     Then, simply run the following command in the terminal:
 
 .. |download_metadata| raw:: html
@@ -584,9 +552,7 @@ WHAM algorithm
 
 ..  container:: justify
 
-    We can compare the PMF with we the imposed potential, and
-    the agreement in again quite good despite the very short
-    calculation time:
+    We can compare the result of the PMF with the imposed potential :math:`U`:
 
 .. figure:: ../figures/level3/free-energy-calculation/freeenergy-light.png
     :alt: Result of the umbrella sampling
@@ -599,51 +565,208 @@ WHAM algorithm
     Calculated potential using umbrella sampling compared to the imposed potential.
     The calculated potential is in blue.
 
+..  container:: justify
+
+    We can see that the agreement is quite good despite the very short calculation time
+    and the very high value for the energy barrier. 
+
 .. include:: ../../contact/accessfile.rst
+
+Side note: on the choice of k
+-----------------------------
+
+..  container:: justify
+
+    As already stated, one difficult part of umbrella sampling is to choose the value of :math:`k`.
+    Ideally, you want the biasing potential to be strong enough to force
+    the chosen atom to move along the axis, and you also want the
+    fluctuations of the atom position to be large enough to
+    have some overlap in the density probability of two
+    neighbor positions, like we have here with :math:`k = 1.5`:
+
+.. figure:: ../figures/level3/free-energy-calculation/overlap-light.png
+    :alt: Averaged density profile
+    :class: only-light
+
+.. figure:: ../figures/level3/free-energy-calculation/overlap-dark.png
+    :alt: Averaged density profile
+    :class: only-dark
+
+    Density probability for each run with :math:`k = 1.5` Kcal/mol/Å^2.
+
+..  container:: justify
+
+    If :math:`k` is too small, the biasing potential is too weak to force the particle to explores the 
+    region of interest, making it impossible to reconstruct the PMF:
+
+.. figure:: ../figures/level3/free-energy-calculation/overlap015-light.png
+    :alt: Averaged density profile
+    :class: only-light
+
+.. figure:: ../figures/level3/free-energy-calculation/overlap015-dark.png
+    :alt: Averaged density profile
+    :class: only-dark
+
+    Density probability for each run with :math:`k = 0.15` Kcal/mol/Å^2.
+
+..  container:: justify
+
+    If :math:`k` is too large, the biasing potential is too large 
+    compared to the potential one want to probe, which reduces the 
+    sensitivity of the method. In that case, note the bad overlap between neighbor windows:
+
+.. figure:: ../figures/level3/free-energy-calculation/overlap15-light.png
+    :alt: Averaged density profile
+    :class: only-light
+
+.. figure:: ../figures/level3/free-energy-calculation/overlap15-dark.png
+    :alt: Averaged density profile
+    :class: only-dark
+
+    Density probability for each run with :math:`k = 15` Kcal/mol/Å^2. 
 
 Going further with exercises
 ============================
 
-.. include::  ../../contact/requestsolution.rst
+.. include:: ../../contact/accesssolution.rst
+
+.. 
+    .. include::  ../../contact/requestsolution.rst
+            
+    Monte Carlo versus molecular dynamics
+    -------------------------------------
+
+    ..  container:: justify
+
+        Use a Monte Carlo procedure to equilibrate the system
+        instead of molecular dynamics. 
         
-Monte Carlo versus molecular dynamics
--------------------------------------
+        Is it more computationally efficient than molecular dynamics?
+
+    .. admonition:: Hints (click to reveal)
+        :class: dropdown
+
+        Monte Carlo displacement can be made using the fix gcmc command.
+
+The binary fluid that wont mix
+------------------------------
 
 ..  container:: justify
 
-    Use a Monte Carlo procedure to equilibrate the system
-    instead of molecular dynamics. 
-    
-    Is it more computationally efficient than molecular dynamics?
+    **1 - Create the system**
 
-.. admonition:: Hints (click to reveal)
-    :class: dropdown
-
-    Monte Carlo displacement can be made using the fix gcmc command.
-
-Binary fluid
-------------
-
-..  container:: justify
-
-    Create a molecular simulation with two species, and apply a
-    different potential on them using addforce to create the
-    following situation, where one species is mainly trapped in 
-    the central part, while the other is mainly trapped in the 
-    external part:
+    Create a molecular simulation with two species of respective types 1 and 2.
+    Apply different potentials :math:`U1` and :math:`U2` on particles of types 1 and 2, respectively,
+    so that particles of type 1 are excluded from the center of the box, while at the same time particles
+    of type 2 are excluded from the rest of the box, as seen here:
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice2-light.png
-    :alt: Particles separated by a potential
+    :alt: Particles of type 1 and 2 separated by two different potentials
     :class: only-light
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice2-dark.png
-    :alt: Particles separated by a potential
+    :alt: Particles of type 1 and 2 separated by two different potentials
     :class: only-dark
+
+.. admonition:: Solution
+    :class: dropdown
+
+    ..  container:: justify
+
+        One possibility is to create two groups, here named *t1* and *t2*,
+        and apply the two potentials *U1* and *U2* to each group, respectively. 
+        To to so, two separate *fix addforce* are used:
+
+    ..  code-block:: lammps
+        
+        group t1 type 1
+        variable U1 atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
+        variable F1 atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
+        fix myadf1 t1 addforce v_F1 0.0 0.0 energy v_U1
+        fix_modify myadf1 energy yes
+
+        group t2 type 2
+        variable U2 atom -${U0}*atan((x+${x0})/${dlt})+${U0}*atan((x-${x0})/${dlt})
+        variable F2 atom -${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}+${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
+        fix myadf2 t2 addforce v_F2 0.0 0.0 energy v_U2
+        fix_modify myadf2 energy yes
+
+    ..  container:: justify
+
+        On the side note, in the above image, created 60 particles of each type, and gave them the exact same 
+        properties using:
+
+    ..  code-block:: lammps
+
+        mass * 39.95
+        pair_coeff * * ${epsilon} ${sigma}
+
+    ..  container:: justify
+
+        Feel free to insert some size or mass asymmetry in the mixture, and test how/if
+        it impacts the potential.
 
 ..  container:: justify
 
-    Optional: use particle swapping to exchange between the 2 populations and reach 
-    equilibrium faster than with simple molecular dynamics.
+    **2 - Measure the PMFs**
+
+    Using the same protocole as the one used in the tutorial (i.e. umbrella sampling with the wham algorithm),
+    extract the PMF for each particle type:
+
+.. figure:: ../figures/level3/free-energy-calculation/exercice-binary-light.png
+    :alt: PMF in the presence of binary species
+    :class: only-light
+
+.. figure:: ../figures/level3/free-energy-calculation/exercice-binary-dark.png
+    :alt: PMF in the presence of binary species
+    :class: only-dark
+
+    PMFs calculated for both atom types. 
+
+Particles under convection
+--------------------------
+
+..  container:: justify
+
+    Use a similar simulation as the one from the tutorial, with a repulsive potential in the center
+    of the box. Add a forcing to the particles and force them to flow in the :math:`x` direction.
+
+    Re-measure the potential in presence of the net convection of particles. You should see the 
+    potential getting tilted as a consequence of the additional force that makes it easier for 
+    the particles to cross the potential in one of the direction. The barrer will also 
+    reduced. 
+
+.. figure:: ../figures/level3/free-energy-calculation/exercice-convection-light.png
+    :alt: PMF in the presence of forcing
+    :class: only-light
+
+.. figure:: ../figures/level3/free-energy-calculation/exercice-convection-dark.png
+    :alt: PMF in the presence of forcing
+    :class: only-dark
+
+    PMF calculated in the presence of a net forcing inducing the convection of the particles 
+    from left to right. 
+
+.. admonition:: Solution
+    :class: dropdown
+
+    ..  container:: justify
+
+        Add a forcing to all the particles using:
+
+    ..  code-block:: lammps
+
+        fix myconv all addforce 2e-6 0 0
+
+    ..  container:: justify
+
+        It is crutial to choose a forcing that is not *too large*, or the simulation may crash. 
+        A forcing that is *too weak* wont have any effect on the PMF.  
+.. 
+    ..  container:: justify
+
+        Optional: use particle swapping to exchange between the 2 populations and reach 
+        equilibrium faster than with simple molecular dynamics.
 
 Adsorption of ethanol at a solid wall
 -------------------------------------

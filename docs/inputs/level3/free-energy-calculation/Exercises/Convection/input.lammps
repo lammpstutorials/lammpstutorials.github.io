@@ -5,9 +5,9 @@
 # define a bunch of variables
 variable sigma equal 3.405 # Angstrom
 variable epsilon equal 0.238 # Kcal/mol
-variable U0 equal 10*${epsilon} # Kcal/mol
+variable U0 equal 1.5*${epsilon} # Kcal/mol
 variable dlt equal 0.5 # Angstrom
-variable x0 equal 5.0 # Angstrom
+variable x0 equal 10.0 # Angstrom
 variable k equal 1.5 # Kcal/mol/Angstrom^2
 
 # initialise the simulation
@@ -21,7 +21,7 @@ boundary p p p
 region myreg block -25 25 -5 5 -25 25
 create_box 2 myreg
 create_atoms 2 single 0 0 0
-create_atoms 1 random 5 341341 myreg overlap 1.0 maxtry 50
+create_atoms 1 random 5 342341 myreg overlap 1.0 maxtry 50 # reduce the number of atoms to speed up the simulation
 
 # settings
 mass * 39.948
@@ -37,8 +37,11 @@ fix myadf all addforce v_F 0.0 0.0 energy v_U
 fix mynve all nve
 fix mylgv all langevin 119.8 119.8 50 1530917
 
+# let us add a forcing to all the atoms
+fix myconv all addforce 2e-6 0 0
+
 timestep 2.0
-thermo 100000
+thermo 1000
 run 500000
 
 reset_timestep 0
