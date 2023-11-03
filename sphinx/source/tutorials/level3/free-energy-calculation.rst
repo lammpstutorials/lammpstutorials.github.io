@@ -791,7 +791,9 @@ Surface adsorption of a molecule
 
 ..  container:: justify
 
-    The PMF I find looks like that, with the position of the wall being near :math:`x=0`.
+    The PMF looks like that, with the position of the wall being near :math:`x=0`.
+    The PMF mimina near the solid surface indicates the good affinity of the wall with 
+    the molecule.
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice-ethanol-light.png
     :alt: PMF for ethanol molecule next to NaCl
