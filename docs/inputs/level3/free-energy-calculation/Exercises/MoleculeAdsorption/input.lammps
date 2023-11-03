@@ -44,10 +44,10 @@ fix mytth1 nacl spring/self ${k2}
 variable zave equal xcm(topull,z)
 variable cpt loop 24
 label loop
-variable zdes equal -20+0.5*(${cpt}-1)
+variable zdes equal -18+0.5*(${cpt}-1)
 fix mytth2 topull spring tether ${k1} 0 0 ${zdes} 0
 run 50000
-fix myat1 all ave/time 10 100 1000 v_zave v_zdes file data/position.${cpt}.dat
+fix myat1 all ave/time 10 10 100 v_zave v_zdes file data/position.${cpt}.dat
 run 500000
 unfix myat1
 next cpt
