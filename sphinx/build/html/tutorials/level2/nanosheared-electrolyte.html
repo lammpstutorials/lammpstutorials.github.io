@@ -241,10 +241,11 @@
 <a class="only-dark reference internal image-reference" href="../../_images/nanoconfined-electrolyte-dark.png"><img alt="Electrolyte nano-confined in a slit pore" class="only-dark" src="../../_images/nanoconfined-electrolyte-dark.png" style="height: 250px;" /></a>
 </figure>
 <div class="justify docutils container">
-<p>The objective of this tutorial is to use molecular dynamics and
+<p>The objective of this tutorial is to
 simulate an electrolyte sheared by two walls. Some properties
-of the fluid, such as the time-averaged velocity profile will be extracted.</p>
-<p>This tutorial illustrates some important aspects of
+of the sheared fluid, such as the time-averaged velocity profile
+will be extracted.</p>
+<p>This tutorial illustrates the important aspects of
 combining a fluid and a solid in the same simulation.</p>
 </div>
 <p>If you are completely new to LAMMPS, I recommend you to follow this simpler tutorial first : <a class="reference internal" href="../level0/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard Jones fluid</span></a>.</p>
@@ -252,10 +253,13 @@ combining a fluid and a solid in the same simulation.</p>
 <p class="admonition-title">I provide personal assistance for LAMMPS projects</p>
 <p>See the <a class="reference internal" href="../../miscellaneous/contact-me.html#contact-label"><span class="std std-ref">Contact me</span></a> page.</p>
 </div>
+<div class="version docutils container">
+<p>This tutorial was tested with the <em>2Aug2023</em> LAMMPS version.</p>
+</div>
 <section id="system-generation">
 <h2>System generation<a class="headerlink" href="#system-generation" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Create a new folder called SystemCreation/. Within SystemCreation/,
+<p>Create a new folder called <em>SystemCreation/</em>. Within <em>SystemCreation/</em>,
 open a blank page using a text editor, and call it input.lammps.
 Copy the following lines into input.lammps:</p>
 </div>
@@ -271,8 +275,8 @@ Copy the following lines into input.lammps:</p>
 </pre></div>
 </div>
 </div>
-<div class="info admonition">
-<p class="admonition-title">About lj/cut/tip4p/long pair stayle</p>
+<div class="dropdown admonition">
+<p class="admonition-title">About lj/cut/tip4p/long pair style</p>
 <p>The lj/cut/tip4p/long pair style is similar to the conventional
 Lennard Jones + Coulomb interaction, except that it is made specifically
 for four point water model (tip4p). The atom of the water model
@@ -298,28 +302,32 @@ input file:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>The ‘lattice’ command defines the unit
-cell. Here face-centered cubic (fcc) with a scale factor of
+<ul>
+<li><p>The <em>lattice</em> command defines the unit
+cell. Here, the face-centered cubic (fcc) lattice with a scale factor of
 4.04 has been chosen for the future positioning of the atoms
-of the walls. The ‘region’ command defines a geometric
+of the walls.</p></li>
+<li><p>The <em>region</em> command defines a geometric
 region of space, and by choosing ‘xlo=-4’ and ‘xhi=4’, and
 because we have previously chosen a lattice with scale
-factor of 4.04, the region box extends from -16.16 to 16.16
-Ångström (units of lengths are in Ångstrom because we have
-chosen the unit style ‘real’). Finally, the ‘create_box’
-command creates a simulation box with 5 types of atoms in
+factor of 4.04, the region box extends from -16.16 Å to 16.16 Å.
+Note that units of lengths are in Ångstrom because we have
+chosen the <em>units</em> style <em>real</em>.</p></li>
+<li><p>The <em>create_box</em> command creates a simulation box with 5 types of atoms in
 the simulation: oxygen and hydrogen atoms of the water, Na,
 Cl, and the atoms of the walls.</p>
-<p>The create box command extends over 6 lines thanks to the
-‘&amp;’ character. The second and third lines are used to
+<p>The <em>create_box</em> command extends over 6 lines thanks to the
+<em>&amp;</em> character. The second and third lines are used to
 specify that the simulation contains 1 type of bond and 1
 type of angle (for the water molecule). The parameters of
 these bond and angle constraints will be given later. The
 three last lines are for memory allocation.</p>
-<p>We can now add atoms to the system. First, we create two
+</li>
+</ul>
+<p>Now, we can add atoms to the system. First, let us create two
 sub-regions corresponding respectively to the two solid
 walls, and create a larger region from the union of the two
-regions. Then we create atoms of type 5 within the two
+regions. Then, let us create atoms of type 5 (the wall) within the two
 regions:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id3">
@@ -336,66 +344,67 @@ regions:</p>
 <p>Atoms will be placed at the positions of the previously
 defined lattice.</p>
 <p>In order to add the water molecules, we first need to
-download the <a href="../../../../../inputs/level2/nanosheared-electrolyte/system-creation/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
-file and place it in the same folder. It contains all the
+download the <a href="../../../../../inputs/level2/nanosheared-electrolyte/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
+file and place it in <em>SystemCreation/</em>. It contains all the
 necessary information about the water molecule, such as
-positions, bonds, and angle. Then, add the following lines
+atom positions, bonds, and the angle.</p>
+<p>Add the following lines
 to input.lammps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># create the fluid</span>
 <span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">9</span><span class="w"> </span><span class="m">9</span>
-<span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">TIP4P2005.txt</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">TIP4P2005.txt</span>
 <span class="k">lattice</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="m">4.04</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">482793</span>
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
-<p>With the last four lines, a region for
-depositing the water molecules is created based on the last defined lattice,
-which is ‘fcc 4.04’. A new
-simple cubic lattice is also defined in order to place the water
+<p>Withing the last four lines:</p>
+<ul>
+<li><p>A <em>region</em> named <em>rliquid</em> for depositing the water molecules is created based
+on the last defined lattice, which is <em>fcc 4.04</em>.</p></li>
+<li><p>The ‘molecule’ command opens up the <em>TIP4P2005.txt</em> file, and names
+the associated molecule <em>h2omol</em>.</p></li>
+<li><p>A new simple cubic lattice is defined in order to place the water
 molecules on it, with a distance of 4.04 Ångstroms between
-each water molecule (note: the new lattice replaces the
-previous one: LAMMPS reads a script from top to bottom).
-The distance of 4.04 Ångstroms is larger than the typical
+each water molecule. Note that the new lattice replaces the
+previous one, as LAMMPS reads a script from top to bottom.</p>
+<p>Note that the distance of 4.04 Ångstroms is larger than the typical
 equilibrium distance between water molecules in a liquid,
-but this will allow us to insert ions more safely. The
-‘molecule’ command opens up the ‘TIP4P2005.txt’ file, and names
-the associated molecule ‘h2omol’. Finally, molecules are
-created on the sc lattice by the ‘create_atoms’ command. The
+but this will allow us to insert ions more safely (see below).</p>
+</li>
+<li><p>Finally, molecules are created on the sc lattice by the <em>create_atoms</em> command. The
 first parameter is ‘0’ because we use the atom id from the
-‘TIP4P2005.txt’ file without change. The number ‘482793’ is a seed that is
-required by LAMMPS, it can be any positive integer.</p>
-<p>Finally, let us deposit 20 ions (10 Na+, 10
-Cl-) in between the water molecules by adding these
-two lines to input.01.lammps:</p>
+<em>TIP4P2005.txt</em> file. The number <em>482793</em> is a seed that is
+required by LAMMPS, it can be any positive integer.</p></li>
+</ul>
+<p>Let us create 20 ions (10 Na+, 10
+Cl-) in between the water molecules:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mydep1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">deposit</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">56513</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">near</span><span class="w"> </span><span class="m">0.3</span>
-<span class="k">fix </span><span class="nv nv-Identifier">mydep2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">deposit</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">58613</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">near</span><span class="w"> </span><span class="m">0.3</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># create the ions</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">52802</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.5</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">90182</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.5</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
+<span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="o">-</span><span class="m">1.0</span>
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Each ‘fix deposit’ will add one ion at a random position
-within the ‘rliquid’ region every timestep. So we can just
-make a very short simulation of 10 timesteps and save the
-generated configuration. Feel free to increase the salt
-concentration by increasing both number of steps and number
-of desired ions in the ‘deposit’ fixes.</p>
+<ul class="simple">
+<li><p>Each <em>create_atoms</em> command will add 10 ions at a random positions
+within the ‘rliquid’ region. Feel free to increase the salt
+concentration by increasing the number
+of desired ions.</p></li>
+<li><p>We also need to specify the charge of the newly added ions,
+which is done using the <em>set</em> commands.</p></li>
+</ul>
 <p>To keep the system charge neutral, always insert the same number of
-Na+ and Cl-.</p>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">Alternative</p>
-<p>Alternatively to the fix deposit, the create_atoms command with both
-overlap and maxtry keywords can be used to place the ions in the system.</p>
-</div>
-<div class="justify docutils container">
+Na+ and Cl- (unless of course there are other charges in the system).</p>
 <p>We need to define the parameters of the simulation: the mass
 of the 6 atoms (O, H, Na+, Cl-, and wall), the
 pairwise interaction parameters (here the parameters for the
@@ -410,8 +419,8 @@ Copy the following line into input.lammps:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Create a new text file, call it ‘PARM.lammps’, and copy it
-next to the SystemCreation/ folder. Copy the following lines
+<p>Create a new text file, call it <em>PARM.lammps</em>, and copy it
+next to the <em>SystemCreation/</em> folder. Copy the following lines
 into PARM.lammps:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id7">
@@ -436,24 +445,28 @@ into PARM.lammps:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>The parameters for water (mass 1, mass 2,
-pair_coeff 1 1, pair coeff 2 2, bond_coeff 1 and angle_coeff
-1) are given by the TIP4P/2005 force field, the parameters
-for Na+ and Cl- (mass 3, mass 4, pair_coeff 3
-3, pair_coeff 4 4) are given by the CHARMM-27 force field,
-and the parameters for the wall (mass 5 and pair_coeff 5 5)
-are parameters for the wall atoms. Each ‘mass’ command
+<p>Each <em>mass</em> command
 assigns a mass in grams/mole to an atom type. Each
-‘pair_coeff’ assigns respectively the depth of the potential
-in Kcal/mole, and the distance at which the
-particle-particle potential energy in Ångstrom.</p>
+<em>pair_coeff</em> assigns respectively the depth of the potential
+(in Kcal/mole), and the distance (in Ångstrom) at which the
+particle-particle potential energy is 0.</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">About the parameters</p>
+<ul class="simple">
+<li><p>The parameters for water
+correspond to the TIP4P/2005 water model.</p></li>
+<li><p>The parameters for Na+ and Cl-  correspond to the CHARMM-27 force field.</p></li>
+</ul>
+</div>
+<div class="justify docutils container">
 <p>Only pairwise interaction between atoms of
-identical type were assign. By default, LAMMPS calculates
+identical type were assigned. By default, LAMMPS calculates
 the pair coefficients for the interactions between atoms
 of different types (i and j) by using geometrical
 average: <span class="math notranslate nohighlight">\(\epsilon_{ij} = \epsilon_i + \epsilon_j)/2\)</span>,
-<span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_i + \sigma_j)/2.\)</span></p>
-<p>Other rules for cross coefficients can be set with the
+<span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_i + \sigma_j)/2.\)</span>
+Other rules for cross coefficients can be set with the
 ‘pair_modify’ command, but for the sake of simplicity,
 let us keep the default option here.</p>
 <p>The bond coefficient (here for the O-H bond of the water
@@ -470,10 +483,7 @@ potential (also 0) and the equilibrium angle is in degree.</p>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in SystemCreation/input.lammps</em></span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># run</span>
-<span class="k">run</span><span class="w"> </span><span class="m">10</span>
-
-<span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="o">-</span><span class="m">1.0</span>
+<span class="k">run</span><span class="w"> </span><span class="m">0</span>
 
 <span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 <span class="k">write_dump </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
@@ -481,17 +491,17 @@ potential (also 0) and the equilibrium angle is in degree.</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>With ‘run 10’, the simulation will run for 10 steps only.</p>
-<p>The value of the timestep (1 fs by default) does not
-matter yet because the atoms wont be moving: there are
-not fix integrating the equation of motion such as fix nve.</p>
-<p>We also need to specify the charge of the newly added ions,
-which is done using the ‘set’ commands. The write
-‘data_file’ finally creates a file named ‘system.data’
+<ul class="simple">
+<li><p>With <em>run 0</em>, the simulation will run for 0 step,
+enough for creating the system and saving the final state.</p></li>
+<li><p>The <em>write_data</em> finally creates a file named <em>system.data</em>
 containing all the information required to restart the
 simulation from the final configuration generated by this
-input file. The ‘write_dump’ command print the final
-positions of the atoms, and can be used with VMD or ovito.</p>
+input file.</p></li>
+<li><p>The <em>write_dump</em> command print the final
+positions of the atoms, and can be used with VMD or ovito
+to visualize the system.</p></li>
+</ul>
 <p>This input script is ready to be ran with LAMMPS. When the
 run is over, open the log file and make sure that atoms have
 been created (look for lines like ‘Created 3648 atoms’), or
