@@ -21,23 +21,26 @@ Nanosheared electrolyte
 
 ..  container:: justify
 
-    The objective of this tutorial is to use molecular dynamics and
+    The objective of this tutorial is to
     simulate an electrolyte sheared by two walls. Some properties
-    of the fluid, such as the time-averaged velocity profile will be extracted. 
+    of the sheared fluid, such as the time-averaged velocity profile
+    will be extracted. 
 
-    This tutorial illustrates some important aspects of
+    This tutorial illustrates the important aspects of
     combining a fluid and a solid in the same simulation.
 
 .. include:: ../../contact/recommand-lj.rst
 
 .. include:: ../../contact/needhelp.rst
 
+.. include:: ../../contact/2Aug2023.rst
+
 System generation
 =================
 
 ..  container:: justify
 
-    Create a new folder called SystemCreation/. Within SystemCreation/,
+    Create a new folder called *SystemCreation/*. Within *SystemCreation/*,
     open a blank page using a text editor, and call it input.lammps.
     Copy the following lines into input.lammps:
 
@@ -52,8 +55,8 @@ System generation
     pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
     kspace_style pppm/tip4p 1.0e-4
 
-.. admonition:: About lj/cut/tip4p/long pair stayle
-    :class: info
+.. admonition:: About lj/cut/tip4p/long pair style
+    :class: dropdown
 
     The lj/cut/tip4p/long pair style is similar to the conventional 
     Lennard Jones + Coulomb interaction, except that it is made specifically 
@@ -81,30 +84,33 @@ System generation
 
 ..  container:: justify
 
-    The 'lattice' command defines the unit
-    cell. Here face-centered cubic (fcc) with a scale factor of
-    4.04 has been chosen for the future positioning of the atoms
-    of the walls. The 'region' command defines a geometric
-    region of space, and by choosing 'xlo=-4' and 'xhi=4', and
-    because we have previously chosen a lattice with scale
-    factor of 4.04, the region box extends from -16.16 to 16.16
-    Ångström (units of lengths are in Ångstrom because we have
-    chosen the unit style 'real'). Finally, the 'create_box'
-    command creates a simulation box with 5 types of atoms in
-    the simulation: oxygen and hydrogen atoms of the water, Na,
-    Cl, and the atoms of the walls.
+    - The *lattice* command defines the unit
+      cell. Here, the face-centered cubic (fcc) lattice with a scale factor of
+      4.04 has been chosen for the future positioning of the atoms
+      of the walls.
+    
+    - The *region* command defines a geometric
+      region of space, and by choosing 'xlo=-4' and 'xhi=4', and
+      because we have previously chosen a lattice with scale
+      factor of 4.04, the region box extends from -16.16 Å to 16.16 Å.
+      Note that units of lengths are in Ångstrom because we have
+      chosen the *units* style *real*.
+    
+    - The *create_box* command creates a simulation box with 5 types of atoms in
+      the simulation: oxygen and hydrogen atoms of the water, Na,
+      Cl, and the atoms of the walls.
 
-    The create box command extends over 6 lines thanks to the
-    '&' character. The second and third lines are used to
-    specify that the simulation contains 1 type of bond and 1
-    type of angle (for the water molecule). The parameters of
-    these bond and angle constraints will be given later. The
-    three last lines are for memory allocation.
+      The *create_box* command extends over 6 lines thanks to the
+      *&* character. The second and third lines are used to
+      specify that the simulation contains 1 type of bond and 1
+      type of angle (for the water molecule). The parameters of
+      these bond and angle constraints will be given later. The
+      three last lines are for memory allocation.
 
-    We can now add atoms to the system. First, we create two
+    Now, we can add atoms to the system. First, let us create two
     sub-regions corresponding respectively to the two solid
     walls, and create a larger region from the union of the two
-    regions. Then we create atoms of type 5 within the two
+    regions. Then, let us create atoms of type 5 (the wall) within the two
     regions:
 
 ..  code-block:: lammps
@@ -123,72 +129,74 @@ System generation
 
     In order to add the water molecules, we first need to
     download the |download_TIP4P2005.txt|
-    file and place it in the same folder. It contains all the
+    file and place it in *SystemCreation/*. It contains all the
     necessary information about the water molecule, such as
-    positions, bonds, and angle. Then, add the following lines
+    atom positions, bonds, and the angle.
+    
+    Add the following lines
     to input.lammps:
 
 .. |download_TIP4P2005.txt| raw:: html
 
-   <a href="../../../../../inputs/level2/nanosheared-electrolyte/system-creation/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
+   <a href="../../../../../inputs/level2/nanosheared-electrolyte/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
 
 ..  code-block:: lammps
     :caption: *to be copied in SystemCreation/input.lammps*
 
     # create the fluid
     region rliquid block -4 4 -4 4 -9 9
-    molecule h2omol TIP4P2005.txt
+    molecule h2omol ../TIP4P2005.txt
     lattice sc 4.04
     create_atoms 0 region rliquid mol h2omol 482793
 
 ..  container:: justify
 
-    With the last four lines, a region for
-    depositing the water molecules is created based on the last defined lattice,
-    which is 'fcc 4.04'. A new
-    simple cubic lattice is also defined in order to place the water
-    molecules on it, with a distance of 4.04 Ångstroms between
-    each water molecule (note: the new lattice replaces the
-    previous one: LAMMPS reads a script from top to bottom).
-    The distance of 4.04 Ångstroms is larger than the typical
-    equilibrium distance between water molecules in a liquid,
-    but this will allow us to insert ions more safely. The
-    'molecule' command opens up the 'TIP4P2005.txt' file, and names
-    the associated molecule 'h2omol'. Finally, molecules are
-    created on the sc lattice by the 'create_atoms' command. The
-    first parameter is '0' because we use the atom id from the
-    'TIP4P2005.txt' file without change. The number '482793' is a seed that is
-    required by LAMMPS, it can be any positive integer.
+    Withing the last four lines:
+    
+    - A *region* named *rliquid* for depositing the water molecules is created based
+      on the last defined lattice, which is *fcc 4.04*. 
+    
+    - The 'molecule' command opens up the *TIP4P2005.txt* file, and names
+      the associated molecule *h2omol*.
 
-    Finally, let us deposit 20 ions (10 Na+, 10
-    Cl-) in between the water molecules by adding these
-    two lines to input.01.lammps:
+    - A new simple cubic lattice is defined in order to place the water
+      molecules on it, with a distance of 4.04 Ångstroms between
+      each water molecule. Note that the new lattice replaces the
+      previous one, as LAMMPS reads a script from top to bottom.
+    
+      Note that the distance of 4.04 Ångstroms is larger than the typical
+      equilibrium distance between water molecules in a liquid,
+      but this will allow us to insert ions more safely (see below). 
+      
+    - Finally, molecules are created on the sc lattice by the *create_atoms* command. The
+      first parameter is '0' because we use the atom id from the
+      *TIP4P2005.txt* file. The number *482793* is a seed that is
+      required by LAMMPS, it can be any positive integer.
+
+    Let us create 20 ions (10 Na+, 10
+    Cl-) in between the water molecules:
 
 ..  code-block:: lammps
     :caption: *to be copied in SystemCreation/input.lammps*
 
-    fix mydep1 all deposit 10 3 1 56513 region rliquid near 0.3
-    fix mydep2 all deposit 10 4 1 58613 region rliquid near 0.3
+    # create the ions
+    create_atoms 3 random 10 52802 rliquid overlap 1.5 maxtry 50
+    create_atoms 4 random 10 90182 rliquid overlap 1.5 maxtry 50
+    set type 3 charge 1.0
+    set type 4 charge -1.0
 
 ..  container:: justify
 
-    Each 'fix deposit' will add one ion at a random position
-    within the 'rliquid' region every timestep. So we can just
-    make a very short simulation of 10 timesteps and save the
-    generated configuration. Feel free to increase the salt
-    concentration by increasing both number of steps and number
-    of desired ions in the 'deposit' fixes.
+    - Each *create_atoms* command will add 10 ions at a random positions
+      within the 'rliquid' region. Feel free to increase the salt
+      concentration by increasing the number
+      of desired ions.
+
+    - We also need to specify the charge of the newly added ions,
+      which is done using the *set* commands.
 
     To keep the system charge neutral, always insert the same number of 
-    Na+ and Cl-.
-
-.. admonition:: Alternative
-    :class: dropdown
-
-    Alternatively to the fix deposit, the create_atoms command with both 
-    overlap and maxtry keywords can be used to place the ions in the system.
-
-..  container:: justify
+    Na+ and Cl- (unless of course there are other charges in the system).
 
     We need to define the parameters of the simulation: the mass
     of the 6 atoms (O, H, Na+, Cl-, and wall), the
@@ -204,8 +212,8 @@ System generation
 
 ..  container:: justify
 
-    Create a new text file, call it 'PARM.lammps', and copy it
-    next to the SystemCreation/ folder. Copy the following lines
+    Create a new text file, call it *PARM.lammps*, and copy it
+    next to the *SystemCreation/* folder. Copy the following lines
     into PARM.lammps:
 
 ..  code-block:: lammps
@@ -227,28 +235,31 @@ System generation
     bond_coeff 1 0 0.9572 # water
 
     angle_coeff 1 0 104.52 # water
+    
+..  container:: justify
+    
+    Each *mass* command
+    assigns a mass in grams/mole to an atom type. Each
+    *pair_coeff* assigns respectively the depth of the potential
+    (in Kcal/mole), and the distance (in Ångstrom) at which the
+    particle-particle potential energy is 0.
+
+.. admonition:: About the parameters
+    :class: dropdown
+
+    - The parameters for water
+      correspond to the TIP4P/2005 water model.
+    
+    - The parameters for Na+ and Cl-  correspond to the CHARMM-27 force field.
 
 ..  container:: justify
 
-    The parameters for water (mass 1, mass 2,
-    pair_coeff 1 1, pair coeff 2 2, bond_coeff 1 and angle_coeff
-    1) are given by the TIP4P/2005 force field, the parameters
-    for Na+ and Cl- (mass 3, mass 4, pair_coeff 3
-    3, pair_coeff 4 4) are given by the CHARMM-27 force field,
-    and the parameters for the wall (mass 5 and pair_coeff 5 5)
-    are parameters for the wall atoms. Each 'mass' command
-    assigns a mass in grams/mole to an atom type. Each
-    'pair_coeff' assigns respectively the depth of the potential
-    in Kcal/mole, and the distance at which the
-    particle-particle potential energy in Ångstrom.
-
     Only pairwise interaction between atoms of
-    identical type were assign. By default, LAMMPS calculates
+    identical type were assigned. By default, LAMMPS calculates
     the pair coefficients for the interactions between atoms
     of different types (i and j) by using geometrical
     average: :math:`\epsilon_{ij} = \epsilon_i + \epsilon_j)/2`, 
     :math:`\sigma_{ij} = (\sigma_i + \sigma_j)/2.`
-
     Other rules for cross coefficients can be set with the
     'pair_modify' command, but for the sake of simplicity,
     let us keep the default option here.
@@ -269,29 +280,24 @@ System generation
     :caption: *to be copied in SystemCreation/input.lammps*
 
     # run
-    run 10
-
-    set type 3 charge 1.0
-    set type 4 charge -1.0
+    run 0
 
     write_data system.data
     write_dump all atom dump.lammpstrj
 
 ..  container:: justify
 
-    With 'run 10', the simulation will run for 10 steps only.
+    - With *run 0*, the simulation will run for 0 step,
+      enough for creating the system and saving the final state.
 
-    The value of the timestep (1 fs by default) does not
-    matter yet because the atoms wont be moving: there are 
-    not fix integrating the equation of motion such as fix nve.
-
-    We also need to specify the charge of the newly added ions,
-    which is done using the 'set' commands. The write
-    'data_file' finally creates a file named 'system.data'
-    containing all the information required to restart the
-    simulation from the final configuration generated by this
-    input file. The 'write_dump' command print the final
-    positions of the atoms, and can be used with VMD or ovito.
+    - The *write_data* finally creates a file named *system.data*
+      containing all the information required to restart the
+      simulation from the final configuration generated by this
+      input file.
+      
+    - The *write_dump* command print the final
+      positions of the atoms, and can be used with VMD or ovito
+      to visualize the system.
 
     This input script is ready to be ran with LAMMPS. When the
     run is over, open the log file and make sure that atoms have
