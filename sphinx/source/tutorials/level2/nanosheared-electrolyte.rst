@@ -180,8 +180,8 @@ System generation
     :caption: *to be copied in SystemCreation/input.lammps*
 
     # create the ions
-    create_atoms 3 random 10 52802 rliquid overlap 1.5 maxtry 50
-    create_atoms 4 random 10 90182 rliquid overlap 1.5 maxtry 50
+    create_atoms 3 random 10 52802 rliquid overlap 0.3 maxtry 500
+    create_atoms 4 random 10 90182 rliquid overlap 0.3 maxtry 500
     set type 3 charge 1.0
     set type 4 charge -1.0
 
