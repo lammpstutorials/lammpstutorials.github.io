@@ -5,7 +5,7 @@ Water adsorption in silica
 
 .. container:: hatnote
 
-    Dealing with a varying number of molecules
+   Dealing with a varying number of molecules
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/avatar-dark.webp
     :height: 250

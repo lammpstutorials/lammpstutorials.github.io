@@ -5,7 +5,7 @@ Nanosheared electrolyte
 
 .. container:: hatnote
 
-    Aqueous NaCl solution sheared by two walls
+   Aqueous NaCl solution sheared by two walls
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/nanoconfined-electrolyte-light.png
     :height: 250
@@ -495,7 +495,7 @@ Energy minimization
 ..  container:: justify
 
     You can easily import log file into *Python* using the
-    `lammps_logfile`_ tool, and plot the thermodynamic quantities as a function 
+    |lammps_logfile| tool, and plot the thermodynamic quantities as a function 
     of the time:
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/minimization-light.png
@@ -509,7 +509,9 @@ Energy minimization
     Energy as a function of time extracted from the log file using *Python* and
     *lammps_logfile*.
 
-.. _lammps_logfile: https://pypi.org/project/lammps-logfile/
+.. |lammps_logfile| raw:: html
+
+   <a href="https://pypi.org/project/lammps-logfile/" target="_blank">LAMMPS logfile</a>
 
 ..  container:: justify
 

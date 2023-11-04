@@ -5,7 +5,7 @@ Reactive silicon dioxide
 
 .. container:: hatnote
 
-    Chemically reactive structure (reaxff)
+   Simulating a chemically reactive structure
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/SiO_gif_light.webp
     :height: 250
@@ -134,7 +134,7 @@ Relax the structure
     Finally, the fix *qeq/reaxff* is used to perform charge equilibration every timestep. The values 0 and 10.0
     are low and high cutoffs, respectively, and 1.0e-6 a tolerance. Finally, maxiter sets
     a limit to the number of attempt to equilibrate the charge. 
-    
+
 .. admonition:: Note
     :class: info
 
@@ -514,9 +514,7 @@ Add O2 molecules
 Exercises
 =========
 
-..  container:: justify
-
-    .. include:: ../../contact/requestsolution.rst
+.. include:: ../../contact/requestsolution.rst
 
 Decorate dandling oxygens
 -------------------------

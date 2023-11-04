@@ -1,11 +1,11 @@
-.. _`carbon-nanotube-label`:
+.. _carbon-nanotube-label:
 
 Breaking a carbon nanotube
 ***************************
 
 .. container:: hatnote
 
-    Breaking the bonds of a carbon nanotube under deformation
+   Breaking the bonds of a carbon nanotube under deformation
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_gif_dark.webp
     :alt: carbon nanotube image in vacuum
