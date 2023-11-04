@@ -53,6 +53,9 @@ Bulk water
    an empty text file named input.lammps. Copy the following
    lines in it:
 
+.. 
+    For progressive learning, it would be better to use SPCE here.
+
 ..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
 

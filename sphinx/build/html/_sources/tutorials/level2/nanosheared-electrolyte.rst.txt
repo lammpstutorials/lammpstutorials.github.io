@@ -41,8 +41,8 @@ System generation
 ..  container:: justify
 
     Create a new folder called *SystemCreation/*. Within *SystemCreation/*,
-    open a blank page using a text editor, and call it input.lammps.
-    Copy the following lines into input.lammps:
+    open a blank file called *input.lammps*, and copy 
+    the following lines into it:
 
 ..  code-block:: lammps
     :caption: *to be copied in SystemCreation/input.lammps*
@@ -55,6 +55,16 @@ System generation
     pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
     kspace_style pppm/tip4p 1.0e-4
 
+..  container:: justify
+
+    These lines are used to define the most basic parameters,
+    including the *atom*, *bond*, and *angle* styles, as well as 
+    interaction potential (here Lennard Jones with cut-off and long 
+    range Coulombic) and long range solver (here PPPM). 
+
+    These lines are relatively similar to the 
+    previous tutorial (:ref:`all-atoms-label`).
+
 .. admonition:: About lj/cut/tip4p/long pair style
     :class: dropdown
 
@@ -66,8 +76,7 @@ System generation
 
 ..  container:: justify
 
-    Let us create the box: copy the following lines into the
-    input file:
+    Let us create the box:
 
 ..  code-block:: lammps
     :caption: *to be copied in SystemCreation/input.lammps*
@@ -90,22 +99,21 @@ System generation
       of the walls.
     
     - The *region* command defines a geometric
-      region of space, and by choosing 'xlo=-4' and 'xhi=4', and
+      region of space. By choosing *xlo=-4* and *xhi=4*, and
       because we have previously chosen a lattice with scale
       factor of 4.04, the region box extends from -16.16 Å to 16.16 Å.
-      Note that units of lengths are in Ångstrom because we have
-      chosen the *units* style *real*.
     
     - The *create_box* command creates a simulation box with 5 types of atoms in
-      the simulation: oxygen and hydrogen atoms of the water, Na,
-      Cl, and the atoms of the walls.
-
-      The *create_box* command extends over 6 lines thanks to the
+      the simulation. This command extends over 6 lines thanks to the
       *&* character. The second and third lines are used to
       specify that the simulation contains 1 type of bond and 1
-      type of angle (for the water molecule). The parameters of
+      type of angle (both required by the water molecule). The parameters of
       these bond and angle constraints will be given later. The
       three last lines are for memory allocation.
+      
+      Note that 5 atom types are needed for respectively the oxygen and hydrogen
+      of the water molecules, the two types of ions (:math:`\text{Na}^+`, :math:`\text{Cl}^-`), and the
+      single atom type of the walls.
 
     Now, we can add atoms to the system. First, let us create two
     sub-regions corresponding respectively to the two solid
@@ -173,8 +181,8 @@ System generation
       *TIP4P2005.txt* file. The number *482793* is a seed that is
       required by LAMMPS, it can be any positive integer.
 
-    Let us create 20 ions (10 Na+, 10
-    Cl-) in between the water molecules:
+    Let us create 20 ions (10 :math:`\text{Na}^+` and 10 :math:`\text{Cl}^-`)
+    in between the water molecules:
 
 ..  code-block:: lammps
     :caption: *to be copied in SystemCreation/input.lammps*
@@ -187,19 +195,17 @@ System generation
 
 ..  container:: justify
 
-    - Each *create_atoms* command will add 10 ions at a random positions
-      within the 'rliquid' region. Feel free to increase the salt
-      concentration by increasing the number
-      of desired ions.
+    - Each *create_atoms* command will add 10 ions at random positions
+      within the 'rliquid' region. Feel free to increase or decrease the salt
+      concentration by changing the number of desired ions.
 
-    - We also need to specify the charge of the newly added ions,
-      which is done using the *set* commands.
+    - The charges of the newly added ions are specified by the two *set* commands.
 
     To keep the system charge neutral, always insert the same number of 
-    Na+ and Cl- (unless of course there are other charges in the system).
+    :math:`\text{Na}^+` and :math:`\text{Cl}^-` (unless of course there are other charges in the system).
 
     We need to define the parameters of the simulation: the mass
-    of the 6 atoms (O, H, Na+, Cl-, and wall), the
+    of the 6 atoms (O, H, :math:`\text{Na}^+`, :math:`\text{Cl}^-`, and wall), the
     pairwise interaction parameters (here the parameters for the
     Lennard-Jones potential), and the bond and angle parameters.
     Copy the following line into input.lammps:
@@ -238,8 +244,7 @@ System generation
     
 ..  container:: justify
     
-    Each *mass* command
-    assigns a mass in grams/mole to an atom type. Each
+    Each *mass* command assigns a mass in grams/mole to an atom type. Each
     *pair_coeff* assigns respectively the depth of the potential
     (in Kcal/mole), and the distance (in Ångstrom) at which the
     particle-particle potential energy is 0.
@@ -250,7 +255,8 @@ System generation
     - The parameters for water
       correspond to the TIP4P/2005 water model.
     
-    - The parameters for Na+ and Cl-  correspond to the CHARMM-27 force field.
+    - The parameters for :math:`\text{Na}^+` and :math:`\text{Cl}^-`  are
+      taken from the CHARMM-27 force field.
 
 ..  container:: justify
 
@@ -313,8 +319,8 @@ System generation
     :class: only-dark
 
     Left: side view. Periodic images are represented in light
-    color. Water molecules are in red and white, Na+
-    ions in purple, Cl- ions in lime, and walls in
+    color. Water molecules are in red and white,:math:`\text{Na}^+`
+    ions in purple, :math:`\text{Cl}^-` ions in lime, and walls in
     gray. Right: top view. Note the absence of atomic defect
     at the cell boundaries.
 
@@ -329,32 +335,34 @@ System generation
 Energy minimization
 ===================
 
-..  container:: justify
+.. admonition:: Why is energy minimization necessary?
+    :class: info
 
-    **Why is this step necessary?**
     It is clear from the way the system has been created that
     the atoms are not at equilibrium distances from each
-    others. Indeed, some of the ions added using the 'fix
-    deposit' commands are too close to the water molecules.
-    If we were to start a 'normal' molecular dynamics
+    others. Indeed, some of the ions added using the *create_atoms*
+    commands are too close to the water molecules.
+    If we were to start a molecular dynamics
     simulation now (i.e. solve the equations of motion) with
-    a 'normal' timestep (1 or 2 femto-seconds), the atoms
+    a conventional timestep of 1 femto-seconds, the atoms
     would exert huge forces on each others, accelerate
-    brutally, and the simulation would fail (you can try).
+    brutally, and the simulation would fail.
+
+.. admonition:: Dealing with overlapping atoms
+    :class: dropdown
 
     MD simulations failing due to overlapping atoms are
     extremely common, and I can almost guarantee that you
     will face a similar issue at some point. If it occurs,
     you can either
 
-    - (1) delete the overlapping atoms,
-    - (2) move the atoms to more reasonable distances using some kind of energy minization before the simulation starts (here, this is what we do).
+    - delete the overlapping atoms using the *delete_atoms* command of LAMMPS, or
+    - move the atoms to more reasonable distances before the simulation starts.
 
-    Here we need to find a way to move the atoms and place them
-    in a more favorable position before starting the simulation.
-    This step is called 'energy minimization', and is often
-    necessary.
+..  container:: justify
 
+    Let us move the atoms and place them
+    in more energetically favorable positions before starting the simulation.
     To perform the energy minimization with our system, let us
     create a new folder named Minimization/, and create a new
     input file named input.lammps in it. The first lines will be
@@ -381,10 +389,9 @@ Energy minimization
 ..  container:: justify
 
     The only difference with the previous input is that, instead
-    of creating a new box and atoms, we open and read the
-    previously created file system.data which contains the
-    definition of the simulation box and the positions of the
-    atoms.
+    of creating a new box and new atoms, we open the
+    previously created file *system.data* located in *SystemCreation/*.
+    *system.data* contains the definition of the simulation box and the positions of the atoms.
 
     Next, let us create a group for the water:
 
@@ -395,10 +402,10 @@ Energy minimization
 
 ..  container:: justify
 
-    Creating groups allows us to apply different dynamics to the
+    Creating groups will allow us to apply different dynamics and constraints to the
     liquid and to the walls.
 
-    Let us print the atoms positions in a dump file:
+    Let us also print the atoms positions in a dump file:
 
 ..  code-block:: lammps
     :caption: *to be copied in Minimization/input.lammps*
@@ -450,13 +457,12 @@ Energy minimization
 
 ..  container:: justify
 
-    Fix recenter has no influence on the dynamics.
+    Fix recenter has no influence on the dynamics, but will keep the system in the 
+    center of the box, which makes the visualization easier.
 
     Finally, let us choose a small timestep (because we
     anticipate that the atoms are initially too close to each
-    others) and run for 1000 timesteps (with the command thermo
-    1000, thermodynamic info are printed in the terminal every
-    1000 timesteps).
+    others) and run for 10000 steps:
 
 ..  code-block:: lammps
     :caption: *to be copied in Minimization/input.lammps*
@@ -488,8 +494,9 @@ Energy minimization
 
 ..  container:: justify
 
-    You can easily import log file into python using the
-    `lammps_logfile`_ tool:
+    You can easily import log file into *Python* using the
+    `lammps_logfile`_ tool, and plot the thermodynamic quantities as a function 
+    of the time:
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/minimization-light.png
     :alt: Energy minimisation of the confined water and salt
@@ -499,8 +506,8 @@ Energy minimization
     :alt: Energy minimisation of the confined water and salt
     :class: only-dark
 
-    Energy as a function of time extracted from the log file using python and
-    lammps_logfile.
+    Energy as a function of time extracted from the log file using *Python* and
+    *lammps_logfile*.
 
 .. _lammps_logfile: https://pypi.org/project/lammps-logfile/
 
@@ -519,11 +526,11 @@ System equilibration
 
 ..  container:: justify
 
-    Now, let us properly equilibrate the system by letting bot
-    fluid and piston relax.
+    Now, let us properly equilibrate the system by letting both
+    fluid and piston relax at ambient temperature.
 
-    Create a new folder called Equilibration/, create a new
-    input file in it. Add the following lines:
+    Create a new folder called *Equilibration/*, create a new
+    input file in it, and add the following lines:
 
 ..  code-block:: lammps
     :caption: *to be copied in Equilibration/input.lammps*
@@ -558,7 +565,7 @@ System equilibration
 
 ..  container:: justify
 
-    Here several groups have been defined in order to differentiate
+    Here, several groups have been defined in order to differentiate
     between solid, liquid (salt+water), Na\\(^+\\), etc. (although
     not all of them are used). In addition, groups containing only the
     top wall (gwalltop) and the bottom wall (gwallbot) have been
@@ -609,11 +616,13 @@ System equilibration
 
     The main differences with the previous step (minimize) are
 
-    - 1) the timestep is 1 fs instead of 0.5 fs,
-    - 2) the thermostating imposes a temperature of 300 K, for which the fluid is expected to behave as a liquid,
-    - 3) two thermostats are used instead of one: one for the fluid, one for the solid (fix_modify ensure that the right temperature is used by the temp/berenden).
+    - the timestep is 1 fs instead of 0.5 fs,
+    - the thermostating imposes a temperature of 300 K, for which the
+      fluid is expected to behave as a liquid,
+    - two thermostats are used instead of one: one for the fluid, one for the solid (the use of *fix_modify* ensures
+      that the right temperature is used by the temp/berenden).
 
-    Run the input script. Note, I am running on 4 cores CPU using:
+    Run the input script. Note, I am running on 4 CPU cores using:
 
 ..  code-block:: bw
 
@@ -641,11 +650,11 @@ System equilibration
     
 ..  container:: justify
 
-    Note: For actual reseach, run this equilibration step for longer times
-    to make sure that proper equilibration was reached. Here, the slowest
-    process is the ionic diffusion, so at the very least the equilibration 
+    Note that for actual reseach, it is recommended to run this equilibration step for longer times
+    to make sure that proper equilibration was reached. Here, since the slowest
+    process is the ionic diffusion, the equilibration 
     should be longer than the typical diffusion time of the ions over the 
-    size of the pore (~3 nm), i.e. of the order of the nanosecond. 
+    size of the pore (~3 nm), i.e. of the order of the nanosecond.
 
 Imposed nanoshearing
 ====================
