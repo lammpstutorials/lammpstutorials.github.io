@@ -1,8 +1,8 @@
 # Makefile for LAMMPS tutorials
 
-SPHINXBUILD   = sphinx-build
-SOURCEDIR     = source
-BUILDDIR      = build
+SPHINXBUILD = sphinx-build
+SOURCEDIR = source
+BUILDDIR = build
 
 # Put it first so that "make" without argument is like "make help".
 help:
