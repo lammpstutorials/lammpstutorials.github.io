@@ -5,7 +5,7 @@ Free energy calculation
 
 .. container:: hatnote
 
-    Simple sampling of a free energy barrier using umbrella sampling
+   Simple sampling of a free energy barrier using umbrella sampling
 
 .. figure:: ../figures/level3/free-energy-calculation/avatar_light.webp
     :height: 250

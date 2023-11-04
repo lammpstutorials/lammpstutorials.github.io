@@ -1,4 +1,4 @@
-.. _`all-atoms-label`:
+.. _all-atoms-label:
 
 Polymer in water
 ****************
