@@ -23,15 +23,14 @@ Lennard Jones fluid
 
     The objective of this tutorial is to use
     LAMMPS to perform a simple molecular dynamics simulation
-    of a binary fluid in the NVT ensemble (see the video on 
-    the right). The system is a simple Lennard-Jones fluid
+    of a binary fluid in the NVT ensemble. The system is a simple Lennard-Jones fluid
     made of neutral dots with a Langevin thermostating. The
     simulation box is cubic with periodic boundary conditions.
 
     This tutorial illustrates the use of several ingredients of
     molecular dynamics simulations, such as system initialization,
-    energy minimisation, integration of the equations of motion,
-    and trajectory visualisation.
+    energy minimization, integration of the equations of motion,
+    and trajectory visualization.
 
 .. include:: ../../contact/needhelp.rst
 
