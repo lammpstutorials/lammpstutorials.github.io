@@ -828,11 +828,12 @@ should be longer than the typical diffusion time of the ions over the
 size of the pore (~3 nm), i.e. of the order of the nanosecond.</p>
 </div>
 </section>
-<section id="imposed-nanoshearing">
-<h2>Imposed nanoshearing<a class="headerlink" href="#imposed-nanoshearing" title="Link to this heading">#</a></h2>
+<section id="imposed-shearing">
+<h2>Imposed shearing<a class="headerlink" href="#imposed-shearing" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>From the equilibrated configuration, let us impose the
-shearing of the two walls. In a new folder called Shearing/,
+motion of the two walls in order to shear the electrolyte.
+In a new folder called <em>Shearing/</em>,
 create a new input that starts like the previous ones:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id21">
@@ -880,14 +881,13 @@ create a new input that starts like the previous ones:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>The main difference with the equilibration step, so far, is
-the use of temp/partial 0 1 1. This is meant to exclude the
-x coordinate from the thermalisation, since a large velocity
-will be imposed along x. Another difference is the
-change_box, used to reduce a little the amount of vacuum
-along z.</p>
-<p>Then, let us cancel the forces along x on each walls,
-and set the value of the velocity along x:</p>
+<p>The main difference with the previous <em>equilibration</em> step, so far, is
+the use of temperature <em>compute</em> with <em>temp/partial 0 1 1</em> options.
+This is meant to exclude the <em>x</em> coordinate from the thermalisation, which is
+important since a large velocity will be imposed along <em>x</em>. Another difference is the
+<em>change_box</em> command used to reduce the size of the box along <em>z</em> (otherwise there
+is too much unecessary vacuum).</p>
+<p>Then, let us impose the motion of the two walls:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id22">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
@@ -899,18 +899,16 @@ and set the value of the velocity along x:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>The setforce commands cancel the forces on a group of atoms at
+<p>The <em>setforce</em> commands cancel the forces on a group of atoms at
 every timestep, so the atoms of the group do not
 experience any force from the rest of the system. In absence of force
-acting on those atoms, their velocity never changes.</p>
-<p>The velocity set command acts only once, and imposes
-the velocity of the atoms. Used in
-combination with setforce, the atoms will keep that
-imposed velocity regardless of the other atoms.</p>
+acting on those atoms, they will conserve their initial velocity.</p>
+<p>The <em>velocity</em> commands act only once and impose
+the velocity of the atoms of the groups <em>gwallbot</em> and <em>gwalltop</em>, respectively.</p>
 <p>Finally, let us dump the atom positions, extract the
 velocity profile using the ave/chunk command, extract the
-force applied on the walls, and then run for 20 ps (or 200 ps if you
-comment/uncomment the appropriate lines):</p>
+force applied on the walls, and then run for 20 ps (feel free to increase the duration
+for more accurate velocity profile):</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id23">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id23" title="Link to this code">#</a></div>
@@ -920,29 +918,22 @@ comment/uncomment the appropriate lines):</p>
 <span class="k">thermo_modify</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
 
 <span class="k">compute </span><span class="nv nv-Identifier">cc1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
-<span class="c">#fix myac1 gliquid ave/chunk 10 15000 200000 cc1 vx file vel.profile.dat # tag:200ps</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1500</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="n">cc1</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">vel.profile.dat</span><span class="w"> </span><span class="c"># tag:20ps</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1500</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="n">cc1</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">vel.profile.dat</span>
 <span class="k">compute </span><span class="nv nv-Identifier">cc2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc2</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">vel.solid.dat</span><span class="w"> </span><span class="c"># tag:200ps</span>
-<span class="c">#fix myac2 gwall ave/chunk 10 1500 20000 cc2 vx file vel.solid.dat # tag:20ps</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1500</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="n">cc2</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">vel.solid.dat</span>
 
-<span class="c">#fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat # tag:200ps</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">f_mysf1[1]</span><span class="w"> </span><span class="n">f_mysf2[1]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">forces.dat</span><span class="w"> </span><span class="c"># tag:20ps</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">f_mysf1[1]</span><span class="w"> </span><span class="n">f_mysf2[1]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">forces.dat</span>
 
 <span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
-<span class="c">#run 200000 # tag:200ps</span>
-<span class="k">run</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="c"># tag:20ps</span>
+<span class="k">run</span><span class="w"> </span><span class="m">20000</span>
 <span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 </pre></div>
 </div>
 </div>
 <div class="justify docutils container">
-<p><strong>Note</strong> 20 ps is too short to measure meaningfull quantities. If you
-want just uncomment all lines tagged with “200ps”, and
-comment the lines tagged “20ps”. Of course the simulation
-will take a longer time to complete (about one hour using 4 CPU).</p>
-<p>The velocity profile I got (running for 200ps) is the
-following:</p>
+<p>Note that a duration of 20 ps is too short to measure meaningfull quantities.
+If you computer allows it, use 200 ps instead.</p>
+<p>The averaged velocity profile (with a 200 ps run) is the following:</p>
 </div>
 <figure class="align-default">
 <img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-light" src="../../_images/shearing-light.png" />
@@ -950,7 +941,8 @@ following:</p>
 <figure class="align-default" id="id24">
 <img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-dark" src="../../_images/shearing-dark.png" />
 <figcaption>
-<p><span class="caption-text">Velocity profile of the fluid and walls.</span><a class="headerlink" href="#id24" title="Link to this image">#</a></p>
+<p><span class="caption-text">Velocity profiles for both fluid (<span class="math notranslate nohighlight">\(-1.5 &lt; z &lt; 1.5\)</span> nm) and walls as a function
+of the <em>z</em> distance.</span><a class="headerlink" href="#id24" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -959,15 +951,15 @@ extract the stress within the fluid, which allows one to
 measure its viscosity <span class="math notranslate nohighlight">\(\dot{\eta}\)</span>
 according to <a href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/PhysRevFluids.6.034303.pdf" target="_blank">gravelle2021</a>:
 <span class="math notranslate nohighlight">\(\eta = \tau / \dot{\gamma}\)</span> where <span class="math notranslate nohighlight">\(\tau\)</span>
-is the stress applied bythe fluid on the shearing wall, and
+is the stress applied by the fluid on the shearing wall, and
 <span class="math notranslate nohighlight">\(\dot{\gamma}\)</span> the shear rate (which is imposed
 here). Here the shear rate is approximatively 6.25e9
 s-1, and using a surface area of 1e-17 m2, I
 get a viscosity for the fluid equal to 2.25 mPa.s</p>
 <p>The viscosity calculated at such high shear rate may
-differ from the bulk value. I recommand using a lower
-shear rate. Note that for lower shear rate, the ratio noise-to-signal
-is larger, and longer simulation must be performed.</p>
+differ from the bulk value. In general, it is recommanded to use a lower
+value for the shear rate. Note that for lower shear rate, the ratio noise-to-signal
+is larger, and longer simulations must be performed.</p>
 <p>Also note that the viscosity of a fluid next to a solid surface is
 typically larger than in bulk due to interaction with the
 walls. Therefore one expect the present simulation to return
@@ -1068,7 +1060,7 @@ Poiseuille’s predictions?</p>
 <li><a class="reference internal" href="#system-generation">System generation</a></li>
 <li><a class="reference internal" href="#energy-minimization">Energy minimization</a></li>
 <li><a class="reference internal" href="#system-equilibration">System equilibration</a></li>
-<li><a class="reference internal" href="#imposed-nanoshearing">Imposed nanoshearing</a></li>
+<li><a class="reference internal" href="#imposed-shearing">Imposed shearing</a></li>
 <li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
 <li><a class="reference internal" href="#density-profiles">Density profiles</a></li>
 <li><a class="reference internal" href="#poiseuille-flow">Poiseuille flow</a></li>

@@ -656,13 +656,14 @@ System equilibration
     should be longer than the typical diffusion time of the ions over the 
     size of the pore (~3 nm), i.e. of the order of the nanosecond.
 
-Imposed nanoshearing
-====================
+Imposed shearing
+================
 
 ..  container:: justify
 
     From the equilibrated configuration, let us impose the
-    shearing of the two walls. In a new folder called Shearing/,
+    motion of the two walls in order to shear the electrolyte.
+    In a new folder called *Shearing/*,
     create a new input that starts like the previous ones:
 
 ..  code-block:: lammps
@@ -710,15 +711,14 @@ Imposed nanoshearing
 
 ..  container:: justify
 
-    The main difference with the equilibration step, so far, is
-    the use of temp/partial 0 1 1. This is meant to exclude the
-    x coordinate from the thermalisation, since a large velocity
-    will be imposed along x. Another difference is the
-    change_box, used to reduce a little the amount of vacuum
-    along z.
+    The main difference with the previous *equilibration* step, so far, is
+    the use of temperature *compute* with *temp/partial 0 1 1* options.
+    This is meant to exclude the *x* coordinate from the thermalisation, which is 
+    important since a large velocity will be imposed along *x*. Another difference is the
+    *change_box* command used to reduce the size of the box along *z* (otherwise there 
+    is too much unecessary vacuum).
 
-    Then, let us cancel the forces along x on each walls,
-    and set the value of the velocity along x:
+    Then, let us impose the motion of the two walls:
 
 ..  code-block:: lammps
     :caption: *to be copied in Shearing/input.lammps*
@@ -730,20 +730,18 @@ Imposed nanoshearing
 
 ..  container:: justify
 
-    The setforce commands cancel the forces on a group of atoms at
+    The *setforce* commands cancel the forces on a group of atoms at
     every timestep, so the atoms of the group do not
     experience any force from the rest of the system. In absence of force
-    acting on those atoms, their velocity never changes.
+    acting on those atoms, they will conserve their initial velocity.
 
-    The velocity set command acts only once, and imposes
-    the velocity of the atoms. Used in
-    combination with setforce, the atoms will keep that
-    imposed velocity regardless of the other atoms.
+    The *velocity* commands act only once and impose
+    the velocity of the atoms of the groups *gwallbot* and *gwalltop*, respectively.
 
     Finally, let us dump the atom positions, extract the
     velocity profile using the ave/chunk command, extract the
-    force applied on the walls, and then run for 20 ps (or 200 ps if you 
-    comment/uncomment the appropriate lines):
+    force applied on the walls, and then run for 20 ps (feel free to increase the duration 
+    for more accurate velocity profile):
 
 ..  code-block:: lammps
     :caption: *to be copied in Shearing/input.lammps*
@@ -754,29 +752,22 @@ Imposed nanoshearing
     thermo_modify temp tliq
 
     compute cc1 gliquid chunk/atom bin/1d z 0.0 1.0
-    #fix myac1 gliquid ave/chunk 10 15000 200000 cc1 vx file vel.profile.dat # tag:200ps
-    fix myac1 gliquid ave/chunk 10 1500 20000 cc1 vx file vel.profile.dat # tag:20ps
+    fix myac1 gliquid ave/chunk 10 1500 20000 cc1 vx file vel.profile.dat
     compute cc2 gwall chunk/atom bin/1d z 0.0 1.0
-    fix myac2 gwall ave/chunk 10 15000 200000 cc2 vx file vel.solid.dat # tag:200ps
-    #fix myac2 gwall ave/chunk 10 1500 20000 cc2 vx file vel.solid.dat # tag:20ps
+    fix myac2 gwall ave/chunk 10 1500 20000 cc2 vx file vel.solid.dat
 
-    #fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat # tag:200ps
-    fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat # tag:20ps
+    fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat
 
     timestep 1.0
-    #run 200000 # tag:200ps
-    run 20000 # tag:20ps
+    run 20000
     write_data system.data
 
 ..  container:: justify
 
-    **Note** 20 ps is too short to measure meaningfull quantities. If you
-    want just uncomment all lines tagged with "200ps", and
-    comment the lines tagged "20ps". Of course the simulation 
-    will take a longer time to complete (about one hour using 4 CPU).
+    Note that a duration of 20 ps is too short to measure meaningfull quantities.
+    If you computer allows it, use 200 ps instead.
 
-    The velocity profile I got (running for 200ps) is the
-    following:
+    The averaged velocity profile (with a 200 ps run) is the following:
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/shearing-light.png
     :alt: Velocity of the nanosheared fluid Video of sheared fluid
@@ -786,7 +777,8 @@ Imposed nanoshearing
     :alt: Velocity of the nanosheared fluid Video of sheared fluid
     :class: only-dark
 
-    Velocity profile of the fluid and walls.
+    Velocity profiles for both fluid (:math:`-1.5 < z < 1.5` nm) and walls as a function 
+    of the *z* distance.
 
 ..  container:: justify
 
@@ -795,16 +787,16 @@ Imposed nanoshearing
     measure its viscosity :math:`\dot{\eta}` 
     according to |reference_gravelle2021|:
     :math:`\eta = \tau / \dot{\gamma}` where :math:`\tau`
-    is the stress applied bythe fluid on the shearing wall, and
+    is the stress applied by the fluid on the shearing wall, and
     :math:`\dot{\gamma}` the shear rate (which is imposed
     here). Here the shear rate is approximatively 6.25e9
     s-1, and using a surface area of 1e-17 m2, I
     get a viscosity for the fluid equal to 2.25 mPa.s
 
     The viscosity calculated at such high shear rate may
-    differ from the bulk value. I recommand using a lower
-    shear rate. Note that for lower shear rate, the ratio noise-to-signal
-    is larger, and longer simulation must be performed.
+    differ from the bulk value. In general, it is recommanded to use a lower
+    value for the shear rate. Note that for lower shear rate, the ratio noise-to-signal
+    is larger, and longer simulations must be performed.
 
     Also note that the viscosity of a fluid next to a solid surface is
     typically larger than in bulk due to interaction with the
