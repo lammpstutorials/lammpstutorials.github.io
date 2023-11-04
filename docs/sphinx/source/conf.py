@@ -5,7 +5,7 @@ author = 'Simon Gravelle'
 
 extensions = ['sphinxcontrib.googleanalytics',
               'sphinx_togglebutton',
-              'sphinx_favicon']
+              'sphinx_favicon'] # 'rst2pdf.pdfbuilder'
 
 googleanalytics_id = 'G-W1WGEC5GQ8'
 
