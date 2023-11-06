@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{fancyvrb,newverbs,xcolor}
+\usepackage{lipsum}% just for this example
+
+\definecolor{cverbbg}{gray}{0.93}
+
+\newenvironment{cverbatim}
+ {\SaveVerbatim{cverb}}
+ {\endSaveVerbatim
+  \flushleft\fboxrule=0pt\fboxsep=.5em
+  \colorbox{cverbbg}{\BUseVerbatim{cverb}}%
+  \endflushleft
+}
+\newenvironment{lcverbatim}
+ {\SaveVerbatim{cverb}}
+ {\endSaveVerbatim
+  \flushleft\fboxrule=0pt\fboxsep=.5em
+  \colorbox{cverbbg}{%
+    \makebox[\dimexpr\linewidth-2\fboxsep][l]{\BUseVerbatim{cverb}}%
+  }
+  \endflushleft
+}
+
+\newcommand{\ctexttt}[1]{\colorbox{cverbbg}{\texttt{#1}}}
+\newverbcommand{\cverb}
+  {\setbox\verbbox\hbox\bgroup}
+  {\egroup\colorbox{cverbbg}{\box\verbbox}}
+
+\begin{document}
+Some verbatim mid line \cverb|$a^{x+y}=a^xa^y$| and other words. Also
+a simple \ctexttt{typewriter text} with its background.
+
+\lipsum[1]
+\begin{cverbatim}
+Something 
+verbatim
+\foo
+\end{cverbatim}
+\lipsum[2]
+\begin{lcverbatim}
+Something 
+verbatim
+\foo
+\end{lcverbatim}
+\lipsum[3]
+\end{document}
+

@@ -101,15 +101,11 @@ def fix_link(RST, line):
     else:
         return line
 
-def fix_caption(lines):
-    new_lines = []
+def fix_caption(line):
     caption = None
-    for line in lines:
-        if 'caption' in line:
-            caption = line.split('*')[1]+':'
-        else:
-            new_lines.append(line)
-    return caption, new_lines
+    if ':caption:' in line:
+        caption = line.split('*')[1]+':\n'
+    return caption
 
 
 def fix_italic(line, caracter = '*', replace_with = [r'\textit{', '}'], replace_underscore=False):

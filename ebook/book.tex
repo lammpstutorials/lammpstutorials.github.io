@@ -21,6 +21,36 @@
 \usepackage{times}
 \usepackage{subcaption}
 \usepackage{mathtools}
+\usepackage{microtype}
+
+\usepackage{newverbs}
+
+%\usepackage{calrsfs}
+
+\definecolor{graytitle}{gray}{0.5}
+\definecolor{cverbbg}{gray}{0.93}
+
+\newenvironment{cverbatim}
+ {\SaveVerbatim{cverb}}
+ {\endSaveVerbatim
+  \flushleft\fboxrule=0pt\fboxsep=.5em
+  \colorbox{cverbbg}{\BUseVerbatim{cverb}}%
+  \endflushleft
+}
+
+\newenvironment{lcverbatim}
+ {\SaveVerbatim{cverb}}
+ {\endSaveVerbatim
+ \footnotesize
+ \sffamily
+ % \texttt{
+  \flushleft\fboxrule=0pt\fboxsep=.5em
+  \colorbox{cverbbg}{%
+    \makebox[\dimexpr\linewidth-2\fboxsep][l]{\BUseVerbatim{cverb}}%
+ % }
+ }
+  \endflushleft
+}
 
 \lstset{frame=single,
   language=C++,
