@@ -26,9 +26,6 @@ def detect_block(n, file_content, keep_line_break=False):
                 words_in_block.append('\n')
         except:
             within_block = False
-    print()
-    print(all_jump)
-    print()
     return words_in_block
 
 def block_to_sentence(lines):

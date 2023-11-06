@@ -609,7 +609,7 @@ Trajectory visualisation
 ..  container:: justify
 
     Otherwise, you can open VMD and import the *dump.lammpstrj*
-    file manually using file -> molecule. You should see a cloud
+    file manually using file *->* molecule. You should see a cloud
     of lines, but you can improve the representation and make it
     look like the figure on the right, or the video at the 
     top of this page. 
