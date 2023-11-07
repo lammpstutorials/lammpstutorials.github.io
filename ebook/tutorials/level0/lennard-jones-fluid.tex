@@ -3,3 +3,357 @@
 
 \vspace{-1cm} \noindent \textcolor{graytitle}{\textit{{\Large The very basics of LAMMPS through a simple example}}\vspace{0.5cm} }
 
+The objective of this tutorial is to use
+LAMMPS to perform a simple molecular dynamics simulation
+of a binary fluid in the NVT ensemble. The system is a simple Lennard-Jones fluid
+made of neutral dots with a Langevin thermostating. The
+simulation box is cubic with periodic boundary conditions.
+This tutorial illustrates the use of several ingredients of
+molecular dynamics simulations, such as system initialization,
+energy minimization, integration of the equations of motion,
+and trajectory visualization.
+
+Download and install LAMMPS by following the instructions of the |LAMMPS website|.
+Alternatively, if you are using Ubuntu OS, you can simply execute the
+following command in a terminal:
+
+You can verify that LAMMPS is indeed installed on your
+computer by typing in a terminal :
+
+You should see the version of LAMMPS that has been
+installed. On my computer I see
+
+In addition to LAMMPS, you will also need |(1) a basic text editing software|
+such as Vim, Gedit, or Notepad++, |(2) a visualization software|, here I
+will use VMD (note: VMD is free but you have to register to
+the uiuc website in order to download it. If you don't want
+to, you can also use Ovito.), |(3) a plotting tool| like
+XmGrace or pyplot.
+
+In order to run a simulation using LAMMPS, one needs to
+write a series of commands in an input script. For clarity,
+this script will be divided into five categories which we are going to
+fill up one by one. Create a blank text file, call it
+*input1.lammps*, and copy the following lines in it:
+
+These five categories are not required in every
+input script, and should not necessarily be in that
+exact order. For instance parts 3 and 4 could be inverted, or
+part 4 could be omitted, or there could be several
+consecutive runs.
+A line starting with a brace (#) is a comment
+that is ignored by LAMMPS. Use comments to structure 
+your inputs and make them readable by others.
+
+In the first section of the script, called *Initialization*,
+let us indicate to LAMMPS the type of simulation we are
+going to execute by specifying the most basic information,
+such as the conditions at the boundaries of the box (i.e.
+periodic, non-periodic) or the type of atoms (e.g. uncharged
+single dots, spheres with angular velocities). Enter the
+following lines:
+
+The first line indicates that we want to
+use the system of unit called *lj*, for lennard-jones, for which all quantities
+are unitless. 
+
+The second line indicates that the simulation
+is 3D, the third line that the *atomic* style
+will be used, therefore each atom is just a dot with a mass.
+
+The fourth line indicates that atoms are going to interact
+through a Lennard-Jones potential with a cut-off equal to
+2.5 (unitless), and the last line indicates that the
+periodic boundary conditions will be used along all three
+directions of space (the 3 *p* stand for *x*, *y*, and *z*,
+respectively).
+At this point, you have a LAMMPS script that does nothing.
+You can execute it to verify that there is no mistake by
+running the following command in the terminal:
+
+Which should return something like
+
+If there is a mistake in the input script, for example if
+*atom_stile* is written instead of *atom_style*, LAMMPS
+gives you an explicit warning:
+
+Let us fill the second part the of the input script:
+
+The first line creates a region of space
+named *simulation_box* that is a block (a rectangular cuboid) and
+extends from -20 to 20 along all 3 directions of space, all expressed in
+non-dimensional units because we are using the lj system
+of units. The second line creates a simulation box based on
+the region *simulation_box* with *2* types of atoms. The third
+command specifies that 1500 atoms of type 1 must be created
+randomly in the region *simulation_box*. The integer *341341* is a
+seed that can be changed in order to create different
+initial conditions for the simulation. The fourth line
+creates 100 atoms of type 2.
+If you run LAMMPS, you should see the following in the
+terminal:
+
+From what is printed in the terminal, it is clear that
+LAMMPS correctly interpreted the commands, and first created
+the box with desired dimensions, then 1500 atoms, then 100
+atoms.
+Let us fill the third section of the input script, the settings:
+
+The two first commands attribute a mass
+equal to 1 (unitless) to both atoms of type 1 and 2,
+respectively. The third line sets the Lennard-Jones
+coefficients for the interactions between atoms of type 1,
+respectively the depth of the potential well
+:math:`\epsilon` and the distance at which the
+particle-particle potential energy is zero :math:`\sigma`. 
+The last line sets the Lennard-Jones coefficients for
+the interactions between atoms of type 2.
+
+Now that the system is fully defined, let us just fill the two last remaining sections:
+
+The thermo command asks LAMMPS to print
+thermodynamic information (e.g. temperature, energy) in the
+terminal every 10 steps. The second line asks LAMMPS to
+perform an energy minimization of the system.
+
+Now running the simulation, we can see how the thermodynamics
+variables evolve with time:
+
+These lines give us information concerning
+the progress of the energy minimization. First, at the start
+of the simulation (step 0), the energy in the system is
+huge: 78840982 (unitless). This was expected because
+the atoms have been created at random positions within the
+simulation box, and some of them are probably overlapping,
+resulting in a large initial energy which is the consequence
+of the repulsive part of the Lennard-Jones interaction
+potential. As the energy minimization progresses, the energy
+rapidly decreases and reaches a negative value, indicating that the atoms have been
+displaced at reasonable distances from one another. Other
+useful information have been printed in the terminal, for
+example, LAMMPS tells us that the first of the four criteria
+to be satisfied was the energy:
+
+The system is now ready. Let us continue filling up the
+input script and adding commands in order to perform an actual molecular dynamics
+simulation that will start from the final state of the energy minimization.
+In the same input script, after the *minimization* command, add the following
+lines:
+
+Since LAMMPS reads the input from top to
+bottom, these lines will be executed after the energy
+minimization. There is no need to (re-)initialize the system
+(part 1), (re-)define it (part 2), or (re-)specify the settings
+(part 3). The *thermo* command is called a second time within the 
+same input, so the previously entered value of *10* will be replaced
+by the value of *1000* as soon as the second run starts.
+
+Three variables have been defined in order
+to print the kinetic energy and the potential energy 
+of the system in the file named *energy.dat*. Then,
+in the run section, the fix *nve* is used to update the
+positions and the velocities of the atoms in the group
+*all* (this is the most important command here). The second
+fix applies a Langevin thermostat to the atoms of group
+*all*, with a desired temperature of 1 and a damping
+parameter of 0.1. The number *1530917* is a seed, you can
+change it to perform statistically independent simulations
+with the same system. Finally we choose the timestep
+and we ask LAMMPS to run for 10000 steps. After running
+the simulation, you should see the following information in
+the terminal:
+
+The second column shows that the temperature
+starts from 0, but rapidly reaches the
+expected value near :math:`T=1`, as requested. 
+Note that  In the terminal, you may also see
+
+Note : If you see *Dangerous builds = 0*, as could be
+the case with some LAMMPS versions, you can ignore
+the next part.
+During the simulation, they have been 998 dangerous builds.
+This is an indication that something is wrong: some atoms
+have moved more than expected in between two calculations of
+the neighbor lists. Let us add the following command in the
+*Simulation settings* section:
+
+With this command, LAMMPS will rebuild the neighbor lists
+more often. Re-run the simulation, and you should see a more
+positive outcome with 0 dangerous build:
+
+From what has been printed in the energy.dat file, let us
+plot the potential energy and the pressure of
+the system over time:
+
+The simulation is running well, but we would like to
+visualize the trajectories of the atoms. To do so, we need
+to dump the positions of the atoms in a file at a regular
+interval. Add the following command in the *visualization*
+section of PART B:
+
+Run LAMMPS again. A file named *dump.lammpstrj* must appear in
+the same folder as your input. This file can be opened using
+VMD or Ovito. In Ubuntu, if VMD is installed, you can simply
+execute in the terminal:
+
+Otherwise, you can open VMD and import the *dump.lammpstrj*
+file manually using file *->* molecule. You should see a cloud
+of lines, but you can improve the representation and make it
+look like the figure on the right, or the video at the 
+top of this page. 
+Improving the script
+====================
+
+Let us improve the input script and perform slightly more
+advanced operations.
+
+Let us create the atoms of type 1 and 2 in two separate
+regions, respectively, instead of creating them both randomly 
+within the entire space as we did previously. Create a new input script, and call
+it *input2.lammps*. Similarly to what has been done previously, copy the following lines
+into the input script:
+
+Let us create a box from a predefined region,
+and create two additional regions and generate
+atoms of type 1 and 2 in each region respectively.
+
+The *side in* and *side out* keywords
+allow us to define regions that are respectively inside the
+cylinder, and everything that is not inside the cylinder.
+We can write the remaining of the input script as follow:
+
+The novelty with respect to the previous
+input script is the command *write_data*. This command
+asks LAMMPS to print the final state of the simulation in
+a file named *minimized_coordinate.data*. This file will
+be used later to restart the simulation from the final
+state of the energy minimisation step.
+Run LAMMPS using the *input2.lammps* script. If everything
+goes well, a dump file named *dump.min.lammpstrj* will
+appear in the folder, allowing you to visualize the atoms
+trajectories during minimization. In
+addition, a file named *minimized_coordinate.data* will be
+created. If you open this file, you will see that it
+contains all the information necessary to restart the
+simulation, such as the number of atoms and the size of
+the box:
+
+The *minimized_coordinate.data* file also contains the final
+positions and velocities of all the atoms:
+
+The columns of the Atoms section
+correspond (from left to right) to the atom indexes (from 1
+to the total number of atoms, 1150), the atom types (1 or 2
+here), the atoms positions :math:`x`, :math:`y`, :math:`z` and the
+atoms velocities :math:`v_x`, :math:`v_y`, :math:`v_z`.
+Restarting from a saved configuration
+-------------------------------------
+
+We are going to create a new input file and start a
+molecular dynamics simulation directly from the previously
+saved configuration. In the same folder, create a new file
+named input3.lammps and copy the same lines as previously:
+
+Now, instead of creating a new region and adding atoms, we
+simply add the following command:
+
+By visualizing the previously generated dump.min.lammpstrj
+file, you may have noticed that some atoms have moved from
+one region to the other during minimisation, as seen in
+|this video|.
+In order to start the simulation from a clean state, with
+only atoms of type 2 within the cylinder and atoms of type
+1 outside the cylinder, let us delete the misplaced atoms
+by adding the following commands:
+
+These commands will respectively recreate
+the previously defined regions (regions are not saved by the
+*write_data* command), create groups, and finally delete the
+atoms of type 1 that are located within the cylinder, as
+well as the atoms of type 2 that are located outside the
+cylinder. If you run LAMMPS, you can see in the terminal how
+many atoms are in each group, and how many atoms have been
+deleted:
+
+Similarly to previously, add the following simulation
+settings:
+
+Note that 2 atom groups have been defined, they are useful
+here to extract the coordination number between atoms of
+type 1 and 2. Let us extract this coordination number, as
+well as the number of atoms of each type in each region, by
+adding the following commands to the input file:
+
+As seen previously, the fix ave/time
+allow to evaluate previously defined variables and print
+the values (here every 2000 steps, after averaging each quantities 200 times)
+into data file. The 4 variables starting with *Ntype* are used to count
+the number of atoms of a specific group in a specific
+region. 
+Let us also extract the coordination number per atom between atoms 
+of type 1 and 2, i.e. the average number of atoms of type 2 in the vicinity 
+of the atoms of type 1. This coordination number will be used as an indicator of the 
+degree of mixing of our binary mixture. 
+
+The *compute ave* is used to average the per atom
+coordination number that is calculated by the *coord/atom* compute.
+This averaging is necessary as *coord/atom* returns an array where each value corresponds 
+to a certain couple of atom i-j. Such array can't be printed by *fix ave/time*. 
+Finally, let us complete the script by adding the run section:
+
+There are a few differences with the
+previous input script. First, the *velocity create*
+command attributes an initial velocity to all the atoms.
+The initial velocity is chosen so that the initial
+temperature is equal to 1 (unitless). The additional
+keywords ensure that no linear momentum and no angular
+momentum are given to the system, and that the generated
+velocities are distributed as a Gaussian. Another novelty
+is the *zero yes* keyword in the Langevin thermostat, that
+ensures that the total random force is equal to zero.
+After running the simulation, you can observe the number
+of atoms in each region from the generated data files, as
+well as the evolution of the coordination number due to
+mixing:
+
+Now that you have completed this simple molecular dynamics tutorials, what can you do?
+Play around
+-----------
+
+A good way to progress with LAMMPS and molecular dynamics
+simulations is to play around with a script that is already
+working and observe the differences and/or errors occurring:
+Try adding new commands (you can choose from the documentation),
+try removing some of the commands, try changing the parameter values
+(see also the first exercise below).
+The more you trigger warnings, the easier it will be for you to solve your
+own simulation.
+Try another tutorial
+--------------------
+
+There are many common aspects of molecular simulations that were not dealt with in this
+tutorial:
+- dealing with charged atoms and bounded molecules, as is necessary to model most existing molecules, solids, or structures, see for instance :ref:`all-atoms-label` and :ref:`sheared-confined-label`,
+- dealing with non-constant volume,
+- dealing with reactivity and bond formation/breaking, see :ref:`reactive-silicon-dioxide-label`.
+Exercises
+=========
+
+So far, simulations were made using the NVT ensemble [constant number 
+of atoms, N, constant volume V, and constant (or at least imposed)
+temperature T].
+Run a similar simulation in the NVE ensemble, and extract the
+total energy of the system over time.
+
+Run a successful simulation without using the *minimize* command.
+The absence of energy minimization needs to be compensated
+in order to avoid triggering the *ERROR: Lost atoms* message.
+
+So far, atoms were freely diffusing without contraint or external force.
+Add an external force to induce a net flow of atoms in one
+direction. The magnitude of the force must be chosen so
+that the system is not *too far* from equilibrium.
+
+Add a bond between couple of identical atoms to create
+dumbbell molecules, just like in the image:
+
