@@ -1,3 +1,163 @@
+import rstparse
+import numpy as np
+
+
+class ReadRST:
+    """Read RST file."""
+    def __init__(self, file_name, *args, **kwargs,):
+        """Initialize"""
+        super().__init__(*args, **kwargs)
+        self.file_name = file_name
+
+    def convert_file(self):
+        """Main convert function."""
+        self.read_rst()
+        self.detect_blocks()
+        self.detect_sub_blocks()
+        self.detect_label()
+        self.detect_title()
+
+    def read_rst(self):
+        """Convert the rst file into a list of strings"""
+        rst = rstparse.Parser()
+        with open(self.file_name) as f:
+            rst.read(f)
+        rst.parse()
+        file_content = []
+        for line in rst.lines:
+            file_content.append(line)
+        self.file_content = file_content
+
+    def detect_blocks(self):
+        """Detect the blocks in the file"""
+        positions, types, ids = read_block(self.file_content,
+                                           ['container:: justify', 'container:: hatnote', 'admonition::'])
+        self.block_ids = ids
+        self.block_types = types 
+        self.block_positions = positions
+     
+    def detect_sub_blocks(self):
+        """Detect the sub-blocks in the file"""
+        positions, types, ids = read_block(self.file_content,
+                                           ['figure::', ':: lammps', ':: bw', ':: python'])
+        self.subblock_ids = ids
+        self.subblock_types = types
+        self.subblock_positions = positions
+
+    def detect_label(self):
+        """Detect the labels in the file"""
+        positions, types, ids = read_block(self.file_content, ['-label'])
+        self.label_ids = ids
+        self.label_types = types
+        self.label_positions = positions
+            
+    def detect_title(self):
+            self.detect_title_position()
+            assert np.sum(np.array(self.title_types) == "main") == 1, """More than one main title was found"""
+
+    def detect_title_position(self):
+        self.title_positions = []
+        self.title_types = []
+        for n, line in enumerate(self.file_content):
+            if line[:3] == "***":
+                self.title_positions.append(n-1)
+                self.title_types.append("main")
+            elif line[:3] == "===":
+                self.title_positions.append(n-1)
+                self.title_types.append("subtitle")
+            elif line[:3] == "---":
+                self.title_positions.append(n-1)
+                self.title_types.append("subsubtitle")
+
+def fix_caption(line):
+    caption = None
+    if ':caption:' in line:
+        caption = line.split('*')[1]+':\n'
+    return caption
+
+def read_block(file_content, possible_types):
+    positions = []
+    types = []
+    ids = []
+    last_type = 'start'
+    id = 0
+    for n, line in enumerate(file_content):
+        if ('..' in line) & ('...' not in line):
+            part = line.split('..')
+            for type in possible_types:
+                if type in part[1]:
+                    id += 1
+                    last_type = type
+                    positions.append(n)
+        ids.append(id)
+        types.append(last_type)
+    return positions, types, ids
+
+def clean_block(content, types, ids, id):
+    line_numbers = np.where(np.array(ids) == id)[0]
+    block_lines = []
+    block_types = []
+    for n in line_numbers:
+        line = content[n]
+        type = types[n]
+        block_lines.append(line)
+        block_types.append(type)
+    block_type = np.unique(block_types)
+    assert len(block_type) == 1, """Block of mixed type ?"""
+    return block_lines, block_type[0], line_numbers
+
+def filter_block(block_text):
+    """Convert a block of text into clean lines"""
+    filtered_text = []
+    keep_reading = True
+    for line in block_text[1:]:
+        if '..' in line:
+            keep_reading = False
+        if (keep_reading) & (len(line)>0):
+            try:
+                while line[0] == ' ':
+                    line = line[1:]
+                if ':class:' not in line:
+                    filtered_text.append(line)
+            except:
+                pass
+    return filtered_text
+
+def identify_subblock(block_lines, subblock_positions, subblock_types, subblock_ids):
+    """Identify the subblock that are within a given block"""
+    sub_pos_in = []
+    sub_id_in = []
+    for sub_pos in subblock_positions:
+        if sub_pos in block_lines:
+            sub_type = subblock_types[sub_pos]
+            sub_id = subblock_ids[sub_pos]
+            sub_pos_in.append(sub_type)
+            sub_id_in.append(sub_id)
+    return sub_pos_in, sub_id_in
+
+##########################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def detect_block(n, file_content, keep_line_break=False):
     within_block = True
     words_in_block = []
@@ -101,11 +261,6 @@ def fix_link(RST, line):
     else:
         return line
 
-def fix_caption(line):
-    caption = None
-    if ':caption:' in line:
-        caption = line.split('*')[1]+':\n'
-    return caption
 
 
 def fix_italic(line, caracter = '*', replace_with = [r'\textit{', '}'], replace_underscore=False):
