@@ -14,7 +14,7 @@ class ReadRST:
         self.read_rst()
         self.detect_blocks()
         self.detect_sub_blocks()
-        self.detect_label()
+        #self.detect_label()
         self.detect_title()
 
     def read_rst(self):
@@ -30,19 +30,15 @@ class ReadRST:
 
     def detect_blocks(self):
         """Detect the blocks in the file"""
-        positions, types, ids = read_block(self.file_content,
-                                           ['container:: justify', 'container:: hatnote', 'admonition::'])
-        self.block_ids = ids
-        self.block_types = types 
-        self.block_positions = positions
+        main_block_type, main_block = read_block(self.file_content)
+        self.main_block_type = main_block_type
+        self.main_block = main_block 
      
     def detect_sub_blocks(self):
         """Detect the sub-blocks in the file"""
-        positions, types, ids = read_block(self.file_content,
-                                           ['figure::', ':: lammps', ':: bw', ':: python'])
-        self.subblock_ids = ids
-        self.subblock_types = types
-        self.subblock_positions = positions
+        sub_block_type, sub_block = read_subblock(self.file_content)
+        self.sub_block_type = sub_block_type
+        self.sub_block = sub_block 
 
     def detect_label(self):
         """Detect the labels in the file"""
@@ -75,65 +71,159 @@ def fix_caption(line):
         caption = line.split('*')[1]+':\n'
     return caption
 
-def read_block(file_content, possible_types):
-    positions = []
-    types = []
-    ids = []
-    last_type = 'start'
-    id = 0
-    for n, line in enumerate(file_content):
-        if ('..' in line) & ('...' not in line):
-            part = line.split('..')
-            for type in possible_types:
-                if type in part[1]:
-                    id += 1
-                    last_type = type
-                    positions.append(n)
-        ids.append(id)
-        types.append(last_type)
-    return positions, types, ids
+def read_block(file_content):
+    main_block = []
+    main_block_type = []
+    cpt_main_block = 0
+    type = 'start'
+    for line in file_content:
+        new_block = False
+        if ('.. ' in line) & (' .. ' not in line) & ('...' not in line):
+            # new main block with no indentation
+            cpt_main_block += 1
+            new_block = True
+        elif len(line) > 0:
+            if line[0] != ' ':
+                cpt_main_block += 1
+                new_block = True
+        if new_block:
+            if 'container:: justify' in line:
+                type = 'text'
+            elif 'container:: hatnote' in line: 
+                 type = 'hatnote'
+            elif 'admonition::' in line:
+               type = 'admonition'
+            elif ('code-block' in line) & ('bw' in line):
+                type = 'bw-equation'
+            elif ('code-block' in line) & ('lammps' in line):
+                type = 'lammps-equation'
+            elif ('figure:: ' in line):
+                type = 'figure::'
+            else:
+                type = 'unknown'
+                # print("unknown type", line)
+        main_block_type.append(type)
+        main_block.append(cpt_main_block)
+    return main_block_type, main_block
+
+def count_line(line):
+    space_number = 0
+    empty_start = True
+    while empty_start:
+        if len(line)>0:
+            if line[0] == ' ':
+                line = line[1:]
+                space_number += 1
+            else:
+                empty_start = False
+        else:
+            empty_start = False
+    return space_number
+
+def read_subblock(file_content):
+    sub_block = []
+    sub_block_type = []
+    cpt_sub_block = 0
+    ref_space_number = 0
+    type = 'start'
+    for line in file_content:
+        new_block = False
+        space_number = count_line(line)
+        if (' .. ' in line) & ('...' not in line):
+            # new main block with no indentation
+            cpt_sub_block += 1
+            new_block = True
+            ref_space_number = space_number
+        elif (space_number <= ref_space_number) & (len(line) > 0):
+            cpt_sub_block += 1
+            ref_space_number = space_number
+            new_block = True
+            type = 'unknown'
+        if new_block:
+            if len(line) > 0:
+                if line[0] != ' ':
+                    type = 'unknown'
+                else:
+                    if 'container:: justify' in line:
+                        type = 'text'
+                    elif 'container:: hatnote' in line: 
+                        type = 'hatnote'
+                    elif 'admonition::' in line:
+                        type = 'admonition'
+                    elif ('code-block' in line) & ('bw' in line):
+                        type = 'bw-equation'
+                    elif ('code-block' in line) & ('lammps' in line):
+                        type = 'lammps-equation'
+                    elif ('figure:: ' in line):
+                        type = 'figure'
+                    else:
+                        type = 'unknown'
+                        # print("unknown type", line)
+        sub_block_type.append(type)
+        sub_block.append(cpt_sub_block)
+    return sub_block_type, sub_block
 
 def clean_block(content, types, ids, id):
     line_numbers = np.where(np.array(ids) == id)[0]
-    block_lines = []
-    block_types = []
-    for n in line_numbers:
-        line = content[n]
-        type = types[n]
-        block_lines.append(line)
-        block_types.append(type)
-    block_type = np.unique(block_types)
-    assert len(block_type) == 1, """Block of mixed type ?"""
-    return block_lines, block_type[0], line_numbers
+    if len(line_numbers) > 0:
+        block_lines = []
+        block_types = []
+        for n in line_numbers:
+            line = content[n]
+            type = types[n]
+            block_lines.append(line)
+            block_types.append(type)
+        block_type = np.unique(block_types)
+        assert len(block_type) == 1, """Block of mixed type ?"""
+        return block_lines, block_type[0], line_numbers
+    else:
+        return None, None, None
 
-def filter_block(block_text):
+def filter_block(block_text, block_type):
     """Convert a block of text into clean lines"""
-    filtered_text = []
-    keep_reading = True
-    for line in block_text[1:]:
-        if '..' in line:
-            keep_reading = False
-        if (keep_reading) & (len(line)>0):
-            try:
-                while line[0] == ' ':
-                    line = line[1:]
-                if ':class:' not in line:
-                    filtered_text.append(line)
-            except:
-                pass
-    return filtered_text
+    first_non_zero_indentation = None
+    indentation = -1
+    if (block_text is not None) & (block_type != 'unknown'):
+        # put the lines into a list 
+        filtered_text = []
+        for line in block_text[1:]:
+            indentation = count_line(line)
+            if (first_non_zero_indentation is None) & (indentation > 0) & (len(line) > 0):
+                first_non_zero_indentation = indentation
+            if (':class:' not in line) & (len(line) > 0) & (first_non_zero_indentation != None):
+                if indentation == first_non_zero_indentation:
+                    if '..' in line:
+                        filtered_text.append('[insert-sub-block]')
+                    else:
+                        filtered_text.append(line[indentation:])
+        return filtered_text
+    else:
+        return None
 
 def identify_subblock(block_lines, subblock_positions, subblock_types, subblock_ids):
     """Identify the subblock that are within a given block"""
-    sub_pos_in = []
+    sub_type_in = []
     sub_id_in = []
+    sub_pos_in = []
     for sub_pos in subblock_positions:
         if sub_pos in block_lines:
             sub_type = subblock_types[sub_pos]
             sub_id = subblock_ids[sub_pos]
-            sub_pos_in.append(sub_type)
+            sub_type_in.append(sub_type)
             sub_id_in.append(sub_id)
-    return sub_pos_in, sub_id_in
+            sub_pos_in.append(sub_pos)
+    return sub_type_in, sub_id_in, sub_pos_in
+
+def is_the_block_main(file_content, position):
+    main_block = False
+    first_line = file_content[position]
+    cpt = 0
+    while first_line[0] == ' ':
+        cpt += 1
+        first_line = first_line[1:]
+    if cpt == 0:
+        main_block = True                
+    return main_block
 
 ##########################################
 

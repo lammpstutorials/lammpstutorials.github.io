@@ -46,7 +46,7 @@ Required softwares
 ..  code-block:: bw
 
    sudo apt-get install lammps
-   
+
 ..  container:: justify
 
     You can verify that LAMMPS is indeed installed on your
@@ -1064,7 +1064,7 @@ Dumbbell molecules
     :class: dropdown
 
     Use molecule template to easily insert as many atoms connected
-    by bonds (i.e. molecule) as you want. A molecule 
+    by bonds (i.e. molecules) as you want. A molecule 
     template typically begins as follow:
 
     ..  code-block:: lammps
