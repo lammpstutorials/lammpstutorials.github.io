@@ -2,6 +2,8 @@
 
 \vspace{-1cm} \noindent \textcolor{graytitle}{\textit{{\Large The very basics of LAMMPS through a simple example}}\vspace{0.5cm} }
 
+
+
 The objective of this tutorial is to use
 LAMMPS to perform a simple molecular dynamics simulation
 of a binary fluid in the NVT ensemble. The system is a simple Lennard-Jones fluid
@@ -16,11 +18,23 @@ Download and install LAMMPS by following the instructions of the |LAMMPS website
 Alternatively, if you are using Ubuntu OS, you can simply execute the
 following command in a terminal:
 
+\begin{lcverbatim}
+sudo apt-get install lammps
+\end{lcverbatim}
+
 You can verify that LAMMPS is indeed installed on your
 computer by typing in a terminal :
 
+\begin{lcverbatim}
+lmp
+\end{lcverbatim}
+
 You should see the version of LAMMPS that has been
 installed. On my computer I see
+
+\begin{lcverbatim}
+LAMMPS (29 Sep 2021 - Update 2)
+\end{lcverbatim}
 
 In addition to LAMMPS, you will also need |(1) a basic text editing software|
 such as Vim, Gedit, or Notepad++, |(2) a visualization software|, here I
@@ -34,6 +48,15 @@ write a series of commands in an input script. For clarity,
 this script will be divided into five categories which we are going to
 fill up one by one. Create a blank text file, call it
 *input1.lammps*, and copy the following lines in it:
+
+\begin{lcverbatim}
+# PART A - ENERGY MINIMIZATION
+# 1) Initialization
+# 2) System definition
+# 3) Simulation settings
+# 4) Visualization
+# 5) Run
+\end{lcverbatim}
 
 These five categories are not required in every
 input script, and should not necessarily be in that
@@ -51,6 +74,15 @@ such as the conditions at the boundaries of the box (i.e.
 periodic, non-periodic) or the type of atoms (e.g. uncharged
 single dots, spheres with angular velocities). Enter the
 following lines:
+
+\begin{lcverbatim}
+# 1) Initialization
+units lj
+dimension 3
+atom_style atomic
+pair_style lj/cut 2.5
+boundary p p p
+\end{lcverbatim}
 
 The first line indicates that we want to
 use the system of unit called *lj*, for lennard-jones, for which all quantities
@@ -72,13 +104,36 @@ At this point, you have a LAMMPS script that does nothing.
 You can execute it to verify that there is no mistake by
 running the following command in the terminal:
 
+\begin{lcverbatim}
+lmp -in input_01.lammps
+\end{lcverbatim}
+
 Which should return something like
+
+\begin{lcverbatim}
+LAMMPS (29 Sep 2021 - Update 2)
+Total wall time: 0:00:00
+\end{lcverbatim}
 
 If there is a mistake in the input script, for example if
 *atom_stile* is written instead of *atom_style*, LAMMPS
 gives you an explicit warning:
 
+\begin{lcverbatim}
+LAMMPS (29 Sep 2021 - Update 2)
+ERROR: Unknown command: atom_stile  atomic (src/input.cpp:232)
+Last command: atom_stile atomic
+\end{lcverbatim}
+
 Let us fill the second part the of the input script:
+
+\begin{lcverbatim}
+# 2) System definition
+region simulation_box block -20 20 -20 20 -20 20
+create_box 2 simulation_box
+create_atoms 1 random 1500 341341 simulation_box
+create_atoms 2 random 100 127569 simulation_box
+\end{lcverbatim}
 
 The first line creates a region of space
 named *simulation_box* that is a block (a rectangular cuboid) and
@@ -94,11 +149,32 @@ creates 100 atoms of type 2.
 If you run LAMMPS, you should see the following in the
 terminal:
 
+\begin{lcverbatim}
+LAMMPS (29 Sep 2021 - Update 2)
+Created orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+1 by 1 by 1 MPI processor grid
+Created 1500 atoms
+using lattice units in orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+create_atoms CPU = 0.001 seconds
+Created 100 atoms
+using lattice units in orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+create_atoms CPU = 0.000 seconds
+Total wall time: 0:00:00
+\end{lcverbatim}
+
 From what is printed in the terminal, it is clear that
 LAMMPS correctly interpreted the commands, and first created
 the box with desired dimensions, then 1500 atoms, then 100
 atoms.
 Let us fill the third section of the input script, the settings:
+
+\begin{lcverbatim}
+# 3) Simulation settings
+mass 1 1
+mass 2 1
+pair_coeff 1 1 1.0 1.0
+pair_coeff 2 2 0.5 3.0
+\end{lcverbatim}
 
 The two first commands attribute a mass
 equal to 1 (unitless) to both atoms of type 1 and 2,
@@ -111,7 +187,26 @@ The last line sets the Lennard-Jones coefficients for
 the interactions between atoms of type 2.
 
 
+\begin{lcverbatim}
+pair_coeff 1 2 0.707 1.732 
+Note that the arithmetic rule, where 
+:math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
+:math:`\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2`, 
+is more common than the geometric rule. However, neither the geometric nor the
+arithmetic rule are based on rigorous argument, so here
+the geometric rule will do just fine. 
+Energy minimization
+-------------------
+\end{lcverbatim}
+
 Now that the system is fully defined, let us just fill the two last remaining sections:
+
+\begin{lcverbatim}
+# 4) Visualization
+thermo 10
+# 5) Run
+minimize 1.0e-4 1.0e-6 1000 10000
+\end{lcverbatim}
 
 The thermo command asks LAMMPS to print
 thermodynamic information (e.g. temperature, energy) in the
@@ -121,6 +216,19 @@ perform an energy minimization of the system.
 
 Now running the simulation, we can see how the thermodynamics
 variables evolve with time:
+
+\begin{lcverbatim}
+Step         Temp       E_pair        E_mol       TotEng         Press
+0            0     78840982            0     78840982       7884122 
+10            0    169.90532            0    169.90532     17.187291 
+20            0  -0.22335386            0  -0.22335386 -0.0034892297 
+30            0  -0.31178296            0  -0.31178296 -0.0027290466 
+40            0  -0.38135002            0  -0.38135002 -0.0016419218 
+50            0  -0.42686621            0  -0.42686621 -0.0015219081 
+60            0  -0.46153953            0  -0.46153953 -0.0010659992 
+70            0  -0.48581568            0  -0.48581568 -0.0014849169 
+80            0  -0.51799572            0  -0.51799572 -0.0012995545 
+\end{lcverbatim}
 
 These lines give us information concerning
 the progress of the energy minimization. First, at the start
@@ -137,12 +245,34 @@ useful information have been printed in the terminal, for
 example, LAMMPS tells us that the first of the four criteria
 to be satisfied was the energy:
 
+\begin{lcverbatim}
+Minimization stats:
+Stopping criterion = energy tolerance
+Molecular dynamics
+------------------
+\end{lcverbatim}
+
 
 The system is now ready. Let us continue filling up the
 input script and adding commands in order to perform an actual molecular dynamics
 simulation that will start from the final state of the energy minimization.
 In the same input script, after the *minimization* command, add the following
 lines:
+
+\begin{lcverbatim}
+# PART B - MOLECULAR DYNAMICS
+# 4) Visualization
+thermo 1000
+variable kinetic_energy equal ke
+variable potential_energy equal pe
+variable pressure equal press
+fix myat1 all ave/time 10 1 10 v_kinetic_energy v_potential_energy file energy.dat
+# 5) Run
+fix mynve all nve
+fix mylgv all langevin 1.0 1.0 0.1 1530917
+timestep 0.005
+run 10000
+\end{lcverbatim}
 
 Since LAMMPS reads the input from top to
 bottom, these lines will be executed after the energy
@@ -167,10 +297,34 @@ and we ask LAMMPS to run for 10000 steps. After running
 the simulation, you should see the following information in
 the terminal:
 
+\begin{lcverbatim}
+Step         Temp       E_pair        E_mol       TotEng        Press
+388            0  -0.95476642            0  -0.95476642 -0.000304834
+1000    0.9880227  -0.31773089            0    1.1633769  0.021818374 
+2000    1.0434396  -0.26534383            0    1.2988374   0.02287591 
+3000   0.97269039  -0.23946371            0      1.21866  0.022394592 
+4000    1.0192798  -0.23174747            0    1.2962167  0.024978385 
+5000    1.0319547  -0.23284134            0    1.3141233  0.024342347 
+6000   0.98137972  -0.22477315            0    1.2463764  0.022074749 
+7000    1.0144842  -0.23803792            0    1.2827372  0.023846178 
+8000    1.0102062  -0.23305477            0    1.2813075     0.023146 
+9000    1.0236358  -0.22539436            0    1.3090996  0.024357378 
+10000   0.98915906  -0.22159572            0    1.2612155   0.02397044 
+10388   0.99354192  -0.22377029            0    1.2656111  0.022751609 
+\end{lcverbatim}
+
 The second column shows that the temperature
 starts from 0, but rapidly reaches the
 expected value near :math:`T=1`, as requested. 
 Note that  In the terminal, you may also see
+
+\begin{lcverbatim}
+Total (number) of neighbors = 8560
+Ave neighs/atom = 5.35
+Neighbor list builds = 999
+Dangerous builds = 998
+Total wall time: 0:00:02
+\end{lcverbatim}
 
 Note : If you see *Dangerous builds = 0*, as could be
 the case with some LAMMPS versions, you can ignore
@@ -181,13 +335,35 @@ have moved more than expected in between two calculations of
 the neighbor lists. Let us add the following command in the
 *Simulation settings* section:
 
+\begin{lcverbatim}
+neigh_modify every 1 delay 5 check yes
+\end{lcverbatim}
+
 With this command, LAMMPS will rebuild the neighbor lists
 more often. Re-run the simulation, and you should see a more
 positive outcome with 0 dangerous build:
 
+\begin{lcverbatim}
+Total (number) of neighbors = 2024
+Ave neighs/atom = 1.2650000
+Neighbor list builds = 1253
+Dangerous builds = 0
+Total wall time: 0:00:02
+\end{lcverbatim}
+
 From what has been printed in the energy.dat file, let us
 plot the potential energy and the pressure of
 the system over time:
+
+
+
+
+\begin{lcverbatim}
+xmgrace energy.dat
+This command will automatically plot the second column as a function of the first column.
+Here I am using pyplot for esthetic reason. If you want, you can download the Jupyter-notebook
+from the |Github_repository_input| repository (in the *level0/lennard-jones-fluid/* folder).
+\end{lcverbatim}
 
 
 The simulation is running well, but we would like to
@@ -196,10 +372,18 @@ to dump the positions of the atoms in a file at a regular
 interval. Add the following command in the *visualization*
 section of PART B:
 
+\begin{lcverbatim}
+dump mydmp all atom 1000 dump.lammpstrj
+\end{lcverbatim}
+
 Run LAMMPS again. A file named *dump.lammpstrj* must appear in
 the same folder as your input. This file can be opened using
 VMD or Ovito. In Ubuntu, if VMD is installed, you can simply
 execute in the terminal:
+
+\begin{lcverbatim}
+vmd dump.lammpstrj
+\end{lcverbatim}
 
 Otherwise, you can open VMD and import the *dump.lammpstrj*
 file manually using file *->* molecule. You should see a cloud
@@ -212,20 +396,55 @@ Improving the script
 Let us improve the input script and perform slightly more
 advanced operations.
 
+
 Let us create the atoms of type 1 and 2 in two separate
 regions, respectively, instead of creating them both randomly 
 within the entire space as we did previously. Create a new input script, and call
 it *input2.lammps*. Similarly to what has been done previously, copy the following lines
 into the input script:
 
+\begin{lcverbatim}
+# 1) Initialization
+units lj
+dimension 3
+atom_style atomic
+pair_style lj/cut 2.5
+boundary p p p
+\end{lcverbatim}
+
 Let us create a box from a predefined region,
 and create two additional regions and generate
 atoms of type 1 and 2 in each region respectively.
+
+\begin{lcverbatim}
+# 2) System definition
+region simulation_box block -20 20 -20 20 -20 20
+create_box 2 simulation_box
+region mycylin cylinder z 0 0 10 INF INF side in
+region mycylou cylinder z 0 0 10 INF INF side out
+create_atoms 1 random 1000 341341 mycylou
+create_atoms 2 random 150 127569 mycylin
+\end{lcverbatim}
 
 The *side in* and *side out* keywords
 allow us to define regions that are respectively inside the
 cylinder, and everything that is not inside the cylinder.
 We can write the remaining of the input script as follow:
+
+\begin{lcverbatim}
+# 3) Simulation settings
+mass 1 1
+mass 2 1
+pair_coeff 1 1 1.0 1.0
+pair_coeff 2 2 0.5 3.0
+neigh_modify every 1 delay 5 check yes
+# 4) Visualization
+thermo 10
+dump mydmp all atom 10 dump.min.lammpstrj
+# 5) Run
+minimize 1.0e-4 1.0e-6 1000 10000
+write_data minimized_coordinate.data
+\end{lcverbatim}
 
 The novelty with respect to the previous
 input script is the command *write_data*. This command
@@ -243,8 +462,26 @@ contains all the information necessary to restart the
 simulation, such as the number of atoms and the size of
 the box:
 
+\begin{lcverbatim}
+1150 atoms
+2 atom types
+-20 20 xlo xhi
+-20 20 ylo yhi
+-20 20 zlo zhi
+\end{lcverbatim}
+
 The *minimized_coordinate.data* file also contains the final
 positions and velocities of all the atoms:
+
+\begin{lcverbatim}
+Atoms # atomic
+345 1 -2.8836527978635523e+01 -2.9323791349242530e+01 0.0000000000000000e+00 0 0 0
+979 1 -2.9382597284003467e+01 -2.8335352105920894e+01 0.0000000000000000e+00 0 0 0
+435 1 -2.5412729704650008e+01 -2.9697644643809667e+01 0.0000000000000000e+00 0 0 0
+533 1 -2.5033422381244598e+01 -2.8519424750144708e+01 0.0000000000000000e+00 0 0 0
+347 1 -2.4330866813628781e+01 -2.9373591404712414e+01 0.0000000000000000e+00 0 0 0
+448 1 -2.3610197298718113e+01 -2.8518785172533800e+01 0.0000000000000000e+00 0 0 0
+\end{lcverbatim}
 
 The columns of the Atoms section
 correspond (from left to right) to the atom indexes (from 1
@@ -259,8 +496,22 @@ molecular dynamics simulation directly from the previously
 saved configuration. In the same folder, create a new file
 named input3.lammps and copy the same lines as previously:
 
+\begin{lcverbatim}
+# 1) Initialization
+units lj
+dimension 3
+atom_style atomic
+pair_style lj/cut 2.5
+boundary p p p
+\end{lcverbatim}
+
 Now, instead of creating a new region and adding atoms, we
 simply add the following command:
+
+\begin{lcverbatim}
+# 2) System definition
+read_data minimized_coordinate.data
+\end{lcverbatim}
 
 By visualizing the previously generated dump.min.lammpstrj
 file, you may have noticed that some atoms have moved from
@@ -271,6 +522,19 @@ only atoms of type 2 within the cylinder and atoms of type
 1 outside the cylinder, let us delete the misplaced atoms
 by adding the following commands:
 
+\begin{lcverbatim}
+region mycylin cylinder z 0 0 10 INF INF side in
+region mycylou cylinder z 0 0 10 INF INF side out
+group mytype1 type 1
+group mytype2 type 2
+group incyl region mycylin
+group oucyl region mycylou
+group type1in intersect mytype1 incyl
+group type2ou intersect mytype2 oucyl
+delete_atoms group type1in
+delete_atoms group type2ou
+\end{lcverbatim}
+
 These commands will respectively recreate
 the previously defined regions (regions are not saved by the
 *write_data* command), create groups, and finally delete the
@@ -280,14 +544,48 @@ cylinder. If you run LAMMPS, you can see in the terminal how
 many atoms are in each group, and how many atoms have been
 deleted:
 
+\begin{lcverbatim}
+1000 atoms in group mytype1
+150 atoms in group mytype2
+149 atoms in group incyl
+1001 atoms in group oucyl
+0 atoms in group type1in
+1 atoms in group type2ou
+Deleted 0 atoms, new total = 1150
+Deleted 1 atoms, new total = 1149
+\end{lcverbatim}
+
 Similarly to previously, add the following simulation
 settings:
+
+\begin{lcverbatim}
+# 3) Simulation settings
+mass 1 1
+mass 2 1
+pair_coeff 1 1 1.0 1.0
+pair_coeff 2 2 0.5 3.0
+neigh_modify every 1 delay 5 check yes
+group type1 type 1
+group type2 type 2
+# 4) Visualization
+thermo 1000
+dump mydmp all atom 1000 dump.run.lammpstrj
+\end{lcverbatim}
 
 Note that 2 atom groups have been defined, they are useful
 here to extract the coordination number between atoms of
 type 1 and 2. Let us extract this coordination number, as
 well as the number of atoms of each type in each region, by
 adding the following commands to the input file:
+
+\begin{lcverbatim}
+variable Ntype1in equal count(mytype1,mycylin)
+variable Ntype1ou equal count(mytype1,mycylou)
+variable Ntype2in equal count(mytype2,mycylin)
+variable Ntype2ou equal count(mytype2,mycylou)
+fix myat1 all ave/time 10 200 2000 v_Ntype1in v_Ntype1ou file population1vstime.dat
+fix myat2 all ave/time 10 200 2000 v_Ntype2in v_Ntype2ou file population2vstime.dat
+\end{lcverbatim}
 
 As seen previously, the fix ave/time
 allow to evaluate previously defined variables and print
@@ -300,11 +598,27 @@ of type 1 and 2, i.e. the average number of atoms of type 2 in the vicinity
 of the atoms of type 1. This coordination number will be used as an indicator of the 
 degree of mixing of our binary mixture. 
 
+\begin{lcverbatim}
+compute coor12 type1 coord/atom cutoff 2.0 group type2
+compute sumcoor12 all reduce ave c_coor12
+fix myat3 all ave/time 10 200 2000 c_sumcoor12 file coordinationnumber12.dat
+\end{lcverbatim}
+
 The *compute ave* is used to average the per atom
 coordination number that is calculated by the *coord/atom* compute.
 This averaging is necessary as *coord/atom* returns an array where each value corresponds 
 to a certain couple of atom i-j. Such array can't be printed by *fix ave/time*. 
 Finally, let us complete the script by adding the run section:
+
+\begin{lcverbatim}
+# 5) Run
+velocity all create 1.0 4928459 mom yes rot yes dist gaussian
+fix mynve all nve
+fix mylgv all langevin 1.0 1.0 0.1 1530917 zero yes
+timestep 0.005
+run 300000
+write_data mixed.data
+\end{lcverbatim}
 
 There are a few differences with the
 previous input script. First, the *velocity create*
@@ -320,6 +634,8 @@ After running the simulation, you can observe the number
 of atoms in each region from the generated data files, as
 well as the evolution of the coordination number due to
 mixing:
+
+
 
 Now that you have completed this simple molecular dynamics tutorials, what can you do?
 Play around
@@ -351,6 +667,8 @@ Run a similar simulation in the NVE ensemble, and extract the
 total energy of the system over time.
 
 
+
+
 Run a successful simulation without using the *minimize* command.
 The absence of energy minimization needs to be compensated
 in order to avoid triggering the *ERROR: Lost atoms* message.
@@ -365,4 +683,15 @@ that the system is not *too far* from equilibrium.
 Add a bond between couple of identical atoms to create
 dumbbell molecules, just like in the image:
 
+
+
+
+\begin{lcverbatim}
+# Dumbell molecule
+2 atoms
+1 bonds
+Coords
+1 0.5 0 0
+2 -0.5 0 0
+\end{lcverbatim}
 
