@@ -264,7 +264,11 @@ In the present case, and even without specifying it explicitly, we thus have :
 Eventually, cross parameters could also be explicitly specified by adding the following 
 line to the input file (but there is no need to do it here, its only necessary if you need 
 to set custom parameters):
-[insert-sub-block]
+\begin{lcverbatim}
+
+pair_coeff 1 2 0.707 1.732 
+\end{lcverbatim}
+
 Note that the arithmetic rule, where 
 :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
 :math:`\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2`, 
@@ -341,7 +345,7 @@ Stopping criterion = energy tolerance
 
 \textbf{Hint} Molecular dynamics (MD) is based on the numerical solution of the Newtonian
 equations of motion for every atom :math:`i`,
-[insert-sub-block]
+
 
 where :math:`\sum` is the sum over all the atoms other than :math:`i`, 
 :math:`\boldsymbol{F}_{ji}` the force between the atom pairs :math:`j-i`,
@@ -475,7 +479,10 @@ the system over time:
 on-the-fly the outputs such as the energy to make sure the
 system is behaving as expected. If you don't already have 
 a favorite plotting tool, you can use xmgrace and simply type from the terminal:
-[insert-sub-block]
+\begin{lcverbatim}
+xmgrace energy.dat
+\end{lcverbatim}
+
 This command will automatically plot the second column as a function of the first column.
 Here I am using pyplot for esthetic reason. If you want, you can download the Jupyter-notebook
 from the |Github_repository_input| repository (in the *level0/lennard-jones-fluid/* folder).
@@ -627,7 +634,7 @@ Atoms # atomic
 533 1 -2.5033422381244598e+01 -2.8519424750144708e+01 0.0000000000000000e+00 0 0 0
 347 1 -2.4330866813628781e+01 -2.9373591404712414e+01 0.0000000000000000e+00 0 0 0
 448 1 -2.3610197298718113e+01 -2.8518785172533800e+01 0.0000000000000000e+00 0 0 0
-[insert-sub-block]
+(...)
 \end{lcverbatim}
 
 The columns of the Atoms section
@@ -863,8 +870,6 @@ total energy of the system over time.
 
 \textbf{Hint} Make sure that the total energy is conserved over time, as see here. Note also 
 that the kinetic energy constantly exchanges with the potential energy.
-[insert-sub-block]
-[insert-sub-block]
 
 
 
@@ -916,8 +921,17 @@ dumbbell molecules, just like in the image:
 
 
 \textbf{Hint} Use molecule template to easily insert as many atoms connected
-by bonds (i.e. molecule) as you want. A molecule 
+by bonds (i.e. molecules) as you want. A molecule 
 template typically begins as follow:
-[insert-sub-block]
+\begin{lcverbatim}
+# Dumbell molecule
+2 atoms
+1 bonds
+Coords
+1 0.5 0 0
+2 -0.5 0 0
+(...)
+\end{lcverbatim}
+
 
 

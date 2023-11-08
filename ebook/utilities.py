@@ -99,6 +99,8 @@ def read_block(file_content):
                 type = 'lammps-equation'
             elif ('figure:: ' in line):
                 type = 'figure::'
+            elif 'math::' in line:
+                type = 'math'
             else:
                 type = 'unknown'
                 # print("unknown type", line)
@@ -154,6 +156,8 @@ def read_subblock(file_content):
                         type = 'bw-equation'
                     elif ('code-block' in line) & ('lammps' in line):
                         type = 'lammps-equation'
+                    elif 'math::' in line:
+                        type = 'math'
                     elif ('figure:: ' in line):
                         type = 'figure'
                     else:
@@ -179,10 +183,54 @@ def clean_block(content, types, ids, id):
     else:
         return None, None, None
 
+def identify_subblock_id(n_subblock, block_lines, RST):
+    if n_subblock > 0:
+        
+        sub_block = []
+        for n in block_lines:
+            type = RST.sub_block_type[n]
+            id = RST.sub_block[n]
+            if type != 'unknown':
+                sub_block.append(id)
+        id = np.unique(sub_block)
+        assert len(id) == n_subblock
+
+        sub_block_type = []
+        for id0 in id:
+            type0 = np.unique(np.array(RST.sub_block_type)[np.array(RST.sub_block) == id0]).tolist()[0]
+            sub_block_type.append(type0)
+
+        return id, sub_block_type
+    else:
+        return None, None              
+
+def read_sublock(n_subblock, filtered_block, ids_block, RST):
+    if n_subblock > 0:
+        cpt = 0
+        sub_block = []
+        sub_block_number = []
+        for line in filtered_block:
+            if line == '[insert-sub-block]':
+                id = ids_block[cpt]
+                raw_subblock, subblock_type, subblock_lines = clean_block(RST.file_content,
+                                                            RST.sub_block_type,
+                                                            RST.sub_block, id)   
+                filtered_subblock, n_subsubblock = filter_block(raw_subblock, subblock_type)
+                assert n_subsubblock == 0, """WARNING, subsub blocks were used"""
+                
+                for subline in filtered_subblock:
+                    sub_block_number.append(cpt)
+                    sub_block.append(subline)
+                cpt += 1  
+        return sub_block, sub_block_number
+    else:
+        return None, None
+
 def filter_block(block_text, block_type):
     """Convert a block of text into clean lines"""
     first_non_zero_indentation = None
     indentation = -1
+    n_subblock = 0
     if (block_text is not None) & (block_type != 'unknown'):
         # put the lines into a list 
         filtered_text = []
@@ -192,13 +240,14 @@ def filter_block(block_text, block_type):
                 first_non_zero_indentation = indentation
             if (':class:' not in line) & (len(line) > 0) & (first_non_zero_indentation != None):
                 if indentation == first_non_zero_indentation:
-                    if '..' in line:
+                    if ('..' in line) & ('...' not in line):
                         filtered_text.append('[insert-sub-block]')
+                        n_subblock += 1
                     else:
                         filtered_text.append(line[indentation:])
-        return filtered_text
+        return filtered_text, n_subblock
     else:
-        return None
+        return None, 0
 
 def identify_subblock(block_lines, subblock_positions, subblock_types, subblock_ids):
     """Identify the subblock that are within a given block"""
