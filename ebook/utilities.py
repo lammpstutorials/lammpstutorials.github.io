@@ -153,6 +153,7 @@ class WriteTex:
             if "dark" in block_type:
                 pass
             else:
+                align = None
                 for line in filtered_block:
                     if "height" in line:
                         height = line[9:]
@@ -176,6 +177,19 @@ class WriteTex:
                     print("webp convert into png")              
                     im = Image.open(figure_path).convert('RGB')
                     im.save(new_figure, 'png')
+
+                if align is None:
+                    self.f.write(r'\begin{figure}'+'\n')
+                    self.f.write(r'\includegraphics[width=\linewidth]{tutorials/'+level+'/'+tutorial+'/'+name+'.png}'+'\n')
+                    self.f.write(r'\end{figure}'+'\n')  
+                elif 'right' in align:
+                    self.f.write(r'\begin{wrapfigure}{r}{4cm}'+'\n')
+                    self.f.write(r'\begin{center}'+'\n')
+                    self.f.write(r'\includegraphics[width=4cm]{tutorials/'+level+'/'+tutorial+'/'+name+'.png}'+'\n')
+                    self.f.write(r'\end{center}'+'\n')
+                    self.f.write(r'\end{wrapfigure}'+'\n')
+            
+
         self.f.write('\n')
 
     def write_equation(self, filtered_block, block_type):

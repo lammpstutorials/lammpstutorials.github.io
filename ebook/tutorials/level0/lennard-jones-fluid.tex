@@ -2,7 +2,13 @@
 
 \vspace{-1cm} \noindent \textcolor{graytitle}{\textit{{\Large The very basics of LAMMPS through a simple example}}\vspace{0.5cm} }
 
-\noindent The objective of this tutorial is to use
+\noindent \begin{wrapfigure}{r}{4cm}
+\begin{center}
+\includegraphics[width=4cm]{tutorials/level0/lennard-jones-fluid/binary_LJ_fluid_light.png}
+\end{center}
+\end{wrapfigure}
+
+The objective of this tutorial is to use
 LAMMPS to perform a simple molecular dynamics simulation
 of a binary fluid in the NVT ensemble. The system is a simple Lennard-Jones fluid
 made of neutral dots with a Langevin thermostating. The
@@ -410,6 +416,10 @@ Total wall time: 0:00:02
 plot the potential energy and the pressure of
 the system over time:
 
+\begin{figure}
+\includegraphics[width=\linewidth]{tutorials/level0/lennard-jones-fluid/energy-light.png}
+\end{figure}
+
 \begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=On the necessity of plotting data efficiently]
 When testing/debugging a molecular simulation, it is crucial to be able to control 
 on-the-fly the outputs such as the energy to make sure the
@@ -423,6 +433,12 @@ xmgrace energy.dat
 Here I am using pyplot for esthetic reason. If you want, you can download the Jupyter-notebook
 from the \href{https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs}{the inputs folder} repository (in the \textit{level0/lennard-jones-fluid/} folder).
 \end{tcolorbox}
+
+\begin{wrapfigure}{r}{4cm}
+\begin{center}
+\includegraphics[width=4cm]{tutorials/level0/lennard-jones-fluid/input1.png}
+\end{center}
+\end{wrapfigure}
 
 The simulation is running well, but we would like to
 visualize the trajectories of the atoms. To do so, we need
@@ -451,6 +467,12 @@ top of this page.
 
 Let us improve the input script and perform slightly more
 advanced operations.
+
+\begin{wrapfigure}{r}{4cm}
+\begin{center}
+\includegraphics[width=4cm]{tutorials/level0/lennard-jones-fluid/input2.png}
+\end{center}
+\end{wrapfigure}
 
 Let us create the atoms of type 1 and 2 in two separate
 regions, respectively, instead of creating them both randomly 
@@ -690,6 +712,10 @@ of atoms in each region from the generated data files, as
 well as the evolution of the coordination number due to
 mixing:
 
+\begin{figure}
+\includegraphics[width=\linewidth]{tutorials/level0/lennard-jones-fluid/population-light.png}
+\end{figure}
+
 Now that you have completed this simple molecular dynamics tutorials, what can you do?
 
 A good way to progress with LAMMPS and molecular dynamics
@@ -750,6 +776,10 @@ non-linear effects).
 
 Add a bond between couple of identical atoms to create
 dumbbell molecules, just like in the image:
+
+\begin{figure}
+\includegraphics[width=\linewidth]{tutorials/level0/lennard-jones-fluid/dumbell-light.png}
+\end{figure}
 
 \begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=Hints]
 Use molecule template to easily insert as many atoms connected
