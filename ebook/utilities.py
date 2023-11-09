@@ -92,7 +92,7 @@ def read_block(file_content):
             elif 'container:: hatnote' in line: 
                  type = 'hatnote'
             elif 'admonition::' in line:
-               type = 'admonition'
+               type = 'admonition' + line.split('::')[1]
             elif ('code-block' in line) & ('bw' in line):
                 type = 'bw-equation'
             elif ('code-block' in line) & ('lammps' in line):
@@ -229,6 +229,7 @@ def read_sublock(n_subblock, filtered_block, ids_block, RST):
 def filter_block(block_text, block_type):
     """Convert a block of text into clean lines"""
     first_non_zero_indentation = None
+    itemize_indentation = -1
     indentation = -1
     n_subblock = 0
     if (block_text is not None) & (block_type != 'unknown'):
@@ -238,13 +239,20 @@ def filter_block(block_text, block_type):
             indentation = count_line(line)
             if (first_non_zero_indentation is None) & (indentation > 0) & (len(line) > 0):
                 first_non_zero_indentation = indentation
+
+            # detect itemized
+            if first_non_zero_indentation is not None:
+                if len(line)> first_non_zero_indentation:
+                    if line[first_non_zero_indentation] == '-':
+                        itemize_indentation = indentation
+
             if (':class:' not in line) & (len(line) > 0) & (first_non_zero_indentation != None):
-                if indentation == first_non_zero_indentation:
+                if (indentation == first_non_zero_indentation) | (indentation == itemize_indentation+2):
                     if ('..' in line) & ('...' not in line):
                         filtered_text.append('[insert-sub-block]')
                         n_subblock += 1
                     else:
-                        filtered_text.append(line[indentation:])
+                        filtered_text.append(line[first_non_zero_indentation:])
         return filtered_text, n_subblock
     else:
         return None, 0
@@ -374,6 +382,7 @@ def extract_link(RST, label):
 def fix_link(RST, line):
     """Deal with links"""
     if '|' in line:
+        print(line)
         _, pos_bar = count_occurence(line, '|')
         links = []
         texts = []
@@ -396,6 +405,7 @@ def fix_link(RST, line):
                 except:
                     pass                        
                 l += 1
+        print(new_line)
         return new_line
     else:
         return line
@@ -466,3 +476,10 @@ def replace_special_character(line, to_replace, replace_with):
         return new_line
     else:
         return line
+
+def is_in_verbatim(in_verbatim, line):
+    if 'begin{lcverbatim}' in line:
+        in_verbatim = True
+    elif 'end{lcverbatim}' in line:
+        in_verbatim = False
+    return in_verbatim
