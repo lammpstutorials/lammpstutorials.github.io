@@ -1,13 +1,15 @@
-import rstparse
+import rstparse, os, shutil
 import numpy as np
+from PIL import Image
 
 class WriteTex:
     """Write Tex file."""
-    def __init__(self, file_name, RST, *args, **kwargs,):
+    def __init__(self, file_name, RST, git_path, *args, **kwargs,):
         """Initialize"""
         super().__init__(*args, **kwargs)
         self.file_name = file_name
         self.RST = RST
+        self.git_path = git_path
 
     def convert_file(self):
         """Main convert function."""
@@ -147,6 +149,33 @@ class WriteTex:
                 '}}'
                 + r'\vspace{0.5cm} }')
                 self.f.write('\n')
+        elif "figure" in block_type:
+            if "dark" in block_type:
+                pass
+            else:
+                for line in filtered_block:
+                    if "height" in line:
+                        height = line[9:]
+                    elif "align" in line:
+                        align = line[8:]
+                path = block_type[9:]
+                figure_path = self.git_path+'/docs/sphinx/source/tutorials/'+path[3:]
+                if os.path.exists(figure_path) is False:
+                    print("Figure not found", figure_path)
+                figure_format = figure_path.split('.')[-1]
+                level = figure_path.split('/')[-3]
+                tutorial = figure_path.split('/')[-2]
+                name = figure_path.split('/')[-1].split('.')[0]
+                if os.path.exists(self.git_path+'/ebook/tutorials/'+level+'/'+tutorial) is False:
+                    os.mkdir(self.git_path+'/ebook/tutorials/'+level+'/'+tutorial+'/')
+                alternative_figure = figure_path[:-len(figure_format)]+'png'
+                new_figure = self.git_path+'/ebook/tutorials/'+level+'/'+tutorial+'/'+name+'.png'
+                if os.path.exists(alternative_figure):
+                    shutil.copyfile(alternative_figure, new_figure)
+                else:      
+                    print("webp convert into png")              
+                    im = Image.open(figure_path).convert('RGB')
+                    im.save(new_figure, 'png')
         self.f.write('\n')
 
     def write_equation(self, filtered_block, block_type):
@@ -282,7 +311,7 @@ def read_block(file_content):
             elif ('code-block' in line) & ('lammps' in line):
                 type = 'lammps-equation'
             elif ('figure:: ' in line):
-                type = 'figure::'
+                type = 'figure::' + line.split('::')[1]
             elif 'math::' in line:
                 type = 'math'
             else:
