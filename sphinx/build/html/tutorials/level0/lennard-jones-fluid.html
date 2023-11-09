@@ -299,12 +299,12 @@ fill up one by one. Create a blank text file, call it
 </div>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text"><em>to be copied in input1.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># PART A - ENERGY MINIMIZATION</span>
-<span class="w"> </span><span class="c"># 1) Initialization</span>
-<span class="w"> </span><span class="c"># 2) System definition</span>
-<span class="w"> </span><span class="c"># 3) Simulation settings</span>
-<span class="w"> </span><span class="c"># 4) Visualization</span>
-<span class="w"> </span><span class="c"># 5) Run</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># PART A - ENERGY MINIMIZATION</span>
+<span class="c"># 1) Initialization</span>
+<span class="c"># 2) System definition</span>
+<span class="c"># 3) Simulation settings</span>
+<span class="c"># 4) Visualization</span>
+<span class="c"># 5) Run</span>
 </pre></div>
 </div>
 </div>
@@ -342,16 +342,16 @@ following lines:</p>
 </div>
 <div class="justify docutils container">
 <p>The first line indicates that we want to
-use the system of unit called <em>lj</em>, for lennard-jones, for which all quantities
+use the system of unit called <em>LJ</em>, for Lennard-Jones, for which all quantities
 are unitless.</p>
 </div>
 <div class="dropdown admonition">
-<p class="admonition-title">Background Information (optional) – About LJ units</p>
-<p>Lennard-Jones (lj) units are a dimensionless system of units that are often used in molecular simulations
-and theoretical calculations. When using lj units:</p>
+<p class="admonition-title">Background Information – About LJ units</p>
+<p>Lennard-Jones (LJ) units are a dimensionless system of units that are often used in molecular simulations
+and theoretical calculations. When using LJ units:</p>
 <ul class="simple">
 <li><p>energies are expressed in units of <span class="math notranslate nohighlight">\(\epsilon\)</span>, where <span class="math notranslate nohighlight">\(\epsilon\)</span> is the
-depth of the potential of the lj interaction,</p></li>
+depth of the potential of the LJ interaction,</p></li>
 <li><p>distances are expressed in units of <span class="math notranslate nohighlight">\(\sigma\)</span>, where <span class="math notranslate nohighlight">\(\sigma\)</span> is the distance
 at which the particle-particle potential energy is zero,</p></li>
 <li><p>masses are expressed in units of the atomic mass <span class="math notranslate nohighlight">\(m\)</span>.</p></li>
@@ -419,7 +419,7 @@ Last command: atom_stile atomic
 <p>The first line creates a region of space
 named <em>simulation_box</em> that is a block (a rectangular cuboid) and
 extends from -20 to 20 along all 3 directions of space, all expressed in
-non-dimensional units because we are using the lj system
+non-dimensional units because we are using the LJ system
 of units. The second line creates a simulation box based on
 the region <em>simulation_box</em> with <em>2</em> types of atoms. The third
 command specifies that 1500 atoms of type 1 must be created
@@ -431,13 +431,13 @@ creates 100 atoms of type 2.</p>
 terminal:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>LAMMPS (29 Sep 2021 - Update 2)
-Created orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+Created orthogonal box = (-20 -20 -20) to (20 20 20)
 1 by 1 by 1 MPI processor grid
 Created 1500 atoms
-using lattice units in orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+using lattice units in orthogonal box = (-20 -20 -20) to (20 20 20)
 create_atoms CPU = 0.001 seconds
 Created 100 atoms
-using lattice units in orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+using lattice units in orthogonal box = (-20 -20 -20) to (20 20 20)
 create_atoms CPU = 0.000 seconds
 Total wall time: 0:00:00
 </pre></div>
@@ -476,7 +476,7 @@ the interactions between atoms of type 2.</p>
 using geometric average:
 <span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\)</span>,
 <span class="math notranslate nohighlight">\(\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}\)</span>.
-In the present case, and even without specifying it explicitly, we thus have :</p>
+In the present case, and even without specifying it explicitly, we thus have:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{1.0 \times 0.5} = 0.707\)</span>, and</p></li>
 <li><p><span class="math notranslate nohighlight">\(\sigma_{ij} = \sqrt{1.0 \times 3.0} = 1.732\)</span>.</p></li>
@@ -522,27 +522,27 @@ perform an energy minimization of the system.</p>
 the coordinates of the atoms that are too close from one another until one of the stopping
 criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
 Here there are four stopping criteria:</p>
-<ol class="arabic simple">
+<ul class="simple">
 <li><p>The change in energy between two iterations is less than 1.0e-4,</p></li>
 <li><p>The maximum force between two atoms in the system is lower than 1.0e-6,</p></li>
 <li><p>The maximum number of iterations is 1000,</p></li>
 <li><p>The maximum number of times the force and the energy have been evaluated is 10000.</p></li>
-</ol>
+</ul>
 </div>
 <div class="justify docutils container">
 <p>Now running the simulation, we can see how the thermodynamics
 variables evolve with time:</p>
 </div>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Step         Temp       E_pair        E_mol       TotEng         Press
-   0            0     78840982            0     78840982       7884122
-  10            0    169.90532            0    169.90532     17.187291
-  20            0  -0.22335386            0  -0.22335386 -0.0034892297
-  30            0  -0.31178296            0  -0.31178296 -0.0027290466
-  40            0  -0.38135002            0  -0.38135002 -0.0016419218
-  50            0  -0.42686621            0  -0.42686621 -0.0015219081
-  60            0  -0.46153953            0  -0.46153953 -0.0010659992
-  70            0  -0.48581568            0  -0.48581568 -0.0014849169
-  80            0  -0.51799572            0  -0.51799572 -0.0012995545
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Step Temp         E_pair  E_mol       TotEng         Press
+0       0       78840982      0     78840982       7884122
+10      0      169.90532      0    169.90532     17.187291
+20      0    -0.22335386      0  -0.22335386 -0.0034892297
+30      0    -0.31178296      0  -0.31178296 -0.0027290466
+40      0    -0.38135002      0  -0.38135002 -0.0016419218
+50      0    -0.42686621      0  -0.42686621 -0.0015219081
+60      0    -0.46153953      0  -0.46153953 -0.0010659992
+70      0    -0.48581568      0  -0.48581568 -0.0014849169
+80      0    -0.51799572      0  -0.51799572 -0.0012995545
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -569,7 +569,7 @@ Stopping criterion = energy tolerance
 <section id="molecular-dynamics">
 <h3>Molecular dynamics<a class="headerlink" href="#molecular-dynamics" title="Link to this heading">#</a></h3>
 <div class="dropdown admonition">
-<p class="admonition-title">Background Information (optional) – What is molecular dynamics?</p>
+<p class="admonition-title">Background Information – What is molecular dynamics?</p>
 <p>Molecular dynamics (MD) is based on the numerical solution of the Newtonian
 equations of motion for every atom <span class="math notranslate nohighlight">\(i\)</span>,</p>
 <div class="math-wrapper docutils container">
@@ -639,19 +639,19 @@ and we ask LAMMPS to run for 10000 steps. After running
 the simulation, you should see the following information in
 the terminal:</p>
 </div>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span> Step         Temp       E_pair        E_mol       TotEng        Press
-  388            0  -0.95476642            0  -0.95476642 -0.000304834
- 1000    0.9880227  -0.31773089            0    1.1633769  0.021818374
- 2000    1.0434396  -0.26534383            0    1.2988374   0.02287591
- 3000   0.97269039  -0.23946371            0      1.21866  0.022394592
- 4000    1.0192798  -0.23174747            0    1.2962167  0.024978385
- 5000    1.0319547  -0.23284134            0    1.3141233  0.024342347
- 6000   0.98137972  -0.22477315            0    1.2463764  0.022074749
- 7000    1.0144842  -0.23803792            0    1.2827372  0.023846178
- 8000    1.0102062  -0.23305477            0    1.2813075     0.023146
- 9000    1.0236358  -0.22539436            0    1.3090996  0.024357378
-10000   0.98915906  -0.22159572            0    1.2612155   0.02397044
-10388   0.99354192  -0.22377029            0    1.2656111  0.022751609
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span> Step         Temp       E_pair    E_mol       TotEng        Press
+  388            0  -0.95476642        0  -0.95476642 -0.000304834
+ 1000    0.9880227  -0.31773089        0    1.1633769  0.021818374
+ 2000    1.0434396  -0.26534383        0    1.2988374   0.02287591
+ 3000   0.97269039  -0.23946371        0      1.21866  0.022394592
+ 4000    1.0192798  -0.23174747        0    1.2962167  0.024978385
+ 5000    1.0319547  -0.23284134        0    1.3141233  0.024342347
+ 6000   0.98137972  -0.22477315        0    1.2463764  0.022074749
+ 7000    1.0144842  -0.23803792        0    1.2827372  0.023846178
+ 8000    1.0102062  -0.23305477        0    1.2813075     0.023146
+ 9000    1.0236358  -0.22539436        0    1.3090996  0.024357378
+10000   0.98915906  -0.22159572        0    1.2612155   0.02397044
+10388   0.99354192  -0.22377029        0    1.2656111  0.022751609
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -668,7 +668,7 @@ Total wall time: 0:00:02
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Note : If you see <em>Dangerous builds = 0</em>, as could be
+<p>Note: If you see <em>Dangerous builds = 0</em>, as could be
 the case with some LAMMPS versions, you can ignore
 the next part.</p>
 <p>During the simulation, they have been 998 dangerous builds.
@@ -1106,7 +1106,7 @@ temperature T].</p>
 total energy of the system over time.</p>
 </div>
 <div class="dropdown admonition">
-<p class="admonition-title">Expected output (click to reveal)</p>
+<p class="admonition-title">Expected output</p>
 <p>Make sure that the total energy is conserved over time, as see here. Note also
 that the kinetic energy constantly exchanges with the potential energy.</p>
 <figure class="align-default">
@@ -1125,7 +1125,7 @@ The absence of energy minimization needs to be compensated
 in order to avoid triggering the <em>ERROR: Lost atoms</em> message.</p>
 </div>
 <div class="dropdown admonition">
-<p class="admonition-title">Hints (click to reveal)</p>
+<p class="admonition-title">Hints</p>
 <p>The value of the timestep and/or the damping factor of the fix langevin
 can be tuned to prevent the system from exploding.</p>
 <p>Perform as many consecutive runs with varying timestep and damping
@@ -1144,7 +1144,7 @@ direction. The magnitude of the force must be chosen so
 that the system is not <em>too far</em> from equilibrium.</p>
 </div>
 <div class="dropdown admonition">
-<p class="admonition-title">Hints (click to reveal)</p>
+<p class="admonition-title">Hints</p>
 <p>LAMMPS offers several option to add external force to a system, one
 being the fix addforce.</p>
 <p>Note: If the system is too far from equilibrium, it enters the non-linear response
@@ -1166,7 +1166,7 @@ dumbbell molecules, just like in the image:</p>
 <a class="only-light reference internal image-reference" href="../../_images/dumbell-light.png"><img alt="Dumbbell Lennard-Jones molecules" class="only-light" src="../../_images/dumbell-light.png" style="width: 400px;" /></a>
 </figure>
 <div class="dropdown admonition">
-<p class="admonition-title">Hints (click to reveal)</p>
+<p class="admonition-title">Hints</p>
 <p>Use molecule template to easily insert as many atoms connected
 by bonds (i.e. molecules) as you want. A molecule
 template typically begins as follow:</p>

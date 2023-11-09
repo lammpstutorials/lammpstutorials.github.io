@@ -101,8 +101,8 @@ The input script
     fill up one by one. Create a blank text file, call it
     *input1.lammps*, and copy the following lines in it:
 
-..  code-block:: lammps
-   :caption: *to be copied in input1.lammps*
+.. code-block:: lammps
+    :caption: *to be copied in input1.lammps*
 
     # PART A - ENERGY MINIMIZATION
     # 1) Initialization
@@ -151,17 +151,17 @@ System creation
 ..  container:: justify
 
     The first line indicates that we want to
-    use the system of unit called *lj*, for lennard-jones, for which all quantities
+    use the system of unit called *LJ*, for Lennard-Jones, for which all quantities
     are unitless. 
     
-.. admonition:: Background Information (optional) -- About LJ units
+.. admonition:: Background Information -- About LJ units
     :class: dropdown
 
-    Lennard-Jones (lj) units are a dimensionless system of units that are often used in molecular simulations
-    and theoretical calculations. When using lj units:
+    Lennard-Jones (LJ) units are a dimensionless system of units that are often used in molecular simulations
+    and theoretical calculations. When using LJ units:
 
     - energies are expressed in units of :math:`\epsilon`, where :math:`\epsilon` is the
-      depth of the potential of the lj interaction,
+      depth of the potential of the LJ interaction,
     - distances are expressed in units of :math:`\sigma`, where :math:`\sigma` is the distance
       at which the particle-particle potential energy is zero,
     - masses are expressed in units of the atomic mass :math:`m`.
@@ -239,7 +239,7 @@ System creation
     The first line creates a region of space
     named *simulation_box* that is a block (a rectangular cuboid) and
     extends from -20 to 20 along all 3 directions of space, all expressed in
-    non-dimensional units because we are using the lj system
+    non-dimensional units because we are using the LJ system
     of units. The second line creates a simulation box based on
     the region *simulation_box* with *2* types of atoms. The third
     command specifies that 1500 atoms of type 1 must be created
@@ -254,13 +254,13 @@ System creation
 ..  code-block:: bw
 
     LAMMPS (29 Sep 2021 - Update 2)
-    Created orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+    Created orthogonal box = (-20 -20 -20) to (20 20 20)
     1 by 1 by 1 MPI processor grid
     Created 1500 atoms
-    using lattice units in orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+    using lattice units in orthogonal box = (-20 -20 -20) to (20 20 20)
     create_atoms CPU = 0.001 seconds
     Created 100 atoms
-    using lattice units in orthogonal box = (-20.000000 -20.000000 -20.000000) to (20.000000 20.000000 20.000000)
+    using lattice units in orthogonal box = (-20 -20 -20) to (20 20 20)
     create_atoms CPU = 0.000 seconds
     Total wall time: 0:00:00
 
@@ -301,7 +301,7 @@ System creation
     using geometric average: 
     :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
     :math:`\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}`. 
-    In the present case, and even without specifying it explicitly, we thus have :
+    In the present case, and even without specifying it explicitly, we thus have:
 
     - :math:`\epsilon_{ij} = \sqrt{1.0 \times 0.5} = 0.707`, and 
     - :math:`\sigma_{ij} = \sqrt{1.0 \times 3.0} = 1.732`.
@@ -352,10 +352,10 @@ Energy minimization
     criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
     Here there are four stopping criteria:
 
-    #. The change in energy between two iterations is less than 1.0e-4,
-    #. The maximum force between two atoms in the system is lower than 1.0e-6,
-    #. The maximum number of iterations is 1000,
-    #. The maximum number of times the force and the energy have been evaluated is 10000.
+    - The change in energy between two iterations is less than 1.0e-4,
+    - The maximum force between two atoms in the system is lower than 1.0e-6,
+    - The maximum number of iterations is 1000,
+    - The maximum number of times the force and the energy have been evaluated is 10000.
 
 ..  container:: justify
 
@@ -364,16 +364,16 @@ Energy minimization
 
 ..  code-block:: bw
 
-    Step         Temp       E_pair        E_mol       TotEng         Press
-       0            0     78840982            0     78840982       7884122 
-      10            0    169.90532            0    169.90532     17.187291 
-      20            0  -0.22335386            0  -0.22335386 -0.0034892297 
-      30            0  -0.31178296            0  -0.31178296 -0.0027290466 
-      40            0  -0.38135002            0  -0.38135002 -0.0016419218 
-      50            0  -0.42686621            0  -0.42686621 -0.0015219081 
-      60            0  -0.46153953            0  -0.46153953 -0.0010659992 
-      70            0  -0.48581568            0  -0.48581568 -0.0014849169 
-      80            0  -0.51799572            0  -0.51799572 -0.0012995545 
+    Step Temp         E_pair  E_mol       TotEng         Press
+    0       0       78840982      0     78840982       7884122 
+    10      0      169.90532      0    169.90532     17.187291 
+    20      0    -0.22335386      0  -0.22335386 -0.0034892297 
+    30      0    -0.31178296      0  -0.31178296 -0.0027290466 
+    40      0    -0.38135002      0  -0.38135002 -0.0016419218 
+    50      0    -0.42686621      0  -0.42686621 -0.0015219081 
+    60      0    -0.46153953      0  -0.46153953 -0.0010659992 
+    70      0    -0.48581568      0  -0.48581568 -0.0014849169 
+    80      0    -0.51799572      0  -0.51799572 -0.0012995545 
 
 ..  container:: justify
 
@@ -400,16 +400,16 @@ Energy minimization
 Molecular dynamics
 ------------------
 
-.. admonition:: Background Information (optional) -- What is molecular dynamics?
+.. admonition:: Background Information -- What is molecular dynamics?
     :class: dropdown
 
     Molecular dynamics (MD) is based on the numerical solution of the Newtonian
     equations of motion for every atom :math:`i`,
 
     .. math::
-        
+
         \sum_{j \ne i} \boldsymbol{F}_{ji} = m_i \times \boldsymbol{a}_i,
-    
+
     where :math:`\sum` is the sum over all the atoms other than :math:`i`, 
     :math:`\boldsymbol{F}_{ji}` the force between the atom pairs :math:`j-i`,
     :math:`m_i` the mass of atom :math:`i`, and :math:`\boldsymbol{F}_i` its acceleration. 
@@ -477,19 +477,19 @@ Molecular dynamics
 
 ..  code-block:: bw
 
-    Step         Temp       E_pair        E_mol       TotEng        Press
-     388            0  -0.95476642            0  -0.95476642 -0.000304834
-    1000    0.9880227  -0.31773089            0    1.1633769  0.021818374 
-    2000    1.0434396  -0.26534383            0    1.2988374   0.02287591 
-    3000   0.97269039  -0.23946371            0      1.21866  0.022394592 
-    4000    1.0192798  -0.23174747            0    1.2962167  0.024978385 
-    5000    1.0319547  -0.23284134            0    1.3141233  0.024342347 
-    6000   0.98137972  -0.22477315            0    1.2463764  0.022074749 
-    7000    1.0144842  -0.23803792            0    1.2827372  0.023846178 
-    8000    1.0102062  -0.23305477            0    1.2813075     0.023146 
-    9000    1.0236358  -0.22539436            0    1.3090996  0.024357378 
-   10000   0.98915906  -0.22159572            0    1.2612155   0.02397044 
-   10388   0.99354192  -0.22377029            0    1.2656111  0.022751609 
+    Step         Temp       E_pair    E_mol       TotEng        Press
+     388            0  -0.95476642        0  -0.95476642 -0.000304834
+    1000    0.9880227  -0.31773089        0    1.1633769  0.021818374 
+    2000    1.0434396  -0.26534383        0    1.2988374   0.02287591 
+    3000   0.97269039  -0.23946371        0      1.21866  0.022394592 
+    4000    1.0192798  -0.23174747        0    1.2962167  0.024978385 
+    5000    1.0319547  -0.23284134        0    1.3141233  0.024342347 
+    6000   0.98137972  -0.22477315        0    1.2463764  0.022074749 
+    7000    1.0144842  -0.23803792        0    1.2827372  0.023846178 
+    8000    1.0102062  -0.23305477        0    1.2813075     0.023146 
+    9000    1.0236358  -0.22539436        0    1.3090996  0.024357378 
+   10000   0.98915906  -0.22159572        0    1.2612155   0.02397044 
+   10388   0.99354192  -0.22377029        0    1.2656111  0.022751609 
 
 ..  container:: justify
 
@@ -508,7 +508,7 @@ Molecular dynamics
 
 ..  container:: justify
 
-    Note : If you see *Dangerous builds = 0*, as could be
+    Note: If you see *Dangerous builds = 0*, as could be
     the case with some LAMMPS versions, you can ignore
     the next part.
 
@@ -985,7 +985,7 @@ A simulation with no thermostat
     Run a similar simulation in the NVE ensemble, and extract the
     total energy of the system over time.
         
-.. admonition:: Expected output (click to reveal)
+.. admonition:: Expected output
     :class: dropdown
 
     Make sure that the total energy is conserved over time, as see here. Note also 
@@ -1008,7 +1008,7 @@ Do without the *minimize* command
     The absence of energy minimization needs to be compensated
     in order to avoid triggering the *ERROR: Lost atoms* message.
 
-.. admonition:: Hints (click to reveal)
+.. admonition:: Hints
     :class: dropdown
 
     The value of the timestep and/or the damping factor of the fix langevin
@@ -1031,7 +1031,7 @@ Non-equilibrium simulation
     direction. The magnitude of the force must be chosen so
     that the system is not *too far* from equilibrium.
 
-.. admonition:: Hints (click to reveal)
+.. admonition:: Hints
     :class: dropdown
 
     LAMMPS offers several option to add external force to a system, one 
@@ -1060,7 +1060,7 @@ Dumbbell molecules
     :width: 400
     :class: only-light 
 
-.. admonition:: Hints (click to reveal)
+.. admonition:: Hints
     :class: dropdown
 
     Use molecule template to easily insert as many atoms connected
