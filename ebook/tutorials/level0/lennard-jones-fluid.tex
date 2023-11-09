@@ -86,7 +86,8 @@ boundary p p p
 use the system of unit called \textit{LJ}, for Lennard-Jones, for which all quantities
 are unitless. 
 
-\noindent \textbf{Background Information -- About LJ units} -- Lennard-Jones (LJ) units are a dimensionless system of units that are often used in molecular simulations
+\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=Background Information -- About LJ units]
+Lennard-Jones (LJ) units are a dimensionless system of units that are often used in molecular simulations
 and theoretical calculations. When using LJ units:
 \begin{itemize}
 \item energies are expressed in units of $\epsilon$, where $\epsilon$ is the
@@ -97,15 +98,18 @@ and theoretical calculations. When using LJ units:
 \end{itemize}
 All the other quantities are normalized by a combination of $\epsilon$, $\sigma$,
 and $m$. For instance, time is expressed in units of $\sqrt{ \epsilon / m \sigma^2}$. 
+\end{tcolorbox}
 
 The second line indicates that the simulation
 is 3D, the third line that the \textit{atomic} style
 will be used, therefore each atom is just a dot with a mass.
 
-\noindent \textbf{About the atom style} -- While we are keeping it simple here,
+\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=About the atom style]
+While we are keeping it simple here,
 in the following tutorials, different \textit{atom$\_$style} will be used,
 allowing us to create atoms with a net charge and to define 
 bonds between atoms to form molecules.
+\end{tcolorbox}
 
 The fourth line indicates that atoms are going to interact
 through a Lennard-Jones potential with a cut-off equal to
@@ -199,7 +203,8 @@ particle-particle potential energy is zero $\sigma$.
 The last line sets the Lennard-Jones coefficients for
 the interactions between atoms of type 2.
 
-\noindent \textbf{About cross parameters} -- By default, LAMMPS calculates the cross coefficients between the different atom types
+\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=About cross parameters]
+By default, LAMMPS calculates the cross coefficients between the different atom types
 using geometric average: 
 $\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}$,
 $\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}$. 
@@ -222,6 +227,7 @@ $\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2$,
 is more common than the geometric rule. However, neither the geometric nor the
 arithmetic rule are based on rigorous argument, so here
 the geometric rule will do just fine. 
+\end{tcolorbox}
 
 Now that the system is fully defined, let us just fill the two last remaining sections:
 
@@ -237,7 +243,8 @@ thermodynamic information (e.g. temperature, energy) in the
 terminal every 10 steps. The second line asks LAMMPS to
 perform an energy minimization of the system.
 
-\noindent \textbf{About energy minimization} -- An energy minimization procedure consists in adjusting
+\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=About energy minimization]
+An energy minimization procedure consists in adjusting
 the coordinates of the atoms that are too close from one another until one of the stopping
 criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
 Here there are four stopping criteria:
@@ -247,6 +254,7 @@ Here there are four stopping criteria:
 \item The maximum number of iterations is 1000,
 \item The maximum number of times the force and the energy have been evaluated is 10000.
 \end{itemize}
+\end{tcolorbox}
 
 Now running the simulation, we can see how the thermodynamics
 variables evolve with time:
@@ -284,7 +292,8 @@ Minimization stats:
 Stopping criterion = energy tolerance
 \end{lcverbatim}
 
-\noindent \noindent \textbf{Background Information -- What is molecular dynamics?} -- Molecular dynamics (MD) is based on the numerical solution of the Newtonian
+\noindent \begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=Background Information -- What is molecular dynamics?]
+Molecular dynamics (MD) is based on the numerical solution of the Newtonian
 equations of motion for every atom $i$,
 $$\sum_{j \ne i} \boldsymbol{F}_{ji} = m_i \times \boldsymbol{a}_i,$$
 where $\sum$ is the sum over all the atoms other than $i$, 
@@ -300,6 +309,7 @@ performing a MD simulation:
 \item the acceleration of each atom is evaluated from the Newtonian equation,
 \item the velocity and position of each atom are updated according to the acceleration, typically using the Verlet algorithm, or similar.
 \end{itemize}
+\end{tcolorbox}
 
 The system is now ready. Let us continue filling up the
 input script and adding commands in order to perform an actual molecular dynamics
@@ -400,7 +410,8 @@ Total wall time: 0:00:02
 plot the potential energy and the pressure of
 the system over time:
 
-\noindent \textbf{On the necessity of plotting data efficiently} -- When testing/debugging a molecular simulation, it is crucial to be able to control 
+\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=On the necessity of plotting data efficiently]
+When testing/debugging a molecular simulation, it is crucial to be able to control 
 on-the-fly the outputs such as the energy to make sure the
 system is behaving as expected. If you don't already have 
 a favorite plotting tool, you can use xmgrace and simply type from the terminal:
@@ -411,6 +422,7 @@ xmgrace energy.dat
 \noindent This command will automatically plot the second column as a function of the first column.
 Here I am using pyplot for esthetic reason. If you want, you can download the Jupyter-notebook
 from the \href{https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs}{the inputs folder} repository (in the \textit{level0/lennard-jones-fluid/} folder).
+\end{tcolorbox}
 
 The simulation is running well, but we would like to
 visualize the trajectories of the atoms. To do so, we need
@@ -703,37 +715,44 @@ temperature T].
 Run a similar simulation in the NVE ensemble, and extract the
 total energy of the system over time.
 
-\noindent \textbf{Expected output} -- Make sure that the total energy is conserved over time, as see here. Note also 
+\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=Expected output]
+Make sure that the total energy is conserved over time, as see here. Note also 
 that the kinetic energy constantly exchanges with the potential energy.
+\end{tcolorbox}
 
 Run a successful simulation without using the \textit{minimize} command.
 The absence of energy minimization needs to be compensated
 in order to avoid triggering the \textit{ERROR: Lost atoms} message.
 
-\noindent \textbf{Hints} -- The value of the timestep and/or the damping factor of the fix langevin
+\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=Hints]
+The value of the timestep and/or the damping factor of the fix langevin
 can be tuned to prevent the system from exploding.
 Perform as many consecutive runs with varying timestep and damping
 factors that you feel are necessary.
 Have a look at fix nve/limit. This command was
 made to prevent an unequilibrated system from exploding
 by preventing atoms to travel too far every timestep.
+\end{tcolorbox}
 
 So far, atoms were freely diffusing without contraint or external force.
 Add an external force to induce a net flow of atoms in one
 direction. The magnitude of the force must be chosen so
 that the system is not \textit{too far} from equilibrium.
 
-\noindent \textbf{Hints} -- LAMMPS offers several option to add external force to a system, one 
+\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=Hints]
+LAMMPS offers several option to add external force to a system, one 
 being the fix addforce.
 Note: If the system is too far from equilibrium, it enters the non-linear response 
 regimes and its properties and parameters will differ from its equilibrium values.
 In general, this is something that you must avoid (unless you are studying
 non-linear effects). 
+\end{tcolorbox}
 
 Add a bond between couple of identical atoms to create
 dumbbell molecules, just like in the image:
 
-\noindent \textbf{Hints} -- Use molecule template to easily insert as many atoms connected
+\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=Hints]
+Use molecule template to easily insert as many atoms connected
 by bonds (i.e. molecules) as you want. A molecule 
 template typically begins as follow:
 \begin{lcverbatim}
@@ -745,4 +764,6 @@ Coords
 2 -0.5 0 0
 (...)
 \end{lcverbatim}
+
+\noindent \end{tcolorbox}
 

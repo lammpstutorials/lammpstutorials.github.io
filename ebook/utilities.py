@@ -1,6 +1,190 @@
 import rstparse
 import numpy as np
 
+class WriteTex:
+    """Write Tex file."""
+    def __init__(self, file_name, RST, *args, **kwargs,):
+        """Initialize"""
+        super().__init__(*args, **kwargs)
+        self.file_name = file_name
+        self.RST = RST
+
+    def convert_file(self):
+        """Main convert function."""
+        self.f = open(self.file_name, "w") 
+        self.write_title()
+
+        for block_id in np.unique(self.RST.main_block):
+            raw_block, block_type, block_lines = clean_block(self.RST.file_content,
+                                                             self.RST.main_block_type,
+                                                             self.RST.main_block, block_id)
+            filtered_block, n_subblock = filter_block(raw_block, block_type)
+
+            ids_subblock, types_subblock = identify_subblock_id(n_subblock, block_lines, self.RST)
+            filtered_subblock, sub_block_number = read_sublock(n_subblock, filtered_block, ids_subblock, self.RST)
+
+            self.write_paragraph(filtered_block, block_type, filtered_subblock, ids_subblock, types_subblock, sub_block_number)
+            self.write_equation(filtered_block, block_type)
+        self.f.close()
+
+        self.fix_document()
+
+    def fix_document(self):
+        """Improve the final document"""
+        self.remove_space()
+        keywords = [r'\end{lcverbatim}', r'\Large', r'\section{', r'\subsection{']
+        self.add_non_indent(keywords)
+        self.convert_itemize()
+
+    def convert_itemize(self):
+        initial_tex_file = self.import_tex_file()
+        in_verbatim = False
+        add_start = False
+        add_end = False
+        within_item = False
+        new_tex_file_name = []
+        consecutive_item = 0
+        for line in initial_tex_file:
+            in_verbatim = is_in_verbatim(in_verbatim, line)
+            add_start = False
+            add_end = False
+            if in_verbatim is False:
+                if (line[0] == '-'):
+                    line = '\item' + line[1:]
+                    if consecutive_item == 0:
+                        add_start = True
+                    consecutive_item += 1
+                else:
+                    if (consecutive_item > 0) & (line[0] != ' '):
+                        add_end = True
+                    consecutive_item = 0
+                if (add_start) & (within_item is False):
+                    new_tex_file_name.append(r'\begin{itemize}'+'\n')
+                    add_start = False
+                    within_item = True
+                elif (add_end) & (within_item):
+                    new_tex_file_name.append(r'\end{itemize}'+'\n')
+                    add_end = False
+                    within_item = False
+                    consecutive_item = 0
+            new_tex_file_name.append(line)
+        self.write_file(new_tex_file_name)
+
+    def add_non_indent(self, keywords):
+        initial_tex_file = self.import_tex_file()
+        new_tex_file_name = []
+        add_noindent = False
+        for line in initial_tex_file:
+            if line != '\n':
+                prev_add_noindent = add_noindent
+                add_noindent = False
+                for word in keywords:
+                    if word in line:
+                        add_noindent = True
+            if prev_add_noindent: 
+                new_tex_file_name.append(r'\noindent '+line)
+                add_noindent = False
+                prev_add_noindent = False
+            else:
+                new_tex_file_name.append(line)
+        self.write_file(new_tex_file_name)
+
+    def remove_space(self):
+        initial_tex_file = self.import_tex_file()
+        # remove extra space
+        new_tex_file_name = []
+        consecutive_empty = 0
+        for line in initial_tex_file:
+            # remove double space
+            if line == '\n':
+                consecutive_empty += 1
+            else:
+                consecutive_empty = 0
+            if consecutive_empty <= 1:
+                new_tex_file_name.append(line)
+        self.write_file(new_tex_file_name)
+
+    def write_title(self):
+        title_position = self.RST.title_positions[np.where(np.array(self.RST.title_types) == "main")[0][0]]
+        self.f.write('\chapter{'+self.RST.file_content[title_position]+'}')
+        self.f.write('\n')
+
+    def write_paragraph(self, filtered_block, block_type, filtered_subblock, ids_subblock, types_subblock, sub_block_number):
+        if ("text" in block_type):
+            for line in filtered_block:
+                line = replace_special_character(line, '#', r'$\#$')
+                line = fix_link(self.RST, line)
+                line = fix_math(line)
+                line = fix_italic(line, replace_underscore=True)
+                self.f.write(line)
+                self.f.write('\n')
+        elif ("admonition" in block_type):
+            cpt = 0
+            caption = block_type[11:]
+            self.f.write(r'\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title='+caption+']'+'\n')
+            #self.f.write(r'\noindent \textbf{' + caption + '} -- ')
+            for line in filtered_block:
+                line = fix_math(line)
+                line = fix_link(self.RST, line)
+                line = fix_italic(line, replace_underscore=True)
+                if line == '[insert-sub-block]': 
+                    filtered_subblock_0 = []
+                    for line, n in zip(filtered_subblock, sub_block_number):
+                        if n == cpt:
+                            filtered_subblock_0.append(line)
+                    if 'figure' not in types_subblock[cpt]:
+                        self.write_equation(filtered_subblock_0, types_subblock[cpt])
+                    cpt += 1
+                else:
+                    self.f.write(line)
+                    self.f.write('\n')
+            self.f.write(r'\end{tcolorbox}')
+        elif "hatnote" in block_type:
+            for line in filtered_block:
+                line = fix_math(line)
+                self.f.write(r'\vspace{-1cm} '
+                + r'\noindent \textcolor{graytitle}{\textit{{\Large '+line+
+                '}}'
+                + r'\vspace{0.5cm} }')
+                self.f.write('\n')
+        self.f.write('\n')
+
+    def write_equation(self, filtered_block, block_type):
+        if ("lammps" in block_type):
+            self.f.write(r'\begin{lcverbatim}'+'\n')
+            for line in filtered_block:
+                if ':caption:' not in line:
+                    self.f.write(line)
+                    self.f.write('\n')
+            self.f.write(r'\end{lcverbatim}'+'\n')
+        elif ("bw" in block_type):
+            self.f.write(r'\begin{lcverbatim}'+'\n')
+            for line in filtered_block:
+                if ':caption:' not in line:
+                    self.f.write(line)
+                    self.f.write('\n')
+            self.f.write(r'\end{lcverbatim}'+'\n')
+        elif ("math" in block_type):
+            for line in filtered_block:
+                    if len(line) > 0:
+                        self.f.write('$$' + line + '$$')
+        self.f.write('\n')
+
+    def import_tex_file(self):
+        f = open(self.file_name, "r") 
+        initial_tex_file = []
+        for line in f:
+            initial_tex_file.append(line)
+        f.close()
+        return initial_tex_file
+
+    def write_file(self, new_tex_file_name):
+        # write filtered file        
+        f = open(self.file_name, "w") 
+        for line in new_tex_file_name:
+            f.write(line)
+        f.close()
+
 
 class ReadRST:
     """Read RST file."""
@@ -282,73 +466,6 @@ def is_the_block_main(file_content, position):
         main_block = True                
     return main_block
 
-##########################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def detect_block(n, file_content, keep_line_break=False):
-    within_block = True
-    words_in_block = []
-    all_jump = []
-    while within_block:
-        try:
-            line = file_content[n]
-            jump = 0
-            for letter in line:
-                if letter == ' ':
-                    jump += 1
-                else:
-                    break
-            all_jump.append(jump)
-            n += 1
-            spitted_line = line.split()
-            if line == '':
-                words_in_block.append('\n')
-            elif line[:2] == '  ':
-                within_block = True
-                for word in spitted_line:
-                    words_in_block.append(word)
-            else:
-                within_block = False
-            if keep_line_break:
-                words_in_block.append('\n')
-        except:
-            within_block = False
-    return words_in_block
-
-def block_to_sentence(lines):
-    sentences = []
-    sentence = ''
-    for word in lines:
-        if word == '\n':
-            if (sentence != '\n') & (sentence != ''):
-                sentences.append(sentence[:-1])
-            sentence = ''
-        else:
-            sentence += word + ' '
-    if (sentence != '\n') & (sentence != ''):
-        sentences.append(sentence[:-1])
-    return sentences
-
 def count_occurence(main_string, sub_string):
     count=0
     start_index=0
@@ -382,7 +499,6 @@ def extract_link(RST, label):
 def fix_link(RST, line):
     """Deal with links"""
     if '|' in line:
-        print(line)
         _, pos_bar = count_occurence(line, '|')
         links = []
         texts = []
@@ -405,12 +521,9 @@ def fix_link(RST, line):
                 except:
                     pass                        
                 l += 1
-        print(new_line)
         return new_line
     else:
         return line
-
-
 
 def fix_italic(line, caracter = '*', replace_with = [r'\textit{', '}'], replace_underscore=False):
     """Deal with special characters"""
@@ -471,8 +584,7 @@ def replace_special_character(line, to_replace, replace_with):
         if len(line.split(to_replace)) == 2:
             new_line = sentence[0] + replace_with + sentence[1]
         else:
-            print(len(line.split(to_replace)))          
-            stop
+            print('ERROR ----', len(line.split(to_replace)))          
         return new_line
     else:
         return line
