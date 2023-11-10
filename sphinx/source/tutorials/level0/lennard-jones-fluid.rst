@@ -36,6 +36,8 @@ Lennard Jones fluid
 
 .. include:: ../../contact/needhelp.rst
 
+.. include:: ../../contact/2Aug2023.rst
+
 The input script
 ================
 
@@ -44,11 +46,16 @@ The input script
     In order to run a simulation using LAMMPS, one needs to
     write a series of commands in an input script. For clarity,
     this script will be divided into five categories which we are going to
-    fill up one by one. Create a blank text file, call it
-    *input1.lammps*, and copy the following lines in it:
+    fill up one by one. 
+    
+    Create a folder, call it *my-first-input*, and then create a blank
+    text file in it, called *input.lammps*.
+    
+    Copy the following lines in *my-first-input/input.lammps*, 
+    where a line starting with a brace (#) is a comment
+    that is ignored by LAMMPS:
 
 .. code-block:: lammps
-    :caption: *to be copied in input1.lammps*
 
     # PART A - ENERGY MINIMIZATION
     # 1) Initialization
@@ -62,12 +69,10 @@ The input script
     These five categories are not required in every
     input script, and should not necessarily be in that
     exact order. For instance parts 3 and 4 could be inverted, or
-    part 4 could be omitted, or there could be several
-    consecutive runs.
-
-    A line starting with a brace (#) is a comment
-    that is ignored by LAMMPS. Use comments to structure 
-    your inputs and make them readable by others.
+    part 4 could be omitted. Note however that LAMMPS reads input
+    file from top to bottom, therefore the *Initialization* and 
+    *System definition* categories must appear at the top of the
+    input, and the *Run* category at the bottom.
 
 .. include:: ../../contact/supportme.rst
 
@@ -77,15 +82,15 @@ System creation
 .. container:: justify
 
     In the first section of the script, called *Initialization*,
-    let us indicate to LAMMPS the type of simulation we are
-    going to execute by specifying the most basic information,
-    such as the conditions at the boundaries of the box (i.e.
-    periodic, non-periodic) or the type of atoms (e.g. uncharged
-    single dots, spheres with angular velocities). Enter the
-    following lines:
+    let us indicate to LAMMPS the most basic information
+    about the simulation, such as:
+
+    - the conditions at the boundaries of the box (periodic, non-periodic, ...)
+    - the type of atoms (uncharged single dots, spheres with angular velocities, ...).
+
+    Enter the following lines in *my-first-input/input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input1.lammps*
 
     # 1) Initialization
     units lj
@@ -96,14 +101,15 @@ System creation
 
 ..  container:: justify
 
-    The first line indicates that we want to
-    use the system of unit called *LJ*, for Lennard-Jones, for which all quantities
-    are unitless. 
+    The first line, *units lj*, indicates that we want to
+    use the system of unit called *LJ*, for Lennard-Jones, for
+    which all quantities are unitless. 
     
-.. admonition:: Background Information -- About LJ units
+.. admonition:: About Lennard-Jones (LJ) units
     :class: dropdown
 
-    Lennard-Jones (LJ) units are a dimensionless system of units that are often used in molecular simulations
+    Lennard-Jones (LJ) units are a dimensionless system of units.
+    LJ units are often used in molecular simulations
     and theoretical calculations. When using LJ units:
 
     - energies are expressed in units of :math:`\epsilon`, where :math:`\epsilon` is the
@@ -113,12 +119,17 @@ System creation
     - masses are expressed in units of the atomic mass :math:`m`.
 
     All the other quantities are normalized by a combination of :math:`\epsilon`, :math:`\sigma`,
-    and :math:`m`. For instance, time is expressed in units of :math:`\sqrt{ \epsilon / m \sigma^2}`. 
+    and :math:`m`. For instance, time is expressed in units of :math:`\sqrt{ \epsilon / m \sigma^2}`.
+    Find the full list of quantities |LAMMPS_units|.
+    
+.. |LAMMPS_units| raw:: html
+
+    <a href="https://docs.lammps.org/units.html" target="_blank">from the LAMMPS website</a>
 
 ..  container:: justify
 
-    The second line indicates that the simulation
-    is 3D, the third line that the *atomic* style
+    The second line, *dimension 3*, indicates that the simulation
+    is 3D. The third line, *atom_style atomic*, that the *atomic* style
     will be used, therefore each atom is just a dot with a mass.
 
 .. admonition:: About the atom style
@@ -131,28 +142,38 @@ System creation
 
 ..  container:: justify
 
-    The fourth line indicates that atoms are going to interact
-    through a Lennard-Jones potential with a cut-off equal to
-    2.5 (unitless), and the last line indicates that the
+    The fourth line, *pair_style lj/cut 2.5*, indicates that atoms
+    are going to interact through a Lennard-Jones potential with
+    a cut-off equal to :math:`r_c = 2.5` (unitless):
+    
+.. math::
+
+    E (r) = 4 \epsilon \left[ \left( \dfrac{\sigma}{r} \right)^{12} - \left( \dfrac{\sigma}{r} \right)^{6} \right], ~ \text{for} ~ r < r_c.
+
+..  container:: justify
+    
+    The last line, *boundary p p p*, indicates that the
     periodic boundary conditions will be used along all three
     directions of space (the 3 *p* stand for *x*, *y*, and *z*,
     respectively).
 
-    At this point, you have a LAMMPS script that does nothing.
-    You can execute it to verify that there is no mistake by
-    running the following command in the terminal:
+    At this point, *my-first-input/input.lammps* is a 
+    LAMMPS input script that does nothing.
+    You can run it using LAMMPS to verify that the *input* contains
+    no mistake by running the following command in the terminal
+    from the *my-first-input/*  folder:
 
 ..  code-block:: bw
 
-    lmp -in input_01.lammps
+    lmp -in input.lammps
 
 ..  container:: justify
 
-    Which should return something like
+    which should return:
 
 ..  code-block:: bw
 
-    LAMMPS (29 Sep 2021 - Update 2)
+    LAMMPS (2 Aug 2023 - Update 1)
     Total wall time: 0:00:00
 
 ..  container:: justify
@@ -163,16 +184,15 @@ System creation
 
 ..  code-block:: bw
 
-    LAMMPS (29 Sep 2021 - Update 2)
+    LAMMPS (2 Aug 2023 - Update 1)
     ERROR: Unknown command: atom_stile  atomic (src/input.cpp:232)
     Last command: atom_stile atomic
 
 ..  container:: justify
 
-    Let us fill the second part the of the input script:
+    Let us fill the *System definition* category of the input script:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input1.lammps*
 
     # 2) System definition
     region simulation_box block -20 20 -20 20 -20 20
@@ -182,33 +202,35 @@ System creation
 
 ..  container:: justify
 
-    The first line creates a region of space
-    named *simulation_box* that is a block (a rectangular cuboid) and
-    extends from -20 to 20 along all 3 directions of space, all expressed in
-    non-dimensional units because we are using the LJ system
-    of units. The second line creates a simulation box based on
-    the region *simulation_box* with *2* types of atoms. The third
-    command specifies that 1500 atoms of type 1 must be created
-    randomly in the region *simulation_box*. The integer *341341* is a
+    The first line, *region simulation_box (...)*, creates a region
+    named *simulation_box* that is a block (i.e. a rectangular cuboid) that
+    extends from -20 to 20 (no unit) along all 3 directions of space.
+    
+..  container:: justify
+
+    The second line, *create_box 2 simulation_box*, creates a simulation box based on
+    the region *simulation_box* with *2* types of atoms.
+    
+..  container:: justify
+
+    The third line, *create_atoms (...)* creates 1500 atoms of type 1
+    randomly within the region *simulation_box*. The integer *341341* is a
     seed that can be changed in order to create different
     initial conditions for the simulation. The fourth line
     creates 100 atoms of type 2.
 
-    If you run LAMMPS, you should see the following in the
+    If you run LAMMPS, you should see the following information in the
     terminal:
 
 ..  code-block:: bw
 
-    LAMMPS (29 Sep 2021 - Update 2)
+    (...)
     Created orthogonal box = (-20 -20 -20) to (20 20 20)
-    1 by 1 by 1 MPI processor grid
+    (...)
     Created 1500 atoms
-    using lattice units in orthogonal box = (-20 -20 -20) to (20 20 20)
-    create_atoms CPU = 0.001 seconds
+    (...)
     Created 100 atoms
-    using lattice units in orthogonal box = (-20 -20 -20) to (20 20 20)
-    create_atoms CPU = 0.000 seconds
-    Total wall time: 0:00:00
+    (...)
 
 ..  container:: justify
 
@@ -217,10 +239,10 @@ System creation
     the box with desired dimensions, then 1500 atoms, then 100
     atoms.
 
-    Let us fill the third section of the input script, the settings:
+    Let us fill the *Simulation Settings* category section of
+    the *input* script:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input1.lammps*
 
     # 3) Simulation settings
     mass 1 1
@@ -230,14 +252,18 @@ System creation
 
 ..  container:: justify
 
-    The two first commands attribute a mass
+    The two first commands, *mass (...)*, attribute a mass
     equal to 1 (unitless) to both atoms of type 1 and 2,
-    respectively. The third line sets the Lennard-Jones
+    respectively. 
+    
+..  container:: justify
+    
+    The third line, *pair_coeff 1 1 1.0 1.0*, sets the Lennard-Jones
     coefficients for the interactions between atoms of type 1,
     respectively the depth of the potential well
     :math:`\epsilon` and the distance at which the
     particle-particle potential energy is zero :math:`\sigma`. 
-    The last line sets the Lennard-Jones coefficients for
+    Similarly, the last line sets the Lennard-Jones coefficients for
     the interactions between atoms of type 2.
    
 .. admonition:: About cross parameters
