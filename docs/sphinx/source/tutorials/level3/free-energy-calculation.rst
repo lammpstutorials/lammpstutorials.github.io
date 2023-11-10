@@ -103,7 +103,7 @@ Basic LAMMPS parameters
     Lennard-Jones potential with a cut-off equal to 
     :math:`\sigma \times 2 ^ {1/6}` (i.e. a WCA repulsive
     potential). The potential is shifted to be equal to 0 at
-    the cut-off using the pair_modify.
+    the cut-off using the *pair_modify*.
 
 System creation and settings
 ----------------------------
@@ -259,7 +259,7 @@ Data analysis
 ..  container:: justify
 
     First, let us make sure that the equilibration duration of 1
-    ns is long enough by looking at the 'density_evolution.dat' file:
+    ns is long enough by looking at the *density_evolution.dat* file:
 
 .. figure:: ../figures/level3/free-energy-calculation/density_evolution-light.png
    :alt: Number of particle in the central region as a function of time

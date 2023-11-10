@@ -15,14 +15,16 @@ if os.path.exists(git_path+'/ebook/tutorials') is False:
 
 tutorials = {"level0": ["lennard-jones-fluid"],
              "level1": ["breaking-a-carbon-nanotube"],
-             "level2": ["polymer-in-water", "nanosheared-electrolyte"],}
-             #"level3": ["water-adsorption-in-silica", "free-energy-calculation", "reactive-silicon-dioxide"]}
+             "level2": ["polymer-in-water", "nanosheared-electrolyte"],
+             "level3": ["water-adsorption-in-silica", "free-energy-calculation", "reactive-silicon-dioxide"]}
 
 for level in tutorials.keys():
-    print(level)
+    print("level", level)
     if os.path.exists(git_path+'/ebook/tutorials/'+level) is False:
         os.mkdir(git_path+'/ebook/tutorials/'+level)
     for tutorial in tutorials[level]:
+        print("tutorial", tutorial)
+        print("--------------")
         rst_file_name = git_path+'/docs/sphinx/source/tutorials/'+level+'/'+tutorial+'.rst'
         tex_file_name = git_path+'/ebook/tutorials/'+level+'/'+tutorial+'.tex'
         RST = ReadRST(rst_file_name)

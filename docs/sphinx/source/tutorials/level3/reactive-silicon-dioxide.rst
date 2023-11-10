@@ -109,7 +109,7 @@ Relax the structure
 ..  container:: justify
 
     So far, the input is very similar to what is seen in the other tutorials here,
-    with some basic parameters being defined (units, atom_style and masses), and 
+    with some basic parameters being defined (*units*, *atom_style* and *masses*), and 
     the data file being imported by the *read_data* command.
     Now let us enter 3 crucial lines:
 
@@ -122,17 +122,17 @@ Relax the structure
 
 ..  container:: justify
 
-    Here, the reaxff pair_style is used with no control file, and the *safezone* and *mincap*
+    Here, the reaxff *pair_style* is used with no control file, and the *safezone* and *mincap*
     keywords have been added for memory allocation issue. If not there, the segmentation
     faults and bondchk failed errors sometimes occur.
 
-    The pair_coeff uses the |reaxCHOFe| file which is assumed to be saved in the
+    The *pair_coeff* uses the |reaxCHOFe| file which is assumed to be saved in the
     same folder as the input. The atoms of type 1 are set as silicon (Si),
     and type 2 as oxygen (O) in order to be consistent with the data file and
     mass definition.
 
     Finally, the fix *qeq/reaxff* is used to perform charge equilibration every timestep. The values 0 and 10.0
-    are low and high cutoffs, respectively, and 1.0e-6 a tolerance. Finally, maxiter sets
+    are low and high cutoffs, respectively, and :math:`1.0 \text{e}-6` a tolerance. Finally, maxiter sets
     a limit to the number of attempt to equilibrate the charge. 
 
 .. admonition:: Note
@@ -261,7 +261,7 @@ Deform the structure
     Let us apply a deformation to the structure in order to force some bonds 
     to dynamically break and reassemble. 
 
-    Next to RelaxSilica/, create a folder, call it Deform/ and create a
+    Next to *RelaxSilica/*, create a folder, call it *Deform/* and create a
     file named input.lammps in it. Copy the following lines:
 
 ..  code-block:: lammps
@@ -525,8 +525,8 @@ Decorate dandling oxygens
     Let us improve the current structure by decorating some of the dandling oxygen with
     hydrogen atoms, before relaxing it thanks to reaxff. 
 
-    Add hydrogen atoms to the dandling oxygens. Then relax the structure using reaxff with LAMMPS.
-    Hydrogen atoms can be added using create_atoms command, gcmc, or external python script as I did here:
+    Add hydrogen atoms to the dandling oxygens. Then relax the structure using *reaxff* with LAMMPS.
+    Hydrogen atoms can be added using *create_atoms* command, *gcmc*, or external *Python* script as I did here:
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/exercice-light.png
     :alt: Silicon oxide decorated with hydrogens
@@ -541,25 +541,14 @@ Decorate dandling oxygens
 .. admonition:: Hint n°1
     :class: dropdown
 
-    ..  container:: justify
-
-        The structure can be imported in MDAnalysis/Python using:
-
-    ..  code-block:: python
-
-        u = mda.Universe("silica-deformed.data")
-
-    ..  container:: justify
-
-        Then dandling oxygen can be detected by counting the number of neighbor (oxygen with only 
-        one connected silicon is dandling and should be completed with an hydrogen).
+    The structure can be imported in MDAnalysis/Python using *u = mda.Universe("silica-deformed.data")*
+    Then dandling oxygen can be detected by counting the number of neighbor (oxygen with only 
+    one connected silicon is dandling and should be completed with an hydrogen).
 
 .. admonition:: Hint n°2
     :class: dropdown
 
-    ..  container:: justify
-
-        Once hydrogen have been added, run LAMMPS using:
+    Once hydrogen have been added, run LAMMPS using:
 
     ..  code-block:: lammps
 
@@ -567,9 +556,7 @@ Decorate dandling oxygens
         mass 2 15.999 # O
         mass 3 1.008 # H
 
-    ..  container:: justify
-
-        and:
+    and:
 
     ..  code-block:: lammps
 
