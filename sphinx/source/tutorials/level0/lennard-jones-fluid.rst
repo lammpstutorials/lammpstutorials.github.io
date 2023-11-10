@@ -49,11 +49,9 @@ The input script
     fill up one by one. 
     
     Create a folder, call it *my-first-input*, and then create a blank
-    text file in it, called *input.lammps*.
-    
-    Copy the following lines in *my-first-input/input.lammps*, 
-    where a line starting with a brace (#) is a comment
-    that is ignored by LAMMPS:
+    text file in it, called *input.lammps*. Copy the following lines
+    in *my-first-input/input.lammps*, where a line starting with a brace (#)
+    is a comment that is ignored by LAMMPS:
 
 .. code-block:: lammps
 
