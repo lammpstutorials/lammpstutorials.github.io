@@ -25,11 +25,9 @@ this script will be divided into five categories which we are going to
 fill up one by one. 
 
 Create a folder, call it \textit{my-first-input}, and then create a blank
-text file in it, called \textit{input.lammps}.
-
-Copy the following lines in \textit{my-first-input/input.lammps}, 
-where a line starting with a brace ($\#$) is a comment
-that is ignored by LAMMPS:
+text file in it, called \textit{input.lammps}. Copy the following lines
+in \textit{my-first-input/input.lammps}, where a line starting with a brace ($\#$)
+is a comment that is ignored by LAMMPS:
 
 \begin{lcverbatim}
 # PART A - ENERGY MINIMIZATION
@@ -151,7 +149,7 @@ create_atoms 2 random 100 127569 simulation_box
 named \textit{simulation$\_$box} that is a block (i.e. a rectangular cuboid) that
 extends from -20 to 20 (no unit) along all 3 directions of space.
 
-The second line, , creates a simulation box based on
+The second line, \textit{create$\_$box 2 simulation$\_$box}, creates a simulation box based on
 the region \textit{simulation$\_$box} with \textit{2} types of atoms.
 
 The third line, \textit{create$\_$atoms (...)} creates 1500 atoms of type 1
@@ -176,7 +174,8 @@ Created 100 atoms
 LAMMPS correctly interpreted the commands, and first created
 the box with desired dimensions, then 1500 atoms, then 100
 atoms.
-Let us fill the third section of the input script, the settings:
+Let us fill the \textit{Simulation Settings} category section of
+the \textit{input} script:
 
 \begin{lcverbatim}
 # 3) Simulation settings
@@ -186,14 +185,16 @@ pair_coeff 1 1 1.0 1.0
 pair_coeff 2 2 0.5 3.0
 \end{lcverbatim}
 
-\noindent The two first commands attribute a mass
+\noindent The two first commands, \textit{mass (...)}, attribute a mass
 equal to 1 (unitless) to both atoms of type 1 and 2,
-respectively. The third line sets the Lennard-Jones
+respectively. 
+
+The third line, \textit{pair$\_$coeff 1 1 1.0 1.0}, sets the Lennard-Jones
 coefficients for the interactions between atoms of type 1,
 respectively the depth of the potential well
 $\epsilon$ and the distance at which the
 particle-particle potential energy is zero $\sigma$. 
-The last line sets the Lennard-Jones coefficients for
+Similarly, the last line sets the Lennard-Jones coefficients for
 the interactions between atoms of type 2.
 
 \begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=About cross parameters]

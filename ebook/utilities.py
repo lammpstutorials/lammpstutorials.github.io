@@ -647,7 +647,10 @@ def replace_special_character(line, to_replace, replace_with):
         sentence = line.split(to_replace)
         if len(line.split(to_replace)) == 2:
             new_line = sentence[0] + replace_with + sentence[1]
+        elif len(line.split(to_replace)) == 3:
+            new_line = sentence[0] + replace_with + sentence[1] + replace_with + sentence[2]
         else:
+            print(line)
             print('ERROR ----', len(line.split(to_replace)))          
         return new_line
     else:
