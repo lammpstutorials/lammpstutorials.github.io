@@ -1,29 +1,29 @@
 .. _carbon-nanotube-label:
 
 Breaking a carbon nanotube
-***************************
+**************************
 
 .. container:: hatnote
 
    Breaking the bonds of a carbon nanotube under deformation
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_gif_dark.webp
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_dark.webp
     :alt: carbon nanotube image in vacuum
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_gif_light.webp
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_light.webp
     :alt: carbon nanotube image in vacuum
     :height: 250
     :align: right
     :class: only-light
-   
-.. container:: justify
-   
+
+.. container:: abstract
+
     In this tutorial, two force fields, a classic one and a reactive one (airebo) 
     are used to simulate the deformation of a carbon nanotube (CNT). With the reactive 
-    force field, the breaking of the C-C bonds during the plastic deformation of the CNT is 
+    force field, the breaking of the :math:`C-C` bonds during the plastic deformation of the CNT is 
     simulated.
 
 .. include:: ../../contact/recommand-lj.rst
@@ -32,6 +32,10 @@ Breaking a carbon nanotube
 
 Unbreakable bonds
 =================
+
+.. container:: justify
+
+    A CNT with unbreakable bonds is generated and exposed to deformations.
 
 System creation
 ---------------
@@ -74,8 +78,8 @@ System creation
 
 .. container:: justify
 
-    Here molecular refers to the LAMMPS atom_style, and cnt_molecular.data
-    to the name of the file. 
+    Here molecular refers to the LAMMPS *atom_style*, and
+    *cnt_molecular.data* to the name of the file. 
 
 .. admonition:: About TopoTools
     :class: dropdown
@@ -98,7 +102,7 @@ System creation
     The parameters of the constraints (bond length,
     dihedral coefficients, etc.) will be given later.
 
-    A new file named "cnt_molecular.data" has been created, it starts
+    A new file named *cnt_molecular.data* has been created, it starts
     like that:
 
 .. code-block:: lammps
@@ -122,12 +126,12 @@ System creation
 
 .. container:: justify
 
-    The cnt_molecular.data file contains information
+    The *cnt_molecular.data* file contains information
     about the positions of the carbons atoms, as well as the
     identity of the atoms that are linked by bonds, angles, dihedrals,
     and impropers constraints.
 
-    Save the "cnt_molecular.data" file in the same folder as your
+    Save the *cnt_molecular.data* file in the same folder as your
     future LAMMPS input script.
 
     We are done with the system
@@ -198,7 +202,7 @@ Generic options
 
 .. container:: justify
 
-    The last command (read_data) imports the carbon.data file
+    The last command (*read_data*) imports the carbon.data file
     previously generated with VMD, which contains the
     information about the box size, atoms positions, etc.
 
@@ -207,11 +211,11 @@ Generic options
         
     Atoms connected by a bond do not typically interact through
     Lennard-Jones interaction. This is ensured here by the
-    special_bonds command. The three numbers of the
-    special_bonds command are weighting factors for the
+    *special_bonds* command. The three numbers of the
+    *special_bonds* command are weighting factors for the
     Lennard-Jones interaction between atoms connected by bond
-    (respectively directly bounded C-C, separated by two bonds C-C-C,
-    and separated by three bonds C-C-C-C). For instance, the
+    (respectively directly bounded :math:`C-C`, separated by two bonds :math:`C-C-C`,
+    and separated by three bonds :math:`C-C-C-C`). For instance, the
     first weighting factor, with a
     value of 0, imposes that two atoms connected by a bond do
     not interact through a Lennard-Jones potential (therefore
@@ -239,17 +243,17 @@ Parameters
 
 .. container:: justify
 
-    The pair_coeff command sets the Lennard-jones parameters
+    The *pair_coeff* command sets the Lennard-jones parameters
     :math:`\epsilon` and :math:`\sigma` for the only type of
     atom of the simulation: carbon atom of type 1. The
-    bond_coeff provides the equilibrium distance :math:`r_0` as
+    *bond_coeff* provides the equilibrium distance :math:`r_0` as
     well as the spring constant :math:`K` for the harmonic
     potential imposed between two neighboring carbon atoms,
     where the potential is :math:`E = K_r ( r - r_0)^2`. The
-    angle_coeff gives the equilibrium angle \\(\\theta_0\\) and
+    *angle_coeff* gives the equilibrium angle :math:`theta_0` and
     constant for the potential between three neighbors atoms :
-    :math:`E = K_\theta ( \theta - \theta_0)^2`. The dihedral_coeff
-    and improper_coeff give the potential for the constraints
+    :math:`E = K_\theta ( \theta - \theta_0)^2`. The *dihedral_coeff*
+    and *improper_coeff* give the potential for the constraints
     between 4 atoms. The file PARM.lammps need to be included in the
     simulation by adding the following line to input.lammps:
 
@@ -266,10 +270,9 @@ Prepare initial state
     Depending on VMD and topotool version, the CNT may or may not be centered in 
     the box. Let us make sure that we start from a clean initial state by
     recentering the CNT at the origin (0, 0, 0). In addition, the box boundaries 
-    are not symmetric with respect to (0, 0, 0):
+    are not symmetric with respect to (0, 0, 0), as seen in *cnt_molecular.data*:
 
 .. code-block:: lammps
-    :caption: *what I see in cnt_molecular.data*
 
     -40.000000 40.000000  xlo xhi
     -40.000000 40.000000  ylo yhi
@@ -291,10 +294,10 @@ Prepare initial state
 .. container:: justify
 
     The first command includes all of the atoms of type one
-    (i.e. all the atoms here) in a group named 'carbon_atoms'. 
-    The 3 variables measure the current position of the group carbon_atoms
+    (i.e. all the atoms here) in a group named *carbon_atoms*. 
+    The 3 variables measure the current position of the group *carbon_atoms*
     along all 3 directions, respectively. Then, the displace atoms 
-    command move the group carbon_atoms, ensuring that its center of mass 
+    command move the group *carbon_atoms*, ensuring that its center of mass 
     is located at the origin (0, 0, 0).
 
     Let us also change the box boundaries:
@@ -315,7 +318,7 @@ Prepare initial state
     In order to impose a force to the edges of the CNT, let us isolate the
     atoms from the two edges of the CNT and place them into different groups.
     Later, the displacement will be applied to the atoms of the edges.
-    Add the following lines to the input script :
+    Add the following lines to the input script:
 
 .. code-block:: lammps
     :caption: *to be copied in input.lammps*
@@ -329,7 +332,7 @@ Prepare initial state
 .. container:: justify
    
     The variable :math:`z_\mathrm{max}` corresponds to
-    the coordinate of the last atoms along \\(z\\) minus 0.5
+    the coordinate of the last atoms along :math:`z` minus 0.5
     Angstroms, and :math:`z_\mathrm{min}` to the coordinate of
     the first atoms along :math:`z` plus 0.5 Angstroms. Then, 3
     regions are defined, and correspond respectively to: :math:`z < z_\mathrm{min}`, (bottom)
@@ -349,7 +352,7 @@ Prepare initial state
 
 .. container:: justify
 
-    The atoms of the edges as selected within the carbon_top and carbon_bot groups 
+    The atoms of the edges as selected within the *carbon_top* and *carbon_bot* groups 
     are represented with a different color:
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/dark_colored_edges.png
@@ -360,21 +363,18 @@ Prepare initial state
     :alt: CNT in graphene in vacuum image VMD with selected groups at the edges
     :class: only-light
 
-.. admonition:: Tip
-    :class: info
+.. container:: justify
 
-    .. container:: justify
+    When running a simulation, the number of atoms in each
+    group is printed in the terminal (and in the log.lammps
+    file). Always make sure that the number of atoms in each group 
+    is reasonable, just like here:
 
-        When running a simulation, the number of atoms in each
-        group is printed in the terminal (and in the log.lammps
-        file). Always make sure that the number of atoms in each group 
-        is reasonable, just like here:
+.. code-block:: bash
 
-    .. code-block:: bash
-
-        10 atoms in group carbon_top
-        10 atoms in group carbon_bot
-        680 atoms in group carbon_mid
+    10 atoms in group carbon_top
+    10 atoms in group carbon_bot
+    680 atoms in group carbon_mid
 
 Thermalisation and dynamics
 ---------------------------
@@ -382,7 +382,7 @@ Thermalisation and dynamics
 .. container:: justify
 
    Let us specify the thermalisation and the dynamics of the
-   system. Add the following lines to input.lammps:
+   system. Add the following lines to *input.lammps*:
 
 .. code-block:: lammps
     :caption: *to be copied in input.lammps*
@@ -395,17 +395,17 @@ Thermalisation and dynamics
 
 .. container:: justify
 
-    The "velocity_create" command gives initial velocities to
-    the atoms of the middle group carbon_mid, ensuring an initial temperature
-    of 300 K for these atoms with no overall translational momentum (mom yes)
-    nor rotational momentum (rot yes).
+    The *velocity_create* command gives initial velocities to
+    the atoms of the middle group *carbon_mid*, ensuring an initial temperature
+    of 300 K for these atoms with no overall translational momentum (*mom yes*)
+    nor rotational momentum (*rot yes*).
 
-    The fix "nve" is applied to all atoms so that all atom positions are recalculated
+    The *fix nve* is applied to all atoms so that all atom positions are recalculated
     every timestep. 
     
     A Berendsen thermostat is applied to the atoms
-    of the group carbon_mid only. The "fix_modify myber" ensures that the
-    fix Berendsen uses the temperature of the group carbon_mid as an
+    of the group *carbon_mid* only. The *fix_modify myber* ensures that the
+    fix Berendsen uses the temperature of the group *carbon_mid* as an
     input, instead of the temperature of whole system. This is necessary
     to make sure that the frozen edges won't bias the temperature. Note that the atoms
     of the edges do not need a thermostat because their motion will
@@ -444,7 +444,7 @@ Deal with frozen edges
 
 .. container:: justify
 
-   The two "setforce" commands cancel the forces applied on the
+   The two *setforce* commands cancel the forces applied on the
    atoms of the two edges, respectively. A fix setforce applies at every step of the
    simulation, and are here applying along all 3 directions: :math:`x`, :math:`y`
    and :math:`z`. The two velocity commands set the initial velocities along :math:`x`,
@@ -457,10 +457,10 @@ Deal with frozen edges
 .. admonition:: On imposing a constant velocity to a system
     :class: info
 
-    The 'velocity set' commands impose the velocity of a group of atoms *when it is 
+    The *velocity set* commands impose the velocity of a group of atoms *when it is 
     read*, but do not enforce the velocity during the entire simulation. 
 
-    When 'velocity set' is used in combination with 'setforce 0 0 0', the atoms
+    When *velocity set* is used in combination with *setforce 0 0 0*, the atoms
     wont feel any force during the entire simulation. According to the Newton equation,
     no force means no acceleration, meaning that the initial velocity will persist.
 
@@ -490,13 +490,13 @@ Data extraction
 
     dump mydmp all atom 1000 dump.lammpstrj
 
-.. admonition:: About `f_`, `v_`, and `c_`
+.. admonition:: About extracting quantity from variable compute or fix
     :class: info
 
     Notice that the values of the force on each edge are
-    extracted from the fixes setforce 'mysf1' and 'mysf2', simply by
-    calling them using `f_`, the same way variables are called
-    using `v_` and computes are called using `c_`. A fix
+    extracted from the fixes setforce *mysf1* and *mysf2*, simply by
+    calling them using *f_*, the same way variables are called
+    using *v_* and computes are called using *c_*. A fix
     setforce cancels all the forces on a group of atoms at every
     step, but allows one to extract the values of the force
     before its cancellation.
@@ -520,7 +520,7 @@ Molecular dynamics run
 
 .. container:: justify
 
-    With the 'thermo_modify' command, we specify to LAMMPS that we
+    With the *thermo_modify* command, we specify to LAMMPS that we
     want the temperature :math:`T_\mathrm{mid}` to be printed in
     the terminal, not the temperature of the entire system
     (because of the frozen edges, the temperature of the entire
@@ -550,10 +550,10 @@ Option A: Incremental deformation
 .. container:: justify
     
     At each step of the loop, the edges are slightly displaced, and
-    the simulation runs for 1000. Then the variable 'var' is iterated
-    by the 'next var', and the simulation 'jumps' back to the beginning of 
+    the simulation runs for 1000. Then the variable *var* is iterated
+    by the *next var*, and the simulation *jumps* back to the beginning of 
     the loop. It will be repeated 50 times, for a total elongation
-    equal to 2 x 0.1 x 50 = 10 Angstroms. Increase the number of iteration 
+    equal to :math:`2 \times 0.1 \times 50 = 10` Angstroms. Increase the number of iteration 
     for larger deformation.
 
     You should observe the CNT being progressively elongated
@@ -740,8 +740,8 @@ Input file
 .. container:: justify
 
     Note that a larger distance was used for the box size along 
-    the z axis, to allow for larger deformation. The change_box
-    was placed before the displace_atoms to avoid issue with the 
+    the z axis, to allow for larger deformation. The *change_box*
+    was placed before the *displace_atoms* to avoid issue with the 
     CNT crossing the edge of the box.
 
     Let us impose a constant velocity deformation using the atoms
@@ -865,10 +865,10 @@ Post-mortem analysis (Python)
    Here, let us use the open source Python library MDAnalysis.
 
    Open a new Jupyter notebook within the same folder, call it
-   bond_evolution.ipynb. First, let us import libraries:
+   *bond_evolution.ipynb*. First, let us import libraries
+   by copying into *bond_evolution.ipynb*:
 
 .. code-block:: python
-   :caption: *to be copied in bond_evolution.ipynb*
 
    import MDAnalysis as mda
    import numpy as np
@@ -925,8 +925,8 @@ Post-mortem analysis (Python)
 
 .. container:: justify
 
-   The array nbond_vs_time contains the number of bond as a function of time, and 
-   lbond_vs_time the bond length. Let us plot both of them:
+   The array *nbond_vs_time* contains the number of bond as a function of time, and 
+   *lbond_vs_time* the bond length. Let us plot both of them:
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/bond-dark.png
    :alt: plot of the bond length and distance versus time
@@ -956,7 +956,7 @@ Isolated nanotube
     strong deformation.
 
     Remove the thermostat and observe the evolution of the temperature of an
-    'isolated' carbon nanotube being deformed. Does it heat-up? Or does it cool down?
+    *isolated* carbon nanotube being deformed. Does it heat-up? Or does it cool down?
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/shared-dark.png
     :alt: deformed membrane of CNT

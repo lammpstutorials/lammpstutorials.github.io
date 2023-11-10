@@ -73,24 +73,24 @@ Bulk water
    There are many differences with respect to
    the previous tutorial (:ref:`lennard-jones-label`), mostly
    because here a system with molecules and partial charges is
-   modeled (instead of neutral particles). With the unit style 'real',
+   modeled (instead of neutral particles). With the unit style *real*,
    masses are in grams per
    mole, distances in Ångstroms, time in femtoseconds, energies
-   in Kcal/mole. With the atom style 'full', each atom is a dot
+   in Kcal/mole. With the atom style *full*, each atom is a dot
    with a mass and a charge. In addition, each atom can be
    linked by bonds, angles, dihedrals and impropers potentials
-   (for example to form molecules). The 'bond_style',
-   'angle_style', and 'dihedral_style' commands define the
+   (for example to form molecules). The *bond_style*,
+   *angle_style*, and *dihedral_style* commands define the
    styles of bond angle, and dihedrals used in the simulation,
-   respectively, and the 'harmonic' and 'charmm' keywords
+   respectively, and the *harmonic* and *charmm* keywords
    impose the type of potential to use.
 
 .. admonition:: About the use of charmm style
     :class: info
 
     The future merging of the water with the PEG
-    has already been anticipated as the charmm angle_style
-    and dihedral_style are requirements of the PEG's model.
+    has already been anticipated as the *charmm angle_style*
+    and *dihedral_style* are requirements of the PEG's model.
 
     A rigid water model will be used here, so the bond
     and angle styles that are chosen have no consequence on the water model, they will
@@ -98,27 +98,27 @@ Bulk water
 
 ..  container:: justify
 
-   With the 'pair_style' named 'lj/cut/tip4p/long', atoms
-   interact through both a Lennard-Jones (LJ) potential and
-   through Coulombic interactions. This pair style is specific to
-   four points water models, and automatically accounts for the
-   additional massless site. The six numbers are, respectively,
+    With the *pair_style* named *lj/cut/tip4p/long*, atoms
+    interact through both a Lennard-Jones (LJ) potential and
+    through Coulombic interactions. This pair style is specific to
+    four points water models, and automatically accounts for the
+    additional massless site. The six numbers are, respectively,
 
--  **1 -** the atom type for the oxygen O of the tip4p water,
--  **2 -** the atom type for the hydrogen H of the tip4p water,
--  **3 -** the OH bond type,
--  **4 -** the HOH angle type,
--  **5 -** the distance from O atom to the massless charge (here 0.105 Ångstroms is set by the TIP4P/epsilon water model),
--  **6 -** the cutoff (here of 12 Ångstroms).
+    -  **1 -** the atom type for the oxygen O of the tip4p water,
+    -  **2 -** the atom type for the hydrogen H of the tip4p water,
+    -  **3 -** the OH bond type,
+    -  **4 -** the HOH angle type,
+    -  **5 -** the distance from O atom to the massless charge (here 0.105 Ångstroms is set by the TIP4P/epsilon water model),
+    -  **6 -** the cutoff (here of 12 Ångstroms).
 
 .. admonition:: About cutoff in molecular dynamics
     :class: info
 
     The cutoff of 12 Ångstroms applies to both LJ and Coulombic
-    interactions, but in a different way. For LJ 'cut'
+    interactions, but in a different way. For LJ *cut*
     interactions, atoms interact with each others only if they
     are separated by a distance smaller than the cutoff. For
-    Coulombic 'long', interaction between atoms closer than
+    Coulombic *long*, interaction between atoms closer than
     the cutoff are computed directly, and interaction between
     atoms outside that cutoff are computed in the reciprocal
     space.
@@ -147,8 +147,8 @@ Bulk water
 
 ..  container:: justify
 
-   Then, let us create a 3D simulation box of dimensions 8 x 3
-   x 3 nm^3, and make space for 7 atom types (1 and 2 for
+   Then, let us create a 3D simulation box of dimensions :math:`8 x 3 x 3 \text{nm}^3`,
+   and make space for 7 atom types (1 and 2 for
    the water oxygen and hydrogen, respectively, and 3, 4, 5, 6
    and 7 for the PEG molecule (see below)), 6 bond types, 9
    angle types, and 14 dihedrals types.
@@ -168,13 +168,13 @@ Bulk water
 .. admonition:: About extra per atom commands
     :class: info
 
-    The extra/[something]/per/atom commands are here for
+    The *extra/something/per/atom* commands are here for
     memory allocation, they ensure that enough space is left for a
     certain number of attribute for each atom. We wont worry
     about those commands in this tutorial, just keep that in mind if one day you see the following
     error message:
 
-    ..  code-block:: bash
+    ..  code-block:: bw
 
         ERROR: Molecule topology/atom exceeds system topology/atom (src/molecule.cpp:1767)
 
@@ -185,17 +185,15 @@ Bulk water
     distances, etc):
 
 ..  code-block:: lammps
-   :caption: *to be copied in pureH2O/input.lammps*
 
-   include ../PARM.lammps
+    include ../PARM.lammps
 
 ..  container:: justify
 
-   Next to the pureH2O/ folder, create a blank file called
-   PARM.lammps and copy the following lines in it:
+   Next to the *pureH2O/* folder, create a blank file called
+   *PARM.lammps* and copy the following lines in it:
 
 ..  code-block:: lammps
-   :caption: *to be copied in PARM.lammps*
 
    # Mass
    mass 1 15.9994 # H2O O
@@ -256,10 +254,9 @@ Bulk water
    parameter, you can refer to the LAMMPS documentation. For
    this tutorial, we will just trust that these parameters
    are correct and will lead to physically consistent
-   behavior.
-   Now, let us create water molecules. To do so, let us
+   behavior. Now, let us create water molecules. To do so, let us
    define a water molecule using a molecule template called
-   H2OTip4p.txt, and randomly create 700 of those.
+   *H2OTip4p.txt*, and randomly create 700 of those.
 
 ..  code-block:: lammps
    :caption: *to be copied in pureH2O/input.lammps*
@@ -269,8 +266,8 @@ Bulk water
 
 ..  container:: justify
 
-   The molecule template named H2OTip4p.txt must be |download_H2OTip4p.txt|
-   and saved in the same folder (named pureH2O/) as the
+   The molecule template named *H2OTip4p.txt* must be |download_H2OTip4p.txt|
+   and saved in the same folder (named *pureH2O/*) as the
    input.lammps file. This template contains all the necessary structural
    information of a water molecule, such as the number of atoms, 
    which pair of atoms are connected by bonds, which
@@ -297,11 +294,11 @@ Bulk water
 
     Deleting overlapping molecules is required here
     because the molecules where placed randomly in space by
-    the "create_atoms" command, and some of them may be too
+    the *create_atoms* command, and some of them may be too
     close from each other, which may force the simulation to
     crash.
 
-    The "mol yes" option ensures that entire water molecules are deleted and not just single atoms.
+    The *mol yes* option ensures that entire water molecules are deleted and not just single atoms.
 
     Let us use the shake algorithm in order to constrain the
     shape of the water molecules at all time. Let us also use the fix NPT to
@@ -331,10 +328,11 @@ Bulk water
     :class: info
 
     With shake, water molecules behave as rigid. If
-    you want to study the vibration of the O-H bonds and
-    H-O-H angles, you will have to use a flexible water
+    you want to study the vibration of the *O-H* bonds and
+    *H-O-H* angles, you will have to use a flexible water
     model. If you want to study the hydrogen transfer, you
-    will have to use a reactive force field, as done in :ref:`reactive-silicon-dioxide-label`.
+    will have to use a reactive force field,
+    as done in :ref:`reactive-silicon-dioxide-label`.
 
 ..  container:: justify
 
@@ -360,22 +358,22 @@ Bulk water
    fix myat3 all ave/time 10 10 100 v_mydensity file density.dat
    thermo 1000
 
-.. admonition:: The difference between ${var} and v_var
+.. admonition:: On calling variables
     :class: info
 
-    Both ${var} and v_var can be used to call a previously defined variable named var. 
-    However, ${var} returns the initial value of var, while v_var returns the instantaneous 
-    value of var. 
+    Both :math:`\$ \text{var}` and :math:`v_\text{var}` can be used to call a previously defined variable named *var*. 
+    However,  :math:`\$ \text{var}` returns the initial value of *var*, while :math:`v_\text{var}` returns the instantaneous 
+    value of *var*. 
 
 ..  container:: justify
 
     In the formula for the density (number of
-    molecule divided by volume), the underscore '_' is used to
+    molecule divided by volume), the underscore *_* is used to
     call myvol because the volume is expected
-    to evolve in time when using fix NPT, but the dollar sign '$' is used to call myoxy as the
+    to evolve in time when using fix NPT, but the dollar sign :math:`\$` is used to call myoxy as the
     number of molecules is not expected to evolve during the
     simulation. Note that the number of molecule changes after the
-    delete_atoms command is used, but this is done only before the
+    *delete_atoms* command is used, but this is done only before the
     simulation starts.
     Finally, let us set the timestep to 2.0 fs, and run the simulation for 50 ps:
 
@@ -411,20 +409,22 @@ Bulk water
     This simulation may be a bit slow to complete on 1 single core.
     You can speed it up by running LAMMPS on 2, 4 or even more cores, by typing:
 
-    .. code-block:: bash
+    .. code-block:: bw
 
         mpirun -np 4 lmp -in input.lammps
 
-    Here 4 core are used. The command may vary, depending on your OS and LAMMPS installation.
+    Here 4 core are used. The command may vary, depending
+    on your OS and LAMMPS installation.
 
-.. admonition:: Background Information (optional) -- Choosing the right number of cores
+.. admonition:: Choosing the right number of cores
     :class: dropdown
 
     When running a simulation in parallel using more than one CPU core, LAMMPS divides the system into
-    blocks, and each core is assigned to a given block. Here, as can be seen from the terminal, when using 'mpirun -np 4', LAMMPS divides 
+    blocks, and each core is assigned to a given block. Here, as can be seen
+    from the terminal, when using *mpirun -np 4*, LAMMPS divides 
     the system into 4 blocks along the x axis:
 
-    .. code-block:: bash
+    .. code-block:: bw
     
         Created orthogonal box = (-40.000000 -15.000000 -15.000000) to (40.000000 15.000000 15.000000)
          4 by 1 by 1 MPI processor grid
@@ -432,7 +432,7 @@ Bulk water
     You can force LAMMPS to divide the system differently, let us say along both y and z axis,
     by using the command 
 
-    ..  code-block:: lammps
+    ..  code-block:: bw
 
         processors 1 2 2
 
@@ -443,13 +443,13 @@ Bulk water
     If you don't know what is the best number of processors or the best way to cut the system, just perform 
     a short simulation and look at the log file. For instance, if I run the simulation on 1 core I get : 
 
-    .. code-block:: bash
+    .. code-block:: bw
 
         Performance: 31.567 ns/day, 0.760 hours/ns, 182.680 timesteps/s
 
     On 4 cores (keeping the default processors 4 1 1):
 
-    .. code-block:: bash
+    .. code-block:: bw
 
         Performance: 109.631 ns/day, 0.219 hours/ns, 634.440 timesteps/s
 
@@ -457,7 +457,7 @@ Bulk water
 
     On 4 cores and enforcing the stupid choice: processors 1 2 2, I get
 
-    .. code-block:: bash
+    .. code-block:: bw
 
         Performance: 99.864 ns/day, 0.240 hours/ns, 577.919 timesteps/s
 
@@ -465,7 +465,7 @@ Bulk water
 
     On 8 cores (the max I got), I get :
 
-    .. code-block:: bash
+    .. code-block:: bw
 
         4 by 1 by 2 MPI processor grid
 
@@ -553,7 +553,7 @@ PEG molecule
 
 ..  container:: justify
 
-    Let us also add the special_bonds command to cancel the
+    Let us also add the *special_bonds* command to cancel the
     Lennard-Jones interactions between the closest
     atoms of a same molecule:
 
@@ -562,7 +562,7 @@ PEG molecule
 
     special_bonds lj/coul 0.0 0.0 0.5
 
-.. admonition:: About special_bonds
+.. admonition:: About *special bonds*
     :class: info
 
     Usually, force fields like charmm are parametrized assuming that the first neighbors within a molecule do not
@@ -638,7 +638,7 @@ PEG molecule
     After the minimisation, the high resolution dump command is
     cancelled, and a new dump command with lower frequency is
     used (see below). We also reset the time to 0 with
-    reset_timestep command:
+    *reset_timestep* command:
 
 ..  code-block:: lammps
     :caption: *to be copied in singlePEG/input.lammps*
@@ -754,10 +754,10 @@ Solvation of the PEG molecule
 
 ..  container:: justify
 
-    When using the read_data command more than once, one needs
+    When using the *read_data* command more than once, one needs
     to use the *add append* keyword. When doing so, the
-    simulation box is initialized by the first read_data only, and the 
-    second read_data only imports additional atoms.
+    simulation box is initialized by the first *read_data* only, and the 
+    second *read_data* only imports additional atoms.
     Let us create 2 groups to differentiate the PEG from the H2O:
 
 ..  code-block:: lammps
@@ -925,10 +925,10 @@ Stretching the PEG molecule
     :class: info
     
     To generate smaller dump files, use the
-    compressed xtc format. You can do it by commenting the
-    mydmp line and by uncommenting both the write_dump and
-    myxtc lines. Note that xtc files are compressed, and not readable
-    by humans, contrarily to the LAMMPS native format lammpstrj. 
+    compressed *xtc* format. You can do it by commenting the
+    mydmp line and by uncommenting both the *write_dump* and
+    *myxtc* lines. Note that *xtc* files are compressed, and not readable
+    by humans, contrarily to the LAMMPS native format *lammpstrj*. 
 
 ..  container:: justify
 
@@ -971,7 +971,7 @@ temperature of the entire system):
    This 10 ps serves as an extra small equilibration. In principle, 
    it is not necessary as equilibration was properly performed during the 
    previous step. Then, let us apply a forcing on the 2 oxygen atoms using 2
-   add_force commands, and run for 100 ps (for a total duration
+   *add_force* commands, and run for 100 ps (for a total duration
    of the simulation of 110 ps):
 
 ..  code-block:: lammps
@@ -983,7 +983,7 @@ temperature of the entire system):
 
 ..  container:: justify
 
-   If you open the dump.lammpstrj file using VMD, you should
+   If you open the *dump.lammpstrj* file using *VMD*, you should
    see this:
 
 .. figure:: ../figures/level2/polymer-in-water/pulled_peg_dark.png
@@ -1047,7 +1047,7 @@ Generate a PEG-H2O mixture
 
     There is no obligation to equilibrate the water molecules separately from the PEG,
     as we did here. You can also create the water molecules directly around the PEG molcule
-    using the create_atom command.
+    using the *create_atom* command.
 
 End-to-end distance
 -------------------
@@ -1076,8 +1076,8 @@ Post-mortem analysis
 .. admonition:: Hints
     :class: dropdown
 
-    You can import lammpstrj file using MDAnalysis:
+    You can import *lammpstrj* file using *MDAnalysis* in *Python*:
 
-    ..  code-block:: python
+    ..  code-block:: bw
 
         u = mda.Universe("dump.lammpstrj", format = "LAMMPSDUMP")

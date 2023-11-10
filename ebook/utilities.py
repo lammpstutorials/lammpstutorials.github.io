@@ -206,7 +206,8 @@ class WriteTex:
                 if os.path.exists(alternative_figure):
                     shutil.copyfile(alternative_figure, new_figure)
                 else:      
-                    print("webp convert into png")              
+                    print("webp convert into png")  
+                    print(new_figure)            
                     im = Image.open(figure_path).convert('RGB')
                     im.save(new_figure, 'png')
 
@@ -237,7 +238,7 @@ class WriteTex:
                     self.f.write(line)
                     self.f.write('\n')
             self.f.write(r'\end{lcverbatim}'+'\n')
-        elif ("bw" in block_type):
+        elif ("bw" in block_type) | ("bash" in block_type) | ("python" in block_type):
             self.f.write(r'\begin{lcverbatim}'+'\n')
             for line in filtered_block:
                 if ':caption:' not in line:
@@ -326,7 +327,7 @@ def read_block(file_content):
     type = 'start'
     for line in file_content:
         new_block = False
-        if ('.. ' in line) & (' .. ' not in line) & ('...' not in line):
+        if ('.. ' in line) & (' .. ' not in line) & ('...' not in line) & ('../' not in line):
             # new main block with no indentation
             cpt_main_block += 1
             new_block = True
@@ -341,7 +342,7 @@ def read_block(file_content):
                  type = 'hatnote'
             elif 'admonition::' in line:
                type = 'admonition' + line.split('::')[1]
-            elif ('code-block' in line) & ('bw' in line):
+            elif ('code-block' in line) & (('bw' in line) | ('bash' in line) | ('python' in line)):
                 type = 'bw-equation'
             elif ('code-block' in line) & ('lammps' in line):
                 type = 'lammps-equation'
@@ -441,7 +442,7 @@ def identify_subblock_id(n_subblock, block_lines, RST):
             if type != 'unknown':
                 sub_block.append(id)
         id = np.unique(sub_block)
-        assert len(id) == n_subblock
+        assert len(id) == n_subblock, print(block_lines, n_subblock, id)
 
         sub_block_type = []
         for id0 in id:
@@ -496,7 +497,7 @@ def filter_block(block_text, block_type):
 
             if (':class:' not in line) & (len(line) > 0) & (first_non_zero_indentation != None):
                 if (indentation == first_non_zero_indentation) | (indentation == itemize_indentation+2):
-                    if ('..' in line) & ('...' not in line):
+                    if ('..' in line) & ('...' not in line) & ('../' not in line):
                         filtered_text.append('[insert-sub-block]')
                         n_subblock += 1
                     else:
