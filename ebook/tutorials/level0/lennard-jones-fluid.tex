@@ -17,44 +17,19 @@ molecular dynamics simulations, such as system initialization,
 energy minimization, integration of the equations of motion,
 and trajectory visualization.
 
-\section{Required softwares}
-
-\noindent Download and install LAMMPS by following the instructions of the \href{https://lammps.sandia.gov}{LAMMPS website}.
-Alternatively, if you are using Ubuntu OS, you can simply execute the
-following command in a terminal:
-
-\begin{lcverbatim}
-sudo apt-get install lammps
-\end{lcverbatim}
-
-\noindent You can verify that LAMMPS is indeed installed on your
-computer by typing in a terminal :
-
-\begin{lcverbatim}
-lmp
-\end{lcverbatim}
-
-\noindent You should see the version of LAMMPS that has been
-installed. On my computer I see
-
-\begin{lcverbatim}
-LAMMPS (29 Sep 2021 - Update 2)
-\end{lcverbatim}
-
-\noindent In addition to LAMMPS, you will also need \href{https://help.gnome.org/users/gedit/stable/}{(1) a basic text editing software}
-such as Vim, Gedit, or Notepad++, \href{https://www.ks.uiuc.edu/Research/vmd/}{(2) a visualization software}, here I
-will use VMD (note: VMD is free but you have to register to
-the uiuc website in order to download it. If you don't want
-to, you can also use Ovito.), \href{https://plasma-gate.weizmann.ac.il/Grace/}{(3) a plotting tool} like
-XmGrace or pyplot.
-
 \section{The input script}
 
 \noindent In order to run a simulation using LAMMPS, one needs to
 write a series of commands in an input script. For clarity,
 this script will be divided into five categories which we are going to
-fill up one by one. Create a blank text file, call it
-\textit{input1.lammps}, and copy the following lines in it:
+fill up one by one. 
+
+Create a folder, call it \textit{my-first-input}, and then create a blank
+text file in it, called \textit{input.lammps}.
+
+Copy the following lines in \textit{my-first-input/input.lammps}, 
+where a line starting with a brace ($\#$) is a comment
+that is ignored by LAMMPS:
 
 \begin{lcverbatim}
 # PART A - ENERGY MINIMIZATION
@@ -68,21 +43,21 @@ fill up one by one. Create a blank text file, call it
 \noindent These five categories are not required in every
 input script, and should not necessarily be in that
 exact order. For instance parts 3 and 4 could be inverted, or
-part 4 could be omitted, or there could be several
-consecutive runs.
-A line starting with a brace ($\#$) is a comment
-that is ignored by LAMMPS. Use comments to structure 
-your inputs and make them readable by others.
+part 4 could be omitted. Note however that LAMMPS reads input
+file from top to bottom, therefore the \textit{Initialization} and 
+\textit{System definition} categories must appear at the top of the
+input, and the \textit{Run} category at the bottom.
 
 \subsection{System creation}
 
 \noindent In the first section of the script, called \textit{Initialization},
-let us indicate to LAMMPS the type of simulation we are
-going to execute by specifying the most basic information,
-such as the conditions at the boundaries of the box (i.e.
-periodic, non-periodic) or the type of atoms (e.g. uncharged
-single dots, spheres with angular velocities). Enter the
-following lines:
+let us indicate to LAMMPS the most basic information
+about the simulation, such as:
+\begin{itemize}
+\item the conditions at the boundaries of the box (periodic, non-periodic, ...)
+\item the type of atoms (uncharged single dots, spheres with angular velocities, ...).
+\end{itemize}
+Enter the following lines in \textit{my-first-input/input.lammps}:
 
 \begin{lcverbatim}
 # 1) Initialization
@@ -93,12 +68,13 @@ pair_style lj/cut 2.5
 boundary p p p
 \end{lcverbatim}
 
-\noindent The first line indicates that we want to
-use the system of unit called \textit{LJ}, for Lennard-Jones, for which all quantities
-are unitless. 
+\noindent The first line, \textit{units lj}, indicates that we want to
+use the system of unit called \textit{LJ}, for Lennard-Jones, for
+which all quantities are unitless. 
 
-\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=Background Information -- About LJ units]
-Lennard-Jones (LJ) units are a dimensionless system of units that are often used in molecular simulations
+\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=About Lennard-Jones (LJ) units]
+Lennard-Jones (LJ) units are a dimensionless system of units.
+LJ units are often used in molecular simulations
 and theoretical calculations. When using LJ units:
 \begin{itemize}
 \item energies are expressed in units of $\epsilon$, where $\epsilon$ is the
@@ -108,11 +84,13 @@ and theoretical calculations. When using LJ units:
 \item masses are expressed in units of the atomic mass $m$.
 \end{itemize}
 All the other quantities are normalized by a combination of $\epsilon$, $\sigma$,
-and $m$. For instance, time is expressed in units of $\sqrt{ \epsilon / m \sigma^2}$. 
+and $m$. For instance, time is expressed in units of $\sqrt{ \epsilon / m \sigma^2}$.
+Find the full list of quantities \href{https://docs.lammps.org/units.html}{from the LAMMPS website}.
+
 \end{tcolorbox}
 
-\noindent The second line indicates that the simulation
-is 3D, the third line that the \textit{atomic} style
+\noindent The second line, \textit{dimension 3}, indicates that the simulation
+is 3D. The third line, \textit{atom$\_$style atomic}, that the \textit{atomic} style
 will be used, therefore each atom is just a dot with a mass.
 
 \begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=About the atom style]
@@ -122,24 +100,30 @@ allowing us to create atoms with a net charge and to define
 bonds between atoms to form molecules.
 \end{tcolorbox}
 
-\noindent The fourth line indicates that atoms are going to interact
-through a Lennard-Jones potential with a cut-off equal to
-2.5 (unitless), and the last line indicates that the
+\noindent The fourth line, \textit{pair$\_$style lj/cut 2.5}, indicates that atoms
+are going to interact through a Lennard-Jones potential with
+a cut-off equal to $r_c = 2.5$ (unitless):
+
+$$E (r) = 4 \epsilon \left[ \left( \dfrac{\sigma}{r} \right)^{12} - \left( \dfrac{\sigma}{r} \right)^{6} \right], ~ \text{for} ~ r < r_c.$$
+
+The last line, \textit{boundary p p p}, indicates that the
 periodic boundary conditions will be used along all three
 directions of space (the 3 \textit{p} stand for \textit{x}, \textit{y}, and \textit{z},
 respectively).
-At this point, you have a LAMMPS script that does nothing.
-You can execute it to verify that there is no mistake by
-running the following command in the terminal:
+At this point, \textit{my-first-input/input.lammps} is a 
+LAMMPS input script that does nothing.
+You can run it using LAMMPS to verify that the \textit{input} contains
+no mistake by running the following command in the terminal
+from the \textit{my-first-input/}  folder:
 
 \begin{lcverbatim}
-lmp -in input_01.lammps
+lmp -in input.lammps
 \end{lcverbatim}
 
-\noindent Which should return something like
+\noindent which should return:
 
 \begin{lcverbatim}
-LAMMPS (29 Sep 2021 - Update 2)
+LAMMPS (2 Aug 2023 - Update 1)
 Total wall time: 0:00:00
 \end{lcverbatim}
 
@@ -148,12 +132,12 @@ Total wall time: 0:00:00
 gives you an explicit warning:
 
 \begin{lcverbatim}
-LAMMPS (29 Sep 2021 - Update 2)
+LAMMPS (2 Aug 2023 - Update 1)
 ERROR: Unknown command: atom_stile  atomic (src/input.cpp:232)
 Last command: atom_stile atomic
 \end{lcverbatim}
 
-\noindent Let us fill the second part the of the input script:
+\noindent Let us fill the \textit{System definition} category of the input script:
 
 \begin{lcverbatim}
 # 2) System definition
@@ -163,31 +147,29 @@ create_atoms 1 random 1500 341341 simulation_box
 create_atoms 2 random 100 127569 simulation_box
 \end{lcverbatim}
 
-\noindent The first line creates a region of space
-named \textit{simulation$\_$box} that is a block (a rectangular cuboid) and
-extends from -20 to 20 along all 3 directions of space, all expressed in
-non-dimensional units because we are using the LJ system
-of units. The second line creates a simulation box based on
-the region \textit{simulation$\_$box} with \textit{2} types of atoms. The third
-command specifies that 1500 atoms of type 1 must be created
-randomly in the region \textit{simulation$\_$box}. The integer \textit{341341} is a
+\noindent The first line, \textit{region simulation$\_$box (...)}, creates a region
+named \textit{simulation$\_$box} that is a block (i.e. a rectangular cuboid) that
+extends from -20 to 20 (no unit) along all 3 directions of space.
+
+The second line, , creates a simulation box based on
+the region \textit{simulation$\_$box} with \textit{2} types of atoms.
+
+The third line, \textit{create$\_$atoms (...)} creates 1500 atoms of type 1
+randomly within the region \textit{simulation$\_$box}. The integer \textit{341341} is a
 seed that can be changed in order to create different
 initial conditions for the simulation. The fourth line
 creates 100 atoms of type 2.
-If you run LAMMPS, you should see the following in the
+If you run LAMMPS, you should see the following information in the
 terminal:
 
 \begin{lcverbatim}
-LAMMPS (29 Sep 2021 - Update 2)
+(...)
 Created orthogonal box = (-20 -20 -20) to (20 20 20)
-1 by 1 by 1 MPI processor grid
+(...)
 Created 1500 atoms
-using lattice units in orthogonal box = (-20 -20 -20) to (20 20 20)
-create_atoms CPU = 0.001 seconds
+(...)
 Created 100 atoms
-using lattice units in orthogonal box = (-20 -20 -20) to (20 20 20)
-create_atoms CPU = 0.000 seconds
-Total wall time: 0:00:00
+(...)
 \end{lcverbatim}
 
 \noindent From what is printed in the terminal, it is clear that
