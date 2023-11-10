@@ -2,13 +2,11 @@
 
 \vspace{-1cm} \noindent \textcolor{graytitle}{\textit{{\Large The very basics of LAMMPS through a simple example}}\vspace{0.5cm} }
 
-\noindent \begin{wrapfigure}{r}{4cm}
-\begin{center}
+\noindent \hspace{-0.45cm}\begin{wrapfigure}{r}{4cm}
 \includegraphics[width=4cm]{tutorials/level0/lennard-jones-fluid/binary_LJ_fluid_light.png}
-\end{center}
 \end{wrapfigure}
 
-The objective of this tutorial is to use
+\noindent The objective of this tutorial is to use
 LAMMPS to perform a simple molecular dynamics simulation
 of a binary fluid in the NVT ensemble. The system is a simple Lennard-Jones fluid
 made of neutral dots with a Langevin thermostating. The
@@ -18,7 +16,9 @@ molecular dynamics simulations, such as system initialization,
 energy minimization, integration of the equations of motion,
 and trajectory visualization.
 
-Download and install LAMMPS by following the instructions of the \href{https://lammps.sandia.gov}{LAMMPS website}.
+\section{Required softwares}
+
+\noindent Download and install LAMMPS by following the instructions of the \href{https://lammps.sandia.gov}{LAMMPS website}.
 Alternatively, if you are using Ubuntu OS, you can simply execute the
 following command in a terminal:
 
@@ -47,7 +47,9 @@ the uiuc website in order to download it. If you don't want
 to, you can also use Ovito.), \href{https://plasma-gate.weizmann.ac.il/Grace/}{(3) a plotting tool} like
 XmGrace or pyplot.
 
-In order to run a simulation using LAMMPS, one needs to
+\section{The input script}
+
+\noindent In order to run a simulation using LAMMPS, one needs to
 write a series of commands in an input script. For clarity,
 this script will be divided into five categories which we are going to
 fill up one by one. Create a blank text file, call it
@@ -71,7 +73,9 @@ A line starting with a brace ($\#$) is a comment
 that is ignored by LAMMPS. Use comments to structure 
 your inputs and make them readable by others.
 
-In the first section of the script, called \textit{Initialization},
+\subsection{System creation}
+
+\noindent In the first section of the script, called \textit{Initialization},
 let us indicate to LAMMPS the type of simulation we are
 going to execute by specifying the most basic information,
 such as the conditions at the boundaries of the box (i.e.
@@ -106,7 +110,7 @@ All the other quantities are normalized by a combination of $\epsilon$, $\sigma$
 and $m$. For instance, time is expressed in units of $\sqrt{ \epsilon / m \sigma^2}$. 
 \end{tcolorbox}
 
-The second line indicates that the simulation
+\noindent The second line indicates that the simulation
 is 3D, the third line that the \textit{atomic} style
 will be used, therefore each atom is just a dot with a mass.
 
@@ -117,7 +121,7 @@ allowing us to create atoms with a net charge and to define
 bonds between atoms to form molecules.
 \end{tcolorbox}
 
-The fourth line indicates that atoms are going to interact
+\noindent The fourth line indicates that atoms are going to interact
 through a Lennard-Jones potential with a cut-off equal to
 2.5 (unitless), and the last line indicates that the
 periodic boundary conditions will be used along all three
@@ -235,6 +239,8 @@ arithmetic rule are based on rigorous argument, so here
 the geometric rule will do just fine. 
 \end{tcolorbox}
 
+\noindent \subsection{Energy minimization}
+
 Now that the system is fully defined, let us just fill the two last remaining sections:
 
 \begin{lcverbatim}
@@ -262,7 +268,7 @@ Here there are four stopping criteria:
 \end{itemize}
 \end{tcolorbox}
 
-Now running the simulation, we can see how the thermodynamics
+\noindent Now running the simulation, we can see how the thermodynamics
 variables evolve with time:
 
 \begin{lcverbatim}
@@ -298,7 +304,9 @@ Minimization stats:
 Stopping criterion = energy tolerance
 \end{lcverbatim}
 
-\noindent \begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=Background Information -- What is molecular dynamics?]
+\noindent \subsection{Molecular dynamics}
+
+\begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=Background Information -- What is molecular dynamics?]
 Molecular dynamics (MD) is based on the numerical solution of the Newtonian
 equations of motion for every atom $i$,
 $$\sum_{j \ne i} \boldsymbol{F}_{ji} = m_i \times \boldsymbol{a}_i,$$
@@ -317,7 +325,7 @@ performing a MD simulation:
 \end{itemize}
 \end{tcolorbox}
 
-The system is now ready. Let us continue filling up the
+\noindent The system is now ready. Let us continue filling up the
 input script and adding commands in order to perform an actual molecular dynamics
 simulation that will start from the final state of the energy minimization.
 In the same input script, after the \textit{minimization} command, add the following
@@ -434,13 +442,13 @@ Here I am using pyplot for esthetic reason. If you want, you can download the Ju
 from the \href{https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs}{the inputs folder} repository (in the \textit{level0/lennard-jones-fluid/} folder).
 \end{tcolorbox}
 
-\begin{wrapfigure}{r}{4cm}
-\begin{center}
+\noindent \section{Trajectory visualisation}
+
+\hspace{-0.45cm}\begin{wrapfigure}{r}{4cm}
 \includegraphics[width=4cm]{tutorials/level0/lennard-jones-fluid/input1.png}
-\end{center}
 \end{wrapfigure}
 
-The simulation is running well, but we would like to
+\noindent The simulation is running well, but we would like to
 visualize the trajectories of the atoms. To do so, we need
 to dump the positions of the atoms in a file at a regular
 interval. Add the following command in the \textit{visualization}
@@ -460,19 +468,21 @@ vmd dump.lammpstrj
 \end{lcverbatim}
 
 \noindent Otherwise, you can open VMD and import the \textit{dump.lammpstrj}
-file manually using file \textit{->} molecule. You should see a cloud
+file manually using file $\rightarrow$ molecule. You should see a cloud
 of lines, but you can improve the representation and make it
 look like the figure on the right, or the video at the 
 top of this page. 
 
-Let us improve the input script and perform slightly more
+\section{Improving the script}
+
+\noindent Let us improve the input script and perform slightly more
 advanced operations.
 
-\begin{wrapfigure}{r}{4cm}
-\begin{center}
+\hspace{-0.45cm}\begin{wrapfigure}{r}{4cm}
 \includegraphics[width=4cm]{tutorials/level0/lennard-jones-fluid/input2.png}
-\end{center}
 \end{wrapfigure}
+
+\noindent \subsection{Control the initial atom positions}
 
 Let us create the atoms of type 1 and 2 in two separate
 regions, respectively, instead of creating them both randomly 
@@ -567,7 +577,9 @@ to the total number of atoms, 1150), the atom types (1 or 2
 here), the atoms positions $x$, $y$, $z$ and the
 atoms velocities $v_x$, $v_y$, $v_z$.
 
-We are going to create a new input file and start a
+\subsection{Restarting from a saved configuration}
+
+\noindent We are going to create a new input file and start a
 molecular dynamics simulation directly from the previously
 saved configuration. In the same folder, create a new file
 named input3.lammps and copy the same lines as previously:
@@ -716,9 +728,13 @@ mixing:
 \includegraphics[width=\linewidth]{tutorials/level0/lennard-jones-fluid/population-light.png}
 \end{figure}
 
-Now that you have completed this simple molecular dynamics tutorials, what can you do?
+\section{What now?}
 
-A good way to progress with LAMMPS and molecular dynamics
+\noindent Now that you have completed this simple molecular dynamics tutorials, what can you do?
+
+\subsection{Play around}
+
+\noindent A good way to progress with LAMMPS and molecular dynamics
 simulations is to play around with a script that is already
 working and observe the differences and/or errors occurring:
 Try adding new commands (you can choose from the documentation),
@@ -727,13 +743,19 @@ try removing some of the commands, try changing the parameter values
 The more you trigger warnings, the easier it will be for you to solve your
 own simulation.
 
-There are many common aspects of molecular simulations that were not dealt with in this
+\subsection{Try another tutorial}
+
+\noindent There are many common aspects of molecular simulations that were not dealt with in this
 tutorial:
 \begin{itemize}
 \item dealing with charged atoms and bounded molecules, as is necessary to model most existing molecules, solids, or structures, see for instance :ref:`all-atoms-label` and :ref:`sheared-confined-label`,
 \item dealing with non-constant volume,
 \item dealing with reactivity and bond formation/breaking, see :ref:`reactive-silicon-dioxide-label`.
 \end{itemize}
+
+\section{Exercises}
+
+\noindent \subsection{A simulation with no thermostat}
 
 So far, simulations were made using the NVT ensemble [constant number 
 of atoms, N, constant volume V, and constant (or at least imposed)
@@ -745,6 +767,8 @@ total energy of the system over time.
 Make sure that the total energy is conserved over time, as see here. Note also 
 that the kinetic energy constantly exchanges with the potential energy.
 \end{tcolorbox}
+
+\noindent \subsection{Do without the *minimize* command}
 
 Run a successful simulation without using the \textit{minimize} command.
 The absence of energy minimization needs to be compensated
@@ -760,6 +784,8 @@ made to prevent an unequilibrated system from exploding
 by preventing atoms to travel too far every timestep.
 \end{tcolorbox}
 
+\noindent \subsection{Non-equilibrium simulation}
+
 So far, atoms were freely diffusing without contraint or external force.
 Add an external force to induce a net flow of atoms in one
 direction. The magnitude of the force must be chosen so
@@ -773,6 +799,8 @@ regimes and its properties and parameters will differ from its equilibrium value
 In general, this is something that you must avoid (unless you are studying
 non-linear effects). 
 \end{tcolorbox}
+
+\noindent \subsection{Dumbbell molecules}
 
 Add a bond between couple of identical atoms to create
 dumbbell molecules, just like in the image:

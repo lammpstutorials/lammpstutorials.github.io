@@ -2,8 +2,8 @@ import rstparse, os, shutil
 import numpy as np
 from PIL import Image
 
-class WriteTex:
-    """Write Tex file."""
+class FixDocument:
+    """Fix Tex file."""
     def __init__(self, file_name, RST, git_path, *args, **kwargs,):
         """Initialize"""
         super().__init__(*args, **kwargs)
@@ -11,66 +11,13 @@ class WriteTex:
         self.RST = RST
         self.git_path = git_path
 
-    def convert_file(self):
-        """Main convert function."""
-        self.f = open(self.file_name, "w") 
-        self.write_title()
-
-        for block_id in np.unique(self.RST.main_block):
-            raw_block, block_type, block_lines = clean_block(self.RST.file_content,
-                                                             self.RST.main_block_type,
-                                                             self.RST.main_block, block_id)
-            filtered_block, n_subblock = filter_block(raw_block, block_type)
-
-            ids_subblock, types_subblock = identify_subblock_id(n_subblock, block_lines, self.RST)
-            filtered_subblock, sub_block_number = read_sublock(n_subblock, filtered_block, ids_subblock, self.RST)
-
-            self.write_paragraph(filtered_block, block_type, filtered_subblock, ids_subblock, types_subblock, sub_block_number)
-            self.write_equation(filtered_block, block_type)
-        self.f.close()
-
-        self.fix_document()
-
     def fix_document(self):
         """Improve the final document"""
         self.remove_space()
-        keywords = [r'\end{lcverbatim}', r'\Large', r'\section{', r'\subsection{']
+        keywords = [r'\end{lcverbatim}', r'\Large', r'\section{',
+                    r'\subsection{', r'\end{wrapfigure}', r'\end{tcolorbox}']
         self.add_non_indent(keywords)
         self.convert_itemize()
-
-    def convert_itemize(self):
-        initial_tex_file = self.import_tex_file()
-        in_verbatim = False
-        add_start = False
-        add_end = False
-        within_item = False
-        new_tex_file_name = []
-        consecutive_item = 0
-        for line in initial_tex_file:
-            in_verbatim = is_in_verbatim(in_verbatim, line)
-            add_start = False
-            add_end = False
-            if in_verbatim is False:
-                if (line[0] == '-'):
-                    line = '\item' + line[1:]
-                    if consecutive_item == 0:
-                        add_start = True
-                    consecutive_item += 1
-                else:
-                    if (consecutive_item > 0) & (line[0] != ' '):
-                        add_end = True
-                    consecutive_item = 0
-                if (add_start) & (within_item is False):
-                    new_tex_file_name.append(r'\begin{itemize}'+'\n')
-                    add_start = False
-                    within_item = True
-                elif (add_end) & (within_item):
-                    new_tex_file_name.append(r'\end{itemize}'+'\n')
-                    add_end = False
-                    within_item = False
-                    consecutive_item = 0
-            new_tex_file_name.append(line)
-        self.write_file(new_tex_file_name)
 
     def add_non_indent(self, keywords):
         initial_tex_file = self.import_tex_file()
@@ -106,7 +53,91 @@ class WriteTex:
                 new_tex_file_name.append(line)
         self.write_file(new_tex_file_name)
 
-    def write_title(self):
+    def convert_itemize(self):
+        initial_tex_file = self.import_tex_file()
+        in_verbatim = False
+        add_start = False
+        add_end = False
+        within_item = False
+        new_tex_file_name = []
+        consecutive_item = 0
+        for line in initial_tex_file:
+            in_verbatim = is_in_verbatim(in_verbatim, line)
+            add_start = False
+            add_end = False
+            if in_verbatim is False:
+                if (line[0] == '-'):
+                    line = '\item' + line[1:]
+                    if consecutive_item == 0:
+                        add_start = True
+                    consecutive_item += 1
+                else:
+                    if (consecutive_item > 0) & (line[0] != ' '):
+                        add_end = True
+                    consecutive_item = 0
+                if (add_start) & (within_item is False):
+                    new_tex_file_name.append(r'\begin{itemize}'+'\n')
+                    add_start = False
+                    within_item = True
+                elif (add_end) & (within_item):
+                    new_tex_file_name.append(r'\end{itemize}'+'\n')
+                    add_end = False
+                    within_item = False
+                    consecutive_item = 0
+            new_tex_file_name.append(line)
+        self.write_file(new_tex_file_name)
+
+    def import_tex_file(self):
+        f = open(self.file_name, "r") 
+        initial_tex_file = []
+        for line in f:
+            initial_tex_file.append(line)
+        f.close()
+        return initial_tex_file
+
+    def write_file(self, new_tex_file_name):
+        # write filtered file        
+        f = open(self.file_name, "w") 
+        for line in new_tex_file_name:
+            f.write(line)
+        f.close()
+
+
+class WriteTex:
+    """Write Tex file."""
+    def __init__(self, file_name, RST, git_path, *args, **kwargs,):
+        """Initialize"""
+        super().__init__(*args, **kwargs)
+        self.file_name = file_name
+        self.RST = RST
+        self.git_path = git_path
+
+    def convert_file(self):
+        """Main convert function."""
+        self.f = open(self.file_name, "w") 
+        self.write_main_title()
+
+        for block_id in np.unique(self.RST.main_block):
+            raw_block, block_type, block_lines = clean_block(self.RST.file_content,
+                                                             self.RST.main_block_type,
+                                                             self.RST.main_block, block_id)
+            filtered_block, n_subblock = filter_block(raw_block, block_type)
+
+            # Look for title
+            if block_lines[0] in self.RST.title_positions:
+                title = self.RST.file_content[block_lines[0]]
+                filtered_block = title
+                block_type = np.array(self.RST.title_types)[np.array(self.RST.title_positions) == block_lines[0]]
+
+            ids_subblock, types_subblock = identify_subblock_id(n_subblock, block_lines, self.RST)
+            filtered_subblock, sub_block_number = read_sublock(n_subblock, filtered_block, ids_subblock, self.RST)
+
+            self.write_paragraph(filtered_block, block_type, filtered_subblock, ids_subblock, types_subblock, sub_block_number)
+            self.write_equation(filtered_block, block_type)
+            self.write_title(filtered_block, block_type)
+        self.f.close()
+
+    def write_main_title(self):
         title_position = self.RST.title_positions[np.where(np.array(self.RST.title_types) == "main")[0][0]]
         self.f.write('\chapter{'+self.RST.file_content[title_position]+'}')
         self.f.write('\n')
@@ -115,6 +146,7 @@ class WriteTex:
         if ("text" in block_type):
             for line in filtered_block:
                 line = replace_special_character(line, '#', r'$\#$')
+                line = replace_special_character(line, '*->*', r'$\rightarrow$')
                 line = fix_link(self.RST, line)
                 line = fix_math(line)
                 line = fix_italic(line, replace_underscore=True)
@@ -183,14 +215,19 @@ class WriteTex:
                     self.f.write(r'\includegraphics[width=\linewidth]{tutorials/'+level+'/'+tutorial+'/'+name+'.png}'+'\n')
                     self.f.write(r'\end{figure}'+'\n')  
                 elif 'right' in align:
+                    self.f.write(r'\hspace{-0.45cm}')
                     self.f.write(r'\begin{wrapfigure}{r}{4cm}'+'\n')
-                    self.f.write(r'\begin{center}'+'\n')
                     self.f.write(r'\includegraphics[width=4cm]{tutorials/'+level+'/'+tutorial+'/'+name+'.png}'+'\n')
-                    self.f.write(r'\end{center}'+'\n')
                     self.f.write(r'\end{wrapfigure}'+'\n')
-            
-
         self.f.write('\n')
+
+    def write_title(self, filtered_block, block_type):
+        if ("subtitle" in block_type):
+            self.f.write('\section{' + filtered_block + '}')
+            self.f.write('\n')
+        elif ("subsubtitle" in block_type):
+            self.f.write('\subsection{' + filtered_block + '}')
+            self.f.write('\n')
 
     def write_equation(self, filtered_block, block_type):
         if ("lammps" in block_type):
@@ -212,22 +249,6 @@ class WriteTex:
                     if len(line) > 0:
                         self.f.write('$$' + line + '$$')
         self.f.write('\n')
-
-    def import_tex_file(self):
-        f = open(self.file_name, "r") 
-        initial_tex_file = []
-        for line in f:
-            initial_tex_file.append(line)
-        f.close()
-        return initial_tex_file
-
-    def write_file(self, new_tex_file_name):
-        # write filtered file        
-        f = open(self.file_name, "w") 
-        for line in new_tex_file_name:
-            f.write(line)
-        f.close()
-
 
 class ReadRST:
     """Read RST file."""
