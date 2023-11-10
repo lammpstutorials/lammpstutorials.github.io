@@ -335,7 +335,7 @@ def read_block(file_content):
                 cpt_main_block += 1
                 new_block = True
         if new_block:
-            if 'container:: justify' in line:
+            if ('container:: justify' in line) | ('container:: abstract' in line):
                 type = 'text'
             elif 'container:: hatnote' in line: 
                  type = 'hatnote'

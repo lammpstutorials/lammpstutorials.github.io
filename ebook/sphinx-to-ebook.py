@@ -13,7 +13,7 @@ sys.path.append(git_path+"/docs/inputs/shared-pyplot-files/")
 if os.path.exists(git_path+'/ebook/tutorials') is False:
     os.mkdir(git_path+'/ebook/tutorials')
 
-tutorials = {"level0": ["lennard-jones-fluid"], }
+tutorials = {"level0": ["lennard-jones-fluid"]}
              #"level1": ["breaking-a-carbon-nanotube"],
              #"level2": ["polymer-in-water", "nanosheared-electrolyte"],
              #"level3": ["water-adsorption-in-silica", "free-energy-calculation", "reactive-silicon-dioxide"]}
