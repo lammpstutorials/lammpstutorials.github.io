@@ -121,7 +121,7 @@ class WriteTex:
                     im.save(new_figure, 'png')
 
                 if align is None:
-                    self.f.write(r'\begin{figure}'+'\n')
+                    self.f.write(r'\begin{figure}[h!]'+'\n')
                     self.f.write(r'\includegraphics[width=\linewidth]{tutorials/'+level+'/'+tutorial+'/'+name+'.png}'+'\n')
                     self.f.write(r'\end{figure}'+'\n')  
                 elif 'right' in align:

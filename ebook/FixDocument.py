@@ -11,7 +11,8 @@ class FixDocument:
         """Improve the final document"""
         self.remove_space()
         keywords = [r'\end{lcverbatim}', r'\Large', r'\section{',
-                    r'\subsection{', r'\end{wrapfigure}', r'\end{tcolorbox}']
+                    r'\subsection{', r'\end{wrapfigure}', r'\end{tcolorbox}',
+                    r'\end{figure}']
         self.add_non_indent(keywords)
         self.convert_itemize()
         self.fix_label()

@@ -41,17 +41,17 @@ compute Tmid carbon_mid temp
 fix myber carbon_mid temp/berendsen ${T} ${T} 100
 fix_modify myber temp Tmid
 
-fix at1 all ave/time 10 100 1000 c_Tmid file temperature_middle_group.dat
-
 fix mysf1 carbon_top setforce 0 NULL 0
 fix mysf2 carbon_bot setforce 0 NULL 0
 velocity carbon_top set 0 NULL 0
 velocity carbon_bot set 0 NULL 0
 
 variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
-fix at2 all ave/time 10 100 1000 v_L file cnt_length.dat
-fix at3 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file edge_force.dat
+fix at1 all ave/time 10 100 1000 v_L file cnt_length.dat
+fix at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file edge_force.dat
 dump mydmp all atom 1000 dump.lammpstrj
+
+fix at3 all ave/time 10 100 1000 c_Tmid file temperature_middle_group.dat
 
 thermo 100
 thermo_modify temp Tmid
