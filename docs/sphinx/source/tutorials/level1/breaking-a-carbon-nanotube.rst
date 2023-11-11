@@ -48,15 +48,15 @@ Unbreakable bonds
 
 .. math::
 
-    U_b = \dfrac{1}{2} k_b \left( r -r_0 \right)^2.
+    U_b = k_b \left( r -r_0 \right)^2.
 
 .. container:: justify
 
     Additionally, angular and dihedral constraints are usually applied to maintain
     the relative orientations of neighbor atoms. 
 
-System topology
----------------
+Create topology with VMD
+------------------------
 
 .. container:: justify
 
@@ -82,15 +82,12 @@ System topology
 
 .. container:: justify
 
-    The initial configuration (atoms positions, bonds, angles,
-    etc.) is generated using VMD. Open VMD,
-    and go to Extensions, Modeling, Nanotube Builder. A window
-    named Carbon Nanostructures opens up, allowing us to choose
-    between generating sheet or nanotube of graphene or BN. For
-    this tutorial, let us generate a carbon nanotube.
+    Open VMD, go to Extensions, Modeling, and then Nanotube Builder.
+    A window named Carbon Nanostructures opens up, allowing us to choose
+    between generating a sheet or a nanotube, made either of graphene or
+    of Boron Nitride (BN). For this tutorial, let us generate a carbon nanotube.
     Keep all default values, and click on *Generate
-    Nanotube*. You should something like the image on the top right 
-    of this page.
+    Nanotube*.
 
     At this point, this is not a molecular dynamics simulation,
     but a cloud of unconnected dots. In the VMD terminal, set the
@@ -109,17 +106,17 @@ System topology
     so that the box is much larger than the carbon nanotube.
 
     In order to generate the initial LAMMPS data file, let us use Topotool:
-    to generate the LAMMPS data file, enter the following command:
+    to generate the LAMMPS data file, enter the following command
+    in the VMD terminal:
 
 .. code-block:: bw
-    :caption: *to be written in the VMD terminal*
 
     topo writelammpsdata cnt_molecular.data molecular
 
 .. container:: justify
 
-    Here molecular refers to the LAMMPS *atom_style*, and
-    *cnt_molecular.data* to the name of the file. 
+    Here *molecular* refers to the LAMMPS *atom_style*, and
+    *cnt_molecular.data* is the name of the file. 
 
 .. admonition:: About TopoTools
     :class: dropdown
@@ -130,8 +127,8 @@ System topology
     More details about these commands can be found on the
     personal page of |Axel_webpage|.
     In short, Topotools deduces the location of bonds, angles,
-    dihedrals, and impropers from the positions of the atoms,
-    and generates a file that can be read by LAMMPS.
+    dihedrals, and impropers from the respective positions of the atoms,
+    and generates a *.data* file that can be read by LAMMPS.
 
 .. |Axel_webpage| raw:: html
 
@@ -141,7 +138,6 @@ System topology
 
     The parameters of the constraints (bond length,
     dihedral coefficients, etc.) will be given later.
-
     A new file named *cnt_molecular.data* has been created, it starts
     like that:
 
@@ -160,7 +156,6 @@ System topology
     -40.000000 40.000000  xlo xhi
     -40.000000 40.000000  ylo yhi
     -12.130411 67.869589  zlo zhi
-    
     (...)
 
 .. container:: justify
@@ -170,19 +165,17 @@ System topology
     identity of the atoms that are linked by *bonds*, *angles*, *dihedrals*,
     and *impropers* constraints.
 
-    Save the *cnt_molecular.data* file in the same folder as your
-    future LAMMPS input script.
+    Save the *cnt_molecular.data* file in a folder named *unbreakable-bonds/*.
 
-Generic options
----------------
+Starting the LAMMPS input
+-------------------------
 
 .. container:: justify
 
-   Create a new text file and name it *input.lammps*. Copy the
-   following lines in it:
+   Create a new text file within *unbreakable-bonds/* and name
+   it *input.lammps*. Copy the following lines in it:
 
 .. code-block:: lammps
-   :caption: *to be copied in input.lammps*
 
    # Initialisation
 
@@ -204,22 +197,26 @@ Generic options
 
 .. container:: justify
 
-    The chosen unit system is real (distances are in Angstrom, time in femtosecond),
-    atom style is molecular (atoms are dots that can be bonded with each other),
+    The chosen unit system is *real* (therefore distances are in Angstrom, time in femtosecond),
+    the *atom_style* is molecular (therefore atoms are dots that can be bonded with each other),
     and the boundary conditions are fixed. The boundary conditions
-    do not matter much here, as the box boundaries are far from the graphene sheet. 
+    do not really matter here, as the box boundaries were placed far from the CNT. 
 
-    Here the pair style is lj/cut (i.e. a Lennard Jones potential 
+.. container:: justify
+
+    Just like in :ref:`lennard-jones-label`,
+    the pair style is *lj/cut* (i.e. a Lennard-Jones potential 
     with a short range cutoff) with
-    parameter 14, which means that the atoms closer than 14
+    parameter 14, which means that only the atoms closer than 14
     Angstroms from each others interact through a Lennard-Jones
-    potential. Notice that there is no Coulombic interaction
-    because there are no partial charges.
+    potential.
 
-    The bond, angle, dihedral, and improper styles specify the
-    different potentials used to restrain the positions of the
-    atoms. For more details, have a look at the LAMMPS website
-    (see for example the page of the |OPLS|).
+.. container:: justify
+
+    The *bond_style*, *angle_style*, *dihedral_style*, and *improper_style* commands specify the
+    different potentials used to restrain the relative positions of the
+    atoms. For more details about the potentials used here, you can have a look
+    at the LAMMPS website, see for example the page of the |OPLS|.
 
 .. |OPLS| raw:: html
 
@@ -227,7 +224,7 @@ Generic options
 
 .. container:: justify
 
-    The last command (*read_data*) imports the carbon.data file
+    The last command, *read_data*, imports the *cnt_molecular.data* file
     previously generated with VMD, which contains the
     information about the box size, atoms positions, etc.
 
@@ -235,10 +232,12 @@ Generic options
     :class: info
         
     Atoms connected by a bond do not typically interact through
-    Lennard-Jones interaction. This is ensured here by the
+    Lennard-Jones interaction. Therefore, atoms that are
+    bounded must be excluded from the LJ potential calculation.  
+    Here, this is done by the
     *special_bonds* command. The three numbers of the
     *special_bonds* command are weighting factors for the
-    Lennard-Jones interaction between atoms connected by bond
+    LJ interaction between atoms connected by bond
     (respectively directly bounded :math:`C-C`, separated by two bonds :math:`C-C-C`,
     and separated by three bonds :math:`C-C-C-C`). For instance, the
     first weighting factor, with a
@@ -247,18 +246,16 @@ Generic options
     they only interact through the harmonic potential that bond the atoms
     of the graphene).
 
-Parameters
-----------
+CNT parameters
+--------------
 
 .. container:: justify
 
     We need to specify the parameters of both bonded and
-    non-bonded functions. Create a new text file in the same
-    folder and name it *parm.lammps*. Copy the following lines
-    in it:
+    non-bonded potentials. Create a new text file in the *unbreakable-bonds/*
+    folder and name it *parm.lammps*. Copy the following lines in it:
 
 .. code-block:: lammps
-    :caption: *to be copied in parm.lammps*
 
     pair_coeff 1 1 0.066047 3.4
     bond_coeff 1 469 1.4
@@ -268,22 +265,25 @@ Parameters
 
 .. container:: justify
 
-    The *pair_coeff* command sets the Lennard-jones parameters
+    The *pair_coeff* command sets the LJ parameters
     :math:`\epsilon` and :math:`\sigma` for the only type of
     atom of the simulation: carbon atom of type 1. The
     *bond_coeff* provides the equilibrium distance :math:`r_0` as
-    well as the spring constant :math:`K` for the harmonic
+    well as the spring constant :math:`k_b` for the harmonic
     potential imposed between two neighboring carbon atoms,
-    where the potential is :math:`E = K_r ( r - r_0)^2`. The
+    where the potential is :math:`U_b = k_b ( r - r_0)^2`. The
     *angle_coeff* gives the equilibrium angle :math:`theta_0` and
     constant for the potential between three neighbors atoms :
-    :math:`E = K_\theta ( \theta - \theta_0)^2`. The *dihedral_coeff*
+    :math:`U_\theta = k_\theta ( \theta - \theta_0)^2`. The *dihedral_coeff*
     and *improper_coeff* give the potential for the constraints
-    between 4 atoms. The file PARM.lammps need to be included in the
-    simulation by adding the following line to input.lammps:
+    between 4 atoms. 
+    
+.. container:: justify
+    
+    The file *parm.lammps* is included in the
+    simulation by adding the following line to the *input.lammps* file:
 
 .. code-block:: lammps
-    :caption: *to be copied in input.lammps*
 
     include parm.lammps
 
@@ -292,9 +292,9 @@ Prepare initial state
 
 .. container:: justify
 
-    Depending on VMD and topotool version, the CNT may or may not be centered in 
-    the box. Let us make sure that we start from a clean initial state by
-    recentering the CNT at the origin (0, 0, 0). In addition, the box boundaries 
+    Let us make sure that we start from a clean initial state, with the CNT centered 
+    in the box, by recentering the CNT at the origin (0, 0, 0). In addition, 
+    let us take care of the box boundaries that 
     are not symmetric with respect to (0, 0, 0), as seen in *cnt_molecular.data*:
 
 .. code-block:: lammps
