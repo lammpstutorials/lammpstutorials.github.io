@@ -266,7 +266,8 @@ Bulk water
 
 ..  container:: justify
 
-   The molecule template named *H2OTip4p.txt* must be |download_H2OTip4p.txt|
+   The molecule template named *H2OTip4p.txt*
+   must be |download_H2OTip4p.txt|
    and saved in the same folder (named *pureH2O/*) as the
    input.lammps file. This template contains all the necessary structural
    information of a water molecule, such as the number of atoms, 

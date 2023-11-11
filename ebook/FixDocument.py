@@ -1,4 +1,4 @@
-from utilities import is_in_verbatim, read_label
+from utilities import is_in_verbatim, read_label, read_link
 
 class FixDocument:
     """Fix Tex file."""
@@ -15,6 +15,7 @@ class FixDocument:
         self.add_non_indent(keywords)
         self.convert_itemize()
         self.fix_label()
+        self.fix_external_link()
 
     def add_non_indent(self, keywords):
         """Add nonindent command where appropriate"""
@@ -115,10 +116,29 @@ class FixDocument:
                     label, rest = read_label(split[1])
                     if label is None:
                         print("WARNING, Wrong label", line)
-                    new_line = split[0] + r'\ref{' + label + '}' + rest[1]
+                    new_line = split[0] + r'Tutorial\,\ref{' + label + '}' + rest[1]
                     new_tex_file_name.append(new_line)
                 else:
                     print("WARNING, several label per line", line)
             else:
                 new_tex_file_name.append(line)
         self.write_file(new_tex_file_name)
+
+    def fix_external_link(self):
+        """Fix external link"""
+        initial_tex_file = self.import_tex_file()
+        # remove extra space
+        new_tex_file_name = []
+        for line in initial_tex_file:
+            if '../../inputs/' in line:
+                rest, link = read_link(line)
+                assert "\href" in rest[0], """Unexpected link"""
+                actual_link = 'https://lammpstutorials.github.io/'+link[0].split('../')[-1]
+                new_line = rest[0] + "{" +  actual_link + "}{"+ link[1] +  "}" + rest[2]
+                #block = new_line.split("\href")
+                #assert len(block) == 2
+                #new_line = block[0] + r'Tutorial\,\href' + block[1]
+                new_tex_file_name.append(new_line)
+            else:
+                new_tex_file_name.append(line)
+        self.write_file(new_tex_file_name)      

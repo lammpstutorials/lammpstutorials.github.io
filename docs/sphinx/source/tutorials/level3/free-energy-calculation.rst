@@ -771,7 +771,9 @@ Surface adsorption of a molecule
 
     Apply umbrella sampling to calculate the free energy profile
     of ethanol in the direction normal to a crystal solid surface (here made of sodium chloride). 
-    Find the |topology-ethanol|, |parameter-ethanol|, and a |input-ethanol|.
+    Find the |topology-ethanol|,
+    |parameter-ethanol|, 
+    and a |input-ethanol|.
 
     The PMF normal to a wall indicates the free energy of adsorption, which is
     calculated from the difference between the PMF far from the surface, and the 

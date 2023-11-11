@@ -126,7 +126,8 @@ Relax the structure
     keywords have been added for memory allocation issue. If not there, the segmentation
     faults and bondchk failed errors sometimes occur.
 
-    The *pair_coeff* uses the |reaxCHOFe| file which is assumed to be saved in the
+    The *pair_coeff* uses
+    the |reaxCHOFe| file which is assumed to be saved in the
     same folder as the input. The atoms of type 1 are set as silicon (Si),
     and type 2 as oxygen (O) in order to be consistent with the data file and
     mass definition.

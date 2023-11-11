@@ -89,7 +89,8 @@ Vashishta potential
 
     The main difference between the previous tutorials is the use of 
     the Vashishta pair style. Download the Vashishta potential by
-    clicking |download_vashishta|, and copy it within the *Potential/* folder.
+    clicking |download_vashishta|,
+    and copy it within the *Potential/* folder.
 
 .. admonition:: About the Vashishta potential
     :class: info
@@ -774,7 +775,8 @@ Apply GCMC to water in ZIF-8
     molecules to a Zif-8 nanoporous material. A snapshot of the system with a 
     few water molecules is presented on the right.
 
-    Download the initial Zif-8 |Zif-8-structure|, the |Zif-8-parameters| file, and this
+    Download the initial Zif-8 |Zif-8-structure|,
+    the |Zif-8-parameters| file, and this
     new |water-template|. The ZIF-8 structure is made of 7 atom types (C1, C2, C3, H2, H3, N, Zn), connected
     by bonds, angles, dihedrals, and impropers. It uses the same *pair_style* as water,
     so there is no need to use the *hybrid* functionality (see the hints below).

@@ -48,7 +48,7 @@ class WriteTex:
     def write_main_label(self):
         label_position = self.RST.label_positions[np.where(np.array(self.RST.label_types) == "main")[0][0]]
         label = self.RST.file_content[label_position].split("_")[1][:-1]
-        self.f.write('Tutorial\,\label{'+label+'}')
+        self.f.write('\label{'+label+'}')
         self.f.write('\n')
 
     def write_paragraph(self, filtered_block, block_type, filtered_subblock, ids_subblock, types_subblock, sub_block_number):
@@ -115,8 +115,8 @@ class WriteTex:
                 if os.path.exists(alternative_figure):
                     shutil.copyfile(alternative_figure, new_figure)
                 else:      
-                    print("webp convert into png")  
-                    print(new_figure)            
+                    #print("webp convert into png")  
+                    #print(new_figure)            
                     im = Image.open(figure_path).convert('RGB')
                     im.save(new_figure, 'png')
 

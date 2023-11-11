@@ -21,12 +21,14 @@ Pulling on a carbon nanotube
 
 .. container:: abstract
 
-    In this tutorial, a slightly more advanced system than the gas
+    In this tutorial, a slightly more advanced system than the LJ gas
     in :ref:`lennard-jones-label` is used.
-    The system is a small carbon nanotube (CNT) in vacuum, on which some external 
-    deformation will be applied. Two very different force fields will be used: 
-    a classical force field, and a reactive force field named AIREBO. With AIREBO,
-    the breaking of bonds can occur during under strong deformation.
+    The system is a small carbon nanotube (CNT) in vacuum. Some external 
+    forcing are imposed to the CNT, and its deformation is measured.
+    Two different force fields are used. First,
+    a classical force field is used, for which the bonds between atoms
+    are unbreakable. Second, a reactive force field named AIREBO is used.
+    With AIREBO, the breaking of bonds under strong deformation is possible.
 
 .. include:: ../../contact/recommand-lj.rst
 
@@ -35,10 +37,33 @@ Pulling on a carbon nanotube
 Unbreakable bonds
 =================
 
-System creation
+.. container:: justify
+
+    With most classical molecular dynamics force fields, the chemical bonds
+    between the atoms are set at the start of the simulation. Regardless of the 
+    forces applied on the atoms during the simulations, the bonds remain intact.
+    The bonds between neighbor atoms typically consist of springs with
+    given equilibrium distances :math:`r_0` and constant :math:`k_b`:
+
+.. math::
+
+    U_b = \dfrac{1}{2} k_b \left( r -r_0 \right)^2.
+
+.. container:: justify
+
+    Additionally, angular and dihedral constraints are usually applied to maintain
+    the relative orientations of neighbor atoms. 
+
+System topology
 ---------------
 
 .. container:: justify
+
+
+
+.. container:: justify
+
+
 
     The initial configuration (atoms positions, bonds, angles,
     etc.) is generated using |VMD_uiuc|. Open VMD,

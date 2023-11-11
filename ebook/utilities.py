@@ -254,6 +254,24 @@ def read_label(sub_line):
             rest.append(sub)
     return label, rest
 
+def read_link(sub_line):
+    cpt_link = 0
+    cpt_rest = 0
+    rest = ["", "", ""]
+    link = ["", ""]
+    in_link = False
+    for letter in sub_line:
+        if (letter=='{') & (in_link==False):
+            in_link = True
+            cpt_rest += 1
+        elif (letter=='}') & (in_link):
+            in_link=False
+            cpt_link += 1
+        elif in_link:
+            link[cpt_link] += letter
+        elif in_link is False:
+            rest[cpt_rest] += letter
+    return rest, link
 
 
 
