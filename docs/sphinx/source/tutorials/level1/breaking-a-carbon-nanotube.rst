@@ -1,11 +1,11 @@
 .. _carbon-nanotube-label:
 
-Breaking a carbon nanotube
-**************************
+Pulling on a carbon nanotube
+****************************
 
 .. container:: hatnote
 
-   Breaking the bonds of a carbon nanotube under deformation
+   Stretching a carbon nanotube until it breaks
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_dark.webp
     :alt: carbon nanotube image in vacuum
@@ -21,10 +21,12 @@ Breaking a carbon nanotube
 
 .. container:: abstract
 
-    In this tutorial, two force fields, a classic one and a reactive one (airebo) 
-    are used to simulate the deformation of a carbon nanotube (CNT). With the reactive 
-    force field, the breaking of the :math:`C-C` bonds during the plastic deformation of the CNT is 
-    simulated.
+    In this tutorial, a slightly more advanced system than the Lennard-Jones gas
+    of :ref:`lennard-jones-label` is used.
+    The system is a small carbon nanotube (CNT) in vacuum, on which some external 
+    deformation will be applied. Two very different force fields will be used: 
+    a classical force field, and a reactive force field named AIREBO. With AIREBO,
+    the breaking of bonds can occur during under strong deformation.
 
 .. include:: ../../contact/recommand-lj.rst
 
@@ -32,10 +34,6 @@ Breaking a carbon nanotube
 
 Unbreakable bonds
 =================
-
-.. container:: justify
-
-    A CNT with unbreakable bonds is generated and exposed to deformations.
 
 System creation
 ---------------
@@ -48,8 +46,8 @@ System creation
     named Carbon Nanostructures opens up, allowing us to choose
     between generating sheet or nanotube of graphene or BN. For
     this tutorial, let us generate a carbon nanotube.
-    Keep all default values, and click on "Generate
-    Nanotube". You should something like the image on the top right 
+    Keep all default values, and click on *Generate
+    Nanotube*. You should something like the image on the top right 
     of this page.
 
     At this point, this is not a molecular dynamics simulation,
@@ -153,7 +151,7 @@ Generic options
 
 .. container:: justify
 
-   Create a new text file and name it "input.lammps". Copy the
+   Create a new text file and name it *input.lammps*. Copy the
    following lines in it:
 
 .. code-block:: lammps
@@ -229,7 +227,7 @@ Parameters
 
     We need to specify the parameters of both bonded and
     non-bonded functions. Create a new text file in the same
-    folder and name it "parm.lammps". Copy the following lines
+    folder and name it *parm.lammps*. Copy the following lines
     in it:
 
 .. code-block:: lammps
@@ -571,7 +569,7 @@ Option B: Constant-velocity
 
     To ensure a smooth step-less deformation of the sheet,
     let us impose a constant velocity deformaiton by combining
-    the "velocity set" command with the "fix setforce". 
+    the *velocity set* command with the *fix setforce*. 
 
     To obtain the same elongation as previously (i.e. 5 Angstrom 
     per edge) when using a velocity for each edge of 0.0005 Angstroms per
@@ -619,7 +617,7 @@ Input file
 .. container:: justify
 
     A difference with the previous part
-    is the unit system, here 'metal' instead of 'real', a choice
+    is the unit system, here *metal* instead of *real*, a choice
     that is imposed by the airebo force field.
 
 .. admonition:: About metal units

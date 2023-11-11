@@ -2,9 +2,10 @@
 # coding: utf-8
 
 import sys, os, git
-import numpy as np
 
-from utilities import ReadRST, WriteTex, FixDocument
+from ReadRST import ReadRST
+from WriteTEX import WriteTex
+from FixDocument import FixDocument
 
 current_path = os.getcwd()
 git_repo = git.Repo(current_path, search_parent_directories=True)
@@ -31,6 +32,5 @@ for level in tutorials.keys():
         RST.convert_file()
         TEX = WriteTex(tex_file_name, RST, git_path)
         TEX.convert_file()
-        FIX = FixDocument(tex_file_name, RST, git_path)
+        FIX = FixDocument(tex_file_name)
         FIX.fix_document()
-

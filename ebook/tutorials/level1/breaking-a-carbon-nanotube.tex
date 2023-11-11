@@ -1,30 +1,30 @@
-\chapter{Breaking a carbon nanotube}
+\chapter{Pulling on a carbon nanotube}
 
-\vspace{-1cm} \noindent \textcolor{graytitle}{\textit{{\Large Breaking the bonds of a carbon nanotube under deformation}}\vspace{0.5cm} }
+\vspace{-1cm} \noindent \textcolor{graytitle}{\textit{{\Large Stretching a carbon nanotube until it breaks}}\vspace{0.5cm} }
 
 \noindent \hspace{-0.45cm}\begin{wrapfigure}{r}{4cm}
 \includegraphics[width=4cm]{tutorials/level1/breaking-a-carbon-nanotube/CNT_light.png}
 \end{wrapfigure}
 
-\noindent In this tutorial, two force fields, a classic one and a reactive one (airebo) 
-are used to simulate the deformation of a carbon nanotube (CNT). With the reactive 
-force field, the breaking of the $C-C$ bonds during the plastic deformation of the CNT is 
-simulated.
+\noindent In this tutorial, a slightly more advanced system than the Lennard-Jones gas
+of :ref:`lennard-jones-label` is used.
+The system is a small carbon nanotube (CNT) in vacuum, on which some external 
+deformation will be applied. Two very different force fields will be used: 
+a classical force field, and a reactive force field named AIREBO. With AIREBO,
+the breaking of bonds can occur during under strong deformation.
 
 \section{Unbreakable bonds}
 
-\noindent A CNT with unbreakable bonds is generated and exposed to deformations.
+\noindent \subsection{System creation}
 
-\subsection{System creation}
-
-\noindent The initial configuration (atoms positions, bonds, angles,
+The initial configuration (atoms positions, bonds, angles,
 etc.) is generated using \href{https://www.ks.uiuc.edu/Research/vmd/}{VMD}. Open VMD,
 and go to Extensions, Modeling, Nanotube Builder. A window
 named Carbon Nanostructures opens up, allowing us to choose
 between generating sheet or nanotube of graphene or BN. For
 this tutorial, let us generate a carbon nanotube.
-Keep all default values, and click on "Generate
-Nanotube". You should something like the image on the top right 
+Keep all default values, and click on Generate
+Nanotube. You should something like the image on the top right 
 of this page.
 At this point, this is not a molecular dynamics simulation,
 but a cloud of unconnected dots. In the VMD terminal, set the
@@ -95,7 +95,7 @@ by clicking  \href{../../../../../inputs/level1/breaking-a-carbon-nanotube/unbre
 
 \subsection{Generic options}
 
-\noindent Create a new text file and name it "input.lammps". Copy the
+\noindent Create a new text file and name it \textit{input.lammps}. Copy the
 following lines in it:
 
 \begin{lcverbatim}
@@ -151,7 +151,7 @@ of the graphene).
 
 We need to specify the parameters of both bonded and
 non-bonded functions. Create a new text file in the same
-folder and name it "parm.lammps". Copy the following lines
+folder and name it \textit{parm.lammps}. Copy the following lines
 in it:
 
 \begin{lcverbatim}
@@ -399,7 +399,7 @@ field, which is done in some other tutorials here (like :ref:`carbon-nanotube-la
 
 \noindent To ensure a smooth step-less deformation of the sheet,
 let us impose a constant velocity deformaiton by combining
-the "velocity set" command with the "fix setforce". 
+the \textit{velocity set} command with the \textit{fix setforce}. 
 To obtain the same elongation as previously (i.e. 5 Angstrom 
 per edge) when using a velocity for each edge of 0.0005 Angstroms per
 femtosecond (or 50 meters per second), the simulation 
@@ -432,7 +432,7 @@ pair_style airebo 2.5 1 1
 \end{lcverbatim}
 
 \noindent A difference with the previous part
-is the unit system, here 'metal' instead of 'real', a choice
+is the unit system, here \textit{metal} instead of \textit{real}, a choice
 that is imposed by the airebo force field.
 
 \begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=About metal units]
