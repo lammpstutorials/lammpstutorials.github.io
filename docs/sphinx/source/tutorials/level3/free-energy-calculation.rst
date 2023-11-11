@@ -23,7 +23,7 @@ Free energy calculation
 
     The objective of this tutorial is to measure the free
     energy profile across a barrier potential using two methods;
-    :ref:`free sampling <method1>` and :ref:`umbrella sampling <method2>`.
+    free sampling and umbrella sampling.
     
     For the sake of simplicity and in order to reduce the computation time, the
     barrier potential will be imposed artificially to the atoms.
@@ -37,8 +37,6 @@ Free energy calculation
 .. include:: ../../contact/needhelp.rst
 
 .. include:: ../../contact/2Aug2023.rst
-
-.. _method1:
 
 Method 1: Free sampling
 =======================
@@ -326,8 +324,6 @@ The limits of free sampling
     to extract free energy profiles, see the next section.
 
 .. include:: ../../contact/supportme.rst
-
-.. _method2:
 
 Method 2: Umbrella sampling
 ===========================

@@ -153,10 +153,106 @@ def extract_link(RST, label):
             text = sub[:-3]
     return link, text
 
+def clean_block(content, types, ids, id):
+    line_numbers = np.where(np.array(ids) == id)[0]
+    if len(line_numbers) > 0:
+        block_lines = []
+        block_types = []
+        for n in line_numbers:
+            line = content[n]
+            type = types[n]
+            block_lines.append(line)
+            block_types.append(type)
+        block_type = np.unique(block_types)
+        assert len(block_type) == 1, """Block of mixed type ?"""
+        return block_lines, block_type[0], line_numbers
+    else:
+        return None, None, None
+    
+def filter_block(block_text, block_type):
+    """Convert a block of text into clean lines"""
+    first_non_zero_indentation = None
+    itemize_indentation = -1
+    indentation = -1
+    n_subblock = 0
+    if (block_text is not None) & (block_type != 'unknown'):
+        # put the lines into a list 
+        filtered_text = []
+        for line in block_text[1:]:
+            indentation = count_line(line)
+            if (first_non_zero_indentation is None) & (indentation > 0) & (len(line) > 0):
+                first_non_zero_indentation = indentation
 
+            # detect itemized
+            if first_non_zero_indentation is not None:
+                if len(line)> first_non_zero_indentation:
+                    if line[first_non_zero_indentation] == '-':
+                        itemize_indentation = indentation
 
+            if (':class:' not in line) & (len(line) > 0) & (first_non_zero_indentation != None):
+                if (indentation == first_non_zero_indentation) | (indentation == itemize_indentation+2):
+                    if ('..' in line) & ('...' not in line) & ('../' not in line):
+                        filtered_text.append('[insert-sub-block]')
+                        n_subblock += 1
+                    else:
+                        filtered_text.append(line[first_non_zero_indentation:])
+        return filtered_text, n_subblock
+    else:
+        return None, 0
+    
+def identify_subblock_id(n_subblock, block_lines, RST):
+    if n_subblock > 0:
+        
+        sub_block = []
+        for n in block_lines:
+            type = RST.sub_block_type[n]
+            id = RST.sub_block[n]
+            if type != 'unknown':
+                sub_block.append(id)
+        id = np.unique(sub_block)
+        assert len(id) == n_subblock, print(block_lines, n_subblock, id)
 
+        sub_block_type = []
+        for id0 in id:
+            type0 = np.unique(np.array(RST.sub_block_type)[np.array(RST.sub_block) == id0]).tolist()[0]
+            sub_block_type.append(type0)
 
+        return id, sub_block_type
+    else:
+        return None, None 
+    
+def read_sublock(n_subblock, filtered_block, ids_block, RST):
+    if n_subblock > 0:
+        cpt = 0
+        sub_block = []
+        sub_block_number = []
+        for line in filtered_block:
+            if line == '[insert-sub-block]':
+                id = ids_block[cpt]
+                raw_subblock, subblock_type, subblock_lines = clean_block(RST.file_content,
+                                                            RST.sub_block_type,
+                                                            RST.sub_block, id)   
+                filtered_subblock, n_subsubblock = filter_block(raw_subblock, subblock_type)
+                assert n_subsubblock == 0, """WARNING, subsub blocks were used"""
+                
+                for subline in filtered_subblock:
+                    sub_block_number.append(cpt)
+                    sub_block.append(subline)
+                cpt += 1  
+        return sub_block, sub_block_number
+    else:
+        return None, None
+
+def read_label(sub_line):
+    split = sub_line.split('`')
+    rest = []
+    label = None
+    for sub in split:
+        if '-label' in sub:
+            label = sub
+        else:
+            rest.append(sub)
+    return label, rest
 
 
 

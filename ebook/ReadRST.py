@@ -17,6 +17,7 @@ class ReadRST:
         self.detect_blocks()
         self.detect_sub_blocks()
         self.detect_title()
+        self.detect_label_position()
 
     def read_rst(self):
         """Convert the rst file into a list of strings"""
@@ -40,17 +41,18 @@ class ReadRST:
         sub_block_type, sub_block = self.read_subblock()
         self.sub_block_type = sub_block_type
         self.sub_block = sub_block 
-
-    #def detect_label(self):
-    #    """Detect the labels in the file"""
-    #    positions, types, ids = read_block(self.file_content, ['-label'])
-    #    self.label_ids = ids
-    #    self.label_types = types
-    #    self.label_positions = positions
             
     def detect_title(self):
-            self.detect_title_position()
-            assert np.sum(np.array(self.title_types) == "main") == 1, """More than one main title was found"""
+        self.detect_title_position()
+        assert np.sum(np.array(self.title_types) == "main") == 1, """More than one main title was found"""
+
+    def detect_label_position(self):
+        self.label_positions = []
+        self.label_types = []
+        for n, line in enumerate(self.file_content):
+            if ('_' in line) & ('-label' in line):
+                self.label_positions.append(n)
+                self.label_types.append("main")
 
     def detect_title_position(self):
         self.title_positions = []
@@ -111,7 +113,7 @@ class ReadRST:
         for line in self.file_content:
             new_block = False
             space_number = count_line(line)
-            if (' .. ' in line) & ('...' not in line):
+            if (' .. ' in line) & ('...' not in line) & ('../' not in line):
                 # new main block with no indentation
                 cpt_sub_block += 1
                 new_block = True

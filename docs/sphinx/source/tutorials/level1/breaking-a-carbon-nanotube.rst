@@ -21,8 +21,8 @@ Pulling on a carbon nanotube
 
 .. container:: abstract
 
-    In this tutorial, a slightly more advanced system than the Lennard-Jones gas
-    of :ref:`lennard-jones-label` is used.
+    In this tutorial, a slightly more advanced system than the gas
+    in :ref:`lennard-jones-label` is used.
     The system is a small carbon nanotube (CNT) in vacuum, on which some external 
     deformation will be applied. Two very different force fields will be used: 
     a classical force field, and a reactive force field named AIREBO. With AIREBO,

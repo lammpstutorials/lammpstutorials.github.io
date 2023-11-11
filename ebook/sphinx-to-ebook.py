@@ -20,16 +20,16 @@ tutorials = {"level0": ["lennard-jones-fluid"],
              "level3": ["water-adsorption-in-silica", "free-energy-calculation", "reactive-silicon-dioxide"]}
 
 for level in tutorials.keys():
-    print("level", level)
     if os.path.exists(git_path+'/ebook/tutorials/'+level) is False:
         os.mkdir(git_path+'/ebook/tutorials/'+level)
     for tutorial in tutorials[level]:
-        print("tutorial", tutorial)
-        print("--------------")
+        print(level, "tutorial", tutorial)
+        print("-----------------------------------------")
         rst_file_name = git_path+'/docs/sphinx/source/tutorials/'+level+'/'+tutorial+'.rst'
         tex_file_name = git_path+'/ebook/tutorials/'+level+'/'+tutorial+'.tex'
         RST = ReadRST(rst_file_name)
         RST.convert_file()
+        assert len(RST.label_positions) == 1, """Careful, more than one label"""
         TEX = WriteTex(tex_file_name, RST, git_path)
         TEX.convert_file()
         FIX = FixDocument(tex_file_name)

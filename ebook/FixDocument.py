@@ -1,4 +1,4 @@
-from utilities import is_in_verbatim
+from utilities import is_in_verbatim, read_label
 
 class FixDocument:
     """Fix Tex file."""
@@ -14,6 +14,7 @@ class FixDocument:
                     r'\subsection{', r'\end{wrapfigure}', r'\end{tcolorbox}']
         self.add_non_indent(keywords)
         self.convert_itemize()
+        self.fix_label()
 
     def add_non_indent(self, keywords):
         """Add nonindent command where appropriate"""
@@ -101,3 +102,23 @@ class FixDocument:
         for line in new_tex_file_name:
             f.write(line)
         f.close()
+
+    def fix_label(self):
+        """Fix label"""
+        initial_tex_file = self.import_tex_file()
+        # remove extra space
+        new_tex_file_name = []
+        for line in initial_tex_file:
+            if ':ref:' in line:
+                split = line.split(":ref:")
+                if len(split) == 2:
+                    label, rest = read_label(split[1])
+                    if label is None:
+                        print("WARNING, Wrong label", line)
+                    new_line = split[0] + r'\ref{' + label + '}' + rest[1]
+                    new_tex_file_name.append(new_line)
+                else:
+                    print("WARNING, several label per line", line)
+            else:
+                new_tex_file_name.append(line)
+        self.write_file(new_tex_file_name)
