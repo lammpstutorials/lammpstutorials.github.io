@@ -5,7 +5,7 @@ Polymer in water
 
 .. container:: hatnote
 
-   Stretching a small solvated molecule
+   Solvating and stretching a small polymer molecule
 
 .. figure:: ../figures/level2/polymer-in-water/video-PEG-dark.webp
     :alt: Movie of a peg molecule in water as simulated with LAMMPS
@@ -24,14 +24,15 @@ Polymer in water
    The goal of this tutorial is to use LAMMPS and
    create a small hydrophilic polymer (PEG -
    PolyEthylene Glycol) in a reservoir of water. 
-   An all-atom description is used, therefore all species considered here
-   are made of charged atoms connected by bonds constraints.
+   An all-atom description is used for all species.
+   Once the system is created, a constant stretching force is applied to both
+   ends of the polymer, and the evolution of its length with time
+   will be measured.
 
-   Once the system is created, a constant stretching force will be applied to both
-   ends of the polymer, and its length will be measured with time.
+   ..  container:: justify
 
    This tutorial was inspired by a very nice |Liese2017| by Liese and coworkers, in which
-   they compare MD simulations with force spectroscopy experiments.
+   they compare molecular dynamics simulations with force spectroscopy experiments.
 
 .. |Liese2017| raw:: html
 
@@ -41,8 +42,19 @@ Polymer in water
 
 .. include:: ../../contact/needhelp.rst
 
-Bulk water
-==========
+.. include:: ../../contact/2Aug2023.rst
+
+Preparing water and PEG separately
+==================================
+
+..  container:: justify
+
+    As for most simulations, several possible routes can be used
+    to create the system. Here, the water is being prepared separately
+    from the PEG molecule. Both PEG and water are later merged together.
+
+The water
+---------
 
 ..  container:: justify
 
@@ -531,8 +543,8 @@ Bulk water
 
 .. include:: ../../contact/supportme.rst
 
-PEG molecule
-============
+The PEG molecule
+----------------
 
 ..  container:: justify
 
@@ -713,8 +725,8 @@ PEG molecule
 
    <a href="../../../../../inputs/level2/polymer-in-water/singlePEG/PEG.data" target="_blank">download</a>
 
-Solvation of the PEG molecule
-=============================
+Solvating the PEG molecule
+==========================
 
 ..  container:: justify
 
@@ -1015,16 +1027,6 @@ temperature of the entire system):
     with time. The forcing starts at :math:`t = 10` ps.
 
 .. include:: ../../contact/accessfile.rst
-
-What now?
-=========
-
-..  container:: justify
-
-    Now that you have completed this relatively advanced molecular dynamics tutorials, and 
-    that all input scripts are working, I suggest you to mess around with the inputs and 
-    try to trigger warnings and error. The more warning and error you trigger from a working input, the 
-    easier it will be to solve future issue in your own input. 
 
 Going further with exercises
 ============================
