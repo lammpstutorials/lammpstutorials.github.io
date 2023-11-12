@@ -610,12 +610,14 @@ Finalize au run
 
 .. code-block:: lammps
 
+    # 2*0.0005 A/fs = 0.001 A/fs = 100 m/s
     velocity carbon_top set NULL NULL 0.0005
     velocity carbon_bot set NULL NULL -0.0005
     run 10000
 
 .. container:: justify
 
+    The chosen velocity for the deformation is :math:`100\,\text{m/s}`.
     We can have a look at the evolution of the lenght of the CNT with time
     (The CNT starts deforming at :math:`t = 5\,\text{ps}`):
 
@@ -629,7 +631,8 @@ Finalize au run
 
 .. container:: justify
 
-    The energy shows a non-linear increase with time once the deformation starts,
+    The energy, which can be accessed fro mthe log file, shows a non-linear
+    increase with time once the deformation starts,
     which is extected from the typical dependency of bond energy with
     bond distance :math:`U_b = k_b \left( r -r_0 \right)^2`:
 
@@ -662,20 +665,19 @@ Breakable bonds
 .. container:: justify
 
     When using classical force field, as we just did, the bonds between atoms 
-    as not breakable. Let us perform a similar simulation, 
+    are non-breakable. Let us perform a similar simulation, 
     but this time using a reactive force field instead, allowing for the bonds to break
-    if the applied deformation is too large.
+    if the applied deformation is large enough.
 
-Input file
-----------
+Input file initialization
+-------------------------
 
 .. container:: justify
 
-    In a different folder, create a LAMMPS input file, call it
-    input.lammps, and type in it:
+    Create a second folder named *breakable-bonds/* next to *unbreakable-bonds/*,
+    and create a new input file in it called *input.lammps*. Type into input.lammps*:
 
 .. code-block:: lammps
-    :caption: *to be copied in input.lammps*
 
     # Initialisation
     variable T equal 300
@@ -689,24 +691,30 @@ Input file
 
     A difference with the previous part
     is the unit system, here *metal* instead of *real*, a choice
-    that is imposed by the airebo force field.
+    that is imposed by the AIREBO force field.
 
 .. admonition:: About metal units
     :class: info
 
-    With metal units, the time is in pico second, 
+    With the *metal* units system of LAMMPS, the time is in pico second, 
     distances are in Angstrom, and the energy is in eV.
+
+Adapt the topology file
+-----------------------
 
 .. container:: justify
 
-    Let us prepare the data file. Duplicate the 
-    previous file *cnt_molecular.data*, name the copy *cnt_atom.data*,
-    place it within the 
-    current folder, and remove all bond, angle, and dihedral 
-    information so that *cnt_atom.data* look like that: 
+    Since *bond*, *angle*, and *dihedral* do not need to be explicitely
+    set when using AIREBO, some small changes needs to be made to the 
+    previously generated *.data* file.
+
+.. container:: justify
+
+    Duplicate the previous file *cnt_molecular.data*, name the copy *cnt_atom.data*,
+    place it within *breakable-bonds/*. Then, remove all bond, angle, and dihedral 
+    information from *cnt_atom.data*, so that it looks like that: 
 
 .. code-block:: lammps
-    :caption: *what cnt_atom.data should look like:*
 
     700 atoms
     1 atom types
@@ -726,11 +734,11 @@ Input file
 
 .. container:: justify
 
-    Remove also everything that comes after for *Bonds*
-    keyword, so that the last lines of the file look like that:
+    In addition, remove the *Bonds* table that is places right after the 
+    *Atoms* table (near line 743), as well as the *Angles*, *Dihedrals*, 
+    and *Impropers* tables. The last lines of the file should look like that:
 
 .. code-block:: lammps
-    :caption: *what cnt_atom.data should look like:*
 
     (...)
     697 697 1 4.669892 -2.248901 45.824036 # CA CNT
@@ -740,13 +748,7 @@ Input file
 
 .. container:: justify
 
-    The reason the bond information is not needed here is that 
-    a reactive force field is used. Such force field 
-    deduces the bonds between atoms on the fly based on the positions of the atoms.
-    When two initially bonded atoms are separated by a 
-    distance that is too large, the bond may break. 
-
-    You can also download the file I did generate 
+    Alternatively, you can also download the file I did generate 
     by clicking |download_CNT.data|.
 
 .. |download_CNT.data| raw:: html
@@ -755,13 +757,15 @@ Input file
 
 .. include:: ../../contact/supportme.rst
 
+Use of AIREBO potential
+-----------------------
+
 .. container:: justify
 
     Then, let us import the LAMMPS data file, and set the
-    pair coefficients:
+    pair coefficients by adding the following lines to *input.lammps*
 
 .. code-block:: lammps
-    :caption: *to be copied in input.lammps*
 
     # System definition
     read_data cnt_atom.data
@@ -770,17 +774,27 @@ Input file
 .. container:: justify
 
     Here, there is one single atom type. We impose this type
-    to be carbon by using the the letter C.
+    to be carbon by using the the letter *C*.
 
-    The CH.airebo file can be downloaded |download_CH.airebo|.
-    The rest of the script is very similar to the previous one:
+.. admonition:: Setting AIREBO pair coefficients
+    :class: info
+
+    In case of multiple atom types, one has to adapt the *pair_coeff* command. 
+    If there are 2 atom types, and both are carbon, it would read: *pair_coeff * * CH.airebo C C*.
+    If atoms of type 1 are carbon, and atoms type 2 are hydrogen, then *pair_coeff * * CH.airebo C H*.        
+
+.. container:: justify
+
+    The *CH.airebo* file can be
+    downloaded by clicking |download_CH.airebo|,
+    and must be placed within the *breakable-bonds/* folder.
+    The rest of the *input.lammps* is very similar to the previous one:
 
 .. |download_CH.airebo| raw:: html
 
     <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/CH.airebo" target="_blank">here</a>
 
 .. code-block:: lammps
-    :caption: *to be copied in input.lammps*
 
     change_box all x final -40 40 y final -40 40 z final -60 60
 
@@ -808,37 +822,40 @@ Input file
 
 .. container:: justify
 
-    Note that a larger distance was used for the box size along 
-    the z axis, to allow for larger deformation. The *change_box*
+    Note that a large distance of 120 Angstroms was used for the box size along 
+    the *z* axis, to allow for larger deformation. In additoin, the *change_box* command
     was placed before the *displace_atoms* to avoid issue with the 
     CNT crossing the edge of the box.
 
-    Let us impose a constant velocity deformation using the atoms
+Start the simulation
+--------------------
+
+.. container:: justify
+
+    Here, let us impose a constant velocity deformation using the atoms
     of one edge, while maintaining the other edge fix. Do to so,
     one needs to cancel the forces (thus the acceleration) on
-    the atoms of the edges using the setforce command, and set
-    the value of the velocity along the z direction.
-
-Equilibration
--------------
+    the atoms of the edges using the *setforce* command, and set
+    the value of the velocity along the *z* direction.
 
 .. container:: justify
 
     First, as an equilibration step, let us set the velocity to 0
-    for the atoms of the edge. Let us fully constraint the bottom edge, 
-    and constraint the top edge only along z.
+    for the atoms of both edges. Let us fully constrain the bottom edge, 
+    and constrain the top edge only along the *z* direction.
+    Add the following lines to LAMMPS:
 
 .. code-block:: lammps
-    :caption: *to be copied in input.lammps*
 
     fix mysf1 carbon_bot setforce 0 0 0
     fix mysf2 carbon_top setforce NULL NULL 0
     velocity carbon_bot set 0 0 0
     velocity carbon_top set NULL NULL 0
 
-    variable pos equal xcm(carbon_top,z)
-    fix at1 all ave/time 10 100 1000 v_pos file cnt_deflection.dat
-    fix at2 all ave/time 10 100 1000 f_mysf1[3] f_mysf2[3] file edge_force.dat
+    variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
+    fix at1 all ave/time 10 10 100 v_L file output_cnt_length.dat
+    fix at2 all ave/time 10 10 100 f_mysf1[1] f_mysf2[1] file output_edge_force.dat
+
     dump mydmp all atom 1000 dump.lammpstrj
 
     thermo 100
@@ -849,14 +866,18 @@ Equilibration
 
 .. container:: justify
 
-    At the start of the equilibration, you can see that the
-    temperature deviates from the target temperature of 300 K, but
-    after a few picoseconds it reaches the target value:
+    Note the relatively small timestep of :math:`0.0005\,\text{ps}`
+    used. Reactive force field usually requires smaller timestep
+    than classical one.
+    When running *input.lammps* with LAMMPS, you can see that the
+    temperature deviates from the target temperature of `300\,\text{K}`
+    at the start of the equilibration, but that
+    after a few steps it reaches the target value:
 
 .. code-block:: bw
 
-   Step          Temp          E_pair         E_mol          TotEng         Press     
-   0   300           -5084.7276      0             -5058.3973     -1515.7017    
+   Step  Temp           E_pair         E_mol          TotEng         Press     
+   0     300           -5084.7276      0             -5058.3973     -1515.7017    
    100   237.49462     -5075.4114      0             -5054.5671     -155.05545    
    200   238.86589     -5071.9168      0             -5050.9521     -498.15029    
    300   220.04074     -5067.1113      0             -5047.7989     -1514.8516    
@@ -866,52 +887,46 @@ Equilibration
    700   288.47709     -5067.7301      0             -5042.4111     -312.16669    
    800   289.85177     -5066.5482      0             -5041.1086     -259.84893    
    900   279.34891     -5065.0216      0             -5040.5038     -1390.8508    
-   1000   312.27343     -5067.6245      0             -5040.217      -465.74352
+   1000  312.27343     -5067.6245      0             -5040.217      -465.74352
    (...)
 
-Deformation
------------
+Launch the deformation
+----------------------
 
 .. container:: justify
 
-   After equilibration, let us set the velocity to 30 m/s and run for
-   a longer time:
+   After equilibration, let us set the velocity to 15 m/s and run for
+   a longer duration that previously. Add the following lines into
+   *input.lammps*:
 
 .. code-block:: lammps
-   :caption: *to be copied in input.lammps*
 
-   # 0.15 A/ps = 30 m/s
+   # 0.15 A/ps = 15 m/s
    velocity carbon_top set NULL NULL 0.15
    run 280000
 
 .. container:: justify
 
    The CNT should break around the step 250000. If not, either 
-   run for a longer time or for a slightly larger velocity.
-
-   When looking at the lammpstrj file using VMD, you will see
+   run for a longer time, or use a larger velocity.
+   When looking at the *lammpstrj* file using VMD, you will see
    the bonds breaking, similar to |video_lammps_cnt|. Use
-   the DynamicBonds representation.
+   the DynamicBonds representation of VMD to properly vizualise
+   the bond breaking.
 
 .. |video_lammps_cnt| raw:: html
 
    <a href="https://www.youtube.com/watch?v=f1ve1j3yA6w" target="_blank">this video</a>
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/deformed-dark.png
-   :alt: carbon nanotube with broken bonds
+   :alt: carbon nanotube with broken bonds after simulation with LAMMPS and AIREBO
    :height: 250
-   :align: right
    :class: only-dark
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/deformed-light.png
-   :alt: carbon nanotube with broken bonds
+   :alt: carbon nanotube with broken bonds after simulation with LAMMPS and AIREBO
    :height: 250
-   :align: right
    :class: only-light
-
-.. container:: justify
-
-   Figure : Carbon nanotube after being broken.
 
 .. admonition:: About bonds in VMD
    :class: info
@@ -921,21 +936,41 @@ Deformation
    bonds between atoms in the LAMMPS simulation. Therefore what is seen
    in VMD can sometimes be misleading.
 
-Post-mortem analysis (Python)
------------------------------
+.. container:: justify
+
+    Looking at the evolution of the energy again, one can see the energy increasing 
+    with the deformation, before subitely relaxing when the CNT breaks:
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-breakable-dark.png
+    :alt: energy of the CNT with time - lammps molecular dynamics
+    :class: only-dark
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-breakable-light.png
+    :alt: energy of the CNT with time - lammps molecular dynamics
+    :class: only-light
+
+Doing post-mortem analysis using Python
+---------------------------------------
 
 .. container:: justify
 
    There are two main ways to analyse data from a MD simulation:
-   (1) on-the-fly analysis, like what we did with the two fix ave/time,
+   (1) on-the-fly analysis, like what we already did when using *fix ave/time* or
+   when analysing the thermo quantities in the *log.lammps* file,
    and (2) post-mortem analysis. Post-mortem analysis can be performed using
-   the atom coordinate saved in the lammpstrj file.
+   the atom coordinate saved in the *lammpstrj* file.
 
-   Here, let us use the open source Python library MDAnalysis.
+.. container:: justify
 
-   Open a new Jupyter notebook within the same folder, call it
-   *bond_evolution.ipynb*. First, let us import libraries
-   by copying into *bond_evolution.ipynb*:
+   Here, let us use *Python* and the open source
+   library named *MDAnalysis* which allows us to import
+   the *lammpstrj* file into a Python object named a *universe*.
+
+.. container:: justify
+
+   Open a new Jupyter notebook within the folder *breakable-bonds/*,
+   and call it *bond_evolution.ipynb*. First, let us import both *MDAnalysis*
+   and *NumPy* by copying the following lines into *bond_evolution.ipynb*:
 
 .. code-block:: python
 
@@ -944,53 +979,55 @@ Post-mortem analysis (Python)
 
 .. container:: justify
 
-   Then, let us create a MDAnalysis universe using the LAMMPS
-   data file (for the topology information) and the dump file 
-   (for the coordinate evolution over time). Let us detect the
-   original bonds using the bond guesser of MDAnalysis. Let us also create 
-   a single atom group containing all the carbon atoms: 
+   Then, let us create a *MDAnalysis* *universe* using the LAMMPS
+   data file *cnt_atom.data* as topology,
+   and the *lammpstrj* file as trajectory. Let us guess the
+   original bonds using the bond guesser of MDAnalysis (*guess_bonds=True*).
+   Let us also create a single atom group named *cnt* and containing all the carbon atoms.
+   Add the following lines into *bond_evolution.ipynb*:
 
 .. code-block:: python
-   :caption: *to be copied in bond_evolution.ipynb*
 
    # create a universe from the dump file
    # guess bond based on distance from the initial topology
    u = mda.Universe("cnt_atom.data", "dump.lammpstrj",
                   topology_format="data", format="lammpsdump",
                   guess_bonds=True, vdwradii={'1':1.7})
-   # create a group
+   # create a group with all the atoms
    cnt = u.select_atoms("type 1")
 
 .. container:: justify
 
-   Note : The bond guesser of MDAnalysis will not update the list of bond
-   over time, so we will need to use a few trick.
-
-   Then, let us loop over the trajectory and extract bond length and number
-   over time:
+   Note that the bond guesser of MDAnalysis will not update the list of bond
+   over time, so we will need to use a few tricks to extract the evolution 
+   of the number of bond with time.
+   Then, let us loop over the trajectory and extract the bonds average length
+   and total number over time. Add the following lines into *bond_evolution.ipynb*:
 
 .. code-block:: python
-   :caption: *to be copied in bond_evolution.ipynb*
 
-   nbond_vs_time = []
-   lbond_vs_time = []
-   # loop over trajectory
-   for ts in u.trajectory:
-      # sabe the bond of the timestep ts in a list
-      all_bonds_ts = []
-      # loop over all initially detected bond
-      for id1, id2 in cnt.atoms.bonds.indices:
-         # detect positions
-         pos1 = u.atoms.positions[u.atoms.indices == id1]
-         pos2 = u.atoms.positions[u.atoms.indices == id2]
-         d = pos1-pos2
-         r = np.sqrt(d[:, 0]**2 + d[:, 1]**2 + d[:, 2]**2)
-         if r < 1.8: # assume that bond longer than 1.8 angstroms are broken
-               all_bonds_ts.append(r)
-      lbond_vs_time.append([ts.time*5000*0.0005, np.mean(all_bonds_ts)]) 
-      nbond_vs_time.append([ts.time*5000*0.0005, len(all_bonds_ts)/2]) # divide by 2 to avoid counting twice
-   nbond_vs_time = np.array(nbond_vs_time)
-   lbond_vs_time = np.array(lbond_vs_time)
+    nbond_vs_time = []
+    lbond_vs_time = []
+    # loop over trajectory
+    for ts in u.trajectory:
+        # sabe the bond of the timestep ts in a list
+        all_bonds_ts = []
+        # loop over all initially detected bond
+        for id1, id2 in cnt.atoms.bonds.indices:
+            # detect positions
+            pos1 = u.atoms.positions[u.atoms.indices == id1]
+            pos2 = u.atoms.positions[u.atoms.indices == id2]
+            d = pos1-pos2
+            r = np.sqrt(d[:, 0]**2 + d[:, 1]**2 + d[:, 2]**2)
+            if r < 1.8: # assume that bond longer than 1.8 angstroms are broken
+                all_bonds_ts.append(r)
+        lbond_vs_time.append([ts.time*5000*0.0005, np.mean(all_bonds_ts)]) 
+        nbond_vs_time.append([ts.time*5000*0.0005, len(all_bonds_ts)/2]) # divide by 2 to avoid counting twice
+    nbond_vs_time = np.array(nbond_vs_time)
+    lbond_vs_time = np.array(lbond_vs_time)
+    # finally let us save the data to tex files:
+    np.savetxt("output_number_bond_vs_time.dat", nbond_vs_time)
+    np.savetxt("output_length_bond_vs_time.dat", lbond_vs_time)
 
 .. container:: justify
 

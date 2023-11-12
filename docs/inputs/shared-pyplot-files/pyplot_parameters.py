@@ -19,14 +19,14 @@ colors = {
   "darkgray": [0.9, 0.9, 0.9],
 }
 
-def add_subplotlabels(fig, ax, labels, shift=-1.5, specific_shift=None, color=None):
+def add_subplotlabels(fig, ax, labels, shift=0.2, specific_shift=None, color=None):
     """Add a labels to each axis of a figure."""
     assert len(ax) == len(labels)
 
     for i, subplotlabel in enumerate(labels):
         if specific_shift is None:
             trans = mtransforms.ScaledTranslation(
-                shift, 0, fig.dpi_scale_trans)
+                shift, -0.2, fig.dpi_scale_trans)
         else:
             trans = mtransforms.ScaledTranslation(
                 specific_shift[i], 0, fig.dpi_scale_trans) 
