@@ -34,6 +34,8 @@ Pulling on a carbon nanotube
 
 .. include:: ../../contact/needhelp.rst
 
+.. include:: ../../contact/2Aug2023.rst
+
 Unbreakable bonds
 =================
 
@@ -410,7 +412,7 @@ The molecular dynamics
 
 .. container:: justify
 
-   Let us specify the thermalisation and the dynamics of the
+   Let us specify the thermalization and the dynamics of the
    system. Add the following lines to *input.lammps*:
 
 .. code-block:: lammps
@@ -534,8 +536,8 @@ Data extraction
     calling them using *f_*, the same way variables are called
     using *v_* and computes are called using *c_*.
 
-Finalize the input
-------------------
+Finalize au run
+---------------
 
 .. container:: justify
 
@@ -614,7 +616,7 @@ Finalize the input
 
 .. container:: justify
 
-    We can have a look at the eveolution of the lenght of the CNT with time
+    We can have a look at the evolution of the lenght of the CNT with time
     (The CNT starts deforming at :math:`t = 5\,\text{ps}`):
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/length-unbreakable-dark.png
@@ -623,6 +625,20 @@ Finalize the input
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/length-unbreakable-light.png
     :alt: length of the CNT with time - lammps molecular dynamics
+    :class: only-light
+
+.. container:: justify
+
+    The energy shows a non-linear increase with time once the deformation starts,
+    which is extected from the typical dependency of bond energy with
+    bond distance :math:`U_b = k_b \left( r -r_0 \right)^2`:
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-unbreakable-dark.png
+    :alt: energy of the CNT with time - lammps molecular dynamics
+    :class: only-dark
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-unbreakable-light.png
+    :alt: energy of the CNT with time - lammps molecular dynamics
     :class: only-light
 
 .. container:: justify
@@ -638,10 +654,6 @@ Finalize the input
     :alt: CNT in graphene in vacuum image VMD  before and after deformation
     :class: only-light
 
-.. container:: justify
-
-    You can increase the duration of the run and deformate the CNT even more, the CNT will never break.
-
 .. include:: ../../contact/accessfile.rst
 
 Breakable bonds
@@ -649,8 +661,10 @@ Breakable bonds
 
 .. container:: justify
 
-    Let us do the same type of simulation, but using a reactive force field 
-    instead, allowing for the bonds to break.
+    When using classical force field, as we just did, the bonds between atoms 
+    as not breakable. Let us perform a similar simulation, 
+    but this time using a reactive force field instead, allowing for the bonds to break
+    if the applied deformation is too large.
 
 Input file
 ----------
