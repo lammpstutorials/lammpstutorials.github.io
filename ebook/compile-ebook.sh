@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 
 var1=$1
@@ -32,4 +31,4 @@ then
         python3 $py || echo "$line python failled"
         cd $basedir
     done < notebook-figures.txt
-fi 
+fi

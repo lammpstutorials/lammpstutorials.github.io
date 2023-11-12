@@ -504,8 +504,8 @@ Data extraction
     :caption: *to be copied in input.lammps*
 
     variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
-    fix at1 all ave/time 10 100 1000 v_L file length.dat
-    fix at2 all ave/time 10 100 1000 f_mysf1[3] f_mysf2[3] file force.dat
+    fix at1 all ave/time 10 10 100 v_L file output_cnt_length.dat
+    fix at2 all ave/time 10 10 100 f_mysf1[1] f_mysf2[1] file output_edge_force.dat
 
 .. container:: justify
 
@@ -524,7 +524,7 @@ Data extraction
 
 .. code-block:: lammps
 
-    fix at3 all ave/time 10 100 1000 c_Tmid file temperature_middle_group.dat
+    fix at3 all ave/time 10 10 100 c_Tmid file output_temperature_middle_group.dat
 
 .. admonition:: About extracting quantity from variable compute or fix
     :class: info
