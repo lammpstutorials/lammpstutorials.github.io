@@ -1057,12 +1057,13 @@ Isolated nanotube
 .. container:: justify
 
     When a rubber band is streched up, it heats up due to entropy change. 
-    In the current simulation, the constant exchange of energy with the 
-    thermostat prevents the temperature to evolve significantly, even under
-    strong deformation.
-
+    In the current simulation, the constant exchange of energy between the CNT and 
+    thermostat prevents the temperature to evolve as the CNT is getting deformed.
     Remove the thermostat and observe the evolution of the temperature of an
     *isolated* carbon nanotube being deformed. Does it heat-up? Or does it cool down?
+
+Make a membrane and deform it
+-----------------------------
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/shared-dark.png
     :alt: deformed membrane of CNT
@@ -1076,21 +1077,17 @@ Isolated nanotube
     :align: right
     :class: only-light
 
-Deforming membrane
-------------------
-
 .. container:: justify
 
-    Replicate the CNT along x and y, and equilibrate the system to 
-    create a membrane, just like the image on the right. 
+    Replicate the CNT along *x* and *y*, and equilibrate the system to 
+    create a nanoporous membrane made of multiple CNTs. 
+    Then, apply a shear deformation along *xy*.
 
-    Then, apply a shear deformation along xy.
-
-.. admonition:: Hints (click to reveal)
+.. admonition:: Hints
     :class: dropdown
 
     The box must be converted to triclinic to support deformation
-    along xy.
+    along *xy*.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/CH-dark.png
     :alt: CNT with hydrogen atoms and N2 molecule
@@ -1104,24 +1101,22 @@ Deforming membrane
     :align: right
     :class: only-light
 
-Decorate the CNT
-----------------
+Decorate the CNT with hydrogens
+-------------------------------
 
 .. container:: justify
 
    Add hydrogen atoms randomly to the system (using the same
-   airebo force field). 
-
-   Equilibrate the system. After some time, some hydrogen atoms will 
+   AIREBO force field). Equilibrate the system. After some time, some hydrogen atoms will 
    decorate the free carbon atoms at the edge of the CNT. Some 
-   other hydrogen atoms will bond and form H2 molecules. 
+   other hydrogen atoms may bond together and form :math:`H_2` molecules. 
 
-Strain-stress curve
--------------------
+Plot a strain-stress curve
+--------------------------
 
 ..  container:: justify
 
-    Adapt the current script and extract a full strain-stress curve.
+    Adapt the current script and extract a full strain-stress curve:
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/strain-stain-curve-dark.png
     :alt: strain stain curve for determining the young modulus of a CNT
@@ -1134,7 +1129,7 @@ Strain-stress curve
 .. admonition:: Hints
     :class: dropdown
 
-    The following steps are optional, but give a better result.
+    The following steps are optional, but give a better result:
     1) Only record data during the production run, not the equilibration.
-    2) Reduce the velocity to perform a nice and slow pulling of the graphene sheet.
+    2) Reduce the velocity to perform a nice and slow pulling of the CNT.
     3) Increase the magnitude of the total elongation.
