@@ -9,7 +9,7 @@ plt.rcParams.update({
     "font.serif": ["Palatino"],
 })
 
-fontsize = 32
+fontsize = 34
 font = {'family': 'sans', 'color':  'black', 'weight': 'normal', 'size': fontsize}
 
 colors = {
@@ -19,14 +19,14 @@ colors = {
   "darkgray": [0.9, 0.9, 0.9],
 }
 
-def add_subplotlabels(fig, ax, labels, shift=-1.5, specific_shift=None, color=None):
+def add_subplotlabels(fig, ax, labels, shift=0.2, specific_shift=None, color=None):
     """Add a labels to each axis of a figure."""
     assert len(ax) == len(labels)
 
     for i, subplotlabel in enumerate(labels):
         if specific_shift is None:
             trans = mtransforms.ScaledTranslation(
-                shift, 0, fig.dpi_scale_trans)
+                shift, -0.2, fig.dpi_scale_trans)
         else:
             trans = mtransforms.ScaledTranslation(
                 specific_shift[i], 0, fig.dpi_scale_trans) 
@@ -53,7 +53,10 @@ def add_subplotlabels(fig, ax, labels, shift=-1.5, specific_shift=None, color=No
             )     
 
 
-def complete_panel(ax, xlabel, ylabel, cancel_x=False, cancel_y=False, font=font, fontsize=fontsize, linewidth=2, tickwidth1=2.5, tickwidth2=2, legend=True, ncol=1, locator_x = 2, locator_y = 2, title=None, axis_color=None):
+def complete_panel(ax, xlabel, ylabel, cancel_x=False, cancel_y=False,
+                   font=font, fontsize=fontsize, linewidth=2.5, tickwidth1=2.5,
+                   tickwidth2=2, legend=True, ncol=1, locator_x = 2, locator_y = 2,
+                   title=None, axis_color=None):
     
     if xlabel is not None:
         ax.set_xlabel(xlabel, fontdict=font)
@@ -115,9 +118,13 @@ def save_figure(fig, mode, git_root, path_figures, filename, show=False):
     assert os.path.exists(git_root + path_figures)
     fig.tight_layout()
     if mode == 'light':
-        plt.savefig(git_root + path_figures + filename + "-light.png", bbox_inches = 'tight', pad_inches = 0.062, transparent=True)
+        plt.savefig(git_root + path_figures + filename + "-light.png",
+                    bbox_inches = 'tight', pad_inches = 0.062,
+                    transparent=True, dpi=200)
     else:
-        plt.savefig(git_root + path_figures + filename + "-dark.png", bbox_inches = 'tight', pad_inches = 0.062, transparent=True)
+        plt.savefig(git_root + path_figures + filename + "-dark.png",
+                    bbox_inches = 'tight', pad_inches = 0.062,
+                    transparent=True, dpi=200)
     if show:
         plt.show()
 

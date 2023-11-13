@@ -179,7 +179,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Level 1</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../level1/breaking-a-carbon-nanotube.html">Breaking a carbon nanotube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level1/breaking-a-carbon-nanotube.html">Pulling on a carbon nanotube</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Level 2</span></p>
 <ul>
@@ -244,7 +244,7 @@
 <div class="justify docutils container">
 <p>The objective of this tutorial is to measure the free
 energy profile across a barrier potential using two methods;
-<a class="reference internal" href="#method1"><span class="std std-ref">free sampling</span></a> and <a class="reference internal" href="#method2"><span class="std std-ref">umbrella sampling</span></a>.</p>
+free sampling and umbrella sampling.</p>
 <p>For the sake of simplicity and in order to reduce the computation time, the
 barrier potential will be imposed artificially to the atoms.
 The procedure is valid for more complex
@@ -261,7 +261,7 @@ barrier through a membrane.</p>
 <p>This tutorial was tested with the <em>2Aug2023</em> LAMMPS version.</p>
 </div>
 <section id="method-1-free-sampling">
-<span id="method1"></span><h2>Method 1: Free sampling<a class="headerlink" href="#method-1-free-sampling" title="Link to this heading">#</a></h2>
+<h2>Method 1: Free sampling<a class="headerlink" href="#method-1-free-sampling" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>The most direct way to calculate a free energy profile is to extract
 the partition function from a classic (unbiased) molecular
@@ -319,7 +319,7 @@ be in kcal/mol. Atoms will interact through a
 Lennard-Jones potential with a cut-off equal to
 <span class="math notranslate nohighlight">\(\sigma \times 2 ^ {1/6}\)</span> (i.e. a WCA repulsive
 potential). The potential is shifted to be equal to 0 at
-the cut-off using the pair_modify.</p>
+the cut-off using the <em>pair_modify</em>.</p>
 </div>
 </section>
 <section id="system-creation-and-settings">
@@ -465,7 +465,7 @@ due to the additional force <span class="math notranslate nohighlight">\(F (x)\)
 <h3>Data analysis<a class="headerlink" href="#data-analysis" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>First, let us make sure that the equilibration duration of 1
-ns is long enough by looking at the ‘density_evolution.dat’ file:</p>
+ns is long enough by looking at the <em>density_evolution.dat</em> file:</p>
 </div>
 <figure class="align-default">
 <img alt="Number of particle in the central region as a function of time" class="only-light" src="../../_images/density_evolution-light.png" />
@@ -525,7 +525,7 @@ to extract free energy profiles, see the next section.</p>
 </section>
 </section>
 <section id="method-2-umbrella-sampling">
-<span id="method2"></span><h2>Method 2: Umbrella sampling<a class="headerlink" href="#method-2-umbrella-sampling" title="Link to this heading">#</a></h2>
+<h2>Method 2: Umbrella sampling<a class="headerlink" href="#method-2-umbrella-sampling" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>Umbrella sampling is a biased molecular dynamics method,
 i.e. a method in which additional forces are added to the
@@ -882,7 +882,9 @@ A forcing that is <em>too weak</em> wont have any effect on the PMF.</p>
 <div class="justify docutils container">
 <p>Apply umbrella sampling to calculate the free energy profile
 of ethanol in the direction normal to a crystal solid surface (here made of sodium chloride).
-Find the <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/system/" target="_blank">topology files</a>, <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/PARM.lammps" target="_blank">parameter file</a>, and a <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/input-minimalist.lammps" target="_blank">minimal input file</a>.</p>
+Find the <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/system/" target="_blank">topology files</a>,
+<a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/PARM.lammps" target="_blank">parameter file</a>,
+and a <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/input-minimalist.lammps" target="_blank">minimal input file</a>.</p>
 <p>The PMF normal to a wall indicates the free energy of adsorption, which is
 calculated from the difference between the PMF far from the surface, and the
 PMF at the wall.</p>

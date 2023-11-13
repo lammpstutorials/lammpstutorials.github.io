@@ -179,7 +179,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Level 1</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../level1/breaking-a-carbon-nanotube.html">Breaking a carbon nanotube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level1/breaking-a-carbon-nanotube.html">Pulling on a carbon nanotube</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Level 2</span></p>
 <ul>
@@ -299,7 +299,8 @@ the following lines in it:</p>
 <div class="justify docutils container">
 <p>The main difference between the previous tutorials is the use of
 the Vashishta pair style. Download the Vashishta potential by
-clicking <a href="../../../../../inputs/level3/water-adsorption-in-silica/Potential/SiO.1990.vashishta" target="_blank">here</a>, and copy it within the <em>Potential/</em> folder.</p>
+clicking <a href="../../../../../inputs/level3/water-adsorption-in-silica/Potential/SiO.1990.vashishta" target="_blank">here</a>,
+and copy it within the <em>Potential/</em> folder.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About the Vashishta potential</p>
@@ -658,10 +659,8 @@ respectively. There will also be 1 bond type and 1 angle
 type. The extra bond, extra angle, and extra special lines
 also need to be added for memory allocation.</p>
 <p>We can continue to fill in the
-input.lammps file, by adding the system definition:</p>
+<em>input.lammps</em> file, by adding the system definition:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">dilatedSiO.data</span>
 <span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">TIP4P2005.txt</span>
 <span class="k">lattice</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="m">3</span>
@@ -672,7 +671,6 @@ input.lammps file, by adding the system definition:</p>
 <span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
 <p>After reading the data file and defining the h2omol molecule
 from the txt file, the <em>create_atoms</em> command is used to
@@ -682,10 +680,8 @@ GCMC steps usually lead to failure. Note that here,
 most water molecules are overlapping with the silica. These
 overlapping water molecules will be deleted before
 starting the simulation.</p>
-<p>Then, add the following settings:</p>
+<p>Then, add the following settings to <em>Addingwater/input.lammps</em>:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">vashishta</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Potential</span><span class="o">/</span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0057</span><span class="w"> </span><span class="m">4.42</span><span class="w"> </span><span class="c"># epsilonSi = 0.00403, sigmaSi = 3.69</span>
@@ -703,7 +699,6 @@ starting the simulation.</p>
 <span class="k">fix </span><span class="nv nv-Identifier">shak</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
 <p>The force field Vashishta applies only to Si (type 1) and O of SiO2 (type 2),
 and not to the O and H of H2O, thanks to the NULL
@@ -720,8 +715,8 @@ these features have been seen in previous tutorials.</p>
 <p>Let us delete the overlapping water molecules, and print the
 positions in a dump file:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">SiO</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.init.lammpstrj</span>
 </pre></div>
@@ -733,8 +728,8 @@ positions in a dump file:</p>
 <div class="justify docutils container">
 <p>Let us make a first equilibration step:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute_modify </span><span class="nv nv-Identifier">thermo_temp</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">compute </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">compute_modify </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
@@ -757,13 +752,13 @@ liquid. It is particularly important to use two thermostats
 here, because the number of water molecules will fluctuate with time.</p>
 </div>
 <div class="justify docutils container">
-<p>The compute_modify ‘dynamic yes’ for water is used to specify that the
+<p>The <em>compute_modify</em> ‘dynamic yes’ for water is used to specify that the
 number of molecules is not constant.</p>
 <p>Finally, let us use the fix gcmc and perform the grand
 canonical Monte Carlo steps:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">tfac</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5.0</span><span class="o">/</span><span class="m">3.0</span>
 <span class="k">variable </span><span class="nv nv-Identifier">xlo</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xlo</span><span class="o">+</span><span class="m">0.1</span>
 <span class="k">variable </span><span class="nv nv-Identifier">xhi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xhi</span><span class="o">-</span><span class="m">0.1</span>
@@ -785,7 +780,7 @@ canonical Monte Carlo steps:</p>
 which seems to occur with some LAMMPS version.</p>
 </div>
 <div class="justify docutils container">
-<p>The tfac_insert option ensures that the correct estimate is
+<p>The <em>tfac_insert</em> option ensures that the correct estimate is
 made for the temperature of the inserted water molecules by
 taking into account the internal degrees of freedom. Running
 this simulation, you should see the number of molecule
@@ -796,15 +791,15 @@ The large pressure value of 10000 bars was chosen to ensure that
 some successful insertions of molecules would occur during the
 relatively short duration of the simulation.</p>
 <p>When you run the simulation, make sure that some water molecules
-remain in the system after the delete_atoms command. You can control
+remain in the system after the <em>delete_atoms</em> command. You can control
 that either using the log file, or using the <em>numbermolecule.dat</em> data file.</p>
 <p>Depending on your LAMMPS version, you may have to run LAMMPS
 on a single cpu core, due to some restrictions of the fix gcmc.</p>
 <p>You can see, by looking at the log file, that 280 molecules
 were added by the <em>create_atoms</em> command (the exact number may differ):</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Created 840 atoms
 </pre></div>
 </div>
@@ -813,8 +808,8 @@ were added by the <em>create_atoms</em> command (the exact number may differ):</
 <p>You can also see that 258 molecules where immediately deleted,
 leaving 24 water molecules (the exact number may differ):</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Deleted 774 atoms, new total = 642
 Deleted 516 bonds, new total = 44
 Deleted 258 angles, new total = 22
@@ -876,14 +871,15 @@ to access all the solutions.</p>
 <p>Use the same protocole as the one implemented in this tutorial to add water
 molecules to a Zif-8 nanoporous material. A snapshot of the system with a
 few water molecules is presented on the right.</p>
-<p>Download the initial Zif-8 <a href="../../../../../inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/zif-8.data" target="_blank">structure</a>, the <a href="../../../../../inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/parm.lammps" target="_blank">parameters</a> file, and this
+<p>Download the initial Zif-8 <a href="../../../../../inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/zif-8.data" target="_blank">structure</a>,
+the <a href="../../../../../inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/parm.lammps" target="_blank">parameters</a> file, and this
 new <a href="../../../../../inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/water.mol" target="_blank">water template</a>. The ZIF-8 structure is made of 7 atom types (C1, C2, C3, H2, H3, N, Zn), connected
 by bonds, angles, dihedrals, and impropers. It uses the same <em>pair_style</em> as water,
 so there is no need to use the <em>hybrid</em> functionality (see the hints below).</p>
 <p>Note that, here, water occupies the atom types 1 and 2, instead of 3 and 4 in the case of SiO2.</p>
 </div>
 <div class="info admonition">
-<p class="admonition-title">Hints: <em>pair_style</em> and <em>special_bonds</em></p>
+<p class="admonition-title">Hints</p>
 <p>Use the following parameters to start your LAMMPS input file.</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>

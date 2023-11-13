@@ -23,7 +23,7 @@ Free energy calculation
 
     The objective of this tutorial is to measure the free
     energy profile across a barrier potential using two methods;
-    :ref:`free sampling <method1>` and :ref:`umbrella sampling <method2>`.
+    free sampling and umbrella sampling.
     
     For the sake of simplicity and in order to reduce the computation time, the
     barrier potential will be imposed artificially to the atoms.
@@ -37,8 +37,6 @@ Free energy calculation
 .. include:: ../../contact/needhelp.rst
 
 .. include:: ../../contact/2Aug2023.rst
-
-.. _method1:
 
 Method 1: Free sampling
 =======================
@@ -103,7 +101,7 @@ Basic LAMMPS parameters
     Lennard-Jones potential with a cut-off equal to 
     :math:`\sigma \times 2 ^ {1/6}` (i.e. a WCA repulsive
     potential). The potential is shifted to be equal to 0 at
-    the cut-off using the pair_modify.
+    the cut-off using the *pair_modify*.
 
 System creation and settings
 ----------------------------
@@ -259,7 +257,7 @@ Data analysis
 ..  container:: justify
 
     First, let us make sure that the equilibration duration of 1
-    ns is long enough by looking at the 'density_evolution.dat' file:
+    ns is long enough by looking at the *density_evolution.dat* file:
 
 .. figure:: ../figures/level3/free-energy-calculation/density_evolution-light.png
    :alt: Number of particle in the central region as a function of time
@@ -326,8 +324,6 @@ The limits of free sampling
     to extract free energy profiles, see the next section.
 
 .. include:: ../../contact/supportme.rst
-
-.. _method2:
 
 Method 2: Umbrella sampling
 ===========================
@@ -775,7 +771,9 @@ Surface adsorption of a molecule
 
     Apply umbrella sampling to calculate the free energy profile
     of ethanol in the direction normal to a crystal solid surface (here made of sodium chloride). 
-    Find the |topology-ethanol|, |parameter-ethanol|, and a |input-ethanol|.
+    Find the |topology-ethanol|,
+    |parameter-ethanol|, 
+    and a |input-ethanol|.
 
     The PMF normal to a wall indicates the free energy of adsorption, which is
     calculated from the difference between the PMF far from the surface, and the 

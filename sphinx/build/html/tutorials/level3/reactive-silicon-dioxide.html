@@ -179,7 +179,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Level 1</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../level1/breaking-a-carbon-nanotube.html">Breaking a carbon nanotube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level1/breaking-a-carbon-nanotube.html">Pulling on a carbon nanotube</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Level 2</span></p>
 <ul>
@@ -311,7 +311,7 @@ changes in our system over time.</p>
 </div>
 <div class="justify docutils container">
 <p>So far, the input is very similar to what is seen in the other tutorials here,
-with some basic parameters being defined (units, atom_style and masses), and
+with some basic parameters being defined (<em>units</em>, <em>atom_style</em> and <em>masses</em>), and
 the data file being imported by the <em>read_data</em> command.
 Now let us enter 3 crucial lines:</p>
 </div>
@@ -324,15 +324,16 @@ Now let us enter 3 crucial lines:</p>
 </div>
 </div>
 <div class="justify docutils container">
-<p>Here, the reaxff pair_style is used with no control file, and the <em>safezone</em> and <em>mincap</em>
+<p>Here, the reaxff <em>pair_style</em> is used with no control file, and the <em>safezone</em> and <em>mincap</em>
 keywords have been added for memory allocation issue. If not there, the segmentation
 faults and bondchk failed errors sometimes occur.</p>
-<p>The pair_coeff uses the <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a> file which is assumed to be saved in the
+<p>The <em>pair_coeff</em> uses
+the <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a> file which is assumed to be saved in the
 same folder as the input. The atoms of type 1 are set as silicon (Si),
 and type 2 as oxygen (O) in order to be consistent with the data file and
 mass definition.</p>
 <p>Finally, the fix <em>qeq/reaxff</em> is used to perform charge equilibration every timestep. The values 0 and 10.0
-are low and high cutoffs, respectively, and 1.0e-6 a tolerance. Finally, maxiter sets
+are low and high cutoffs, respectively, and <span class="math notranslate nohighlight">\(1.0 \text{e}-6\)</span> a tolerance. Finally, maxiter sets
 a limit to the number of attempt to equilibrate the charge.</p>
 </div>
 <div class="info admonition">
@@ -440,7 +441,7 @@ representation windows, and then tune the <em>Color scale</em> in the <em>Color 
 <div class="justify docutils container">
 <p>Let us apply a deformation to the structure in order to force some bonds
 to dynamically break and reassemble.</p>
-<p>Next to RelaxSilica/, create a folder, call it Deform/ and create a
+<p>Next to <em>RelaxSilica/</em>, create a folder, call it <em>Deform/</em> and create a
 file named input.lammps in it. Copy the following lines:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id8">
@@ -691,8 +692,8 @@ to access all the solutions.</p>
 <p>Under ambient conditions, dandling oxygen are typically terminated by hydrogen atoms.
 Let us improve the current structure by decorating some of the dandling oxygen with
 hydrogen atoms, before relaxing it thanks to reaxff.</p>
-<p>Add hydrogen atoms to the dandling oxygens. Then relax the structure using reaxff with LAMMPS.
-Hydrogen atoms can be added using create_atoms command, gcmc, or external python script as I did here:</p>
+<p>Add hydrogen atoms to the dandling oxygens. Then relax the structure using <em>reaxff</em> with LAMMPS.
+Hydrogen atoms can be added using <em>create_atoms</em> command, <em>gcmc</em>, or external <em>Python</em> script as I did here:</p>
 </div>
 <figure class="align-default">
 <img alt="Silicon oxide decorated with hydrogens" class="only-light" src="../../_images/exercice-light.png" />
@@ -705,30 +706,19 @@ Hydrogen atoms can be added using create_atoms command, gcmc, or external python
 </figure>
 <div class="dropdown admonition">
 <p class="admonition-title">Hint n°1</p>
-<div class="justify docutils container">
-<p>The structure can be imported in MDAnalysis/Python using:</p>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="s2">&quot;silica-deformed.data&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Then dandling oxygen can be detected by counting the number of neighbor (oxygen with only
+<p>The structure can be imported in MDAnalysis/Python using <em>u = mda.Universe(“silica-deformed.data”)</em>
+Then dandling oxygen can be detected by counting the number of neighbor (oxygen with only
 one connected silicon is dandling and should be completed with an hydrogen).</p>
-</div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">Hint n°2</p>
-<div class="justify docutils container">
 <p>Once hydrogen have been added, run LAMMPS using:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">28.0855</span><span class="w"> </span><span class="c"># Si</span>
 <span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">15.999</span><span class="w"> </span><span class="c"># O</span>
 <span class="k">mass</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1.008</span><span class="w"> </span><span class="c"># H</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>and:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">reaxCHOFe.ff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span>
 </pre></div>
 </div>
@@ -817,5 +807,6 @@ one connected silicon is dandling and should be completed with an hydrogen).</p>
     <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>

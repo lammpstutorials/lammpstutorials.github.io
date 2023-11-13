@@ -89,7 +89,8 @@ Vashishta potential
 
     The main difference between the previous tutorials is the use of 
     the Vashishta pair style. Download the Vashishta potential by
-    clicking |download_vashishta|, and copy it within the *Potential/* folder.
+    clicking |download_vashishta|,
+    and copy it within the *Potential/* folder.
 
 .. admonition:: About the Vashishta potential
     :class: info
@@ -530,10 +531,9 @@ Using hydrid potentials
     also need to be added for memory allocation. 
 
     We can continue to fill in the
-    input.lammps file, by adding the system definition:
+    *input.lammps* file, by adding the system definition:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Addingwater/input.lammps*
 
     read_data dilatedSiO.data
     molecule h2omol TIP4P2005.txt
@@ -555,10 +555,9 @@ Using hydrid potentials
     overlapping water molecules will be deleted before 
     starting the simulation. 
 
-    Then, add the following settings:
+    Then, add the following settings to *Addingwater/input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Addingwater/input.lammps*
 
     pair_coeff * * vashishta ../Potential/SiO.1990.vashishta Si O NULL NULL
     pair_coeff * * lj/cut/tip4p/long 0 0
@@ -635,7 +634,7 @@ GCMC simulation
     
 ..  container:: justify
 
-    The compute_modify 'dynamic yes' for water is used to specify that the
+    The *compute_modify* 'dynamic yes' for water is used to specify that the
     number of molecules is not constant.
 
     Finally, let us use the fix gcmc and perform the grand
@@ -665,7 +664,7 @@ GCMC simulation
 
 ..  container:: justify
 
-    The tfac_insert option ensures that the correct estimate is
+    The *tfac_insert* option ensures that the correct estimate is
     made for the temperature of the inserted water molecules by
     taking into account the internal degrees of freedom. Running
     this simulation, you should see the number of molecule
@@ -677,7 +676,7 @@ GCMC simulation
     relatively short duration of the simulation.
 
     When you run the simulation, make sure that some water molecules 
-    remain in the system after the delete_atoms command. You can control 
+    remain in the system after the *delete_atoms* command. You can control 
     that either using the log file, or using the *numbermolecule.dat* data file.
 
     Depending on your LAMMPS version, you may have to run LAMMPS
@@ -776,14 +775,15 @@ Apply GCMC to water in ZIF-8
     molecules to a Zif-8 nanoporous material. A snapshot of the system with a 
     few water molecules is presented on the right.
 
-    Download the initial Zif-8 |Zif-8-structure|, the |Zif-8-parameters| file, and this
+    Download the initial Zif-8 |Zif-8-structure|,
+    the |Zif-8-parameters| file, and this
     new |water-template|. The ZIF-8 structure is made of 7 atom types (C1, C2, C3, H2, H3, N, Zn), connected
     by bonds, angles, dihedrals, and impropers. It uses the same *pair_style* as water,
     so there is no need to use the *hybrid* functionality (see the hints below).
 
     Note that, here, water occupies the atom types 1 and 2, instead of 3 and 4 in the case of SiO2.
 
-.. admonition:: Hints: *pair_style* and *special_bonds*
+.. admonition:: Hints
     :class: info
 
     Use the following parameters to start your LAMMPS input file.
