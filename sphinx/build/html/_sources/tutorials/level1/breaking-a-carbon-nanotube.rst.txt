@@ -683,15 +683,17 @@ Input file initialization
     variable T equal 300
 
     units metal
-    atom_style molecular
+    atom_style atomic
     boundary p p p
     pair_style airebo 2.5 1 1
 
 .. container:: justify
 
-    A difference with the previous part
+    A first difference with the previous part
     is the unit system, here *metal* instead of *real*, a choice
-    that is imposed by the AIREBO force field.
+    that is imposed by the AIREBO force field. A second difference
+    is the use of the *atom_style atomic* instead of *molecular*,
+    single no explicit bond information is required with AIREBO.
 
 .. admonition:: About metal units
     :class: info
@@ -712,7 +714,8 @@ Adapt the topology file
 
     Duplicate the previous file *cnt_molecular.data*, name the copy *cnt_atom.data*,
     place it within *breakable-bonds/*. Then, remove all bond, angle, and dihedral 
-    information from *cnt_atom.data*, so that it looks like that: 
+    information from *cnt_atom.data*. Also remove the second column of the 
+    *Atoms* table, so that the cnt_atom.data looks like the following: 
 
 .. code-block:: lammps
 
@@ -726,10 +729,10 @@ Adapt the topology file
 
     1 12.010700 # CA
 
-    Atoms # molecular
+    Atoms # atomic
 
-    1 1 1 5.162323 0.464617 8.843235 # CA CNT
-    2 2 1 4.852682 1.821242 9.111212 # CA CNT
+    1 1 5.162323 0.464617 8.843235 # CA CNT
+    2 1 4.852682 1.821242 9.111212 # CA CNT
     (...)
 
 .. container:: justify
@@ -741,10 +744,10 @@ Adapt the topology file
 .. code-block:: lammps
 
     (...)
-    697 697 1 4.669892 -2.248901 45.824036 # CA CNT
-    698 698 1 5.099893 -0.925494 46.092010 # CA CNT
-    699 699 1 5.162323 -0.464617 47.431896 # CA CNT
-    700 700 1 5.099893 0.925494 47.699871 # CA CNT
+    697 1 4.669892 -2.248901 45.824036 # CA CNT
+    698 1 5.099893 -0.925494 46.092010 # CA CNT
+    699 1 5.162323 -0.464617 47.431896 # CA CNT
+    700 1 5.099893 0.925494 47.699871 # CA CNT
 
 .. container:: justify
 

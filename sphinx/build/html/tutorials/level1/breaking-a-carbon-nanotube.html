@@ -766,15 +766,17 @@ and create a new input file in it called <em>input.lammps</em>. Type into input.
 <span class="k">variable </span><span class="nv nv-Identifier">T</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">300</span>
 
 <span class="k">units</span><span class="w"> </span><span class="n">metal</span>
-<span class="k">atom_style</span><span class="w"> </span><span class="n">molecular</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">atomic</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">airebo</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>A difference with the previous part
+<p>A first difference with the previous part
 is the unit system, here <em>metal</em> instead of <em>real</em>, a choice
-that is imposed by the AIREBO force field.</p>
+that is imposed by the AIREBO force field. A second difference
+is the use of the <em>atom_style atomic</em> instead of <em>molecular</em>,
+single no explicit bond information is required with AIREBO.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About metal units</p>
@@ -792,7 +794,8 @@ previously generated <em>.data</em> file.</p>
 <div class="justify docutils container">
 <p>Duplicate the previous file <em>cnt_molecular.data</em>, name the copy <em>cnt_atom.data</em>,
 place it within <em>breakable-bonds/</em>. Then, remove all bond, angle, and dihedral
-information from <em>cnt_atom.data</em>, so that it looks like that:</p>
+information from <em>cnt_atom.data</em>. Also remove the second column of the
+<em>Atoms</em> table, so that the cnt_atom.data looks like the following:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">700</span><span class="w"> </span><span class="n">atoms</span>
 <span class="m">1</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
@@ -804,10 +807,10 @@ information from <em>cnt_atom.data</em>, so that it looks like that:</p>
 
 <span class="m">1</span><span class="w"> </span><span class="m">12.010700</span><span class="w"> </span><span class="c"># CA</span>
 
-<span class="n">Atoms</span><span class="w"> </span><span class="c"># molecular</span>
+<span class="n">Atoms</span><span class="w"> </span><span class="c"># atomic</span>
 
-<span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.162323</span><span class="w"> </span><span class="m">0.464617</span><span class="w"> </span><span class="m">8.843235</span><span class="w"> </span><span class="c"># CA CNT</span>
-<span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4.852682</span><span class="w"> </span><span class="m">1.821242</span><span class="w"> </span><span class="m">9.111212</span><span class="w"> </span><span class="c"># CA CNT</span>
+<span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.162323</span><span class="w"> </span><span class="m">0.464617</span><span class="w"> </span><span class="m">8.843235</span><span class="w"> </span><span class="c"># CA CNT</span>
+<span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4.852682</span><span class="w"> </span><span class="m">1.821242</span><span class="w"> </span><span class="m">9.111212</span><span class="w"> </span><span class="c"># CA CNT</span>
 <span class="nv">(...)</span>
 </pre></div>
 </div>
@@ -817,10 +820,10 @@ information from <em>cnt_atom.data</em>, so that it looks like that:</p>
 and <em>Impropers</em> tables. The last lines of the file should look like that:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
-<span class="m">697</span><span class="w"> </span><span class="m">697</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4.669892</span><span class="w"> </span><span class="o">-</span><span class="m">2.248901</span><span class="w"> </span><span class="m">45.824036</span><span class="w"> </span><span class="c"># CA CNT</span>
-<span class="m">698</span><span class="w"> </span><span class="m">698</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.099893</span><span class="w"> </span><span class="o">-</span><span class="m">0.925494</span><span class="w"> </span><span class="m">46.092010</span><span class="w"> </span><span class="c"># CA CNT</span>
-<span class="m">699</span><span class="w"> </span><span class="m">699</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.162323</span><span class="w"> </span><span class="o">-</span><span class="m">0.464617</span><span class="w"> </span><span class="m">47.431896</span><span class="w"> </span><span class="c"># CA CNT</span>
-<span class="m">700</span><span class="w"> </span><span class="m">700</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.099893</span><span class="w"> </span><span class="m">0.925494</span><span class="w"> </span><span class="m">47.699871</span><span class="w"> </span><span class="c"># CA CNT</span>
+<span class="m">697</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4.669892</span><span class="w"> </span><span class="o">-</span><span class="m">2.248901</span><span class="w"> </span><span class="m">45.824036</span><span class="w"> </span><span class="c"># CA CNT</span>
+<span class="m">698</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.099893</span><span class="w"> </span><span class="o">-</span><span class="m">0.925494</span><span class="w"> </span><span class="m">46.092010</span><span class="w"> </span><span class="c"># CA CNT</span>
+<span class="m">699</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.162323</span><span class="w"> </span><span class="o">-</span><span class="m">0.464617</span><span class="w"> </span><span class="m">47.431896</span><span class="w"> </span><span class="c"># CA CNT</span>
+<span class="m">700</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.099893</span><span class="w"> </span><span class="m">0.925494</span><span class="w"> </span><span class="m">47.699871</span><span class="w"> </span><span class="c"># CA CNT</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
