@@ -296,23 +296,28 @@ Energy minimization
 
 ..  container:: justify
 
-    Now that the system is fully defined, let us just fill the two last remaining sections:
+    Now that the system is fully defined, let us fill the two last remaining sections:
 
 ..  code-block:: lammps
     :caption: *to be copied in input1.lammps*
 
     # 4) Visualization
     thermo 10
+    thermo_style custom step temp pe ke etotal press
 
     # 5) Run
     minimize 1.0e-4 1.0e-6 1000 10000
 
 ..  container:: justify
 
-    The thermo command asks LAMMPS to print
+    The *thermo* command asks LAMMPS to print
     thermodynamic information (e.g. temperature, energy) in the
-    terminal every 10 steps. The second line asks LAMMPS to
-    perform an energy minimization of the system.
+    terminal every given number of steps, here 10 steps. 
+    The *thermo_style custom* requires LAMMPS to print 
+    the system temperature (*temp*), potential energy (*pe*),
+    kinetic energy (*ke*), total energy (*etotal*),
+    and pressure (*press*). Finally, the *minimize* line
+    asks LAMMPS to perform an energy minimization of the system.
 
 .. admonition:: About energy minimization
     :class: info
@@ -320,7 +325,7 @@ Energy minimization
     An energy minimization procedure consists in adjusting
     the coordinates of the atoms that are too close from one another until one of the stopping
     criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
-    Here there are four stopping criteria:
+    Here, there are four stopping criteria:
 
     - The change in energy between two iterations is less than 1.0e-4,
     - The maximum force between two atoms in the system is lower than 1.0e-6,
@@ -329,21 +334,22 @@ Energy minimization
 
 ..  container:: justify
 
-    Now running the simulation, we can see how the thermodynamics
+    Now running the simulation, we can see how the thermodynamic
     variables evolve with time:
 
 ..  code-block:: bw
 
-    Step Temp         E_pair  E_mol       TotEng         Press
-    0       0       78840982      0     78840982       7884122 
-    10      0      169.90532      0    169.90532     17.187291 
-    20      0    -0.22335386      0  -0.22335386 -0.0034892297 
-    30      0    -0.31178296      0  -0.31178296 -0.0027290466 
-    40      0    -0.38135002      0  -0.38135002 -0.0016419218 
-    50      0    -0.42686621      0  -0.42686621 -0.0015219081 
-    60      0    -0.46153953      0  -0.46153953 -0.0010659992 
-    70      0    -0.48581568      0  -0.48581568 -0.0014849169 
-    80      0    -0.51799572      0  -0.51799572 -0.0012995545 
+   Step  Temp  PotEng         KinEng    TotEng         Press     
+   0     0     78840982       0         78840982       7884122      
+   10    0     169.90532      0         169.90532      17.187291    
+   20    0    -0.22335386     0        -0.22335386    -0.0034892297 
+   30    0    -0.31178296     0        -0.31178296    -0.0027290466 
+   40    0    -0.38135002     0        -0.38135002    -0.0016419218 
+   50    0    -0.42686621     0        -0.42686621    -0.0015219081 
+   60    0    -0.46153953     0        -0.46153953    -0.0010659992 
+   70    0    -0.48581568     0        -0.48581568    -0.0014849169 
+   80    0    -0.51799572     0        -0.51799572    -0.0012995545 
+   (...)
 
 ..  container:: justify
 
@@ -386,12 +392,12 @@ Molecular dynamics
     The Newtonian equations are solved every timestep to predict the
     evolution of the positions and velocities of atoms and molecules over time. 
     
-    At every timestep, the following operations usually occur when 
+    At every step, the following operations usually occur when 
     performing a MD simulation:
 
-    - the forces between the atoms are calculated from the parameters (here the :math:`\epsilon` and :math:`\sigma` values) and potentials (here Lennard-Jones),
+    - the forces between the atoms are calculated from the potential, here Lennard-Jones with given parameters :math:`\epsilon` and :math:`\sigma`,
     - the acceleration of each atom is evaluated from the Newtonian equation,
-    - the velocity and position of each atom are updated according to the acceleration, typically using the Verlet algorithm, or similar.
+    - the velocity and position of each atom are updated according to the calculated acceleration, typically using the Verlet algorithm, or similar.
 
 ..  container:: justify
 
@@ -402,15 +408,10 @@ Molecular dynamics
     lines:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input1.lammps*
 
     # PART B - MOLECULAR DYNAMICS
     # 4) Visualization
-    thermo 1000
-    variable kinetic_energy equal ke
-    variable potential_energy equal pe
-    variable pressure equal press
-    fix myat1 all ave/time 10 1 10 v_kinetic_energy v_potential_energy file energy.dat
+    thermo 100
 
     # 5) Run
     fix mynve all nve
@@ -422,94 +423,46 @@ Molecular dynamics
 
     Since LAMMPS reads the input from top to
     bottom, these lines will be executed after the energy
-    minimization. There is no need to (re-)initialize the system
-    (part 1), (re-)define it (part 2), or (re-)specify the settings
-    (part 3). The *thermo* command is called a second time within the 
-    same input, so the previously entered value of *10* will be replaced
-    by the value of *1000* as soon as the second run starts.
+    minimization. There is no need to re-initialize the system
+    re-define it, or re-specify the settings. The *thermo* command
+    is called a second time within the same input, so the previously
+    entered value of *10* will be replaced by the value of *100*
+    as soon as the second run starts.
 
 ..  container:: justify
 
-    Three variables have been defined in order
-    to print the kinetic energy and the potential energy 
-    of the system in the file named *energy.dat*. Then,
-    in the run section, the fix *nve* is used to update the
+    In the run section, the fix *nve* is used to update the
     positions and the velocities of the atoms in the group
     *all* (this is the most important command here). The second
     fix applies a Langevin thermostat to the atoms of group
     *all*, with a desired temperature of 1 and a damping
     parameter of 0.1. The number *1530917* is a seed, you can
-    change it to perform statistically independent simulations
-    with the same system. Finally we choose the timestep
-    and we ask LAMMPS to run for 10000 steps. After running
-    the simulation, you should see the following information in
-    the terminal:
+    change it to perform statistically independent simulations.
+    Finally we choose the timestep and we ask LAMMPS to
+    run for 10000 steps. After running the simulation, you
+    should see the following information in the terminal:
 
 ..  code-block:: bw
 
-    Step         Temp       E_pair    E_mol       TotEng        Press
-     388            0  -0.95476642        0  -0.95476642 -0.000304834
-    1000    0.9880227  -0.31773089        0    1.1633769  0.021818374 
-    2000    1.0434396  -0.26534383        0    1.2988374   0.02287591 
-    3000   0.97269039  -0.23946371        0      1.21866  0.022394592 
-    4000    1.0192798  -0.23174747        0    1.2962167  0.024978385 
-    5000    1.0319547  -0.23284134        0    1.3141233  0.024342347 
-    6000   0.98137972  -0.22477315        0    1.2463764  0.022074749 
-    7000    1.0144842  -0.23803792        0    1.2827372  0.023846178 
-    8000    1.0102062  -0.23305477        0    1.2813075     0.023146 
-    9000    1.0236358  -0.22539436        0    1.3090996  0.024357378 
-   10000   0.98915906  -0.22159572        0    1.2612155   0.02397044 
-   10388   0.99354192  -0.22377029        0    1.2656111  0.022751609 
+   Step   Temp          PotEng         KinEng       TotEng        Press     
+   388    0             -0.95476642    0           -0.95476642   -0.000304834
+   400    0.68476875    -0.90831467    1.0265112    0.11819648    0.023794293  
+   500    0.97168188    -0.56803405    1.4566119    0.88857783    0.02383215   
+   600    1.0364167     -0.44295618    1.5536534    1.1106972     0.027985679  
+   700    1.010934      -0.39601767    1.5154533    1.1194356     0.023064983  
+   800    0.98641731    -0.37866057    1.4787012    1.1000406     0.023131153  
+   900    1.0074571     -0.34951264    1.5102412    1.1607285     0.023520785 
+   (...)
 
 ..  container:: justify
 
     The second column shows that the temperature
     starts from 0, but rapidly reaches the
     expected value near :math:`T=1`, as requested. 
-    Note that  In the terminal, you may also see
-
-..  code-block:: bw
-
-    Total (number) of neighbors = 8560
-    Ave neighs/atom = 5.35
-    Neighbor list builds = 999
-    Dangerous builds = 998
-    Total wall time: 0:00:02
 
 ..  container:: justify
 
-    Note: If you see *Dangerous builds = 0*, as could be
-    the case with some LAMMPS versions, you can ignore
-    the next part.
-
-    During the simulation, they have been 998 dangerous builds.
-    This is an indication that something is wrong: some atoms
-    have moved more than expected in between two calculations of
-    the neighbor lists. Let us add the following command in the
-    *Simulation settings* section:
-
-..  code-block:: lammps
-    :caption: *to be copied in input1.lammps*
-
-    neigh_modify every 1 delay 5 check yes
-
-..  container:: justify
-
-    With this command, LAMMPS will rebuild the neighbor lists
-    more often. Re-run the simulation, and you should see a more
-    positive outcome with 0 dangerous build:
-
-..  code-block:: bw
-
-    Total (number) of neighbors = 2024
-    Ave neighs/atom = 1.2650000
-    Neighbor list builds = 1253
-    Dangerous builds = 0
-    Total wall time: 0:00:02
-
-..  container:: justify
-
-    From what has been printed in the energy.dat file, let us
+    From what has been printed in the log.file file, let us
     plot the potential energy and the pressure of
     the system over time:
 
@@ -521,8 +474,14 @@ Molecular dynamics
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-dark
 
-    Both quantities rapidly evolve at the beginning of the simulation, before reaching
-    an equilibrium value.
+..  container:: figurelegend
+
+    **Figure:** a) The potential energy, :math:`p_\text{e}`, rapidly decrease during energy minimization (orange).
+    Then, after the molecular dynamics start, :math:`p_\text{e}` increases until it reaches a 
+    plateau value of about -0.25 (blue). 
+    b) The kinetic energy, :math:`k_\text{e}`, is equal to zero during energy minimization,
+    then increases during molecular dynamics until it reaches a plateau value of about 1.5.
+
 
 .. admonition:: On the necessity of plotting data efficiently
     :class: info
@@ -563,7 +522,7 @@ Trajectory visualisation
 
 ..  code-block:: lammps
 
-    dump mydmp all atom 1000 dump.lammpstrj
+    dump mydmp all atom 100 dump.lammpstrj
 
 ..  container:: justify
 

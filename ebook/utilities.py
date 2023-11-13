@@ -25,7 +25,6 @@ def count_line(line):
             empty_start = False
     return space_number
 
-
 def replace_special_character(line, to_replace, replace_with):
     if to_replace in line:
         sentence = line.split(to_replace)
