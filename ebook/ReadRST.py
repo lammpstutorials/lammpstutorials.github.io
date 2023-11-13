@@ -144,8 +144,8 @@ class ReadRST:
                             type = 'math'
                         elif ('figure:: ' in line):
                             type = 'figure'
-                        elif ('figurelegend' in line):
-                            type = 'figurelegend'
+                        #elif ('figurelegend' in line):
+                        #    type = 'figurelegend'
                         else:
                             type = 'unknown'
                             # print("unknown type", line)

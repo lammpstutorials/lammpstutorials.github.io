@@ -1,4 +1,6 @@
 from utilities import is_in_verbatim, read_label, read_link
+import numpy as np
+
 
 class FixDocument:
     """Fix Tex file."""
@@ -17,6 +19,9 @@ class FixDocument:
         self.convert_itemize()
         self.fix_label()
         self.fix_external_link()
+        self.detect_legend()
+        self.write_legend()
+        self.remove_space()
 
     def add_non_indent(self, keywords):
         """Add nonindent command where appropriate"""
@@ -143,3 +148,58 @@ class FixDocument:
             else:
                 new_tex_file_name.append(line)
         self.write_file(new_tex_file_name)      
+
+    def detect_legend(self):
+        """detect legend"""
+        initial_tex_file = self.import_tex_file()
+        legend_positions = []
+        figure_positions = []
+        # remove extra space
+        for n, line in enumerate(initial_tex_file):
+            if 'includegraphics' in line:
+                end_figure_position = None
+                m = n
+                while (m < len(initial_tex_file)) & (end_figure_position is None):
+                    line_bis = initial_tex_file[m]
+                    if ("end{wrapfigure}" in line_bis) | ("end{figure}" in line_bis):
+                        end_figure_position = m
+                    m += 1
+                if end_figure_position is not None:
+                    legend = False
+                    stop_recording = False
+                    legend_position = []
+                    for l in range(end_figure_position, len(initial_tex_file)):
+                        line_bis = initial_tex_file[l]
+                        if ("[legend-to-add]" in line_bis) & (stop_recording is False):
+                            legend_position.append(l)
+                            legend = True
+                        elif ("[legend-to-add]" not in line_bis) & (legend):
+                            stop_recording = True
+                    if legend:
+                        if (legend_position[0]-2 == end_figure_position):
+                            legend_positions.append(legend_position)
+                            figure_positions.append(n)
+        self.legend_positions = legend_positions
+        self.figure_positions = figure_positions
+              
+    def write_legend(self):
+        """Rewrite legend"""
+        initial_tex_file = self.import_tex_file()
+        if len(self.figure_positions) > 0:
+            new_tex_file_name = []
+            for n, line in enumerate(initial_tex_file):
+                if n in self.figure_positions:
+                    new_tex_file_name.append(line)
+                    legend_lines = self.legend_positions[np.where(np.array(self.figure_positions) == n)[0][0]]
+                    for m in legend_lines:
+                        new_line = initial_tex_file[m].split("[legend-to-add]")[1]
+                        if m == legend_lines[0]:
+                            new_tex_file_name.append("\caption{" + new_line[8:])
+                        elif m == legend_lines[-1]:
+                            new_tex_file_name.append(new_line[:-1] + "} \n")
+                        else:
+                            new_tex_file_name.append(new_line)
+                else:
+                    if "[legend-to-add]" not in line:
+                        new_tex_file_name.append(line)
+            self.write_file(new_tex_file_name)     

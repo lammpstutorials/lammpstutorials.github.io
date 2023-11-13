@@ -90,7 +90,7 @@ class WriteTex:
                 '}}'
                 + r'\vspace{0.5cm} }')
                 self.f.write('\n')
-        elif "figure" in block_type:
+        elif "figure::" in block_type:
             if "dark" in block_type:
                 pass
             else:
@@ -129,6 +129,15 @@ class WriteTex:
                     self.f.write(r'\begin{wrapfigure}{r}{4cm}'+'\n')
                     self.f.write(r'\includegraphics[width=4cm]{tutorials/'+level+'/'+tutorial+'/'+name+'.png}'+'\n')
                     self.f.write(r'\end{wrapfigure}'+'\n')
+        elif "figurelegend" in block_type:
+            for line in filtered_block:
+                line = replace_special_character(line, '#', r'$\#$')
+                line = replace_special_character(line, '*->*', r'$\rightarrow$')
+                line = fix_link(self.RST, line)
+                line = fix_math(line)
+                line = fix_italic(line, replace_underscore=True)
+                self.f.write('[legend-to-add]' + line)
+                self.f.write('\n')
         self.f.write('\n')
 
     def write_title(self, filtered_block, block_type):

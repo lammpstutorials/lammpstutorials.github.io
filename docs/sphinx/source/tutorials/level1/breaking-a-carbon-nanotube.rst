@@ -715,7 +715,7 @@ Adapt the topology file
     Duplicate the previous file *cnt_molecular.data*, name the copy *cnt_atom.data*,
     place it within *breakable-bonds/*. Then, remove all bond, angle, and dihedral 
     information from *cnt_atom.data*. Also remove the second column of the 
-    *Atoms* table, so that the cnt_atom.data looks like the following: 
+    *Atoms* table, so that the *cnt_atom.data* looks like the following: 
 
 .. code-block:: lammps
 
