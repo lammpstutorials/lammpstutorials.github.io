@@ -863,15 +863,8 @@ Restarting from a saved configuration
 
 .. include:: ../../contact/accessfile.rst
 
-What now?
-=========
-
-..  container:: justify
-
-    Now that you have completed this simple molecular dynamics tutorials, what can you do?
-
 Play around
------------
+===========
 
 ..  container:: justify
 
@@ -879,23 +872,9 @@ Play around
     simulations is to play around with a script that is already
     working and observe the differences and/or errors occurring:
     Try adding new commands (you can choose from the documentation),
-    try removing some of the commands, try changing the parameter values
-    (see also the first exercise below).
-
-    The more you trigger warnings, the easier it will be for you to solve your
-    own simulation.
-
-Try another tutorial
---------------------
-
-..  container:: justify
-
-    There are many common aspects of molecular simulations that were not dealt with in this
-    tutorial:
-
-    - dealing with charged atoms and bounded molecules, as is necessary to model most existing molecules, solids, or structures, see for instance :ref:`all-atoms-label` and :ref:`sheared-confined-label`,
-    - dealing with non-constant volume,
-    - dealing with reactivity and bond formation/breaking, see :ref:`reactive-silicon-dioxide-label`.
+    try removing some of the commands, try changing the parameter values.
+    The more *WARNINGS* you trigger, the easier it will be for you
+    to adress issues later down the road.
 
 Exercises
 =========

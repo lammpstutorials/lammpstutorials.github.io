@@ -93,27 +93,32 @@ System generation
 
 ..  container:: justify
 
-    - The *lattice* command defines the unit
-      cell. Here, the face-centered cubic (fcc) lattice with a scale factor of
-      4.04 has been chosen for the future positioning of the atoms
-      of the walls.
-    
-    - The *region* command defines a geometric
-      region of space. By choosing *xlo=-4* and *xhi=4*, and
-      because we have previously chosen a lattice with scale
-      factor of 4.04, the region box extends from -16.16 Å to 16.16 Å.
-    
-    - The *create_box* command creates a simulation box with 5 types of atoms in
-      the simulation. This command extends over 6 lines thanks to the
-      *&* character. The second and third lines are used to
-      specify that the simulation contains 1 type of bond and 1
-      type of angle (both required by the water molecule). The parameters of
-      these bond and angle constraints will be given later. The
-      three last lines are for memory allocation.
-      
-      Note that 5 atom types are needed for respectively the oxygen and hydrogen
-      of the water molecules, the two types of ions (:math:`\text{Na}^+`, :math:`\text{Cl}^-`), and the
-      single atom type of the walls.
+    The *lattice* command defines the unit
+    cell. Here, the face-centered cubic (fcc) lattice with a scale factor of
+    4.04 has been chosen for the future positioning of the atoms
+    of the walls.
+
+..  container:: justify
+
+    The *region* command defines a geometric
+    region of space. By choosing *xlo=-4* and *xhi=4*, and
+    because we have previously chosen a lattice with scale
+    factor of 4.04, the region box extends from -16.16 Å to 16.16 Å.
+
+..  container:: justify
+
+    The *create_box* command creates a simulation box with 5 types of atoms in
+    the simulation. This command extends over 6 lines thanks to the
+    :math:`\&` character. The second and third lines are used to
+    specify that the simulation contains 1 type of bond and 1
+    type of angle (both required by the water molecule). The parameters of
+    these bond and angle constraints will be given later. The
+    three last lines are for memory allocation.
+    Note that 5 atom types are needed for respectively the oxygen and hydrogen
+    of the water molecules, the two types of ions (:math:`\text{Na}^+`, :math:`\text{Cl}^-`), and the
+    single atom type of the walls.
+
+..  container:: justify
 
     Now, we can add atoms to the system. First, let us create two
     sub-regions corresponding respectively to the two solid
@@ -159,27 +164,25 @@ System generation
 
 ..  container:: justify
 
-    Withing the last four lines:
-    
-    - A *region* named *rliquid* for depositing the water molecules is created based
-      on the last defined lattice, which is *fcc 4.04*. 
-    
-    - The 'molecule' command opens up the *TIP4P2005.txt* file, and names
-      the associated molecule *h2omol*.
+    Withing the last four lines, a *region* named *rliquid* for depositing the water molecules is created based
+    on the last defined lattice, which is *fcc 4.04*. 
 
-    - A new simple cubic lattice is defined in order to place the water
-      molecules on it, with a distance of 4.04 Ångstroms between
-      each water molecule. Note that the new lattice replaces the
-      previous one, as LAMMPS reads a script from top to bottom.
-    
-      Note that the distance of 4.04 Ångstroms is larger than the typical
-      equilibrium distance between water molecules in a liquid,
-      but this will allow us to insert ions more safely (see below). 
-      
-    - Finally, molecules are created on the sc lattice by the *create_atoms* command. The
-      first parameter is '0' because we use the atom id from the
-      *TIP4P2005.txt* file. The number *482793* is a seed that is
-      required by LAMMPS, it can be any positive integer.
+    The *molecule* command opens up the *TIP4P2005.txt* file, and names
+    the associated molecule *h2omol*.
+
+    A new simple cubic lattice is defined in order to place the water
+    molecules on it, with a distance of 4.04 Ångstroms between
+    each water molecule. Note that the new lattice replaces the
+    previous one, as LAMMPS reads a script from top to bottom.
+
+    Note that the distance of 4.04 Ångstroms is larger than the typical
+    equilibrium distance between water molecules in a liquid,
+    but this will allow us to insert ions more safely (see below). 
+
+    Finally, molecules are created on the sc lattice by the *create_atoms* command. The
+    first parameter is '0' because we use the atom id from the
+    *TIP4P2005.txt* file. The number *482793* is a seed that is
+    required by LAMMPS, it can be any positive integer.
 
     Let us create 20 ions (10 :math:`\text{Na}^+` and 10 :math:`\text{Cl}^-`)
     in between the water molecules:
@@ -195,11 +198,11 @@ System generation
 
 ..  container:: justify
 
-    - Each *create_atoms* command will add 10 ions at random positions
-      within the 'rliquid' region. Feel free to increase or decrease the salt
-      concentration by changing the number of desired ions.
+    Each *create_atoms* command will add 10 ions at random positions
+    within the 'rliquid' region. Feel free to increase or decrease the salt
+    concentration by changing the number of desired ions.
 
-    - The charges of the newly added ions are specified by the two *set* commands.
+    The charges of the newly added ions are specified by the two *set* commands.
 
     To keep the system charge neutral, always insert the same number of 
     :math:`\text{Na}^+` and :math:`\text{Cl}^-` (unless of course there are other charges in the system).
@@ -252,11 +255,10 @@ System generation
 .. admonition:: About the parameters
     :class: dropdown
 
-    - The parameters for water
-      correspond to the TIP4P/2005 water model.
-    
-    - The parameters for :math:`\text{Na}^+` and :math:`\text{Cl}^-`  are
-      taken from the CHARMM-27 force field.
+    The parameters for water
+    correspond to the TIP4P/2005 water model, and the parameters
+    for :math:`\text{Na}^+` and :math:`\text{Cl}^-`  are
+    taken from the CHARMM-27 force field.
 
 ..  container:: justify
 
@@ -267,7 +269,7 @@ System generation
     average: :math:`\epsilon_{ij} = \epsilon_i + \epsilon_j)/2`, 
     :math:`\sigma_{ij} = (\sigma_i + \sigma_j)/2.`
     Other rules for cross coefficients can be set with the
-    'pair_modify' command, but for the sake of simplicity,
+    *pair_modify* command, but for the sake of simplicity,
     let us keep the default option here.
 
     The bond coefficient (here for the O-H bond of the water
@@ -293,17 +295,17 @@ System generation
 
 ..  container:: justify
 
-    - With *run 0*, the simulation will run for 0 step,
-      enough for creating the system and saving the final state.
+    With *run 0*, the simulation will run for 0 step,
+    enough for creating the system and saving the final state.
 
-    - The *write_data* finally creates a file named *system.data*
-      containing all the information required to restart the
-      simulation from the final configuration generated by this
-      input file.
-      
-    - The *write_dump* command print the final
-      positions of the atoms, and can be used with VMD or ovito
-      to visualize the system.
+    The *write_data* finally creates a file named *system.data*
+    containing all the information required to restart the
+    simulation from the final configuration generated by this
+    input file.
+
+    The *write_dump* command print the final
+    positions of the atoms, and can be used with VMD or ovito
+    to visualize the system.
 
     This input script is ready to be ran with LAMMPS. When the
     run is over, open the log file and make sure that atoms have
@@ -418,19 +420,20 @@ Energy minimization
     minimization:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Minimization/input.lammps*
 
     fix mynve all nve/limit 0.1
     fix myber all temp/berendsen 1 1 1
 
 ..  container:: justify
 
-    The fix 'nve/limit' performs constant NVE integration to
+    The fix *nve/limit* performs constant NVE integration to
     update positions and velocities of the atoms at each
     timestep, but limit the maximum motion an atom can do at
     every timestep. The temp/berendsen fix rescales the
     velocities of the atoms every timestep in order to reset the
     temperature.
+
+..  container:: justify
 
     Since we want to perform a minimization step, both initial
     and final temperatures have been chosen equal to 1K. The
@@ -439,18 +442,19 @@ Energy minimization
     damping factor of 1 fs would be too small for a regular
     molecular dynamics simulation, but is acceptable for a
     minimization step during which we just want the atoms to
-    move slightly from their initial positions..
+    move slightly from their initial positions.
+
+..  container:: justify
 
     If we were to run the simulation as it is, it would fail
     because nothing maintains the shape of the water molecules
     (and the bond and angle energies are equal to 0). Let us use
     the shake algorithm in order to maintain the shape of the
-    molecules. In addition, let us add a fix 'recenter' in order
+    molecules. In addition, let us add a fix *recenter* in order
     to maintain the system centered in the middle of the box in
-    the \\(z\\) direction.
+    the *z* direction:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Minimization/input.lammps*
 
     fix myshk gH2O shake 1.0e-4 200 0 b 1 a 1
     fix myrct all recenter NULL NULL INIT
@@ -568,7 +572,7 @@ System equilibration
 ..  container:: justify
 
     Here, several groups have been defined in order to differentiate
-    between solid, liquid (salt+water), Na\\(^+\\), etc. (although
+    between solid, liquid (salt+water), :math:`\text{Na}^+`, etc. (although
     not all of them are used). In addition, groups containing only the
     top wall (gwalltop) and the bottom wall (gwallbot) have been
     created using the intersect keyword: the intersection
@@ -617,12 +621,12 @@ System equilibration
 ..  container:: justify
 
     The main differences with the previous step (minimize) are
+    the timestep of 1 fs instead of 0.5 fs, the thermostat that imposes a temperature of 300 K, for which the
+    fluid is expected to behave as a liquid, and the two thermostats are used instead of one:
+    one for the fluid, one for the solid (the use of *fix_modify* ensures
+    that the right temperature is used by the temp/berenden).
 
-    - the timestep is 1 fs instead of 0.5 fs,
-    - the thermostating imposes a temperature of 300 K, for which the
-      fluid is expected to behave as a liquid,
-    - two thermostats are used instead of one: one for the fluid, one for the solid (the use of *fix_modify* ensures
-      that the right temperature is used by the temp/berenden).
+..  container:: justify
 
     Run the input script. Note, I am running on 4 CPU cores using:
 
@@ -636,8 +640,8 @@ System equilibration
     may differ on your computer.
 
     The distance between the two walls
-    reduces until it reaches an equilibrium value, see the evolution
-    of the distance between the walls (printed in a data file by fix myat1):
+    reduces until it reaches an equilibrium value (see the data
+    printed by *fix myat1*):
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/equilibration-light.png
     :alt: Plot showing the distance between the walls as a function of time.
@@ -648,7 +652,7 @@ System equilibration
     :class: only-dark
 
     Distance between the walls as a function of time. After 10 ps, the 
-    distance between the wall is very close to its equilibrium distance. 
+    distance between the walls is very close to its final equilibrium value. 
     
 ..  container:: justify
 

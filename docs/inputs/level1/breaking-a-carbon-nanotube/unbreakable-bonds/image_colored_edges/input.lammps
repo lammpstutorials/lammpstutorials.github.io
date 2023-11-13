@@ -44,11 +44,34 @@ compute Tmid carbon_mid temp
 fix myber carbon_mid temp/berendsen ${T} ${T} 100
 fix_modify myber temp Tmid
 
-write_dump all atom dump.lammpstrj
+fix mysf1 carbon_top setforce 0 NULL 0
+fix mysf2 carbon_bot setforce 0 NULL 0
+velocity carbon_top set 0 NULL 0
+velocity carbon_bot set 0 NULL 0
 
-thermo 1
+variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
+fix at1 all ave/time 10 100 1000 v_L file cnt_length.dat
+fix at2 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file edge_force.dat
+dump mydmp all atom 1000 dump.lammpstrj
+
+fix at3 all ave/time 10 100 1000 c_Tmid file temperature_middle_group.dat
+
+thermo 100
 thermo_modify temp Tmid
 
 timestep 1.0
-run 1
+run 5000
 
+# uncomment for option A
+#variable var loop 10
+#	label loop
+#	displace_atoms carbon_top move 0 0 0.1
+#	displace_atoms carbon_bot move 0 0 -0.1
+#	run 5000
+#	next var
+#	jump input.lammps loop
+	
+# uncomment for option B
+velocity carbon_top set NULL NULL 0.0005
+velocity carbon_bot set NULL NULL -0.0005
+run 10000
