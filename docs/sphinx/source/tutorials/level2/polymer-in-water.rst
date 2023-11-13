@@ -50,8 +50,8 @@ Preparing water and PEG separately
 ..  container:: justify
 
     As for most simulations, several possible routes can be used
-    to create the system. Here, the water is being prepared separately
-    from the PEG molecule. Both PEG and water are later merged together.
+    to create the system. In this tutorial, the water is being prepared separately
+    from the PEG molecule. Then, PEG and water are merged.
 
 The water
 ---------
@@ -59,10 +59,9 @@ The water
 ..  container:: justify
 
    As a first step, a rectangular box of water is created and
-   equilibrated at ambient temperature and ambient pressure (the PEG molecule will be added in the next sections).
-
-   Create a folder named pureH2O/. Inside this folder, create
-   an empty text file named input.lammps. Copy the following
+   equilibrated at ambient temperature and ambient pressure.
+   Create a folder named *pureH2O/*. Inside this folder, create
+   an empty text file named *input.lammps*. Copy the following
    lines in it:
 
 .. 
