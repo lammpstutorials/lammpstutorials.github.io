@@ -482,28 +482,7 @@ Molecular dynamics
     b) The kinetic energy (:math:`k_\text{e}`) is equal to zero during energy minimization,
     then increases during molecular dynamics until it reaches a plateau value of about 1.5.
 
-.. admonition:: On the necessity of plotting data efficiently
-    :class: info
-
-    When testing/debugging a molecular simulation, it is crucial to be able to control 
-    on-the-fly the outputs such as the energy to make sure the
-    system is behaving as expected. If you don't already have 
-    a favorite plotting tool, you can use xmgrace and simply type from the terminal:
-
-    .. code-block:: bw
-
-        xmgrace energy.dat
-
-    This command will automatically plot the second column as a function of the first column.
-
-    Here I am using pyplot for esthetic reason. If you want, you can download the Jupyter-notebook
-    from the |Github_repository_input| repository (in the *level0/lennard-jones-fluid/* folder).
-
-.. |Github_repository_input| raw:: html
-
-    <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a>
-
-Trajectory visualisation
+Trajectory visualization
 ========================
 
 .. figure:: ../figures/level0/lennard-jones-fluid/input1.png
