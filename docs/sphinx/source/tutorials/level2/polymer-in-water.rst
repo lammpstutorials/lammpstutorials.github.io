@@ -64,20 +64,17 @@ The water
    an empty text file named *input.lammps*. Copy the following
    lines in it:
 
-.. 
-    For progressive learning, it would be better to use SPCE here.
-
 ..  code-block:: lammps
-   :caption: *to be copied in pureH2O/input.lammps*
 
-   # LAMMPS input script
-   units real
-   atom_style full
-   bond_style harmonic
-   angle_style charmm
-   dihedral_style charmm
-   pair_style lj/cut/tip4p/long 1 2 1 1 0.105 12.0
-   kspace_style pppm/tip4p 1.0e-4
+    # LAMMPS input script
+    units real
+    atom_style full
+    bond_style harmonic
+    angle_style harmonic
+    dihedral_style harmonic
+    pair_style lj/cut/coul/long 12
+    kspace_style pppm 1e-5
+    special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes
 
 ..  container:: justify
 
@@ -87,40 +84,21 @@ The water
    modeled (instead of neutral particles). With the unit style *real*,
    masses are in grams per
    mole, distances in Ångstroms, time in femtoseconds, energies
-   in Kcal/mole. With the atom style *full*, each atom is a dot
-   with a mass and a charge. In addition, each atom can be
+   in Kcal/mole. With the *atom_style full*, each atom is a dot
+   with a mass and a charge that can be
    linked by bonds, angles, dihedrals and impropers potentials
    (for example to form molecules). The *bond_style*,
    *angle_style*, and *dihedral_style* commands define the
    styles of bond angle, and dihedrals used in the simulation,
-   respectively, and the *harmonic* and *charmm* keywords
-   impose the type of potential to use.
-
-.. admonition:: About the use of charmm style
-    :class: info
-
-    The future merging of the water with the PEG
-    has already been anticipated as the *charmm angle_style*
-    and *dihedral_style* are requirements of the PEG's model.
-
-    A rigid water model will be used here, so the bond
-    and angle styles that are chosen have no consequence on the water model, they will
-    only matter to the PEG when it is added.
+   respectively, and the *harmonic* keyword
+   imposes the form of the potentials.
 
 ..  container:: justify
 
-    With the *pair_style* named *lj/cut/tip4p/long*, atoms
+    With the *pair_style* named *lj/cut/coul/long*, atoms
     interact through both a Lennard-Jones (LJ) potential and
-    through Coulombic interactions. This pair style is specific to
-    four points water models, and automatically accounts for the
-    additional massless site. The six numbers are, respectively,
-
-    -  **1 -** the atom type for the oxygen O of the tip4p water,
-    -  **2 -** the atom type for the hydrogen H of the tip4p water,
-    -  **3 -** the OH bond type,
-    -  **4 -** the HOH angle type,
-    -  **5 -** the distance from O atom to the massless charge (here 0.105 Ångstroms is set by the TIP4P/epsilon water model),
-    -  **6 -** the cutoff (here of 12 Ångstroms).
+    through Coulombic interactions. The value of *12* is 
+    the cut off for the short range interactions.
 
 .. admonition:: About cutoff in molecular dynamics
     :class: info
@@ -136,9 +114,9 @@ The water
 
 ..  container:: justify
 
-   Finally the kspace command defines the long-range solver for the (long)
-   Coulombic interactions. The pppm style refers to
-   particle-particle particle-mesh.
+    Finally the kspace command defines the long-range solver for the (long)
+    Coulombic interactions. The *pppm* style refers to
+    particle-particle particle-mesh.
 
 .. admonition:: Background Information (optional) -- About PPPM
     :class: dropdown
@@ -158,36 +136,32 @@ The water
 
 ..  container:: justify
 
-   Then, let us create a 3D simulation box of dimensions :math:`8 x 3 x 3 \text{nm}^3`,
-   and make space for 7 atom types (1 and 2 for
-   the water oxygen and hydrogen, respectively, and 3, 4, 5, 6
-   and 7 for the PEG molecule (see below)), 6 bond types, 9
-   angle types, and 14 dihedrals types.
+    Then, let us create a 3D simulation box of dimensions :math:`3 \times 3 \times 3 \text{nm}^3`,
+    and make space for 7 atom types (1 and 2 for
+    the water oxygen and hydrogen, respectively, and 3, 4, 5, 6
+    and 7 for the PEG molecule (see below)), 6 bond types, 9
+    angle types, and 14 dihedrals types.
+    Copy the following lines into *input.lammps*:
 
 ..  code-block:: lammps
-   :caption: *to be copied in pureH2O/input.lammps*
 
-   region box block -40 40 -15 15 -15 15
-   create_box 7 box &
-   bond/types 6 &
-   angle/types 9 &
-   dihedral/types 14 &
-   extra/bond/per/atom 2 &
-   extra/angle/per/atom 1 &
-   extra/special/per/atom 2
+    region box block -15 15 -15 15 -15 15
+    create_box 7 box &
+    bond/types 6 &
+    angle/types 9 &
+    dihedral/types 3 &
+    extra/bond/per/atom 2 &
+    extra/angle/per/atom 1 &
+    extra/special/per/atom 2
 
 .. admonition:: About extra per atom commands
     :class: info
 
     The *extra/something/per/atom* commands are here for
-    memory allocation, they ensure that enough space is left for a
+    memory allocation. These commands ensure that enough memory space is left for a
     certain number of attribute for each atom. We wont worry
     about those commands in this tutorial, just keep that in mind if one day you see the following
-    error message:
-
-    ..  code-block:: bw
-
-        ERROR: Molecule topology/atom exceeds system topology/atom (src/molecule.cpp:1767)
+    error message *ERROR: Molecule topology/atom exceeds system topology/atom*:
 
 ..  container:: justify
 
@@ -206,151 +180,117 @@ The water
 
 ..  code-block:: lammps
 
-   # Mass
-   mass 1 15.9994 # H2O O
-   mass 2 1.008 # H2O H
-   mass 3 12.011 # CC32A
-   mass 4 15.9994 # OC30A
-   mass 5 1.008 # HCA2
-   mass 6 15.9994 # OC311
-   mass 7 1.008 # HCP1
+    # Mass
 
-   # Pair Coeff
-   pair_coeff 1 1 0.18479 3.165 # H2O - TIP4P - epsilon water model
-   pair_coeff 2 2 0.0 0.0 # H2O H
-   pair_coeff 3 3 0.056 3.58141 # CC32A
-   pair_coeff 4 4 0.100 2.93997 # OC30A
-   pair_coeff 5 5 0.035 2.38761 # HCA2
-   pair_coeff 6 6 0.192 3.14487 # OC311
-   pair_coeff 7 7 0.046 0.40001 # HCP1
+    mass 1 15.9994 # H2O O
+    mass 2 1.008 # H2O H
+    mass 3 12.011 # CC32A
+    mass 4 15.9994 # OC30A
+    mass 5 1.008 # HCA2
+    mass 6 15.9994 # OC311
+    mass 7 1.008 # HCP1
 
-   # Bond coeff
-   bond_coeff 1 0 0.9572 # H2O O-H
-   bond_coeff 2 222.35 1.5300
-   bond_coeff 3 308.79 1.1111
-   bond_coeff 4 359.76 1.1415
-   bond_coeff 5 427.715 1.1420
-   bond_coeff 6 544.635 0.9600
+    # Pair Coeff
 
-   # Angle coeff
-   angle_coeff 1 0 104.52 0 0 # H2O H-O-H
-   angle_coeff 2 50.0000 109.0000 0.0000 0.0000
-   angle_coeff 3 26.5000 110.1000 22.5300 2.179   
-   angle_coeff 4 45.0000 111.5000 0.0000 0.0000 
-   angle_coeff 5 13.0258 109.4000 0.0000 0.0000
-   angle_coeff 6 35.5000 109.0000 5.4000 1.802
-   angle_coeff 7 55.0000 108.8900 0.0000 0.0000
-   angle_coeff 8 75.7000 110.1000 0.0000 0.0000
-   angle_coeff 9 95.0000 109.7000 0.0000 0.0000
-         
-   # Dihedral coeff
-   dihedral_coeff 1 0.57 1 0 0
-   dihedral_coeff 2 0.29 2 0 0
-   dihedral_coeff 3 0.43 3 0 0
-   dihedral_coeff 4 0.59 1 180 0
-   dihedral_coeff 5 1.16 2 0 0 
-   dihedral_coeff 6 0.12 1 0 0 
-   dihedral_coeff 7 0.42 2 0 0
-   dihedral_coeff 8 0.29 3 0 0
-   dihedral_coeff 9 2.87 1 180 0
-   dihedral_coeff 10 0.03 2 0 0
-   dihedral_coeff 11 0.23 3 0 0
-   dihedral_coeff 12 1.36 1 180 0
-   dihedral_coeff 13 0.16 2 0 0
-   dihedral_coeff 14 1.01 3 0 0
+    pair_coeff 1 1 0.119431704 3.400251
+    pair_coeff 2 2 0.0 0.0
+    pair_coeff 3 3 0.25265643 2.8491607 
+    pair_coeff 4 4 0.06630155 3.5811794 
+    pair_coeff 5 5 0.028293679 2.373408  
+    pair_coeff 6 6 0.0 0.0 
+    pair_coeff 7 7 0.11949714 3.1000042 
+
+    # Bond coeff
+
+    bond_coeff 1 442.1606 0.972 
+    bond_coeff 2 1109.2926 1.12 
+    bond_coeff 3 399.79163 1.43 
+    bond_coeff 4 400.0343 1.53 
+    bond_coeff 5 179.2543 0.971 
+    bond_coeff 6 155.35373 1.42
+
+    # Angle coeff
+
+    angle_coeff 1 47.555878 103.0 
+    angle_coeff 2 30.173132 109.5 
+    angle_coeff 3 47.69405 109.5 
+    angle_coeff 4 55.113907 111.0 
+    angle_coeff 5 65.47197 111.3 
+    angle_coeff 6 54.993103 110.3 
+    angle_coeff 7 55.0234 111.4 
+    angle_coeff 8 180.46019 109.0 
+    angle_coeff 9 30.173132 110.0 
+
+    # Dihedral coeff
+
+    dihedral_coeff 1 0.30114722 1 3 
+    dihedral_coeff 2 1.414914 1 3 
+    dihedral_coeff 3 0.0 1 1 
 
 ..  container:: justify
 
-   If you want to know which column refers to which
-   parameter, you can refer to the LAMMPS documentation. For
-   this tutorial, we will just trust that these parameters
-   are correct and will lead to physically consistent
-   behavior. Now, let us create water molecules. To do so, let us
-   define a water molecule using a molecule template called
-   *H2OTip4p.txt*, and randomly create 700 of those.
+    Let us create water molecules. To do so, let us
+    define a single water molecule using a molecule *template* called
+    *FlexibleH2O.txt*, and then randomly create 400 molecules.
+    Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
-   :caption: *to be copied in pureH2O/input.lammps*
 
-   molecule h2omol H2OTip4p.txt
-   create_atoms 0 random 700 456415 NULL mol h2omol 454756
+   molecule h2omol FlexibleH2O.txt
+   create_atoms 0 random 400 456415 NULL mol h2omol 454756
 
 ..  container:: justify
 
-   The molecule template named *H2OTip4p.txt*
-   must be |download_H2OTip4p.txt|
+   The molecule template named *FlexibleH2O.txt*
+   must be |download_FlexibleH2O.txt|
    and saved in the same folder (named *pureH2O/*) as the
    input.lammps file. This template contains all the necessary structural
    information of a water molecule, such as the number of atoms, 
    which pair of atoms are connected by bonds, which
    groups of atoms are connected by angles, etc.
 
-   Then, let us group the atoms of the water in a group named
-   H2O, and then delete the overlapping molecules:
+.. |download_FlexibleH2O.txt| raw:: html
 
-.. |download_H20.data| raw:: html
+   <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/FlexibleH2O.txt" target="_blank">downloaded</a>
 
-   <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a>
+..  container:: justify
 
-.. |download_H2OTip4p.txt| raw:: html
-
-   <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/H2OTip4p.txt" target="_blank">downloaded</a>
+    Then, let us group the atoms of the water molecules in a group named
+    *H2O*, and then delete the overlapping molecules:
 
 ..  code-block:: lammps
     :caption: *to be copied in pureH2O/input.lammps*
 
     group H2O type 1 2
-    delete_atoms overlap 2 H2O H2O mol yes
+    delete_atoms overlap 1.6 H2O H2O mol yes
 
 ..  container:: justify
 
     Deleting overlapping molecules is required here
     because the molecules where placed randomly in space by
     the *create_atoms* command, and some of them may be too
-    close from each other, which may force the simulation to
-    crash.
+    close from each other, which may force the simulation to crash.
+    The *mol yes* option of the *delete_atoms* command ensures that
+    entire water molecules are deleted, and not just single atoms.
 
-    The *mol yes* option ensures that entire water molecules are deleted and not just single atoms.
+..  container:: justify
 
-    Let us use the shake algorithm in order to constrain the
-    shape of the water molecules at all time. Let us also use the fix NPT to
-    control both the temperature and the pressure:
+    Let us also use the fix NPT to
+    control both the temperature and the pressure,
+    by adding the following line to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in pureH2O/input.lammps*
 
-    fix myshk H2O shake 1.0e-5 200 0 b 1 a 1 mol h2omol
     fix mynpt all npt temp 300 300 100 iso 1 1 1000
 
 ..  container:: justify
 
-    The parameters of the fix shake specify to
-    which group (H2O) the shake algorithm applied, with what
-    tolerance (1e-5). Still in the shake command, we also supply
-    the molecule template (h2omol) previously defined, and
-    specify to which bond/angle type shake mush apply, i.e. the
-    bond of type 1 and the angle of type 1.
-
     The fix NPT allows us to impose both a temperature of 300 K (with a damping constant of 100 fs),
-    and a pressure of 1 atmosphere (with a damping constant of 1000 fs). With the iso keyword, the
+    and a pressure of 1 atmosphere (with a damping constant of 1000 fs). With the *iso* keyword, the
     three dimensions of the box will be re-scaled simultaneously, until the average pressure in the system 
     corresponds to the desired imposed value of 1 atm.
 
-.. admonition:: About rigid water model
-    :class: info
-
-    With shake, water molecules behave as rigid. If
-    you want to study the vibration of the *O-H* bonds and
-    *H-O-H* angles, you will have to use a flexible water
-    model. If you want to study the hydrogen transfer, you
-    will have to use a reactive force field,
-    as done in :ref:`reactive-silicon-dioxide-label`.
-
 ..  container:: justify
-
-    Here only the water molecules will be rigid, the
-    PEG molecule (which will be added in the next part) will
-    be fully flexible.
 
     Let us print the atom positions in a dump file every 1000
     timesteps (i.e. 1 ps), print the temperature volume, and
@@ -374,58 +314,67 @@ The water
     :class: info
 
     Both :math:`\$ \text{var}` and :math:`v_\text{var}` can be used to call a previously defined variable named *var*. 
-    However,  :math:`\$ \text{var}` returns the initial value of *var*, while :math:`v_\text{var}` returns the instantaneous 
-    value of *var*. 
+    However,  :math:`\$ \text{var}` returns the initial value of *var*,
+    while :math:`v_\text{var}` returns the instantaneous value of *var*. 
 
 ..  container:: justify
 
     In the formula for the density (number of
     molecule divided by volume), the underscore *_* is used to
     call myvol because the volume is expected
-    to evolve in time when using fix NPT, but the dollar sign :math:`\$` is used to call myoxy as the
+    to evolve in time when using fix NPT, but the dollar sign :math:`\$` is used to call *myoxy* as the
     number of molecules is not expected to evolve during the
-    simulation. Note that the number of molecule changes after the
+    simulation. Note that the number of molecules changes after the
     *delete_atoms* command is used, but this is done only before the
     simulation starts.
-    Finally, let us set the timestep to 2.0 fs, and run the simulation for 50 ps:
-
-..  code-block:: lammps
-   :caption: *to be copied in pureH2O/input.lammps*
-
-   timestep 2.0
-   run 25000
-   write_data H2O.data
 
 ..  container:: justify
 
-   Looking at the log file, one can see how many atoms have
-   been deleted (the number will vary depending on the random
-   number you choose).
+    Finally, let us set the timestep to 1.0 fs,
+    and run the simulation for 50 ps by adding the
+    following lines to *input.lammps*:
+
+..  code-block:: lammps
+
+    timestep 2.0
+    run 50000
+
+    replicate 3 1 1
+
+    write_data H2O.data
+
+..  container:: justify
+
+    The *replicate* command replicate the cubic box three times along 
+    the *x* direction, to create a rectangular box of water 
+    right before the final state is written into *H2O.data*.
+
+    Looking at the log file, one can see how many atoms have
+    been deleted (the number will vary depending on the random
+    number you choose).
 
 ..  code-block:: bw
 
-   Deleted 714 atoms, new total = 1386
-   Deleted 476 bonds, new total = 924
-   Deleted 238 angles, new total = 462
+    Deleted 468 atoms, new total = 732
+    Deleted 312 bonds, new total = 488
+    Deleted 156 angles, new total = 244
 
 ..  container:: justify
 
    About 30 % the molecules were deleted due to overlapping,
    together with their respective bonds and angles.
-   At the end of the simulation, the final state is printed
-   in the H2O.data file, which will be used later.
 
 .. admonition:: Running LAMMPS in parallel
     :class: info
 
-    This simulation may be a bit slow to complete on 1 single core.
+    This simulation may be a bit slow to complete on 1 single CPU core.
     You can speed it up by running LAMMPS on 2, 4 or even more cores, by typing:
 
     .. code-block:: bw
 
         mpirun -np 4 lmp -in input.lammps
 
-    Here 4 core are used. The command may vary, depending
+    Here 4 CPU cores are used. The command may vary, depending
     on your OS and LAMMPS installation.
 
 .. admonition:: Choosing the right number of cores
@@ -496,8 +445,8 @@ The water
    Note that no energy minimization was performed here (NPT
    molecular dynamics was started straight away). This is a
    bit risky, but it works here because overlapping
-   molecules were deleted, and because the initial density
-   is very low.
+   molecules were deleted prior to starting the simulation,
+   and because the initial density is very low.
 
    If you open the dump.lammpstrj file using VMD, you should
    see the system reaching its equilibrium volume:
