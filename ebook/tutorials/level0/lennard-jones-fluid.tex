@@ -225,25 +225,30 @@ the geometric rule will do just fine.
 
 \noindent \subsection{Energy minimization}
 
-Now that the system is fully defined, let us just fill the two last remaining sections:
+Now that the system is fully defined, let us fill the two last remaining sections:
 
 \begin{lcverbatim}
 # 4) Visualization
 thermo 10
+thermo_style custom step temp pe ke etotal press
 # 5) Run
 minimize 1.0e-4 1.0e-6 1000 10000
 \end{lcverbatim}
 
-\noindent The thermo command asks LAMMPS to print
+\noindent The \textit{thermo} command asks LAMMPS to print
 thermodynamic information (e.g. temperature, energy) in the
-terminal every 10 steps. The second line asks LAMMPS to
-perform an energy minimization of the system.
+terminal every given number of steps, here 10 steps. 
+The \textit{thermo$\_$style custom} requires LAMMPS to print 
+the system temperature (\textit{temp}), potential energy (\textit{pe}),
+kinetic energy (\textit{ke}), total energy (\textit{etotal}),
+and pressure (\textit{press}). Finally, the \textit{minimize} line
+asks LAMMPS to perform an energy minimization of the system.
 
 \begin{tcolorbox}[colback=mylightblue!5!white,colframe=mylightblue!75!black,title=About energy minimization]
 An energy minimization procedure consists in adjusting
 the coordinates of the atoms that are too close from one another until one of the stopping
 criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
-Here there are four stopping criteria:
+Here, there are four stopping criteria:
 \begin{itemize}
 \item The change in energy between two iterations is less than 1.0e-4,
 \item The maximum force between two atoms in the system is lower than 1.0e-6,
@@ -252,20 +257,21 @@ Here there are four stopping criteria:
 \end{itemize}
 \end{tcolorbox}
 
-\noindent Now running the simulation, we can see how the thermodynamics
+\noindent Now running the simulation, we can see how the thermodynamic
 variables evolve with time:
 
 \begin{lcverbatim}
-Step Temp         E_pair  E_mol       TotEng         Press
-0       0       78840982      0     78840982       7884122 
-10      0      169.90532      0    169.90532     17.187291 
-20      0    -0.22335386      0  -0.22335386 -0.0034892297 
-30      0    -0.31178296      0  -0.31178296 -0.0027290466 
-40      0    -0.38135002      0  -0.38135002 -0.0016419218 
-50      0    -0.42686621      0  -0.42686621 -0.0015219081 
-60      0    -0.46153953      0  -0.46153953 -0.0010659992 
-70      0    -0.48581568      0  -0.48581568 -0.0014849169 
-80      0    -0.51799572      0  -0.51799572 -0.0012995545 
+Step  Temp  PotEng         KinEng    TotEng         Press     
+0     0     78840982       0         78840982       7884122      
+10    0     169.90532      0         169.90532      17.187291    
+20    0    -0.22335386     0        -0.22335386    -0.0034892297 
+30    0    -0.31178296     0        -0.31178296    -0.0027290466 
+40    0    -0.38135002     0        -0.38135002    -0.0016419218 
+50    0    -0.42686621     0        -0.42686621    -0.0015219081 
+60    0    -0.46153953     0        -0.46153953    -0.0010659992 
+70    0    -0.48581568     0        -0.48581568    -0.0014849169 
+80    0    -0.51799572     0        -0.51799572    -0.0012995545 
+(...)
 \end{lcverbatim}
 
 \noindent These lines give us information concerning
@@ -300,12 +306,12 @@ $m_i$ the mass of atom $i$, and $\boldsymbol{F}_i$ its acceleration.
 The Newtonian equations are solved every timestep to predict the
 evolution of the positions and velocities of atoms and molecules over time. 
 
-At every timestep, the following operations usually occur when 
+At every step, the following operations usually occur when 
 performing a MD simulation:
 \begin{itemize}
-\item the forces between the atoms are calculated from the parameters (here the $\epsilon$ and $\sigma$ values) and potentials (here Lennard-Jones),
+\item the forces between the atoms are calculated from the potential, here Lennard-Jones with given parameters $\epsilon$ and $\sigma$,
 \item the acceleration of each atom is evaluated from the Newtonian equation,
-\item the velocity and position of each atom are updated according to the acceleration, typically using the Verlet algorithm, or similar.
+\item the velocity and position of each atom are updated according to the calculated acceleration, typically using the Verlet algorithm, or similar.
 \end{itemize}
 \end{tcolorbox}
 
@@ -318,11 +324,7 @@ lines:
 \begin{lcverbatim}
 # PART B - MOLECULAR DYNAMICS
 # 4) Visualization
-thermo 1000
-variable kinetic_energy equal ke
-variable potential_energy equal pe
-variable pressure equal press
-fix myat1 all ave/time 10 1 10 v_kinetic_energy v_potential_energy file energy.dat
+thermo 100
 # 5) Run
 fix mynve all nve
 fix mylgv all langevin 1.0 1.0 0.1 1530917
@@ -332,83 +334,44 @@ run 10000
 
 \noindent Since LAMMPS reads the input from top to
 bottom, these lines will be executed after the energy
-minimization. There is no need to (re-)initialize the system
-(part 1), (re-)define it (part 2), or (re-)specify the settings
-(part 3). The \textit{thermo} command is called a second time within the 
-same input, so the previously entered value of \textit{10} will be replaced
-by the value of \textit{1000} as soon as the second run starts.
+minimization. There is no need to re-initialize the system
+re-define it, or re-specify the settings. The \textit{thermo} command
+is called a second time within the same input, so the previously
+entered value of \textit{10} will be replaced by the value of \textit{100}
+as soon as the second run starts.
 
-Three variables have been defined in order
-to print the kinetic energy and the potential energy 
-of the system in the file named \textit{energy.dat}. Then,
-in the run section, the fix \textit{nve} is used to update the
+In the run section, the fix \textit{nve} is used to update the
 positions and the velocities of the atoms in the group
 \textit{all} (this is the most important command here). The second
 fix applies a Langevin thermostat to the atoms of group
 \textit{all}, with a desired temperature of 1 and a damping
 parameter of 0.1. The number \textit{1530917} is a seed, you can
-change it to perform statistically independent simulations
-with the same system. Finally we choose the timestep
-and we ask LAMMPS to run for 10000 steps. After running
-the simulation, you should see the following information in
-the terminal:
+change it to perform statistically independent simulations.
+Finally we choose the timestep and we ask LAMMPS to
+run for 10000 steps. After running the simulation, you
+should see the following information in the terminal:
 
 \begin{lcverbatim}
-Step         Temp       E_pair    E_mol       TotEng        Press
-1000    0.9880227  -0.31773089        0    1.1633769  0.021818374 
-2000    1.0434396  -0.26534383        0    1.2988374   0.02287591 
-3000   0.97269039  -0.23946371        0      1.21866  0.022394592 
-4000    1.0192798  -0.23174747        0    1.2962167  0.024978385 
-5000    1.0319547  -0.23284134        0    1.3141233  0.024342347 
-6000   0.98137972  -0.22477315        0    1.2463764  0.022074749 
-7000    1.0144842  -0.23803792        0    1.2827372  0.023846178 
-8000    1.0102062  -0.23305477        0    1.2813075     0.023146 
-9000    1.0236358  -0.22539436        0    1.3090996  0.024357378 
+Step   Temp          PotEng         KinEng       TotEng        Press     
+388    0             -0.95476642    0           -0.95476642   -0.000304834
+400    0.68476875    -0.90831467    1.0265112    0.11819648    0.023794293  
+500    0.97168188    -0.56803405    1.4566119    0.88857783    0.02383215   
+600    1.0364167     -0.44295618    1.5536534    1.1106972     0.027985679  
+700    1.010934      -0.39601767    1.5154533    1.1194356     0.023064983  
+800    0.98641731    -0.37866057    1.4787012    1.1000406     0.023131153  
+900    1.0074571     -0.34951264    1.5102412    1.1607285     0.023520785 
+(...)
 \end{lcverbatim}
 
 \noindent The second column shows that the temperature
 starts from 0, but rapidly reaches the
 expected value near $T=1$, as requested. 
-Note that  In the terminal, you may also see
 
-\begin{lcverbatim}
-Total (number) of neighbors = 8560
-Ave neighs/atom = 5.35
-Neighbor list builds = 999
-Dangerous builds = 998
-Total wall time: 0:00:02
-\end{lcverbatim}
-
-\noindent Note: If you see \textit{Dangerous builds = 0}, as could be
-the case with some LAMMPS versions, you can ignore
-the next part.
-During the simulation, they have been 998 dangerous builds.
-This is an indication that something is wrong: some atoms
-have moved more than expected in between two calculations of
-the neighbor lists. Let us add the following command in the
-\textit{Simulation settings} section:
-
-\begin{lcverbatim}
-neigh_modify every 1 delay 5 check yes
-\end{lcverbatim}
-
-\noindent With this command, LAMMPS will rebuild the neighbor lists
-more often. Re-run the simulation, and you should see a more
-positive outcome with 0 dangerous build:
-
-\begin{lcverbatim}
-Total (number) of neighbors = 2024
-Ave neighs/atom = 1.2650000
-Neighbor list builds = 1253
-Dangerous builds = 0
-Total wall time: 0:00:02
-\end{lcverbatim}
-
-\noindent From what has been printed in the energy.dat file, let us
+From what has been printed in the log.file file, let us
 plot the potential energy and the pressure of
 the system over time:
 
-\begin{figure}
+\begin{figure}[h!]
 \includegraphics[width=\linewidth]{tutorials/level0/lennard-jones-fluid/energy-light.png}
 \end{figure}
 
@@ -439,7 +402,7 @@ interval. Add the following command in the \textit{visualization}
 section of PART B:
 
 \begin{lcverbatim}
-dump mydmp all atom 1000 dump.lammpstrj
+dump mydmp all atom 100 dump.lammpstrj
 \end{lcverbatim}
 
 \noindent Run LAMMPS again. A file named \textit{dump.lammpstrj} must appear in
@@ -708,7 +671,7 @@ of atoms in each region from the generated data files, as
 well as the evolution of the coordination number due to
 mixing:
 
-\begin{figure}
+\begin{figure}[h!]
 \includegraphics[width=\linewidth]{tutorials/level0/lennard-jones-fluid/population-light.png}
 \end{figure}
 
@@ -789,7 +752,7 @@ non-linear effects).
 Add a bond between couple of identical atoms to create
 dumbbell molecules, just like in the image:
 
-\begin{figure}
+\begin{figure}[h!]
 \includegraphics[width=\linewidth]{tutorials/level0/lennard-jones-fluid/dumbell-light.png}
 \end{figure}
 
