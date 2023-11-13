@@ -96,6 +96,8 @@ class ReadRST:
                     type = 'lammps-equation'
                 elif ('figure:: ' in line):
                     type = 'figure::' + line.split('::')[1]
+                elif ('figurelegend' in line):
+                    type = 'figurelegend'
                 elif 'math::' in line:
                     type = 'math'
                 else:
@@ -142,6 +144,8 @@ class ReadRST:
                             type = 'math'
                         elif ('figure:: ' in line):
                             type = 'figure'
+                        elif ('figurelegend' in line):
+                            type = 'figurelegend'
                         else:
                             type = 'unknown'
                             # print("unknown type", line)
