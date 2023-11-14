@@ -180,8 +180,6 @@ The water
 
 ..  code-block:: lammps
 
-    # Mass
-
     mass 1 15.9994 # H2O O
     mass 2 1.008 # H2O H
     mass 3 12.011 # CC32A
@@ -189,8 +187,6 @@ The water
     mass 5 1.008 # HCA2
     mass 6 15.9994 # OC311
     mass 7 1.008 # HCP1
-
-    # Pair Coeff
 
     pair_coeff 1 1 0.119431704 3.400251
     pair_coeff 2 2 0.0 0.0
@@ -200,16 +196,12 @@ The water
     pair_coeff 6 6 0.0 0.0 
     pair_coeff 7 7 0.11949714 3.1000042 
 
-    # Bond coeff
-
     bond_coeff 1 442.1606 0.972 
     bond_coeff 2 1109.2926 1.12 
     bond_coeff 3 399.79163 1.43 
     bond_coeff 4 400.0343 1.53 
     bond_coeff 5 179.2543 0.971 
     bond_coeff 6 155.35373 1.42
-
-    # Angle coeff
 
     angle_coeff 1 47.555878 103.0 
     angle_coeff 2 30.173132 109.5 
@@ -221,8 +213,6 @@ The water
     angle_coeff 8 180.46019 109.0 
     angle_coeff 9 30.173132 110.0 
 
-    # Dihedral coeff
-
     dihedral_coeff 1 0.30114722 1 3 
     dihedral_coeff 2 1.414914 1 3 
     dihedral_coeff 3 0.0 1 1 
@@ -231,13 +221,25 @@ The water
 
     Let us create water molecules. To do so, let us
     define a single water molecule using a molecule *template* called
-    *FlexibleH2O.txt*, and then randomly create 400 molecules.
+    *FlexibleH2O.txt*, and then randomly create 350 molecules.
     Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
-   molecule h2omol FlexibleH2O.txt
-   create_atoms 0 random 400 456415 NULL mol h2omol 454756
+    molecule h2omol FlexibleH2O.txt
+    create_atoms 0 random 350 456415 NULL mol h2omol 454756 overlap 1.0 maxtry 50
+
+..  container:: justify
+
+    The *overlap 1.0* ensures that no atom will be placed exactly at the same position
+    as it would make the simulation crashes. The *maxtry 50* asks LAMMPS to try at least
+    50 times to insert molecules. In some case, depending on the system and on the *overlap*
+    and *maxtry* values, LAMMPS may not create the desired number of molecules. Here we 
+    can check in the *log* file that it is indeed the case:
+
+..  code-block:: bw
+
+    Created 1050 atoms
 
 ..  container:: justify
 
@@ -256,26 +258,20 @@ The water
 ..  container:: justify
 
     Then, let us group the atoms of the water molecules in a group named
-    *H2O*, and then delete the overlapping molecules:
+    *H2O*, and then perform a small energy minimization because the 
+    cutoff value of 1 Angstrom chosen in the *create_atoms* command 
+    is way too small for water:
 
 ..  code-block:: lammps
     :caption: *to be copied in pureH2O/input.lammps*
 
     group H2O type 1 2
-    delete_atoms overlap 1.6 H2O H2O mol yes
+    minimize 1.0e-4 1.0e-6 100 1000
+    reset_timestep 0
 
 ..  container:: justify
 
-    Deleting overlapping molecules is required here
-    because the molecules where placed randomly in space by
-    the *create_atoms* command, and some of them may be too
-    close from each other, which may force the simulation to crash.
-    The *mol yes* option of the *delete_atoms* command ensures that
-    entire water molecules are deleted, and not just single atoms.
-
-..  container:: justify
-
-    Let us also use the fix NPT to
+    Let us use the fix NPT to
     control both the temperature and the pressure,
     by adding the following line to *input.lammps*:
 
@@ -349,139 +345,120 @@ The water
     the *x* direction, to create a rectangular box of water 
     right before the final state is written into *H2O.data*.
 
-    Looking at the log file, one can see how many atoms have
-    been deleted (the number will vary depending on the random
-    number you choose).
+..
+    TO BE PLACED IN A DEDICATED ANNEXE
+    .. admonition:: Running LAMMPS in parallel
+        :class: info
 
-..  code-block:: bw
+        This simulation may be a bit slow to complete on 1 single CPU core.
+        You can speed it up by running LAMMPS on 2, 4 or even more cores, by typing:
 
-    Deleted 468 atoms, new total = 732
-    Deleted 312 bonds, new total = 488
-    Deleted 156 angles, new total = 244
+        .. code-block:: bw
 
-..  container:: justify
+            mpirun -np 8 lmp -in input.lammps
 
-   About 30 % the molecules were deleted due to overlapping,
-   together with their respective bonds and angles.
+        Here, 8 CPU cores are used. The command may vary, depending
+        on your OS and LAMMPS installation.
 
-.. admonition:: Running LAMMPS in parallel
-    :class: info
+    .. admonition:: Choosing the right number of cores
+        :class: dropdown
 
-    This simulation may be a bit slow to complete on 1 single CPU core.
-    You can speed it up by running LAMMPS on 2, 4 or even more cores, by typing:
+        When running a simulation in parallel using more than one CPU core, LAMMPS divides the system into
+        blocks, and each core is assigned to a given block. Here, as can be seen
+        from the terminal, when using *mpirun -np 4*, LAMMPS divides 
+        the system into 4 blocks along the x axis:
 
-    .. code-block:: bw
+        .. code-block:: bw
+        
+            Created orthogonal box = (-40.000000 -15.000000 -15.000000) to (40.000000 15.000000 15.000000)
+            4 by 1 by 1 MPI processor grid
 
-        mpirun -np 4 lmp -in input.lammps
+        You can force LAMMPS to divide the system differently, let us say along both y and z axis,
+        by using the command (in the *input.lammps* file):
 
-    Here 4 CPU cores are used. The command may vary, depending
-    on your OS and LAMMPS installation.
+        ..  code-block:: bw
 
-.. admonition:: Choosing the right number of cores
-    :class: dropdown
+            processors 1 2 2
 
-    When running a simulation in parallel using more than one CPU core, LAMMPS divides the system into
-    blocks, and each core is assigned to a given block. Here, as can be seen
-    from the terminal, when using *mpirun -np 4*, LAMMPS divides 
-    the system into 4 blocks along the x axis:
+        However, communication between the different cores slows down the computation, so ideally you want 
+        to minimize the size of the surface between domains. Here the default choice of LAMMPS (i.e. processors 4 1 1)
+        is certainly a better choice.
 
-    .. code-block:: bw
-    
-        Created orthogonal box = (-40.000000 -15.000000 -15.000000) to (40.000000 15.000000 15.000000)
-         4 by 1 by 1 MPI processor grid
+        If you don't know what is the best number of processors or the best way to cut the system, just perform 
+        a short simulation and look at the log file. For instance, if I run the simulation on 1 core I get : 
 
-    You can force LAMMPS to divide the system differently, let us say along both y and z axis,
-    by using the command 
+        .. code-block:: bw
 
-    ..  code-block:: bw
+            Performance: 31.567 ns/day, 0.760 hours/ns, 182.680 timesteps/s
 
-        processors 1 2 2
+        On 4 cores (keeping the default processors 4 1 1):
 
-    However, communication between the different cores slows down the computation, so ideally you want 
-    to minimize the size of the surface between domains. Here the default choice of LAMMPS (i.e. processors 4 1 1)
-    is certainly a better choice.
+        .. code-block:: bw
 
-    If you don't know what is the best number of processors or the best way to cut the system, just perform 
-    a short simulation and look at the log file. For instance, if I run the simulation on 1 core I get : 
+            Performance: 109.631 ns/day, 0.219 hours/ns, 634.440 timesteps/s
 
-    .. code-block:: bw
+        This is much faster, but this is not 4 times faster, because of the cost of communicating between processors.
 
-        Performance: 31.567 ns/day, 0.760 hours/ns, 182.680 timesteps/s
+        On 4 cores and enforcing the stupid choice: processors 1 2 2, I get
 
-    On 4 cores (keeping the default processors 4 1 1):
+        .. code-block:: bw
 
-    .. code-block:: bw
+            Performance: 99.864 ns/day, 0.240 hours/ns, 577.919 timesteps/s
 
-        Performance: 109.631 ns/day, 0.219 hours/ns, 634.440 timesteps/s
+        Its not so bad but still not at good as 4 1 1. 
 
-    This is much faster, but this is not 4 times faster, because of the cost of communicating between processors.
+        On 8 cores (the max I got), I get :
 
-    On 4 cores and enforcing the stupid choice: processors 1 2 2, I get
+        .. code-block:: bw
 
-    .. code-block:: bw
+            4 by 1 by 2 MPI processor grid
 
-        Performance: 99.864 ns/day, 0.240 hours/ns, 577.919 timesteps/s
+            ...
 
-    Its not so bad but still not at good as 4 1 1. 
+            Performance: 152.106 ns/day, 0.158 hours/ns, 880.243 timesteps/s
 
-    On 8 cores (the max I got), I get :
+        So LAMMPS chooses to divide the system once along z, and 4 times along x, and the speed is improved, but again the improvement 
+        is not linear with the number of cores. 
 
-    .. code-block:: bw
-
-        4 by 1 by 2 MPI processor grid
-
-        ...
-
-        Performance: 152.106 ns/day, 0.158 hours/ns, 880.243 timesteps/s
-
-    So LAMMPS chooses to divide the system once along z, and 4 times along x, and the speed is improved, but again the improvement 
-    is not linear with the number of cores. 
-
-    **Choose carefully the best number of cores for your simulation so that you don't waste computational resource.
-    Sometimes it is better to run 2 simulations on 2 cores each than 1 simulation on 4 cores.**
+        **Choose carefully the best number of cores for your simulation so that you don't waste computational resource.
+        Sometimes it is better to run 2 simulations on 2 cores each than 1 simulation on 4 cores.**
 
 ..  container:: justify
 
-   Note that no energy minimization was performed here (NPT
-   molecular dynamics was started straight away). This is a
-   bit risky, but it works here because overlapping
-   molecules were deleted prior to starting the simulation,
-   and because the initial density is very low.
+   If you open the *dump.lammpstrj* file using VMD, you should
+   see the system quickly reaching its equilibrium volume and density.
+   Here is a snapshot of the final state of the simulation, after 
+   the *replicate 3 1 1* command:
 
-   If you open the dump.lammpstrj file using VMD, you should
-   see the system reaching its equilibrium volume:
-
-.. figure:: ../figures/level2/polymer-in-water/water_light.webp
-   :alt: Bulk water system
-   :class: only-light
-
-.. figure:: ../figures/level2/polymer-in-water/water_dark.webp
-   :alt: Bulk water system
-   :class: only-dark
-
-   Video: water molecules during NPT equilibration.
-
-..  container:: justify
-
-   You can also open the temperature.dat and density.dat files
-   to ensure that the system converged toward an equilibrated
-   liquid system during the 50 ps of simulation:
-
-.. figure:: ../figures/level2/polymer-in-water/equilibration_H2O_light.png
+.. figure:: ../figures/level2/polymer-in-water/water-light.png
     :alt: Curves showing the equilibration of the water reservoir
     :class: only-light
 
-.. figure:: ../figures/level2/polymer-in-water/equilibration_H2O_dark.png
+.. figure:: ../figures/level2/polymer-in-water/water-dark.png
     :alt: Curves showing the equilibration of the water reservoir
     :class: only-dark
 
-    The graph on the left shows the evolution of the temperature
-    with time, and the graph on the right the evolution of the
-    density.
+..  container:: justify
+
+   You can also open the *density.dat* file
+   to ensure that the system converged toward an equilibrated
+   liquid water system during the 50 ps of simulation:
+
+.. figure:: ../figures/level2/polymer-in-water/density_H2O-light.png
+    :alt: Curves showing the equilibration of the water reservoir
+    :class: only-light
+
+.. figure:: ../figures/level2/polymer-in-water/density_H2O-dark.png
+    :alt: Curves showing the equilibration of the water reservoir
+    :class: only-dark
+
+.. container:: figurelegend
+
+    Figure: Evolution of the density of water with time.
 
 ..  container:: justify
 
-   Alternatively, you can |download_H2O.data|
+   If needed, you can |download_H2O.data|
    the water reservoir I have equilibrated and continue with
    the tutorial.
 
@@ -497,12 +474,11 @@ The PEG molecule
 ..  container:: justify
 
     Now that the water box is ready, let us prepare the PEG
-    molecule in an empty box. Create a second folder next to pureH2O/, call it
-    singlePEG/, and create a new blank file called input.lammps
+    molecule in an empty box. Create a second folder next to *pureH2O/*, call it
+    *singlePEG/*, and create a new blank file called *input.lammps*
     in it. Copy the same first lines as previously:
 
 ..  code-block:: lammps
-    :caption: *to be copied in singlePEG/input.lammps*
 
     units real
     atom_style full

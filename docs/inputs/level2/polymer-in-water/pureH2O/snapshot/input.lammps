@@ -1,0 +1,25 @@
+# pure bulk water system
+# Written by Simon Gravelle
+# My personal page : https://simongravelle.github.io/
+# My Github account: https://github.com/simongravelle/
+# LAMMPS tutorials for beginners: https://lammpstutorials.github.io/
+
+units real
+atom_style full
+bond_style harmonic
+angle_style harmonic
+dihedral_style harmonic
+pair_style lj/cut/coul/long 12
+kspace_style pppm 1e-5
+special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes
+
+read_data ../H2O.data
+include ../../PARM.lammps
+
+fix mynpt all npt temp 300 300 100 iso 1 1 1000
+
+dump mydmp all atom 100 dump.lammpstrj
+
+timestep 1.0
+thermo 1000
+run 5000
