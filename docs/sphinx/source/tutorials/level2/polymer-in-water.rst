@@ -495,25 +495,24 @@ The PEG molecule
     atoms of a same molecule:
 
 ..  code-block:: lammps
-    :caption: *to be copied in singlePEG/input.lammps*
 
-    special_bonds lj/coul 0.0 0.0 0.5
+    special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 
 .. admonition:: About *special bonds*
     :class: info
 
-    Usually, force fields like charmm are parametrized assuming that the first neighbors within a molecule do not
-    interact directly. Here, since we use 0.0 0.0 0.5, the first (for example C-O) and second (for example C-O-H) neighbors don't interact
-    with each other through LJ and Coulomb potentials, and therefore they only interact through direct bond interactions.
-    For the third neighbor (for example H-C-C-H), only half of the LJ and Coulomb interaction will be added.   
+    Usually, molecular dynamics force fields are parametrized assuming that the first neighbors within a molecule do not
+    interact directly. Here, since we use *lj 0.0 0.0 0.5*, the first (for example C-O) and second (for example C-O-H) neighbors don't interact
+    with each other through LJ potentials, and therefore they only interact through direct bond interactions.
+    For the third neighbor (for example H-C-C-H), only half of the LJ interaction will be added.   
 
 ..  container:: justify
 
     Let us read the original positions for the atoms of the PEG molecule, as
-    well as the same parameter file as previously:
+    well as the same parameter file as previously, by adding the following 
+    lines to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in singlePEG/input.lammps*
 
     read_data init.data
     include ../PARM.lammps
@@ -521,9 +520,9 @@ The PEG molecule
 ..  container:: justify
 
    |download_init.data|
-   the init.data file and save it in the singlePEG/ folder.
+   the init.data file and save it in the *singlePEG/* folder.
    It contains the initial parameters of the PEG molecules
-   (atoms, bonds, charges, etc.) that was prepared using |PEGgenerator|.
+   (atoms, bonds, charges, etc.) that was downloaded from the ATB repository.
    To make our life simpler later, let use use the exact same
    box size for the PEG as for the water (the merging will be
    simpler, see below). Open the previously generate H2O.data
@@ -628,17 +627,19 @@ The PEG molecule
     an extremely elongated and unrealistic shape, and 
     gently equilibrating until reaching a reasonable state.
 
-.. figure:: ../figures/level2/polymer-in-water/singlePEG-light.webp
-    :alt: PEG in vacuum
+.. figure:: ../figures/level2/polymer-in-water/singlePEG-light.png
+    :alt: PEG in vacuum as simulated with LAMMPS
     :class: only-light
 
-.. figure:: ../figures/level2/polymer-in-water/singlePEG-dark.webp
-    :alt: PEG in vacuum
+.. figure:: ../figures/level2/polymer-in-water/singlePEG-dark.png
+    :alt: PEG in vacuum as simulated with LAMMPS
     :class: only-dark
 
-    The PEG molecule in vacuum during an energy
-    minimisation step, followed by a short NVT molecular dynamics.
-    The carbon atoms are in dark, the oxygen atoms in red, and the hydrogen atoms in white. 
+..  container:: figurelegend
+
+    The PEG molecule in vacuum.
+    The carbon atoms are in pink, the oxygen atoms in red, and the hydrogen
+    atoms in white. 
     
 ..  container:: justify
 
