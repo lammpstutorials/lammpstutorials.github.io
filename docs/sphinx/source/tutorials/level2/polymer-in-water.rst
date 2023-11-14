@@ -732,15 +732,13 @@ Solvating the PEG molecule
 
 ..  container:: justify
 
-    Finally, let us use shake to keep the water
-    molecules rigid, and use the NPT command to control the
+    Finally, let us use the *fix NPT* to control the
     temperature, as well as the pressure along the *x* axis:
 
 ..  code-block:: lammps
 
-   fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
-   fix mynpt all npt temp 300 300 100 x 1 1 1000
-   timestep 1.0
+    fix mynpt all npt temp 300 300 100 x 1 1 1000
+    timestep 1.0
 
 ..  container:: justify
 
@@ -807,68 +805,103 @@ Stretching the PEG molecule
 
    Here, a constant forcing is applied to the two ends of the
    PEG molecule until it stretches. Create a new folder next
-   to the 3 previously created folders, call it pullonPEG/
-   and create a new input file in it called input.lammps.
-   First, let us create a variable containing the magnitude
+   to the 3 previously created folders, call it *pullonPEG/*
+   and create a new input file in it called *input.lammps*.
+
+..  container:: justify
+
+   First, let us create a variable *f0* corresponding to the magnitude
    of the force we are going to apply. The force magnitude is
    chosen to be large enough to overcome the thermal
    agitation and the entropic contribution from both water
    and PEG molecules (it was chosen by trial and error). Copy
-   in the input file:
+   in the *input.lammps* file:
 
 ..  code-block:: lammps
-   :caption: *to be copied in pullonPEG/input.lammps*
 
-   variable f0 equal 5 # kcal/mol/A # 1 kcal/mol/A = 67.2 pN
+    variable f0 equal 5 # kcal/mol/A # 1 kcal/mol/A = 67.2 pN
 
 ..  container:: justify
 
-   Then, as previouly, copy:
+    Then, as previouly, copy:
 
 ..  code-block:: lammps
-   :caption: *to be copied in pullonPEG/input.lammps*
 
-   units real
-   atom_style full
-   bond_style harmonic
-   angle_style charmm
-   dihedral_style charmm
-   pair_style lj/cut/tip4p/long 1 2 1 1 0.105 12.0
-   kspace_style pppm/tip4p 1.0e-4
-   special_bonds lj/coul 0.0 0.0 0.5
+    units real
+    atom_style full
+    bond_style harmonic
+    angle_style harmonic
+    dihedral_style harmonic
+    pair_style lj/cut/coul/long 12
+    kspace_style pppm 1e-5
+    special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 
 ..  container:: justify
 
-   Start the simulation from the equilibrated PEG + water
-   system, and include again the parameters:
+    Start the simulation from the equilibrated PEG and water
+    system, and include again the parameter file by
+    adding to the *input.lammps*:
 
 ..  code-block:: lammps
-   :caption: *to be copied in pullonPEG/input.lammps*
 
-   read_data ../mergePEGH2O/mix.data
-   include ../PARM.lammps
+    read_data ../mergePEGH2O/mix.data
+    include ../PARM.lammps
 
 ..  container:: justify
 
-   Then, let us create 4 atom groups: H2O and PEG (as
-   previously) as well as 2 groups containing one single atom
-   corresponding respectively to the oxygen atoms located at the
-   ends of the PEG molecule:
+    Then, let us create 3 atom groups: H2O and PEG (as
+    previously) as well as a groups containing only the 
+    2 oxygen atoms of types 6
+    corresponding to the oxygen atoms located at the
+    ends of the PEG molecule, which we are going to use 
+    to pull on the PEG molecule. Add the following lines to
+    the *input.lammps*:
 
 ..  code-block:: lammps
-   :caption: *to be copied in pullonPEG/input.lammps*
 
-   group H2O type 1 2
-   group PEG type 3 4 5 6 7
-   group oxygen_end1 id 65
-   group oxygen_end2 id 4
+    group H2O type 1 2
+    group PEG type 3 4 5 6 7
+
+    group topull type 6
+    write_dump topull atom topull.lammpstrj
+    run 0
 
 ..  container:: justify
 
-   Let us print again the atom positions in a dump:
+    Here, we use the *write_dump* command to print the 
+    *topull* group in a file. Execute the *input.lammps*
+    file using LAMMPS so that *topull.lammpstrj* get written.
+    In my case, the two last lines of *topull.lammpstrj* reads:
 
 ..  code-block:: lammps
-   :caption: *to be copied in pullonPEG/input.lammps*
+
+    (...)
+    3216 6 0.339394 0.0930772 0.737381
+    3151 6 0.523881 0.760453 0.520978
+
+..  container:: justify
+
+    From these two lines, one can extract the two ids 
+    of the atoms of types 6, 3216 and 3151, respectivly. 
+    Let us then create two additional groups by adding to 
+    *input.lammps*:
+
+..  code-block:: lammps
+
+    group topull1 id 3216
+    group topull2 id 3151
+
+..  container:: justify
+
+    The values of the atom id may be different in your case. 
+    Be sure to use the id values corresponding to the atoms 
+    of your system.
+
+..  container:: justify
+
+    Let us add the *dump* command again to print the atom positions:
+
+..  code-block:: lammps
 
    dump mydmp all atom 1000 dump.lammpstrj
    # write_dump all atom dump.lammpstrj
@@ -880,52 +913,55 @@ Stretching the PEG molecule
     To generate smaller dump files, use the
     compressed *xtc* format. You can do it by commenting the
     mydmp line and by uncommenting both the *write_dump* and
-    *myxtc* lines. Note that *xtc* files are compressed, and not readable
+    *myxtc* lines. *xtc* files are compressed, and not readable
     by humans, contrarily to the LAMMPS native format *lammpstrj*. 
 
 ..  container:: justify
 
-    Let us use a simple thermostating for all atoms 
-    and use shake for the rigid water molecules:
+    Let us use a simple thermostating for all atoms:
 
 ..  code-block:: lammps
     :caption: *to be copied in pullonPEG/input.lammps*
 
     timestep 1
-    fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
     fix mynvt all nvt temp 300 300 100
 
-Let us print the end-to-end distance of the PEG (and the
-temperature of the entire system):
+..  container:: justify
+
+    Let us also print the end-to-end distance of the PEG,
+    here defined as the distance between the groups *topull1*
+    and *topull2*, as well as the temperature of the system 
+    by adding the following lines to *input.lammps*:
 
 ..  code-block:: lammps
-   :caption: *to be copied in pullonPEG/input.lammps*
 
-   variable mytemp equal temp
-   fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
-   variable x1 equal xcm(oxygen_end1,x)
-   variable x2 equal xcm(oxygen_end2,x)
-   variable delta_x equal abs(v_x1-v_x2)
-   fix myat2 all ave/time 10 10 100 v_delta_x file end-to-end-distance.dat
-   thermo 5000
+    variable mytemp equal temp
+    fix myat1 all ave/time 10 10 100 v_mytemp file output-temperature.dat
+    variable x1 equal xcm(topull1,x)
+    variable x2 equal xcm(topull2,x)
+    variable y1 equal xcm(topull1,y)
+    variable y2 equal xcm(topull2,y)
+    variable z1 equal xcm(topull1,z)
+    variable z2 equal xcm(topull2,z)
+    variable delta_r equal sqrt((v_x1-v_x2)^2+(v_y1-v_y2)^2+(v_z1-v_z2)^2)
+    fix myat2 all ave/time 10 10 100 v_delta_r file output-end-to-end-distance.dat
+    thermo 1000
 
 ..  container:: justify
 
-   Finally, let us run the simulation for 10 ps (without
-   any external forcing):
+    Finally, let us run the simulation for 10 ps without
+    any external forcing:
 
 ..  code-block:: lammps
-   :caption: *to be copied in pullonPEG/input.lammps*
 
-   run 10000
+    run 10000
 
 ..  container:: justify
 
-   This 10 ps serves as an extra small equilibration. In principle, 
-   it is not necessary as equilibration was properly performed during the 
-   previous step. Then, let us apply a forcing on the 2 oxygen atoms using 2
-   *add_force* commands, and run for 100 ps (for a total duration
-   of the simulation of 110 ps):
+    This 10 ps serves as an extra small equilibration. In principle, 
+    it is not necessary as equilibration was properly performed during the 
+    previous step. Then, let us apply a forcing on the 2 oxygen atoms using 2
+    *add_force* commands, and run for an extra 50 ps:
 
 ..  code-block:: lammps
    :caption: *to be copied in pullonPEG/input.lammps*
@@ -937,7 +973,8 @@ temperature of the entire system):
 ..  container:: justify
 
    If you open the *dump.lammpstrj* file using *VMD*, you should
-   see this:
+   see that the PEG molecule rapidly aligns in the direction
+   of the force:
 
 .. figure:: ../figures/level2/polymer-in-water/pulled_peg_dark.png
     :alt: PEG molecule in water
@@ -947,7 +984,10 @@ temperature of the entire system):
     :alt: PEG molecule in water
     :class: only-light
 
-    PEG molecule streched in water. Water is represented as a continuous field for clarity.
+.. container:: figurelegend
+
+    PEG molecule streched along the *x* direction in water.
+    Water molecules are represented as cyan sticks for clarity.
 
 ..  container:: justify
 
