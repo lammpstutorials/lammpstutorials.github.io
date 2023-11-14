@@ -193,7 +193,9 @@ class FixDocument:
                     legend_lines = self.legend_positions[np.where(np.array(self.figure_positions) == n)[0][0]]
                     for m in legend_lines:
                         new_line = initial_tex_file[m].split("[legend-to-add]")[1]
-                        if m == legend_lines[0]:
+                        if len(legend_lines) == 1:
+                            new_tex_file_name.append("\caption{" + new_line[8:] + "} \n")
+                        elif m == legend_lines[0]:
                             new_tex_file_name.append("\caption{" + new_line[8:])
                         elif m == legend_lines[-1]:
                             new_tex_file_name.append(new_line[:-1] + "} \n")
