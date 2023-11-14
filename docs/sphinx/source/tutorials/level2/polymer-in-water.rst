@@ -545,7 +545,7 @@ The PEG molecule
 
 ..  container:: justify
 
-   Then, replace the box dimensions in the init.data file with
+   Then, replace the box dimensions in the *init.data* file with
    these 3 lines.
 
    Let us print the atom positions and thermodynamic
@@ -655,16 +655,16 @@ Solvating the PEG molecule
 
 ..  container:: justify
 
-    Now, we merge the PEG molecule and the
+    Let us now merge the PEG molecule and the
     water reservoir. We do it by:
 
     - (1) importing both previously generated data files (PEG.data and H2O.data) into the same simulation,
     - (2) deleting the overlapping molecules, and 
     - (3) re-equilibrating the new system. 
 
-    Create a third folder alongside pureH2O/ and singlePEG/,
-    and call it mergePEGH2O/. Create a new blank file in it,
-    called input.lammps. Within input.lammps, copy the same first lines as
+    Create a third folder alongside *pureH2O/* and *singlePEG/*,
+    and call it *mergePEGH2O/*. Create a new blank file in it,
+    called *input.lammps*. Within *input.lammps*, copy the same first lines as
     previously:
 
 ..  code-block:: lammps
@@ -673,21 +673,21 @@ Solvating the PEG molecule
     units real
     atom_style full
     bond_style harmonic
-    angle_style charmm
-    dihedral_style charmm
-    pair_style lj/cut/tip4p/long 1 2 1 1 0.105 12.0
-    kspace_style pppm/tip4p 1.0e-4
-    special_bonds lj/coul 0.0 0.0 0.5
+    angle_style harmonic
+    dihedral_style harmonic
+    pair_style lj/cut/coul/long 12
+    kspace_style pppm 1e-5
+    special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 
 ..  container:: justify
 
-    Then, import the two previously generated data files, as well as the same parameter file:
+    Then, import the two previously generated data files, as well as the
+    same parameter file by adding that to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in mergePEGH2O/input.lammps*
 
-    read_data ../singlePEG/PEG.data
-    read_data ../pureH2O/H2O.data add append
+    read_data ../pureH2O/H2O.data extra/bond/per/atom 2 extra/angle/per/atom 5 extra/dihedral/per/atom 9
+    read_data ../singlePEG/PEG.data add append shift 25 0 0
     include ../PARM.lammps
 
 ..  container:: justify
@@ -696,10 +696,19 @@ Solvating the PEG molecule
     to use the *add append* keyword. When doing so, the
     simulation box is initialized by the first *read_data* only, and the 
     second *read_data* only imports additional atoms.
-    Let us create 2 groups to differentiate the PEG from the H2O:
+
+..  container:: justify
+
+    The use of the *extra/x/per/atom* commands is only for memory allocation issue,
+    and the *shift 25 0 0* applied to the polymer is there to recenter the polymer in
+    the rectangular box.
+
+..  container:: justify
+
+    Let us create 2 groups to differentiate the PEG from the H2O,
+    by adding the following lines to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in mergePEGH2O/input.lammps*
 
     group H2O type 1 2
     group PEG type 3 4 5 6 7
@@ -707,25 +716,27 @@ Solvating the PEG molecule
 ..  container:: justify
 
     Water molecules that are overlapping with the PEG must be
-    deleted to avoid crashing:
+    deleted to avoid future crashing. Add the following line 
+    to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in mergePEGH2O/input.lammps*
 
     delete_atoms overlap 2.0 H2O PEG mol yes
 
 ..  container:: justify
 
-    Here the value of 2 Angstroms for the overlap cutoff was fixed arbitrarily,
+    Here, the value of 2 Angstroms for the overlap cutoff was fixed arbitrarily,
     and can be chosen through trial and error. If the cutoff is too small, the 
-    simulation will crash. If the cutoff it too long, too many water molecules will unnecessarily be deleted.
+    simulation will crash. If the cutoff it too large, too many water molecules
+    will unnecessarily be deleted.
+
+..  container:: justify
 
     Finally, let us use shake to keep the water
     molecules rigid, and use the NPT command to control the
-    temperature, as well as the pressure along the x axis:
+    temperature, as well as the pressure along the *x* axis:
 
 ..  code-block:: lammps
-   :caption: *to be copied in mergePEGH2O/input.lammps*
 
    fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
    fix mynpt all npt temp 300 300 100 x 1 1 1000
@@ -733,13 +744,10 @@ Solvating the PEG molecule
 
 ..  container:: justify
 
-   The box dimension will only adjust along the x axis here.
-
-   Once more, let us dump the atom positions and a few
-   information about the evolution simulation:
+    Once more, let us dump the atom positions and a few
+    information about the evolution simulation:
 
 ..  code-block:: lammps
-    :caption: *to be copied in mergePEGH2O/input.lammps*
 
     dump mydmp all atom 100 dump.lammpstrj
     thermo 100
@@ -753,7 +761,6 @@ Solvating the PEG molecule
     Let us also print the total enthalpy:
 
 ..  code-block:: lammps
-    :caption: *to be copied in mergePEGH2O/input.lammps*
 
     variable myenthalpy equal enthalpy
     fix myat3 all ave/time 10 10 100 v_myenthalpy file enthalpy.dat
@@ -761,19 +768,24 @@ Solvating the PEG molecule
 ..  container:: justify
 
     Finally, let us perform a short equilibration and print the
-    final state in a data file:
+    final state in a data file. Add the following lines to the 
+    data file:
 
 ..  code-block:: lammps
-    :caption: *to be copied in mergePEGH2O/input.lammps*
 
     run 10000
     write_data mix.data
 
 ..  container:: justify
 
-    If you open the dump.lammpstrj file using VMD, you should
-    see that the box dimension slightly shrink along x.
-    The system looks like that:
+    If you open the *dump.lammpstrj* file using VMD, 
+    or have a look at the evolution of the volume in *volume.dat*,
+    you should see that the box dimension slightly evolves along *x*
+    to accomodate the new configuration.
+    
+..  container:: justify
+
+    The final system looks like that:
 
 .. figure:: ../figures/level2/polymer-in-water/solvatedPEG_light.png
    :alt: PEG in water
@@ -783,7 +795,10 @@ Solvating the PEG molecule
    :alt: PEG in water
    :class: only-dark
 
-   PEG molecule in water. Water is represented as a continuous field for clarity.
+.. container:: figurelegend
+
+   A single PEG molecule in water. 
+   Water molecules are represented as cyan sticks for clarity.
 
 Stretching the PEG molecule
 ===========================

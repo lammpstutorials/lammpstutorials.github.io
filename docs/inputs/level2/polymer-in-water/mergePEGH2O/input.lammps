@@ -1,4 +1,3 @@
-# pure bulk water system
 # Written by Simon Gravelle
 # My personal page : https://simongravelle.github.io/
 # My Github account: https://github.com/simongravelle/
@@ -7,14 +6,14 @@
 units real
 atom_style full
 bond_style harmonic
-angle_style charmm
-dihedral_style charmm
-pair_style lj/cut/tip4p/long 1 2 1 1 0.105 12.0
-kspace_style pppm/tip4p 1.0e-4
-special_bonds lj/coul 0.0 0.0 0.5
+angle_style harmonic
+dihedral_style harmonic
+pair_style lj/cut/coul/long 12
+kspace_style pppm 1e-5
+special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 
-read_data ../singlePEG/PEG.data
-read_data ../pureH2O/H2O.data add append
+read_data ../pureH2O/H2O.data extra/bond/per/atom 2 extra/angle/per/atom 5 extra/dihedral/per/atom 9
+read_data ../singlePEG/PEG.data add append shift 25 0 0
 include ../PARM.lammps
 
 group H2O type 1 2
@@ -36,5 +35,5 @@ fix myat2 all ave/time 10 10 100 v_myvol file volume.dat
 variable myenthalpy equal enthalpy
 fix myat3 all ave/time 10 10 100 v_myenthalpy file enthalpy.dat
 
-run 10000
+run 50000
 write_data mix.data
