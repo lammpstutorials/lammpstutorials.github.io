@@ -3,20 +3,23 @@ units lj
 dimension 3
 atom_style atomic
 pair_style lj/cut 2.5
-boundary p p p
+boundary f f f 
     
-region simulation_box block -20 20 -20 20 -20 20
+region simulation_box block -14 14 -14 14 -14 14
 create_box 2 simulation_box
-create_atoms 1 random 1500 341341 simulation_box
-create_atoms 2 random 100 127569 simulation_box
+create_atoms 1 random 800 341341 simulation_box
+create_atoms 2 random 30 127569 simulation_box
 
-neigh_modify every 1 delay 5 check yes
 mass 1 1
 mass 2 1
 pair_coeff 1 1 1.0 1.0
 pair_coeff 2 2 0.5 3.0
 
 thermo 10
+
+fix xwalls all wall/reflect xlo EDGE xhi EDGE
+fix ywalls all wall/reflect ylo EDGE yhi EDGE
+fix zwalls all wall/reflect zlo EDGE zhi EDGE
 
 minimize 1.0e-4 1.0e-6 1000 10000
 
@@ -29,7 +32,7 @@ set group all image 0 0 0
 
 run 500
 
-dump mydmp all custom 10 dump.lammpstrj id type x y z
+dump mydmp all custom 10 dump.lammpstrj id type xu yu zu
 
 thermo 10
 

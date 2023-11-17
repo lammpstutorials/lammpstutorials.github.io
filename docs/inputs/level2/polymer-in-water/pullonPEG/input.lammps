@@ -9,39 +9,45 @@ variable f0 equal 5 # kcal/mol/A # 1 kcal/mol/A = 67.2 pN
 units real
 atom_style full
 bond_style harmonic
-angle_style charmm
-dihedral_style charmm
-pair_style lj/cut/tip4p/long 1 2 1 1 0.105 12.0
-kspace_style pppm/tip4p 1.0e-4
-special_bonds lj/coul 0.0 0.0 0.5
+angle_style harmonic
+dihedral_style harmonic
+pair_style lj/cut/coul/long 12
+kspace_style pppm 1e-5
+special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 
 read_data ../mergePEGH2O/mix.data
 include ../PARM.lammps
 
 group H2O type 1 2
 group PEG type 3 4 5 6 7
-group oxygen_end1 id 65
-group oxygen_end2 id 4
+
+group topull type 6
+write_dump topull atom topull.lammpstrj
+group topull1 id 3216
+group topull2 id 3151
 
 dump mydmp all atom 1000 dump.lammpstrj
 # write_dump all atom dump.lammpstrj
 # dump myxtc xtc atom 1000 dump.xtc
 
 timestep 1
-fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
 fix mynvt all nvt temp 300 300 100
 
 variable mytemp equal temp
-fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
-variable x1 equal xcm(oxygen_end1,x)
-variable x2 equal xcm(oxygen_end2,x)
-variable delta_x equal abs(v_x1-v_x2)
-fix myat2 all ave/time 10 10 100 v_delta_x file end-to-end-distance.dat
+fix myat1 all ave/time 10 10 100 v_mytemp file output-temperature.dat
+variable x1 equal xcm(topull1,x)
+variable x2 equal xcm(topull2,x)
+variable y1 equal xcm(topull1,y)
+variable y2 equal xcm(topull2,y)
+variable z1 equal xcm(topull1,z)
+variable z2 equal xcm(topull2,z)
+variable delta_r equal sqrt((v_x1-v_x2)^2+(v_y1-v_y2)^2+(v_z1-v_z2)^2)
+fix myat2 all ave/time 10 10 100 v_delta_r file output-end-to-end-distance.dat
 thermo 1000
 
 run 10000
 
-fix myaf1 oxygen_end1 addforce ${f0} 0 0
-fix myaf2 oxygen_end2 addforce -${f0} 0 0
+fix myaf1 topull1 addforce ${f0} 0 0
+fix myaf2 topull2 addforce -${f0} 0 0
 
 run 50000
