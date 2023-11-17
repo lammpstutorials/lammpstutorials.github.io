@@ -23,8 +23,10 @@ Lennard Jones fluid
 
     The objective of this tutorial is to use
     LAMMPS to perform a simple molecular dynamics simulation
-    of a binary fluid in the NVT ensemble. The system is a simple Lennard-Jones fluid
-    made of neutral dots with a Langevin thermostating. The
+    of a binary fluid in the NVT ensemble. The system is
+    a simple Lennard-Jones fluid made of neutral
+    particles with different sizes. A Langevin thermostat is
+    applied to the particles. The
     simulation box is cubic with periodic boundary conditions.
 
 ..  container:: abstract
@@ -48,6 +50,8 @@ The input script
     this script will be divided into five categories which we are going to
     fill up one by one. 
     
+..  container:: justify
+
     Create a folder, call it *my-first-input*, and then create a blank
     text file in it, called *input.lammps*. Copy the following lines
     in *my-first-input/input.lammps*, where a line starting with a brace (#)
@@ -775,7 +779,7 @@ Restarting from a saved configuration
 ..  container:: justify
 
     Add the following lines to *input.md.lammps*
-    (note the absence of mass and pair_coeff parameters):
+    (note the absence of mass and *pair_coeff* parameters):
 
 ..  code-block:: lammps
 
@@ -873,16 +877,16 @@ Restarting from a saved configuration
     :alt: LAMMPS VMD tutorial molecular dynamics simulation
     :class: only-dark
 
+.. container:: figurelegend
+
+    Figure: Evolution of the atom populations during mixing.
+
 ..  container:: justify
 
     After running *input.md.lammps* using LAMMPS, you can observe the number
     of atoms in each region from the generated data files, as
     well as the evolution of the coordination number due to
     mixing:
-
-.. container:: figurelegend
-
-    Figure: Evolution of the atom populations during mixing.
 
 .. figure:: ../figures/level0/lennard-jones-fluid/mixing-light.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time

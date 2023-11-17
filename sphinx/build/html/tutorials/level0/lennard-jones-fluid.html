@@ -244,8 +244,10 @@
 <div class="abstract docutils container">
 <p>The objective of this tutorial is to use
 LAMMPS to perform a simple molecular dynamics simulation
-of a binary fluid in the NVT ensemble. The system is a simple Lennard-Jones fluid
-made of neutral dots with a Langevin thermostating. The
+of a binary fluid in the NVT ensemble. The system is
+a simple Lennard-Jones fluid made of neutral
+particles with different sizes. A Langevin thermostat is
+applied to the particles. The
 simulation box is cubic with periodic boundary conditions.</p>
 </div>
 <div class="abstract docutils container">
@@ -268,6 +270,8 @@ and trajectory visualization.</p>
 write a series of commands in an input script. For clarity,
 this script will be divided into five categories which we are going to
 fill up one by one.</p>
+</div>
+<div class="justify docutils container">
 <p>Create a folder, call it <em>my-first-input</em>, and then create a blank
 text file in it, called <em>input.lammps</em>. Copy the following lines
 in <em>my-first-input/input.lammps</em>, where a line starting with a brace (#)
@@ -904,7 +908,7 @@ Deleted 1 atoms, new total = 1149
 </div>
 <div class="justify docutils container">
 <p>Add the following lines to <em>input.md.lammps</em>
-(note the absence of mass and pair_coeff parameters):</p>
+(note the absence of mass and <em>pair_coeff</em> parameters):</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 3) Simulation settings</span>
 <span class="k">group </span><span class="nv nv-Identifier">type1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
@@ -989,14 +993,14 @@ using VMD:</p>
 <figure class="align-default">
 <img alt="LAMMPS VMD tutorial molecular dynamics simulation" class="only-dark" src="../../_images/mixing-vmd-dark.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Evolution of the atom populations during mixing.</p>
+</div>
 <div class="justify docutils container">
 <p>After running <em>input.md.lammps</em> using LAMMPS, you can observe the number
 of atoms in each region from the generated data files, as
 well as the evolution of the coordination number due to
 mixing:</p>
-</div>
-<div class="figurelegend docutils container">
-<p>Figure: Evolution of the atom populations during mixing.</p>
 </div>
 <figure class="align-default">
 <img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-light" src="../../_images/mixing-light.png" />
