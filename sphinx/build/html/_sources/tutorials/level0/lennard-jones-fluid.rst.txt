@@ -885,8 +885,7 @@ Restarting from a saved configuration
 
     After running *input.md.lammps* using LAMMPS, you can observe the number
     of atoms in each region from the generated data files, as
-    well as the evolution of the coordination number due to
-    mixing:
+    well as the evolution of the coordination number due to mixing:
 
 .. figure:: ../figures/level0/lennard-jones-fluid/mixing-light.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
