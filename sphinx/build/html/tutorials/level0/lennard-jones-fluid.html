@@ -648,59 +648,74 @@ b) The kinetic energy (<span class="math notranslate nohighlight">\(k_\text{e}\)
 then increases during molecular dynamics until it reaches a plateau value of about 1.5.</p>
 </div>
 </section>
-</section>
 <section id="trajectory-visualization">
-<h2>Trajectory visualization<a class="headerlink" href="#trajectory-visualization" title="Link to this heading">#</a></h2>
-<figure class="align-right">
-<a class="reference internal image-reference" href="../../_images/input1.png"><img alt="binary fluid" src="../../_images/input1.png" style="width: 350px;" /></a>
-</figure>
+<h3>Trajectory visualization<a class="headerlink" href="#trajectory-visualization" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>The simulation is running well, but we would like to
 visualize the trajectories of the atoms. To do so, we need
 to dump the positions of the atoms in a file at a regular
-interval. Add the following command in the <em>visualization</em>
-section of PART B:</p>
+interval.</p>
+</div>
+<div class="justify docutils container">
+<p>Add the following command to the <em>input.lammps</em> file,
+in the <em>visualization</em> section of PART B:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Run LAMMPS again. A file named <em>dump.lammpstrj</em> must appear in
-the same folder as your input. This file can be opened using
-VMD or Ovito. In Ubuntu, if VMD is installed, you can simply
-execute in the terminal:</p>
+<p>Run the <em>input.lammps</em> using LAMMPS again. A file named <em>dump.lammpstrj</em>
+must appear within <em>my-first-input/</em>. A <em>.lammpstrj</em> file can
+be opened using VMD or Ovito. For instance with Ubuntu/Linux,
+you can simply execute in the terminal:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>vmd dump.lammpstrj
 </pre></div>
 </div>
 <div class="justify docutils container">
 <p>Otherwise, you can open VMD and import the <em>dump.lammpstrj</em>
-file manually using file <em>-&gt;</em> molecule. You should see a cloud
-of lines, but you can improve the representation and make it
-look like the figure on the right, or the video at the
-top of this page.</p>
+file manually using <em>File -&gt; New molecule</em>.</p>
 </div>
+<div class="justify docutils container">
+<p>By default, you should see a cloud
+of lines, but you can improve the representation
+as I did here:</p>
+</div>
+<figure class="align-default">
+<img alt="binary fluid simulated by LAMMPS and visualized with VMD" class="only-light" src="../../_images/first-input-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="binary fluid simulated by LAMMPS and visualized with VMD" class="only-dark" src="../../_images/first-input-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: View of a slice of the system using VMD, with both
+types of atoms represented as spheres.</p>
+</div>
+</section>
 </section>
 <section id="improving-the-script">
 <h2>Improving the script<a class="headerlink" href="#improving-the-script" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>Let us improve the input script and perform slightly more
-advanced operations.</p>
+advanced operations, such as imposing a more subtle initial
+positions for the atoms, or saving and restarting the simulation.</p>
 </div>
-<figure class="align-right">
-<a class="reference internal image-reference" href="../../_images/input2.png"><img alt="binary fluid" src="../../_images/input2.png" style="width: 350px;" /></a>
-</figure>
 <section id="control-the-initial-atom-positions">
 <h3>Control the initial atom positions<a class="headerlink" href="#control-the-initial-atom-positions" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Let us create the atoms of type 1 and 2 in two separate
 regions, respectively, instead of creating them both randomly
-within the entire space as we did previously. Create a new input script, and call
-it <em>input2.lammps</em>. Similarly to what has been done previously, copy the following lines
-into the input script:</p>
+within the entire space as we did previously.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input2.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+<div class="justify docutils container">
+<p>Create a new folder next to <em>my-first-input/</em>, and call
+it <em>improved-input/</em>. Then, create a new input
+and call it <em>input.min.lammps</em>.</p>
+</div>
+<div class="justify docutils container">
+<p>Similarly to what has been done previously, copy the following lines
+into <em>input.min.lammps</em>:</p>
+</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 1) Initialization</span>
 <span class="k">units</span><span class="w"> </span><span class="n">lj</span>
 <span class="k">dimension</span><span class="w"> </span><span class="m">3</span>
@@ -709,41 +724,35 @@ into the input script:</p>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
-<p>Let us create a box from a predefined region,
-and create two additional regions and generate
-atoms of type 1 and 2 in each region respectively.</p>
+<p>Let us create three separate regions: the first one for the
+simulation box, the second one for the atoms of type 1, and
+the third one for the atoms of type 2:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input2.lammps</em></span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 2) System definition</span>
 <span class="k">region </span><span class="nv nv-Identifier">simulation_box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
 <span class="k">create_box </span><span class="nv nv-Identifier">2</span><span class="w"> </span><span class="nv nv-Identifier">simulation_box</span>
-<span class="k">region </span><span class="nv nv-Identifier">mycylin</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">in</span>
 <span class="k">region </span><span class="nv nv-Identifier">mycylou</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">out</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">mycylou</span>
+<span class="k">region </span><span class="nv nv-Identifier">mycylin</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">in</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">150</span><span class="w"> </span><span class="m">127569</span><span class="w"> </span><span class="n">mycylin</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
 <p>The <em>side in</em> and <em>side out</em> keywords
-allow us to define regions that are respectively inside the
-cylinder, and everything that is not inside the cylinder.</p>
-<p>We can write the remaining of the input script as follow:</p>
+are used to define regions that are respectively inside
+and outside of the cylinder. Then, copy similar lines
+as previously into <em>input.min.lammps</em>:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input2.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 3) Simulation settings</span>
 <span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
 <span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="m">3.0</span>
-<span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
 
 <span class="c"># 4) Visualization</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">10</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">pe</span><span class="w"> </span><span class="n">ke</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span>
 <span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">dump.min.lammpstrj</span>
 
 <span class="c"># 5) Run</span>
@@ -751,23 +760,28 @@ cylinder, and everything that is not inside the cylinder.</p>
 <span class="k">write_data </span><span class="nv nv-Identifier">minimized_coordinate.data</span>
 </pre></div>
 </div>
+<div class="justify docutils container">
+<p>The main novelty, with respect to the previous
+input script, is the <em>write_data</em> command. This command
+is used to print the final state of the simulation in
+a file named <em>minimized_coordinate.data</em>. Note that
+the <em>write_data</em> command is placed after the <em>minimize</em>
+command. This <em>.data</em> file will be used later to restart
+the simulation from the final
+state of the energy minimisation step.</p>
 </div>
 <div class="justify docutils container">
-<p>The novelty with respect to the previous
-input script is the command <em>write_data</em>. This command
-asks LAMMPS to print the final state of the simulation in
-a file named <em>minimized_coordinate.data</em>. This file will
-be used later to restart the simulation from the final
-state of the energy minimisation step.</p>
-<p>Run LAMMPS using the <em>input2.lammps</em> script. If everything
-goes well, a dump file named <em>dump.min.lammpstrj</em> will
+<p>Run the <em>input.min.lammps</em> script using LAMMPS. A new
+dump file named <em>dump.min.lammpstrj</em> will
 appear in the folder, allowing you to visualize the atoms
 trajectories during minimization. In
-addition, a file named <em>minimized_coordinate.data</em> will be
-created. If you open this file, you will see that it
+addition, a file named <em>minimized_coordinate.data</em> will be created.</p>
+</div>
+<div class="justify docutils container">
+<p>If you open <em>minimized_coordinate.data</em>, you will see that it
 contains all the information necessary to restart the
 simulation, such as the number of atoms and the size of
-the box:</p>
+the box. The <em>.data</em> file even contains the atoms <em>masses</em> and <em>pair_coeffs</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">1150</span><span class="w"> </span><span class="n">atoms</span>
 <span class="m">2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
@@ -775,41 +789,54 @@ the box:</p>
 <span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="n">xlo</span><span class="w"> </span><span class="n">xhi</span>
 <span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="n">ylo</span><span class="w"> </span><span class="n">yhi</span>
 <span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="n">zlo</span><span class="w"> </span><span class="n">zhi</span>
+
+<span class="n">Masses</span>
+
+<span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="m">2</span><span class="w"> </span><span class="m">1</span>
+
+<span class="n">Pair</span><span class="w"> </span><span class="n">Coeffs</span><span class="w"> </span><span class="c"># lj/cut</span>
+
+<span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="m">2</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="m">3</span>
+<span class="nv">(...)</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
 <p>The <em>minimized_coordinate.data</em> file also contains the final
 positions and velocities of all the atoms:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">Atoms</span><span class="w"> </span><span class="c"># atomic</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
+<span class="n">Atoms</span><span class="w"> </span><span class="c"># atomic</span>
 
-<span class="m">345</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.8836527978635523</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.9323791349242530</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="m">979</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.9382597284003467</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.8335352105920894</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="m">435</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.5412729704650008</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.9697644643809667</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="m">533</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.5033422381244598</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.8519424750144708</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="m">347</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.4330866813628781</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.9373591404712414</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="m">448</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.3610197298718113</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.8518785172533800</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">345</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.8836527978</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.9323791349</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.0000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">979</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.9382597284</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.8335352105</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.00000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">435</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.5412729704</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.9697644648</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.00000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">533</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.5033422381</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.8519424701</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.00000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">347</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.4330866813</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.9373591047</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.00000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">448</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">2.3610197298</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="o">-</span><span class="m">2.8518781725</span><span class="n">e</span><span class="o">+</span><span class="m">01</span><span class="w"> </span><span class="m">0.00000000000</span><span class="n">e</span><span class="o">+</span><span class="m">00</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="nv">(...)</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The columns of the Atoms section
+<p>The columns of the <em>Atoms</em> section
 correspond (from left to right) to the atom indexes (from 1
 to the total number of atoms, 1150), the atom types (1 or 2
-here), the atoms positions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span> and the
-atoms velocities <span class="math notranslate nohighlight">\(v_x\)</span>, <span class="math notranslate nohighlight">\(v_y\)</span>, <span class="math notranslate nohighlight">\(v_z\)</span>.</p>
+here), the atoms positions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>.
+The last three columns are image flags that keep track of which
+atoms crossed the periodic boundary.</p>
 </div>
 </section>
 <section id="restarting-from-a-saved-configuration">
 <h3>Restarting from a saved configuration<a class="headerlink" href="#restarting-from-a-saved-configuration" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>We are going to create a new input file and start a
+<p>Let us create a new input file and start a
 molecular dynamics simulation directly from the previously
-saved configuration. In the same folder, create a new file
-named input3.lammps and copy the same lines as previously:</p>
+saved configuration. Within <em>improved-input/</em>, create a new file
+named <em>input.md.lammps</em> and copy the same lines as previously:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 1) Initialization</span>
 <span class="k">units</span><span class="w"> </span><span class="n">lj</span>
 <span class="k">dimension</span><span class="w"> </span><span class="m">3</span>
@@ -821,10 +848,10 @@ named input3.lammps and copy the same lines as previously:</p>
 </div>
 <div class="justify docutils container">
 <p>Now, instead of creating a new region and adding atoms, we
-simply add the following command:</p>
+can simply add the following command:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 2) System definition</span>
 <span class="k">read_data</span><span class="w"> </span><span class="n">minimized_coordinate.data</span>
 </pre></div>
@@ -838,10 +865,8 @@ one region to the other during minimisation, as seen in
 In order to start the simulation from a clean state, with
 only atoms of type 2 within the cylinder and atoms of type
 1 outside the cylinder, let us delete the misplaced atoms
-by adding the following commands:</p>
+by adding the following commands to <em>input.md.lammps</em>:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">mycylin</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">in</span>
 <span class="k">region </span><span class="nv nv-Identifier">mycylou</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">out</span>
 <span class="k">group </span><span class="nv nv-Identifier">mytype1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
@@ -854,16 +879,18 @@ by adding the following commands:</p>
 <span class="k">delete_atoms</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">type2ou</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
 <p>These commands will respectively recreate
-the previously defined regions (regions are not saved by the
-<em>write_data</em> command), create groups, and finally delete the
+the previously defined regions, since regions are not saved by the
+<em>write_data</em> command, create groups, and finally delete the
 atoms of type 1 that are located within the cylinder, as
 well as the atoms of type 2 that are located outside the
-cylinder. If you run LAMMPS, you can see in the terminal how
-many atoms are in each group, and how many atoms have been
-deleted:</p>
+cylinder.</p>
+</div>
+<div class="justify docutils container">
+<p>If you run the <em>input.md.lammps</em> input using LAMMPS, you
+can see in the <em>log</em> file how many atoms are in each group,
+and how many atoms have been deleted:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>1000 atoms in group mytype1
 150 atoms in group mytype2
@@ -876,73 +903,61 @@ Deleted 1 atoms, new total = 1149
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Similarly to previously, add the following simulation
-settings:</p>
+<p>Add the following lines to <em>input.md.lammps</em>
+(note the absence of mass and pair_coeff parameters):</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 3) Simulation settings</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="m">3.0</span>
-<span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">group </span><span class="nv nv-Identifier">type1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
 <span class="k">group </span><span class="nv nv-Identifier">type2</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
 
 <span class="c"># 4) Visualization</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
-<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.run.lammpstrj</span>
+<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.md.lammpstrj</span>
 </pre></div>
 </div>
+<div class="justify docutils container">
+<p>Note that 2 atom groups have been defined,
+which is useful to perform data analysis.</p>
 </div>
 <div class="justify docutils container">
-<p>Note that 2 atom groups have been defined, they are useful
-here to extract the coordination number between atoms of
-type 1 and 2. Let us extract this coordination number, as
-well as the number of atoms of each type in each region, by
-adding the following commands to the input file:</p>
+<p>Let us extract the number of atoms of each type
+in each region as a function of time, by
+adding the following commands to <em>input.md.lammps</em>:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">Ntype1in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype1,mycylin)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">Ntype1ou</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype1,mycylou)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">Ntype2in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype2,mycylin)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">Ntype2ou</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype2,mycylou)</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">Ntype1in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(type1,mycylin)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">Ntype1ou</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(type1,mycylou)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">Ntype2in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(type2,mycylin)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">Ntype2ou</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(type2,mycylou)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_Ntype1in</span><span class="w"> </span><span class="n">v_Ntype1ou</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">population1vstime.dat</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_Ntype2in</span><span class="w"> </span><span class="n">v_Ntype2ou</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">population2vstime.dat</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
-<p>As seen previously, the fix ave/time
-allow to evaluate previously defined variables and print
+<p>As seen previously, the <em>fix ave/time</em>
+allows to evaluate previously defined variables and print
 the values (here every 2000 steps, after averaging each quantities 200 times)
 into data file. The 4 variables starting with <em>Ntype</em> are used to count
-the number of atoms of a specific group in a specific
-region.</p>
+the number of atoms of a specific group in a specific region.</p>
+</div>
+<div class="justify docutils container">
 <p>Let us also extract the coordination number per atom between atoms
 of type 1 and 2, i.e. the average number of atoms of type 2 in the vicinity
-of the atoms of type 1. This coordination number will be used as an indicator of the
-degree of mixing of our binary mixture.</p>
+of the atoms of type 1. This coordination number will be used as
+an indicator of the degree of mixing of our binary mixture.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">coor12</span><span class="w"> </span><span class="nv nv-Identifier">type1</span><span class="w"> </span><span class="n">coord</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">type2</span>
 <span class="k">compute </span><span class="nv nv-Identifier">sumcoor12</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">reduce</span><span class="w"> </span><span class="n">ave</span><span class="w"> </span><span class="n">c_coor12</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat3</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">c_sumcoor12</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">coordinationnumber12.dat</span>
 </pre></div>
-</div>
 </div>
 <div class="justify docutils container">
 <p>The <em>compute ave</em> is used to average the per atom
 coordination number that is calculated by the <em>coord/atom</em> compute.
 This averaging is necessary as <em>coord/atom</em> returns an array where each value corresponds
 to a certain couple of atom i-j. Such array can’t be printed by <em>fix ave/time</em>.
-Finally, let us complete the script by adding the run section:</p>
+Finally, let us complete the script by adding the following lines
+to <em>input.md.lammps</em>:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input3.lammps</em></span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 5) Run</span>
 <span class="k">velocity </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">4928459</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="n">gaussian</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
@@ -952,32 +967,47 @@ Finally, let us complete the script by adding the run section:</p>
 <span class="k">write_data </span><span class="nv nv-Identifier">mixed.data</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
-<p>There are a few differences with the
-previous input script. First, the <em>velocity create</em>
-command attributes an initial velocity to all the atoms.
+<p>There are a few differences with <em>input.min.lammps</em>.
+First, the <em>velocity create</em>
+command attributes an initial velocity each atom.
 The initial velocity is chosen so that the initial
 temperature is equal to 1 (unitless). The additional
 keywords ensure that no linear momentum and no angular
 momentum are given to the system, and that the generated
 velocities are distributed as a Gaussian. Another novelty
 is the <em>zero yes</em> keyword in the Langevin thermostat, that
-ensures that the total random force is equal to zero.
-After running the simulation, you can observe the number
+ensures that the total random force is equal to zero.</p>
+</div>
+<div class="justify docutils container">
+<p>Run <em>input.md.lammps</em> using LAMMPS and vizualize the trajectory
+using VMD:</p>
+</div>
+<figure class="align-default">
+<img alt="LAMMPS VMD tutorial molecular dynamics simulation" class="only-light" src="../../_images/mixing-vmd-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="LAMMPS VMD tutorial molecular dynamics simulation" class="only-dark" src="../../_images/mixing-vmd-dark.png" />
+</figure>
+<div class="justify docutils container">
+<p>After running <em>input.md.lammps</em> using LAMMPS, you can observe the number
 of atoms in each region from the generated data files, as
 well as the evolution of the coordination number due to
 mixing:</p>
 </div>
+<div class="figurelegend docutils container">
+<p>Figure: Evolution of the atom populations during mixing.</p>
+</div>
 <figure class="align-default">
-<img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-light" src="../../_images/population-light.png" />
+<img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-light" src="../../_images/mixing-light.png" />
 </figure>
-<figure class="align-default" id="id12">
-<img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-dark" src="../../_images/population-dark.png" />
-<figcaption>
-<p><span class="caption-text">Evolution of the poputation with time, as well as evolution of the coordination number.</span><a class="headerlink" href="#id12" title="Link to this image">#</a></p>
-</figcaption>
+<figure class="align-default">
+<img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-dark" src="../../_images/mixing-dark.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Evolution of the number of atoms within the <em>mycylin</em> region
+as a function of time (a), and evolution of the coordination number (b).</p>
+</div>
 <p>You can access all the input scripts and data files that
 are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a> on Github.</p>
 </section>
@@ -1149,9 +1179,9 @@ template typically begins as follow:</p>
 <li><a class="reference internal" href="#system-creation">System creation</a></li>
 <li><a class="reference internal" href="#energy-minimization">Energy minimization</a></li>
 <li><a class="reference internal" href="#molecular-dynamics">Molecular dynamics</a></li>
+<li><a class="reference internal" href="#trajectory-visualization">Trajectory visualization</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#trajectory-visualization">Trajectory visualization</a></li>
 <li><a class="reference internal" href="#improving-the-script">Improving the script</a><ul>
 <li><a class="reference internal" href="#control-the-initial-atom-positions">Control the initial atom positions</a></li>
 <li><a class="reference internal" href="#restarting-from-a-saved-configuration">Restarting from a saved configuration</a></li>

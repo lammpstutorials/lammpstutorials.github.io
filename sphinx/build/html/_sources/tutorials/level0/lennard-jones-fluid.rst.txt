@@ -483,20 +483,19 @@ Molecular dynamics
     then increases during molecular dynamics until it reaches a plateau value of about 1.5.
 
 Trajectory visualization
-========================
-
-.. figure:: ../figures/level0/lennard-jones-fluid/input1.png
-   :alt: binary fluid
-   :width: 350 px
-   :align: right
+------------------------
 
 ..  container:: justify
 
     The simulation is running well, but we would like to
     visualize the trajectories of the atoms. To do so, we need
     to dump the positions of the atoms in a file at a regular
-    interval. Add the following command in the *visualization*
-    section of PART B:
+    interval.
+    
+..  container:: justify
+
+    Add the following command to the *input.lammps* file,
+    in the *visualization* section of PART B:
 
 ..  code-block:: lammps
 
@@ -504,10 +503,10 @@ Trajectory visualization
 
 ..  container:: justify
 
-    Run LAMMPS again. A file named *dump.lammpstrj* must appear in
-    the same folder as your input. This file can be opened using
-    VMD or Ovito. In Ubuntu, if VMD is installed, you can simply
-    execute in the terminal:
+    Run the *input.lammps* using LAMMPS again. A file named *dump.lammpstrj*
+    must appear within *my-first-input/*. A *.lammpstrj* file can
+    be opened using VMD or Ovito. For instance with Ubuntu/Linux,
+    you can simply execute in the terminal:
 
 ..  code-block:: bw
 
@@ -516,10 +515,26 @@ Trajectory visualization
 ..  container:: justify
 
     Otherwise, you can open VMD and import the *dump.lammpstrj*
-    file manually using file *->* molecule. You should see a cloud
-    of lines, but you can improve the representation and make it
-    look like the figure on the right, or the video at the 
-    top of this page. 
+    file manually using *File -> New molecule*.
+    
+..  container:: justify
+
+    By default, you should see a cloud
+    of lines, but you can improve the representation
+    as I did here: 
+
+.. figure:: ../figures/level0/lennard-jones-fluid/first-input-light.png
+    :alt: binary fluid simulated by LAMMPS and visualized with VMD
+    :class: only-light
+
+.. figure:: ../figures/level0/lennard-jones-fluid/first-input-dark.png
+    :alt: binary fluid simulated by LAMMPS and visualized with VMD
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: View of a slice of the system using VMD, with both
+    types of atoms represented as spheres. 
 
 Improving the script
 ====================
@@ -527,12 +542,8 @@ Improving the script
 ..  container:: justify
 
     Let us improve the input script and perform slightly more
-    advanced operations.
-
-.. figure:: ../figures/level0/lennard-jones-fluid/input2.png
-   :alt: binary fluid
-   :width: 350 px
-   :align: right
+    advanced operations, such as imposing a more subtle initial
+    positions for the atoms, or saving and restarting the simulation. 
 
 Control the initial atom positions
 ----------------------------------
@@ -541,12 +552,20 @@ Control the initial atom positions
 
     Let us create the atoms of type 1 and 2 in two separate
     regions, respectively, instead of creating them both randomly 
-    within the entire space as we did previously. Create a new input script, and call
-    it *input2.lammps*. Similarly to what has been done previously, copy the following lines
-    into the input script:
+    within the entire space as we did previously. 
+    
+..  container:: justify
+
+    Create a new folder next to *my-first-input/*, and call
+    it *improved-input/*. Then, create a new input 
+    and call it *input.min.lammps*.
+    
+..  container:: justify
+    
+    Similarly to what has been done previously, copy the following lines
+    into *input.min.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input2.lammps*
 
     # 1) Initialization
     units lj
@@ -557,41 +576,38 @@ Control the initial atom positions
 
 ..  container:: justify
 
-    Let us create a box from a predefined region,
-    and create two additional regions and generate
-    atoms of type 1 and 2 in each region respectively.
+    Let us create three separate regions: the first one for the 
+    simulation box, the second one for the atoms of type 1, and
+    the third one for the atoms of type 2:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input2.lammps*
 
     # 2) System definition
     region simulation_box block -20 20 -20 20 -20 20
     create_box 2 simulation_box
-    region mycylin cylinder z 0 0 10 INF INF side in
     region mycylou cylinder z 0 0 10 INF INF side out
     create_atoms 1 random 1000 341341 mycylou
+    region mycylin cylinder z 0 0 10 INF INF side in
     create_atoms 2 random 150 127569 mycylin
 
 ..  container:: justify
 
     The *side in* and *side out* keywords
-    allow us to define regions that are respectively inside the
-    cylinder, and everything that is not inside the cylinder.
-
-    We can write the remaining of the input script as follow:
+    are used to define regions that are respectively inside
+    and outside of the cylinder. Then, copy similar lines
+    as previously into *input.min.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input2.lammps*
 
     # 3) Simulation settings
     mass 1 1
     mass 2 1
     pair_coeff 1 1 1.0 1.0
     pair_coeff 2 2 0.5 3.0
-    neigh_modify every 1 delay 5 check yes
 
     # 4) Visualization
     thermo 10
+    thermo_style custom step temp pe ke etotal press
     dump mydmp all atom 10 dump.min.lammpstrj
 
     # 5) Run
@@ -600,22 +616,29 @@ Control the initial atom positions
 
 ..  container:: justify
 
-    The novelty with respect to the previous
-    input script is the command *write_data*. This command
-    asks LAMMPS to print the final state of the simulation in
-    a file named *minimized_coordinate.data*. This file will
-    be used later to restart the simulation from the final
+    The main novelty, with respect to the previous
+    input script, is the *write_data* command. This command
+    is used to print the final state of the simulation in
+    a file named *minimized_coordinate.data*. Note that 
+    the *write_data* command is placed after the *minimize*
+    command. This *.data* file will be used later to restart
+    the simulation from the final
     state of the energy minimisation step.
 
-    Run LAMMPS using the *input2.lammps* script. If everything
-    goes well, a dump file named *dump.min.lammpstrj* will
+..  container:: justify
+
+    Run the *input.min.lammps* script using LAMMPS. A new
+    dump file named *dump.min.lammpstrj* will
     appear in the folder, allowing you to visualize the atoms
     trajectories during minimization. In
-    addition, a file named *minimized_coordinate.data* will be
-    created. If you open this file, you will see that it
+    addition, a file named *minimized_coordinate.data* will be created. 
+    
+..  container:: justify
+    
+    If you open *minimized_coordinate.data*, you will see that it
     contains all the information necessary to restart the
     simulation, such as the number of atoms and the size of
-    the box:
+    the box. The *.data* file even contains the atoms *masses* and *pair_coeffs*:
 
 ..  code-block:: lammps
 
@@ -626,6 +649,17 @@ Control the initial atom positions
     -20 20 ylo yhi
     -20 20 zlo zhi
 
+    Masses
+
+    1 1
+    2 1
+
+    Pair Coeffs # lj/cut
+
+    1 1 1
+    2 0.5 3
+    (...)
+
 ..  container:: justify
 
     The *minimized_coordinate.data* file also contains the final
@@ -633,33 +667,35 @@ Control the initial atom positions
 
 ..  code-block:: lammps
 
+    (...)
     Atoms # atomic
 
-    345 1 -2.8836527978635523e+01 -2.9323791349242530e+01 0.0000000000000000e+00 0 0 0
-    979 1 -2.9382597284003467e+01 -2.8335352105920894e+01 0.0000000000000000e+00 0 0 0
-    435 1 -2.5412729704650008e+01 -2.9697644643809667e+01 0.0000000000000000e+00 0 0 0
-    533 1 -2.5033422381244598e+01 -2.8519424750144708e+01 0.0000000000000000e+00 0 0 0
-    347 1 -2.4330866813628781e+01 -2.9373591404712414e+01 0.0000000000000000e+00 0 0 0
-    448 1 -2.3610197298718113e+01 -2.8518785172533800e+01 0.0000000000000000e+00 0 0 0
+    345 1 -2.8836527978e+01 -2.9323791349e+01 0.0000000000e+00 0 0 0
+    979 1 -2.9382597284e+01 -2.8335352105e+01 0.00000000000e+00 0 0 0
+    435 1 -2.5412729704e+01 -2.9697644648e+01 0.00000000000e+00 0 0 0
+    533 1 -2.5033422381e+01 -2.8519424701e+01 0.00000000000e+00 0 0 0
+    347 1 -2.4330866813e+01 -2.9373591047e+01 0.00000000000e+00 0 0 0
+    448 1 -2.3610197298e+01 -2.8518781725e+01 0.00000000000e+00 0 0 0
     (...)
 
 ..  container:: justify
 
-    The columns of the Atoms section
+    The columns of the *Atoms* section
     correspond (from left to right) to the atom indexes (from 1
     to the total number of atoms, 1150), the atom types (1 or 2
-    here), the atoms positions :math:`x`, :math:`y`, :math:`z` and the
-    atoms velocities :math:`v_x`, :math:`v_y`, :math:`v_z`.
+    here), the atoms positions :math:`x`, :math:`y`, :math:`z`.
+    The last three columns are image flags that keep track of which
+    atoms crossed the periodic boundary.
 
 Restarting from a saved configuration
 -------------------------------------
 
 ..  container:: justify
 
-    We are going to create a new input file and start a
+    Let us create a new input file and start a
     molecular dynamics simulation directly from the previously
-    saved configuration. In the same folder, create a new file
-    named input3.lammps and copy the same lines as previously:
+    saved configuration. Within *improved-input/*, create a new file
+    named *input.md.lammps* and copy the same lines as previously:
 
 ..  code-block:: lammps
     :caption: *to be copied in input3.lammps*
@@ -674,7 +710,7 @@ Restarting from a saved configuration
 ..  container:: justify
 
     Now, instead of creating a new region and adding atoms, we
-    simply add the following command:
+    can simply add the following command:
 
 ..  code-block:: lammps
     :caption: *to be copied in input3.lammps*
@@ -691,14 +727,13 @@ Restarting from a saved configuration
     In order to start the simulation from a clean state, with
     only atoms of type 2 within the cylinder and atoms of type
     1 outside the cylinder, let us delete the misplaced atoms
-    by adding the following commands:
+    by adding the following commands to *input.md.lammps*:
 
 .. |this video| raw:: html
 
    <a href="https://www.youtube.com/embed/gfJ_n33-F6A" target="_blank">this video</a>
 
 ..  code-block:: lammps
-    :caption: *to be copied in input3.lammps*
 
     region mycylin cylinder z 0 0 10 INF INF side in
     region mycylou cylinder z 0 0 10 INF INF side out
@@ -714,13 +749,17 @@ Restarting from a saved configuration
 ..  container:: justify
 
     These commands will respectively recreate
-    the previously defined regions (regions are not saved by the
-    *write_data* command), create groups, and finally delete the
+    the previously defined regions, since regions are not saved by the
+    *write_data* command, create groups, and finally delete the
     atoms of type 1 that are located within the cylinder, as
     well as the atoms of type 2 that are located outside the
-    cylinder. If you run LAMMPS, you can see in the terminal how
-    many atoms are in each group, and how many atoms have been
-    deleted:
+    cylinder. 
+    
+..  container:: justify
+
+    If you run the *input.md.lammps* input using LAMMPS, you
+    can see in the *log* file how many atoms are in each group,
+    and how many atoms have been deleted:
 
 ..  code-block:: bw
 
@@ -735,59 +774,55 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    Similarly to previously, add the following simulation
-    settings:
+    Add the following lines to *input.md.lammps*
+    (note the absence of mass and pair_coeff parameters):
 
 ..  code-block:: lammps
-    :caption: *to be copied in input3.lammps*
 
     # 3) Simulation settings
-    mass 1 1
-    mass 2 1
-    pair_coeff 1 1 1.0 1.0
-    pair_coeff 2 2 0.5 3.0
-    neigh_modify every 1 delay 5 check yes
     group type1 type 1
     group type2 type 2
 
     # 4) Visualization
     thermo 1000
-    dump mydmp all atom 1000 dump.run.lammpstrj
+    dump mydmp all atom 1000 dump.md.lammpstrj
 
 ..  container:: justify
 
-    Note that 2 atom groups have been defined, they are useful
-    here to extract the coordination number between atoms of
-    type 1 and 2. Let us extract this coordination number, as
-    well as the number of atoms of each type in each region, by
-    adding the following commands to the input file:
+    Note that 2 atom groups have been defined,
+    which is useful to perform data analysis. 
+    
+..  container:: justify
+    
+    Let us extract the number of atoms of each type
+    in each region as a function of time, by
+    adding the following commands to *input.md.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input3.lammps*
 
-    variable Ntype1in equal count(mytype1,mycylin)
-    variable Ntype1ou equal count(mytype1,mycylou)
-    variable Ntype2in equal count(mytype2,mycylin)
-    variable Ntype2ou equal count(mytype2,mycylou)
+    variable Ntype1in equal count(type1,mycylin)
+    variable Ntype1ou equal count(type1,mycylou)
+    variable Ntype2in equal count(type2,mycylin)
+    variable Ntype2ou equal count(type2,mycylou)
     fix myat1 all ave/time 10 200 2000 v_Ntype1in v_Ntype1ou file population1vstime.dat
     fix myat2 all ave/time 10 200 2000 v_Ntype2in v_Ntype2ou file population2vstime.dat
 
 ..  container:: justify
 
-    As seen previously, the fix ave/time
-    allow to evaluate previously defined variables and print
+    As seen previously, the *fix ave/time*
+    allows to evaluate previously defined variables and print
     the values (here every 2000 steps, after averaging each quantities 200 times)
     into data file. The 4 variables starting with *Ntype* are used to count
-    the number of atoms of a specific group in a specific
-    region. 
+    the number of atoms of a specific group in a specific region. 
+
+..  container:: justify
 
     Let us also extract the coordination number per atom between atoms 
     of type 1 and 2, i.e. the average number of atoms of type 2 in the vicinity 
-    of the atoms of type 1. This coordination number will be used as an indicator of the 
-    degree of mixing of our binary mixture. 
+    of the atoms of type 1. This coordination number will be used as
+    an indicator of the degree of mixing of our binary mixture. 
     
 ..  code-block:: lammps
-    :caption: *to be copied in input3.lammps*
 
     compute coor12 type1 coord/atom cutoff 2.0 group type2
     compute sumcoor12 all reduce ave c_coor12
@@ -799,10 +834,10 @@ Restarting from a saved configuration
     coordination number that is calculated by the *coord/atom* compute.
     This averaging is necessary as *coord/atom* returns an array where each value corresponds 
     to a certain couple of atom i-j. Such array can't be printed by *fix ave/time*. 
-    Finally, let us complete the script by adding the run section:
+    Finally, let us complete the script by adding the following lines 
+    to *input.md.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input3.lammps*
 
     # 5) Run
     velocity all create 1.0 4928459 mom yes rot yes dist gaussian
@@ -814,9 +849,9 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    There are a few differences with the
-    previous input script. First, the *velocity create*
-    command attributes an initial velocity to all the atoms.
+    There are a few differences with *input.min.lammps*.
+    First, the *velocity create*
+    command attributes an initial velocity each atom.
     The initial velocity is chosen so that the initial
     temperature is equal to 1 (unitless). The additional
     keywords ensure that no linear momentum and no angular
@@ -824,20 +859,43 @@ Restarting from a saved configuration
     velocities are distributed as a Gaussian. Another novelty
     is the *zero yes* keyword in the Langevin thermostat, that
     ensures that the total random force is equal to zero.
-    After running the simulation, you can observe the number
+
+..  container:: justify
+
+    Run *input.md.lammps* using LAMMPS and vizualize the trajectory
+    using VMD:
+
+.. figure:: ../figures/level0/lennard-jones-fluid/mixing-vmd-light.png
+    :alt: LAMMPS VMD tutorial molecular dynamics simulation
+    :class: only-light
+
+.. figure:: ../figures/level0/lennard-jones-fluid/mixing-vmd-dark.png
+    :alt: LAMMPS VMD tutorial molecular dynamics simulation
+    :class: only-dark
+
+..  container:: justify
+
+    After running *input.md.lammps* using LAMMPS, you can observe the number
     of atoms in each region from the generated data files, as
     well as the evolution of the coordination number due to
     mixing:
 
-.. figure:: ../figures/level0/lennard-jones-fluid/population-light.png
+.. container:: figurelegend
+
+    Figure: Evolution of the atom populations during mixing.
+
+.. figure:: ../figures/level0/lennard-jones-fluid/mixing-light.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-light
 
-.. figure:: ../figures/level0/lennard-jones-fluid/population-dark.png
+.. figure:: ../figures/level0/lennard-jones-fluid/mixing-dark.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-dark
 
-    Evolution of the poputation with time, as well as evolution of the coordination number. 
+.. container:: figurelegend
+
+    Figure: Evolution of the number of atoms within the *mycylin* region
+    as a function of time (a), and evolution of the coordination number (b). 
 
 .. include:: ../../contact/accessfile.rst
 

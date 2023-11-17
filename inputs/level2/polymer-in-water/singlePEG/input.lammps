@@ -7,12 +7,11 @@
 units real
 atom_style full
 bond_style harmonic
-angle_style charmm
-dihedral_style charmm
-pair_style lj/cut/tip4p/long 1 2 1 1 0.105 12.0
-kspace_style pppm/tip4p 1.0e-4
-
-special_bonds lj 0.0 0.0 0.5
+angle_style harmonic
+dihedral_style harmonic
+pair_style lj/cut/coul/long 12
+kspace_style pppm 1e-5
+special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 
 read_data init.data
 include ../PARM.lammps
@@ -34,7 +33,7 @@ dump mydmp all atom 1000 dump.lammpstrj
 dump_modify mydmp append yes
 thermo 1000
 variable mytemp equal temp
-fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
+fix myat1 all ave/time 10 10 100 v_mytemp file output-temperature.dat
 
 timestep 1
 run 10000
