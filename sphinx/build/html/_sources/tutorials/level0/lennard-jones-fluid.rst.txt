@@ -902,7 +902,7 @@ Going further with exercises
 
 .. container:: justify
 
-    A solution for each exercice is provided here: :ref:`solutions-label`.
+    A solution for each exercise is provided here: :ref:`solutions-label`.
     Note that there often exist several different solutions to each
     molecular dynamics problem.  
 

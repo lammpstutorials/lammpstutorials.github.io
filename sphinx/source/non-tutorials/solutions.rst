@@ -154,6 +154,64 @@ Create dumbbell molecules
 
     <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/dumbell2.mol" target="_blank">type-2</a>
 
+Pulling on a carbon nanotube
+============================
+
+Plot the strain-stress curves
+-----------------------------
+
+.. container:: justify
+
+    You can download the |input_stress_strain_solution1|
+    and |input_stress_strain_solution2| I wrote.
+
+.. container:: justify
+
+    The main difficulty here is to calculate the stress. Here, 
+    the stress is calculated as the force divided by the 
+    surface area of the CNT. Note that the surface area 
+    of a CNT is not a well defined quantity. I choose to 
+    define the area as the perimeter of the CNT multiplied by the 
+    effective width of the carbon atoms. 
+
+.. container:: justify
+
+    Be careful with units, as the force is either in kCal/mol
+    or eV, depending of the unit system, respectively *real* or *metal*.
+
+.. |input_stress_strain_solution1| raw:: html
+
+    <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input</a>
+
+.. |input_stress_strain_solution1| raw:: html
+
+    <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input</a>
+
+Deform a CNT membrane
+---------------------
+
+.. container:: justify
+
+    You can download the |input_membrane_solution1| I wrote.
+    The CNT can be replicated using the *replicate* command.
+    Then, it is important to change the box to triclinic:
+
+..  code-block:: lammps
+
+    change_box all triclinic
+
+.. container:: justify
+
+    Before deforming the system using:
+
+..  code-block:: lammps
+
+    fix muyef all deform 1 xy erate 5e-5
+
+.. |input_membrane_solution1| raw:: html
+
+    <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/membrane/input.lammps" target="_blank">input</a>
+
 Coming soon
 -----------
 

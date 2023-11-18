@@ -1082,72 +1082,45 @@ are used in these tutorials from <a href="https://github.com/lammpstutorials/lam
 </section>
 <section id="going-further-with-exercises">
 <h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">#</a></h2>
-<div class="solution admonition">
-<p class="admonition-title">Solutions</p>
-<p>Register as a <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a> for 1 euro/month
-to access all the solutions.</p>
-</div>
-<section id="isolated-nanotube">
-<h3>Isolated nanotube<a class="headerlink" href="#isolated-nanotube" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>When a rubber band is streched up, it heats up due to entropy change.
-In the current simulation, the constant exchange of energy between the CNT and
-thermostat prevents the temperature to evolve as the CNT is getting deformed.
-Remove the thermostat and observe the evolution of the temperature of an
-<em>isolated</em> carbon nanotube being deformed. Does it heat-up? Or does it cool down?</p>
+<p>A solution for each exercise is provided here: <a class="reference internal" href="../../non-tutorials/solutions.html#solutions-label"><span class="std std-ref">Solutions to the exercises</span></a>.</p>
+</div>
+<section id="plot-the-strain-stress-curves">
+<h3>Plot the strain-stress curves<a class="headerlink" href="#plot-the-strain-stress-curves" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Adapt the current script and extract the strain-stress curves for
+the two CNTs (breakable and unbreakable):</p>
+</div>
+<figure class="align-default">
+<img alt="strain stain curve of the CNTs" class="only-dark" src="tutorials/figures/level1/breaking-a-carbon-nanotube/stress-stain-curve-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="strain stain curve of the CNTs" class="only-light" src="tutorials/figures/level1/breaking-a-carbon-nanotube/stress-stain-curve-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Strain-stain curves for the two CNTs, breakable and unbreakable.</p>
 </div>
 </section>
-<section id="make-a-membrane-and-deform-it">
-<h3>Make a membrane and deform it<a class="headerlink" href="#make-a-membrane-and-deform-it" title="Link to this heading">#</a></h3>
-<figure class="align-right">
-<a class="only-dark reference internal image-reference" href="../../_images/shared-dark.png"><img alt="deformed membrane of CNT" class="only-dark" src="../../_images/shared-dark.png" style="width: 200px;" /></a>
-</figure>
-<figure class="align-right">
-<a class="only-light reference internal image-reference" href="../../_images/shared-light.png"><img alt="deformed membrane of CNT" class="only-light" src="../../_images/shared-light.png" style="width: 200px;" /></a>
-</figure>
+<section id="deform-a-cnt-membrane">
+<h3>Deform a CNT membrane<a class="headerlink" href="#deform-a-cnt-membrane" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Replicate the CNT along <em>x</em> and <em>y</em>, and equilibrate the system to
 create a nanoporous membrane made of multiple CNTs.
 Then, apply a shear deformation along <em>xy</em>.</p>
 </div>
-<div class="dropdown admonition">
-<p class="admonition-title">Hints</p>
+<figure class="align-default">
+<img alt="deformed membrane of CNTs" class="only-dark" src="../../_images/membrane-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="deformed membrane of CNTs" class="only-light" src="../../_images/membrane-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Multiple carbon nanotubes forming a membrane.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">Hint</p>
 <p>The box must be converted to triclinic to support deformation
 along <em>xy</em>.</p>
-</div>
-<figure class="align-right">
-<a class="only-dark reference internal image-reference" href="../../_images/CH-dark.png"><img alt="CNT with hydrogen atoms and N2 molecule" class="only-dark" src="../../_images/CH-dark.png" style="width: 200px;" /></a>
-</figure>
-<figure class="align-right">
-<a class="only-light reference internal image-reference" href="../../_images/CH-light.png"><img alt="CNT with hydrogen atoms and N2 molecule" class="only-light" src="../../_images/CH-light.png" style="width: 200px;" /></a>
-</figure>
-</section>
-<section id="decorate-the-cnt-with-hydrogens">
-<h3>Decorate the CNT with hydrogens<a class="headerlink" href="#decorate-the-cnt-with-hydrogens" title="Link to this heading">#</a></h3>
-<div class="justify docutils container">
-<p>Add hydrogen atoms randomly to the system (using the same
-AIREBO force field). Equilibrate the system. After some time, some hydrogen atoms will
-decorate the free carbon atoms at the edge of the CNT. Some
-other hydrogen atoms may bond together and form <span class="math notranslate nohighlight">\(H_2\)</span> molecules.</p>
-</div>
-</section>
-<section id="plot-a-strain-stress-curve">
-<h3>Plot a strain-stress curve<a class="headerlink" href="#plot-a-strain-stress-curve" title="Link to this heading">#</a></h3>
-<div class="justify docutils container">
-<p>Adapt the current script and extract a full strain-stress curve:</p>
-</div>
-<figure class="align-default">
-<img alt="strain stain curve for determining the young modulus of a CNT" class="only-dark" src="../../_images/strain-stain-curve-dark.png" />
-</figure>
-<figure class="align-default">
-<img alt="strain stain curve for determining the young modulus of a CNT" class="only-light" src="../../_images/strain-stain-curve-light.png" />
-</figure>
-<div class="dropdown admonition">
-<p class="admonition-title">Hints</p>
-<p>The following steps are optional, but give a better result:
-1) Only record data during the production run, not the equilibration.
-2) Reduce the velocity to perform a nice and slow pulling of the CNT.
-3) Increase the magnitude of the total elongation.</p>
 </div>
 </section>
 </section>
@@ -1226,10 +1199,8 @@ other hydrogen atoms may bond together and form <span class="math notranslate no
 </ul>
 </li>
 <li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
-<li><a class="reference internal" href="#isolated-nanotube">Isolated nanotube</a></li>
-<li><a class="reference internal" href="#make-a-membrane-and-deform-it">Make a membrane and deform it</a></li>
-<li><a class="reference internal" href="#decorate-the-cnt-with-hydrogens">Decorate the CNT with hydrogens</a></li>
-<li><a class="reference internal" href="#plot-a-strain-stress-curve">Plot a strain-stress curve</a></li>
+<li><a class="reference internal" href="#plot-the-strain-stress-curves">Plot the strain-stress curves</a></li>
+<li><a class="reference internal" href="#deform-a-cnt-membrane">Deform a CNT membrane</a></li>
 </ul>
 </li>
 </ul>
