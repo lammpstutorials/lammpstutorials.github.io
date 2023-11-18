@@ -1063,11 +1063,11 @@ Plot the strain-stress curves
     Adapt the current script and extract the strain-stress curves for
     the two CNTs (breakable and unbreakable):
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/stress-stain-curve-dark.png
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/stress-strain-curve-dark.png
     :alt: strain stain curve of the CNTs
     :class: only-dark
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/stress-stain-curve-light.png
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/stress-strain-curve-light.png
     :alt: strain stain curve of the CNTs
     :class: only-light
 
