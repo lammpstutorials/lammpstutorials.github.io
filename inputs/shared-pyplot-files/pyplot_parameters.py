@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.transforms as mtransforms
 from matplotlib.ticker import AutoMinorLocator
@@ -137,3 +138,18 @@ def set_boundaries(plt, x_boundaries=None, x_ticks=None, y_boundaries=None, y_ti
         plt.ylim(y_boundaries)
     if y_ticks is not None:
         plt.yticks(y_ticks)  
+
+def import_ave_time(filename):
+    assert filename[:6] == "output"
+    if os.path.exists(filename):
+        data = np.loadtxt(filename)
+        try:
+            time, data = data.T
+        except:
+            time, data, _ = data.T
+        if os.path.exists("data_plot/") is False:
+            os.mkdir("data_plot/")
+        np.savetxt("data_plot/"+filename[7:], np.vstack([time, data]).T)
+    else:
+        time, data = np.loadtxt("data_plot/"+filename[7:]).T
+    return time, data
