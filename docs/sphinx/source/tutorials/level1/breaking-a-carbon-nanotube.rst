@@ -1081,7 +1081,7 @@ Deform a CNT membrane
 .. container:: justify
 
     Replicate the CNT along *x* and *y*, and equilibrate the system to 
-    create a nanoporous membrane made of multiple CNTs. 
+    create a membrane made of multiple CNTs. 
     Then, apply a shear deformation along *xy*.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/membrane-dark.png
