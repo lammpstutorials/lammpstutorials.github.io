@@ -1011,7 +1011,7 @@ Generate a PEG-H2O mixture
 .. admonition:: Hints
     :class: info
 
-    Have a loook at the LAMMPS *replicate* command.
+    Have a look at the LAMMPS *replicate* command.
     Note tthat there is no obligation to equilibrate the water molecules separately from the PEG,
     as we did here. You can also create the water molecules directly around the PEG molcule
     using the *create_atom* command.
