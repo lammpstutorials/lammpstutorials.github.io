@@ -1,0 +1,162 @@
+.. _solutions-label:
+
+Solutions to the exercises
+**************************
+
+Lennard-Jones fluid
+===================
+
+Fix a broken input
+------------------
+
+.. container:: justify
+
+    You can download the |input_broken_solution| I wrote.
+    The key to make the simulation starts, is to initially 
+    reduce the *timestep*, as well as the imposed *temperature*.
+    Note that in order to make sure that the temperature of the particles
+    quickly reaches a low value before the simulation crashes, I also reduced 
+    the *damping* parameter of the *Langevin* command:
+
+..  code-block:: lammps
+
+    fix mylgv all langevin 0.001 0.001 0.001 1530917
+    timestep 0.0001
+
+.. container:: justify
+
+    Then, after the first *run* finishes, the energy of the system 
+    has reduced due to the motion of the atoms, and a second *run*
+    with the original *timestep* and *Langevin* parameters can start
+    without issue. 
+
+.. container:: justify
+
+    In some case, several consecutive steps can be necessary:
+
+..  code-block:: lammps
+
+    fix mylgv all langevin 0.0001 0.0001 0.001 1530917
+    timestep 0.0001
+    run 10000
+
+    timestep 0.001
+    run 10000
+
+    timestep 0.01
+    run 10000
+
+.. container:: justify
+
+    Use trial and error to determine the best approach for
+    a given system.
+
+.. |input_broken_solution| raw:: html
+
+    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/broken/input.lammps" target="_blank">input</a>
+
+Create a demixed dense phase
+----------------------------
+
+.. container:: justify
+
+    You can download the |input_demixed_solution| I wrote. Note that 
+    I use a large number of particles: 8000 for each type. Then,
+    the key to create a demixing phase is to play with the Lennard-Jones 
+    parameters:
+
+..  code-block:: lammps
+
+    pair_coeff 1 1 5.0 1.0
+    pair_coeff 2 2 5.0 1.0
+    pair_coeff 1 2 0.05 1.0
+
+.. container:: justify
+
+    First, notice that both particle types have the same :math:`\sigma` value of 1.0
+    so that both particles have the same diameter. Second, note the large energy parameter :math:`\epsilon = 5.0`
+    for self interaction (i.e.) interaction between particles of same type, and the low 
+    energy parameter :math:`\epsilon = 0.05` for interaction between particles of different types.
+
+.. container:: justify
+
+    Finally, for adjusting the box volume and create a liquid looking phase, the 
+    pressure was imposed by replacing *fix nve* by *fix nph*:
+
+..  code-block:: lammps
+
+    fix mynph all nph iso 1.0 1.0 1.0
+
+.. container:: justify
+
+    With *fix nph* and a pressure of 1, LAMMPS adjusts the box dimension until the 
+    pressure is close to 1, which is require reducing the initial box dimensions.
+
+.. |input_demixed_solution| raw:: html
+
+    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/demixion/input.lammps" target="_blank">input</a>
+
+Create dumbbell molecules
+-------------------------
+
+.. container:: justify
+
+    You can download the |input_dumbbell_solution| I wrote. The first important 
+    change is to choose an *atom_style* that allows for bond creation, and 
+    to specify the *bond_style*:
+
+..  code-block:: lammps
+
+    atom_style molecular
+    bond_style harmonic
+
+.. container:: justify
+
+    When creating the box, it is important to make space in the memory for 
+    the bonds:
+
+..  code-block:: lammps
+
+    create_box 2 simulation_box bond/types 2 extra/bond/per/atom 1
+
+.. container:: justify
+
+    Then, import the *molecule templates*, and use these templates
+    when creating the atoms:
+
+..  code-block:: lammps
+
+    molecule dumbell1 dumbell1.mol
+    molecule dumbell2 dumbell2.mol
+    create_atoms 0 random 750 341341 simulation_box mol dumbell1 8766
+    create_atoms 0 random 50 678865 simulation_box mol dumbell2 8751
+
+.. container:: justify
+
+    You can download the molecule templates for |mol1_dumbbell_solution| and |mol2_dumbbell_solution|.
+    Finally, some parameters for the two types of bonds, namely their rigidity and equilibrium lengths
+    is specified:
+
+..  code-block:: lammps
+
+    bond_coeff 1 5 0.5
+    bond_coeff 2 5 1.5
+
+.. |input_dumbbell_solution| raw:: html
+
+    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/input.lammps" target="_blank">input</a>
+
+.. |mol1_dumbbell_solution| raw:: html
+
+    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/dumbell1.mol" target="_blank">type-1</a>
+
+.. |mol2_dumbbell_solution| raw:: html
+
+    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/dumbell2.mol" target="_blank">type-2</a>
+
+Coming soon
+-----------
+
+.. container:: justify
+
+    This page is currently being written, all solutions will appear here eventually.

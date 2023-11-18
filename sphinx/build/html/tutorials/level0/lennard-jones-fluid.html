@@ -194,6 +194,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../non-tutorials/solutions.html">Solutions to the exercises</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/make-gorgeous-image.html">Make gorgeous image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/use-gromacs-instead.html">Use GROMACS instead</a></li>
 </ul>
@@ -610,7 +611,7 @@ as soon as the second run starts.</p>
 positions and the velocities of the atoms in the group
 <em>all</em> (this is the most important command here). The second
 fix applies a Langevin thermostat to the atoms of group
-<em>all</em>, with a desired temperature of 1 and a damping
+<em>all</em>, with a desired temperature of 1 and a <em>damping</em>
 parameter of 0.1. The number <em>1530917</em> is a seed, you can
 change it to perform statistically independent simulations.
 Finally we choose the timestep and we ask LAMMPS to
@@ -1011,8 +1012,52 @@ as a function of time (a), and evolution of the coordination number (b).</p>
 are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a> on Github.</p>
 </section>
 </section>
-<section id="goin-further-with-exercises">
-<h2>Goin further with exercises<a class="headerlink" href="#goin-further-with-exercises" title="Link to this heading">#</a></h2>
+<section id="going-further-with-exercises">
+<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>A solution for each exercice is provided here: <a class="reference internal" href="../../non-tutorials/solutions.html#solutions-label"><span class="std std-ref">Solutions to the exercises</span></a>.
+Note that there often exist several different solutions to each
+molecular dynamics problem.</p>
+</div>
+<section id="fix-a-broken-input">
+<h3>Fix a broken input<a class="headerlink" href="#fix-a-broken-input" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Fix the following failing <em>input.lammps</em> script without
+using any other command than the ones already present (you can
+however change the parameters values and replicate every
+command at many times as needed):</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">lj</span>
+<span class="k">dimension</span><span class="w"> </span><span class="m">3</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">atomic</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="m">2.5</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+
+<span class="k">region </span><span class="nv nv-Identifier">simulation_box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
+<span class="k">create_box </span><span class="nv nv-Identifier">1</span><span class="w"> </span><span class="nv nv-Identifier">simulation_box</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">341841</span><span class="w"> </span><span class="n">simulation_box</span>
+
+<span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span>
+
+<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">100</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">pe</span><span class="w"> </span><span class="n">ke</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="m">1530917</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.005</span>
+
+<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+</pre></div>
+</div>
+<div class="info admonition">
+<p class="admonition-title">Note</p>
+<p>The reasons this script is failling are that particles are created
+randomly in space, and that no energy minimization is performed prior
+to start the molecular dynamics simulation.</p>
+</div>
+</section>
 <section id="create-a-demixed-dense-phase">
 <h3>Create a demixed dense phase<a class="headerlink" href="#create-a-demixed-dense-phase" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
@@ -1036,60 +1081,30 @@ to create a simulation with the following properties:</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Snapshots taken at different times showing the particles of type 1
-and type 2 progressively demixing and forming large unmiwed area.</p>
+and type 2 progressively demixing and forming large demixed areas.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">Hint</p>
+<p>An easy way to create a dense phase is to allow the box dimensions
+to relax until the vacuum phase disapear. You can do that
+by relacing the <em>fix nve</em> by a <em>fix nph</em> and impose a pressure of 1 (unitless).</p>
 </div>
 </section>
-<section id="do-without-the-minimize-command">
-<h3>Do without the <em>minimize</em> command<a class="headerlink" href="#do-without-the-minimize-command" title="Link to this heading">#</a></h3>
-<div class="justify docutils container">
-<p>Run a successful simulation without using the <em>minimize</em> command.
-The absence of energy minimization needs to be compensated
-in order to avoid triggering the <em>ERROR: Lost atoms</em> message.</p>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">Hints</p>
-<p>The value of the timestep and/or the damping factor of the fix langevin
-can be tuned to prevent the system from exploding.</p>
-<p>Perform as many consecutive runs with varying timestep and damping
-factors that you feel are necessary.</p>
-<p>Have a look at fix nve/limit. This command was
-made to prevent an unequilibrated system from exploding
-by preventing atoms to travel too far every timestep.</p>
-</div>
-</section>
-<section id="non-equilibrium-simulation">
-<h3>Non-equilibrium simulation<a class="headerlink" href="#non-equilibrium-simulation" title="Link to this heading">#</a></h3>
-<div class="justify docutils container">
-<p>So far, atoms were freely diffusing without contraint or external force.
-Add an external force to induce a net flow of atoms in one
-direction. The magnitude of the force must be chosen so
-that the system is not <em>too far</em> from equilibrium.</p>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">Hints</p>
-<p>LAMMPS offers several option to add external force to a system, one
-being the fix addforce.</p>
-<p>Note: If the system is too far from equilibrium, it enters the non-linear response
-regimes and its properties and parameters will differ from its equilibrium values.
-In general, this is something that you must avoid (unless you are studying
-non-linear effects).</p>
-</div>
-</section>
-<section id="dumbbell-molecules">
-<h3>Dumbbell molecules<a class="headerlink" href="#dumbbell-molecules" title="Link to this heading">#</a></h3>
+<section id="create-dumbbell-molecules">
+<h3>Create dumbbell molecules<a class="headerlink" href="#create-dumbbell-molecules" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Add a bond between couple of identical atoms to create
 dumbbell molecules, just like in the image:</p>
 </div>
 <figure class="align-default">
-<a class="only-dark reference internal image-reference" href="../../_images/dumbell-dark.png"><img alt="Dumbbell Lennard-Jones molecules" class="only-dark" src="../../_images/dumbell-dark.png" style="width: 400px;" /></a>
+<img alt="Dumbbell Lennard-Jones molecules simulated using LAMMPS" class="only-dark" src="../../_images/dumbell-dark.png" />
 </figure>
 <figure class="align-default">
-<a class="only-light reference internal image-reference" href="../../_images/dumbell-light.png"><img alt="Dumbbell Lennard-Jones molecules" class="only-light" src="../../_images/dumbell-light.png" style="width: 400px;" /></a>
+<img alt="Dumbbell Lennard-Jones molecules simulated using LAMMPS" class="only-light" src="../../_images/dumbell-light.png" />
 </figure>
-<div class="dropdown admonition">
+<div class="info admonition">
 <p class="admonition-title">Hints</p>
-<p>Use molecule template to easily insert as many atoms connected
+<p>Use a <em>molecule template</em> to easily insert as many atoms connected
 by bonds (i.e. molecules) as you want. A molecule
 template typically begins as follow:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Dumbell molecule</span>
@@ -1174,11 +1189,10 @@ template typically begins as follow:</p>
 <li><a class="reference internal" href="#restarting-from-a-saved-configuration">Restarting from a saved configuration</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#goin-further-with-exercises">Goin further with exercises</a><ul>
+<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
+<li><a class="reference internal" href="#fix-a-broken-input">Fix a broken input</a></li>
 <li><a class="reference internal" href="#create-a-demixed-dense-phase">Create a demixed dense phase</a></li>
-<li><a class="reference internal" href="#do-without-the-minimize-command">Do without the <em>minimize</em> command</a></li>
-<li><a class="reference internal" href="#non-equilibrium-simulation">Non-equilibrium simulation</a></li>
-<li><a class="reference internal" href="#dumbbell-molecules">Dumbbell molecules</a></li>
+<li><a class="reference internal" href="#create-dumbbell-molecules">Create dumbbell molecules</a></li>
 </ul>
 </li>
 </ul>

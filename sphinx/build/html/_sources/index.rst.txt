@@ -41,6 +41,7 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     :maxdepth: 2
     :caption: Extra content
 
+    non-tutorials/solutions.rst
     miscellaneous/make-gorgeous-image.rst
     miscellaneous/use-gromacs-instead.rst
 

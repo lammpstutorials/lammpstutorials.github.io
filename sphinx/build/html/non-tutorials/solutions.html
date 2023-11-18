@@ -12,10 +12,10 @@
         gtag('js', new Date());
         gtag('config', 'G-W1WGEC5GQ8');
     </script>
-        <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Site walkthrough" href="site-walkthrough.html" /><link rel="prev" title="lammpstutorials by Simon Gravelle : LAMMPS courses for beginners" href="../index.html" />
+        <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Make gorgeous image" href="../miscellaneous/make-gorgeous-image.html" /><link rel="prev" title="Reactive silicon dioxide" href="../tutorials/level3/reactive-silicon-dioxide.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>Before you start - </title>
+        <title>Solutions to the exercises - </title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
@@ -168,10 +168,10 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Before you start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="site-walkthrough.html">Site walkthrough</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contact-me.html">Contact me</a></li>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/before-you-start.html">Before you start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/site-walkthrough.html">Site walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/contact-me.html">Contact me</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Level 0</span></p>
 <ul>
@@ -193,10 +193,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/level3/reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/solutions.html">Solutions to the exercises</a></li>
-<li class="toctree-l1"><a class="reference internal" href="make-gorgeous-image.html">Make gorgeous image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="use-gromacs-instead.html">Use GROMACS instead</a></li>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Solutions to the exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/make-gorgeous-image.html">Make gorgeous image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/use-gromacs-instead.html">Use GROMACS instead</a></li>
 </ul>
 
 </div>
@@ -231,40 +231,124 @@
           </label>
         </div>
         <article role="main">
-          <section id="before-you-start">
-<span id="contact-before-you-start"></span><h1>Before you start<a class="headerlink" href="#before-you-start" title="Link to this heading">#</a></h1>
-<section id="required-softwares">
-<h2>Required softwares<a class="headerlink" href="#required-softwares" title="Link to this heading">#</a></h2>
+          <section id="solutions-to-the-exercises">
+<span id="solutions-label"></span><h1>Solutions to the exercises<a class="headerlink" href="#solutions-to-the-exercises" title="Link to this heading">#</a></h1>
+<section id="lennard-jones-fluid">
+<h2>Lennard-Jones fluid<a class="headerlink" href="#lennard-jones-fluid" title="Link to this heading">#</a></h2>
+<section id="fix-a-broken-input">
+<h3>Fix a broken input<a class="headerlink" href="#fix-a-broken-input" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Download and install LAMMPS by following the instructions of the <a href="https://lammps.sandia.gov" target="_blank">LAMMPS website</a>.
-Alternatively, if you are using Ubuntu OS, you can simply execute the
-following command in a terminal:</p>
+<p>You can download the <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/broken/input.lammps" target="_blank">input</a> I wrote.
+The key to make the simulation starts, is to initially
+reduce the <em>timestep</em>, as well as the imposed <em>temperature</em>.
+Note that in order to make sure that the temperature of the particles
+quickly reaches a low value before the simulation crashes, I also reduced
+the <em>damping</em> parameter of the <em>Langevin</em> command:</p>
 </div>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>sudo apt-get install lammps
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">1530917</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.0001</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>You can verify that LAMMPS is indeed installed on your
-computer by typing in a terminal :</p>
+<p>Then, after the first <em>run</em> finishes, the energy of the system
+has reduced due to the motion of the atoms, and a second <em>run</em>
+with the original <em>timestep</em> and <em>Langevin</em> parameters can start
+without issue.</p>
 </div>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>lmp
+<div class="justify docutils container">
+<p>In some case, several consecutive steps can be necessary:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">0.0001</span><span class="w"> </span><span class="m">0.0001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">1530917</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.0001</span>
+<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
+<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.01</span>
+<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>You should see the version of LAMMPS that has been
-installed. On my computer I see</p>
+<p>Use trial and error to determine the best approach for
+a given system.</p>
 </div>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>LAMMPS (29 Sep 2021 - Update 2)
+</section>
+<section id="create-a-demixed-dense-phase">
+<h3>Create a demixed dense phase<a class="headerlink" href="#create-a-demixed-dense-phase" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>You can download the <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/demixion/input.lammps" target="_blank">input</a> I wrote. Note that
+I use a large number of particles: 8000 for each type. Then,
+the key to create a demixing phase is to play with the Lennard-Jones
+parameters:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">5.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.05</span><span class="w"> </span><span class="m">1.0</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>In addition to LAMMPS, you will also need <a href="https://help.gnome.org/users/gedit/stable/" target="_blank">(1) a basic text editing software</a>
-such as Vim, Gedit, or Notepad++, <a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">(2) a visualization software</a>, here I
-will use VMD (note: VMD is free but you have to register to
-the uiuc website in order to download it. If you don’t want
-to, you can also use Ovito.), <a href="https://plasma-gate.weizmann.ac.il/Grace/" target="_blank">(3) a plotting tool</a> like
-XmGrace or pyplot.</p>
+<p>First, notice that both particle types have the same <span class="math notranslate nohighlight">\(\sigma\)</span> value of 1.0
+so that both particles have the same diameter. Second, note the large energy parameter <span class="math notranslate nohighlight">\(\epsilon = 5.0\)</span>
+for self interaction (i.e.) interaction between particles of same type, and the low
+energy parameter <span class="math notranslate nohighlight">\(\epsilon = 0.05\)</span> for interaction between particles of different types.</p>
 </div>
+<div class="justify docutils container">
+<p>Finally, for adjusting the box volume and create a liquid looking phase, the
+pressure was imposed by replacing <em>fix nve</em> by <em>fix nph</em>:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynph</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nph</span><span class="w"> </span><span class="n">iso</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>With <em>fix nph</em> and a pressure of 1, LAMMPS adjusts the box dimension until the
+pressure is close to 1, which is require reducing the initial box dimensions.</p>
+</div>
+</section>
+<section id="create-dumbbell-molecules">
+<h3>Create dumbbell molecules<a class="headerlink" href="#create-dumbbell-molecules" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>You can download the <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/input.lammps" target="_blank">input</a> I wrote. The first important
+change is to choose an <em>atom_style</em> that allows for bond creation, and
+to specify the <em>bond_style</em>:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">atom_style</span><span class="w"> </span><span class="n">molecular</span>
+<span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>When creating the box, it is important to make space in the memory for
+the bonds:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_box </span><span class="nv nv-Identifier">2</span><span class="w"> </span><span class="nv nv-Identifier">simulation_box</span><span class="w"> </span><span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then, import the <em>molecule templates</em>, and use these templates
+when creating the atoms:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">dumbell1</span><span class="w"> </span><span class="n">dumbell1.mol</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">dumbell2</span><span class="w"> </span><span class="n">dumbell2.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">750</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">simulation_box</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">dumbell1</span><span class="w"> </span><span class="m">8766</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">678865</span><span class="w"> </span><span class="n">simulation_box</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">dumbell2</span><span class="w"> </span><span class="m">8751</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>You can download the molecule templates for <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/dumbell1.mol" target="_blank">type-1</a> and <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/dumbell2.mol" target="_blank">type-2</a>.
+Finally, some parameters for the two types of bonds, namely their rigidity and equilibrium lengths
+is specified:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">0.5</span>
+<span class="k">bond_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">1.5</span>
+</pre></div>
+</div>
+</section>
+<section id="coming-soon">
+<h3>Coming soon<a class="headerlink" href="#coming-soon" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>This page is currently being written, all solutions will appear here eventually.</p>
+</div>
+</section>
 </section>
 </section>
 
@@ -273,23 +357,23 @@ XmGrace or pyplot.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="site-walkthrough.html">
+          <a class="next-page" href="../miscellaneous/make-gorgeous-image.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Site walkthrough</div>
+                <div class="title">Make gorgeous image</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../index.html">
+          <a class="prev-page" href="../tutorials/level3/reactive-silicon-dioxide.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Home</div>
+                <div class="title">Reactive silicon dioxide</div>
                 
               </div>
             </a>
@@ -319,8 +403,14 @@ XmGrace or pyplot.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Before you start</a><ul>
-<li><a class="reference internal" href="#required-softwares">Required softwares</a></li>
+<li><a class="reference internal" href="#">Solutions to the exercises</a><ul>
+<li><a class="reference internal" href="#lennard-jones-fluid">Lennard-Jones fluid</a><ul>
+<li><a class="reference internal" href="#fix-a-broken-input">Fix a broken input</a></li>
+<li><a class="reference internal" href="#create-a-demixed-dense-phase">Create a demixed dense phase</a></li>
+<li><a class="reference internal" href="#create-dumbbell-molecules">Create dumbbell molecules</a></li>
+<li><a class="reference internal" href="#coming-soon">Coming soon</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -342,5 +432,6 @@ XmGrace or pyplot.</p>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>
