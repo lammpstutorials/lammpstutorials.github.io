@@ -183,7 +183,7 @@ Plot the strain-stress curves
 
     <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input</a>
 
-.. |input_stress_strain_solution1| raw:: html
+.. |input_stress_strain_solution2| raw:: html
 
     <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input</a>
 
