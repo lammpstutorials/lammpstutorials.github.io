@@ -784,17 +784,12 @@ Restarting from a saved configuration
 ..  code-block:: lammps
 
     # 3) Simulation settings
-    group type1 type 1
-    group type2 type 2
+    group mytype1 type 1
+    group mytype2 type 2
 
     # 4) Visualization
     thermo 1000
     dump mydmp all atom 1000 dump.md.lammpstrj
-
-..  container:: justify
-
-    Note that 2 atom groups have been defined,
-    which is useful to perform data analysis. 
     
 ..  container:: justify
     
@@ -804,10 +799,10 @@ Restarting from a saved configuration
 
 ..  code-block:: lammps
 
-    variable Ntype1in equal count(type1,mycylin)
-    variable Ntype1ou equal count(type1,mycylou)
-    variable Ntype2in equal count(type2,mycylin)
-    variable Ntype2ou equal count(type2,mycylou)
+    variable Ntype1in equal count(mytype1,mycylin)
+    variable Ntype1ou equal count(mytype1,mycylou)
+    variable Ntype2in equal count(mytype2,mycylin)
+    variable Ntype2ou equal count(mytype2,mycylou)
     fix myat1 all ave/time 10 200 2000 v_Ntype1in v_Ntype1ou file population1vstime.dat
     fix myat2 all ave/time 10 200 2000 v_Ntype2in v_Ntype2ou file population2vstime.dat
 
@@ -828,7 +823,7 @@ Restarting from a saved configuration
     
 ..  code-block:: lammps
 
-    compute coor12 type1 coord/atom cutoff 2.0 group type2
+    compute coor12 mytype1 coord/atom cutoff 2.0 group mytype2
     compute sumcoor12 all reduce ave c_coor12
     fix myat3 all ave/time 10 200 2000 c_sumcoor12 file coordinationnumber12.dat
     
@@ -919,31 +914,42 @@ Restarting from a saved configuration
 Goin further with exercises
 ===========================
 
-A simulation with no thermostat
--------------------------------
+Create a demixed dense phase
+----------------------------
 
 ..  container:: justify
 
-    So far, simulations were made using the NVT ensemble [constant number 
-    of atoms, N, constant volume V, and constant (or at least imposed)
-    temperature T].
+    Starting from one of the *input* created in this tutorial,
+    fine tune the parameters such as particle numbers and interaction
+    to create a simulation with the following properties:
 
-    Run a similar simulation in the NVE ensemble, and extract the
-    total energy of the system over time.
-        
-.. admonition:: Expected output
-    :class: dropdown
+    - the density in particles must be high,
+    - both particles of type 1 and 2 must have the same size,
+    - particles of type 1 and 2 must demix. 
 
-    Make sure that the total energy is conserved over time, as see here. Note also 
-    that the kinetic energy constantly exchanges with the potential energy.
+..  container:: justify
 
-    .. figure:: ../figures/level0/lennard-jones-fluid/exercice-energy-dark.png
-        :alt: NVE energy as a function of time
-        :class: only-dark
+    The final system should look like that:
 
-    .. figure:: ../figures/level0/lennard-jones-fluid/exercice-energy-light.png
-        :alt: NVE energy as a function of time
-        :class: only-light 
+.. figure:: ../figures/level0/lennard-jones-fluid/demixing-light.png
+    :alt: VMD/LAMMPS exercice molecular dynamics simulation: demixing lennard jones fluids
+    :class: only-light
+
+.. figure:: ../figures/level0/lennard-jones-fluid/demixing-dark.png
+    :alt: VMD/LAMMPS exercice molecular dynamics simulation: demixing lennard jones fluids
+    :class: only-dark
+
+.. container:: figurelegend
+
+    Figure: Snapshots taken at different times showing the particles of type 1 
+    and type 2 progressively demixing and forming large unmiwed area.  
+
+..  container:: Hint
+    :class: info
+
+    An easy way to create a dense phase is to allow the box dimensions 
+    to relax until the vacuum phase disapear. You can do that 
+    by relacing the *fix nve* by a *fix nph* and impose a pressure of 1 (unitless).
 
 Do without the *minimize* command
 ---------------------------------

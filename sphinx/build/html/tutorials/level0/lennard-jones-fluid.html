@@ -911,8 +911,8 @@ Deleted 1 atoms, new total = 1149
 (note the absence of mass and <em>pair_coeff</em> parameters):</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 3) Simulation settings</span>
-<span class="k">group </span><span class="nv nv-Identifier">type1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
-<span class="k">group </span><span class="nv nv-Identifier">type2</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
+<span class="k">group </span><span class="nv nv-Identifier">mytype1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
+<span class="k">group </span><span class="nv nv-Identifier">mytype2</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
 
 <span class="c"># 4) Visualization</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
@@ -920,18 +920,14 @@ Deleted 1 atoms, new total = 1149
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Note that 2 atom groups have been defined,
-which is useful to perform data analysis.</p>
-</div>
-<div class="justify docutils container">
 <p>Let us extract the number of atoms of each type
 in each region as a function of time, by
 adding the following commands to <em>input.md.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">Ntype1in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(type1,mycylin)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">Ntype1ou</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(type1,mycylou)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">Ntype2in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(type2,mycylin)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">Ntype2ou</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(type2,mycylou)</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">Ntype1in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype1,mycylin)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">Ntype1ou</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype1,mycylou)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">Ntype2in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype2,mycylin)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">Ntype2ou</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(mytype2,mycylou)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_Ntype1in</span><span class="w"> </span><span class="n">v_Ntype1ou</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">population1vstime.dat</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_Ntype2in</span><span class="w"> </span><span class="n">v_Ntype2ou</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">population2vstime.dat</span>
 </pre></div>
@@ -949,7 +945,7 @@ of type 1 and 2, i.e. the average number of atoms of type 2 in the vicinity
 of the atoms of type 1. This coordination number will be used as
 an indicator of the degree of mixing of our binary mixture.</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">coor12</span><span class="w"> </span><span class="nv nv-Identifier">type1</span><span class="w"> </span><span class="n">coord</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">type2</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">coor12</span><span class="w"> </span><span class="nv nv-Identifier">mytype1</span><span class="w"> </span><span class="n">coord</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">mytype2</span>
 <span class="k">compute </span><span class="nv nv-Identifier">sumcoor12</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">reduce</span><span class="w"> </span><span class="n">ave</span><span class="w"> </span><span class="n">c_coor12</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat3</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">c_sumcoor12</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">coordinationnumber12.dat</span>
 </pre></div>
@@ -1017,25 +1013,30 @@ are used in these tutorials from <a href="https://github.com/lammpstutorials/lam
 </section>
 <section id="goin-further-with-exercises">
 <h2>Goin further with exercises<a class="headerlink" href="#goin-further-with-exercises" title="Link to this heading">#</a></h2>
-<section id="a-simulation-with-no-thermostat">
-<h3>A simulation with no thermostat<a class="headerlink" href="#a-simulation-with-no-thermostat" title="Link to this heading">#</a></h3>
+<section id="create-a-demixed-dense-phase">
+<h3>Create a demixed dense phase<a class="headerlink" href="#create-a-demixed-dense-phase" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>So far, simulations were made using the NVT ensemble [constant number
-of atoms, N, constant volume V, and constant (or at least imposed)
-temperature T].</p>
-<p>Run a similar simulation in the NVE ensemble, and extract the
-total energy of the system over time.</p>
+<p>Starting from one of the <em>input</em> created in this tutorial,
+fine tune the parameters such as particle numbers and interaction
+to create a simulation with the following properties:</p>
+<ul class="simple">
+<li><p>the density in particles must be high,</p></li>
+<li><p>both particles of type 1 and 2 must have the same size,</p></li>
+<li><p>particles of type 1 and 2 must demix.</p></li>
+</ul>
 </div>
-<div class="dropdown admonition">
-<p class="admonition-title">Expected output</p>
-<p>Make sure that the total energy is conserved over time, as see here. Note also
-that the kinetic energy constantly exchanges with the potential energy.</p>
+<div class="justify docutils container">
+<p>The final system should look like that:</p>
+</div>
 <figure class="align-default">
-<img alt="NVE energy as a function of time" class="only-dark" src="../../_images/exercice-energy-dark.png" />
+<img alt="VMD/LAMMPS exercice molecular dynamics simulation: demixing lennard jones fluids" class="only-light" src="../../_images/demixing-light.png" />
 </figure>
 <figure class="align-default">
-<img alt="NVE energy as a function of time" class="only-light" src="../../_images/exercice-energy-light.png" />
+<img alt="VMD/LAMMPS exercice molecular dynamics simulation: demixing lennard jones fluids" class="only-dark" src="../../_images/demixing-dark.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Snapshots taken at different times showing the particles of type 1
+and type 2 progressively demixing and forming large unmiwed area.</p>
 </div>
 </section>
 <section id="do-without-the-minimize-command">
@@ -1174,7 +1175,7 @@ template typically begins as follow:</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#goin-further-with-exercises">Goin further with exercises</a><ul>
-<li><a class="reference internal" href="#a-simulation-with-no-thermostat">A simulation with no thermostat</a></li>
+<li><a class="reference internal" href="#create-a-demixed-dense-phase">Create a demixed dense phase</a></li>
 <li><a class="reference internal" href="#do-without-the-minimize-command">Do without the <em>minimize</em> command</a></li>
 <li><a class="reference internal" href="#non-equilibrium-simulation">Non-equilibrium simulation</a></li>
 <li><a class="reference internal" href="#dumbbell-molecules">Dumbbell molecules</a></li>
