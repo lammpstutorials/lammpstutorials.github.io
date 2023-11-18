@@ -37,7 +37,7 @@ def add_subplotlabels(fig, ax, labels, shift=0.2, specific_shift=None, color=Non
                 subplotlabel,
                 transform=ax[i].transAxes + trans,
                 va="top",
-                bbox=dict(facecolor="white", alpha=0.5, edgecolor="none", pad=3.0),
+                #bbox=dict(facecolor="white", alpha=0.5, edgecolor="none", pad=3.0),
                 fontdict = font,
             )
         else:
@@ -47,7 +47,7 @@ def add_subplotlabels(fig, ax, labels, shift=0.2, specific_shift=None, color=Non
                 subplotlabel,
                 transform=ax[i].transAxes + trans,
                 va="top",
-                bbox=dict(facecolor="none", alpha=0.5, edgecolor="none", pad=3.0),
+                #bbox=dict(facecolor="none", alpha=0.5, edgecolor="none", pad=3.0),
                 fontdict = font,
                 color=color
             )     

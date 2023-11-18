@@ -902,23 +902,22 @@ Restarting from a saved configuration
 
 .. include:: ../../contact/accessfile.rst
 
-Play around
-===========
+..
+    Play around
+    ===========
 
-..  container:: justify
+    ..  container:: justify
 
-    A good way to progress with LAMMPS and molecular dynamics
-    simulations is to play around with a script that is already
-    working and observe the differences and/or errors occurring:
-    Try adding new commands (you can choose from the documentation),
-    try removing some of the commands, try changing the parameter values.
-    The more *WARNINGS* you trigger, the easier it will be for you
-    to adress issues later down the road.
+        A good way to progress with LAMMPS and molecular dynamics
+        simulations is to play around with a script that is already
+        working and observe the differences and/or errors occurring:
+        Try adding new commands (you can choose from the documentation),
+        try removing some of the commands, try changing the parameter values.
+        The more *WARNINGS* you trigger, the easier it will be for you
+        to adress issues later down the road.
 
-Exercises
-=========
-
-.. include:: ../../contact/requestsolution.rst
+Goin further with exercises
+===========================
 
 A simulation with no thermostat
 -------------------------------
