@@ -707,8 +707,8 @@ Add the following lines in the <em>input.lammps</em> file,
 right after the last <em>run 5000</em> command:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 2*0.0005 A/fs = 0.001 A/fs = 100 m/s</span>
-<span class="k">velocity </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0.0005</span>
-<span class="k">velocity </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="o">-</span><span class="m">0.0005</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.0005</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">-</span><span class="m">0.0005</span>
 <span class="k">run</span><span class="w"> </span><span class="m">10000</span>
 </pre></div>
 </div>
@@ -902,14 +902,13 @@ the value of the velocity along the <em>z</em> direction.</p>
 </div>
 <div class="justify docutils container">
 <p>First, as an equilibration step, let us set the velocity to 0
-for the atoms of both edges. Let us fully constrain the bottom edge,
-and constrain the top edge only along the <em>z</em> direction.
+for the atoms of both edges. Let us fully constrain the edges.
 Add the following lines to LAMMPS:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">velocity </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="k">velocity </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 
 <span class="k">variable </span><span class="nv nv-Identifier">L</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(carbon_top,z)</span><span class="o">-</span><span class="n">xcm</span><span class="nv">(carbon_bot,z)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">at1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_L</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">output_cnt_length.dat</span>
@@ -957,7 +956,7 @@ a longer duration that previously. Add the following lines into
 <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 0.15 A/ps = 15 m/s</span>
-<span class="k">velocity </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0.15</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.15</span>
 <span class="k">run</span><span class="w"> </span><span class="m">280000</span>
 </pre></div>
 </div>
