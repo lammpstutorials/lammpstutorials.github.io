@@ -3,7 +3,7 @@
 Solutions to the exercises
 **************************
 
-Lennard-Jones fluid
+Lennard Jones fluid
 ===================
 
 Fix a broken input
@@ -105,6 +105,10 @@ Create dumbbell molecules
     change is to choose an *atom_style* that allows for bond creation, and 
     to specify the *bond_style*:
 
+.. |input_dumbbell_solution| raw:: html
+
+    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/input.lammps" target="_blank">input</a>
+
 ..  code-block:: lammps
 
     atom_style molecular
@@ -133,18 +137,14 @@ Create dumbbell molecules
 
 .. container:: justify
 
-    You can download the molecule templates for |mol1_dumbbell_solution| and |mol2_dumbbell_solution|.
-    Finally, some parameters for the two types of bonds, namely their rigidity and equilibrium lengths
-    is specified:
+    You can download the molecule templates for |mol1_dumbbell_solution|
+    and |mol2_dumbbell_solution|. Finally, some parameters for the two
+    types of bonds, namely their rigidity and equilibrium lengths is specified:
 
 ..  code-block:: lammps
 
     bond_coeff 1 5 0.5
     bond_coeff 2 5 1.5
-
-.. |input_dumbbell_solution| raw:: html
-
-    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/input.lammps" target="_blank">input</a>
 
 .. |mol1_dumbbell_solution| raw:: html
 
