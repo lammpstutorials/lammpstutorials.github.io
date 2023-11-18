@@ -37,12 +37,12 @@ variable Ntype1in equal count(mytype1,mycylin)
 variable Ntype1ou equal count(mytype1,mycylou)
 variable Ntype2in equal count(mytype2,mycylin)
 variable Ntype2ou equal count(mytype2,mycylou)
-fix myat1 all ave/time 10 200 2000 v_Ntype1in v_Ntype1ou file population1vstime.dat
-fix myat2 all ave/time 10 200 2000 v_Ntype2in v_Ntype2ou file population2vstime.dat
+fix myat1 all ave/time 10 200 2000 v_Ntype1in v_Ntype1ou file output-population1vstime.dat
+fix myat2 all ave/time 10 200 2000 v_Ntype2in v_Ntype2ou file output-population2vstime.dat
 
 compute coor12 mytype1 coord/atom cutoff 2.0 group mytype2
 compute sumcoor12 all reduce ave c_coor12
-fix myat3 all ave/time 10 200 2000 c_sumcoor12 file coordinationnumber12.dat
+fix myat3 all ave/time 10 200 2000 c_sumcoor12 file output-coordinationnumber12.dat
 
 # 5) Run
 velocity all create 1.0 4928459 mom yes rot yes dist gaussian
