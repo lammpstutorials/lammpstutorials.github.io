@@ -1005,31 +1005,16 @@ Generate a PEG-H2O mixture
 
 ..  container:: justify
 
-    Use the same script and a similar procedure and create a
-    PEG-H2O mixture with several PEG molecules hydrated in a
+    Create a PEG-H2O mixture with several PEG molecules hydrated in a
     cubic box.
 
 .. admonition:: Hints
-    :class: dropdown
+    :class: info
 
-    LAMMPS has internal commands allowing to replicate
-    a molecule or a system.
-
-    There is no obligation to equilibrate the water molecules separately from the PEG,
+    Have a loook at the LAMMPS *replicate* command.
+    Note tthat there is no obligation to equilibrate the water molecules separately from the PEG,
     as we did here. You can also create the water molecules directly around the PEG molcule
     using the *create_atom* command.
-
-End-to-end distance
--------------------
-
-..  container:: justify
-
-    Create 2 simulations, one with a PEG molecule in vacuum, one
-    with a PEG molecule in water, and measure their respective
-    end-to-end equilibrium distance. PEG are hydrophilic and
-    form hbonds with water molecules, therefore, when immersed
-    in water, PEG molecules slightly unfold, which changes the
-    equilibrium end-to-end distance.
 
 Post-mortem analysis
 --------------------
