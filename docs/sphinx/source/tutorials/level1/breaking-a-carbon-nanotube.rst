@@ -1051,18 +1051,29 @@ Doing post-mortem analysis using Python
 Going further with exercises
 ============================
 
-.. include:: ../../contact/requestsolution.rst
-
-Isolated nanotube
------------------
-
 .. container:: justify
 
-    When a rubber band is streched up, it heats up due to entropy change. 
-    In the current simulation, the constant exchange of energy between the CNT and 
-    thermostat prevents the temperature to evolve as the CNT is getting deformed.
-    Remove the thermostat and observe the evolution of the temperature of an
-    *isolated* carbon nanotube being deformed. Does it heat-up? Or does it cool down?
+    A solution for each exercise is provided here: :ref:`solutions-label`.
+
+Plot the strain-stress curves
+-----------------------------
+
+..  container:: justify
+
+    Adapt the current script and extract the strain-stress curves for
+    the two CNTs (breakable and unbreakable):
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/stress-stain-curve-dark.png
+    :alt: strain stain curve of the CNTs
+    :class: only-dark
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/stress-stain-curve-light.png
+    :alt: strain stain curve of the CNTs
+    :class: only-light
+
+.. container:: figurelegend
+
+    Figure: 
 
 Make a membrane and deform it
 -----------------------------
@@ -1112,26 +1123,3 @@ Decorate the CNT with hydrogens
    AIREBO force field). Equilibrate the system. After some time, some hydrogen atoms will 
    decorate the free carbon atoms at the edge of the CNT. Some 
    other hydrogen atoms may bond together and form :math:`H_2` molecules. 
-
-Plot a strain-stress curve
---------------------------
-
-..  container:: justify
-
-    Adapt the current script and extract a full strain-stress curve:
-
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/strain-stain-curve-dark.png
-    :alt: strain stain curve for determining the young modulus of a CNT
-    :class: only-dark
-
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/strain-stain-curve-light.png
-    :alt: strain stain curve for determining the young modulus of a CNT
-    :class: only-light
-
-.. admonition:: Hints
-    :class: dropdown
-
-    The following steps are optional, but give a better result:
-    1) Only record data during the production run, not the equilibration.
-    2) Reduce the velocity to perform a nice and slow pulling of the CNT.
-    3) Increase the magnitude of the total elongation.

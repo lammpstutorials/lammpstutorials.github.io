@@ -139,17 +139,28 @@ def set_boundaries(plt, x_boundaries=None, x_ticks=None, y_boundaries=None, y_ti
     if y_ticks is not None:
         plt.yticks(y_ticks)  
 
-def import_ave_time(filename):
+def import_ave_time(filename, folder=None):
     assert filename[:6] == "output"
-    if os.path.exists(filename):
-        data = np.loadtxt(filename)
-        try:
-            time, data = data.T
-        except:
-            time, data, _ = data.T
-        if os.path.exists("data_plot/") is False:
-            os.mkdir("data_plot/")
-        np.savetxt("data_plot/"+filename[7:], np.vstack([time, data]).T)
+    if folder is None:
+        if os.path.exists(filename):
+            data = np.loadtxt(filename)
+            try:
+                time, data = data.T
+            except:
+                time, data, _ = data.T
+            if os.path.exists("data_plot/") is False:
+                os.mkdir("data_plot/")
+            np.savetxt("data_plot/"+filename[7:], np.vstack([time, data]).T)
+        else:
+            time, data = np.loadtxt("data_plot/"+filename[7:]).T
     else:
-        time, data = np.loadtxt("data_plot/"+filename[7:]).T
+        if os.path.exists(folder+filename):
+            data = np.loadtxt(folder+filename)
+            try:
+                time, data = data.T
+            except:
+                time, data, _ = data.T
+            if os.path.exists("data_plot/") is False:
+                os.mkdir("data_plot/")
+            np.savetxt("data_plot/"+filename[7:], np.vstack([time, data]).T)
     return time, data
