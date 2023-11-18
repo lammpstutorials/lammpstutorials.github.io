@@ -1073,22 +1073,10 @@ Plot the strain-stress curves
 
 .. container:: figurelegend
 
-    Figure: 
+    Figure: Strain-stain curves for the two CNTs, breakable and unbreakable.
 
-Make a membrane and deform it
------------------------------
-
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/shared-dark.png
-    :alt: deformed membrane of CNT
-    :width: 200
-    :align: right
-    :class: only-dark
-
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/shared-light.png
-    :alt: deformed membrane of CNT
-    :width: 200
-    :align: right
-    :class: only-light
+Deform a CNT membrane
+---------------------
 
 .. container:: justify
 
@@ -1096,30 +1084,20 @@ Make a membrane and deform it
     create a nanoporous membrane made of multiple CNTs. 
     Then, apply a shear deformation along *xy*.
 
-.. admonition:: Hints
-    :class: dropdown
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/membrane-dark.png
+    :alt: deformed membrane of CNTs
+    :class: only-dark
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/membrane-light.png
+    :alt: deformed membrane of CNTs
+    :class: only-light
+
+.. container:: figurelegend
+
+    Figure: Multiple carbon nanotubes forming a membrane.  
+
+.. admonition:: Hint
+    :class: info
 
     The box must be converted to triclinic to support deformation
     along *xy*.
-
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CH-dark.png
-    :alt: CNT with hydrogen atoms and N2 molecule
-    :width: 200
-    :align: right
-    :class: only-dark
-
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CH-light.png
-    :alt: CNT with hydrogen atoms and N2 molecule
-    :width: 200
-    :align: right
-    :class: only-light
-
-Decorate the CNT with hydrogens
--------------------------------
-
-.. container:: justify
-
-   Add hydrogen atoms randomly to the system (using the same
-   AIREBO force field). Equilibrate the system. After some time, some hydrogen atoms will 
-   decorate the free carbon atoms at the edge of the CNT. Some 
-   other hydrogen atoms may bond together and form :math:`H_2` molecules. 
