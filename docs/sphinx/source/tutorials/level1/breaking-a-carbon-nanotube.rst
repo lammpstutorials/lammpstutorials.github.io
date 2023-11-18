@@ -611,8 +611,8 @@ Finalize au run
 .. code-block:: lammps
 
     # 2*0.0005 A/fs = 0.001 A/fs = 100 m/s
-    velocity carbon_top set NULL NULL 0.0005
-    velocity carbon_bot set NULL NULL -0.0005
+    velocity carbon_top set 0 0 0.0005
+    velocity carbon_bot set 0 0 -0.0005
     run 10000
 
 .. container:: justify
@@ -844,16 +844,15 @@ Start the simulation
 .. container:: justify
 
     First, as an equilibration step, let us set the velocity to 0
-    for the atoms of both edges. Let us fully constrain the bottom edge, 
-    and constrain the top edge only along the *z* direction.
+    for the atoms of both edges. Let us fully constrain the edges.
     Add the following lines to LAMMPS:
 
 .. code-block:: lammps
 
     fix mysf1 carbon_bot setforce 0 0 0
-    fix mysf2 carbon_top setforce NULL NULL 0
+    fix mysf2 carbon_top setforce 0 0 0
     velocity carbon_bot set 0 0 0
-    velocity carbon_top set NULL NULL 0
+    velocity carbon_top set 0 0 0
 
     variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
     fix at1 all ave/time 10 10 100 v_L file output_cnt_length.dat
@@ -905,7 +904,7 @@ Launch the deformation
 .. code-block:: lammps
 
    # 0.15 A/ps = 15 m/s
-   velocity carbon_top set NULL NULL 0.15
+   velocity carbon_top set 0 0 0.15
    run 280000
 
 .. container:: justify
