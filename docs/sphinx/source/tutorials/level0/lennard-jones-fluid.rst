@@ -439,7 +439,7 @@ Molecular dynamics
     positions and the velocities of the atoms in the group
     *all* (this is the most important command here). The second
     fix applies a Langevin thermostat to the atoms of group
-    *all*, with a desired temperature of 1 and a damping
+    *all*, with a desired temperature of 1 and a *damping*
     parameter of 0.1. The number *1530917* is a seed, you can
     change it to perform statistically independent simulations.
     Finally we choose the timestep and we ask LAMMPS to
@@ -897,22 +897,56 @@ Restarting from a saved configuration
 
 .. include:: ../../contact/accessfile.rst
 
-..
-    Play around
-    ===========
+Going further with exercises
+============================
 
-    ..  container:: justify
+.. container:: justify
 
-        A good way to progress with LAMMPS and molecular dynamics
-        simulations is to play around with a script that is already
-        working and observe the differences and/or errors occurring:
-        Try adding new commands (you can choose from the documentation),
-        try removing some of the commands, try changing the parameter values.
-        The more *WARNINGS* you trigger, the easier it will be for you
-        to adress issues later down the road.
+    A solution for each exercice is provided here: :ref:`solutions-label`.
+    Note that there often exist several different solutions to each
+    molecular dynamics problem.  
 
-Goin further with exercises
-===========================
+Fix a broken input
+------------------
+
+.. container:: justify
+
+    Fix the following failing *input.lammps* script without 
+    using any other command than the ones already present (you can 
+    however change the parameters values and replicate every
+    command at many times as needed):
+
+..  code-block:: lammps
+
+    units lj
+    dimension 3
+    atom_style atomic
+    pair_style lj/cut 2.5
+    boundary p p p
+
+    region simulation_box block -20 20 -20 20 -20 20
+    create_box 1 simulation_box
+    create_atoms 1 random 1000 341841 simulation_box
+
+    mass 1 1
+    pair_coeff 1 1 1.0 1.0
+
+    dump mydmp all atom 100 dump.lammpstrj
+    thermo 100
+    thermo_style custom step temp pe ke etotal press
+
+    fix mynve all nve
+    fix mylgv all langevin 1.0 1.0 0.1 1530917
+    timestep 0.005
+
+    run 10000
+
+..  admonition:: Note
+    :class: info
+
+    The reasons this script is failling are that particles are created
+    randomly in space, and that no energy minimization is performed prior
+    to start the molecular dynamics simulation.
 
 Create a demixed dense phase
 ----------------------------
@@ -942,60 +976,17 @@ Create a demixed dense phase
 .. container:: figurelegend
 
     Figure: Snapshots taken at different times showing the particles of type 1 
-    and type 2 progressively demixing and forming large unmiwed area.  
+    and type 2 progressively demixing and forming large demixed areas.  
 
-..  container:: Hint
+..  admonition:: Hint
     :class: info
 
     An easy way to create a dense phase is to allow the box dimensions 
     to relax until the vacuum phase disapear. You can do that 
     by relacing the *fix nve* by a *fix nph* and impose a pressure of 1 (unitless).
 
-Do without the *minimize* command
----------------------------------
-
-..  container:: justify
-
-    Run a successful simulation without using the *minimize* command.
-    The absence of energy minimization needs to be compensated
-    in order to avoid triggering the *ERROR: Lost atoms* message.
-
-.. admonition:: Hints
-    :class: dropdown
-
-    The value of the timestep and/or the damping factor of the fix langevin
-    can be tuned to prevent the system from exploding.
-
-    Perform as many consecutive runs with varying timestep and damping
-    factors that you feel are necessary.
-
-    Have a look at fix nve/limit. This command was
-    made to prevent an unequilibrated system from exploding
-    by preventing atoms to travel too far every timestep.
-
-Non-equilibrium simulation
---------------------------
-
-..  container:: justify
-
-    So far, atoms were freely diffusing without contraint or external force.
-    Add an external force to induce a net flow of atoms in one
-    direction. The magnitude of the force must be chosen so
-    that the system is not *too far* from equilibrium.
-
-.. admonition:: Hints
-    :class: dropdown
-
-    LAMMPS offers several option to add external force to a system, one 
-    being the fix addforce.
-
-    Note: If the system is too far from equilibrium, it enters the non-linear response 
-    regimes and its properties and parameters will differ from its equilibrium values.
-    In general, this is something that you must avoid (unless you are studying
-    non-linear effects). 
-
-Dumbbell molecules
-------------------
+Create dumbbell molecules
+-------------------------
 
 ..  container:: justify
 
@@ -1003,19 +994,17 @@ Dumbbell molecules
     dumbbell molecules, just like in the image:
 
 .. figure:: ../figures/level0/lennard-jones-fluid/dumbell-dark.png
-    :alt: Dumbbell Lennard-Jones molecules
-    :width: 400
+    :alt: Dumbbell Lennard-Jones molecules simulated using LAMMPS
     :class: only-dark
 
 .. figure:: ../figures/level0/lennard-jones-fluid/dumbell-light.png
-    :alt: Dumbbell Lennard-Jones molecules
-    :width: 400
+    :alt: Dumbbell Lennard-Jones molecules simulated using LAMMPS
     :class: only-light 
 
 .. admonition:: Hints
-    :class: dropdown
+    :class: info
 
-    Use molecule template to easily insert as many atoms connected
+    Use a *molecule template* to easily insert as many atoms connected
     by bonds (i.e. molecules) as you want. A molecule 
     template typically begins as follow:
 

@@ -1,0 +1,36 @@
+# LAMMPS input script
+# author : Simon Gravelle
+# lammpstutorials.github.io
+
+units lj
+dimension 3
+atom_style molecular
+bond_style harmonic
+pair_style lj/cut 2.5
+boundary p p p
+
+region simulation_box block -20 20 -20 20 -20 20
+create_box 2 simulation_box bond/types 2 extra/bond/per/atom 1
+molecule dumbell1 dumbell1.mol
+molecule dumbell2 dumbell2.mol
+create_atoms 0 random 750 341341 simulation_box mol dumbell1 8766
+create_atoms 0 random 50 678865 simulation_box mol dumbell2 8751	
+
+mass 1 1
+mass 2 1
+pair_coeff 1 1 1.0 1.0
+pair_coeff 2 2 0.5 3.0
+bond_coeff 1 5 0.5
+bond_coeff 2 5 1.5
+
+minimize 1.0e-4 1.0e-6 1000 10000
+reset_timestep 0
+
+fix mynve all nve
+fix mylgv all langevin 1 1 0.1 94728
+
+thermo 1000
+dump mydmp all atom 1000 dump.lammpstrj
+
+run 10000
+
