@@ -1,0 +1,41 @@
+# pure bulk water system
+# Written by Simon Gravelle
+# My personal page : https://simongravelle.github.io/
+# My Github account: https://github.com/simongravelle/
+# LAMMPS tutorials for beginners: https://lammpstutorials.github.io/
+
+units real
+atom_style full
+bond_style harmonic
+angle_style harmonic
+dihedral_style harmonic
+pair_style lj/cut/coul/long 12
+kspace_style pppm 1e-5
+special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes
+
+region box block -15 15 -15 15 -15 15
+create_box 7 box &
+bond/types 6 &
+angle/types 9 &
+dihedral/types 3 &
+extra/bond/per/atom 2 &
+extra/angle/per/atom 1 &
+extra/special/per/atom 2
+
+include ../../PARM.lammps
+
+molecule h2omol FlexibleH2O.txt
+create_atoms 0 random 350 456415 NULL mol h2omol 454756 overlap 1.0 maxtry 50
+group H2O type 1 2
+minimize 1.0e-4 1.0e-6 100 1000
+reset_timestep 0
+
+fix mynpt all npt temp 300 300 100 iso 1 1 1000
+
+timestep 1.0
+thermo 1000
+run 50000
+
+# replicate 3 1 1
+
+write_data H2O.data
