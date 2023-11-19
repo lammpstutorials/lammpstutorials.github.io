@@ -945,20 +945,19 @@ Stretching the PEG molecule
 
 ..  code-block:: lammps
 
-    run 10000
+    run 30000
 
 ..  container:: justify
 
-    This 10 ps serves as an extra small equilibration. In principle, 
-    it is not necessary as equilibration was properly performed during the 
-    previous step. Then, let us apply a forcing on the 2 oxygen atoms using 2
-    *add_force* commands, and run for an extra 50 ps:
+    This 30 ps run will serve a benchmark to quatify the changes
+    induced by the forcing. Then, let us apply a forcing on the 2 oxygen
+    atoms using two *add_force* commands, and run for an extra 30 ps:
 
 ..  code-block:: lammps
 
     fix myaf1 oxygen_end1 addforce ${f0} 0 0
     fix myaf2 oxygen_end2 addforce -${f0} 0 0
-    run 50000
+    run 30000
 
 ..  container:: justify
 
@@ -995,7 +994,7 @@ Stretching the PEG molecule
     :class: only-light
 
     Evolution of the end-to-end distance of the PEG molecule
-    with time. The forcing starts at :math:`t = 10` ps.
+    with time. The forcing starts at :math:`t = 30` ps.
 
 .. include:: ../../contact/accessfile.rst
 

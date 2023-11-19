@@ -956,18 +956,17 @@ by adding the following lines to <em>input.lammps</em>:</p>
 <p>Finally, let us run the simulation for 10 ps without
 any external forcing:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">30000</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>This 10 ps serves as an extra small equilibration. In principle,
-it is not necessary as equilibration was properly performed during the
-previous step. Then, let us apply a forcing on the 2 oxygen atoms using 2
-<em>add_force</em> commands, and run for an extra 50 ps:</p>
+<p>This 30 ps run will serve a benchmark to quatify the changes
+induced by the forcing. Then, let us apply a forcing on the 2 oxygen
+atoms using two <em>add_force</em> commands, and run for an extra 30 ps:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myaf1</span><span class="w"> </span><span class="nv nv-Identifier">oxygen_end1</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="nv">${f0}</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myaf2</span><span class="w"> </span><span class="nv nv-Identifier">oxygen_end2</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="o">-</span><span class="nv">${f0}</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="k">run</span><span class="w"> </span><span class="m">50000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">30000</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -998,7 +997,7 @@ to the external forcing:</p>
 <img alt="plot of the end-to-end distance versus time" class="only-light" src="../../_images/distance-light.png" />
 <figcaption>
 <p><span class="caption-text">Evolution of the end-to-end distance of the PEG molecule
-with time. The forcing starts at <span class="math notranslate nohighlight">\(t = 10\)</span> ps.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+with time. The forcing starts at <span class="math notranslate nohighlight">\(t = 30\)</span> ps.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>You can access all the input scripts and data files that
