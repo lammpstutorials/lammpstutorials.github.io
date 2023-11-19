@@ -169,7 +169,7 @@ The water
 .. admonition:: About extra per atom commands
     :class: info
 
-    The *extra/something/per/atom* commands are here for
+    The *extra/x/per/atom* commands are here for
     memory allocation. These commands ensure that enough memory space is left for a
     certain number of attribute for each atom. We wont worry
     about those commands in this tutorial, just keep that in mind if one day you see the following
@@ -642,17 +642,24 @@ The PEG molecule
 Solvated PEG
 ============
 
+..  container:: justify
+
+    Once both the water and the PEG are equilibrated, 
+    we can safely merge the two systems before performing the 
+    pull experiment on the polymer.
+
 Mixing the PEG with water
 -------------------------
 
 ..  container:: justify
 
-    Let us now merge the PEG molecule and the
-    water reservoir. We do it by:
+    To merge the two systems, let us:
 
-    - (1) importing both previously generated data files (PEG.data and H2O.data) into the same simulation,
-    - (2) deleting the overlapping molecules, and 
-    - (3) re-equilibrating the new system. 
+    - (1) import both previously generated data files (PEG.data and H2O.data) into the same simulation,
+    - (2) delete the overlapping molecules, and 
+    - (3) re-equilibrate the new system. 
+
+..  container:: justify
 
     Create a third folder alongside *pureH2O/* and *singlePEG/*,
     and call it *mergePEGH2O/*. Create a new blank file in it,
@@ -672,8 +679,9 @@ Mixing the PEG with water
 
 ..  container:: justify
 
-    Then, import the two previously generated data files, as well as the
-    same parameter file by adding that to *input.lammps*:
+    Then, import the two previously generated data files *H2O.data*
+    and *PEG.data*, as well as the *PARM.lammps* file
+    by adding that to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -690,9 +698,10 @@ Mixing the PEG with water
 
 ..  container:: justify
 
-    The use of the *extra/x/per/atom* commands is only for memory allocation issue,
-    and the *shift 25 0 0* applied to the polymer is there to recenter the polymer in
-    the rectangular box.
+    The *extra/x/per/atom* commands are again here for memory allocation.
+    The *shift 25 0 0* that is applied to the polymer is there
+    to recenter the polymer in the rectangular box by shifting its position 
+    by 25 Angstroms along the *x* axis.
 
 ..  container:: justify
 
@@ -724,7 +733,8 @@ Mixing the PEG with water
 ..  container:: justify
 
     Finally, let us use the *fix NPT* to control the
-    temperature, as well as the pressure along the *x* axis:
+    temperature, as well as the pressure by allowing the 
+    box size to be rescalled along the *x* axis:
 
 ..  code-block:: lammps
 
@@ -734,7 +744,7 @@ Mixing the PEG with water
 ..  container:: justify
 
     Once more, let us dump the atom positions and a few
-    information about the evolution simulation:
+    information about the evolution of the simulation:
 
 ..  code-block:: lammps
 
@@ -787,7 +797,8 @@ Mixing the PEG with water
 .. container:: figurelegend
 
    A single PEG molecule in water. 
-   Water molecules are represented as cyan sticks for clarity.
+   Some water molecules are represented as a transparent continuum 
+   field for clarity.
 
 Stretching the PEG molecule
 ---------------------------
