@@ -977,7 +977,8 @@ Stretching the PEG molecule
 .. container:: figurelegend
 
     PEG molecule streched along the *x* direction in water.
-    Water molecules are represented as cyan sticks for clarity.
+    Some water molecules are represented as a transparent continuum 
+    field for clarity.
 
 ..  container:: justify
 
