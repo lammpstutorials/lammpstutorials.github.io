@@ -27,11 +27,13 @@ group topull1 id 3216
 group topull2 id 3151
 
 dump mydmp all atom 1000 dump.lammpstrj
-# write_dump all atom dump.lammpstrj
-# dump myxtc xtc atom 1000 dump.xtc
 
 timestep 1
 fix mynvt all nvt temp 300 300 100
+
+# for eastetical purpose only (i.e. keep the PEG in the center)
+#displace_atoms all move 0 0 -10 units box
+#fix myrct PEG recenter INIT INIT INIT
 
 variable mytemp equal temp
 fix myat1 all ave/time 10 10 100 v_mytemp file output-temperature.dat

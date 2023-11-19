@@ -7,13 +7,13 @@ Polymer in water
 
    Solvating and stretching a small polymer molecule
 
-.. figure:: ../figures/level2/polymer-in-water/video-PEG-dark.webp
+.. figure:: ../figures/level2/polymer-in-water/PEG-dark.webp
     :alt: Movie of a peg molecule in water as simulated with LAMMPS
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/level2/polymer-in-water/video-PEG-light.webp
+.. figure:: ../figures/level2/polymer-in-water/PEG-light.webp
     :alt: Movie of a peg molecule in water as simulated with LAMMPS
     :height: 250
     :align: right
