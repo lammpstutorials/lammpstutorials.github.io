@@ -369,7 +369,7 @@ Copy the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About extra per atom commands</p>
-<p>The <em>extra/something/per/atom</em> commands are here for
+<p>The <em>extra/x/per/atom</em> commands are here for
 memory allocation. These commands ensure that enough memory space is left for a
 certain number of attribute for each atom. We wont worry
 about those commands in this tutorial, just keep that in mind if one day you see the following
@@ -693,25 +693,31 @@ the PEG molecule I have equilibrated and continue with the tutorial.</p>
 </section>
 <section id="solvated-peg">
 <h2>Solvated PEG<a class="headerlink" href="#solvated-peg" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Once both the water and the PEG are equilibrated,
+we can safely merge the two systems before performing the
+pull experiment on the polymer.</p>
+</div>
 <section id="mixing-the-peg-with-water">
 <h3>Mixing the PEG with water<a class="headerlink" href="#mixing-the-peg-with-water" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Let us now merge the PEG molecule and the
-water reservoir. We do it by:</p>
+<p>To merge the two systems, let us:</p>
 <ul class="simple">
 <li><ol class="arabic simple">
-<li><p>importing both previously generated data files (PEG.data and H2O.data) into the same simulation,</p></li>
+<li><p>import both previously generated data files (PEG.data and H2O.data) into the same simulation,</p></li>
 </ol>
 </li>
 <li><ol class="arabic simple" start="2">
-<li><p>deleting the overlapping molecules, and</p></li>
+<li><p>delete the overlapping molecules, and</p></li>
 </ol>
 </li>
 <li><ol class="arabic simple" start="3">
-<li><p>re-equilibrating the new system.</p></li>
+<li><p>re-equilibrate the new system.</p></li>
 </ol>
 </li>
 </ul>
+</div>
+<div class="justify docutils container">
 <p>Create a third folder alongside <em>pureH2O/</em> and <em>singlePEG/</em>,
 and call it <em>mergePEGH2O/</em>. Create a new blank file in it,
 called <em>input.lammps</em>. Within <em>input.lammps</em>, copy the same first lines as
@@ -728,8 +734,9 @@ previously:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Then, import the two previously generated data files, as well as the
-same parameter file by adding that to <em>input.lammps</em>:</p>
+<p>Then, import the two previously generated data files <em>H2O.data</em>
+and <em>PEG.data</em>, as well as the <em>PARM.lammps</em> file
+by adding that to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">pureH2O</span><span class="o">/</span><span class="n">H2O.data</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">dihedral</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">9</span>
 <span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">singlePEG</span><span class="o">/</span><span class="n">PEG.data</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">append</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
@@ -743,9 +750,10 @@ simulation box is initialized by the first <em>read_data</em> only, and the
 second <em>read_data</em> only imports additional atoms.</p>
 </div>
 <div class="justify docutils container">
-<p>The use of the <em>extra/x/per/atom</em> commands is only for memory allocation issue,
-and the <em>shift 25 0 0</em> applied to the polymer is there to recenter the polymer in
-the rectangular box.</p>
+<p>The <em>extra/x/per/atom</em> commands are again here for memory allocation.
+The <em>shift 25 0 0</em> that is applied to the polymer is there
+to recenter the polymer in the rectangular box by shifting its position
+by 25 Angstroms along the <em>x</em> axis.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us create 2 groups to differentiate the PEG from the H2O,
@@ -771,7 +779,8 @@ will unnecessarily be deleted.</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, let us use the <em>fix NPT</em> to control the
-temperature, as well as the pressure along the <em>x</em> axis:</p>
+temperature, as well as the pressure by allowing the
+box size to be rescalled along the <em>x</em> axis:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1000</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
@@ -779,7 +788,7 @@ temperature, as well as the pressure along the <em>x</em> axis:</p>
 </div>
 <div class="justify docutils container">
 <p>Once more, let us dump the atom positions and a few
-information about the evolution simulation:</p>
+information about the evolution of the simulation:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">100</span>
@@ -822,7 +831,8 @@ to accomodate the new configuration.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>A single PEG molecule in water.
-Water molecules are represented as cyan sticks for clarity.</p>
+Some water molecules are represented as a transparent continuum
+field for clarity.</p>
 </div>
 </section>
 <section id="stretching-the-peg-molecule">
