@@ -12,9 +12,9 @@ kspace_style pppm 1e-5
 special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes
 
 read_data PEG.data
-change_box all x final -10 10 y final -10 10 z final -10 10 # reduse the box a little bit
+change_box all x final -10 10 y final -10 10 z final -10 10
 molecule h2omol FlexibleH2O.txt
-create_atoms 0 random 50 35615 NULL mol h2omol 454756 overlap 1.0 maxtry 50 # add some water molecules
+create_atoms 0 random 50 35615 NULL mol h2omol 454756 overlap 1.0 maxtry 50
 
 include PARM.lammps
 
@@ -24,18 +24,20 @@ group PEG type 3 4 5 6 7
 minimize 1.0e-4 1.0e-6 100 1000
 reset_timestep 0
 	
-replicate 5 2 2
+replicate 5 2 1
 
-fix mynpt all npt temp 350 300 100 iso 1 1 1000
+fix mynpt all npt temp 300 300 100 iso 1 1 1000
 
 thermo 1000
-#dump mydmp all atom 1000 dump.lammpstrj
+dump mydmp all atom 1000 dump.lammpstrj
 
 timestep 0.5
 run 5000
 
 timestep 1.0
 run 30000 
+
+undump mydmp
 
 dump mydmp all custom 100 dump.lammpstrj id type xu yu zu
 # dump mydmp all atom 100 dump.lammpstrj

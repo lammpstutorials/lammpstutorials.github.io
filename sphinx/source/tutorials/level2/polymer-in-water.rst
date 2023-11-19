@@ -639,8 +639,11 @@ The PEG molecule
 
    <a href="../../../../../inputs/level2/polymer-in-water/singlePEG/PEG.data" target="_blank">download</a>
 
-Solvating the PEG molecule
-==========================
+Solvated PEG
+============
+
+Mixing the PEG with water
+-------------------------
 
 ..  container:: justify
 
@@ -787,7 +790,7 @@ Solvating the PEG molecule
    Water molecules are represented as cyan sticks for clarity.
 
 Stretching the PEG molecule
-===========================
+---------------------------
 
 ..  container:: justify
 
@@ -892,17 +895,6 @@ Stretching the PEG molecule
 ..  code-block:: lammps
 
    dump mydmp all atom 1000 dump.lammpstrj
-   # write_dump all atom dump.lammpstrj
-   # dump myxtc xtc atom 1000 dump.xtc
-
-.. admonition:: Use less disk space by using the xtc format
-    :class: info
-    
-    To generate smaller dump files, use the
-    compressed *xtc* format. You can do it by commenting the
-    mydmp line and by uncommenting both the *write_dump* and
-    *myxtc* lines. *xtc* files are compressed, and not readable
-    by humans, contrarily to the LAMMPS native format *lammpstrj*. 
 
 ..  container:: justify
 
@@ -995,44 +987,43 @@ Stretching the PEG molecule
 
 .. include:: ../../contact/accessfile.rst
 
-Going further with exercises
-============================
+..
+    Going further with exercises
+    ============================
 
-.. include:: ../../contact/requestsolution.rst
+    Generate a PEG-H2O mixture
+    --------------------------
 
-Generate a PEG-H2O mixture
---------------------------
+    ..  container:: justify
 
-..  container:: justify
+        Create a PEG-H2O mixture with several PEG molecules hydrated in a
+        cubic box.
 
-    Create a PEG-H2O mixture with several PEG molecules hydrated in a
-    cubic box.
+    .. admonition:: Hints
+        :class: info
 
-.. admonition:: Hints
-    :class: info
+        Have a look at the LAMMPS *replicate* command.
+        Note tthat there is no obligation to equilibrate the water molecules separately from the PEG,
+        as we did here. You can also create the water molecules directly around the PEG molcule
+        using the *create_atom* command.
 
-    Have a look at the LAMMPS *replicate* command.
-    Note tthat there is no obligation to equilibrate the water molecules separately from the PEG,
-    as we did here. You can also create the water molecules directly around the PEG molcule
-    using the *create_atom* command.
+    Post-mortem analysis
+    --------------------
 
-Post-mortem analysis
---------------------
+    ..  container:: justify
 
-..  container:: justify
+        In today research, most data analyses are
+        done after the simulation is over, and it is important for
+        LAMMPS users to know how to do it.
 
-    In today research, most data analyses are
-    done after the simulation is over, and it is important for
-    LAMMPS users to know how to do it.
+        Import the trajectory using Python, and re-extract the
+        end-to-end distance.
 
-    Import the trajectory using Python, and re-extract the
-    end-to-end distance.
+    .. admonition:: Hints
+        :class: dropdown
 
-.. admonition:: Hints
-    :class: dropdown
+        You can import *lammpstrj* file using *MDAnalysis* in *Python*:
 
-    You can import *lammpstrj* file using *MDAnalysis* in *Python*:
+        ..  code-block:: bw
 
-    ..  code-block:: bw
-
-        u = mda.Universe("dump.lammpstrj", format = "LAMMPSDUMP")
+            u = mda.Universe("dump.lammpstrj", format = "LAMMPSDUMP")

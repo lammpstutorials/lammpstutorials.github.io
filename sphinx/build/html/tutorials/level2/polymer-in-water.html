@@ -691,8 +691,10 @@ the PEG molecule I have equilibrated and continue with the tutorial.</p>
 </div>
 </section>
 </section>
-<section id="solvating-the-peg-molecule">
-<h2>Solvating the PEG molecule<a class="headerlink" href="#solvating-the-peg-molecule" title="Link to this heading">#</a></h2>
+<section id="solvated-peg">
+<h2>Solvated PEG<a class="headerlink" href="#solvated-peg" title="Link to this heading">#</a></h2>
+<section id="mixing-the-peg-with-water">
+<h3>Mixing the PEG with water<a class="headerlink" href="#mixing-the-peg-with-water" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Let us now merge the PEG molecule and the
 water reservoir. We do it by:</p>
@@ -824,7 +826,7 @@ Water molecules are represented as cyan sticks for clarity.</p>
 </div>
 </section>
 <section id="stretching-the-peg-molecule">
-<h2>Stretching the PEG molecule<a class="headerlink" href="#stretching-the-peg-molecule" title="Link to this heading">#</a></h2>
+<h3>Stretching the PEG molecule<a class="headerlink" href="#stretching-the-peg-molecule" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Here, a constant forcing is applied to the two ends of the
 PEG molecule until it stretches. Create a new folder next
@@ -911,17 +913,7 @@ of your system.</p>
 <p>Let us add the <em>dump</em> command again to print the atom positions:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
-<span class="c"># write_dump all atom dump.lammpstrj</span>
-<span class="c"># dump myxtc xtc atom 1000 dump.xtc</span>
 </pre></div>
-</div>
-<div class="info admonition">
-<p class="admonition-title">Use less disk space by using the xtc format</p>
-<p>To generate smaller dump files, use the
-compressed <em>xtc</em> format. You can do it by commenting the
-mydmp line and by uncommenting both the <em>write_dump</em> and
-<em>myxtc</em> lines. <em>xtc</em> files are compressed, and not readable
-by humans, contrarily to the LAMMPS native format <em>lammpstrj</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us use a simple thermostating for all atoms by adding the
@@ -1001,44 +993,6 @@ with time. The forcing starts at <span class="math notranslate nohighlight">\(t 
 <p>You can access all the input scripts and data files that
 are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a> on Github.</p>
 </section>
-<section id="going-further-with-exercises">
-<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">#</a></h2>
-<div class="solution admonition">
-<p class="admonition-title">Solutions</p>
-<p>Register as a <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a> for 1 euro/month
-to access all the solutions.</p>
-</div>
-<section id="generate-a-peg-h2o-mixture">
-<h3>Generate a PEG-H2O mixture<a class="headerlink" href="#generate-a-peg-h2o-mixture" title="Link to this heading">#</a></h3>
-<div class="justify docutils container">
-<p>Create a PEG-H2O mixture with several PEG molecules hydrated in a
-cubic box.</p>
-</div>
-<div class="info admonition">
-<p class="admonition-title">Hints</p>
-<p>Have a look at the LAMMPS <em>replicate</em> command.
-Note tthat there is no obligation to equilibrate the water molecules separately from the PEG,
-as we did here. You can also create the water molecules directly around the PEG molcule
-using the <em>create_atom</em> command.</p>
-</div>
-</section>
-<section id="post-mortem-analysis">
-<h3>Post-mortem analysis<a class="headerlink" href="#post-mortem-analysis" title="Link to this heading">#</a></h3>
-<div class="justify docutils container">
-<p>In today research, most data analyses are
-done after the simulation is over, and it is important for
-LAMMPS users to know how to do it.</p>
-<p>Import the trajectory using Python, and re-extract the
-end-to-end distance.</p>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">Hints</p>
-<p>You can import <em>lammpstrj</em> file using <em>MDAnalysis</em> in <em>Python</em>:</p>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>u = mda.Universe(&quot;dump.lammpstrj&quot;, format = &quot;LAMMPSDUMP&quot;)
-</pre></div>
-</div>
-</div>
-</section>
 </section>
 </section>
 
@@ -1099,11 +1053,9 @@ end-to-end distance.</p>
 <li><a class="reference internal" href="#the-peg-molecule">The PEG molecule</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#solvating-the-peg-molecule">Solvating the PEG molecule</a></li>
+<li><a class="reference internal" href="#solvated-peg">Solvated PEG</a><ul>
+<li><a class="reference internal" href="#mixing-the-peg-with-water">Mixing the PEG with water</a></li>
 <li><a class="reference internal" href="#stretching-the-peg-molecule">Stretching the PEG molecule</a></li>
-<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
-<li><a class="reference internal" href="#generate-a-peg-h2o-mixture">Generate a PEG-H2O mixture</a></li>
-<li><a class="reference internal" href="#post-mortem-analysis">Post-mortem analysis</a></li>
 </ul>
 </li>
 </ul>
