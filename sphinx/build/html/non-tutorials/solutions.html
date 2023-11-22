@@ -382,6 +382,42 @@ Then, it is important to change the box to triclinic:</p>
 </pre></div>
 </div>
 </section>
+</section>
+<section id="polymer-in-water">
+<h2>Polymer in water<a class="headerlink" href="#polymer-in-water" title="Link to this heading">#</a></h2>
+<section id="add-salt-to-the-mixture">
+<h3>Add salt to the mixture<a class="headerlink" href="#add-salt-to-the-mixture" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>You can download the <a href="../../../../inputs/level2/polymer-in-water/exercises/salt/input.lammps" target="_blank">input</a>,
+<a href="../../../../inputs/level2/polymer-in-water/exercises/salt/mix-with-salt.data" target="_blank">data</a>,
+and <a href="../../../../inputs/level2/polymer-in-water/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a> files I wrote. It is important to
+make space for the salt by modifying the data file as follow:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
+<span class="m">9</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
+<span class="nv">(...)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Additional <em>mass</em> and <em>pair_coeff</em> lines
+must be added to the parm file (be careful to use the
+appropriate units):</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">22.98</span><span class="w"> </span><span class="c"># Na</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">35.453</span><span class="w"> </span><span class="c"># Cl</span>
+<span class="nv">(...)</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">0.04690</span><span class="w"> </span><span class="m">2.43</span><span class="w"> </span><span class="c"># Na</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">0.1500</span><span class="w"> </span><span class="m">4.045</span>
+<span class="nv">(...)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Finally, here I choose to add the ions using two separate
+<em>create_atoms</em> commands with a very small <em>overlap</em>
+values, followed by an energy minimization.</p>
+</div>
+</section>
 <section id="coming-soon">
 <h3>Coming soon<a class="headerlink" href="#coming-soon" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
@@ -452,6 +488,10 @@ Then, it is important to change the box to triclinic:</p>
 <li><a class="reference internal" href="#pulling-on-a-carbon-nanotube">Pulling on a carbon nanotube</a><ul>
 <li><a class="reference internal" href="#plot-the-strain-stress-curves">Plot the strain-stress curves</a></li>
 <li><a class="reference internal" href="#deform-a-cnt-membrane">Deform a CNT membrane</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#polymer-in-water">Polymer in water</a><ul>
+<li><a class="reference internal" href="#add-salt-to-the-mixture">Add salt to the mixture</a></li>
 <li><a class="reference internal" href="#coming-soon">Coming soon</a></li>
 </ul>
 </li>

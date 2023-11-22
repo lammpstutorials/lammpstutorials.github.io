@@ -1009,6 +1009,10 @@ Stretching the PEG molecule
 Going further with exercises
 ============================
 
+.. container:: justify
+
+    A solution for each exercise is provided here: :ref:`solutions-label`.
+
 Add salt to the mixture
 -----------------------
 
@@ -1017,10 +1021,26 @@ Add salt to the mixture
     Add some :math:`\text{Na}^+` and 
     :math:`\text{Cl}^-` ions to the mixture using the method
     of your choice. :math:`\text{Na}^+` ions are 
-    characterised by their charge, +1, and Lennard-Jones
-    parameters, :math:`\epsilon = 0.04690, \sigma = 2.4299`,
-    and :math:`\text{Cl}^-` ions by a charge -1 and Lennard-Jones
-    parameters, :math:`\epsilon = 0.1500, \sigma = 4.04470`.
+    characterised by their mass :math:`m = 22.98\,\text{g/mol}`,
+    their charge :math:`q = +1\,e`, and Lennard-Jones
+    parameters, :math:`\epsilon = 0.04690\,\text{kcal/mol}, \sigma = 0.243\,\text{nm}`,
+    and :math:`\text{Cl}^-` ions by their
+    mass :math:`m = 35.453\,\text{g/mol}`,
+    charge :math:`q = -1\,e` and Lennard-Jones
+    parameters, :math:`\epsilon = 0.1500\,\text{kcal/mol}, \sigma = 0.4045\,\text{nm}`.
+
+.. figure:: ../figures/level2/polymer-in-water/salt-exercise-dark.png
+    :alt: PEG in a NaCl solution
+    :class: only-dark
+
+.. figure:: ../figures/level2/polymer-in-water/salt-exercise-dark.png
+    :alt: PEG in a NaCl solution
+    :class: only-light
+
+.. container:: figurelegend
+
+    Figure: A PEG molecule in water, with :math:`\text{Na}^+` ions in 
+    purple and :math:`\text{Cl}^-` ions in cyan.
 
 ..
     Going further with exercises
