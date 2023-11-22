@@ -212,6 +212,59 @@ Deform a CNT membrane
 
     <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/membrane/input.lammps" target="_blank">input</a>
 
+Polymer in water
+================
+
+Add salt to the mixture
+-----------------------
+
+.. container:: justify
+
+    You can download the |input_PEG_salt|,
+    |data_PEG_salt|,
+    and |parm_PEG_salt| files I wrote. It is important to 
+    make space for the salt by modifying the data file as follow:
+
+..  code-block:: lammps
+
+    (...)
+    9 atom types
+    (...)
+
+.. container:: justify
+
+    Additional *mass* and *pair_coeff* lines 
+    must be added to the parm file (be careful to use the 
+    appropriate units):
+
+..  code-block:: lammps
+
+    (...)
+    mass 8 22.98 # Na
+    mass 9 35.453 # Cl
+    (...)
+    pair_coeff 8 8 0.04690 2.43 # Na
+    pair_coeff 9 9 0.1500 4.045
+    (...)
+
+.. container:: justify
+
+    Finally, here I choose to add the ions using two separate
+    *create_atoms* commands with a very small *overlap*
+    values, followed by an energy minimization. 
+
+.. |input_PEG_salt| raw:: html
+
+    <a href="../../../../inputs/level2/polymer-in-water/exercises/salt/input.lammps" target="_blank">input</a>
+
+.. |data_PEG_salt| raw:: html
+
+    <a href="../../../../inputs/level2/polymer-in-water/exercises/salt/mix-with-salt.data" target="_blank">data</a>
+
+.. |parm_PEG_salt| raw:: html
+
+    <a href="../../../../inputs/level2/polymer-in-water/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a>
+
 Coming soon
 -----------
 
