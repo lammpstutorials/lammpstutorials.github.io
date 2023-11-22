@@ -50,31 +50,31 @@ thermo 1000
 compute bond_H2O H2O bond/local dist # engpot
 compute bond_PEG PEG bond/local dist # engpot
 
-
+# some tests:
 #dump mydmp_bond_H2O all local 1000 dump.bond_H2O.lammpstrj index c_bond_H2O
 #compute bond_PEG PEG bond/local dist # engpot
 #dump mydmp_bond_PEG all local 1000 dump.bond_PEG.lammpstrj index c_bond_PEG
 
-compute angle_H2O H2O angle/local theta
-fix myah1 all ave/histo 100 80 10000 0.9 1.1 300 c_bond_H2O file bond_H2O_free.dat mode vector
-compute dihedral_PEG PEG dihedral/local phi
-fix myah2 all ave/histo 100 80 10000 0 180 360 c_dihedral_PEG file dihedral_PEG_free.dat mode vector
-fix myah3 all ave/histo 100 80 10000 0 180 300 c_angle_H2O file angle_H2O_free.dat mode vector
-fix myah4 all ave/histo 100 80 10000 0.5 2.0 300 c_bond_PEG file bond_PEG_free.dat mode vector
+#compute angle_H2O H2O angle/local theta
+#fix myah1 all ave/histo 100 80 10000 0.9 1.1 300 c_bond_H2O file bond_H2O_free.dat mode vector
+#compute dihedral_PEG PEG dihedral/local phi
+#fix myah2 all ave/histo 100 80 10000 0 180 360 c_dihedral_PEG file dihedral_PEG_free.dat mode vector
+#fix myah3 all ave/histo 100 80 10000 0 180 300 c_angle_H2O file angle_H2O_free.dat mode vector
+#fix myah4 all ave/histo 100 80 10000 0.5 2.0 300 c_bond_PEG file bond_PEG_free.dat mode vector
 
 run 10000
 
-unfix myah1
-unfix myah2
-unfix myah3
-unfix myah4
+#unfix myah1
+#unfix myah2
+#unfix myah3
+#unfix myah4
 
 fix myaf1 topull1 addforce ${f0} 0 0
 fix myaf2 topull2 addforce -${f0} 0 0
 
-fix myah1 all ave/histo 100 80 10000  0.9 1.1 300 c_bond_H2O file bond_H2O_pull.dat mode vector
-fix myah2 all ave/histo 100 80 10000 0 180 360 c_dihedral_PEG file dihedral_PEG_pull.dat mode vector
-fix myah3 all ave/histo 100 80 10000 0 180 300 c_angle_H2O file angle_H2O_pull.dat mode vector
-fix myah4 all ave/histo 100 80 10000 0.5 2.0 300 c_bond_PEG file bond_PEG_pull.dat mode vector
+#fix myah1 all ave/histo 100 80 10000  0.9 1.1 300 c_bond_H2O file bond_H2O_pull.dat mode vector
+#fix myah2 all ave/histo 100 80 10000 0 180 360 c_dihedral_PEG file dihedral_PEG_pull.dat mode vector
+#fix myah3 all ave/histo 100 80 10000 0 180 300 c_angle_H2O file angle_H2O_pull.dat mode vector
+#fix myah4 all ave/histo 100 80 10000 0.5 2.0 300 c_bond_PEG file bond_PEG_pull.dat mode vector
 
 run 10000
