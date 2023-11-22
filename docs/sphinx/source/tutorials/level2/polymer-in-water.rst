@@ -1006,6 +1006,22 @@ Stretching the PEG molecule
 
 .. include:: ../../contact/accessfile.rst
 
+Going further with exercises
+============================
+
+Add salt to the mixture
+-----------------------
+
+..  container:: justify
+
+    Add some :math:`\text{Na}^+` and 
+    :math:`\text{Cl}^-` ions to the mixture using the method
+    of your choice. :math:`\text{Na}^+` ions are 
+    characterised by their charge, +1, and Lennard-Jones
+    parameters, :math:`\epsilon = 0.04690, \sigma = 2.4299`,
+    and :math:`\text{Cl}^-` ions by a charge -1 and Lennard-Jones
+    parameters, :math:`\epsilon = 0.1500, \sigma = 4.04470`.
+
 ..
     Going further with exercises
     ============================
