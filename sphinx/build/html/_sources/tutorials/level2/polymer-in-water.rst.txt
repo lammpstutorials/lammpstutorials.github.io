@@ -465,6 +465,11 @@ The water
     :alt: Curves showing the equilibration of the water reservoir
     :class: only-dark
 
+.. container:: figurelegend
+
+    Figure: Water reservoir after equilibration. Oxygen atoms are in red, and 
+    hydrogen atoms in white.
+
 ..  container:: justify
 
    You can also open the *density.dat* file
@@ -481,7 +486,8 @@ The water
 
 .. container:: figurelegend
 
-    Figure: Evolution of the density of water with time.
+    Figure: Evolution of the density of water with time. The
+    density :math:`\rho` reaches a plateau after :math:`\approx 30\,\text{ps}`.
 
 ..  container:: justify
 
@@ -626,7 +632,7 @@ The PEG molecule
 
 ..  container:: figurelegend
 
-    The PEG molecule in vacuum.
+    Figure: The PEG molecule in vacuum.
     The carbon atoms are in pink, the oxygen atoms in red, and the hydrogen
     atoms in white. 
     
@@ -796,7 +802,7 @@ Mixing the PEG with water
 
 .. container:: figurelegend
 
-   A single PEG molecule in water. 
+   Figure: A single PEG molecule in water. 
    Some water molecules are represented as a transparent continuum 
    field for clarity.
 
@@ -975,7 +981,7 @@ Stretching the PEG molecule
 
 .. container:: figurelegend
 
-    PEG molecule streched along the *x* direction in water.
+    Figure: PEG molecule streched along the *x* direction in water.
     Some water molecules are represented as a transparent continuum 
     field for clarity.
 
@@ -993,10 +999,28 @@ Stretching the PEG molecule
     :alt: plot of the end-to-end distance versus time
     :class: only-light
 
-    Evolution of the end-to-end distance of the PEG molecule
+.. container:: figurelegend
+
+    Figure: Evolution of the end-to-end distance of the PEG molecule
     with time. The forcing starts at :math:`t = 30` ps.
 
 .. include:: ../../contact/accessfile.rst
+
+Going further with exercises
+============================
+
+Add salt to the mixture
+-----------------------
+
+..  container:: justify
+
+    Add some :math:`\text{Na}^+` and 
+    :math:`\text{Cl}^-` ions to the mixture using the method
+    of your choice. :math:`\text{Na}^+` ions are 
+    characterised by their charge, +1, and Lennard-Jones
+    parameters, :math:`\epsilon = 0.04690, \sigma = 2.4299`,
+    and :math:`\text{Cl}^-` ions by a charge -1 and Lennard-Jones
+    parameters, :math:`\epsilon = 0.1500, \sigma = 4.04470`.
 
 ..
     Going further with exercises
