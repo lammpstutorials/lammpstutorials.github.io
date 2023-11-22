@@ -215,6 +215,29 @@ Deform a CNT membrane
 Polymer in water
 ================
 
+Extract radial distribution function
+------------------------------------
+
+.. container:: justify
+
+    You can download the |input_PEG_RDF| file I wrote. I use 
+    the *compute rdf* command of LAMMPS. I define two different *compute*,
+    one for the H2O-H2O RDF, and another one for the H2O-PEG RDF:
+
+..  code-block:: lammps
+        
+    # H2O (type 1) - H2O (type 1)
+    compute myRDF_H2O_H2O all rdf 200 1 1 cutoff 10
+    fix myat1 all ave/time 10 20000 200000 c_myRDF_H2O_H2O[*] file H2O-H2O.dat mode vector
+
+    # PEG (type 3, 4, and 6) - H2O (type 1)
+    compute myRDF_PEG_H2O all rdf 200 3 1 4 1 6 1 cutoff 10
+    fix myat2 all ave/time 10 20000 200000 c_myRDF_PEG_H2O[*] file PEG-H2O.dat mode vector
+    
+.. |input_PEG_RDF| raw:: html
+
+    <a href="../../../../inputs/level2/polymer-in-water/exercises/radial-distribution-function/input.lammps" target="_blank">input</a>
+
 Add salt to the mixture
 -----------------------
 

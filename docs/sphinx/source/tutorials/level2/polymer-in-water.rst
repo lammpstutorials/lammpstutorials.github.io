@@ -1013,6 +1013,28 @@ Going further with exercises
 
     A solution for each exercise is provided here: :ref:`solutions-label`.
 
+Extract radial distribution function
+------------------------------------
+
+..  container:: justify
+
+    Extract the radial distribution functions (RDF or :math:`g(r)`)
+    between water molecules, as well as between water and PEG molecules:
+
+.. figure:: ../figures/level2/polymer-in-water/RDF-dark.png
+    :alt: RDF g(r) for water and peg
+    :class: only-dark
+
+.. figure:: ../figures/level2/polymer-in-water/RDF-light.png
+    :alt: RDF g(r) for water and peg
+    :class: only-light
+
+.. container:: figurelegend
+
+    Figure: Radial distribution function between the oxygen atoms 
+    of water, as well as between the oxygen atoms of water and the 
+    carbon and oxygen atoms of the PEG molecule.  
+
 Add salt to the mixture
 -----------------------
 
@@ -1023,11 +1045,11 @@ Add salt to the mixture
     of your choice. :math:`\text{Na}^+` ions are 
     characterised by their mass :math:`m = 22.98\,\text{g/mol}`,
     their charge :math:`q = +1\,e`, and Lennard-Jones
-    parameters, :math:`\epsilon = 0.04690\,\text{kcal/mol}, \sigma = 0.243\,\text{nm}`,
+    parameters, :math:`\epsilon = 0.0469\,\text{kcal/mol}, \sigma = 0.243\,\text{nm}`,
     and :math:`\text{Cl}^-` ions by their
     mass :math:`m = 35.453\,\text{g/mol}`,
     charge :math:`q = -1\,e` and Lennard-Jones
-    parameters, :math:`\epsilon = 0.1500\,\text{kcal/mol}, \sigma = 0.4045\,\text{nm}`.
+    parameters, :math:`\epsilon = 0.15\,\text{kcal/mol}, \sigma = 0.4045\,\text{nm}`.
 
 .. figure:: ../figures/level2/polymer-in-water/salt-exercise-dark.png
     :alt: PEG in a NaCl solution
