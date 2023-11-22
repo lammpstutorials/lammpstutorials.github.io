@@ -1033,7 +1033,7 @@ Add salt to the mixture
     :alt: PEG in a NaCl solution
     :class: only-dark
 
-.. figure:: ../figures/level2/polymer-in-water/salt-exercise-dark.png
+.. figure:: ../figures/level2/polymer-in-water/salt-exercise-light.png
     :alt: PEG in a NaCl solution
     :class: only-light
 
