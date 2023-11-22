@@ -385,6 +385,23 @@ Then, it is important to change the box to triclinic:</p>
 </section>
 <section id="polymer-in-water">
 <h2>Polymer in water<a class="headerlink" href="#polymer-in-water" title="Link to this heading">#</a></h2>
+<section id="extract-radial-distribution-function">
+<h3>Extract radial distribution function<a class="headerlink" href="#extract-radial-distribution-function" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>You can download the <a href="../../../../inputs/level2/polymer-in-water/exercises/radial-distribution-function/input.lammps" target="_blank">input</a> file I wrote. I use
+the <em>compute rdf</em> command of LAMMPS. I define two different <em>compute</em>,
+one for the H2O-H2O RDF, and another one for the H2O-PEG RDF:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># H2O (type 1) - H2O (type 1)</span>
+<span class="k">compute </span><span class="nv nv-Identifier">myRDF_H2O_H2O</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">rdf</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">10</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">c_myRDF_H2O_H2O[</span><span class="o">*</span><span class="n">]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">H2O</span><span class="o">-</span><span class="n">H2O.dat</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">vector</span>
+
+<span class="c"># PEG (type 3, 4, and 6) - H2O (type 1)</span>
+<span class="k">compute </span><span class="nv nv-Identifier">myRDF_PEG_H2O</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">rdf</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">10</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">c_myRDF_PEG_H2O[</span><span class="o">*</span><span class="n">]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">PEG</span><span class="o">-</span><span class="n">H2O.dat</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">vector</span>
+</pre></div>
+</div>
+</section>
 <section id="add-salt-to-the-mixture">
 <h3>Add salt to the mixture<a class="headerlink" href="#add-salt-to-the-mixture" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
@@ -491,6 +508,7 @@ values, followed by an energy minimization.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#polymer-in-water">Polymer in water</a><ul>
+<li><a class="reference internal" href="#extract-radial-distribution-function">Extract radial distribution function</a></li>
 <li><a class="reference internal" href="#add-salt-to-the-mixture">Add salt to the mixture</a></li>
 <li><a class="reference internal" href="#coming-soon">Coming soon</a></li>
 </ul>
