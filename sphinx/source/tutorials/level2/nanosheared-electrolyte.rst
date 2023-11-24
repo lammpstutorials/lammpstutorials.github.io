@@ -26,8 +26,12 @@ Nanosheared electrolyte
     of the sheared fluid, such as the time-averaged velocity profile
     will be extracted. 
 
+..  container:: justify
+
     This tutorial illustrates the important aspects of
     combining a fluid and a solid in the same simulation.
+    Also, contrarily to the :ref:`all-atoms-label` tutorial, a rigid 
+    four points water model is used here.
 
 .. include:: ../../contact/recommand-lj.rst
 
@@ -45,9 +49,9 @@ System generation
     the following lines into it:
 
 ..  code-block:: lammps
-    :caption: *to be copied in SystemCreation/input.lammps*
 
     # LAMMPS input file
+
     units real
     atom_style full
     bond_style harmonic
@@ -62,11 +66,24 @@ System generation
     interaction potential (here Lennard Jones with cut-off and long 
     range Coulombic) and long range solver (here PPPM). 
 
+..  container:: justify
+
     These lines are relatively similar to the 
-    previous tutorial (:ref:`all-atoms-label`).
+    previous tutorial (:ref:`all-atoms-label`),
+    with two major differences; the use of *lj/cut/tip4p/long*
+    and *pppm/tip4p*.
+    These two commands allow us to 
+    model a four point water molecule without explicitly 
+    defining the fourth massless atom *M*. The value of 
+    *0.1546* corresponds to the *O-M* distance in Angstrom and is 
+    given by the water model. Here, |TIP4P-2005| is used.
+
+.. |TIP4P-2005| raw:: html
+
+   <a href="http://www.sklogwiki.org/SklogWiki/index.php/TIP4P/2005_model_of_water" target="_blank">TIP4P-2005</a>
 
 .. admonition:: About lj/cut/tip4p/long pair style
-    :class: dropdown
+    :class: info
 
     The lj/cut/tip4p/long pair style is similar to the conventional 
     Lennard Jones + Coulomb interaction, except that it is made specifically 
@@ -76,12 +93,10 @@ System generation
 
 ..  container:: justify
 
-    Let us create the box:
+    Let us create the box by adding the following lines to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in SystemCreation/input.lammps*
 
-    # ------------- System definition
     lattice fcc 4.04
     region box block -4 4 -4 4 -13 13
     create_box 5 box &
@@ -107,16 +122,15 @@ System generation
 
 ..  container:: justify
 
-    The *create_box* command creates a simulation box with 5 types of atoms in
-    the simulation. This command extends over 6 lines thanks to the
+    The *create_box* command creates a simulation box with 5 types of atoms:the oxygen and hydrogen
+    of the water molecules, the two ions (:math:`\text{Na}^+`,
+    :math:`\text{Cl}^-`), and the
+    atom of the walls. The *create_box* command extends over 6 lines thanks to the
     :math:`\&` character. The second and third lines are used to
-    specify that the simulation contains 1 type of bond and 1
-    type of angle (both required by the water molecule). The parameters of
+    indicate that the simulation contains 1 type of bond and 1
+    type of angle (both required by the water molecule). The parameters for
     these bond and angle constraints will be given later. The
     three last lines are for memory allocation.
-    Note that 5 atom types are needed for respectively the oxygen and hydrogen
-    of the water molecules, the two types of ions (:math:`\text{Na}^+`, :math:`\text{Cl}^-`), and the
-    single atom type of the walls.
 
 ..  container:: justify
 
@@ -124,12 +138,10 @@ System generation
     sub-regions corresponding respectively to the two solid
     walls, and create a larger region from the union of the two
     regions. Then, let us create atoms of type 5 (the wall) within the two
-    regions:
+    regions. Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in SystemCreation/input.lammps*
 
-    # create the walls
     region rbotwall block -4 4 -4 4 -12 -10
     region rtopwall block -4 4 -4 4 10 12
     region rwall union 2 rbotwall rtopwall
@@ -138,25 +150,25 @@ System generation
 ..  container:: justify
 
     Atoms will be placed at the positions of the previously
-    defined lattice.
+    defined lattice, thus forming fcc solids.
+
+..  container:: justify
 
     In order to add the water molecules, we first need to
     download the |download_TIP4P2005.txt|
-    file and place it in *SystemCreation/*. It contains all the
-    necessary information about the water molecule, such as
+    and place it next to *SystemCreation/*. The template contains all the
+    necessary information concerning the water molecule, such as
     atom positions, bonds, and the angle.
-    
-    Add the following lines
-    to input.lammps:
-
 .. |download_TIP4P2005.txt| raw:: html
 
-   <a href="../../../../../inputs/level2/nanosheared-electrolyte/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>
+   <a href="../../../../../inputs/level2/nanosheared-electrolyte/TIP4P2005.txt" target="_blank">molecule template</a>
+
+..  container:: justify
+
+    Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in SystemCreation/input.lammps*
 
-    # create the fluid
     region rliquid block -4 4 -4 4 -9 9
     molecule h2omol ../TIP4P2005.txt
     lattice sc 4.04
@@ -167,30 +179,38 @@ System generation
     Withing the last four lines, a *region* named *rliquid* for depositing the water molecules is created based
     on the last defined lattice, which is *fcc 4.04*. 
 
-    The *molecule* command opens up the *TIP4P2005.txt* file, and names
-    the associated molecule *h2omol*.
+..  container:: justify
+
+    The *molecule* command opens up the molecule template named
+    *TIP4P2005.txt*, and names the associated molecule *h2omol*.
+
+..  container:: justify
 
     A new simple cubic lattice is defined in order to place the water
     molecules on it, with a distance of 4.04 Ångstroms between
     each water molecule. Note that the new lattice replaces the
     previous one, as LAMMPS reads a script from top to bottom.
 
-    Note that the distance of 4.04 Ångstroms is larger than the typical
+..  container:: justify
+
+    The distance of 4.04 Ångstroms is larger than the typical
     equilibrium distance between water molecules in a liquid,
     but this will allow us to insert ions more safely (see below). 
+
+..  container:: justify
 
     Finally, molecules are created on the sc lattice by the *create_atoms* command. The
     first parameter is '0' because we use the atom id from the
     *TIP4P2005.txt* file. The number *482793* is a seed that is
     required by LAMMPS, it can be any positive integer.
 
-    Let us create 20 ions (10 :math:`\text{Na}^+` and 10 :math:`\text{Cl}^-`)
-    in between the water molecules:
+..  container:: justify
+
+    Finally, let us create 20 ions (10 :math:`\text{Na}^+` and 10 :math:`\text{Cl}^-`)
+    in between the water molecules, by adding the following commands to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in SystemCreation/input.lammps*
 
-    # create the ions
     create_atoms 3 random 10 52802 rliquid overlap 0.3 maxtry 500
     create_atoms 4 random 10 90182 rliquid overlap 0.3 maxtry 500
     set type 3 charge 1.0
@@ -200,21 +220,23 @@ System generation
 
     Each *create_atoms* command will add 10 ions at random positions
     within the 'rliquid' region. Feel free to increase or decrease the salt
-    concentration by changing the number of desired ions.
+    concentration by changing the number of desired ions. To keep the system charge neutral,
+    always insert the same number of 
+    :math:`\text{Na}^+` and :math:`\text{Cl}^-`, unless of course there are other charges in the system.
+
+..  container:: justify
 
     The charges of the newly added ions are specified by the two *set* commands.
 
-    To keep the system charge neutral, always insert the same number of 
-    :math:`\text{Na}^+` and :math:`\text{Cl}^-` (unless of course there are other charges in the system).
+..  container:: justify
 
-    We need to define the parameters of the simulation: the mass
-    of the 6 atoms (O, H, :math:`\text{Na}^+`, :math:`\text{Cl}^-`, and wall), the
+    Before starting the simulation, we still need to define the parameters of the simulation: the mass
+    of the 5 atom types (O, H, :math:`\text{Na}^+`, :math:`\text{Cl}^-`, and wall), the
     pairwise interaction parameters (here the parameters for the
     Lennard-Jones potential), and the bond and angle parameters.
     Copy the following line into input.lammps:
 
 ..  code-block:: lammps
-    :caption: *to be copied in SystemCreation/input.lammps*
 
     # settings
     include ../PARM.lammps
@@ -226,7 +248,6 @@ System generation
     into PARM.lammps:
 
 ..  code-block:: lammps
-    :caption: *to be copied in PARM.lammps*
 
     # Parameter file
     mass 1 15.9994 # water
@@ -248,12 +269,12 @@ System generation
 ..  container:: justify
     
     Each *mass* command assigns a mass in grams/mole to an atom type. Each
-    *pair_coeff* assigns respectively the depth of the potential
+    *pair_coeff* assigns respectively the depth of the LJ potential
     (in Kcal/mole), and the distance (in Ångstrom) at which the
     particle-particle potential energy is 0.
 
 .. admonition:: About the parameters
-    :class: dropdown
+    :class: info
 
     The parameters for water
     correspond to the TIP4P/2005 water model, and the parameters
@@ -262,7 +283,7 @@ System generation
 
 ..  container:: justify
 
-    Only pairwise interaction between atoms of
+    As previously, only pairwise interaction between atoms of
     identical type were assigned. By default, LAMMPS calculates
     the pair coefficients for the interactions between atoms
     of different types (i and j) by using geometrical
@@ -272,22 +293,24 @@ System generation
     *pair_modify* command, but for the sake of simplicity,
     let us keep the default option here.
 
+..  container:: justify
+
     The bond coefficient (here for the O-H bond of the water
     molecule) sets respectively the energy of the harmonic
     potential and the equilibrium distance in Ångstrom. The
-    value is '0' for the energy, because we are going to use a
+    value is *0* for the energy, because we are going to use a
     rigid model for the water molecule. The shape of the
-    molecule will be preserved later by the shake algorithm.
+    molecule will be preserved later by the *shake* algorithm.
     Similarly, the angle coefficient (here for the H-O-H angle
     of the water molecule) sets the energy of the harmonic
     potential (also 0) and the equilibrium angle is in degree.
 
-    Finally, add the following lines to the input file:
+..  container:: justify
+
+    Finally, add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in SystemCreation/input.lammps*
 
-    # run
     run 0
 
     write_data system.data
@@ -298,18 +321,23 @@ System generation
     With *run 0*, the simulation will run for 0 step,
     enough for creating the system and saving the final state.
 
+..  container:: justify
+
     The *write_data* finally creates a file named *system.data*
     containing all the information required to restart the
     simulation from the final configuration generated by this
     input file.
 
+..  container:: justify
+
     The *write_dump* command print the final
-    positions of the atoms, and can be used with VMD or ovito
+    positions of the atoms, and can be opened with VMD
     to visualize the system.
 
-    This input script is ready to be ran with LAMMPS. When the
-    run is over, open the log file and make sure that atoms have
-    been created (look for lines like 'Created 3648 atoms'), or
+..  container:: justify
+
+    Run the *input.lammps* file using LAMMPS. From the *log* file, make
+    sure that atoms have been created (look for lines like 'Created 3648 atoms'), or
     just look at the dump file with VMD:
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/systemcreation-light.png
@@ -320,16 +348,18 @@ System generation
     :alt: Generated electrolyte between walls
     :class: only-dark
 
-    Left: side view. Periodic images are represented in light
-    color. Water molecules are in red and white,:math:`\text{Na}^+`
-    ions in purple, :math:`\text{Cl}^-` ions in lime, and walls in
-    gray. Right: top view. Note the absence of atomic defect
-    at the cell boundaries.
+..  container:: figurelegend
+
+    Figure: The left panel is a side view of the system. Periodic images are represented in lighter
+    color. Water molecules are in red and white, :math:`\text{Na}^+`
+    ions in purple, :math:`\text{Cl}^-` ions in lime, and wall atoms in
+    gray. The right panel is the top view of the system. Note the absence of
+    atomic defect at the cell boundaries.
 
 ..  container:: justify
 
     Always check that your system has been correctly created
-    by showing the periodic images. Atomic defects often
+    by looking at the periodic images. Atomic defects often
     occur at the boundary.
 
 .. include:: ../../contact/supportme.rst

@@ -9,7 +9,6 @@ angle_style harmonic
 pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
 kspace_style pppm/tip4p 1.0e-4
 
-# System definition
 lattice fcc 4.04
 region box block -4 4 -4 4 -13 13
 create_box 5 box &
@@ -19,30 +18,23 @@ create_box 5 box &
            extra/angle/per/atom 1 &
            extra/special/per/atom 2
  
-# create the walls
 region rbotwall block -4 4 -4 4 -12 -10
 region rtopwall block -4 4 -4 4 10 12
 region rwall union 2 rbotwall rtopwall
 create_atoms 5 region rwall
 
-# create the fluid
 region rliquid block -4 4 -4 4 -9 9
 molecule h2omol ../TIP4P2005.txt
 lattice sc 4.04
 create_atoms 0 region rliquid mol h2omol 482793
 
-# create the ions
 create_atoms 3 random 10 52802 rliquid overlap 0.3 maxtry 500
 create_atoms 4 random 10 90182 rliquid overlap 0.3 maxtry 500
 set type 3 charge 1.0
 set type 4 charge -1.0
 
-stop
-
-# settings
 include ../PARM.lammps
 
-# run 
 run 0
 
 write_data system.data
