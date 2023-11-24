@@ -341,11 +341,11 @@ System generation
     open the *dump.lammpstrj* file with VMD:
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/systemcreation-light.png
-    :alt: Generated electrolyte between walls
+    :alt: LAMMPS: electrolyte made of water and salt between walls
     :class: only-light
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/systemcreation-dark.png
-    :alt: Generated electrolyte between walls
+    :alt: LAMMPS: electrolyte made of water and salt between walls
     :class: only-dark
 
 ..  container:: figurelegend
