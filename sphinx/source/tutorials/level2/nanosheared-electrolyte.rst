@@ -396,12 +396,11 @@ Energy minimization
     Let us move the atoms and place them
     in more energetically favorable positions before starting the simulation.
     To perform the energy minimization with our system, let us
-    create a new folder named Minimization/, and create a new
-    input file named input.lammps in it. The first lines will be
-    very similar to the previous input file:
+    create a new folder named *Minimization/*, and create a new
+    input file named *input.lammps* in it. Copy the following lines
+    in *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Minimization/input.lammps*
 
     # Initialisation
     boundary p p p
@@ -425,10 +424,12 @@ Energy minimization
     previously created file *system.data* located in *SystemCreation/*.
     *system.data* contains the definition of the simulation box and the positions of the atoms.
 
-    Next, let us create a group for the water:
+..  container:: justify
+
+    Next, let us create a group for the water by
+    adding the following line to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Minimization/input.lammps*
 
     group gH2O type 1 2
 
@@ -437,10 +438,12 @@ Energy minimization
     Creating groups will allow us to apply different dynamics and constraints to the
     liquid and to the walls.
 
-    Let us also print the atoms positions in a dump file:
+..  container:: justify
+
+    Let us also print the atoms positions in a dump fileby
+    adding the following line to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Minimization/input.lammps*
 
     dump mydmp all atom 1000 dump.lammpstrj
 

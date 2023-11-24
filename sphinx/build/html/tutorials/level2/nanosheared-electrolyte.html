@@ -564,12 +564,10 @@ you can either</p>
 <p>Let us move the atoms and place them
 in more energetically favorable positions before starting the simulation.
 To perform the energy minimization with our system, let us
-create a new folder named Minimization/, and create a new
-input file named input.lammps in it. The first lines will be
-very similar to the previous input file:</p>
+create a new folder named <em>Minimization/</em>, and create a new
+input file named <em>input.lammps</em> in it. Copy the following lines
+in <em>input.lammps</em>:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
@@ -586,30 +584,29 @@ very similar to the previous input file:</p>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
 <p>The only difference with the previous input is that, instead
 of creating a new box and new atoms, we open the
 previously created file <em>system.data</em> located in <em>SystemCreation/</em>.
 <em>system.data</em> contains the definition of the simulation box and the positions of the atoms.</p>
-<p>Next, let us create a group for the water:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+<div class="justify docutils container">
+<p>Next, let us create a group for the water by
+adding the following line to <em>input.lammps</em>:</p>
+</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
 </pre></div>
-</div>
 </div>
 <div class="justify docutils container">
 <p>Creating groups will allow us to apply different dynamics and constraints to the
 liquid and to the walls.</p>
-<p>Let us also print the atoms positions in a dump file:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="justify docutils container">
+<p>Let us also print the atoms positions in a dump fileby
+adding the following line to <em>input.lammps</em>:</p>
+</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
-</div>
 </div>
 <div class="justify docutils container">
 <p>Now, we can include the most important commands for the
@@ -657,8 +654,8 @@ center of the box, which makes the visualization easier.</p>
 anticipate that the atoms are initially too close to each
 others) and run for 10000 steps:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">50</span>
 <span class="k">run</span><span class="w"> </span><span class="m">10000</span>
@@ -692,11 +689,11 @@ of the time:</p>
 <figure class="align-default">
 <img alt="Energy minimisation of the confined water and salt" class="only-light" src="../../_images/minimization-light.png" />
 </figure>
-<figure class="align-default" id="id5">
+<figure class="align-default" id="id2">
 <img alt="Energy minimisation of the confined water and salt" class="only-dark" src="../../_images/minimization-dark.png" />
 <figcaption>
 <p><span class="caption-text">Energy as a function of time extracted from the log file using <em>Python</em> and
-<em>lammps_logfile</em>.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+<em>lammps_logfile</em>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -713,8 +710,8 @@ fluid and piston relax at ambient temperature.</p>
 <p>Create a new folder called <em>Equilibration/</em>, create a new
 input file in it, and add the following lines:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
@@ -755,8 +752,8 @@ between all the atom on the top part of the box (gtop) and
 all the atom of type 5 (gwall) corresponds to the top wall.</p>
 <p>Then, add the following lines for the visualisation :</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># visualisation</span>
 <span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">50</span>
@@ -773,8 +770,8 @@ the two walls, respectively, and the deltaz variable
 calculates the difference between the two centers of mass.</p>
 <p>Finally, add the end of the input:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Dynamics</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span>
@@ -815,11 +812,11 @@ printed by <em>fix myat1</em>):</p>
 <figure class="align-default">
 <img alt="Plot showing the distance between the walls as a function of time." class="only-light" src="../../_images/equilibration-light.png" />
 </figure>
-<figure class="align-default" id="id9">
+<figure class="align-default" id="id6">
 <img alt="Plot showing the distance between the walls as a function of time." class="only-dark" src="../../_images/equilibration-dark.png" />
 <figcaption>
 <p><span class="caption-text">Distance between the walls as a function of time. After 10 ps, the
-distance between the walls is very close to its final equilibrium value.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+distance between the walls is very close to its final equilibrium value.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
@@ -838,8 +835,8 @@ motion of the two walls in order to shear the electrolyte.
 In a new folder called <em>Shearing/</em>,
 create a new input that starts like the previous ones:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
@@ -891,8 +888,8 @@ important since a large velocity will be imposed along <em>x</em>. Another diffe
 is too much unecessary vacuum).</p>
 <p>Then, let us impose the motion of the two walls:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">velocity </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">-</span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
@@ -912,8 +909,8 @@ velocity profile using the ave/chunk command, extract the
 force applied on the walls, and then run for 20 ps (feel free to increase the duration
 for more accurate velocity profile):</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># vizualisation</span>
 <span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">500</span>
@@ -940,11 +937,11 @@ If you computer allows it, use 200 ps instead.</p>
 <figure class="align-default">
 <img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-light" src="../../_images/shearing-light.png" />
 </figure>
-<figure class="align-default" id="id13">
+<figure class="align-default" id="id10">
 <img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-dark" src="../../_images/shearing-dark.png" />
 <figcaption>
 <p><span class="caption-text">Velocity profiles for both fluid (<span class="math notranslate nohighlight">\(-1.5 &lt; z &lt; 1.5\)</span> nm) and walls as a function
-of the <em>z</em> distance.</span><a class="headerlink" href="#id13" title="Link to this image">#</a></p>
+of the <em>z</em> distance.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="justify docutils container">
