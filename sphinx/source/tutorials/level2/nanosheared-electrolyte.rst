@@ -122,8 +122,9 @@ System generation
 
 ..  container:: justify
 
-    The *create_box* command creates a simulation box with 5 types of atoms:the oxygen and hydrogen
-    of the water molecules, the two ions (:math:`\text{Na}^+`,
+    The *create_box* command creates a simulation box with 5 types of atoms:
+    the oxygen and hydrogen of the water molecules,
+    the two ions (:math:`\text{Na}^+`,
     :math:`\text{Cl}^-`), and the
     atom of the walls. The *create_box* command extends over 6 lines thanks to the
     :math:`\&` character. The second and third lines are used to
@@ -158,10 +159,10 @@ System generation
     download the |download_TIP4P2005.txt|
     and place it next to *SystemCreation/*. The template contains all the
     necessary information concerning the water molecule, such as
-    atom positions, bonds, and the angle.
+    atom positions, bonds, and angle.
 .. |download_TIP4P2005.txt| raw:: html
 
-   <a href="../../../../../inputs/level2/nanosheared-electrolyte/TIP4P2005.txt" target="_blank">molecule template</a>
+   <a href="../../../../../inputs/level2/nanosheared-electrolyte/SystemCreation/RigidH2O.txt" target="_blank">molecule template</a>
 
 ..  container:: justify
 
@@ -170,7 +171,7 @@ System generation
 ..  code-block:: lammps
 
     region rliquid block -4 4 -4 4 -9 9
-    molecule h2omol ../TIP4P2005.txt
+    molecule h2omol RigidH2O.txt
     lattice sc 4.04
     create_atoms 0 region rliquid mol h2omol 482793
 
@@ -182,7 +183,7 @@ System generation
 ..  container:: justify
 
     The *molecule* command opens up the molecule template named
-    *TIP4P2005.txt*, and names the associated molecule *h2omol*.
+    *RigidH2O.txt*, and names the associated molecule *h2omol*.
 
 ..  container:: justify
 
@@ -201,7 +202,7 @@ System generation
 
     Molecules are created on the sc lattice by the *create_atoms* command. The
     first parameter is '0' because we use the atom id from the
-    *TIP4P2005.txt* file. The number *482793* is a seed that is
+    *RigidH2O.txt* file. The number *482793* is a seed that is
     required by LAMMPS, it can be any positive integer.
 
 ..  container:: justify

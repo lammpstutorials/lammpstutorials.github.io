@@ -330,8 +330,9 @@ because we have previously chosen a lattice with scale
 factor of 4.04, the region box extends from -16.16 Å to 16.16 Å.</p>
 </div>
 <div class="justify docutils container">
-<p>The <em>create_box</em> command creates a simulation box with 5 types of atoms:the oxygen and hydrogen
-of the water molecules, the two ions (<span class="math notranslate nohighlight">\(\text{Na}^+\)</span>,
+<p>The <em>create_box</em> command creates a simulation box with 5 types of atoms:
+the oxygen and hydrogen of the water molecules,
+the two ions (<span class="math notranslate nohighlight">\(\text{Na}^+\)</span>,
 <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>), and the
 atom of the walls. The <em>create_box</em> command extends over 6 lines thanks to the
 <span class="math notranslate nohighlight">\(\&amp;\)</span> character. The second and third lines are used to
@@ -359,16 +360,16 @@ defined lattice, thus forming fcc solids.</p>
 </div>
 <div class="justify docutils container">
 <p>In order to add the water molecules, we first need to
-download the <a href="../../../../../inputs/level2/nanosheared-electrolyte/TIP4P2005.txt" target="_blank">molecule template</a>
+download the <a href="../../../../../inputs/level2/nanosheared-electrolyte/SystemCreation/RigidH2O.txt" target="_blank">molecule template</a>
 and place it next to <em>SystemCreation/</em>. The template contains all the
 necessary information concerning the water molecule, such as
-atom positions, bonds, and the angle.</p>
+atom positions, bonds, and angle.</p>
 </div>
 <div class="justify docutils container">
 <p>Add the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">9</span><span class="w"> </span><span class="m">9</span>
-<span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">TIP4P2005.txt</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">RigidH2O.txt</span>
 <span class="k">lattice</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="m">4.04</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">482793</span>
 </pre></div>
@@ -379,7 +380,7 @@ water molecules is created based on the last defined lattice, which is <em>fcc 4
 </div>
 <div class="justify docutils container">
 <p>The <em>molecule</em> command opens up the molecule template named
-<em>TIP4P2005.txt</em>, and names the associated molecule <em>h2omol</em>.</p>
+<em>RigidH2O.txt</em>, and names the associated molecule <em>h2omol</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>A new simple cubic lattice is defined in order to place the water
@@ -395,7 +396,7 @@ but this will allow us to insert ions more safely (see below).</p>
 <div class="justify docutils container">
 <p>Molecules are created on the sc lattice by the <em>create_atoms</em> command. The
 first parameter is ‘0’ because we use the atom id from the
-<em>TIP4P2005.txt</em> file. The number <em>482793</em> is a seed that is
+<em>RigidH2O.txt</em> file. The number <em>482793</em> is a seed that is
 required by LAMMPS, it can be any positive integer.</p>
 </div>
 <div class="justify docutils container">
