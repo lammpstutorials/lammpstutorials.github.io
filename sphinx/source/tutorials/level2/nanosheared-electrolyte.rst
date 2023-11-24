@@ -337,8 +337,8 @@ System generation
 ..  container:: justify
 
     Run the *input.lammps* file using LAMMPS. From the *log* file, make
-    sure that atoms have been created (look for lines like 'Created 3648 atoms'), or
-    just look at the dump file with VMD:
+    sure that atoms have been created (look for the lines *Created x atoms*), and
+    open the *dump.lammpstrj* file with VMD:
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/systemcreation-light.png
     :alt: Generated electrolyte between walls
