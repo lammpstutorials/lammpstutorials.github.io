@@ -176,8 +176,8 @@ System generation
 
 ..  container:: justify
 
-    Withing the last four lines, a *region* named *rliquid* for depositing the water molecules is created based
-    on the last defined lattice, which is *fcc 4.04*. 
+    Withing the last four lines, a *region* named *rliquid* for depositing the
+    water molecules is created based on the last defined lattice, which is *fcc 4.04*. 
 
 ..  container:: justify
 
@@ -222,7 +222,9 @@ System generation
     within the 'rliquid' region. Feel free to increase or decrease the salt
     concentration by changing the number of desired ions. To keep the system charge neutral,
     always insert the same number of 
-    :math:`\text{Na}^+` and :math:`\text{Cl}^-`, unless of course there are other charges in the system.
+    :math:`\text{Na}^+`
+    and :math:`\text{Cl}^-`,
+    unless of course there are other charges in the system.
 
 ..  container:: justify
 
@@ -497,12 +499,14 @@ Energy minimization
     Fix recenter has no influence on the dynamics, but will keep the system in the 
     center of the box, which makes the visualization easier.
 
-    Finally, let us choose a small timestep (because we
+..  container:: justify
+
+    Finally, let us choose a small timestep of 0.5 fs because we
     anticipate that the atoms are initially too close to each
-    others) and run for 10000 steps:
+    others, and let us run for 10000 steps. Add the 
+    following lines into *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Minimization/input.lammps*
 
     timestep 0.5
     thermo 50
@@ -511,29 +515,8 @@ Energy minimization
 
 ..  container:: justify
 
-    When running the input.lammps file, you should see that the
-    total energy of the system decreases as expected (fifth
-    colum):
-
-..  code-block:: bw
-
-    Step   Temp          E_pair         E_mol          TotEng         Press     
-        0   0             -99554.799      0             -99554.799     -1008.4767    
-    50   3.492673      -107825.17      0             -107786.32     -19733.701    
-    100   2.6260191     -108926.18      0             -108896.97     -20225.668    
-    150   2.2025292     -109692.83      0             -109668.34     -20319.962 
-    (...)
-    9800   1.0233163     -120975.23      0             -120963.85     -12590.345    
-    9850   1.022532      -120988.11      0             -120976.74     -12582.803    
-    9900   1.0222164     -121000.48      0             -120989.11     -12573.028    
-    9950   1.0215887     -121012.78      0             -121001.42     -12562.843    
-    10000   1.0206449     -121024.53      0             -121013.18     -12551.132 
-
-..  container:: justify
-
-    You can easily import log file into *Python* using the
-    |lammps_logfile| tool, and plot the thermodynamic quantities as a function 
-    of the time:
+    When running the *input.lammps* file with LAMMPS, you should see that the
+    total energy of the system decreases, as expected:
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/minimization-light.png
     :alt: Energy minimisation of the confined water and salt
@@ -543,8 +526,10 @@ Energy minimization
     :alt: Energy minimisation of the confined water and salt
     :class: only-dark
 
-    Energy as a function of time extracted from the log file using *Python* and
-    *lammps_logfile*.
+..  container:: figurelegend
+
+    Figure: Energy as a function of time extracted from the log
+    file using *Python* and *lammps_logfile*.
 
 .. |lammps_logfile| raw:: html
 
@@ -568,11 +553,13 @@ System equilibration
     Now, let us properly equilibrate the system by letting both
     fluid and piston relax at ambient temperature.
 
-    Create a new folder called *Equilibration/*, create a new
-    input file in it, and add the following lines:
+..  container:: justify
+
+    Create a new folder called *Equilibration/* next to 
+    the previously created folders, and create a new
+    *input.lammps* file in it. Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Equilibration/input.lammps*
 
     # Initialisation
     boundary p p p
@@ -604,18 +591,21 @@ System equilibration
 
 ..  container:: justify
 
-    Here, several groups have been defined in order to differentiate
-    between solid, liquid (salt+water), :math:`\text{Na}^+`, etc. (although
-    not all of them are used). In addition, groups containing only the
+    Here, after some already seen commands, several groups are
+    defined in order to differentiate
+    between solid, liquid (salt+water), :math:`\text{Na}^+`, etc.
+    In addition, groups containing only the
     top wall (gwalltop) and the bottom wall (gwallbot) have been
-    created using the intersect keyword: the intersection
+    created using the intersect keyword. For instance the intersection
     between all the atom on the top part of the box (gtop) and
     all the atom of type 5 (gwall) corresponds to the top wall.
 
-    Then, add the following lines for the visualisation :
+..  container:: justify
+
+    Then, add the following lines to *input.lammps* for
+    the trajectory visualization and output:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Equilibration/input.lammps*
 
     # visualisation
     dump mydmp all atom 1000 dump.lammpstrj
@@ -627,14 +617,15 @@ System equilibration
 
 ..  container:: justify
 
-    The two variables allow to extract the centers of mass of
-    the two walls, respectively, and the deltaz variable
-    calculates the difference between the two centers of mass.
+    The first two variables allow us to extract the centers of mass of
+    the two walls. Then, the :math:`\delta_z`
+    variable is used to calculate the distance between the two centers of mass.
 
-    Finally, add the end of the input:
+..  container:: justify
+
+    Finally, let us complete the *input.lammps* file:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Equilibration/input.lammps*
 
     # Dynamics
     fix mynve all nve
@@ -653,28 +644,25 @@ System equilibration
 
 ..  container:: justify
 
-    The main differences with the previous step (minimize) are
-    the timestep of 1 fs instead of 0.5 fs, the thermostat that imposes a temperature of 300 K, for which the
-    fluid is expected to behave as a liquid, and the two thermostats are used instead of one:
-    one for the fluid, one for the solid (the use of *fix_modify* ensures
-    that the right temperature is used by the temp/berenden).
+    Here a timestep of 1 fs is used instead of 0.5 fs previously. 
+    Two thermostats are used, one for the fluid (*myber1*) and one
+    for the solid (*myber2*). The use of *fix_modify* toguether with 
+    *compute* ensures that the right temperature value is used by the thermostats.
 
 ..  container:: justify
 
-    Run the input script. Note, I am running on 4 CPU cores using:
+    Run the *input.lammps* file using LAMMPS. You can speed-up the 
+    calculation by using multiple CPU cores:
 
-..  code-block:: bw
+..  code-block:: bash
 
     mpirun -np 4 lmp -in input.lammps
 
 ..  container:: justify
 
-    To complete the 20000 steps (20 ps), it takes about 6 minutes. The duration 
-    may differ on your computer.
-
-    The distance between the two walls
-    reduces until it reaches an equilibrium value (see the data
-    printed by *fix myat1*):
+    The distance :math:`\delta_z` between the two walls
+    reduces until it reaches an equilibrium value. One can have a look
+    at the data printed by *fix myat1*:
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/equilibration-light.png
     :alt: Plot showing the distance between the walls as a function of time.
@@ -684,29 +672,31 @@ System equilibration
     :alt: Plot showing the distance between the walls as a function of time.
     :class: only-dark
 
-    Distance between the walls as a function of time. After 10 ps, the 
+..  container:: figurelegend
+
+    Figure: Distance between the walls as a function of time. After 10 ps, the 
     distance between the walls is very close to its final equilibrium value. 
     
 ..  container:: justify
 
-    Note that for actual reseach, it is recommended to run this equilibration step for longer times
-    to make sure that proper equilibration was reached. Here, since the slowest
-    process is the ionic diffusion, the equilibration 
-    should be longer than the typical diffusion time of the ions over the 
-    size of the pore (~3 nm), i.e. of the order of the nanosecond.
+    Note that it is generaly recommended to run longer equilibration.
+    Here for instance, the slowest
+    process is the ionic diffusion. Therefore the equilibration 
+    should in principle be longer than the time
+    the ions need to diffuse over the size of the pore
+    (:math:`\approx 3` nm), i.e. of the order of the nanosecond.
 
 Imposed shearing
 ================
 
 ..  container:: justify
 
-    From the equilibrated configuration, let us impose the
-    motion of the two walls in order to shear the electrolyte.
+    From the equilibrated configuration, let us impose a laterial
+    motion to the two walls and shear the electrolyte.
     In a new folder called *Shearing/*,
-    create a new input that starts like the previous ones:
+    create a new *input.lammps* file that starts like the previous ones:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Shearing/input.lammps*
 
     # Initialisation
     boundary p p p
@@ -752,12 +742,19 @@ Imposed shearing
 
     The main difference with the previous *equilibration* step, so far, is
     the use of temperature *compute* with *temp/partial 0 1 1* options.
-    This is meant to exclude the *x* coordinate from the thermalisation, which is 
-    important since a large velocity will be imposed along *x*. Another difference is the
-    *change_box* command used to reduce the size of the box along *z* (otherwise there 
-    is too much unecessary vacuum).
+    This *temp/partial* is meant to exclude the *x* coordinate from the
+    thermalisation, which is important since a large velocity will be imposed along *x*. 
+    
+..  container:: justify
 
-    Then, let us impose the motion of the two walls:
+    Another difference is the
+    *change_box* command used to reduce the size of the box along *z*.
+    Without the *change_box* command, there is too much unecessary vacuum
+    on each side of the system.
+
+..  container:: justify
+
+    Then, let us impose the velocity of the two walls:
 
 ..  code-block:: lammps
     :caption: *to be copied in Shearing/input.lammps*
@@ -774,16 +771,19 @@ Imposed shearing
     experience any force from the rest of the system. In absence of force
     acting on those atoms, they will conserve their initial velocity.
 
+..  container:: justify
+
     The *velocity* commands act only once and impose
     the velocity of the atoms of the groups *gwallbot* and *gwalltop*, respectively.
 
+..  container:: justify
+
     Finally, let us dump the atom positions, extract the
-    velocity profile using the ave/chunk command, extract the
+    velocity profile using the *ave/chunk* command, extract the
     force applied on the walls, and then run for 20 ps (feel free to increase the duration 
-    for more accurate velocity profile):
+    for more accurate velocity profile). Add the following to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Shearing/input.lammps*
 
     # vizualisation
     dump mydmp all atom 5000 dump.lammpstrj
@@ -806,6 +806,8 @@ Imposed shearing
     Note that a duration of 20 ps is too short to measure meaningfull quantities.
     If you computer allows it, use 200 ps instead.
 
+..  container:: justify
+
     The averaged velocity profile (with a 200 ps run) is the following:
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/shearing-light.png
@@ -816,8 +818,10 @@ Imposed shearing
     :alt: Velocity of the nanosheared fluid Video of sheared fluid
     :class: only-dark
 
-    Velocity profiles for both fluid (:math:`-1.5 < z < 1.5` nm) and walls as a function 
-    of the *z* distance.
+..  container:: figurelegend
+
+    Figure: Velocity profiles for both fluid (:math:`-1.5 < z < 1.5` nm) and
+    walls as a function of the *z* distance.
 
 ..  container:: justify
 
@@ -828,20 +832,23 @@ Imposed shearing
     :math:`\eta = \tau / \dot{\gamma}` where :math:`\tau`
     is the stress applied by the fluid on the shearing wall, and
     :math:`\dot{\gamma}` the shear rate (which is imposed
-    here). Here the shear rate is approximatively 6.25e9
-    s-1, and using a surface area of 1e-17 m2, I
-    get a viscosity for the fluid equal to 2.25 mPa.s
+    here). Here the shear rate is approximatively :math:`\dot{\gamma} = 6.25 \cdot 10^9\,\text{s}^{-1}`,
+    and using a surface area of :math:`A = 10^{-17}\,\text{m}^2`, one
+    gets an estimate for the viscosity for the fluid of :math:`\eta = 2.25\,\text{mPa.s}`
+
+..  container:: justify
 
     The viscosity calculated at such high shear rate may
-    differ from the bulk value. In general, it is recommanded to use a lower
+    differ from the expected *bulk* value. In general, it is recommanded to use a lower
     value for the shear rate. Note that for lower shear rate, the ratio noise-to-signal
-    is larger, and longer simulations must be performed.
+    is larger, and longer simulations are needed.
 
-    Also note that the viscosity of a fluid next to a solid surface is
+..  container:: justify
+
+    Anothyer important point is that the viscosity of a fluid next to a solid surface is
     typically larger than in bulk due to interaction with the
-    walls. Therefore one expect the present simulation to return 
-    a viscosity that is slightly larger than what would be measured with 
-    the fluid alone.
+    walls. Therefore, one expects the present simulation to return 
+    a viscosity that is slightly larger than what would be measured in absence of wall.
 
 .. |reference_gravelle2021| raw:: html
 
