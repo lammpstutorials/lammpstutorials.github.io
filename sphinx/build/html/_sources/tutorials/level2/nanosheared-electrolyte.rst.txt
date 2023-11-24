@@ -199,7 +199,7 @@ System generation
 
 ..  container:: justify
 
-    Finally, molecules are created on the sc lattice by the *create_atoms* command. The
+    Molecules are created on the sc lattice by the *create_atoms* command. The
     first parameter is '0' because we use the atom id from the
     *TIP4P2005.txt* file. The number *482793* is a seed that is
     required by LAMMPS, it can be any positive integer.
@@ -295,14 +295,14 @@ System generation
 
 ..  container:: justify
 
-    The bond coefficient (here for the O-H bond of the water
-    molecule) sets respectively the energy of the harmonic
+    The *bond_coeff*, which is here used for the O-H bond of the water
+    molecule, sets both the energy of the harmonic
     potential and the equilibrium distance in Ångstrom. The
     value is *0* for the energy, because we are going to use a
     rigid model for the water molecule. The shape of the
     molecule will be preserved later by the *shake* algorithm.
-    Similarly, the angle coefficient (here for the H-O-H angle
-    of the water molecule) sets the energy of the harmonic
+    Similarly, the angle coefficient here for the H-O-H angle
+    of the water molecule sets the energy of the harmonic
     potential (also 0) and the equilibrium angle is in degree.
 
 ..  container:: justify
@@ -330,7 +330,7 @@ System generation
 
 ..  container:: justify
 
-    The *write_dump* command print the final
+    The *write_dump* command prints the final
     positions of the atoms, and can be opened with VMD
     to visualize the system.
 
