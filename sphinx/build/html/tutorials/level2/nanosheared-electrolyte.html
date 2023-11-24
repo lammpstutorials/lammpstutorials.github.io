@@ -374,8 +374,8 @@ atom positions, bonds, and the angle.</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Withing the last four lines, a <em>region</em> named <em>rliquid</em> for depositing the water molecules is created based
-on the last defined lattice, which is <em>fcc 4.04</em>.</p>
+<p>Withing the last four lines, a <em>region</em> named <em>rliquid</em> for depositing the
+water molecules is created based on the last defined lattice, which is <em>fcc 4.04</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>molecule</em> command opens up the molecule template named
@@ -413,7 +413,9 @@ in between the water molecules, by adding the following commands to <em>input.la
 within the ‘rliquid’ region. Feel free to increase or decrease the salt
 concentration by changing the number of desired ions. To keep the system charge neutral,
 always insert the same number of
-<span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>, unless of course there are other charges in the system.</p>
+<span class="math notranslate nohighlight">\(\text{Na}^+\)</span>
+and <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>,
+unless of course there are other charges in the system.</p>
 </div>
 <div class="justify docutils container">
 <p>The charges of the newly added ions are specified by the two <em>set</em> commands.</p>
@@ -650,52 +652,33 @@ the <em>z</em> direction:</p>
 <div class="justify docutils container">
 <p>Fix recenter has no influence on the dynamics, but will keep the system in the
 center of the box, which makes the visualization easier.</p>
-<p>Finally, let us choose a small timestep (because we
-anticipate that the atoms are initially too close to each
-others) and run for 10000 steps:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Minimization/input.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="justify docutils container">
+<p>Finally, let us choose a small timestep of 0.5 fs because we
+anticipate that the atoms are initially too close to each
+others, and let us run for 10000 steps. Add the
+following lines into <em>input.lammps</em>:</p>
+</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">50</span>
 <span class="k">run</span><span class="w"> </span><span class="m">10000</span>
 <span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
-<p>When running the input.lammps file, you should see that the
-total energy of the system decreases as expected (fifth
-colum):</p>
-</div>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Step   Temp          E_pair         E_mol          TotEng         Press
-    0   0             -99554.799      0             -99554.799     -1008.4767
-50   3.492673      -107825.17      0             -107786.32     -19733.701
-100   2.6260191     -108926.18      0             -108896.97     -20225.668
-150   2.2025292     -109692.83      0             -109668.34     -20319.962
-(...)
-9800   1.0233163     -120975.23      0             -120963.85     -12590.345
-9850   1.022532      -120988.11      0             -120976.74     -12582.803
-9900   1.0222164     -121000.48      0             -120989.11     -12573.028
-9950   1.0215887     -121012.78      0             -121001.42     -12562.843
-10000   1.0206449     -121024.53      0             -121013.18     -12551.132
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>You can easily import log file into <em>Python</em> using the
-<a href="https://pypi.org/project/lammps-logfile/" target="_blank">LAMMPS logfile</a> tool, and plot the thermodynamic quantities as a function
-of the time:</p>
+<p>When running the <em>input.lammps</em> file with LAMMPS, you should see that the
+total energy of the system decreases, as expected:</p>
 </div>
 <figure class="align-default">
 <img alt="Energy minimisation of the confined water and salt" class="only-light" src="../../_images/minimization-light.png" />
 </figure>
-<figure class="align-default" id="id2">
+<figure class="align-default">
 <img alt="Energy minimisation of the confined water and salt" class="only-dark" src="../../_images/minimization-dark.png" />
-<figcaption>
-<p><span class="caption-text">Energy as a function of time extracted from the log file using <em>Python</em> and
-<em>lammps_logfile</em>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
-</figcaption>
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Energy as a function of time extracted from the log
+file using <em>Python</em> and <em>lammps_logfile</em>.</p>
+</div>
 <div class="justify docutils container">
 <p>If you look at the trajectory using VMD, you will see some
 of the atoms (the one that where initially in a problematic
@@ -707,11 +690,12 @@ position) slightly move from each others, as seen in <a href="https://youtu.be/J
 <div class="justify docutils container">
 <p>Now, let us properly equilibrate the system by letting both
 fluid and piston relax at ambient temperature.</p>
-<p>Create a new folder called <em>Equilibration/</em>, create a new
-input file in it, and add the following lines:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="justify docutils container">
+<p>Create a new folder called <em>Equilibration/</em> next to
+the previously created folders, and create a new
+<em>input.lammps</em> file in it. Add the following lines into <em>input.lammps</em>:</p>
+</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
@@ -741,19 +725,20 @@ input file in it, and add the following lines:</p>
 <span class="k">group </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">gwall</span><span class="w"> </span><span class="n">gbot</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
-<p>Here, several groups have been defined in order to differentiate
-between solid, liquid (salt+water), <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>, etc. (although
-not all of them are used). In addition, groups containing only the
+<p>Here, after some already seen commands, several groups are
+defined in order to differentiate
+between solid, liquid (salt+water), <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>, etc.
+In addition, groups containing only the
 top wall (gwalltop) and the bottom wall (gwallbot) have been
-created using the intersect keyword: the intersection
+created using the intersect keyword. For instance the intersection
 between all the atom on the top part of the box (gtop) and
 all the atom of type 5 (gwall) corresponds to the top wall.</p>
-<p>Then, add the following lines for the visualisation :</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="justify docutils container">
+<p>Then, add the following lines to <em>input.lammps</em> for
+the trajectory visualization and output:</p>
+</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># visualisation</span>
 <span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">50</span>
@@ -763,15 +748,14 @@ all the atom of type 5 (gwall) corresponds to the top wall.</p>
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_deltaz</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">interwall_distance.dat</span>
 </pre></div>
 </div>
+<div class="justify docutils container">
+<p>The first two variables allow us to extract the centers of mass of
+the two walls. Then, the <span class="math notranslate nohighlight">\(\delta_z\)</span>
+variable is used to calculate the distance between the two centers of mass.</p>
 </div>
 <div class="justify docutils container">
-<p>The two variables allow to extract the centers of mass of
-the two walls, respectively, and the deltaz variable
-calculates the difference between the two centers of mass.</p>
-<p>Finally, add the end of the input:</p>
+<p>Finally, let us complete the <em>input.lammps</em> file:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Equilibration/input.lammps</em></span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Dynamics</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span>
@@ -788,55 +772,51 @@ calculates the difference between the two centers of mass.</p>
 <span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 </pre></div>
 </div>
+<div class="justify docutils container">
+<p>Here a timestep of 1 fs is used instead of 0.5 fs previously.
+Two thermostats are used, one for the fluid (<em>myber1</em>) and one
+for the solid (<em>myber2</em>). The use of <em>fix_modify</em> toguether with
+<em>compute</em> ensures that the right temperature value is used by the thermostats.</p>
 </div>
 <div class="justify docutils container">
-<p>The main differences with the previous step (minimize) are
-the timestep of 1 fs instead of 0.5 fs, the thermostat that imposes a temperature of 300 K, for which the
-fluid is expected to behave as a liquid, and the two thermostats are used instead of one:
-one for the fluid, one for the solid (the use of <em>fix_modify</em> ensures
-that the right temperature is used by the temp/berenden).</p>
+<p>Run the <em>input.lammps</em> file using LAMMPS. You can speed-up the
+calculation by using multiple CPU cores:</p>
 </div>
-<div class="justify docutils container">
-<p>Run the input script. Note, I am running on 4 CPU cores using:</p>
-</div>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>mpirun -np 4 lmp -in input.lammps
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">4</span><span class="w"> </span>lmp<span class="w"> </span>-in<span class="w"> </span>input.lammps
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>To complete the 20000 steps (20 ps), it takes about 6 minutes. The duration
-may differ on your computer.</p>
-<p>The distance between the two walls
-reduces until it reaches an equilibrium value (see the data
-printed by <em>fix myat1</em>):</p>
+<p>The distance <span class="math notranslate nohighlight">\(\delta_z\)</span> between the two walls
+reduces until it reaches an equilibrium value. One can have a look
+at the data printed by <em>fix myat1</em>:</p>
 </div>
 <figure class="align-default">
 <img alt="Plot showing the distance between the walls as a function of time." class="only-light" src="../../_images/equilibration-light.png" />
 </figure>
-<figure class="align-default" id="id6">
+<figure class="align-default">
 <img alt="Plot showing the distance between the walls as a function of time." class="only-dark" src="../../_images/equilibration-dark.png" />
-<figcaption>
-<p><span class="caption-text">Distance between the walls as a function of time. After 10 ps, the
-distance between the walls is very close to its final equilibrium value.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
-</figcaption>
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Distance between the walls as a function of time. After 10 ps, the
+distance between the walls is very close to its final equilibrium value.</p>
+</div>
 <div class="justify docutils container">
-<p>Note that for actual reseach, it is recommended to run this equilibration step for longer times
-to make sure that proper equilibration was reached. Here, since the slowest
-process is the ionic diffusion, the equilibration
-should be longer than the typical diffusion time of the ions over the
-size of the pore (~3 nm), i.e. of the order of the nanosecond.</p>
+<p>Note that it is generaly recommended to run longer equilibration.
+Here for instance, the slowest
+process is the ionic diffusion. Therefore the equilibration
+should in principle be longer than the time
+the ions need to diffuse over the size of the pore
+(<span class="math notranslate nohighlight">\(\approx 3\)</span> nm), i.e. of the order of the nanosecond.</p>
 </div>
 </section>
 <section id="imposed-shearing">
 <h2>Imposed shearing<a class="headerlink" href="#imposed-shearing" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>From the equilibrated configuration, let us impose the
-motion of the two walls in order to shear the electrolyte.
+<p>From the equilibrated configuration, let us impose a laterial
+motion to the two walls and shear the electrolyte.
 In a new folder called <em>Shearing/</em>,
-create a new input that starts like the previous ones:</p>
+create a new <em>input.lammps</em> file that starts like the previous ones:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
@@ -878,18 +858,23 @@ create a new input that starts like the previous ones:</p>
 <span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">INIT</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
 <p>The main difference with the previous <em>equilibration</em> step, so far, is
 the use of temperature <em>compute</em> with <em>temp/partial 0 1 1</em> options.
-This is meant to exclude the <em>x</em> coordinate from the thermalisation, which is
-important since a large velocity will be imposed along <em>x</em>. Another difference is the
-<em>change_box</em> command used to reduce the size of the box along <em>z</em> (otherwise there
-is too much unecessary vacuum).</p>
-<p>Then, let us impose the motion of the two walls:</p>
+This <em>temp/partial</em> is meant to exclude the <em>x</em> coordinate from the
+thermalisation, which is important since a large velocity will be imposed along <em>x</em>.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<div class="justify docutils container">
+<p>Another difference is the
+<em>change_box</em> command used to reduce the size of the box along <em>z</em>.
+Without the <em>change_box</em> command, there is too much unecessary vacuum
+on each side of the system.</p>
+</div>
+<div class="justify docutils container">
+<p>Then, let us impose the velocity of the two walls:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">velocity </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">-</span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
@@ -902,15 +887,17 @@ is too much unecessary vacuum).</p>
 every timestep, so the atoms of the group do not
 experience any force from the rest of the system. In absence of force
 acting on those atoms, they will conserve their initial velocity.</p>
+</div>
+<div class="justify docutils container">
 <p>The <em>velocity</em> commands act only once and impose
 the velocity of the atoms of the groups <em>gwallbot</em> and <em>gwalltop</em>, respectively.</p>
-<p>Finally, let us dump the atom positions, extract the
-velocity profile using the ave/chunk command, extract the
-force applied on the walls, and then run for 20 ps (feel free to increase the duration
-for more accurate velocity profile):</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<div class="justify docutils container">
+<p>Finally, let us dump the atom positions, extract the
+velocity profile using the <em>ave/chunk</em> command, extract the
+force applied on the walls, and then run for 20 ps (feel free to increase the duration
+for more accurate velocity profile). Add the following to <em>input.lammps</em>:</p>
+</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># vizualisation</span>
 <span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">500</span>
@@ -928,22 +915,23 @@ for more accurate velocity profile):</p>
 <span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
 <p>Note that a duration of 20 ps is too short to measure meaningfull quantities.
 If you computer allows it, use 200 ps instead.</p>
+</div>
+<div class="justify docutils container">
 <p>The averaged velocity profile (with a 200 ps run) is the following:</p>
 </div>
 <figure class="align-default">
 <img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-light" src="../../_images/shearing-light.png" />
 </figure>
-<figure class="align-default" id="id10">
+<figure class="align-default">
 <img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-dark" src="../../_images/shearing-dark.png" />
-<figcaption>
-<p><span class="caption-text">Velocity profiles for both fluid (<span class="math notranslate nohighlight">\(-1.5 &lt; z &lt; 1.5\)</span> nm) and walls as a function
-of the <em>z</em> distance.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
-</figcaption>
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Velocity profiles for both fluid (<span class="math notranslate nohighlight">\(-1.5 &lt; z &lt; 1.5\)</span> nm) and
+walls as a function of the <em>z</em> distance.</p>
+</div>
 <div class="justify docutils container">
 <p>From the force applied by the fluid on the solid, one can
 extract the stress within the fluid, which allows one to
@@ -952,18 +940,21 @@ according to <a href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/Phy
 <span class="math notranslate nohighlight">\(\eta = \tau / \dot{\gamma}\)</span> where <span class="math notranslate nohighlight">\(\tau\)</span>
 is the stress applied by the fluid on the shearing wall, and
 <span class="math notranslate nohighlight">\(\dot{\gamma}\)</span> the shear rate (which is imposed
-here). Here the shear rate is approximatively 6.25e9
-s-1, and using a surface area of 1e-17 m2, I
-get a viscosity for the fluid equal to 2.25 mPa.s</p>
+here). Here the shear rate is approximatively <span class="math notranslate nohighlight">\(\dot{\gamma} = 6.25 \cdot 10^9\,\text{s}^{-1}\)</span>,
+and using a surface area of <span class="math notranslate nohighlight">\(A = 10^{-17}\,\text{m}^2\)</span>, one
+gets an estimate for the viscosity for the fluid of <span class="math notranslate nohighlight">\(\eta = 2.25\,\text{mPa.s}\)</span></p>
+</div>
+<div class="justify docutils container">
 <p>The viscosity calculated at such high shear rate may
-differ from the bulk value. In general, it is recommanded to use a lower
+differ from the expected <em>bulk</em> value. In general, it is recommanded to use a lower
 value for the shear rate. Note that for lower shear rate, the ratio noise-to-signal
-is larger, and longer simulations must be performed.</p>
-<p>Also note that the viscosity of a fluid next to a solid surface is
+is larger, and longer simulations are needed.</p>
+</div>
+<div class="justify docutils container">
+<p>Anothyer important point is that the viscosity of a fluid next to a solid surface is
 typically larger than in bulk due to interaction with the
-walls. Therefore one expect the present simulation to return
-a viscosity that is slightly larger than what would be measured with
-the fluid alone.</p>
+walls. Therefore, one expects the present simulation to return
+a viscosity that is slightly larger than what would be measured in absence of wall.</p>
 </div>
 <p>You can access all the input scripts and data files that
 are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a> on Github.</p>
