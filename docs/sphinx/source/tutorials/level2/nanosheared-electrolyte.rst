@@ -755,10 +755,10 @@ Imposed shearing
 
 ..  container:: justify
 
-    Then, let us impose the velocity of the two walls:
+    Then, let us impose the velocity of the two walls 
+    by adding the following command to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in Shearing/input.lammps*
 
     fix mysf1 gwalltop setforce 0 NULL NULL
     fix mysf2 gwallbot setforce 0 NULL NULL
@@ -804,12 +804,13 @@ Imposed shearing
 
 ..  container:: justify
 
-    Note that a duration of 20 ps is too short to measure meaningfull quantities.
-    If you computer allows it, use 200 ps instead.
+    Note that a duration of :math:`20\,\text{ps}` is too short to measure
+    meaningfull quantities. If you computer allows it, use 200 ps instead.
 
 ..  container:: justify
 
-    The averaged velocity profile (with a 200 ps run) is the following:
+    The averaged velocity profile obtained with a :math:`200\,\text{ps}`
+    run is the following:
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/shearing-light.png
     :alt: Velocity of the nanosheared fluid Video of sheared fluid
@@ -821,8 +822,8 @@ Imposed shearing
 
 ..  container:: figurelegend
 
-    Figure: Velocity profiles for both fluid (:math:`-1.5 < z < 1.5` nm) and
-    walls as a function of the *z* distance.
+    Figure: Velocity profiles for both fluid (:math:`-1.5 < z < 1.5\,\text{nm}`) and
+    walls along the *z* distance.
 
 ..  container:: justify
 
