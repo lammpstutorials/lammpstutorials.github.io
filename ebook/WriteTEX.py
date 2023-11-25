@@ -55,6 +55,7 @@ class WriteTex:
         if ("text" in block_type):
             for line in filtered_block:
                 line = replace_special_character(line, '#', r'$\#$')
+                line = replace_special_character(line, 'Å', r'$\text{\AA{}}$')
                 line = replace_special_character(line, '*->*', r'$\rightarrow$')
                 line = fix_link(self.RST, line)
                 line = fix_math(line)
@@ -165,6 +166,7 @@ class WriteTex:
             self.f.write(r'\end{lcverbatim}'+'\n')
         elif ("math" in block_type):
             for line in filtered_block:
+                    line = replace_special_character(line, 'Å', r'$\text{\AA{}}$')
                     if len(line) > 0:
                         self.f.write('$$' + line + '$$')
         self.f.write('\n')
