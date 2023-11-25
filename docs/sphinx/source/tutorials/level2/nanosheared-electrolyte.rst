@@ -7,16 +7,16 @@ Nanosheared electrolyte
 
    Aqueous NaCl solution sheared by two walls
 
-.. figure:: ../figures/level2/nanosheared-electrolyte/nanoconfined-electrolyte-light.png
-    :height: 250
-    :alt: Electrolyte nano-confined in a slit pore
-    :class: only-light
-    :align: right
-
 .. figure:: ../figures/level2/nanosheared-electrolyte/nanoconfined-electrolyte-dark.png
     :height: 250
     :alt: Electrolyte nano-confined in a slit pore
     :class: only-dark
+    :align: right
+
+.. figure:: ../figures/level2/nanosheared-electrolyte/nanoconfined-electrolyte-light.png
+    :height: 250
+    :alt: Electrolyte nano-confined in a slit pore
+    :class: only-light
     :align: right
 
 ..  container:: justify
