@@ -872,16 +872,14 @@ Without the <em>change_box</em> command, there is too much unecessary vacuum
 on each side of the system.</p>
 </div>
 <div class="justify docutils container">
-<p>Then, let us impose the velocity of the two walls:</p>
+<p>Then, let us impose the velocity of the two walls
+by adding the following command to <em>input.lammps</em>:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Shearing/input.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">velocity </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">-</span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">velocity </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 </pre></div>
-</div>
 </div>
 <div class="justify docutils container">
 <p>The <em>setforce</em> commands cancel the forces on a group of atoms at
@@ -917,11 +915,12 @@ for more accurate velocity profile). Add the following to <em>input.lammps</em>:
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Note that a duration of 20 ps is too short to measure meaningfull quantities.
-If you computer allows it, use 200 ps instead.</p>
+<p>Note that a duration of <span class="math notranslate nohighlight">\(20\,\text{ps}\)</span> is too short to measure
+meaningfull quantities. If you computer allows it, use 200 ps instead.</p>
 </div>
 <div class="justify docutils container">
-<p>The averaged velocity profile (with a 200 ps run) is the following:</p>
+<p>The averaged velocity profile obtained with a <span class="math notranslate nohighlight">\(200\,\text{ps}\)</span>
+run is the following:</p>
 </div>
 <figure class="align-default">
 <img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-light" src="../../_images/shearing-light.png" />
@@ -930,8 +929,8 @@ If you computer allows it, use 200 ps instead.</p>
 <img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-dark" src="../../_images/shearing-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Velocity profiles for both fluid (<span class="math notranslate nohighlight">\(-1.5 &lt; z &lt; 1.5\)</span> nm) and
-walls as a function of the <em>z</em> distance.</p>
+<p>Figure: Velocity profiles for both fluid (<span class="math notranslate nohighlight">\(-1.5 &lt; z &lt; 1.5\,\text{nm}\)</span>) and
+walls along the <em>z</em> distance.</p>
 </div>
 <div class="justify docutils container">
 <p>From the force applied by the fluid on the solid, one can
