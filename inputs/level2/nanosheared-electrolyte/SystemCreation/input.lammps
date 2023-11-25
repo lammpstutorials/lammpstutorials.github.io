@@ -29,7 +29,7 @@ pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
 kspace_style pppm/tip4p 1.0e-4
 
 lattice fcc 4.04
-region box block -4 4 -4 4 -13 13
+region box block -3 3 -3 3 -7 7
 create_box 5 box &
            bond/types 1 &
            angle/types 1 &
@@ -37,24 +37,27 @@ create_box 5 box &
            extra/angle/per/atom 1 &
            extra/special/per/atom 2
  
-region rbotwall block -4 4 -4 4 -12 -10
-region rtopwall block -4 4 -4 4 10 12
+region rbotwall block -3 3 -3 3 -5 -4
+region rtopwall block -3 3 -3 3 4 5
 region rwall union 2 rbotwall rtopwall
 create_atoms 5 region rwall
 
-region rliquid block -4 4 -4 4 -9 9
+region rliquid block INF INF INF INF -3 3
 molecule h2omol RigidH2O.txt
-lattice sc 4.04
+lattice sc 3.1
 create_atoms 0 region rliquid mol h2omol 482793
 
-create_atoms 3 random 10 52802 rliquid overlap 0.3 maxtry 500
-create_atoms 4 random 10 90182 rliquid overlap 0.3 maxtry 500
-set type 3 charge 1.0
-set type 4 charge -1.0
+create_atoms 3 random 15 52802 rliquid overlap 0.6 maxtry 500
+create_atoms 4 random 15 90182 rliquid overlap 0.6 maxtry 500
+set type 3 charge 1
+set type 4 charge -1
 
 include ../PARM.lammps
+include ../GROUP.lammps
+
+delete_atoms overlap 0.8 H2O H2O mol yes
 
 run 0
 
-write_data system.data
+write_data system.data nocoeff
 write_dump all atom dump.lammpstrj

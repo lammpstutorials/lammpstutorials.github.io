@@ -265,9 +265,10 @@ four points water model is used here.</p>
 <section id="system-generation">
 <h2>System generation<a class="headerlink" href="#system-generation" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Create a new folder called <em>SystemCreation/</em>. Within <em>SystemCreation/</em>,
-open a blank file called <em>input.lammps</em>, and copy
-the following lines into it:</p>
+<p>Create a new folder called <em>SystemCreation/</em>.
+Within <em>SystemCreation/</em>, open a blank file
+called <em>input.lammps</em>, and copy the following
+lines into it:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># LAMMPS input file</span>
 
@@ -282,15 +283,16 @@ the following lines into it:</p>
 <div class="justify docutils container">
 <p>These lines are used to define the most basic parameters,
 including the <em>atom</em>, <em>bond</em>, and <em>angle</em> styles, as well as
-interaction potential (here Lennard Jones with cut-off and long
-range Coulombic) and long range solver (here PPPM).</p>
+interaction potential. Here <em>lj/cut/tip4p/long</em> imposes
+a Lennard Jones potential with a cut-off at <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span>
+and long range Coulomb potential.</p>
 </div>
 <div class="justify docutils container">
 <p>These lines are relatively similar to the
 previous tutorial (<a class="reference internal" href="polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a>),
 with two major differences; the use of <em>lj/cut/tip4p/long</em>
-and <em>pppm/tip4p</em>.
-These two commands allow us to
+and <em>pppm/tip4p</em>, instead of <em>lj/cut/coul/long</em> and pppm*.
+These two tip4p-specific commands allow us to
 model a four point water molecule without explicitly
 defining the fourth massless atom <em>M</em>. The value of
 <em>0.1546</em> corresponds to the <em>O-M</em> distance in Angstrom and is
@@ -298,7 +300,7 @@ given by the water model. Here, <a href="http://www.sklogwiki.org/SklogWiki/inde
 </div>
 <div class="info admonition">
 <p class="admonition-title">About lj/cut/tip4p/long pair style</p>
-<p>The lj/cut/tip4p/long pair style is similar to the conventional
+<p>The <em>lj/cut/tip4p/long</em> pair style is similar to the conventional
 Lennard Jones + Coulomb interaction, except that it is made specifically
 for four point water model (tip4p). The atom of the water model
 will be type 1 (O) and 2 (H). All the other atoms of the simulations
@@ -308,13 +310,13 @@ are treated <em>normally</em> with long range coulomb interaction.</p>
 <p>Let us create the box by adding the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">lattice</span><span class="w"> </span><span class="n">fcc</span><span class="w"> </span><span class="m">4.04</span>
-<span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">13</span><span class="w"> </span><span class="m">13</span>
+<span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">7</span><span class="w"> </span><span class="m">7</span>
 <span class="k">create_box </span><span class="nv nv-Identifier">5</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">            </span><span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">            </span><span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">            </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">            </span><span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">            </span><span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span>
+<span class="w">        </span><span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">        </span><span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">        </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">        </span><span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">        </span><span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -325,9 +327,9 @@ of the walls.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>region</em> command defines a geometric
-region of space. By choosing <em>xlo=-4</em> and <em>xhi=4</em>, and
+region of space. By choosing <em>xlo=-3</em> and <em>xhi=3</em>, and
 because we have previously chosen a lattice with scale
-factor of 4.04, the region box extends from -16.16 Å to 16.16 Å.</p>
+factor of 4.04, the region box extends from -12.12 Å to 12.12 Å.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>create_box</em> command creates a simulation box with 5 types of atoms:
@@ -348,8 +350,8 @@ walls, and create a larger region from the union of the two
 regions. Then, let us create atoms of type 5 (the wall) within the two
 regions. Add the following lines to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rbotwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">12</span><span class="w"> </span><span class="o">-</span><span class="m">10</span>
-<span class="k">region </span><span class="nv nv-Identifier">rtopwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">12</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rbotwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="o">-</span><span class="m">4</span>
+<span class="k">region </span><span class="nv nv-Identifier">rtopwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span>
 <span class="k">region </span><span class="nv nv-Identifier">rwall</span><span class="w"> </span><span class="n">union</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">rbotwall</span><span class="w"> </span><span class="n">rtopwall</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rwall</span>
 </pre></div>
@@ -361,16 +363,16 @@ defined lattice, thus forming fcc solids.</p>
 <div class="justify docutils container">
 <p>In order to add the water molecules, we first need to
 download the <a href="../../../../../inputs/level2/nanosheared-electrolyte/SystemCreation/RigidH2O.txt" target="_blank">molecule template</a>
-and place it next to <em>SystemCreation/</em>. The template contains all the
+and place it within <em>SystemCreation/</em>. The template contains all the
 necessary information concerning the water molecule, such as
 atom positions, bonds, and angle.</p>
 </div>
 <div class="justify docutils container">
 <p>Add the following lines to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">9</span><span class="w"> </span><span class="m">9</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span>
 <span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">RigidH2O.txt</span>
-<span class="k">lattice</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="m">4.04</span>
+<span class="k">lattice</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="m">3.1</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">482793</span>
 </pre></div>
 </div>
@@ -384,34 +386,32 @@ water molecules is created based on the last defined lattice, which is <em>fcc 4
 </div>
 <div class="justify docutils container">
 <p>A new simple cubic lattice is defined in order to place the water
-molecules on it, with a distance of 4.04 Ångstroms between
+molecules on it, with a distance of 3.1 Ångstroms between
 each water molecule. Note that the new lattice replaces the
 previous one, as LAMMPS reads a script from top to bottom.</p>
 </div>
 <div class="justify docutils container">
-<p>The distance of 4.04 Ångstroms is larger than the typical
-equilibrium distance between water molecules in a liquid,
-but this will allow us to insert ions more safely (see below).</p>
-</div>
-<div class="justify docutils container">
-<p>Molecules are created on the sc lattice by the <em>create_atoms</em> command. The
+<p>Molecules are created on the <em>sc 3.1</em> lattice
+by the <em>create_atoms</em> command. The
 first parameter is ‘0’ because we use the atom id from the
 <em>RigidH2O.txt</em> file. The number <em>482793</em> is a seed that is
 required by LAMMPS, it can be any positive integer.</p>
 </div>
 <div class="justify docutils container">
-<p>Finally, let us create 20 ions (10 <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and 10 <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>)
+<p>Finally, let us create 30 ions (15 <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>
+and 15 <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>)
 in between the water molecules, by adding the following commands to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_atoms</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">52802</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
-<span class="k">create_atoms</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">90182</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
-<span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="o">-</span><span class="m">1.0</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_atoms</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">52802</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.6</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">90182</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.6</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
+<span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="m">1</span>
+<span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="o">-</span><span class="m">1</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Each <em>create_atoms</em> command will add 10 ions at random positions
-within the ‘rliquid’ region. Feel free to increase or decrease the salt
+<p>Each <em>create_atoms</em> command will add 15 ions at random positions
+within the ‘rliquid’ region, ensuring that there is no <em>overlap</em> with existing
+molecules. Feel free to increase or decrease the salt
 concentration by changing the number of desired ions. To keep the system charge neutral,
 always insert the same number of
 <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>
@@ -428,8 +428,8 @@ pairwise interaction parameters (here the parameters for the
 Lennard-Jones potential), and the bond and angle parameters.
 Copy the following line into input.lammps:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># settings</span>
-<span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
+<span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">GROUP.lammps</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -437,8 +437,7 @@ Copy the following line into input.lammps:</p>
 next to the <em>SystemCreation/</em> folder. Copy the following lines
 into PARM.lammps:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Parameter file</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">15.9994</span><span class="w"> </span><span class="c"># water</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">15.9994</span><span class="w"> </span><span class="c"># water</span>
 <span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1.008</span><span class="w"> </span><span class="c"># water</span>
 <span class="k">mass</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">28.990</span><span class="w"> </span><span class="c"># ion</span>
 <span class="k">mass</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">35.453</span><span class="w"> </span><span class="c"># ion</span>
@@ -469,7 +468,7 @@ for <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and <span 
 taken from the CHARMM-27 force field.</p>
 </div>
 <div class="justify docutils container">
-<p>As previously, only pairwise interaction between atoms of
+<p>As already seen in previous tutorials, only pairwise interaction between atoms of
 identical type were assigned. By default, LAMMPS calculates
 the pair coefficients for the interactions between atoms
 of different types (i and j) by using geometrical
@@ -489,6 +488,33 @@ molecule will be preserved later by the <em>shake</em> algorithm.
 Similarly, the angle coefficient here for the H-O-H angle
 of the water molecule sets the energy of the harmonic
 potential (also 0) and the equilibrium angle is in degree.</p>
+</div>
+<div class="justify docutils container">
+<p>Let us also create another file called <em>GROUP.lammps</em> next
+to <em>PARM.lammps</em>, and copy the following lines into it:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+<span class="k">group </span><span class="nv nv-Identifier">Na</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span>
+<span class="k">group </span><span class="nv nv-Identifier">Cl</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span>
+<span class="k">group </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">union</span><span class="w"> </span><span class="n">Na</span><span class="w"> </span><span class="n">Cl</span>
+<span class="k">group </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">union</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">ions</span>
+
+<span class="k">group </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">5</span>
+<span class="k">region </span><span class="nv nv-Identifier">rtop</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">INF</span>
+<span class="k">region </span><span class="nv nv-Identifier">rbot</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span>
+<span class="k">group </span><span class="nv nv-Identifier">top</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtop</span>
+<span class="k">group </span><span class="nv nv-Identifier">bot</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span>
+<span class="k">group </span><span class="nv nv-Identifier">walltop</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">wall</span><span class="w"> </span><span class="n">top</span>
+<span class="k">group </span><span class="nv nv-Identifier">wallbot</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">wall</span><span class="w"> </span><span class="n">bot</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>To avoid potential issues near the
+box boundaries, let us add the following lines to <em>input.lammps</em>
+to delete any overlapping molecules:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.8</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
+</pre></div>
 </div>
 <div class="justify docutils container">
 <p>Finally, add the following lines to <em>input.lammps</em>:</p>
@@ -516,7 +542,7 @@ to visualize the system.</p>
 </div>
 <div class="justify docutils container">
 <p>Run the <em>input.lammps</em> file using LAMMPS. From the <em>log</em> file, make
-sure that atoms have been created (look for the lines <em>Created x atoms</em>), and
+sure that atoms have been created by looking at the log file, or simply
 open the <em>dump.lammpstrj</em> file with VMD:</p>
 </div>
 <figure class="align-default">
@@ -534,7 +560,7 @@ atomic defect at the cell boundaries.</p>
 </div>
 <div class="justify docutils container">
 <p>Always check that your system has been correctly created
-by looking at the periodic images. Atomic defects often
+by looking at the periodic images. Atomic defects may
 occur at the boundary.</p>
 </div>
 </section>
@@ -546,11 +572,10 @@ occur at the boundary.</p>
 the atoms are not at equilibrium distances from each
 others. Indeed, some of the ions added using the <em>create_atoms</em>
 commands are too close to the water molecules.
-If we were to start a molecular dynamics
-simulation now (i.e. solve the equations of motion) with
-a conventional timestep of 1 femto-seconds, the atoms
+If we were to start a <em>normal</em> molecular dynamics
+simulation now, the atoms
 would exert huge forces on each others, accelerate
-brutally, and the simulation would fail.</p>
+brutally, and the simulation would likely fail.</p>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">Dealing with overlapping atoms</p>
@@ -559,20 +584,24 @@ extremely common, and I can almost guarantee that you
 will face a similar issue at some point. If it occurs,
 you can either</p>
 <ul class="simple">
-<li><p>delete the overlapping atoms using the <em>delete_atoms</em> command of LAMMPS, or</p></li>
+<li><p>delete the overlapping atoms using the <em>delete_atoms</em> command of LAMMPS,</p></li>
 <li><p>move the atoms to more reasonable distances before the simulation starts.</p></li>
 </ul>
 </div>
 <div class="justify docutils container">
 <p>Let us move the atoms and place them
 in more energetically favorable positions before starting the simulation.
-To perform the energy minimization with our system, let us
-create a new folder named <em>Minimization/</em>, and create a new
-input file named <em>input.lammps</em> in it. Copy the following lines
+Let us call this step <em>energy minimization</em>, although it is not
+a conventional <em>minimization</em> as done for instance
+in tutorial <a class="reference internal" href="../level0/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard Jones fluid</span></a>.</p>
+</div>
+<div class="justify docutils container">
+<p>To perform this energy minimization, let us
+create a new folder named <em>Minimization/</em> next to <em>SystemCreation/</em>,
+and create a new input file named <em>input.lammps</em> in it. Copy the following lines
 in <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
-<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
@@ -580,11 +609,10 @@ in <em>input.lammps</em>:</p>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 
-<span class="c"># System definition</span>
 <span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">SystemCreation</span><span class="o">/</span><span class="n">system.data</span>
 
-<span class="c"># settings</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
+<span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">GROUP.lammps</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -594,81 +622,76 @@ previously created file <em>system.data</em> located in <em>SystemCreation/</em>
 <em>system.data</em> contains the definition of the simulation box and the positions of the atoms.</p>
 </div>
 <div class="justify docutils container">
-<p>Next, let us create a group for the water by
-adding the following line to <em>input.lammps</em>:</p>
+<p>Now, let us create a first step using a relatively small
+timestep (<span class="math notranslate nohighlight">\(0.5\,\text{fs}\)</span>), and a low temperature
+of <span class="math notranslate nohighlight">\(T = 1\,\text{K}\)</span>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">nve</span><span class="o">/</span><span class="n">limit</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Creating groups will allow us to apply different dynamics and constraints to the
-liquid and to the walls.</p>
+<p>Just like <em>fix nve</em>, the fix <em>nve/limit</em> performs constant NVE integration to
+update positions and velocities of the atoms at each
+timestep, but also limits the maximum distance atoms can travel at
+each timestep. Here, only the fluid molecules and ions will move,
+as we anticipate that they are the problematic species in this
+system.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us also print the atoms positions in a dump fileby
+<p>The <em>temp/berendsen</em> fix rescales the
+velocities of the atoms to impose their temperature.</p>
+</div>
+<div class="justify docutils container">
+<p>The shake algorithm is used in order to maintain the shape
+of water molecules.</p>
+</div>
+<div class="justify docutils container">
+<p>Let us also print the atom positions in a <em>.lammpstrj</em> file by
 adding the following line to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">200</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Now, we can include the most important commands for the
-minimization:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span><span class="o">/</span><span class="n">limit</span><span class="w"> </span><span class="m">0.1</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>The fix <em>nve/limit</em> performs constant NVE integration to
-update positions and velocities of the atoms at each
-timestep, but limit the maximum motion an atom can do at
-every timestep. The temp/berendsen fix rescales the
-velocities of the atoms every timestep in order to reset the
-temperature.</p>
-</div>
-<div class="justify docutils container">
-<p>Since we want to perform a minimization step, both initial
-and final temperatures have been chosen equal to 1K. The
-third parameter is the damping factor, in time units, which
-determines how rapidly the temperature is relaxed. Such
-damping factor of 1 fs would be too small for a regular
-molecular dynamics simulation, but is acceptable for a
-minimization step during which we just want the atoms to
-move slightly from their initial positions.</p>
-</div>
-<div class="justify docutils container">
-<p>If we were to run the simulation as it is, it would fail
-because nothing maintains the shape of the water molecules
-(and the bond and angle energies are equal to 0). Let us use
-the shake algorithm in order to maintain the shape of the
-molecules. In addition, let us add a fix <em>recenter</em> in order
-to maintain the system centered in the middle of the box in
-the <em>z</em> direction:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">INIT</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Fix recenter has no influence on the dynamics, but will keep the system in the
-center of the box, which makes the visualization easier.</p>
-</div>
-<div class="justify docutils container">
-<p>Finally, let us choose a small timestep of 0.5 fs because we
-anticipate that the atoms are initially too close to each
-others, and let us run for 10000 steps. Add the
+<p>Finally, let us run for 4000 steps. Add the
 following lines into <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
-<span class="k">thermo</span><span class="w"> </span><span class="m">50</span>
-<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">4000</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>In order to better equilibrate the system, let us perform
+two additional step with larger timestep and temperature:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
+
+<span class="k">run</span><span class="w"> </span><span class="m">4000</span>
+
+<span class="k">unfix </span><span class="nv nv-Identifier">mynve</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">nve</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
+
+<span class="k">run</span><span class="w"> </span><span class="m">4000</span>
+
 <span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
+<p>For the last of the 3 steps, fix <em>nve</em> is used instead of
+nve/limit*, which will allow for a better relaxation of the
+atom positions.</p>
+</div>
+<div class="justify docutils container">
 <p>When running the <em>input.lammps</em> file with LAMMPS, you should see that the
-total energy of the system decreases, as expected:</p>
+total energy of the system decreases during the first
+of the 3 steps, before re-increasing a little after the
+temperature is increased from 1 to <span class="math notranslate nohighlight">\(300\,\text{K}\)</span>,
+as expected:</p>
 </div>
 <figure class="align-default">
 <img alt="Energy minimisation of the confined water and salt" class="only-light" src="../../_images/minimization-light.png" />
@@ -682,14 +705,14 @@ file using <em>Python</em> and <em>lammps_logfile</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you look at the trajectory using VMD, you will see some
-of the atoms (the one that where initially in a problematic
-position) slightly move from each others, as seen in <a href="https://youtu.be/JWGZnFN4TOo" target="_blank">this video</a>.</p>
+of the atoms, in particular the one that where initially in problematic
+positions, slightly move from each others, as seen in <a href="https://youtu.be/JWGZnFN4TOo" target="_blank">this video</a>.</p>
 </div>
 </section>
 <section id="system-equilibration">
 <h2>System equilibration<a class="headerlink" href="#system-equilibration" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Now, let us properly equilibrate the system by letting both
+<p>Now, let us equilibrate further the entire system by letting both
 fluid and piston relax at ambient temperature.</p>
 </div>
 <div class="justify docutils container">
@@ -697,8 +720,7 @@ fluid and piston relax at ambient temperature.</p>
 the previously created folders, and create a new
 <em>input.lammps</em> file in it. Add the following lines into <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
-<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
@@ -706,78 +728,52 @@ the previously created folders, and create a new
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 
-<span class="c"># System definition</span>
 <span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Minimization</span><span class="o">/</span><span class="n">system.data</span>
 
-<span class="c"># Simulation settings</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
-
-<span class="c"># Define groups</span>
-<span class="k">group </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
-<span class="k">group </span><span class="nv nv-Identifier">gNa</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span>
-<span class="k">group </span><span class="nv nv-Identifier">gCl</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span>
-<span class="k">group </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
-<span class="k">group </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">5</span>
-<span class="k">region </span><span class="nv nv-Identifier">rtop</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">INF</span>
-<span class="k">region </span><span class="nv nv-Identifier">rbot</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span>
-<span class="k">group </span><span class="nv nv-Identifier">gtop</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtop</span>
-<span class="k">group </span><span class="nv nv-Identifier">gbot</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span>
-<span class="k">group </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">gwall</span><span class="w"> </span><span class="n">gtop</span>
-<span class="k">group </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">gwall</span><span class="w"> </span><span class="n">gbot</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Here, after some already seen commands, several groups are
-defined in order to differentiate
-between solid, liquid (salt+water), <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>, etc.
-In addition, groups containing only the
-top wall (gwalltop) and the bottom wall (gwallbot) have been
-created using the intersect keyword. For instance the intersection
-between all the atom on the top part of the box (gtop) and
-all the atom of type 5 (gwall) corresponds to the top wall.</p>
-</div>
-<div class="justify docutils container">
-<p>Then, add the following lines to <em>input.lammps</em> for
-the trajectory visualization and output:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># visualisation</span>
-<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
-<span class="k">thermo</span><span class="w"> </span><span class="m">50</span>
-<span class="k">variable </span><span class="nv nv-Identifier">walltopz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(gwalltop,z)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">wallbotz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(gwallbot,z)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">deltaz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_walltopz</span><span class="o">-</span><span class="n">v_wallbotz</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_deltaz</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">interwall_distance.dat</span>
+<span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">GROUP.lammps</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
 <p>The first two variables allow us to extract the centers of mass of
 the two walls. Then, the <span class="math notranslate nohighlight">\(\delta_z\)</span>
-variable is used to calculate the distance between the two centers of mass.</p>
+variable is used to calculate the distance between
+the two centers of mass.</p>
 </div>
 <div class="justify docutils container">
-<p>Finally, let us complete the <em>input.lammps</em> file:</p>
+<p>Finally, let us complete the <em>input.lammps</em> file
+by adding the commands to manage the atoms dynamic:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Dynamics</span>
-<span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
-<span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="k">fix_modify </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
-<span class="k">compute </span><span class="nv nv-Identifier">twall</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="k">fix_modify </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">twall</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">INIT</span>
-
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">run</span><span class="w"> </span><span class="m">20000</span>
-<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here a timestep of 1 fs is used instead of 0.5 fs previously.
-Two thermostats are used, one for the fluid (<em>myber1</em>) and one
-for the solid (<em>myber2</em>). The use of <em>fix_modify</em> toguether with
-<em>compute</em> ensures that the right temperature value is used by the thermostats.</p>
+<p>The fix <em>recenter</em> has no influence on the dynamics, but will
+keep the system in the center of the box, which makes the
+visualization easier.</p>
+</div>
+<div class="justify docutils container">
+<p>Then, add the following lines to <em>input.lammps</em> for
+the trajectory visualization and output:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">500</span>
+<span class="k">variable </span><span class="nv nv-Identifier">walltopz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(walltop,z)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">wallbotz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(wallbot,z)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">deltaz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_walltopz</span><span class="o">-</span><span class="n">v_wallbotz</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_deltaz</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">interwall_distance.dat</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Finally, let us add the <em>run</em> command:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">30000</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
+</pre></div>
 </div>
 <div class="justify docutils container">
 <p>Run the <em>input.lammps</em> file using LAMMPS. You can speed-up the
@@ -798,7 +794,7 @@ at the data printed by <em>fix myat1</em>:</p>
 <img alt="Plot showing the distance between the walls as a function of time." class="only-dark" src="../../_images/equilibration-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Distance between the walls as a function of time. After 10 ps, the
+<p>Figure: Distance between the walls as a function of time. After about <span class="math notranslate nohighlight">\(15\,\text{ps}\)</span>, the
 distance between the walls is very close to its final equilibrium value.</p>
 </div>
 <div class="justify docutils container">
@@ -807,7 +803,7 @@ Here for instance, the slowest
 process is the ionic diffusion. Therefore the equilibration
 should in principle be longer than the time
 the ions need to diffuse over the size of the pore
-(<span class="math notranslate nohighlight">\(\approx 3\)</span> nm), i.e. of the order of the nanosecond.</p>
+(<span class="math notranslate nohighlight">\(\approx 1.2\,\text{nm}\)</span>), i.e. of the order of half a nanosecond.</p>
 </div>
 </section>
 <section id="imposed-shearing">
@@ -818,8 +814,7 @@ motion to the two walls and shear the electrolyte.
 In a new folder called <em>Shearing/</em>,
 create a new <em>input.lammps</em> file that starts like the previous ones:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
-<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
@@ -827,58 +822,43 @@ create a new <em>input.lammps</em> file that starts like the previous ones:</p>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 
-<span class="c"># System definition</span>
 <span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Equilibration</span><span class="o">/</span><span class="n">system.data</span>
-<span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">40</span><span class="w"> </span><span class="m">40</span>
 
-<span class="c"># Simulation settings</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
+<span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">GROUP.lammps</span>
 
-<span class="c"># Groups</span>
-<span class="k">group </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
-<span class="k">group </span><span class="nv nv-Identifier">gNa</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span>
-<span class="k">group </span><span class="nv nv-Identifier">gCl</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span>
-<span class="k">group </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
-<span class="k">group </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">5</span>
-<span class="k">region </span><span class="nv nv-Identifier">rtop</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">INF</span>
-<span class="k">region </span><span class="nv nv-Identifier">rbot</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span>
-<span class="k">group </span><span class="nv nv-Identifier">gtop</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtop</span>
-<span class="k">group </span><span class="nv nv-Identifier">gbot</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span>
-<span class="k">group </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">gwall</span><span class="w"> </span><span class="n">gtop</span>
-<span class="k">group </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">gwall</span><span class="w"> </span><span class="n">gbot</span>
-
-<span class="c"># Dynamics</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
-<span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="k">fix_modify </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
-<span class="k">compute </span><span class="nv nv-Identifier">twall</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-<span class="k">fix_modify </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">twall</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">INIT</span>
+<span class="k">compute </span><span class="nv nv-Identifier">Tfluid</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tfluid</span>
+<span class="k">compute </span><span class="nv nv-Identifier">Twall</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Twall</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The main difference with the previous <em>equilibration</em> step, so far, is
-the use of temperature <em>compute</em> with <em>temp/partial 0 1 1</em> options.
-This <em>temp/partial</em> is meant to exclude the <em>x</em> coordinate from the
-thermalisation, which is important since a large velocity will be imposed along <em>x</em>.</p>
+<p>One difference here is that two thermostats are used,
+one for the fluid (<em>myber1</em>) and one
+for the solid (<em>myber2</em>). The use of <em>fix_modify</em> together
+with <em>compute</em> ensures that the right temperature value
+is used by the thermostats.</p>
 </div>
 <div class="justify docutils container">
-<p>Another difference is the
-<em>change_box</em> command used to reduce the size of the box along <em>z</em>.
-Without the <em>change_box</em> command, there is too much unecessary vacuum
-on each side of the system.</p>
+<p>The use of temperature <em>compute</em> with <em>temp/partial 0 1 1</em> operations
+is meant to exclude the <em>x</em> coordinate from the
+thermalisation, which is important since a large velocity
+will be imposed along <em>x</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us impose the velocity of the two walls
 by adding the following command to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
-<span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
-<span class="k">velocity </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">-</span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
-<span class="k">velocity </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">20e-5</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">walltop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">wallbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">wallbot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">-</span><span class="m">2e-4</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">walltop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">2e-4</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -889,48 +869,71 @@ acting on those atoms, they will conserve their initial velocity.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>velocity</em> commands act only once and impose
-the velocity of the atoms of the groups <em>gwallbot</em> and <em>gwalltop</em>, respectively.</p>
+the velocity of the atoms of the groups <em>wallbot</em>
+and <em>walltop</em>, respectively.</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, let us dump the atom positions, extract the
-velocity profile using the <em>ave/chunk</em> command, extract the
-force applied on the walls, and then run for 20 ps (feel free to increase the duration
-for more accurate velocity profile). Add the following to <em>input.lammps</em>:</p>
+velocity profiles using several <em>ave/chunk</em> commands, extract the
+force applied on the walls, and then run for <span class="math notranslate nohighlight">\(200\,\text{ps}\)</span>
+Add the following lines to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># vizualisation</span>
-<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">500</span>
-<span class="k">thermo_modify</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
+<span class="k">thermo_modify</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tfluid</span>
 
-<span class="k">compute </span><span class="nv nv-Identifier">cc1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1500</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="n">cc1</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">vel.profile.dat</span>
-<span class="k">compute </span><span class="nv nv-Identifier">cc2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">1500</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="n">cc2</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">vel.solid.dat</span>
+<span class="k">compute </span><span class="nv nv-Identifier">cc1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">compute </span><span class="nv nv-Identifier">cc2</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">compute </span><span class="nv nv-Identifier">cc3</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">myac1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc1</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">water.profile_1A.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac2</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc2</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">wall.profile_1A.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac3</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc3</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">ions.profile_1A.dat</span>
+
+<span class="k">compute </span><span class="nv nv-Identifier">cc4</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">compute </span><span class="nv nv-Identifier">cc5</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">compute </span><span class="nv nv-Identifier">cc6</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.1</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">myac4</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc4</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">water.profile_0.1A.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac5</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc5</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">wall.profile_0.1A.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac6</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc6</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">ions.profile_0.1A.dat</span>
 
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">f_mysf1[1]</span><span class="w"> </span><span class="n">f_mysf2[1]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">forces.dat</span>
 
 <span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">run</span><span class="w"> </span><span class="m">20000</span>
+<span class="k">run</span><span class="w"> </span><span class="m">200000</span>
 <span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Note that a duration of <span class="math notranslate nohighlight">\(20\,\text{ps}\)</span> is too short to measure
-meaningfull quantities. If you computer allows it, use 200 ps instead.</p>
+<p>Here, two series of <em>ave/chunk</em> commands are used. The first series is using
+a binning of <span class="math notranslate nohighlight">\(1\,Å\)</span>, the second series is using a binning of <span class="math notranslate nohighlight">\(0.1\,Å\)</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>The averaged velocity profile obtained with a <span class="math notranslate nohighlight">\(200\,\text{ps}\)</span>
 run is the following:</p>
 </div>
 <figure class="align-default">
-<img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-light" src="../../_images/shearing-light.png" />
+<img alt="Velocity of the nanosheared fluid" class="only-light" src="../../_images/shearing-light.png" />
 </figure>
 <figure class="align-default">
-<img alt="Velocity of the nanosheared fluid Video of sheared fluid" class="only-dark" src="../../_images/shearing-dark.png" />
+<img alt="Velocity of the nanosheared fluid" class="only-dark" src="../../_images/shearing-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Velocity profiles for both fluid (<span class="math notranslate nohighlight">\(-1.5 &lt; z &lt; 1.5\,\text{nm}\)</span>) and
-walls along the <em>z</em> distance.</p>
+<p>Figure: Velocity profiles for water molecules, ions and walls
+along the <em>z</em> axis.</p>
+</div>
+<div class="justify docutils container">
+<p>The averaged density profile for the water is the following:</p>
+</div>
+<figure class="align-default">
+<img alt="density of the nanosheared fluid" class="only-light" src="../../_images/density-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="density of the nanosheared fluid" class="only-dark" src="../../_images/density-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Water density profiles for water along the <em>z</em> axis.</p>
 </div>
 <div class="justify docutils container">
 <p>From the force applied by the fluid on the solid, one can
@@ -940,9 +943,11 @@ according to <a href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/Phy
 <span class="math notranslate nohighlight">\(\eta = \tau / \dot{\gamma}\)</span> where <span class="math notranslate nohighlight">\(\tau\)</span>
 is the stress applied by the fluid on the shearing wall, and
 <span class="math notranslate nohighlight">\(\dot{\gamma}\)</span> the shear rate (which is imposed
-here). Here the shear rate is approximatively <span class="math notranslate nohighlight">\(\dot{\gamma} = 6.25 \cdot 10^9\,\text{s}^{-1}\)</span>,
-and using a surface area of <span class="math notranslate nohighlight">\(A = 10^{-17}\,\text{m}^2\)</span>, one
-gets an estimate for the viscosity for the fluid of <span class="math notranslate nohighlight">\(\eta = 2.25\,\text{mPa.s}\)</span></p>
+here). Here the shear rate
+is approximatively <span class="math notranslate nohighlight">\(\dot{\gamma} = 16 \cdot 10^9\,\text{s}^{-1}\)</span>,
+and using a surface area of <span class="math notranslate nohighlight">\(A = 6 \cdot 10^{-18}\,\text{m}^2\)</span>, one
+gets an estimate for the shear viscosity for the confined
+fluid of <span class="math notranslate nohighlight">\(\eta = 6.6\,\text{mPa.s}\)</span></p>
 </div>
 <div class="justify docutils container">
 <p>The viscosity calculated at such high shear rate may
@@ -951,7 +956,7 @@ value for the shear rate. Note that for lower shear rate, the ratio noise-to-sig
 is larger, and longer simulations are needed.</p>
 </div>
 <div class="justify docutils container">
-<p>Anothyer important point is that the viscosity of a fluid next to a solid surface is
+<p>Another important point is that the viscosity of a fluid next to a solid surface is
 typically larger than in bulk due to interaction with the
 walls. Therefore, one expects the present simulation to return
 a viscosity that is slightly larger than what would be measured in absence of wall.</p>
