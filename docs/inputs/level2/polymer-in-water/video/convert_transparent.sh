@@ -9,7 +9,7 @@ cd mergePEGH2O/
 # 1) Generate white background movie
 for file in light.*.ppm; 
 do 
-	convert $file -crop 500x500+55+15 -transparent white ${file:0:11}.png; # -trim
+	convert $file -transparent white ${file:0:11}.png; # -trim -crop 500x500+55+15
 done
 
 img2webp -o ../../../../../../docs/sphinx/source/tutorials/figures/level2/polymer-in-water/PEG-light.webp -q 30 -mixed -d 50 light*.png
@@ -17,7 +17,7 @@ img2webp -o ../../../../../../docs/sphinx/source/tutorials/figures/level2/polyme
 # 2) Generate black background movie
 for file in dark.*.ppm; 
 do 
-	convert $file -crop 500x500+55+15 -transparent black ${file:0:10}.png; # -trim
+	convert $file -transparent black ${file:0:10}.png; # -trim -crop 500x500+55+15 
 done
 
 img2webp -o ../../../../../../docs/sphinx/source/tutorials/figures/level2/polymer-in-water/PEG-dark.webp -q 30 -mixed -d 50 dark*.png
