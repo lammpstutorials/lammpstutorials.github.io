@@ -49,9 +49,8 @@ Preparing water and PEG separately
 
 ..  container:: justify
 
-    As for most simulations, several possible routes can be used
-    to create the system. In this tutorial, the water is being prepared separately
-    from the PEG molecule. Then, PEG and water are merged.
+    In this tutorial, the water is being prepared separately
+    from the PEG molecule. The PEG and water will be merged later.
 
 The water
 ---------
@@ -66,7 +65,6 @@ The water
 
 ..  code-block:: lammps
 
-    # LAMMPS input script
     units real
     atom_style full
     bond_style harmonic
@@ -83,8 +81,7 @@ The water
     mole, distances in Ångstroms, time in femtoseconds, energies
     in Kcal/mole. With the *atom_style full*, each atom is a dot
     with a mass and a charge that can be
-    linked by bonds, angles, dihedrals and impropers potentials
-    (for example to form molecules). The *bond_style*,
+    linked by bonds, angles, dihedrals and impropers. The *bond_style*,
     *angle_style*, and *dihedral_style* commands define the
     styles of bond angle, and dihedrals used in the simulation,
     respectively, and the *harmonic* keyword
@@ -92,7 +89,7 @@ The water
 
 ..  container:: justify
 
-    Finally, the *special_bonds* command to cancel the
+    Finally, the *special_bonds* command cancels the
     Lennard-Jones interactions between the closest
     atoms of a same molecule.
 
@@ -100,16 +97,17 @@ The water
     :class: info
 
     Usually, molecular dynamics force fields are parametrized assuming that the first neighbors within a molecule do not
-    interact directly. Here, since we use *lj 0.0 0.0 0.5*, the first and second neighbors in a molecule won't interact
-    with each other through LJ potentials, and therefore they only interact through direct bond interactions.
+    interact directly though LJ or Coulomb potential. Here, since we use *lj 0.0 0.0 0.5*, the first and second
+    neighbors in a molecule only interact through direct bond interactions.
     For the third neighbor (here third neighbor only concerns the PEG molecule, not the water),
-    only half of the LJ interaction will be added.   
+    only half of the LJ interaction will be taken into account, and the full Coulomb interaction
+    will be present.   
 
 ..  container:: justify
 
     With the *pair_style* named *lj/cut/coul/long*, atoms
     interact through both a Lennard-Jones (LJ) potential and
-    through Coulombic interactions. The value of *12* is 
+    Coulombic interactions. The value of *12* is 
     the cut off for the short range interactions.
 
 .. admonition:: About cutoff in molecular dynamics
@@ -121,8 +119,7 @@ The water
     are separated by a distance smaller than the cutoff. For
     Coulombic *long*, interaction between atoms closer than
     the cutoff are computed directly, and interaction between
-    atoms outside that cutoff are computed in the reciprocal
-    space.
+    atoms outside that cutoff are computed in the reciprocal space.
 
 ..  container:: justify
 
@@ -130,17 +127,15 @@ The water
     Coulombic interactions. The *pppm* style refers to
     particle-particle particle-mesh.
 
-.. admonition:: Background Information (optional) -- About PPPM
-    :class: dropdown
+.. admonition:: About PPPM
+    :class: info
 
-    *The PPPM
-    method is based on separating the total interaction
+    From |Luty and van Gunsteren|: *'The PPPM method is based on separating the total interaction
     between particles into the sum of short-range
     interactions, which are computed by direct
     particle-particle summation, and long-range interactions,
     which are calculated by solving Poisson's equation using
-    periodic boundary conditions (PBCs).* 
-    |Luty and van Gunsteren|
+    periodic boundary conditions (PBCs).'* 
 
 .. |Luty and van Gunsteren| raw:: html
 
@@ -150,8 +145,7 @@ The water
 
     Then, let us create a 3D simulation box of dimensions :math:`3 \times 3 \times 3 \; \text{nm}^3`,
     and make space for 7 atom types (1 and 2 for
-    the water oxygen and hydrogen, respectively, and 3, 4, 5, 6
-    and 7 for the PEG molecule (see below)), 6 bond types, 9
+    the water molecule, and 3 to 7 for the PEG molecule), 6 bond types, 9
     angle types, and 14 dihedrals types.
     Copy the following lines into *input.lammps*:
 
@@ -173,7 +167,7 @@ The water
     memory allocation. These commands ensure that enough memory space is left for a
     certain number of attribute for each atom. We wont worry
     about those commands in this tutorial, just keep that in mind if one day you see the following
-    error message *ERROR: Molecule topology/atom exceeds system topology/atom*:
+    error message *ERROR: Molecule topology/atom exceeds system topology/atom*.
 
 ..  container:: justify
 
@@ -249,11 +243,13 @@ The water
 
 ..  container:: justify
 
-    The *overlap 1.0* option of the *create_atoms* command ensures that no atom are
-    placed exactly at the same position as it would make the simulation
-    crashes. The *maxtry 50* asks LAMMPS to try at least
-    50 times to insert molecules. In some case, depending on the system and on the *overlap*
-    and *maxtry* values, LAMMPS may not create the desired number of molecules. We 
+    The *overlap 1.0* option of the *create_atoms* command ensures that no atoms are
+    placed exactly at the same position, as this would cause the simulation to
+    crash. The *maxtry 50* asks LAMMPS to try at most
+    50 times to insert the molecules, which is useful in case some of the
+    insertion attempt are rejected due to overlap. In some case, depending on
+    the system and on the values of *overlap*
+    and *maxtry*, LAMMPS may not create the desired number of molecules. We 
     can check in the *log* file that it is indeed the case:
 
 ..  code-block:: bw
@@ -262,15 +258,15 @@ The water
 
 ..  container:: justify
 
-    When LAMMPS fails to create the desired number of molecules, a WARNING can 
-    be seen in the *log* file.
+    When LAMMPS fails to create the desired number of molecules, a WARNING
+    appears in the *log* file.
 
 ..  container:: justify
 
     The molecule template named *FlexibleH2O.txt*
     can be |download_FlexibleH2O.txt|
     and saved in the *pureH2O/* folder.
-    This template contains all the necessary structural
+    This template contains the necessary structural
     information of a water molecule, such as the number of atoms, 
     which pair of atoms are connected by bonds, which
     groups of atoms are connected by angles, etc.
@@ -281,11 +277,10 @@ The water
 
 ..  container:: justify
 
-    Then, let us group the atoms of the water molecules in a group named
-    *H2O*, and then perform a small energy minimization because the 
-    *overlap* value of 1 Angstrom chosen in the *create_atoms* command 
-    is way too small for water, and we may expect the system to fail
-    in absence of minimization. Add the following lines to *input.lammps*:
+    Then, let us organize the atoms of type 1 and 2 of the water molecules in a group named
+    *H2O*, and then perform a small energy minimization. The energy minimization
+    is mandatory here given the small *overlap* value of 1 Angstrom chosen in the *create_atoms*
+    command. Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -297,13 +292,12 @@ The water
 
     The *reset_timestep* command is optional. It is used here 
     because the *minimize* command is usually performed over an 
-    arbitrary number of steps, which is some situation can make
-    life difficult in future runs.
+    arbitrary number of steps.
 
 ..  container:: justify
 
-    Let us use the fix NPT to
-    control both the temperature and the pressure,
+    Let us use the *fix npt* to
+    control both the temperature and the pressure of the system,
     by adding the following line to *input.lammps*:
 
 ..  code-block:: lammps
@@ -312,13 +306,14 @@ The water
 
 ..  container:: justify
 
-    The fix NPT allows us to impose both a temperature of 300 K (with a damping constant of 100 fs),
-    and a pressure of 1 atmosphere (with a damping constant of 1000 fs). With the *iso* keyword, the
-    three dimensions of the box will be re-scaled simultaneously.
+    The *fix npt* allows us to impose both a temperature of :math:`300\,\text{K}`
+    (with a damping constant of :math:`100\,\text{fs}`),
+    and a pressure of 1 atmosphere (with a damping constant of :math:`1000\,\text{fs}`).
+    With the *iso* keyword, the three dimensions of the box will be re-scaled simultaneously.
 
 ..  container:: justify
 
-    Let us print the atom positions in a dump file every 1000
+    Let us print the atom positions in a *.lammpstrj* file every 1000
     steps (i.e. 1 ps), print the temperature volume, and
     density every 100 steps in 3 separate data files, and
     print the information in the terminal every 1000 steps:
@@ -335,21 +330,24 @@ The water
    fix myat3 all ave/time 10 10 100 v_mydensity file density.dat
    thermo 1000
 
-.. admonition:: On calling variables
+.. admonition:: On calling variables in LAMMPS
     :class: info
 
-    Both :math:`\$ \text{var}` and :math:`v_\text{var}` can be used to call a previously defined variable named *var*. 
-    However,  :math:`\$ \text{var}` returns the initial value of *var*,
+    Both :math:`\$ \text{var}` and :math:`v_\text{var}` can be used to
+    call a previously defined variable named *var*. 
+    However, :math:`\$ \text{var}` returns the initial value of *var*,
     while :math:`v_\text{var}` returns the instantaneous value of *var*. 
+    In the case where we want to probe the evolution of a variable with time,
+    :math:`v_\text{var}` must be used.
 
 ..  container:: justify
 
     In the formula for the density (number of
     molecule divided by volume), the underscore *_* is used to
-    call myvol because the volume is expected
-    to evolve in time when using fix NPT, but the dollar sign :math:`\$` is used to call *myoxy* as the
-    number of molecules is not expected to evolve during the
-    simulation.
+    call *myvol* because the volume is expected
+    to evolve in time when using *fix npt*, but the dollar sign :math:`\$`
+    is used to call *myoxy* as the number of molecules is not
+    expected to change during the simulation.
 
 ..  container:: justify
 
@@ -368,9 +366,10 @@ The water
 
 ..  container:: justify
 
-    The *replicate* command replicate the cubic box three times along 
-    the *x* direction, to create a rectangular box of water 
-    right before the final state is written into *H2O.data*.
+    The *replicate* command is used to replicate the cubic
+    box three times along 
+    the *x* direction, thus creating a rectangular box of water 
+    just before the final state is written into *H2O.data*.
 
 ..
     TO BE PLACED IN A DEDICATED ANNEXE

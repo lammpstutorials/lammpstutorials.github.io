@@ -266,9 +266,8 @@ they compare molecular dynamics simulations with force spectroscopy experiments.
 <section id="preparing-water-and-peg-separately">
 <h2>Preparing water and PEG separately<a class="headerlink" href="#preparing-water-and-peg-separately" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>As for most simulations, several possible routes can be used
-to create the system. In this tutorial, the water is being prepared separately
-from the PEG molecule. Then, PEG and water are merged.</p>
+<p>In this tutorial, the water is being prepared separately
+from the PEG molecule. The PEG and water will be merged later.</p>
 </div>
 <section id="the-water">
 <h3>The water<a class="headerlink" href="#the-water" title="Link to this heading">#</a></h3>
@@ -279,8 +278,7 @@ Create a folder named <em>pureH2O/</em>. Inside this folder, create
 an empty text file named <em>input.lammps</em>. Copy the following
 lines in it:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># LAMMPS input script</span>
-<span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
@@ -296,30 +294,30 @@ masses are in grams per
 mole, distances in Ångstroms, time in femtoseconds, energies
 in Kcal/mole. With the <em>atom_style full</em>, each atom is a dot
 with a mass and a charge that can be
-linked by bonds, angles, dihedrals and impropers potentials
-(for example to form molecules). The <em>bond_style</em>,
+linked by bonds, angles, dihedrals and impropers. The <em>bond_style</em>,
 <em>angle_style</em>, and <em>dihedral_style</em> commands define the
 styles of bond angle, and dihedrals used in the simulation,
 respectively, and the <em>harmonic</em> keyword
 imposes the form of the potentials.</p>
 </div>
 <div class="justify docutils container">
-<p>Finally, the <em>special_bonds</em> command to cancel the
+<p>Finally, the <em>special_bonds</em> command cancels the
 Lennard-Jones interactions between the closest
 atoms of a same molecule.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About <em>special bonds</em></p>
 <p>Usually, molecular dynamics force fields are parametrized assuming that the first neighbors within a molecule do not
-interact directly. Here, since we use <em>lj 0.0 0.0 0.5</em>, the first and second neighbors in a molecule won’t interact
-with each other through LJ potentials, and therefore they only interact through direct bond interactions.
+interact directly though LJ or Coulomb potential. Here, since we use <em>lj 0.0 0.0 0.5</em>, the first and second
+neighbors in a molecule only interact through direct bond interactions.
 For the third neighbor (here third neighbor only concerns the PEG molecule, not the water),
-only half of the LJ interaction will be added.</p>
+only half of the LJ interaction will be taken into account, and the full Coulomb interaction
+will be present.</p>
 </div>
 <div class="justify docutils container">
 <p>With the <em>pair_style</em> named <em>lj/cut/coul/long</em>, atoms
 interact through both a Lennard-Jones (LJ) potential and
-through Coulombic interactions. The value of <em>12</em> is
+Coulombic interactions. The value of <em>12</em> is
 the cut off for the short range interactions.</p>
 </div>
 <div class="info admonition">
@@ -330,30 +328,26 @@ interactions, atoms interact with each others only if they
 are separated by a distance smaller than the cutoff. For
 Coulombic <em>long</em>, interaction between atoms closer than
 the cutoff are computed directly, and interaction between
-atoms outside that cutoff are computed in the reciprocal
-space.</p>
+atoms outside that cutoff are computed in the reciprocal space.</p>
 </div>
 <div class="justify docutils container">
 <p>Finally the kspace command defines the long-range solver for the (long)
 Coulombic interactions. The <em>pppm</em> style refers to
 particle-particle particle-mesh.</p>
 </div>
-<div class="dropdown admonition">
-<p class="admonition-title">Background Information (optional) – About PPPM</p>
-<p><em>The PPPM
-method is based on separating the total interaction
+<div class="info admonition">
+<p class="admonition-title">About PPPM</p>
+<p>From <a href="https://doi.org/10.1021/jp9518623" target="_blank">Luty and van Gunsteren</a>: <em>‘The PPPM method is based on separating the total interaction
 between particles into the sum of short-range
 interactions, which are computed by direct
 particle-particle summation, and long-range interactions,
 which are calculated by solving Poisson’s equation using
-periodic boundary conditions (PBCs).</em>
-<a href="https://doi.org/10.1021/jp9518623" target="_blank">Luty and van Gunsteren</a></p>
+periodic boundary conditions (PBCs).’</em></p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us create a 3D simulation box of dimensions <span class="math notranslate nohighlight">\(3 \times 3 \times 3 \; \text{nm}^3\)</span>,
 and make space for 7 atom types (1 and 2 for
-the water oxygen and hydrogen, respectively, and 3, 4, 5, 6
-and 7 for the PEG molecule (see below)), 6 bond types, 9
+the water molecule, and 3 to 7 for the PEG molecule), 6 bond types, 9
 angle types, and 14 dihedrals types.
 Copy the following lines into <em>input.lammps</em>:</p>
 </div>
@@ -373,7 +367,7 @@ Copy the following lines into <em>input.lammps</em>:</p>
 memory allocation. These commands ensure that enough memory space is left for a
 certain number of attribute for each atom. We wont worry
 about those commands in this tutorial, just keep that in mind if one day you see the following
-error message <em>ERROR: Molecule topology/atom exceeds system topology/atom</em>:</p>
+error message <em>ERROR: Molecule topology/atom exceeds system topology/atom</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us create a <em>PARM.lammps</em> file containing all the
@@ -441,35 +435,36 @@ Add the following lines into <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The <em>overlap 1.0</em> option of the <em>create_atoms</em> command ensures that no atom are
-placed exactly at the same position as it would make the simulation
-crashes. The <em>maxtry 50</em> asks LAMMPS to try at least
-50 times to insert molecules. In some case, depending on the system and on the <em>overlap</em>
-and <em>maxtry</em> values, LAMMPS may not create the desired number of molecules. We
+<p>The <em>overlap 1.0</em> option of the <em>create_atoms</em> command ensures that no atoms are
+placed exactly at the same position, as this would cause the simulation to
+crash. The <em>maxtry 50</em> asks LAMMPS to try at most
+50 times to insert the molecules, which is useful in case some of the
+insertion attempt are rejected due to overlap. In some case, depending on
+the system and on the values of <em>overlap</em>
+and <em>maxtry</em>, LAMMPS may not create the desired number of molecules. We
 can check in the <em>log</em> file that it is indeed the case:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Created 1050 atoms
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>When LAMMPS fails to create the desired number of molecules, a WARNING can
-be seen in the <em>log</em> file.</p>
+<p>When LAMMPS fails to create the desired number of molecules, a WARNING
+appears in the <em>log</em> file.</p>
 </div>
 <div class="justify docutils container">
 <p>The molecule template named <em>FlexibleH2O.txt</em>
 can be <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/FlexibleH2O.txt" target="_blank">downloaded</a>
 and saved in the <em>pureH2O/</em> folder.
-This template contains all the necessary structural
+This template contains the necessary structural
 information of a water molecule, such as the number of atoms,
 which pair of atoms are connected by bonds, which
 groups of atoms are connected by angles, etc.</p>
 </div>
 <div class="justify docutils container">
-<p>Then, let us group the atoms of the water molecules in a group named
-<em>H2O</em>, and then perform a small energy minimization because the
-<em>overlap</em> value of 1 Angstrom chosen in the <em>create_atoms</em> command
-is way too small for water, and we may expect the system to fail
-in absence of minimization. Add the following lines to <em>input.lammps</em>:</p>
+<p>Then, let us organize the atoms of type 1 and 2 of the water molecules in a group named
+<em>H2O</em>, and then perform a small energy minimization. The energy minimization
+is mandatory here given the small <em>overlap</em> value of 1 Angstrom chosen in the <em>create_atoms</em>
+command. Add the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
 <span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
@@ -479,24 +474,24 @@ in absence of minimization. Add the following lines to <em>input.lammps</em>:</p
 <div class="justify docutils container">
 <p>The <em>reset_timestep</em> command is optional. It is used here
 because the <em>minimize</em> command is usually performed over an
-arbitrary number of steps, which is some situation can make
-life difficult in future runs.</p>
+arbitrary number of steps.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us use the fix NPT to
-control both the temperature and the pressure,
+<p>Let us use the <em>fix npt</em> to
+control both the temperature and the pressure of the system,
 by adding the following line to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">iso</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1000</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The fix NPT allows us to impose both a temperature of 300 K (with a damping constant of 100 fs),
-and a pressure of 1 atmosphere (with a damping constant of 1000 fs). With the <em>iso</em> keyword, the
-three dimensions of the box will be re-scaled simultaneously.</p>
+<p>The <em>fix npt</em> allows us to impose both a temperature of <span class="math notranslate nohighlight">\(300\,\text{K}\)</span>
+(with a damping constant of <span class="math notranslate nohighlight">\(100\,\text{fs}\)</span>),
+and a pressure of 1 atmosphere (with a damping constant of <span class="math notranslate nohighlight">\(1000\,\text{fs}\)</span>).
+With the <em>iso</em> keyword, the three dimensions of the box will be re-scaled simultaneously.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us print the atom positions in a dump file every 1000
+<p>Let us print the atom positions in a <em>.lammpstrj</em> file every 1000
 steps (i.e. 1 ps), print the temperature volume, and
 density every 100 steps in 3 separate data files, and
 print the information in the terminal every 1000 steps:</p>
@@ -513,18 +508,21 @@ print the information in the terminal every 1000 steps:</p>
 </pre></div>
 </div>
 <div class="info admonition">
-<p class="admonition-title">On calling variables</p>
-<p>Both <span class="math notranslate nohighlight">\(\$ \text{var}\)</span> and <span class="math notranslate nohighlight">\(v_\text{var}\)</span> can be used to call a previously defined variable named <em>var</em>.
-However,  <span class="math notranslate nohighlight">\(\$ \text{var}\)</span> returns the initial value of <em>var</em>,
-while <span class="math notranslate nohighlight">\(v_\text{var}\)</span> returns the instantaneous value of <em>var</em>.</p>
+<p class="admonition-title">On calling variables in LAMMPS</p>
+<p>Both <span class="math notranslate nohighlight">\(\$ \text{var}\)</span> and <span class="math notranslate nohighlight">\(v_\text{var}\)</span> can be used to
+call a previously defined variable named <em>var</em>.
+However, <span class="math notranslate nohighlight">\(\$ \text{var}\)</span> returns the initial value of <em>var</em>,
+while <span class="math notranslate nohighlight">\(v_\text{var}\)</span> returns the instantaneous value of <em>var</em>.
+In the case where we want to probe the evolution of a variable with time,
+<span class="math notranslate nohighlight">\(v_\text{var}\)</span> must be used.</p>
 </div>
 <div class="justify docutils container">
 <p>In the formula for the density (number of
 molecule divided by volume), the underscore <em>_</em> is used to
-call myvol because the volume is expected
-to evolve in time when using fix NPT, but the dollar sign <span class="math notranslate nohighlight">\(\$\)</span> is used to call <em>myoxy</em> as the
-number of molecules is not expected to evolve during the
-simulation.</p>
+call <em>myvol</em> because the volume is expected
+to evolve in time when using <em>fix npt</em>, but the dollar sign <span class="math notranslate nohighlight">\(\$\)</span>
+is used to call <em>myoxy</em> as the number of molecules is not
+expected to change during the simulation.</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, let us set the timestep to 1.0 fs,
@@ -540,9 +538,10 @@ following lines to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The <em>replicate</em> command replicate the cubic box three times along
-the <em>x</em> direction, to create a rectangular box of water
-right before the final state is written into <em>H2O.data</em>.</p>
+<p>The <em>replicate</em> command is used to replicate the cubic
+box three times along
+the <em>x</em> direction, thus creating a rectangular box of water
+just before the final state is written into <em>H2O.data</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you open the <em>dump.lammpstrj</em> file using VMD, you should
