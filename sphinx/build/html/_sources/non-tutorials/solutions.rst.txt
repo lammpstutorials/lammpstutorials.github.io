@@ -288,6 +288,56 @@ Add salt to the mixture
 
     <a href="../../../../inputs/level2/polymer-in-water/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a>
 
+Nanosheared electrolyte
+=======================
+
+Induce a Poiseuille flow
+------------------------
+
+.. container:: justify
+
+    On important aspect of out-of-equilibrium simulations is that
+    the forcing must be chosen with care. If too
+    large, the system will be strongly out-of-equilibrium. If
+    too small, no net velocity will be measured because of
+    the thermal noise.
+
+.. container:: justify
+
+    For the dynamics of the system, I use:
+
+..  code-block:: lammps
+        
+    fix mynve all nve
+    compute tliq gliquid temp/partial 0 1 1 # ignore the x direction during thermalisation
+    fix myber1 gliquid temp/berendsen 300 300 100
+    fix_modify myber1 temp tliq
+    compute twall gwall temp
+    fix myber2 gwall temp/berendsen 300 300 100
+    fix_modify myber2 temp twall
+    fix myshk gH2O shake 1.0e-4 200 0 b 1 a 1
+    fix myspring1 gwalltop spring/self 10.0 xyz # maintain top wall in place
+    fix myspring2 gwallbot spring/self 10.0 xyz # maintain bottom wall in place
+
+.. container:: justify
+
+    Note that here, walls wont move and they can be thermalized in all 3 directions.
+    Also, there is no need for recentering as the walls are fixed here.
+    To add the force to the fluid:
+
+..  code-block:: lammps
+
+    fix myadf gliquid addforce 1e-3 0.0 0.0
+    
+.. container:: justify
+    
+    Here, the force value of :math:`0.001\,\text{kcal/mol/A}` is a reasonable choice
+    that has been calibrated previously. To calibrate it, you can test
+    several values for the force, and eventually choose a value that
+    small enough so that the linear response remains 
+    valid, and large enough so that you can differentiate
+    the signal from the noise.
+
 Coming soon
 -----------
 

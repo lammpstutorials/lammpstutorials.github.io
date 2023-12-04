@@ -435,6 +435,50 @@ appropriate units):</p>
 values, followed by an energy minimization.</p>
 </div>
 </section>
+</section>
+<section id="nanosheared-electrolyte">
+<h2>Nanosheared electrolyte<a class="headerlink" href="#nanosheared-electrolyte" title="Link to this heading">#</a></h2>
+<section id="induce-a-poiseuille-flow">
+<h3>Induce a Poiseuille flow<a class="headerlink" href="#induce-a-poiseuille-flow" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>On important aspect of out-of-equilibrium simulations is that
+the forcing must be chosen with care. If too
+large, the system will be strongly out-of-equilibrium. If
+too small, no net velocity will be measured because of
+the thermal noise.</p>
+</div>
+<div class="justify docutils container">
+<p>For the dynamics of the system, I use:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+<span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c"># ignore the x direction during thermalisation</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
+<span class="k">compute </span><span class="nv nv-Identifier">twall</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">twall</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myspring1</span><span class="w"> </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">spring</span><span class="o">/</span><span class="n">self</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="n">xyz</span><span class="w"> </span><span class="c"># maintain top wall in place</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myspring2</span><span class="w"> </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">spring</span><span class="o">/</span><span class="n">self</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="n">xyz</span><span class="w"> </span><span class="c"># maintain bottom wall in place</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Note that here, walls wont move and they can be thermalized in all 3 directions.
+Also, there is no need for recentering as the walls are fixed here.
+To add the force to the fluid:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myadf</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="m">1e-3</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Here, the force value of <span class="math notranslate nohighlight">\(0.001\,\text{kcal/mol/A}\)</span> is a reasonable choice
+that has been calibrated previously. To calibrate it, you can test
+several values for the force, and eventually choose a value that
+small enough so that the linear response remains
+valid, and large enough so that you can differentiate
+the signal from the noise.</p>
+</div>
+</section>
 <section id="coming-soon">
 <h3>Coming soon<a class="headerlink" href="#coming-soon" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
@@ -510,6 +554,10 @@ values, followed by an energy minimization.</p>
 <li><a class="reference internal" href="#polymer-in-water">Polymer in water</a><ul>
 <li><a class="reference internal" href="#extract-radial-distribution-function">Extract radial distribution function</a></li>
 <li><a class="reference internal" href="#add-salt-to-the-mixture">Add salt to the mixture</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nanosheared-electrolyte">Nanosheared electrolyte</a><ul>
+<li><a class="reference internal" href="#induce-a-poiseuille-flow">Induce a Poiseuille flow</a></li>
 <li><a class="reference internal" href="#coming-soon">Coming soon</a></li>
 </ul>
 </li>
