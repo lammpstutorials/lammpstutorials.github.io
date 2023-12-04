@@ -441,48 +441,93 @@ values, followed by an energy minimization.</p>
 <section id="induce-a-poiseuille-flow">
 <h3>Induce a Poiseuille flow<a class="headerlink" href="#induce-a-poiseuille-flow" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>On important aspect of out-of-equilibrium simulations is that
-the forcing must be chosen with care. If too
-large, the system will be strongly out-of-equilibrium. If
-too small, no net velocity will be measured because of
-the thermal noise.</p>
+<p>Here the <em>input</em> scripts written during the last part <em>Imposed shearing</em> of the
+tutorial is adapted so that, instead of a shearing induced by the wall, the fluid is moving
+thanks through an additional force applied to all the water molecules and ions.</p>
 </div>
 <div class="justify docutils container">
-<p>For the dynamics of the system, I use:</p>
+<p>To do so, here are the most important commands used to properly thermalize the system:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
-<span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c"># ignore the x direction during thermalisation</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
 <span class="k">fix_modify </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tliq</span>
-<span class="k">compute </span><span class="nv nv-Identifier">twall</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="nv nv-Identifier">gwall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">compute </span><span class="nv nv-Identifier">twall</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
 <span class="k">fix_modify </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">twall</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">gH2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myspring1</span><span class="w"> </span><span class="nv nv-Identifier">gwalltop</span><span class="w"> </span><span class="n">spring</span><span class="o">/</span><span class="n">self</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="n">xyz</span><span class="w"> </span><span class="c"># maintain top wall in place</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myspring2</span><span class="w"> </span><span class="nv nv-Identifier">gwallbot</span><span class="w"> </span><span class="n">spring</span><span class="o">/</span><span class="n">self</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="n">xyz</span><span class="w"> </span><span class="c"># maintain bottom wall in place</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
 <p>Note that here, walls wont move and they can be thermalized in all 3 directions.
-Also, there is no need for recentering as the walls are fixed here.
-To add the force to the fluid:</p>
+There is no need for recentering as the walls here, but instead one can keep them
+in place by adding springs to every atom of the walls:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myadf</span><span class="w"> </span><span class="nv nv-Identifier">gliquid</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="m">1e-3</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myspring</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">spring</span><span class="o">/</span><span class="n">self</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="n">xyz</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here, the force value of <span class="math notranslate nohighlight">\(0.001\,\text{kcal/mol/A}\)</span> is a reasonable choice
-that has been calibrated previously. To calibrate it, you can test
-several values for the force, and eventually choose a value that
-small enough so that the linear response remains
-valid, and large enough so that you can differentiate
+<p>Finally, let us apply a force to the fluid group along the <span class="math notranslate nohighlight">\(x\)</span>
+direction:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myadf</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="m">3e-2</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>One can have a look at the velocity profiles. The fluid shows the characteristic
+parabolic shape of Poiseuille flow in the case of a non-slip solid surface.</p>
+</div>
+<figure class="align-default">
+<img alt="Velocity of the fluid forming a Poiseuille flow" class="only-light" src="../_images/shearing-poiseuille-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="Velocity of the fluid forming a Poiseuille flow" class="only-dark" src="../_images/shearing-poiseuille-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Velocity profiles for water molecules, ions and walls
+along the <em>z</em> axis.</p>
+</div>
+<div class="justify docutils container">
+<p>Here, the force value <span class="math notranslate nohighlight">\(f = 0.03\,\text{kcal/mol/Å}\)</span> is a reasonable choice
+that was chosen after some prior calibration (see below). <span class="math notranslate nohighlight">\(f\)</span> is
+small enough so that the system remains in the linear response regime,
+but also large enough so that one can easily differentiate
 the signal from the noise.</p>
 </div>
-</section>
-<section id="coming-soon">
-<h3>Coming soon<a class="headerlink" href="#coming-soon" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>This page is currently being written, all solutions will appear here eventually.</p>
+<p>The first and most important technical difficulty of any
+out-of-equilibrium simulation is to choose the value of the forcing <span class="math notranslate nohighlight">\(f\)</span>.
+If the forcing is too large, the system may not be in a linear response regime,
+meaning that the results are forcing-dependent, thus likely quite meaningless. If
+the forcing is too small, the motion of the system will be difficult to measure
+due to the low signal-to-noise ratio.</p>
+</div>
+<div class="justify docutils container">
+<p>In the present case, one can perform a calibration by running several simulations
+with different force values <span class="math notranslate nohighlight">\(f\)</span>, and then by plotting the velocity of
+the center of mass <span class="math notranslate nohighlight">\(v_\text{cm}\)</span> of the fluid as a function of the force.
+Here, I present the results I have obtained by performing the simulations with
+different values of the forcing. <span class="math notranslate nohighlight">\(v_\text{cm}\)</span> can be extracted by adding the following command
+to the <em>input</em>:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">vcm_fluid</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">vcm</span><span class="nv">(fluid,x)</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_vcm_fluid</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">vcm_fluid.dat</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The results I have obtained show that as long as the force is lower
+than about <span class="math notranslate nohighlight">\(0.04\,\text{kcal/mol/Å}\)</span>, there is reasonable linearity
+between force and fluid velocity.</p>
+</div>
+<figure class="align-default">
+<img alt="Velocity of the fluid under imposed force (POISEUILLE FLOW)" class="only-light" src="../_images/calibration-force-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="Velocity of the fluid under imposed force (POISEUILLE FLOW)" class="only-dark" src="../_images/calibration-force-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Ratio between the velocity of the center of mass <span class="math notranslate nohighlight">\(v_\text{cm}\)</span> of the fluid
+and the forcing <span class="math notranslate nohighlight">\(f\)</span> as a function of the forcing.</p>
 </div>
 </section>
 </section>
@@ -558,7 +603,6 @@ the signal from the noise.</p>
 </li>
 <li><a class="reference internal" href="#nanosheared-electrolyte">Nanosheared electrolyte</a><ul>
 <li><a class="reference internal" href="#induce-a-poiseuille-flow">Induce a Poiseuille flow</a></li>
-<li><a class="reference internal" href="#coming-soon">Coming soon</a></li>
 </ul>
 </li>
 </ul>

@@ -296,51 +296,108 @@ Induce a Poiseuille flow
 
 .. container:: justify
 
-    On important aspect of out-of-equilibrium simulations is that
-    the forcing must be chosen with care. If too
-    large, the system will be strongly out-of-equilibrium. If
-    too small, no net velocity will be measured because of
-    the thermal noise.
-
+    Here the *input* scripts written during the last part *Imposed shearing* of the
+    tutorial is adapted so that, instead of a shearing induced by the wall, the fluid is moving
+    thanks through an additional force applied to all the water molecules and ions.
+    
 .. container:: justify
 
-    For the dynamics of the system, I use:
+    To do so, here are the most important commands used to properly thermalize the system:
 
 ..  code-block:: lammps
         
     fix mynve all nve
-    compute tliq gliquid temp/partial 0 1 1 # ignore the x direction during thermalisation
-    fix myber1 gliquid temp/berendsen 300 300 100
+    compute tliq fluid temp/partial 0 1 1
+    fix myber1 fluid temp/berendsen 300 300 100
     fix_modify myber1 temp tliq
-    compute twall gwall temp
-    fix myber2 gwall temp/berendsen 300 300 100
+    compute twall wall temp
+    fix myber2 wall temp/berendsen 300 300 100
     fix_modify myber2 temp twall
-    fix myshk gH2O shake 1.0e-4 200 0 b 1 a 1
-    fix myspring1 gwalltop spring/self 10.0 xyz # maintain top wall in place
-    fix myspring2 gwallbot spring/self 10.0 xyz # maintain bottom wall in place
+    fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
 
 .. container:: justify
 
     Note that here, walls wont move and they can be thermalized in all 3 directions.
-    Also, there is no need for recentering as the walls are fixed here.
-    To add the force to the fluid:
+    There is no need for recentering as the walls here, but instead one can keep them 
+    in place by adding springs to every atom of the walls:
 
 ..  code-block:: lammps
 
-    fix myadf gliquid addforce 1e-3 0.0 0.0
+    fix myspring wall spring/self 10.0 xyz
+
+.. container:: justify
+
+    Finally, let us apply a force to the fluid group along the :math:`x`
+    direction:
+
+..  code-block:: lammps
+
+    fix myadf fluid addforce 3e-2 0.0 0.0
+
+.. container:: justify
+
+    One can have a look at the velocity profiles. The fluid shows the characteristic
+    parabolic shape of Poiseuille flow in the case of a non-slip solid surface.
+
+.. figure:: ../tutorials/figures/level2/nanosheared-electrolyte/shearing-poiseuille-light.png
+    :alt: Velocity of the fluid forming a Poiseuille flow
+    :class: only-light
+
+.. figure:: ../tutorials/figures/level2/nanosheared-electrolyte/shearing-poiseuille-dark.png
+    :alt: Velocity of the fluid forming a Poiseuille flow
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Velocity profiles for water molecules, ions and walls
+    along the *z* axis.
     
 .. container:: justify
     
-    Here, the force value of :math:`0.001\,\text{kcal/mol/A}` is a reasonable choice
-    that has been calibrated previously. To calibrate it, you can test
-    several values for the force, and eventually choose a value that
-    small enough so that the linear response remains 
-    valid, and large enough so that you can differentiate
+    Here, the force value :math:`f = 0.03\,\text{kcal/mol/Å}` is a reasonable choice
+    that was chosen after some prior calibration (see below). :math:`f` is
+    small enough so that the system remains in the linear response regime,
+    but also large enough so that one can easily differentiate
     the signal from the noise.
 
-Coming soon
------------
+.. container:: justify
+
+    The first and most important technical difficulty of any
+    out-of-equilibrium simulation is to choose the value of the forcing :math:`f`.
+    If the forcing is too large, the system may not be in a linear response regime,
+    meaning that the results are forcing-dependent, thus likely quite meaningless. If
+    the forcing is too small, the motion of the system will be difficult to measure
+    due to the low signal-to-noise ratio.
 
 .. container:: justify
 
-    This page is currently being written, all solutions will appear here eventually.
+    In the present case, one can perform a calibration by running several simulations 
+    with different force values :math:`f`, and then by plotting the velocity of
+    the center of mass :math:`v_\text{cm}` of the fluid as a function of the force.
+    Here, I present the results I have obtained by performing the simulations with 
+    different values of the forcing. :math:`v_\text{cm}` can be extracted by adding the following command
+    to the *input*:
+
+..  code-block:: lammps
+
+    variable vcm_fluid equal vcm(fluid,x)
+    fix myat1 all ave/time 10 100 1000 v_vcm_fluid file vcm_fluid.dat
+
+.. container:: justify
+
+    The results I have obtained show that as long as the force is lower
+    than about :math:`0.04\,\text{kcal/mol/Å}`, there is reasonable linearity
+    between force and fluid velocity.
+
+.. figure:: ../tutorials/figures/level2/nanosheared-electrolyte/calibration-force-light.png
+    :alt: Velocity of the fluid under imposed force (POISEUILLE FLOW)
+    :class: only-light
+
+.. figure:: ../tutorials/figures/level2/nanosheared-electrolyte/calibration-force-dark.png
+    :alt: Velocity of the fluid under imposed force (POISEUILLE FLOW)
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Ratio between the velocity of the center of mass :math:`v_\text{cm}` of the fluid
+    and the forcing :math:`f` as a function of the forcing.
