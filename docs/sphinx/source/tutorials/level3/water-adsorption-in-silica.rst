@@ -156,6 +156,7 @@ Vashishta potential
     variable myly equal ly
     variable mylz equal lz
     variable mypot equal pe
+    variable mytemp equal temp
     fix myat1 all ave/time 10 100 1000 v_mytemp file temperature.dat
     fix myat2 all ave/time 10 100 1000 v_myvol v_mylx v_myly v_mylz file dimensions.dat
     fix myat3 all ave/time 10 100 1000 v_mypot file potential-energy.dat

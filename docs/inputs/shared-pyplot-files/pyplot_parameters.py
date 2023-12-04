@@ -57,7 +57,7 @@ def add_subplotlabels(fig, ax, labels, shift=0.2, specific_shift=None, color=Non
 def complete_panel(ax, xlabel, ylabel, cancel_x=False, cancel_y=False,
                    font=font, fontsize=fontsize, linewidth=2.5, tickwidth1=2.5,
                    tickwidth2=2, legend=True, ncol=1, locator_x = 2, locator_y = 2,
-                   title=None, axis_color=None):
+                   title=None, axis_color=None, xpad = None, ypad = None):
     
     if xlabel is not None:
         ax.set_xlabel(xlabel, fontdict=font)
@@ -114,6 +114,12 @@ def complete_panel(ax, xlabel, ylabel, cancel_x=False, cancel_y=False,
         ax.spines['right'].set_color(axis_color)
         ax.tick_params(axis='y', which='both', colors=axis_color)
         ax.tick_params(axis='x', which='both', colors=axis_color)
+
+    if xpad is not None:
+        ax.tick_params(axis='x', colors=axis_color, pad = xpad)
+
+    if ypad is not None:
+        ax.tick_params(axis='y', colors=axis_color, pad = ypad)
 
 def save_figure(fig, mode, git_root, path_figures, filename, show=False):
     assert os.path.exists(git_root + path_figures)

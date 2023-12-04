@@ -874,35 +874,16 @@ Imposed shearing
 Going further with exercises
 ============================
 
-.. include:: ../../contact/requestsolution.rst
+.. container:: justify
 
-Density profiles
-----------------
+    A solution for each exercise is provided here: :ref:`solutions-label`.
 
-..  container:: justify
-
-    Perform an equilibrium simulation, and extract both density
-    profiles and diffusion coefficients in all 3 directions of
-    space.
-
-    Hint: in general, data extraction can ne done either (1)
-    using the internal LAMMPS commands (e.g. variable/compute
-    + fix ave/time), or (2) using a post-processing analysis
-    tool (e.g. Python).
-
-Poiseuille flow
----------------
+Induce a Poiseuille flow
+------------------------
 
 ..  container:: justify
 
     Instead of inducing shearing using the walls, induce a flow
     of the liquid in the direction tangential to the walls, and
-    extract the the velocity profile.
-
-    Advice: the forcing must be chosen with care. If too
-    large, the system will be strongly out-of-equilibrium. If
-    too small, no net velocity will be measured because of
-    the thermal noise.
-
-    Question: Is the velocity profile you obtain consistent with
-    Poiseuille's predictions?
+    extract the the velocity profile. Is the velocity profile you
+    obtain consistent with Poiseuille's predictions?
