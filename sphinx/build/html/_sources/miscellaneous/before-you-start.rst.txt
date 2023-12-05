@@ -87,13 +87,13 @@ LAMMPS (2 Aug 2023)
     version. If you decide to use another LAMMPS version, certain commands
     may not work. In that case, an error message may appear.
 
-VMD (1.9)
----------
+VMD (1.9.3)
+-----------
 
 ..  container:: justify
 
-    In order to visualize the atomic system, |VMD| will be used.
-    If you don't know how to use it, you can find some basic instructions here:
+    In order to visualize the atomic system, the version 1.9.3 of |VMD| will be used.
+    If you don't know how to use VMD, you can find some basic instructions here:
     :ref:`vmd-label`. If you prefer, feel free to use an alternative visualization
     software like |Ovito|.
     
