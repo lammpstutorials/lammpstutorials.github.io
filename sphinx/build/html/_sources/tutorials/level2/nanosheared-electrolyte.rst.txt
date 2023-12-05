@@ -886,14 +886,19 @@ Induce a Poiseuille flow
 
 ..  container:: justify
 
-    Instead of inducing shearing using the walls, induce a flow
-    of the liquid in the direction tangential to the walls, and
-    extract the the velocity profile.
+    Instead of inducing a shearing of the fluid using the walls,
+    induce a net flux of the liquid in the direction tangential
+    to the (immobile) walls.
 
 ..  container:: justify
     
-    Make sure that the resulting velocity profile is
-    consistent with the Poiseuille equation.
+    Extract the velocity profile, and make sure that the
+    resulting velocity profile is consistent with the Poiseuille equation,
+    which can be derived from the Stokes equation :math:`\eta \nabla \textbf{v} = - \textbf{f} \rho`
+    where :math:`f` is the applied force,
+    :math:`\rho` is the fluid density,
+    :math:`\eta` is the fluid viscosity, and
+    :math:`h = 1.2\,\text{nm}` is the pore size.
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/shearing-poiseuille-light.png
     :alt: Velocity of the fluid forming a Poiseuille flow

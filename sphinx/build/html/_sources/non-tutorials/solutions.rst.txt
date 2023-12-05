@@ -360,14 +360,15 @@ Induce a Poiseuille flow
 
 .. math::
 
-    v = - \alpha \dfrac{F_\text{rho}}{\eta} \left( \dfrac{z^2}{2} - \dfrac{h^2}{8} \right),
+    v = - \alpha \dfrac{f \rho}{\eta} \left( \dfrac{z^2}{2} - \dfrac{h^2}{8} \right),
 
 .. container:: justify
 
-    which can be derived from the Stokes equation :math:`\eta \nabla \textbf{v} = - \textbf{F}_\rho`.
-    Here, :math:`F_\text{rho} = f \times \rho` is volume force,
-    :math:`\eta` the fluid viscosity,
-    :math:`h = 1.2\,\text{nm}` the pore size.
+    which can be derived from the Stokes equation :math:`\eta \nabla \textbf{v} = - \textbf{f} \rho`
+    where :math:`f` is the applied force,
+    :math:`\rho` is the fluid density,
+    :math:`\eta` is the fluid viscosity, and
+    :math:`h = 1.2\,\text{nm}` is the pore size.
     A small correction :math:`\alpha = 0.78` was used. This correction 
     compensates the fact that using bulk density and bulk viscosity is 
     wrong in such nanoconfined pore.
