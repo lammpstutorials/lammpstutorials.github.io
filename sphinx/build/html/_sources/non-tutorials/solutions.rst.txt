@@ -351,9 +351,30 @@ Induce a Poiseuille flow
 
 ..  container:: figurelegend
 
-    Figure: Velocity profiles for water molecules, ions and walls
-    along the *z* axis.
+    Figure: Velocity profiles for water molecules and walls along the *z* axis.
+    The line is the Stokes equation, and the disk are the results of the simulations.
     
+.. container:: justify
+
+    The fitting of the velocity profile was made using:
+
+.. math::
+
+    v = - \alpha \dfrac{F_\text{rho}}{\eta} \left( \dfrac{z^2}{2} - \dfrac{h^2}{8} \right)
+
+.. container:: justify
+
+    Where :math:`F_\text{rho} = f \time \rho` is the force per unit volume of fluid,
+    :math:`\eta` the fluid viscosity,
+    :math:`h = 1.6\,\text{nm}` the pore size.
+    A small correction :math:`\alpha = 0.78` was used. This correction 
+    compensates the fact that using bulk density and bulk viscosity is 
+    wrong in such nanoconfined pore.
+    Note also that the position of the interface, which sets the pore size
+    :math:`h = 1.6\,\text{nm}`, is an important parameter that in principle 
+    must be chosen with a lot of care, but here goes beyond the scope of this 
+    exercise.
+
 .. container:: justify
     
     Here, the force value :math:`f = 0.03\,\text{kcal/mol/Å}` is a reasonable choice
