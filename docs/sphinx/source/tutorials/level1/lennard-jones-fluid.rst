@@ -7,13 +7,13 @@ Lennard Jones fluid
 
    The very basics of LAMMPS through a simple example
 
-.. figure:: ../figures/level0/lennard-jones-fluid/binary_LJ_fluid_dark.webp
+.. figure:: ../figures/level1/lennard-jones-fluid/binary_LJ_fluid_dark.webp
     :alt: video of a binary fluid simulated by LAMMPS
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/level0/lennard-jones-fluid/binary_LJ_fluid_light.webp
+.. figure:: ../figures/level1/lennard-jones-fluid/binary_LJ_fluid_light.webp
     :alt: video of a binary fluid simulated by LAMMPS
     :height: 250
     :align: right
@@ -470,11 +470,11 @@ Molecular dynamics
     plot the potential energy and the pressure of
     the system over time:
 
-.. figure:: ../figures/level0/lennard-jones-fluid/energy-light.png
+.. figure:: ../figures/level1/lennard-jones-fluid/energy-light.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-light
 
-.. figure:: ../figures/level0/lennard-jones-fluid/energy-dark.png
+.. figure:: ../figures/level1/lennard-jones-fluid/energy-dark.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-dark
 
@@ -527,11 +527,11 @@ Trajectory visualization
     of lines, but you can improve the representation
     as I did here: 
 
-.. figure:: ../figures/level0/lennard-jones-fluid/first-input-light.png
+.. figure:: ../figures/level1/lennard-jones-fluid/first-input-light.png
     :alt: binary fluid simulated by LAMMPS and visualized with VMD
     :class: only-light
 
-.. figure:: ../figures/level0/lennard-jones-fluid/first-input-dark.png
+.. figure:: ../figures/level1/lennard-jones-fluid/first-input-dark.png
     :alt: binary fluid simulated by LAMMPS and visualized with VMD
     :class: only-dark
 
@@ -864,11 +864,11 @@ Restarting from a saved configuration
     Run *input.md.lammps* using LAMMPS and vizualize the trajectory
     using VMD:
 
-.. figure:: ../figures/level0/lennard-jones-fluid/mixing-vmd-light.png
+.. figure:: ../figures/level1/lennard-jones-fluid/mixing-vmd-light.png
     :alt: LAMMPS VMD tutorial molecular dynamics simulation
     :class: only-light
 
-.. figure:: ../figures/level0/lennard-jones-fluid/mixing-vmd-dark.png
+.. figure:: ../figures/level1/lennard-jones-fluid/mixing-vmd-dark.png
     :alt: LAMMPS VMD tutorial molecular dynamics simulation
     :class: only-dark
 
@@ -882,11 +882,11 @@ Restarting from a saved configuration
     of atoms in each region from the generated data files, as
     well as the evolution of the coordination number due to mixing:
 
-.. figure:: ../figures/level0/lennard-jones-fluid/mixing-light.png
+.. figure:: ../figures/level1/lennard-jones-fluid/mixing-light.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-light
 
-.. figure:: ../figures/level0/lennard-jones-fluid/mixing-dark.png
+.. figure:: ../figures/level1/lennard-jones-fluid/mixing-dark.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-dark
 
@@ -965,11 +965,11 @@ Create a demixed dense phase
 
     The final system should look like that:
 
-.. figure:: ../figures/level0/lennard-jones-fluid/demixing-light.png
+.. figure:: ../figures/level1/lennard-jones-fluid/demixing-light.png
     :alt: VMD/LAMMPS exercice molecular dynamics simulation: demixing lennard jones fluids
     :class: only-light
 
-.. figure:: ../figures/level0/lennard-jones-fluid/demixing-dark.png
+.. figure:: ../figures/level1/lennard-jones-fluid/demixing-dark.png
     :alt: VMD/LAMMPS exercice molecular dynamics simulation: demixing lennard jones fluids
     :class: only-dark
 
@@ -993,11 +993,11 @@ Create dumbbell molecules
     Add a bond between couple of identical atoms to create
     dumbbell molecules, just like in the image:
 
-.. figure:: ../figures/level0/lennard-jones-fluid/dumbell-dark.png
+.. figure:: ../figures/level1/lennard-jones-fluid/dumbell-dark.png
     :alt: Dumbbell Lennard-Jones molecules simulated using LAMMPS
     :class: only-dark
 
-.. figure:: ../figures/level0/lennard-jones-fluid/dumbell-light.png
+.. figure:: ../figures/level1/lennard-jones-fluid/dumbell-light.png
     :alt: Dumbbell Lennard-Jones molecules simulated using LAMMPS
     :class: only-light 
 
