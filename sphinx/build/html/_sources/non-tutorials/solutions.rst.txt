@@ -370,8 +370,10 @@ Induce a Poiseuille flow
     :math:`\eta` is the fluid viscosity, and
     :math:`h = 1.2\,\text{nm}` is the pore size.
     A small correction :math:`\alpha = 0.78` was used. This correction 
-    compensates the fact that using bulk density and bulk viscosity is 
-    wrong in such nanoconfined pore.
+    compensates the fact that using bulk density and bulk viscosity is obviously
+    no correct in such nanoconfined pore. More subtle corrections could be applied
+    by correcting both density and viscosity based on independent measurement, but this is 
+    beyond the scope of the present exercise.
 
 .. container:: justify
     
