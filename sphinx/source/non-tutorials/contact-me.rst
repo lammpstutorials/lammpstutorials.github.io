@@ -34,9 +34,9 @@ Support the project
 
 ..  container:: justify
 
-    You can support the project, either financially by registering on |patreon|
+    You can support the project financially by registering on |patreon|
     or by donating on |tipeee|. You can also contribute by sending me
-    feedback from the tutorial by `email`_, or by reporting any error that you encounter.
+    feedback from the tutorial by `email`_.
 
 .. |patreon| raw:: html
 
