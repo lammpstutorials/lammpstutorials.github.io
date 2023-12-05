@@ -366,14 +366,10 @@ Induce a Poiseuille flow
 
     Where :math:`F_\text{rho} = f \times \rho` is volume force,
     :math:`\eta` the fluid viscosity,
-    :math:`h = 1.6\,\text{nm}` the pore size.
+    :math:`h = 1.2\,\text{nm}` the pore size.
     A small correction :math:`\alpha = 0.78` was used. This correction 
     compensates the fact that using bulk density and bulk viscosity is 
     wrong in such nanoconfined pore.
-    Note also that the position of the interface, which sets the pore size
-    :math:`h = 1.6\,\text{nm}`, is an important parameter that in principle 
-    must be chosen with a lot of care, but here goes beyond the scope of this 
-    exercise.
 
 .. container:: justify
     

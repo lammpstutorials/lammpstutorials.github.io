@@ -805,7 +805,9 @@ Imposed shearing
 ..  container:: justify
 
     The averaged velocity profile obtained with a :math:`200\,\text{ps}`
-    run is the following:
+    can be plotted. The velocity increases linearly with the distance :math:`z`.
+    One can adjust the velocity profile with a linear fit and deduce an effective
+    value of :math:`h = 1.2\,\text{nm}` for the pore size.
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/shearing-light.png
     :alt: Velocity of the nanosheared fluid
@@ -818,7 +820,8 @@ Imposed shearing
 ..  container:: figurelegend
 
     Figure: Velocity profiles for water molecules, ions and walls
-    along the *z* axis.
+    along the *z* axis. The line is a linear fit assuming that 
+    the pore size is :math:`h = 1.2\,\text{nm}`.
 
 ..  container:: justify
 
