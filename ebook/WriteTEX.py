@@ -103,6 +103,10 @@ class WriteTex:
                         align = line[8:]
                 path = block_type[9:]
                 figure_path = self.git_path+'/docs/sphinx/source/tutorials/'+path[3:]
+
+                if "tutorials/tutorials" in figure_path:
+                    figure_path = figure_path.split("tutorials/tutorials")[0] + "tutorials" + figure_path.split("tutorials/tutorials")[1]
+                
                 if os.path.exists(figure_path) is False:
                     print("Figure not found", figure_path)
                 figure_format = figure_path.split('.')[-1]
@@ -117,7 +121,10 @@ class WriteTex:
                     shutil.copyfile(alternative_figure, new_figure)
                 else:      
                     #print("webp convert into png")  
-                    #print(new_figure)            
+                    #print(new_figure)
+                    print()  
+                    print(figure_path)
+                    print()    
                     im = Image.open(figure_path).convert('RGB')
                     im.save(new_figure, 'png')
 

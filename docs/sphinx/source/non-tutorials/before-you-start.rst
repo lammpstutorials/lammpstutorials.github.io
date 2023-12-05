@@ -1,4 +1,4 @@
-.. _contact-before-you-start:
+.. _contact-before-you-start-label:
 
 Before you start
 ****************
@@ -118,7 +118,7 @@ Matplotlib Pyplot
 ..  container:: justify
 
     All the Python scripts used to generate the figure of *LAMMPStutorials*
-    can be found in |Github_repository_input|.
+    can be found in the Github repository.
 
 .. |Matplotlib Pyplot| raw:: html
 
@@ -126,7 +126,7 @@ Matplotlib Pyplot
 
 .. |lammps_logfile| raw:: html
 
-   <a href="https://github.com/henriasv/lammps-logfile" target="_blank">lammps_logfile</a>
+   <a href="https://github.com/henriasv/lammps-logfile" target="_blank">lammps logfile</a>
 
 Text editing software
 ---------------------

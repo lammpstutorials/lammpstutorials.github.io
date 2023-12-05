@@ -14,21 +14,21 @@ then
     pdflatex lammps-tutorials-ebook.tex
 fi
 # recompile figures
-if [[ "$var2" == "fig" ]];
-then
-    basedir="$PWD"
+# if [[ "$var2" == "fig" ]];
+# then
+#    basedir="$PWD"
     # collect all figure paths
-    find "../docs/inputs/level1/" -name 'plot_*.ipynb' > notebook-figures.txt
+    # find "../docs/inputs/level1/" -name 'plot_*.ipynb' > notebook-figures.txt
     #find "../docs/inputs/" -name 'plot_*.ipynb' > notebook-figures.txt
-    while read -r line
-    do
-        jupyter-nbconvert --to script $line
-        dir="$(dirname "${line}")"
-        ipynb="$(basename "${line}")"
-        name=`echo "$ipynb" | cut -d'.' -f1`
-        py=$name'.py'
-        cd $dir
-        python3 $py || echo "$line python failled"
-        cd $basedir
-    done < notebook-figures.txt
-fi
+#    while read -r line
+#    do
+#        jupyter-nbconvert --to script $line
+#        dir="$(dirname "${line}")"
+#        ipynb="$(basename "${line}")"
+#        name=`echo "$ipynb" | cut -d'.' -f1`
+#        py=$name'.py'
+#        cd $dir
+#        python3 $py || echo "$line python failled"
+#        cd $basedir
+#    done < notebook-figures.txt
+#fi
