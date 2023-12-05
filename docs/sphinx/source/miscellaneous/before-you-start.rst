@@ -3,13 +3,60 @@
 Before you start
 ****************
 
+Overall structure
+=================
+
+..  container:: justify
+
+    The seven LAMMPS tutorials are grouped by level, with *Level 1*
+    being meant for LAMMPS beginners, and *Level 3* for LAMMPS advanced users. 
+    Although the tutorials are independent from each other, 
+    it is recommended to follow them in the order that is proposed
+    since the level of difficulty is progressively increasing.
+
+..  container:: justify
+
+    The **beginners** tutorials :ref:`lennard-jones-label`
+    and :ref:`carbon-nanotube-label` focus on the basics of
+    LAMMPS, such as the structure of the input files and some of the most
+    common commands.
+    
+..  container:: justify
+    
+    The **intermediate** tutorials :ref:`all-atoms-label`
+    and :ref:`sheared-confined-label` involve more complex
+    water-based system with electrostatics, and must help dealing with
+    systems containing different groups such as solid and liquid.
+
+..  container:: justify
+
+    The **advanced** tutorials focus on advanced technics like GCMC (:ref:`gcmc-silica-label`),
+    which permit simulation in the grand canonical ensemble when the number of atoms is
+    fluctuating, umbrella sampling (:ref:`umbrella-sampling-label`),
+    and the use of reactive force field (:ref:`reactive-silicon-dioxide-label`).
+
 Required softwares
 ==================
 
 ..  container:: justify
 
-    Download and install LAMMPS by following the instructions of the |LAMMPS website|.
-    Alternatively, if you are using Ubuntu OS, you can simply execute the
+    LAMMPS is obviously required to follow the tutorials.
+    The other softwares listed here are optional but recommended.
+
+LAMMPS (2 Aug 2023)
+-------------------
+
+..  container:: justify
+
+    Download and install LAMMPS by following the instructions of the |LAMMPS website installation|.
+
+.. |LAMMPS website installation| raw:: html
+
+   <a href="https://docs.lammps.org/Install.html" target="_blank">LAMMPS website</a>
+
+..  container:: justify
+
+    If you are using *Ubuntu OS*, you can simply execute the
     following command in a terminal:
 
 ..  code-block:: bw
@@ -37,27 +84,79 @@ Required softwares
 ..  container:: justify
 
     All the tutorials here were made with the *LAMMPS (2 Aug 2023)*
-    version. If you decide to use another version, some commands may be
-    obsolete and an error message may appear.
-    In addition to LAMMPS, you will also need |(1) a basic text editing software|
-    such as Vim, Gedit, or Notepad++, |(2) a visualization software|, here I
-    will use VMD (note: VMD is free but you have to register to
-    the uiuc website in order to download it. If you don't want
-    to, you can also use Ovito.), |(3) a plotting tool| like
-    XmGrace or pyplot.
+    version. If you decide to use another LAMMPS version, certain commands
+    may not work. In that case, an error message may appear.
 
-.. |LAMMPS website| raw:: html
+VMD (1.9)
+---------
 
-   <a href="https://lammps.sandia.gov" target="_blank">LAMMPS website</a>
+..  container:: justify
 
-.. |(1) a basic text editing software| raw:: html
+    In order to visualize the atomic system, |VMD| will be used.
+    If you don't know how to use it, you can find some basic instructions here:
+    :ref:`vmd-label`. If you prefer, feel free to use an alternative visualization
+    software like |Ovito|.
+    
+.. |VMD| raw:: html
 
-   <a href="https://help.gnome.org/users/gedit/stable/" target="_blank">(1) a basic text editing software</a>
+   <a href="https://www.ks.uiuc.edu/Research/vmd" target="_blank">VMD</a>
+    
+.. |Ovito| raw:: html
 
-.. |(2) a visualization software| raw:: html
+   <a href="https://www.ovito.org" target="_blank">Ovito</a>
+    
+Matplotlib Pyplot
+-----------------
 
-   <a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">(2) a visualization software</a>
+..  container:: justify
 
-.. |(3) a plotting tool| raw:: html
+    In order to plot the results from the simulations,
+    you will need a plotting tool. I will use |Matplotlib Pyplot|
+    in combination with |lammps_logfile|, a library allowing
+    one to read the *log* file produced by LAMMPS.
 
-   <a href="https://plasma-gate.weizmann.ac.il/Grace/" target="_blank">(3) a plotting tool</a>
+..  container:: justify
+
+    All the Python scripts used to generate the figure of *LAMMPStutorials*
+    can be found in |Github_repository_input|.
+
+.. |Matplotlib Pyplot| raw:: html
+
+   <a href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html" target="_blank">Matplotlib Pyplot</a>
+
+.. |lammps_logfile| raw:: html
+
+   <a href="https://github.com/henriasv/lammps-logfile" target="_blank">lammps_logfile</a>
+
+Text editing software
+---------------------
+
+..  container:: justify
+
+    In order to write LAMMPS input file, a text editor is required.
+    Any text editor will do, such as |gedit|, |vim|, or |vscode|.
+    
+.. |gedit| raw:: html
+
+   <a href="https://help.gnome.org/users/gedit/stable/" target="_blank">gedit</a>
+    
+.. |vim| raw:: html
+
+   <a href="https://www.vim.org/" target="_blank">vim</a>
+    
+.. |vscode| raw:: html
+
+   <a href="https://code.visualstudio.com/" target="_blank">vscode</a>
+    
+Find the input scripts
+======================
+
+..  container:: justify
+
+    You can access all the input scripts and data files that
+    are used in these tutorials from |Github_repository_input| on Github.
+    This repository also contains the inputs of every solution to the exercises.
+
+.. |Github_repository_input| raw:: html
+
+    <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a>
