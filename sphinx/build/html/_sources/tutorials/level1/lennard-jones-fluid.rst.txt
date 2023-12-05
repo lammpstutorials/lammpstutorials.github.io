@@ -466,7 +466,7 @@ Molecular dynamics
 
 ..  container:: justify
 
-    From what has been printed in the log.file file, let us
+    From what has been printed in the *log* file, let us
     plot the potential energy and the pressure of
     the system over time:
 
