@@ -356,7 +356,7 @@ Induce a Poiseuille flow
 
 ..  container:: figurelegend
 
-    Figure: Velocity profiles of the water molecules along the *z* axis (orange disks).
+    Figure: Velocity profiles of the water molecules along the *z* axis (disks).
     The line is the Poiseuille equation.
     
 .. container:: justify
