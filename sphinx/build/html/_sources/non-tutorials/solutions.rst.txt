@@ -53,7 +53,7 @@ Fix a broken input
 
 .. |input_broken_solution| raw:: html
 
-    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/broken/input.lammps" target="_blank">input</a>
+    <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/broken/input.lammps" target="_blank">input</a>
 
 Create a demixed dense phase
 ----------------------------
@@ -94,7 +94,7 @@ Create a demixed dense phase
 
 .. |input_demixed_solution| raw:: html
 
-    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/demixion/input.lammps" target="_blank">input</a>
+    <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/demixion/input.lammps" target="_blank">input</a>
 
 Create dumbbell molecules
 -------------------------
@@ -107,7 +107,7 @@ Create dumbbell molecules
 
 .. |input_dumbbell_solution| raw:: html
 
-    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/input.lammps" target="_blank">input</a>
+    <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/input.lammps" target="_blank">input</a>
 
 ..  code-block:: lammps
 
@@ -148,11 +148,11 @@ Create dumbbell molecules
 
 .. |mol1_dumbbell_solution| raw:: html
 
-    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/dumbell1.mol" target="_blank">type-1</a>
+    <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/dumbell1.mol" target="_blank">type-1</a>
 
 .. |mol2_dumbbell_solution| raw:: html
 
-    <a href="../../../../inputs/level0/lennard-jones-fluid/exercises/dumbbell/dumbell2.mol" target="_blank">type-2</a>
+    <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/dumbell2.mol" target="_blank">type-2</a>
 
 Pulling on a carbon nanotube
 ============================
