@@ -881,6 +881,28 @@ Going further with exercises
 
     A solution for each exercise is provided here: :ref:`solutions-label`.
 
+Make a hydrophobic nanopore
+---------------------------
+
+..  container:: justify
+
+    The walls of the nanopore used in the tutorial are extremely hydrophilic, as visible from the 
+    density profile showing large peaks near the walls. Play with the interaction
+    parameters and make the nanopore more hydrophobic.
+
+.. figure:: ../figures/level2/nanosheared-electrolyte/hydrophobic-pore-light.png
+    :alt: hydrophobic vs hydrophilic pores : density profiles
+    :class: only-light
+
+.. figure:: ../figures/level2/nanosheared-electrolyte/hydrophobic-pore-dark.png
+    :alt: hydrophobic vs hydrophilic pores : density profiles
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Density profile for the water along the *z* axis
+    comparing the original hydrophilic pore with the hydrophobic pore.
+
 Induce a Poiseuille flow
 ------------------------
 
