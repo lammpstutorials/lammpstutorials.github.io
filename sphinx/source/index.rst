@@ -6,8 +6,8 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
 .. toctree::
     :maxdepth: 2
 
-    miscellaneous/before-you-start.rst
-    miscellaneous/contact-me.rst
+    non-tutorials/before-you-start.rst
+    non-tutorials/contact-me.rst
 
 .. toctree::
     :maxdepth: 2
