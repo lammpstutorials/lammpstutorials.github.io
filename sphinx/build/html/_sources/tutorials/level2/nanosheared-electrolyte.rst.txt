@@ -888,5 +888,22 @@ Induce a Poiseuille flow
 
     Instead of inducing shearing using the walls, induce a flow
     of the liquid in the direction tangential to the walls, and
-    extract the the velocity profile. Is the velocity profile you
-    obtain consistent with Poiseuille's predictions?
+    extract the the velocity profile.
+
+..  container:: justify
+    
+    Make sure that the resulting velocity profile is
+    consistent with the Poiseuille equation.
+
+.. figure:: ../figures/level2/nanosheared-electrolyte/shearing-poiseuille-light.png
+    :alt: Velocity of the fluid forming a Poiseuille flow
+    :class: only-light
+
+.. figure:: ../figures/level2/nanosheared-electrolyte/shearing-poiseuille-dark.png
+    :alt: Velocity of the fluid forming a Poiseuille flow
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Velocity profiles of the water molecules along the *z* axis (orange disks).
+    The line is the Poiseuille equation.

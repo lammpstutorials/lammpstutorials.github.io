@@ -351,20 +351,21 @@ Induce a Poiseuille flow
 
 ..  container:: figurelegend
 
-    Figure: Velocity profiles for water molecules and walls along the *z* axis.
-    The line is the Stokes equation, and the disk are the results of the simulations.
+    Figure: Velocity profiles of the water molecules along the *z* axis (orange disks).
+    The line is the Poiseuille equation.
     
 .. container:: justify
 
-    The fitting of the velocity profile was made using:
+    The fitting of the velocity profile was made using the following Poiseuille equation,
 
 .. math::
 
-    v = - \alpha \dfrac{F_\text{rho}}{\eta} \left( \dfrac{z^2}{2} - \dfrac{h^2}{8} \right)
+    v = - \alpha \dfrac{F_\text{rho}}{\eta} \left( \dfrac{z^2}{2} - \dfrac{h^2}{8} \right),
 
 .. container:: justify
 
-    Where :math:`F_\text{rho} = f \times \rho` is volume force,
+    which can be derived from the Stokes equation :math:`\eta \nabla \textbf{v} = - \textbf{F}_\rho`.
+    Here, :math:`F_\text{rho} = f \times \rho` is volume force,
     :math:`\eta` the fluid viscosity,
     :math:`h = 1.2\,\text{nm}` the pore size.
     A small correction :math:`\alpha = 0.78` was used. This correction 
