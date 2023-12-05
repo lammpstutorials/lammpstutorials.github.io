@@ -32,10 +32,13 @@ Required softwares
 
 ..  code-block:: bw
 
-    LAMMPS (29 Sep 2021 - Update 2)
+    LAMMPS (2 Aug 2023)
 
 ..  container:: justify
 
+    All the tutorials here were made with the *LAMMPS (2 Aug 2023)*
+    version. If you decide to use another version, some commands may be
+    obsolete and an error message may appear.
     In addition to LAMMPS, you will also need |(1) a basic text editing software|
     such as Vim, Gedit, or Notepad++, |(2) a visualization software|, here I
     will use VMD (note: VMD is free but you have to register to
