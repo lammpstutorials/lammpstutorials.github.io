@@ -796,7 +796,7 @@ Apply GCMC to water in ZIF-8
             boundary p p p
             bond_style harmonic
             angle_style harmonic
-            dihedral_style hybrid charmm opls
+            dihedral_style charmm
             improper_style harmonic
 
             pair_style lj/cut/tip4p/long 1 2 1 1 0.105 14.0

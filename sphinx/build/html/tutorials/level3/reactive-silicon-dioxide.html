@@ -245,15 +245,22 @@ it until it breaks. The reactive force field <em>reaxff</em> is used, and
 a particular attention is given to the evolution of the charges
 of the atoms during the deformation of the structure.</p>
 </div>
+<div class="justify docutils container">
+<p>The chemical reactions occurring due to the deformation
+are tracked and discussed.</p>
+</div>
 <p>If you are completely new to LAMMPS, I recommend you to follow this simpler tutorial first : <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard Jones fluid</span></a>.</p>
 <div class="patreon admonition">
 <p class="admonition-title">I provide personal assistance for LAMMPS projects</p>
 <p>See the <a class="reference internal" href="../../non-tutorials/contact-me.html#contact-label"><span class="std std-ref">Contact me</span></a> page.</p>
 </div>
+<div class="version docutils container">
+<p>This tutorial was tested with the <em>2Aug2023</em> LAMMPS version.</p>
+</div>
 <section id="relax-the-structure">
 <h2>Relax the structure<a class="headerlink" href="#relax-the-structure" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Create a folder, name it RelaxSilica/, and <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/silica.data" target="_blank">download</a>
+<p>Create a folder, name it <em>RelaxSilica/</em>, and <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/silica.data" target="_blank">download</a>
 the initial topology of a small amorphous silica structure.
 The system was created by temperature annealing using another force field
 (<a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>), therefore the structure is slightly
@@ -261,41 +268,30 @@ different to what is expected from the reaxff force field.
 For instance, the average bond lengths, angles, and charges
 are likely to be different, and the structure needs
 to be relaxed again using reaxff.</p>
-<p>If you are interested, the input file used for creating the initial topology is
-available <a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/input.lammps" target="_blank">here</a>, but its description is not part of this tutorial.</p>
-<p>The Atoms section of the <em>silica.data</em> file starts like that:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">Atoms</span><span class="w"> </span><span class="c"># full</span>
-
-<span class="m">132</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="m">0.55</span><span class="w"> </span><span class="m">1.722106654667303</span><span class="w"> </span><span class="m">6.0790786378597526</span><span class="w"> </span><span class="m">5.627968948336774</span><span class="w"> </span><span class="o">-</span><span class="m">6</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">5</span>
-<span class="m">172</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.1</span><span class="w"> </span><span class="m">5.755393150671698</span><span class="w"> </span><span class="m">3.31535305846982</span><span class="w"> </span><span class="m">1.0501387543709164</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">2</span>
-<span class="m">231</span><span class="w"> </span><span class="m">26</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="m">0.55</span><span class="w"> </span><span class="m">5.617126717910301</span><span class="w"> </span><span class="m">7.487471864752421</span><span class="w"> </span><span class="m">1.963810241571427</span><span class="w"> </span><span class="o">-</span><span class="m">16</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">-</span><span class="m">3</span>
-<span class="m">54</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="m">0.55</span><span class="w"> </span><span class="m">4.060884959755418</span><span class="w"> </span><span class="m">1.6283060986470597</span><span class="w"> </span><span class="m">4.297860218329581</span><span class="w"> </span><span class="o">-</span><span class="m">7</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="m">3</span>
-<span class="m">174</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.1</span><span class="w"> </span><span class="m">2.9926597997825395</span><span class="w"> </span><span class="m">2.0364512736354192</span><span class="w"> </span><span class="m">0.7520371846065788</span><span class="w"> </span><span class="o">-</span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="m">6</span><span class="w"> </span><span class="o">-</span><span class="m">7</span>
-<span class="m">180</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="m">0.55</span><span class="w"> </span><span class="m">3.18438907446254</span><span class="w"> </span><span class="m">2.5721052475107857</span><span class="w"> </span><span class="m">6.622363526485664</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">-</span><span class="m">12</span><span class="w"> </span><span class="m">1</span>
-<span class="m">121</span><span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="m">0.55</span><span class="w"> </span><span class="m">5.537222937373211</span><span class="w"> </span><span class="m">1.456250286791573</span><span class="w"> </span><span class="m">6.343752399466858</span><span class="w"> </span><span class="o">-</span><span class="m">9</span><span class="w"> </span><span class="o">-</span><span class="m">12</span><span class="w"> </span><span class="o">-</span><span class="m">4</span>
-<span class="m">111</span><span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.1</span><span class="w"> </span><span class="m">1.7279273441891305</span><span class="w"> </span><span class="m">7.28674041911877</span><span class="w"> </span><span class="m">6.669158065545038</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">-</span><span class="m">10</span><span class="w"> </span><span class="o">-</span><span class="m">2</span>
-<span class="m">51</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="m">0.55</span><span class="w"> </span><span class="m">5.366932941422638</span><span class="w"> </span><span class="m">4.1504125630630435</span><span class="w"> </span><span class="m">2.3740196532457105</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">3</span>
-<span class="m">202</span><span class="w"> </span><span class="m">23</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="m">0.55</span><span class="w"> </span><span class="m">7.313845702241226</span><span class="w"> </span><span class="m">3.321272888336706</span><span class="w"> </span><span class="m">3.777618751313188</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">-</span><span class="m">13</span>
-<span class="m">215</span><span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="m">0.55</span><span class="w"> </span><span class="m">6.690317849940269</span><span class="w"> </span><span class="m">5.754543737004929</span><span class="w"> </span><span class="m">4.103252634559489</span><span class="w"> </span><span class="o">-</span><span class="m">6</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span>
-<span class="m">183</span><span class="w"> </span><span class="m">21</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.1</span><span class="w"> </span><span class="m">1.777618482333677</span><span class="w"> </span><span class="m">6.145548171417662</span><span class="w"> </span><span class="m">3.999369841948803</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="o">-</span><span class="m">3</span>
-<span class="m">95</span><span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="m">0.55</span><span class="w"> </span><span class="m">4.561227581704491</span><span class="w"> </span><span class="m">2.3474960588346616</span><span class="w"> </span><span class="m">0.6330321107351076</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">6</span><span class="w"> </span><span class="m">3</span>
-<span class="m">105</span><span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="m">0.55</span><span class="w"> </span><span class="m">5.0710009155644125</span><span class="w"> </span><span class="m">3.8511969818510208</span><span class="w"> </span><span class="m">5.143556706337486</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">5</span>
-<span class="nv">(...)</span>
-</pre></div>
 </div>
 <div class="justify docutils container">
-<p>Due to the use of vashishta force field for creating the initial configuration,
-all silicon atoms have the same charge q = 1.1e,
-and all oxygen atoms the charge q = -0.55e. This is common to most
-classical force field. Let us keep that in mind before we start using <em>reaxff</em>.</p>
-<p>The first step is to relax the structure, which we are gonna do using molecular
-dynamics. To make sure that the system equilibrates nicely, let us track the
-changes in our system over time.</p>
-<p>Create an input file called input.lammps in RelaxSilica/, and copy in it:</p>
+<p>In case you are interested in the input creation, the input file
+used for creating the initial topology is available
+<a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/input.lammps" target="_blank">here</a>.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="justify docutils container">
+<p>If you open the <em>silica.data</em> file, you can see
+by looking at the Atoms section that
+all silicon atoms have the same charge <span class="math notranslate nohighlight">\(q = 1.1\,\text{e}\)</span>,
+and all oxygen atoms the charge <span class="math notranslate nohighlight">\(q = -0.55\,\text{e}\)</span>.
+This is common with classical force field, and will change once
+reaxff is used. Let us keep that in mind for now.</p>
+</div>
+<div class="justify docutils container">
+<p>The first step we need to perform here is to relax
+the structure, which we are gonna do using molecular
+dynamics. To make sure that the system equilibrates
+nicely, we will track the changes over time.</p>
+</div>
+<div class="justify docutils container">
+<p>Create an input file called <em>input.lammps</em> in <em>RelaxSilica/</em>,
+and copy the following lines in it:</p>
+</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 
@@ -305,47 +301,176 @@ changes in our system over time.</p>
 <span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">15.999</span><span class="w"> </span><span class="c"># O</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
-<p>So far, the input is very similar to what is seen in the other tutorials here,
-with some basic parameters being defined (<em>units</em>, <em>atom_style</em> and <em>masses</em>), and
-the data file being imported by the <em>read_data</em> command.
-Now let us enter 3 crucial lines:</p>
+<p>So far, the input is very similar to what was seen
+in the previous tutorials. Some basic parameters are
+defined (<em>units</em>, <em>atom_style</em> and <em>masses</em>), and
+the <em>.data</em> file is imported by the <em>read_data</em> command.
+Now let us enter 3 crucial lines in the <em>input.lammps</em> file:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_style</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">safezone</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mincap</span><span class="w"> </span><span class="m">150</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">reaxCHOFe.ff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myqeq</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">qeq</span><span class="o">/</span><span class="n">reaxff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">maxiter</span><span class="w"> </span><span class="m">400</span>
 </pre></div>
 </div>
+<div class="justify docutils container">
+<p>Here, the reaxff <em>pair_style</em> is used with no control file,
+and the <em>safezone</em> and <em>mincap</em> keywords have been added
+to avoid memory allocation issue. If not there, the segmentation
+faults and bondchk failed errors sometimes occur.</p>
 </div>
 <div class="justify docutils container">
-<p>Here, the reaxff <em>pair_style</em> is used with no control file, and the <em>safezone</em> and <em>mincap</em>
-keywords have been added for memory allocation issue. If not there, the segmentation
-faults and bondchk failed errors sometimes occur.</p>
 <p>The <em>pair_coeff</em> uses
-the <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a> file which is assumed to be saved in the
-same folder as the input. The atoms of type 1 are set as silicon (Si),
-and type 2 as oxygen (O) in order to be consistent with the data file and
-mass definition.</p>
-<p>Finally, the fix <em>qeq/reaxff</em> is used to perform charge equilibration every timestep. The values 0 and 10.0
-are low and high cutoffs, respectively, and <span class="math notranslate nohighlight">\(1.0 \text{e}-6\)</span> a tolerance. Finally, maxiter sets
-a limit to the number of attempt to equilibrate the charge.</p>
+the <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a> file which is assumed to be saved within <em>RelaxSilica/</em>.
+For consistency, the atoms of type 1 are set as silicon (Si),
+and the atoms of type 2 as oxygen (O).</p>
+</div>
+<div class="justify docutils container">
+<p>Finally, the <em>fix qeq/reaxff</em> is used to perform charge equilibration. The charge
+equilibration occurs at every step. The values 0 and 10.0
+are the low and the high cutoffs, respectively, and <span class="math notranslate nohighlight">\(1.0 \text{e}-6\)</span> is a
+tolerance. Finally, <em>maxiter</em> sets a upper limit to the number of attempt to
+equilibrate the charge.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Note</p>
 <p>If the charge does not
 properly equilibrate despite the 400 attempts, a warning will appear. Such warning
-are likely to appear if the initial charges are too far from equilibrium values.</p>
+are likely to appear at the beginning of the simulation if the initial charges
+are too far from the equilibrium values.</p>
 </div>
 <div class="justify docutils container">
-<p>Then, let us use some (familiar) commands controlling the building of the
-neighbor lists. Let us also print thermodynamic information, the charge of both atom types,
-and create a dump file for visualization.</p>
+<p>Then, let us add some commands to the <em>input.lammps</em> file to
+control the building of the neighbor lists:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">neighbor</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">bin</span>
+<span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Since the charges will evolve during the simulation,
+let us extract it using <em>variable</em> commands:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">grpSi</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
+<span class="k">group </span><span class="nv nv-Identifier">grpO</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
+<span class="k">variable </span><span class="nv nv-Identifier">totqSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">charge</span><span class="nv">(grpSi)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">totqO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">charge</span><span class="nv">(grpO)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">nSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(grpSi)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">nO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(grpO)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">qSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_totqSi</span><span class="o">/</span><span class="nv">${nSi}</span>
+<span class="k">variable </span><span class="nv nv-Identifier">qO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_totqO</span><span class="o">/</span><span class="nv">${nO}</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Let us also print the charge in the <em>.log</em> file by using <em>thermo_style</em>,
+and create a <em>.lammpstrj</em> file for visualization.
+Add the following lines to the <em>input.lammps</em>:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">10</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="n">v_qSi</span><span class="w"> </span><span class="n">v_qO</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Let us perform a very short run using anisotropic NPT command
+and relax the density of the system.</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">3482028</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
+
+<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>As the simulation runs, you can see that the charges of the atoms are fluctuating.
+The charge of every atom is actually adjusting to the local environnement.</p>
+</div>
+<figure class="align-default">
+<img alt="Charge of silica during equilibration with reaxff and LAMMPS" class="only-light" src="../../_images/average-charge-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="Charge of silica during equilibration with reaxff and LAMMPS" class="only-dark" src="../../_images/average-charge-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Average charge per atom of the silicon (a) and oxygen (b) atoms during equilibration.</p>
+</div>
+<div class="justify docutils container">
+<p>One can see that the charges of the atoms are strongly fluctuating
+at the beginning of the simulation. This strong fluctuation correlate
+with a large volume change of the box.</p>
+</div>
+<figure class="align-default">
+<img alt="volume of the system with reaxff and LAMMPS" class="only-light" src="../../_images/volume-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="volume of the system with reaxff and LAMMPS" class="only-dark" src="../../_images/volume-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Volume of the system as a function of time.</p>
+</div>
+<div class="justify docutils container">
+<p>Since each atom has a charge that depends on its local environnement,
+the charge values are distributed around a mean value. We can plot
+the charge distribution <span class="math notranslate nohighlight">\(P(q)\)</span>, using the charge values printed in
+the <em>.lammptrj</em> file. To do so, a custom <em>Python</em> script
+was written, you can download the notebook by clicking <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/plot_distribution.ipynb" target="_blank">here</a>.</p>
+</div>
+<figure class="align-default">
+<img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-light" src="../../_images/distribution-charge-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-dark" src="../../_images/distribution-charge-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Probability distribution of charge of silicon (positive, blue)
+and oxygen (negative, orange) atoms during equilibration.</p>
+</div>
+<div class="justify docutils container">
+<p>Using VMD and coloring the atoms by their charges, one can see that
+the atoms with the extreme-most charges are located at defects in the
+amorphous structure (here at the positions of the dandling oxygen groups).</p>
+</div>
+<figure class="align-default">
+<img alt="Amorphous silica colored by charges using VMD" class="only-light" src="../../_images/silicon-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="Amorphous silica colored by charges using VMD" class="only-dark" src="../../_images/silicon-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Amorphous silica colored by charges using VMD. Dandling oxygen groups appear in green.
+To color the atoms by their charge in VMD, use <em>Charge</em> as coloring method in the
+representation windows, and then tune the <em>Color scale</em> in the <em>Color control windows</em>.</p>
+</div>
+</section>
+<section id="deform-the-structure">
+<h2>Deform the structure<a class="headerlink" href="#deform-the-structure" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Let us apply a deformation to the structure in order to
+force some <span class="math notranslate nohighlight">\(\text{Si}-\text{O}\)</span> bonds to break and/or re-assemble.</p>
+<p>Next to <em>RelaxSilica/</em>, create a folder, call it <em>Deform/</em> and create a
+file named <em>input.lammps</em> in it. Copy the same lines
+as previously in input.lammps*:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+
+<span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">RelaxSilica</span><span class="o">/</span><span class="n">silica</span><span class="o">-</span><span class="n">relaxed.data</span>
+
+<span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">28.0855</span><span class="w"> </span><span class="c"># Si</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">15.999</span><span class="w"> </span><span class="c"># O</span>
+
+<span class="k">pair_style</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">safezone</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mincap</span><span class="w"> </span><span class="m">150</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">RelaxSilica</span><span class="o">/</span><span class="n">reaxCHOFe.ff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myqeq</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">qeq</span><span class="o">/</span><span class="n">reaxff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">maxiter</span><span class="w"> </span><span class="m">400</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The only differences with the previous <em>input.lammps</em> file
+are the paths to the <em>.data</em> and <em>.ff</em>
+files located within <em>RelaxSilica/</em>.
+Copy the following lines as well:</p>
+</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">neighbor</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">bin</span>
 <span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
 
@@ -359,197 +484,90 @@ and create a dump file for visualization.</p>
 <span class="k">variable </span><span class="nv nv-Identifier">qO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_totqO</span><span class="o">/</span><span class="nv">${nO}</span>
 
 <span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span>
-<span class="k">thermo</span><span class="w"> </span><span class="m">10</span>
-<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="n">v_qSi</span><span class="w"> </span><span class="n">v_qO</span>
-</pre></div>
-</div>
-</div>
-<div class="justify docutils container">
-<p>Let us perform a very short run using anisotropic NPT command
-and relax the density of the system.</p>
-</div>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in RelaxSilica/input.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">3482028</span>
-<span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">100</span>
-<span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
-
-<span class="k">run</span><span class="w"> </span><span class="m">2000</span>
-</pre></div>
-</div>
-</div>
-<div class="info admonition">
-<p class="admonition-title">Note</p>
-<p>Here, I choose values of 10 fs for the temperature damping parameter and 100 fs
-for the pressure. These choices were made to reach equilibrium faster and
-allow very short run to be performed. For an actual simulation (and not a tutorial),
-longer equilibration and larger damping times should be used (100 fs and 1000 fs
-for temperature and pressure respectively are usually used for atomic systems).</p>
-</div>
-<div class="justify docutils container">
-<p>As the simulation runs, you can see that the charges of the atoms are fluctuating,
-as the atoms adjust themselves to the topology:</p>
-</div>
-<figure class="align-default">
-<img alt="Charge of silica during equilibration with reaxff and LAMMPS" class="only-light" src="../../_images/average-charge-light.png" />
-</figure>
-<figure class="align-default" id="id5">
-<img alt="Charge of silica during equilibration with reaxff and LAMMPS" class="only-dark" src="../../_images/average-charge-dark.png" />
-<figcaption>
-<p><span class="caption-text">Average charge of the silicon (Si) atoms during equilibration using reaxff.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<div class="justify docutils container">
-<p>Moreover, and because each atom adopts its own fluctuating charge value,
-the charges are distributed around a mean value:</p>
-</div>
-<figure class="align-default">
-<img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-light" src="../../_images/distribution-charge-light.png" />
-</figure>
-<figure class="align-default" id="id6">
-<img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-dark" src="../../_images/distribution-charge-dark.png" />
-<figcaption>
-<p><span class="caption-text">Distribution of charge of silicon (positive) and oxygen (negative) atoms during equilibration. The data
-were extracted from the dump.lammpstrj file using python, you can
-download this <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/plot_distribution.ipynb" target="_blank">notebook</a> to plot the charge distribution using Python, NumPy, and Matplotlib.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<div class="justify docutils container">
-<p>Using VMD and coloring the atoms by their charges, one can see that
-the atoms with the extreme-most charges are located at defects in the
-amorphous structure (here at the positions of the dandling oxygen groups):</p>
-</div>
-<figure class="align-default">
-<img alt="Amorphous silica colored by charges using VMD" class="only-light" src="../../_images/silicon-light.png" />
-</figure>
-<figure class="align-default" id="id7">
-<img alt="Amorphous silica colored by charges using VMD" class="only-dark" src="../../_images/silicon-dark.png" />
-<figcaption>
-<p><span class="caption-text">Amorphous silica colored by charges using VMD. Dandling oxygen groups appear in green.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<div class="justify docutils container">
-<p>Note for VMD user: to color the atoms by their charge, use <em>Charge</em> as coloring method in the
-representation windows, and then tune the <em>Color scale</em> in the <em>Color control windows</em>.</p>
-</div>
-</section>
-<section id="deform-the-structure">
-<h2>Deform the structure<a class="headerlink" href="#deform-the-structure" title="Link to this heading">#</a></h2>
-<div class="justify docutils container">
-<p>Let us apply a deformation to the structure in order to force some bonds
-to dynamically break and reassemble.</p>
-<p>Next to <em>RelaxSilica/</em>, create a folder, call it <em>Deform/</em> and create a
-file named input.lammps in it. Copy the following lines:</p>
-</div>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Deform/input.lammps</em></span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># SiO amorphous silica deformed with reaxff potential</span>
-
-<span class="k">units</span><span class="w"> </span><span class="n">real</span>
-<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
-
-<span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">RelaxSilica</span><span class="o">/</span><span class="n">silica</span><span class="o">-</span><span class="n">relaxed.data</span>
-
-<span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">28.0855</span><span class="w"> </span><span class="c"># Si</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">15.999</span><span class="w"> </span><span class="c"># O</span>
-
-<span class="k">pair_style</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">safezone</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mincap</span><span class="w"> </span><span class="m">150</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">RelaxSilica</span><span class="o">/</span><span class="n">reaxCHOFe.ff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myqeq</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">qeq</span><span class="o">/</span><span class="n">reaxff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">maxiter</span><span class="w"> </span><span class="m">400</span>
-
-<span class="k">neighbor</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">bin</span>
-<span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
-
-<span class="k">group </span><span class="nv nv-Identifier">grpSi</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
-<span class="k">group </span><span class="nv nv-Identifier">grpO</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
-<span class="k">variable </span><span class="nv nv-Identifier">totqSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">charge</span><span class="nv">(grpSi)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">totqO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">charge</span><span class="nv">(grpO)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">nSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(grpSi)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">nO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(grpO)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">qSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_totqSi</span><span class="o">/</span><span class="nv">${nSi}</span>
-<span class="k">variable </span><span class="nv nv-Identifier">qO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_totqO</span><span class="o">/</span><span class="nv">${nO}</span>
-
-<span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump</span><span class="o">-</span><span class="n">deform.lammpstrj</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">100</span>
 <span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="n">v_qSi</span><span class="w"> </span><span class="n">v_qO</span>
-
-<span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">100</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then, let us use <em>fix nvt</em> instead of <em>fix npt</em> to apply a
+thermostat, but no barostat because the box deformations
+will be imposed.</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">100</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
-
-<span class="k">run</span><span class="w"> </span><span class="m">2000</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then, let us use run for 5000 steps,
+then apply the <em>fix deform</em> for elongating
+progressively the box along <em>x</em>. Let us apply
+fix deform during 25000 steps.
+Add the following line to <em>input.lammps</em>:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">5000</span>
 
 <span class="k">fix </span><span class="nv nv-Identifier">mydef</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">deform</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">erate</span><span class="w"> </span><span class="m">5e-5</span>
 
 <span class="k">run</span><span class="w"> </span><span class="m">25000</span>
-<span class="k">unfix </span><span class="nv nv-Identifier">mydef</span>
-<span class="k">undump </span><span class="nv nv-Identifier">dmp</span>
-
-<span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span>
-
-<span class="k">run</span><span class="w"> </span><span class="m">2000</span>
 
 <span class="k">write_data </span><span class="nv nv-Identifier">silica-deformed.data</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
-<p>The main differences with the previous input are</p>
-<ul class="simple">
-<li><p>the use of fix deform for elongating progressively the box along x,</p></li>
-<li><p>the use of fix NVT instead of NPT (because the box deformation is already ensured by fix deform).</p></li>
-</ul>
-<p>After a first run of 25000 steps, a short run of 2000 steps is performed
-in order to extract the final charges of the atoms from an structure that is not
-under deformation.</p>
-<p>During the deformation, the charges progressively changes, until the structure eventually
-breaks up. After the structure breaks, the charges equilibrates near a new
-average value that differs from the starting charge, which is expected due to the
-presence of the new solid/vacuum interface:</p>
+<p>During the deformation, the charges progressively change until the structure eventually
+breaks up. After the structure breaks, the charges equilibrate near new
+mean values that differ from the starting charges. The difference between
+the initial and the final charge can be explained by
+presence of a new solid/vacuum interface (surface atoms have different charges
+compared to bulk atoms).</p>
 </div>
 <figure class="align-default">
 <img alt="Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff" class="only-light" src="../../_images/deformed-charge-light.png" />
 </figure>
-<figure class="align-default" id="id9">
+<figure class="align-default">
 <img alt="Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff" class="only-dark" src="../../_images/deformed-charge-dark.png" />
-<figcaption>
-<p><span class="caption-text">Charge of silica during deformation of the silicon oxide block using LAMMPS and reaxff. The vertical
-dashed lines show the limit of the 3 consecutive runs of respective durations; 2000 steps (or 1000 fs),
-25000 steps, and 2000 steps.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
-</figcaption>
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Average charge per atom of the silicon (a) and oxygen (b).
+The vertical dashed lines marks the beginning of the deformation.</p>
+</div>
 <div class="justify docutils container">
-<p>At the end of the deformation,  one can visualize the broken material. Notice
-the different charge of the atoms located near the interface and compared to the
-atoms located in the bulk of the material:</p>
+<p>At the end of the deformation, one can visualize the broken material using VMD.
+Notice the different charge of the atoms located near the interface, compared to the
+atoms located in the bulk of the material.</p>
 </div>
 <figure class="align-default">
 <img alt="Deformed amorphous silica colored by charges using VMD" class="only-light" src="../../_images/deformed-light1.png" />
 </figure>
-<figure class="align-default" id="id10">
+<figure class="align-default">
 <img alt="Deformed amorphous silica colored by charges using VMD" class="only-dark" src="../../_images/deformed-dark1.png" />
-<figcaption>
-<p><span class="caption-text">Amorphous silicon oxide after deformation. The atoms are colored by charges using VMD.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
-</figcaption>
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Amorphous silicon oxide after deformation. The atoms are colored by
+charges using VMD.</p>
+</div>
 <div class="justify docutils container">
-<p>One O2 molecule was formed during the process (here appearing in green),
-most likely because the rate of deformation was really high.</p>
-<p>One can have a look at the final charge distribution:</p>
+<p>One oxygen (<span class="math notranslate nohighlight">\(\text{O}_2\)</span>) molecule was formed during the
+process most likely because the rate of deformation was very high.</p>
+</div>
+<div class="justify docutils container">
+<p>One can have a look at the final charge distribution, and compare it
+to the previously measured charge distribution.</p>
 </div>
 <figure class="align-default">
 <img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-light" src="../../_images/deformed-distribution-charge-light.png" />
 </figure>
-<figure class="align-default" id="id11">
+<figure class="align-default">
 <img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-dark" src="../../_images/deformed-distribution-charge-dark.png" />
-<figcaption>
-<p><span class="caption-text">Distribution of charge of silica (positive) and oxygen (negative) after deformation.
-The small dots correspond are the charge measured with the previous undeformed
-structure. Notice the difference near q=-0.5e and q=1.25e.</span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
-</figcaption>
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Distribution of charge of silicon (positive, blue) and oxygen (negative, orange)
+after deformation. The small dots correspond to the charges of the previous undeformed
+structure.</p>
+</div>
 <div class="justify docutils container">
-<p>The final charge distribution differs from the previously calculated, as a new peak
-near -0.5e for the oxygen.</p>
+<p>The final charge distribution differs from the previously calculated. For instance
+there is a new peak near <span class="math notranslate nohighlight">\(q=-0.5\,\text{e}\)</span> in the case of the oxygen atoms.</p>
 </div>
 </section>
 <section id="add-o2-molecules">
@@ -559,8 +577,8 @@ near -0.5e for the oxygen.</p>
 and extract the charge density profile along the x axis.</p>
 <p>Create a new folder, name it AddOxygen/, and create a new molecule file named O2.mol in it:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/O2.mol</em></span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/O2.mol</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># O2 reaxff file</span>
 
 <span class="m">2</span><span class="w"> </span><span class="n">atoms</span>
@@ -588,8 +606,8 @@ connected by any bond (because there is no need with reaxff).</p>
 <p>Then, create a new input.lammps file, and copy the same first lines as
 previously in it:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 
@@ -612,8 +630,8 @@ previously in it:</p>
 for the shift may be different in your case. This step is not necessary, but the
 recentered system looks better.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">displace_atoms </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="o">-</span><span class="m">13</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="n">box</span>
 </pre></div>
 </div>
@@ -623,8 +641,8 @@ recentered system looks better.</p>
 The overlap and maxtry keywords allow us to prevent overlapping
 between the atoms:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">O2mol</span><span class="w"> </span><span class="n">O2.mol</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">456415</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">O2mol</span><span class="w"> </span><span class="m">454756</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 </pre></div>
@@ -636,8 +654,8 @@ very safe for the present system. Smaller values may lead to molecules being
 too close from each others.</p>
 <p>Finally, let us minimize the energy of the system, and run for a relatively long time:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in AddOxygen/input.lammps</em></span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
 <span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 
@@ -667,10 +685,10 @@ too close from each others.</p>
 <figure class="align-default">
 <img alt="Silicon oxide with additional O2 molecules" class="only-light" src="../../_images/O2_light.png" />
 </figure>
-<figure class="align-default" id="id17">
+<figure class="align-default" id="id6">
 <img alt="Silicon oxide with additional O2 molecules" class="only-dark" src="../../_images/O2_dark.png" />
 <figcaption>
-<p><span class="caption-text">Deformed structure with additional O2 molecules</span><a class="headerlink" href="#id17" title="Link to this image">#</a></p>
+<p><span class="caption-text">Deformed structure with additional O2 molecules</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>You can access all the input scripts and data files that
@@ -695,10 +713,10 @@ Hydrogen atoms can be added using <em>create_atoms</em> command, <em>gcmc</em>, 
 <figure class="align-default">
 <img alt="Silicon oxide decorated with hydrogens" class="only-light" src="../../_images/exercice-light.png" />
 </figure>
-<figure class="align-default" id="id18">
+<figure class="align-default" id="id7">
 <img alt="Silicon oxide decorated with hydrogens" class="only-dark" src="../../_images/exercice-dark.png" />
 <figcaption>
-<p><span class="caption-text">Hydrogen atoms are in white, oxygen in red, and silicon in yellow.</span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
+<p><span class="caption-text">Hydrogen atoms are in white, oxygen in red, and silicon in yellow.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="dropdown admonition">
