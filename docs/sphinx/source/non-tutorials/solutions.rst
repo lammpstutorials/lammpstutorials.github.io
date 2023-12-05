@@ -291,6 +291,64 @@ Add salt to the mixture
 Nanosheared electrolyte
 =======================
 
+Make a hydrophobic nanopore
+---------------------------
+
+.. container:: justify
+
+    By default, the walls are very hydrophilic due to the 
+    *pair_coeff* that are in use:
+
+..  code-block:: lammps
+
+    pair_coeff 1 1 0.185199 3.1589 # water
+    (...)
+    pair_coeff 5 5 11.697 2.574 # wall
+
+.. container:: justify
+
+    LAMMPS calculate the cross-coefficient between water and wall 
+    using geometric average, so
+    :math:`\epsilon_\text{1-5} = (0.185199+11.697)/2 = 5.941\,\text{kcal/mol}` and
+    :math:`\sigma_\text{1-5} = (3.1589+2.574)/2 = 2.866\,\text{Å}`.
+
+.. container:: justify
+
+    The value :math:`\epsilon_\text{1-5} = 5.941\,\text{kcal/mol}` is extremely high 
+    (compare to the water-water energy :math:`\epsilon_\text{1-1} = 0.185199\,\text{kcal/mol}`),
+    which is the reason for the extremely hydrophilic surfaces.
+
+.. container:: justify
+
+    The walls can be made more hydrophobic by reducing the 
+    LJ energy of interaction :math:`\epsilon_\text{1-5}`.
+    This can be done by writing a new line for the *pair_coeff* between
+    atoms of type 1 (water oxygen) and wall (type 5):
+
+..  code-block:: lammps
+
+    pair_coeff 1 5 0.0059411 2.86645
+
+.. container:: justify
+
+    Here I choose to reduce :math:`\epsilon_\text{1-5}` by a factor of 1000,
+    which makes it lower than the water-water energy :math:`\epsilon_\text{1-1}`,
+    thus making the walls more hydrophobic.
+
+.. figure:: ../tutorials/figures/level2/nanosheared-electrolyte/hydrophobic-pore-light.png
+    :alt: hydrophobic vs hydrophilic pores : density profiles
+    :class: only-light
+
+.. figure:: ../tutorials/figures/level2/nanosheared-electrolyte/hydrophobic-pore-dark.png
+    :alt: hydrophobic vs hydrophilic pores : density profiles
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Density profile for the water along the *z* axis
+    comparing the original hydrophilic pore with the hydrophobic pore 
+    with :math:`\epsilon_\text{1-5} = 0.005941\,\text{kcal/mol}`.
+
 Induce a Poiseuille flow
 ------------------------
 
@@ -302,7 +360,8 @@ Induce a Poiseuille flow
     
 .. container:: justify
 
-    To do so, here are the most important commands used to properly thermalize the system:
+    To do so, here are the most important commands used to properly
+    thermalize the system:
 
 ..  code-block:: lammps
         
@@ -316,7 +375,8 @@ Induce a Poiseuille flow
 
 .. container:: justify
 
-    Here, since walls wont move, they can be thermalized in all 3 directions and there is
+    Here, since walls wont move, they can be thermalized in all
+    3 directions and there is
     no need for recentering. Instead, one can keep the walls 
     in place by adding springs to every atom:
 
