@@ -1,7 +1,7 @@
 .. _vmd-label:
 
-Make gorgeous image
-*******************
+VMD tutorial
+************
 
 .. container:: hatnote
 
@@ -9,20 +9,20 @@ Make gorgeous image
 
 .. container:: justify
 
-    VMD is a great free software that has been used for all the snapshots
-    in this website. Here I provide some tips to make good looking picture
-    of molecular systems.
+    VMD is a great free software that has been used for all the images of molecular dynamics systems
+    of LAMMPS tutorials. Here I provide some tips to make good looking pictures
+    of molecular systems
 
 Practical example
 =================
 
-.. figure:: figures/make-gorgeous-image/video-avatar-dark.webp
+.. figure:: ../figures/vmd/video-avatar-dark.webp
     :alt: Image of the lammps polymer-water system generated with VMD visual representation 
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: figures/make-gorgeous-image/video-avatar-light.webp
+.. figure:: ../figures/vmd/video-avatar-light.webp
     :alt: Image of the lammps polymer-water system generated with VMD visual representation 
     :height: 250
     :align: right
@@ -36,7 +36,7 @@ Practical example
 
 .. |dump_download| raw:: html
 
-   <a href="../../../../inputs/miscellaneous/vmd/dump.lammpstrj" target="_blank">download</a>
+   <a href="../../../../../inputs/miscellaneous/vmd/dump.lammpstrj" target="_blank">download</a>
 
 ..  code-block:: bash
     
@@ -48,11 +48,11 @@ Practical example
 
     This is what I see:
 
-.. figure:: figures/make-gorgeous-image/step1-dark.png
+.. figure:: ../figures/vmd/step1-dark.png
     :alt: VMD tutorial for LAMMPS
     :class: only-dark
 
-.. figure:: figures/make-gorgeous-image/step1-light.png
+.. figure:: ../figures/vmd/step1-light.png
     :alt: VMD tutorial for LAMMPS
     :class: only-light
 
@@ -80,11 +80,11 @@ The representation
 
     This is what I see:
 
-.. figure:: figures/make-gorgeous-image/step2-dark.png
+.. figure:: ../figures/vmd/step2-dark.png
     :alt: VMD tutorial for LAMMPS
     :class: only-dark
 
-.. figure:: figures/make-gorgeous-image/step2-light.png
+.. figure:: ../figures/vmd/step2-light.png
     :alt: VMD tutorial for LAMMPS
     :class: only-light
 
@@ -112,11 +112,11 @@ The colors
 
     This is what I see:
 
-.. figure:: figures/make-gorgeous-image/step3-dark.png
+.. figure:: ../figures/vmd/step3-dark.png
     :alt: VMD tutorial for LAMMPS
     :class: only-dark
 
-.. figure:: figures/make-gorgeous-image/step3-light.png
+.. figure:: ../figures/vmd/step3-light.png
     :alt: VMD tutorial for LAMMPS
     :class: only-light
 
@@ -147,11 +147,11 @@ The materials
 
     This is what I see:
 
-.. figure:: figures/make-gorgeous-image/step4-dark.png
+.. figure:: ../figures/vmd/step4-dark.png
     :alt: VMD tutorial for LAMMPS
     :class: only-dark
 
-.. figure:: figures/make-gorgeous-image/step4-light.png
+.. figure:: ../figures/vmd/step4-light.png
     :alt: VMD tutorial for LAMMPS
     :class: only-light
 
@@ -234,10 +234,10 @@ High quality movie
 
     This is what I made:
 
-.. figure:: figures/make-gorgeous-image/video-vmd-dark.webp
+.. figure:: ../figures/vmd/video-vmd-dark.webp
     :alt: VMD tutorial for LAMMPS
     :class: only-dark
 
-.. figure:: figures/make-gorgeous-image/video-vmd-light.webp
+.. figure:: ../figures/vmd/video-vmd-light.webp
     :alt: VMD tutorial for LAMMPS
     :class: only-light

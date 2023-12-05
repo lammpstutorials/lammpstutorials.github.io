@@ -42,7 +42,7 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     :caption: Extra content
 
     non-tutorials/solutions.rst
-    miscellaneous/make-gorgeous-image.rst
+    tutorials/vmd/vmd-tutorial.rst
     miscellaneous/use-gromacs-instead.rst
 
 Indices and tables
