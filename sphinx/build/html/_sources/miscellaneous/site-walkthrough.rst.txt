@@ -1,22 +1,23 @@
 Site walkthrough
 ****************
 
-The tutorials for LAMMPS are grouped by level, 0 being absolute beginners. 
-All tutorials are independent from the others.
+..  container:: justify
+
+    The tutorials are grouped by level, *Level 1* being LAMMPS beginners. 
+    Although the tutorials are independent from each other, 
+    it is recommended to follow them in the order that is proposed
+    since the level of difficulty is progressively increasing.
 
 .. include:: ../contact/accessfile.rst
 
-Level 0: absolute beginners
----------------------------
+Level 1: beginners
+------------------
 
 * :ref:`lennard-jones-label`
     * required softwares
     * simulation of neutral dots
     * use of classic NVT ensemble
     * overview of some basic LAMMPS aspect (input, trajectory, restart, etc.)
-
-Level 1: beginners
-------------------
 
 * :ref:`carbon-nanotube-label`
     * use of reactive force field

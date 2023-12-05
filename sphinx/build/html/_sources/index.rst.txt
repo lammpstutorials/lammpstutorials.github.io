@@ -12,14 +12,9 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
 
 .. toctree::
     :maxdepth: 2
-    :caption: Level 0
-
-    tutorials/level0/lennard-jones-fluid.rst
-
-.. toctree::
-    :maxdepth: 2
     :caption: Level 1
 
+    tutorials/level1/lennard-jones-fluid.rst
     tutorials/level1/breaking-a-carbon-nanotube.rst
 
 .. toctree::
