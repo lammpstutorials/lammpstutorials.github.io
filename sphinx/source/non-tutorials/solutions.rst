@@ -364,7 +364,7 @@ Induce a Poiseuille flow
 
 .. container:: justify
 
-    Where :math:`F_\text{rho} = f \time \rho` is the force per unit volume of fluid,
+    Where :math:`F_\text{rho} = f \times \rho` is volume force,
     :math:`\eta` the fluid viscosity,
     :math:`h = 1.6\,\text{nm}` the pore size.
     A small correction :math:`\alpha = 0.78` was used. This correction 
