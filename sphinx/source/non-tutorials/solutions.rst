@@ -338,6 +338,8 @@ Induce a Poiseuille flow
 
     One can have a look at the velocity profiles. The fluid shows the characteristic
     parabolic shape of Poiseuille flow in the case of a non-slip solid surface.
+    To obtain a a smooth curve, I ran the simulation for a total duration of :math:`1\,\text{ns}` which takes time. 
+    You can use a lower duration like :math:`100\,\text{ps}` and still obtain reasonable results.
 
 .. figure:: ../tutorials/figures/level2/nanosheared-electrolyte/shearing-poiseuille-light.png
     :alt: Velocity of the fluid forming a Poiseuille flow
