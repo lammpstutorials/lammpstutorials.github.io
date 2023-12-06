@@ -24,41 +24,39 @@
 units real
 atom_style full
 
-read_data ../Deform/silica-deformed.data
-
-mass 1 28.0855 # Si
-mass 2 15.999 # O
+read_data silica-deformed.data
 
 pair_style reaxff NULL safezone 3.0 mincap 150
-pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O
+pair_coeff * * ../../RelaxSilica/reaxCHOFe.ff Si O H
 fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
-
-neighbor 0.5 bin
-neigh_modify every 5 delay 0 check yes 
 
 displace_atoms all move -13 0 0 units box
 
-molecule O2mol O2.mol
-create_atoms 0 random 10 456415 NULL mol O2mol 454756 overlap 3.0 maxtry 50
+create_atoms 3 random 10 456415 NULL overlap 3.0 maxtry 50
 
 minimize 1.0e-4 1.0e-6 100 1000
 reset_timestep 0
 
 group grpSi type 1
 group grpO type 2
+group grpH type 3
 variable totqSi equal charge(grpSi)
 variable totqO equal charge(grpO)
+variable totqH equal charge(grpH)
 variable nSi equal count(grpSi)
 variable nO equal count(grpO)
+variable nH equal count(grpH)
 variable qSi equal v_totqSi/${nSi}
 variable qO equal v_totqO/${nO}
+variable qH equal v_totqH/${nH}
 
-dump dmp all custom 1000 dump.lammpstrj id type q x y z
-thermo 1000
-thermo_style custom step temp etotal press vol v_qSi v_qO
+dump dmp all custom 100 dump.lammpstrj id type q x y z
+thermo 5
+thermo_style custom step temp etotal press vol v_qSi v_qO v_qH
+fix myspec all reaxff/species 5 1 5 species.log element Si O H
 
 fix mynvt all nvt temp 300.0 300.0 100
 timestep 0.5 
 
-run 100000
+run 5000
 
