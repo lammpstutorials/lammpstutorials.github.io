@@ -667,25 +667,9 @@ Side note: on the choice of k
 Going further with exercises
 ============================
 
-.. include:: ../../contact/accesssolution.rst
+.. container:: justify
 
-.. 
-    .. include::  ../../contact/requestsolution.rst
-            
-    Monte Carlo versus molecular dynamics
-    -------------------------------------
-
-    ..  container:: justify
-
-        Use a Monte Carlo procedure to equilibrate the system
-        instead of molecular dynamics. 
-        
-        Is it more computationally efficient than molecular dynamics?
-
-    .. admonition:: Hints (click to reveal)
-        :class: dropdown
-
-        Monte Carlo displacement can be made using the fix gcmc command.
+    A solution for each exercise is provided here: :ref:`solutions-label`. 
 
 The binary fluid that wont mix
 ------------------------------
@@ -697,7 +681,7 @@ The binary fluid that wont mix
     Create a molecular simulation with two species of respective types 1 and 2.
     Apply different potentials :math:`U1` and :math:`U2` on particles of types 1 and 2, respectively,
     so that particles of type 1 are excluded from the center of the box, while at the same time particles
-    of type 2 are excluded from the rest of the box, as seen here:
+    of type 2 are excluded from the rest of the box.
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice2-light.png
     :alt: Particles of type 1 and 2 separated by two different potentials
@@ -707,50 +691,16 @@ The binary fluid that wont mix
     :alt: Particles of type 1 and 2 separated by two different potentials
     :class: only-dark
 
-.. admonition:: Solution
-    :class: dropdown
+..  container:: figurelegend
 
-    ..  container:: justify
-
-        One possibility is to create two groups, here named *t1* and *t2*,
-        and apply the two potentials *U1* and *U2* to each group, respectively. 
-        To to so, two separate *fix addforce* are used:
-
-    ..  code-block:: lammps
-        
-        group t1 type 1
-        variable U1 atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
-        variable F1 atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
-        fix myadf1 t1 addforce v_F1 0.0 0.0 energy v_U1
-        fix_modify myadf1 energy yes
-
-        group t2 type 2
-        variable U2 atom -${U0}*atan((x+${x0})/${dlt})+${U0}*atan((x-${x0})/${dlt})
-        variable F2 atom -${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}+${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
-        fix myadf2 t2 addforce v_F2 0.0 0.0 energy v_U2
-        fix_modify myadf2 energy yes
-
-    ..  container:: justify
-
-        On the side note, in the above image, created 60 particles of each type, and gave them the exact same 
-        properties using:
-
-    ..  code-block:: lammps
-
-        mass * 39.95
-        pair_coeff * * ${epsilon} ${sigma}
-
-    ..  container:: justify
-
-        Feel free to insert some size or mass asymmetry in the mixture, and test how/if
-        it impacts the potential.
+    Figure: Particles of type 1 and 2 separated by two different potentials.
 
 ..  container:: justify
 
     **2 - Measure the PMFs**
 
     Using the same protocole as the one used in the tutorial (i.e. umbrella sampling with the wham algorithm),
-    extract the PMF for each particle type:
+    extract the PMF for each particle type.
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice-binary-light.png
     :alt: PMF in the presence of binary species
@@ -760,7 +710,9 @@ The binary fluid that wont mix
     :alt: PMF in the presence of binary species
     :class: only-dark
 
-    PMFs calculated for both atom types. 
+..  container:: figurelegend
+
+    Figure: PMFs calculated for both atom types. 
 
 Particles under convection
 --------------------------
@@ -768,12 +720,13 @@ Particles under convection
 ..  container:: justify
 
     Use a similar simulation as the one from the tutorial, with a repulsive potential in the center
-    of the box. Add a forcing to the particles and force them to flow in the :math:`x` direction.
+    of the box. Add an additional forcing to the particles and force them to flow
+    in the :math:`x` direction.
 
-    Re-measure the potential in presence of the net convection of particles. You should see the 
-    potential getting tilted as a consequence of the additional force that makes it easier for 
-    the particles to cross the potential in one of the direction. The barrer will also 
-    reduced. 
+..  container:: justify
+
+    Re-measure the potential in presence of the flow, and observe the difference
+    with the reference case in absence of flow.
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice-convection-light.png
     :alt: PMF in the presence of forcing
@@ -783,29 +736,10 @@ Particles under convection
     :alt: PMF in the presence of forcing
     :class: only-dark
 
-    PMF calculated in the presence of a net forcing inducing the convection of the particles 
-    from left to right. 
+..  container:: figurelegend
 
-.. admonition:: Solution
-    :class: dropdown
-
-    ..  container:: justify
-
-        Add a forcing to all the particles using:
-
-    ..  code-block:: lammps
-
-        fix myconv all addforce 2e-6 0 0
-
-    ..  container:: justify
-
-        It is crutial to choose a forcing that is not *too large*, or the simulation may crash. 
-        A forcing that is *too weak* wont have any effect on the PMF.  
-.. 
-    ..  container:: justify
-
-        Optional: use particle swapping to exchange between the 2 populations and reach 
-        equilibrium faster than with simple molecular dynamics.
+    Figure: PMF calculated in the presence of a net forcing inducing
+    the convection of the particles from left to right. 
 
 Surface adsorption of a molecule
 --------------------------------
@@ -813,12 +747,28 @@ Surface adsorption of a molecule
 ..  container:: justify
 
     Apply umbrella sampling to calculate the free energy profile
-    of ethanol in the direction normal to a crystal solid surface (here made of sodium chloride). 
-    Find the |topology-ethanol|,
-    |parameter-ethanol|, 
-    and a |input-ethanol|.
+    of ethanol in the direction normal to a crystal solid surface
+    (here made of sodium chloride). Find the |topology-ethanol| and |parameter-ethanol|.
 
-    The PMF normal to a wall indicates the free energy of adsorption, which is
+..  container:: justify
+
+    Use the following lines for starting the *input.lammps*:
+
+..  code-block:: lammps
+
+    units real # style of units (A, fs, Kcal/mol)
+    atom_style full # molecular + charge
+    bond_style harmonic
+    angle_style harmonic
+    dihedral_style harmonic
+    boundary p p p # periodic boundary conditions
+    pair_style lj/cut/coul/long 10 # cut-off 1 nm
+    kspace_style pppm 1.0e-4
+    pair_modify mix arithmetic tail yes # eij = sqrt(ei*ej), dij = 0.5*(di+dj)
+
+..  container:: justify
+
+    The PMF normal to a solid wall serves to indicate the free energy of adsorption, which is
     calculated from the difference between the PMF far from the surface, and the 
     PMF at the wall.
 
@@ -830,11 +780,14 @@ Surface adsorption of a molecule
     :alt: Ethanol molecule next to NaCl
     :class: only-dark
 
+..  container:: figurelegend
+
+    Figure: A single ethanol molecule next to a crystal NaCl(100) wall.
+
 ..  container:: justify
 
-    The PMF looks like that, with the position of the wall being near :math:`x=0`.
-    The PMF mimina near the solid surface indicates the good affinity of the wall with 
-    the molecule.
+    The PMF shows a mimina near the solid surface, which indicates a good
+    affinity between the wall and the molecule.
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice-ethanol-light.png
     :alt: PMF for ethanol molecule next to NaCl
@@ -844,20 +797,18 @@ Surface adsorption of a molecule
     :alt: PMF for ethanol molecule next to NaCl
     :class: only-dark
 
-    PMF for a single ethanol molecule next to a NaCl solid surface.
+..  container:: figurelegend
+
+    Figure: PMF for a single ethanol molecule next to a NaCl
+    solid surface. The position of the wall is in :math:`x=0`.
 
 .. |topology-ethanol| raw:: html
 
-   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/system/init.data" target="_blank">topology files</a>
+   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/init.data" target="_blank">topology files</a>
 
 .. |parameter-ethanol| raw:: html
 
    <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/PARM.lammps" target="_blank">parameter file</a>
-
-.. |input-ethanol| raw:: html
-
-   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/input-minimalist.lammps" target="_blank">minimal input file</a>
-
 
 ..  container:: justify
 

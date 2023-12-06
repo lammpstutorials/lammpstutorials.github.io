@@ -707,6 +707,72 @@ with water.</p>
 </div>
 </section>
 </section>
+<section id="free-energy-calculation">
+<h2>Free energy calculation<a class="headerlink" href="#free-energy-calculation" title="Link to this heading">#</a></h2>
+<section id="the-binary-fluid-that-wont-mix">
+<h3>The binary fluid that wont mix<a class="headerlink" href="#the-binary-fluid-that-wont-mix" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>You can download the <a href="../../../../inputs/level3/free-energy-calculation/Exercises/BinaryFluid/input.lammps" target="_blank">input</a> here.</p>
+</div>
+<div class="justify docutils container">
+<p>The solution chosen here was to create two groups (<em>t1</em> and <em>t2</em>)
+and apply the two potentials <em>U1</em> and <em>U2</em> to each group, respectively.</p>
+</div>
+<div class="justify docutils container">
+<p>To to so, two separate <em>fix addforce</em> are used:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">t1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
+<span class="k">variable </span><span class="nv nv-Identifier">U1</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
+<span class="k">variable </span><span class="nv nv-Identifier">F1</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myadf1</span><span class="w"> </span><span class="nv nv-Identifier">t1</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U1</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myadf1</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">yes</span>
+
+<span class="k">group </span><span class="nv nv-Identifier">t2</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
+<span class="k">variable </span><span class="nv nv-Identifier">U2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="o">+</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
+<span class="k">variable </span><span class="nv nv-Identifier">F2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="o">+</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myadf2</span><span class="w"> </span><span class="nv nv-Identifier">t2</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F2</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U2</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myadf2</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">yes</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>60 particles of each type are created, with both types having
+the exact same properties:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.95</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">${epsilon}</span><span class="w"> </span><span class="nv">${sigma}</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Feel free to insert some size or mass asymmetry in the mixture, and test how/if
+it impacts the final potential.</p>
+</div>
+</section>
+<section id="particles-under-convection">
+<h3>Particles under convection<a class="headerlink" href="#particles-under-convection" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Add a forcing to all the particles using:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myconv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="m">2e-6</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>It is crutial to choose a forcing that is not <em>too large</em>, or the simulation may crash.
+A forcing that is <em>too weak</em> wont have any effect on the PMF.</p>
+</div>
+<div class="justify docutils container">
+<p>One can see from the result that the measured potential
+is tilted, which is a consequence of the additional force that makes it easier for
+the particles to cross the potential in one of the direction. The barrer is also
+reduced compared to the case in absence of additional forcing.</p>
+</div>
+</section>
+<section id="surface-adsorption-of-a-molecule">
+<h3>Surface adsorption of a molecule<a class="headerlink" href="#surface-adsorption-of-a-molecule" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>You can download the <a href="../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/input.lammps" target="_blank">input</a> here.</p>
+</div>
+</section>
+</section>
 <section id="reactive-silicon-dioxide">
 <h2>Reactive silicon dioxide<a class="headerlink" href="#reactive-silicon-dioxide" title="Link to this heading">#</a></h2>
 <section id="add-o2-molecules">
@@ -937,6 +1003,12 @@ progressively decorating the surface of the SiO2 structure:</p>
 <li><a class="reference internal" href="#water-adsorption-in-silica">Water adsorption in silica</a><ul>
 <li><a class="reference internal" href="#mixture-adsorption">Mixture adsorption</a></li>
 <li><a class="reference internal" href="#adsorb-water-in-zif-8-nanopores">Adsorb water in ZIF-8 nanopores</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#free-energy-calculation">Free energy calculation</a><ul>
+<li><a class="reference internal" href="#the-binary-fluid-that-wont-mix">The binary fluid that wont mix</a></li>
+<li><a class="reference internal" href="#particles-under-convection">Particles under convection</a></li>
+<li><a class="reference internal" href="#surface-adsorption-of-a-molecule">Surface adsorption of a molecule</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#reactive-silicon-dioxide">Reactive silicon dioxide</a><ul>

@@ -784,7 +784,9 @@ sensitivity of the method. In that case, note the bad overlap between neighbor w
 </section>
 <section id="going-further-with-exercises">
 <h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">#</a></h2>
-<p>You can access the full solutions for these exercises from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a> on Github.</p>
+<div class="justify docutils container">
+<p>A solution for each exercise is provided here: <a class="reference internal" href="../../non-tutorials/solutions.html#solutions-label"><span class="std std-ref">Solutions to the exercises</span></a>.</p>
+</div>
 <section id="the-binary-fluid-that-wont-mix">
 <h3>The binary fluid that wont mix<a class="headerlink" href="#the-binary-fluid-that-wont-mix" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
@@ -792,7 +794,7 @@ sensitivity of the method. In that case, note the bad overlap between neighbor w
 <p>Create a molecular simulation with two species of respective types 1 and 2.
 Apply different potentials <span class="math notranslate nohighlight">\(U1\)</span> and <span class="math notranslate nohighlight">\(U2\)</span> on particles of types 1 and 2, respectively,
 so that particles of type 1 are excluded from the center of the box, while at the same time particles
-of type 2 are excluded from the rest of the box, as seen here:</p>
+of type 2 are excluded from the rest of the box.</p>
 </div>
 <figure class="align-default">
 <img alt="Particles of type 1 and 2 separated by two different potentials" class="only-light" src="../../_images/exercice2-light.png" />
@@ -800,97 +802,69 @@ of type 2 are excluded from the rest of the box, as seen here:</p>
 <figure class="align-default">
 <img alt="Particles of type 1 and 2 separated by two different potentials" class="only-dark" src="../../_images/exercice2-dark.png" />
 </figure>
-<div class="dropdown admonition">
-<p class="admonition-title">Solution</p>
-<div class="justify docutils container">
-<p>One possibility is to create two groups, here named <em>t1</em> and <em>t2</em>,
-and apply the two potentials <em>U1</em> and <em>U2</em> to each group, respectively.
-To to so, two separate <em>fix addforce</em> are used:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">t1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
-<span class="k">variable </span><span class="nv nv-Identifier">U1</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
-<span class="k">variable </span><span class="nv nv-Identifier">F1</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myadf1</span><span class="w"> </span><span class="nv nv-Identifier">t1</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U1</span>
-<span class="k">fix_modify </span><span class="nv nv-Identifier">myadf1</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">yes</span>
-
-<span class="k">group </span><span class="nv nv-Identifier">t2</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
-<span class="k">variable </span><span class="nv nv-Identifier">U2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="o">+</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
-<span class="k">variable </span><span class="nv nv-Identifier">F2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="o">+</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myadf2</span><span class="w"> </span><span class="nv nv-Identifier">t2</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F2</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U2</span>
-<span class="k">fix_modify </span><span class="nv nv-Identifier">myadf2</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">yes</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>On the side note, in the above image, created 60 particles of each type, and gave them the exact same
-properties using:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.95</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">${epsilon}</span><span class="w"> </span><span class="nv">${sigma}</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Feel free to insert some size or mass asymmetry in the mixture, and test how/if
-it impacts the potential.</p>
-</div>
+<div class="figurelegend docutils container">
+<p>Figure: Particles of type 1 and 2 separated by two different potentials.</p>
 </div>
 <div class="justify docutils container">
 <p><strong>2 - Measure the PMFs</strong></p>
 <p>Using the same protocole as the one used in the tutorial (i.e. umbrella sampling with the wham algorithm),
-extract the PMF for each particle type:</p>
+extract the PMF for each particle type.</p>
 </div>
 <figure class="align-default">
 <img alt="PMF in the presence of binary species" class="only-light" src="../../_images/exercice-binary-light.png" />
 </figure>
-<figure class="align-default" id="id1">
+<figure class="align-default">
 <img alt="PMF in the presence of binary species" class="only-dark" src="../../_images/exercice-binary-dark.png" />
-<figcaption>
-<p><span class="caption-text">PMFs calculated for both atom types.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
-</figcaption>
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: PMFs calculated for both atom types.</p>
+</div>
 </section>
 <section id="particles-under-convection">
 <h3>Particles under convection<a class="headerlink" href="#particles-under-convection" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Use a similar simulation as the one from the tutorial, with a repulsive potential in the center
-of the box. Add a forcing to the particles and force them to flow in the <span class="math notranslate nohighlight">\(x\)</span> direction.</p>
-<p>Re-measure the potential in presence of the net convection of particles. You should see the
-potential getting tilted as a consequence of the additional force that makes it easier for
-the particles to cross the potential in one of the direction. The barrer will also
-reduced.</p>
+of the box. Add an additional forcing to the particles and force them to flow
+in the <span class="math notranslate nohighlight">\(x\)</span> direction.</p>
+</div>
+<div class="justify docutils container">
+<p>Re-measure the potential in presence of the flow, and observe the difference
+with the reference case in absence of flow.</p>
 </div>
 <figure class="align-default">
 <img alt="PMF in the presence of forcing" class="only-light" src="../../_images/exercice-convection-light.png" />
 </figure>
-<figure class="align-default" id="id2">
+<figure class="align-default">
 <img alt="PMF in the presence of forcing" class="only-dark" src="../../_images/exercice-convection-dark.png" />
-<figcaption>
-<p><span class="caption-text">PMF calculated in the presence of a net forcing inducing the convection of the particles
-from left to right.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
-</figcaption>
 </figure>
-<div class="dropdown admonition">
-<p class="admonition-title">Solution</p>
-<div class="justify docutils container">
-<p>Add a forcing to all the particles using:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myconv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="m">2e-6</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>It is crutial to choose a forcing that is not <em>too large</em>, or the simulation may crash.
-A forcing that is <em>too weak</em> wont have any effect on the PMF.</p>
-</div>
+<div class="figurelegend docutils container">
+<p>Figure: PMF calculated in the presence of a net forcing inducing
+the convection of the particles from left to right.</p>
 </div>
 </section>
 <section id="surface-adsorption-of-a-molecule">
 <h3>Surface adsorption of a molecule<a class="headerlink" href="#surface-adsorption-of-a-molecule" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Apply umbrella sampling to calculate the free energy profile
-of ethanol in the direction normal to a crystal solid surface (here made of sodium chloride).
-Find the <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/system/init.data" target="_blank">topology files</a>,
-<a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/PARM.lammps" target="_blank">parameter file</a>,
-and a <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/input-minimalist.lammps" target="_blank">minimal input file</a>.</p>
-<p>The PMF normal to a wall indicates the free energy of adsorption, which is
+of ethanol in the direction normal to a crystal solid surface
+(here made of sodium chloride). Find the <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/init.data" target="_blank">topology files</a> and <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/PARM.lammps" target="_blank">parameter file</a>.</p>
+</div>
+<div class="justify docutils container">
+<p>Use the following lines for starting the <em>input.lammps</em>:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span><span class="w"> </span><span class="c"># style of units (A, fs, Kcal/mol)</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="c"># molecular + charge</span>
+<span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">dihedral_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="c"># periodic boundary conditions</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="c"># cut-off 1 nm</span>
+<span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="w"> </span><span class="m">1.0e-4</span>
+<span class="k">pair_modify</span><span class="w"> </span><span class="n">mix</span><span class="w"> </span><span class="n">arithmetic</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="c"># eij = sqrt(ei*ej), dij = 0.5*(di+dj)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The PMF normal to a solid wall serves to indicate the free energy of adsorption, which is
 calculated from the difference between the PMF far from the surface, and the
 PMF at the wall.</p>
 </div>
@@ -900,20 +874,23 @@ PMF at the wall.</p>
 <figure class="align-default">
 <img alt="Ethanol molecule next to NaCl" class="only-dark" src="../../_images/ethanol-dark.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: A single ethanol molecule next to a crystal NaCl(100) wall.</p>
+</div>
 <div class="justify docutils container">
-<p>The PMF looks like that, with the position of the wall being near <span class="math notranslate nohighlight">\(x=0\)</span>.
-The PMF mimina near the solid surface indicates the good affinity of the wall with
-the molecule.</p>
+<p>The PMF shows a mimina near the solid surface, which indicates a good
+affinity between the wall and the molecule.</p>
 </div>
 <figure class="align-default">
 <img alt="PMF for ethanol molecule next to NaCl" class="only-light" src="../../_images/exercice-ethanol-light.png" />
 </figure>
-<figure class="align-default" id="id3">
+<figure class="align-default">
 <img alt="PMF for ethanol molecule next to NaCl" class="only-dark" src="../../_images/exercice-ethanol-dark.png" />
-<figcaption>
-<p><span class="caption-text">PMF for a single ethanol molecule next to a NaCl solid surface.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
-</figcaption>
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: PMF for a single ethanol molecule next to a NaCl
+solid surface. The position of the wall is in <span class="math notranslate nohighlight">\(x=0\)</span>.</p>
+</div>
 <div class="justify docutils container">
 <p>Alternatively to using ethanol, feel free to download the molecule of your choice, for
 instance from the  Automated Topology Builder (ATB). You will make your life simpler

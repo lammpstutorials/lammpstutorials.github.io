@@ -486,7 +486,6 @@ Induce a Poiseuille flow
     Figure: Ratio between the velocity of the center of mass :math:`v_\text{cm}` of the fluid
     and the forcing :math:`f` as a function of the forcing
 
-
 Water adsorption in silica
 ==========================
 
@@ -618,6 +617,92 @@ Adsorb water in ZIF-8 nanopores
 ..  container:: figurelegend
 
     Figure: Number of water molecule in Zif-8 during the first :math:`10\,ps`.
+
+Free energy calculation
+=======================
+
+The binary fluid that wont mix
+------------------------------
+
+..  container:: justify
+
+    You can download the |input_binary_wont_mix| here.
+
+.. |input_binary_wont_mix| raw:: html
+
+    <a href="../../../../inputs/level3/free-energy-calculation/Exercises/BinaryFluid/input.lammps" target="_blank">input</a>
+
+..  container:: justify
+
+    The solution chosen here was to create two groups (*t1* and *t2*)
+    and apply the two potentials *U1* and *U2* to each group, respectively. 
+
+..  container:: justify
+
+    To to so, two separate *fix addforce* are used:
+
+..  code-block:: lammps
+    
+    group t1 type 1
+    variable U1 atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
+    variable F1 atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
+    fix myadf1 t1 addforce v_F1 0.0 0.0 energy v_U1
+    fix_modify myadf1 energy yes
+
+    group t2 type 2
+    variable U2 atom -${U0}*atan((x+${x0})/${dlt})+${U0}*atan((x-${x0})/${dlt})
+    variable F2 atom -${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}+${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
+    fix myadf2 t2 addforce v_F2 0.0 0.0 energy v_U2
+    fix_modify myadf2 energy yes
+
+..  container:: justify
+
+    60 particles of each type are created, with both types having
+    the exact same properties:
+
+..  code-block:: lammps
+
+    mass * 39.95
+    pair_coeff * * ${epsilon} ${sigma}
+
+..  container:: justify
+
+    Feel free to insert some size or mass asymmetry in the mixture, and test how/if
+    it impacts the final potential.
+
+Particles under convection
+--------------------------
+
+..  container:: justify
+
+    Add a forcing to all the particles using:
+
+..  code-block:: lammps
+
+    fix myconv all addforce 2e-6 0 0
+
+..  container:: justify
+
+    It is crutial to choose a forcing that is not *too large*, or the simulation may crash. 
+    A forcing that is *too weak* wont have any effect on the PMF.  
+
+..  container:: justify
+
+    One can see from the result that the measured potential
+    is tilted, which is a consequence of the additional force that makes it easier for 
+    the particles to cross the potential in one of the direction. The barrer is also 
+    reduced compared to the case in absence of additional forcing. 
+
+Surface adsorption of a molecule
+--------------------------------
+
+..  container:: justify
+
+    You can download the |input_adsorption_ethanol| here.
+
+.. |input_adsorption_ethanol| raw:: html
+
+    <a href="../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/input.lammps" target="_blank">input</a>
 
 Reactive silicon dioxide
 ========================
