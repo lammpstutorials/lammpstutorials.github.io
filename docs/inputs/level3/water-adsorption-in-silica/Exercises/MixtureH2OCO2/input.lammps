@@ -33,43 +33,66 @@ angle_style harmonic
 
 read_data dilatedSiO.data
 molecule h2omol H2O.mol
-lattice sc 3
-create_atoms 0 box mol h2omol 45585
-lattice none 1
+molecule co2mol CO2.mol
+create_atoms 0 random 5 456415 NULL mol h2omol 454756 overlap 2.0 maxtry 50
+create_atoms 0 random 5 373823 NULL mol co2mol 989812 overlap 2.0 maxtry 50
 
 group SiO type 1 2
 group H2O type 3 4
+group CO2 type 5 6
 
-pair_coeff * * vashishta ../Potential/SiO.1990.vashishta Si O NULL NULL
+pair_coeff * * vashishta ../../Potential/SiO.1990.vashishta Si O NULL NULL NULL NULL
 pair_coeff * * lj/cut/tip4p/long 0 0
 pair_coeff 1 3 lj/cut/tip4p/long 0.0057 4.42 # epsilonSi = 0.00403, sigmaSi = 3.69
+pair_coeff 1 5 lj/cut/tip4p/long 0.01096 3.158 # epsilonSi = 0.00403, sigmaSi = 3.69
+pair_coeff 1 6 lj/cut/tip4p/long 0.007315 3.2507 # epsilonSi = 0.00403, sigmaSi = 3.69
 pair_coeff 2 3 lj/cut/tip4p/long 0.0043 3.12 # epsilonO = 0.0023, sigmaO = 3.091
+pair_coeff 2 5 lj/cut/tip4p/long 0.0101 2.858 # epsilonO = 0.0023, sigmaO = 3.091
+pair_coeff 2 6 lj/cut/tip4p/long 0.0065 2.9512 # epsilonO = 0.0023, sigmaO = 3.091
 pair_coeff 3 3 lj/cut/tip4p/long 0.008 3.1589
+pair_coeff 3 5 lj/cut/tip4p/long 0.01295 2.8924
+pair_coeff 3 6 lj/cut/tip4p/long 0.0093 2.985
 pair_coeff 4 4 lj/cut/tip4p/long 0.0 0.0
+pair_coeff 5 5 lj/cut/tip4p/long 0.0179 2.625854
+pair_coeff 6 6 lj/cut/tip4p/long 0.0106 2.8114421 
+
 bond_coeff 1 0 0.9572
+bond_coeff 2 46.121 1.17
 angle_coeff 1 0 104.52
+angle_coeff 2 2.0918 180
 
 variable oxygen atom "type==3"
 group oxygen dynamic all var oxygen
 variable nO equal count(oxygen)
-fix myat1 all ave/time 100 10 1000 v_nO file numbermolecule.dat
+fix myat1 all ave/time 100 1 100 v_nO file numberH2Omolecule.dat
+
+variable carbon atom "type==5"
+group carbon dynamic all var carbon
+variable nC equal count(carbon)
+fix myat2 all ave/time 100 1 100 v_nC file numberCO2molecule.dat
 
 fix shak H2O shake 1.0e-4 200 0 b 1 a 1 mol h2omol
 
-delete_atoms overlap 2 H2O SiO mol yes
-
-dump dmp all atom 1000 dump.init.lammpstrj
+dump dmp all atom 100 dump.init.lammpstrj
 
 compute_modify thermo_temp dynamic yes
+
 compute ctH2O H2O temp
 compute_modify ctH2O dynamic yes
 fix mynvt1 H2O nvt temp 300 300 0.1
 fix_modify mynvt1 temp ctH2O
+
+compute ctCO2 CO2 temp
+compute_modify ctCO2 dynamic yes
+fix mynvt2 CO2 nvt temp 300 300 0.1
+fix_modify mynvt2 temp ctCO2
+
 compute ctSiO SiO temp
-fix mynvt2 SiO nvt temp 300 300 0.1
-fix_modify mynvt2 temp ctSiO
+fix mynvt3 SiO nvt temp 300 300 0.1
+fix_modify mynvt3 temp ctSiO
+
 timestep 0.001
-thermo 1000
+thermo 100
 run 5000
 
 variable tfac equal 5.0/3.0
@@ -80,17 +103,19 @@ variable yhi equal yhi-0.1
 variable zlo equal zlo+0.1
 variable zhi equal zhi-0.1
 region system block ${xlo} ${xhi} ${ylo} ${yhi} ${zlo} ${zhi} 
-fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} group H2O shake shak full_energy pressure 10000 region system
-run 45000
-write_data SiOwithwater.data
-write_dump all atom dump.lammpstrj
 
-# next lines are for video making
-#region forvideo block -3 23 5 19 5 16
-#group in region forvideo
-#group water_in intersect H2O in 
-#group water_in include molecule
-#group SiO_in intersect SiO in
-#group forvideo union water_in SiO_in
-#dump dmp forvideo atom 5 dump.lammpstrj
-#run 2000
+label loop
+variable a loop 30
+
+fix fgcmc_H2O H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} group H2O shake shak full_energy pressure 100 region system
+run 500
+unfix fgcmc_H2O
+
+fix fgcmc_CO2 CO2 gcmc 100 100 0 0 87787 300 -0.5 0.1 mol co2mol tfac_insert ${tfac} group CO2 full_energy pressure 100 region system
+run 500
+unfix fgcmc_CO2
+
+next a
+jump SELF loop
+
+write_dump all atom dump.lammpstrj
