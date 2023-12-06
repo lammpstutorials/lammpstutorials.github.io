@@ -484,7 +484,140 @@ Induce a Poiseuille flow
 ..  container:: figurelegend
 
     Figure: Ratio between the velocity of the center of mass :math:`v_\text{cm}` of the fluid
-    and the forcing :math:`f` as a function of the forcing.
+    and the forcing :math:`f` as a function of the forcing
+
+
+Water adsorption in silica
+==========================
+
+Mixture adsorption
+------------------
+
+.. container:: justify
+
+    You can download the |input_mixture| for the combine water and CO2
+    adsorption.
+    One of the first step is to create both type of molecules
+    before starting the GCMC:
+
+..  code-block:: lammps
+
+    molecule h2omol H2O.mol
+    molecule co2mol CO2.mol
+    create_atoms 0 random 5 456415 NULL mol h2omol 454756 overlap 2.0 maxtry 50
+    create_atoms 0 random 5 373823 NULL mol co2mol 989812 overlap 2.0 maxtry 50
+
+.. container:: justify
+
+    One must be careful to properly write the parameters of the system,
+    with all the proper cross coefficients:
+
+..  code-block:: lammps
+
+    pair_coeff * * vashishta ../../Potential/SiO.1990.vashishta Si O NULL NULL NULL NULL
+    pair_coeff * * lj/cut/tip4p/long 0 0
+    pair_coeff 1 3 lj/cut/tip4p/long 0.0057 4.42 # epsilonSi = 0.00403, sigmaSi = 3.69
+    pair_coeff 1 5 lj/cut/tip4p/long 0.01096 3.158 # epsilonSi = 0.00403, sigmaSi = 3.69
+    pair_coeff 1 6 lj/cut/tip4p/long 0.007315 3.2507 # epsilonSi = 0.00403, sigmaSi = 3.69
+    pair_coeff 2 3 lj/cut/tip4p/long 0.0043 3.12 # epsilonO = 0.0023, sigmaO = 3.091
+    pair_coeff 2 5 lj/cut/tip4p/long 0.0101 2.858 # epsilonO = 0.0023, sigmaO = 3.091
+    pair_coeff 2 6 lj/cut/tip4p/long 0.0065 2.9512 # epsilonO = 0.0023, sigmaO = 3.091
+    pair_coeff 3 3 lj/cut/tip4p/long 0.008 3.1589
+    pair_coeff 3 5 lj/cut/tip4p/long 0.01295 2.8924
+    pair_coeff 3 6 lj/cut/tip4p/long 0.0093 2.985
+    pair_coeff 4 4 lj/cut/tip4p/long 0.0 0.0
+    pair_coeff 5 5 lj/cut/tip4p/long 0.0179 2.625854
+    pair_coeff 6 6 lj/cut/tip4p/long 0.0106 2.8114421 
+
+.. container:: justify
+
+    Here, I choose to thermalize all species separately:
+
+..  code-block:: lammps
+
+    compute ctH2O H2O temp
+    compute_modify ctH2O dynamic yes
+    fix mynvt1 H2O nvt temp 300 300 0.1
+    fix_modify mynvt1 temp ctH2O
+
+    compute ctCO2 CO2 temp
+    compute_modify ctCO2 dynamic yes
+    fix mynvt2 CO2 nvt temp 300 300 0.1
+    fix_modify mynvt2 temp ctCO2
+
+    compute ctSiO SiO temp
+    fix mynvt3 SiO nvt temp 300 300 0.1
+    fix_modify mynvt3 temp ctSiO
+
+.. container:: justify
+
+    Finally, adsorption is made with two separates *fix gcmc* commands
+    placed in a loop: 
+
+..  code-block:: lammps
+
+    label loop
+    variable a loop 30
+
+    fix fgcmc_H2O H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} group H2O shake shak full_energy pressure 100 region system
+    run 500
+    unfix fgcmc_H2O
+
+    fix fgcmc_CO2 CO2 gcmc 100 100 0 0 87787 300 -0.5 0.1 mol co2mol tfac_insert ${tfac} group CO2 full_energy pressure 100 region system
+    run 500
+    unfix fgcmc_CO2
+
+    next a
+    jump SELF loop
+
+.. container:: justify
+
+    Here I choose to apply the first *fix gcmc* for the :math:`\text{H}_2\text{O}` for 500 steps,
+    then unfix it before starting the second *fix gcmc* for the :math:`\text{CO}_2` for 500 steps as well.
+    Then, thanks to the *jump*, these two fixes are applied successively 30 times each, allowing for the 
+    progressive adsorption of both species.
+
+.. |input_mixture| raw:: html
+
+    <a href="../../../../inputs/level3/water-adsorption-in-silica/Exercises/MixtureH2OCO2/input.lammps" target="_blank">input</a>
+
+Adsorb water in ZIF-8 nanopores
+-------------------------------
+
+.. container:: justify
+
+    You can download the |input_zif| for the water adsorption in Zif-8,
+    which you have to place in the same folder as the *zif-8.data*,
+    *parm.lammps*,
+    and *water.mol* files.
+
+.. |input_zif| raw:: html
+
+    <a href="../../../../inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/input.lammps" target="_blank">input</a>
+
+.. container:: justify
+
+    Apart from the parameters and topology, the *input* is
+    quite similar to the one developped in the case of the crack
+    silica.
+
+.. container:: justify
+
+    You should observe an increase of the number of molecule with time.
+    Run much longer simulation if you want to saturate the porous material
+    with water.
+
+.. figure:: ../tutorials/figures/level3/water-adsorption-in-silica/number_evolution_zif-light.png
+    :alt: Water molecule in Zif material with GCMC in LAMMPS
+    :class: only-light
+
+.. figure:: ../tutorials/figures/level3/water-adsorption-in-silica/number_evolution_zif-dark.png
+    :alt: Water molecule in Zif material with GCMC in LAMMPS
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Number of water molecule in Zif-8 during the first :math:`10\,ps`.
 
 Reactive silicon dioxide
 ========================

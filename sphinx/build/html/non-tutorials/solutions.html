@@ -594,7 +594,116 @@ between force and fluid velocity.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Ratio between the velocity of the center of mass <span class="math notranslate nohighlight">\(v_\text{cm}\)</span> of the fluid
-and the forcing <span class="math notranslate nohighlight">\(f\)</span> as a function of the forcing.</p>
+and the forcing <span class="math notranslate nohighlight">\(f\)</span> as a function of the forcing</p>
+</div>
+</section>
+</section>
+<section id="water-adsorption-in-silica">
+<h2>Water adsorption in silica<a class="headerlink" href="#water-adsorption-in-silica" title="Link to this heading">#</a></h2>
+<section id="mixture-adsorption">
+<h3>Mixture adsorption<a class="headerlink" href="#mixture-adsorption" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>You can download the <a href="../../../../inputs/level3/water-adsorption-in-silica/Exercises/MixtureH2OCO2/input.lammps" target="_blank">input</a> for the combine water and CO2
+adsorption.
+One of the first step is to create both type of molecules
+before starting the GCMC:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O.mol</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">co2mol</span><span class="w"> </span><span class="n">CO2.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">456415</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">454756</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">373823</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">co2mol</span><span class="w"> </span><span class="m">989812</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>One must be careful to properly write the parameters of the system,
+with all the proper cross coefficients:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">vashishta</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">..</span><span class="o">/</span><span class="n">Potential</span><span class="o">/</span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0057</span><span class="w"> </span><span class="m">4.42</span><span class="w"> </span><span class="c"># epsilonSi = 0.00403, sigmaSi = 3.69</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.01096</span><span class="w"> </span><span class="m">3.158</span><span class="w"> </span><span class="c"># epsilonSi = 0.00403, sigmaSi = 3.69</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.007315</span><span class="w"> </span><span class="m">3.2507</span><span class="w"> </span><span class="c"># epsilonSi = 0.00403, sigmaSi = 3.69</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0043</span><span class="w"> </span><span class="m">3.12</span><span class="w"> </span><span class="c"># epsilonO = 0.0023, sigmaO = 3.091</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0101</span><span class="w"> </span><span class="m">2.858</span><span class="w"> </span><span class="c"># epsilonO = 0.0023, sigmaO = 3.091</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0065</span><span class="w"> </span><span class="m">2.9512</span><span class="w"> </span><span class="c"># epsilonO = 0.0023, sigmaO = 3.091</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.008</span><span class="w"> </span><span class="m">3.1589</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.01295</span><span class="w"> </span><span class="m">2.8924</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0093</span><span class="w"> </span><span class="m">2.985</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0179</span><span class="w"> </span><span class="m">2.625854</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0106</span><span class="w"> </span><span class="m">2.8114421</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Here, I choose to thermalize all species separately:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">compute_modify </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">ctH2O</span>
+
+<span class="k">compute </span><span class="nv nv-Identifier">ctCO2</span><span class="w"> </span><span class="nv nv-Identifier">CO2</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">compute_modify </span><span class="nv nv-Identifier">ctCO2</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt2</span><span class="w"> </span><span class="nv nv-Identifier">CO2</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">mynvt2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">ctCO2</span>
+
+<span class="k">compute </span><span class="nv nv-Identifier">ctSiO</span><span class="w"> </span><span class="nv nv-Identifier">SiO</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt3</span><span class="w"> </span><span class="nv nv-Identifier">SiO</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">mynvt3</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">ctSiO</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Finally, adsorption is made with two separates <em>fix gcmc</em> commands
+placed in a loop:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">label </span><span class="sc">loop</span>
+<span class="k">variable </span><span class="nv nv-Identifier">a</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">30</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">fgcmc_H2O</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">gcmc</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">65899</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="o">-</span><span class="m">0.5</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">tfac_insert</span><span class="w"> </span><span class="nv">${tfac}</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="n">shak</span><span class="w"> </span><span class="n">full_energy</span><span class="w"> </span><span class="n">pressure</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">system</span>
+<span class="k">run</span><span class="w"> </span><span class="m">500</span>
+<span class="k">unfix </span><span class="nv nv-Identifier">fgcmc_H2O</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">fgcmc_CO2</span><span class="w"> </span><span class="nv nv-Identifier">CO2</span><span class="w"> </span><span class="n">gcmc</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">87787</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="o">-</span><span class="m">0.5</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">co2mol</span><span class="w"> </span><span class="n">tfac_insert</span><span class="w"> </span><span class="nv">${tfac}</span><span class="w"> </span><span class="k">group </span><span class="nv nv-Identifier">CO2</span><span class="w"> </span><span class="n">full_energy</span><span class="w"> </span><span class="n">pressure</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">system</span>
+<span class="k">run</span><span class="w"> </span><span class="m">500</span>
+<span class="k">unfix </span><span class="nv nv-Identifier">fgcmc_CO2</span>
+
+<span class="k">next </span><span class="nv nv-Identifier">a</span>
+<span class="k">jump </span><span class="sc">SELF</span><span class="w"> </span><span class="n">loop</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Here I choose to apply the first <em>fix gcmc</em> for the <span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span> for 500 steps,
+then unfix it before starting the second <em>fix gcmc</em> for the <span class="math notranslate nohighlight">\(\text{CO}_2\)</span> for 500 steps as well.
+Then, thanks to the <em>jump</em>, these two fixes are applied successively 30 times each, allowing for the
+progressive adsorption of both species.</p>
+</div>
+</section>
+<section id="adsorb-water-in-zif-8-nanopores">
+<h3>Adsorb water in ZIF-8 nanopores<a class="headerlink" href="#adsorb-water-in-zif-8-nanopores" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>You can download the <a href="../../../../inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/input.lammps" target="_blank">input</a> for the water adsorption in Zif-8,
+which you have to place in the same folder as the <em>zif-8.data</em>,
+<em>parm.lammps</em>,
+and <em>water.mol</em> files.</p>
+</div>
+<div class="justify docutils container">
+<p>Apart from the parameters and topology, the <em>input</em> is
+quite similar to the one developped in the case of the crack
+silica.</p>
+</div>
+<div class="justify docutils container">
+<p>You should observe an increase of the number of molecule with time.
+Run much longer simulation if you want to saturate the porous material
+with water.</p>
+</div>
+<figure class="align-default">
+<img alt="Water molecule in Zif material with GCMC in LAMMPS" class="only-light" src="../_images/number_evolution_zif-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="Water molecule in Zif material with GCMC in LAMMPS" class="only-dark" src="../_images/number_evolution_zif-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Number of water molecule in Zif-8 during the first <span class="math notranslate nohighlight">\(10\,ps\)</span>.</p>
 </div>
 </section>
 </section>
@@ -823,6 +932,11 @@ progressively decorating the surface of the SiO2 structure:</p>
 <li><a class="reference internal" href="#nanosheared-electrolyte">Nanosheared electrolyte</a><ul>
 <li><a class="reference internal" href="#make-a-hydrophobic-nanopore">Make a hydrophobic nanopore</a></li>
 <li><a class="reference internal" href="#induce-a-poiseuille-flow">Induce a Poiseuille flow</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#water-adsorption-in-silica">Water adsorption in silica</a><ul>
+<li><a class="reference internal" href="#mixture-adsorption">Mixture adsorption</a></li>
+<li><a class="reference internal" href="#adsorb-water-in-zif-8-nanopores">Adsorb water in ZIF-8 nanopores</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#reactive-silicon-dioxide">Reactive silicon dioxide</a><ul>
