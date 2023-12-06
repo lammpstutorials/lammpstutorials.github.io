@@ -6,10 +6,6 @@ import matplotlib.pyplot as plt
 import random
 import copy
 
-
-# ## Homemade functions
-# 
-# source : https://github.com/simongravelle/python-for-lammps
 from numpy.linalg import norm
 def neighborsearch(neighbor,molecule,cptatm, x, y, z, Lx, Ly, Lz):
     '''Search neighbor in a box and return the closest distance found'''
@@ -47,7 +43,7 @@ def randomlocation(Lx,Ly,Lz):
 
 
 # ## parameter choice
-nbethanol = 10 # desired number of ethanol molecules
+nbethanol = 1 # desired number of ethanol molecules
 h = 40 # distance between the walls
 layer = 12 # desired layer size
 
@@ -141,7 +137,7 @@ dihedrals = dihedrals[0:cptdih]
 
 # ## write LAMMPS data file
 
-f = open("init.data", "w")
+f = open("../init.data", "w")
 f.write('# LAMMPS data file \n\n')
 f.write(str(cptatm)+' atoms\n')
 f.write(str(cptbnd)+' bonds\n')
