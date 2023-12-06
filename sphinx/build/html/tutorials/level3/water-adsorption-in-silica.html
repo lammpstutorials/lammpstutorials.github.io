@@ -242,14 +242,22 @@
 <p>The objective of this tutorial is to combine molecular
 dynamics and grand canonical Monte Carlo simulations to
 compute the adsorption of water molecules in a cracked silica material.</p>
+</div>
+<div class="justify docutils container">
 <p>This tutorial illustrates the use of the grand canonical
-ensemble in molecular simulation, an open ensemble in which the number of
-molecules or atoms is not constant.</p>
+ensemble in molecular simulation, an open ensemble in which
+the number of atoms within the simulation box is not constant.
+When using the grand canonical ensemble, it is possible to impose
+the chemical potential (or pressure, or fugacity) of a given fluid
+in a nanoporous structure.</p>
 </div>
 <p>If you are completely new to LAMMPS, I recommend you to follow this simpler tutorial first : <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard Jones fluid</span></a>.</p>
 <div class="patreon admonition">
 <p class="admonition-title">I provide personal assistance for LAMMPS projects</p>
 <p>See the <a class="reference internal" href="../../non-tutorials/contact-me.html#contact-label"><span class="std std-ref">Contact me</span></a> page.</p>
+</div>
+<div class="version docutils container">
+<p>This tutorial was tested with the <em>2Aug2023</em> LAMMPS version.</p>
 </div>
 <section id="generation-of-the-silica-block">
 <h2>Generation of the silica block<a class="headerlink" href="#generation-of-the-silica-block" title="Link to this heading">#</a></h2>
@@ -257,18 +265,22 @@ molecules or atoms is not constant.</p>
 <p>Let us first generate a block of amorphous silica (SiO2). To do
 so, we are going to replicate a building block containing 3
 Si and 6 O atoms.</p>
+</div>
+<div class="justify docutils container">
 <p>Create two folders side by side, and name them respectively <em>Potential/</em>
 and <em>SilicaBlock/</em>.</p>
+</div>
+<div class="justify docutils container">
 <p>An initial data file for the SiO atoms can be
 downloaded by clicking <a href="../../../../../inputs/level3/water-adsorption-in-silica/SilicaBlock/SiO.data" target="_blank">here</a>.
 Save it in <em>SilicaBlock/</em>. This data file
 contains the coordinates of the 9 atoms, their masses, and
-their charges. The fine can be directly read by LAMMPS using the
-<em>read_file</em> command. Let us replicate these atoms using
+their charges. The <em>.data</em> file can be directly read by LAMMPS using the
+<em>read_data</em> command. Let us replicate these atoms using
 LAMMPS, and apply an annealing procedure to obtain a block
 of amorphous silica.</p>
 </div>
-<div class="dropdown admonition">
+<div class="info admonition">
 <p class="admonition-title">About annealing procedure</p>
 <p>The annealing procedure consists of adjusting the system temperature in successive steps.
 Here, a large initial temperature is chosen to ensure the melting of the SiO2 structure.
@@ -282,8 +294,6 @@ lead to different crystal structure or different degree of defect.</p>
 <p>Create a new input file named <em>input.lammps</em> in the <em>SilicaBlock/</em> folder, and copy
 the following lines in it:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in SilicaBlock/input.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">metal</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
@@ -292,10 +302,9 @@ the following lines in it:</p>
 <span class="k">neigh_modify</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
-<p>The main difference between the previous tutorials is the use of
-the Vashishta pair style. Download the Vashishta potential by
+<p>The main difference with some of the previous tutorials is the use of
+the <em>Vashishta</em> pair style. Download the <em>Vashishta</em> potential by
 clicking <a href="../../../../../inputs/level3/water-adsorption-in-silica/Potential/SiO.1990.vashishta" target="_blank">here</a>,
 and copy it within the <em>Potential/</em> folder.</p>
 </div>
@@ -306,9 +315,9 @@ potential is a bond-angle energy based potential, it
 deduces the bonds between atoms from their relative
 positions. Therefore, there is no need to provide bond
 and angle information as we do with classic force fields
-like GROMOS or AMBER.</p>
-<p>Note that Vashishta potential requires the use of metal units system.</p>
-<p>Bond-angle energy based potentials
+like GROMOS or AMBER. When used with LAMMPS, the <em>Vashishta</em>
+potential requires the use of metal units system.
+Bond-angle energy based potentials
 are more computationally heavy than classical force
 fields and require the use of a smaller timestep, but
 they allow for the modelling of bond formation and
@@ -317,33 +326,27 @@ a crack in the silica.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us then import the system made of 9 atoms, replicate it four times in all three
-directions of space, thus creating a system with 576 atoms.</p>
+directions of space, thus creating a system with 576 atoms. Add the following lines
+to <em>input.lammps</em>:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in SilicaBlock/input.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">SiO.data</span>
 <span class="k">replicate</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
 <p>Then, let us specify the pair coefficients by indicating
-that the first atom type is Si, and the second is O. Let us also
+that the first atom type is <em>Si</em>, and
+the second is <em>O</em>. Let us also
 add a dump command for printing out the positions of the
 atoms every 5000 steps:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in SilicaBlock/input.lammps</em></span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Potential</span><span class="o">/</span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
-<p>Let us add some commands to help us follow the evolution of the system,
+<p>Let us add some commands to <em>input.lammps</em> to help us follow the evolution of the system,
 such as its temperature, volume, and potential-energy:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in SilicaBlock/input.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 <span class="k">variable </span><span class="nv nv-Identifier">myvol</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">vol</span>
 <span class="k">variable </span><span class="nv nv-Identifier">mylx</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">lx</span>
@@ -357,32 +360,40 @@ such as its temperature, volume, and potential-energy:</p>
 <span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
 </pre></div>
 </div>
-</div>
 </section>
 <section id="annealing-procedure">
 <h3>Annealing procedure<a class="headerlink" href="#annealing-procedure" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Finally, let us create the last part of our script. The
-annealing procedure is the following: we first start with a
-small phase at 6000 K, then cool down the system to 4000 K
-using a pressure of 100 atm. Then we cool down the system
-further while also reducing the pressure, then perform a
-small equilibration step at the final desired condition, 300
-K and 1 atm.</p>
-<p><em>Disclaimer –</em> I created this procedure by intuition and
-not from proper calibration, do not copy it without
-making your own tests if you intend to publish your
-results.</p>
+annealing procedure is made of four consecutive runs.
+First, a <span class="math notranslate nohighlight">\(50\,\text{ps}\)</span>
+phase at <span class="math notranslate nohighlight">\(T = 6000\,\text{K}\)</span>
+and isotropic pressure coupling with desired pressure <span class="math notranslate nohighlight">\(p = 100\,\text{atm}\)</span>:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in SilicaBlock/input.lammps</em></span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">4928459</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="n">gaussian</span>
 <span class="k">fix </span><span class="nv nv-Identifier">npt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">iso</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
 <span class="k">run</span><span class="w"> </span><span class="m">50000</span>
-<span class="k">fix </span><span class="nv nv-Identifier">npt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">4000</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then, a second phase during which the system is cooled down
+from <span class="math notranslate nohighlight">\(T = 6000\,\text{K}\)</span>
+to <span class="math notranslate nohighlight">\(T = 4000\,\text{K}\)</span>.
+An anisotropic pressure coupling is used, allowing all three
+dimensions of the box to evolve independently from one another:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">npt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">4000</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1</span>
 <span class="k">run</span><span class="w"> </span><span class="m">50000</span>
-<span class="k">fix </span><span class="nv nv-Identifier">npt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">4000</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then, let us cool down the system
+further while also reducing the pressure, then perform a
+small equilibration step at the final desired condition, <span class="math notranslate nohighlight">\(T = 300\,\text{K}\)</span>
+and <span class="math notranslate nohighlight">\(p = 1\,\text{atm}\)</span>.</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">npt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">4000</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
 <span class="k">run</span><span class="w"> </span><span class="m">200000</span>
 <span class="k">fix </span><span class="nv nv-Identifier">npt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
 <span class="k">run</span><span class="w"> </span><span class="m">50000</span>
@@ -390,11 +401,15 @@ results.</p>
 <span class="k">write_data </span><span class="nv nv-Identifier">amorphousSiO.data</span>
 </pre></div>
 </div>
+<div class="justify docutils container">
+<p><em>Disclaimer –</em> I created this procedure by intuition and
+not from proper calibration, do not copy it without
+making your own tests if you intend to publish your results.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Anisotropic versus isotropic barostat</p>
-<p>Here, an isotropic barostat is used for the melted phase at 6000 K, and then
-an anisotropic barostat when cooling down the system. With the anisotropic
+<p>Here, an isotropic barostat is used for the melted phase at <span class="math notranslate nohighlight">\(T = 6000\,\text{K}\)</span>,
+and then an anisotropic barostat is used for all following phases. With the anisotropic
 barostat, all three directions of space are adjusted independently from one another. Such
 anisotropic barostat is usually a better choice for a solid phase,
 when there is no reason for the final solid phase to
@@ -403,6 +418,8 @@ liquid or a gas, the isotropic barostat is usually the best choice.</p>
 </div>
 <div class="justify docutils container">
 <p>The simulation takes about 15-20 minutes on 4 cpu cores.</p>
+</div>
+<div class="justify docutils container">
 <p>Let us check the evolution of the temperature from the <em>temperature.dat</em> file.
 Apart from an initial spike (may be due to an initial bad configuration, probably harmless here),
 the temperature follows well the desired annealing procedure:</p>
@@ -413,9 +430,14 @@ the temperature follows well the desired annealing procedure:</p>
 <figure class="align-default">
 <img alt="silica temperature during annealing, from melt to solid" class="only-light" src="../../_images/temperature_evolution-light.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Temperature of the system during annealing. The vertical dashed lines
+mark the transition between the different phases of the simulations.</p>
+</div>
 <div class="justify docutils container">
 <p>Let us also make sure that the box was indeed deformed isotropically during the first
-stage of the simulation, and then anisotropically by plotting lx (blue), ly (orange), and lz:</p>
+stage of the simulation, and then anisotropically by plotting the evolution of the
+box dimensions over time.</p>
 </div>
 <figure class="align-default">
 <img alt="box dimensions during annealing, from melt to solid" class="only-dark" src="../../_images/dimensions_evolution-dark.png" />
@@ -423,25 +445,34 @@ stage of the simulation, and then anisotropically by plotting lx (blue), ly (ora
 <figure class="align-default">
 <img alt="box dimensions during annealing, from melt to solid" class="only-light" src="../../_images/dimensions_evolution-light.png" />
 </figure>
-<figure class="align-right">
-<a class="only-dark reference internal image-reference" href="../../_images/generated-silica-dark.png"><img alt="silica block generated by temperature annealing using LAMMPS" class="only-dark" src="../../_images/generated-silica-dark.png" style="height: 150px;" /></a>
-</figure>
-<figure class="align-right">
-<a class="only-light reference internal image-reference" href="../../_images/generated-silica-light.png"><img alt="silica block generated by temperature annealing using LAMMPS" class="only-light" src="../../_images/generated-silica-light.png" style="height: 150px;" /></a>
-</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Box dimensions during annealing. The vertical dashed lines
+mark the transition between the different phases of the simulations.</p>
+</div>
 <div class="justify docutils container">
-<p>The snapshot on the side shows the final amorphous silica (SiO2).</p>
+<p>As always, let us also look at the system using VMD.</p>
+</div>
+<figure class="align-default">
+<img alt="silica block generated by temperature annealing using LAMMPS" class="only-dark" src="../../_images/generated-silica-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="silica block generated by temperature annealing using LAMMPS" class="only-light" src="../../_images/generated-silica-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Snapshot final amorphous silica (SiO2) with Si atom in yellow and
+O atoms in red.</p>
+</div>
+<div class="justify docutils container">
 <p>After running the simulation, the final LAMMPS topology file named
 <em>amorphousSiO.data</em> will be located in <em>SilicaBlock/</em>. Alternatively, if you are only interested in the
 next steps of this tutorial, you can download it by clicking
 <a href="../../../../../inputs/level3/water-adsorption-in-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>.</p>
 </div>
-<div class="dropdown admonition">
+<div class="info admonition">
 <p class="admonition-title">Tip for research project</p>
 <p>In the case of a research project, the validity of the generated
 structure must be tested and compared to reference values, ideally from
-experiments.</p>
-<p>For instance, radial distribution functions or Young modulus
+experiments. For instance, radial distribution functions or Young modulus
 can both be compared to experimental values. This is beyond the
 scope of this tutorial.</p>
 </div>
@@ -454,8 +485,8 @@ scope of this tutorial.</p>
 crack. Create a new folder called <em>Cracking/</em> next to <em>SilicaBlock/</em>, and create a
 new input.lammps file starting with:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Cracking/input.lammps</em></span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Cracking/input.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">metal</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
@@ -498,8 +529,8 @@ can be done by using :</p>
 <div class="justify docutils container">
 <p>Add the following lines to the input script:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Cracking/input.lammps</em></span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Cracking/input.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
@@ -569,8 +600,8 @@ another website with the goal of delving deeper into the algorithms: <a href="ht
 for the water molecule: <a href="../../../../../inputs/level3/water-adsorption-in-silica/AddingWater/TIP4P2005.txt" target="_blank">TIP4P2005.txt</a>.</p>
 <p>Create a new input file, and copy the following lines into it:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">metal</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
@@ -713,8 +744,8 @@ these features have been seen in previous tutorials.</p>
 <p>Let us delete the overlapping water molecules, and print the
 positions in a dump file:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">SiO</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.init.lammpstrj</span>
 </pre></div>
@@ -726,8 +757,8 @@ positions in a dump file:</p>
 <div class="justify docutils container">
 <p>Let us make a first equilibration step:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute_modify </span><span class="nv nv-Identifier">thermo_temp</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">compute </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">compute_modify </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
@@ -755,8 +786,8 @@ number of molecules is not constant.</p>
 <p>Finally, let us use the fix gcmc and perform the grand
 canonical Monte Carlo steps:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>to be copied in Addingwater/input.lammps</em></span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">tfac</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5.0</span><span class="o">/</span><span class="m">3.0</span>
 <span class="k">variable </span><span class="nv nv-Identifier">xlo</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xlo</span><span class="o">+</span><span class="m">0.1</span>
 <span class="k">variable </span><span class="nv nv-Identifier">xhi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xhi</span><span class="o">-</span><span class="m">0.1</span>
@@ -796,8 +827,8 @@ on a single cpu core, due to some restrictions of the fix gcmc.</p>
 <p>You can see, by looking at the log file, that 280 molecules
 were added by the <em>create_atoms</em> command (the exact number may differ):</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Created 840 atoms
 </pre></div>
 </div>
@@ -806,8 +837,8 @@ were added by the <em>create_atoms</em> command (the exact number may differ):</
 <p>You can also see that 258 molecules where immediately deleted,
 leaving 24 water molecules (the exact number may differ):</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text"><em>from the log file</em></span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Deleted 774 atoms, new total = 642
 Deleted 516 bonds, new total = 44
 Deleted 258 angles, new total = 22

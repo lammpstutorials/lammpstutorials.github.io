@@ -25,13 +25,20 @@ Water adsorption in silica
     dynamics and grand canonical Monte Carlo simulations to
     compute the adsorption of water molecules in a cracked silica material.
 
+..  container:: justify
+
     This tutorial illustrates the use of the grand canonical
-    ensemble in molecular simulation, an open ensemble in which the number of 
-    molecules or atoms is not constant.
+    ensemble in molecular simulation, an open ensemble in which
+    the number of atoms within the simulation box is not constant.
+    When using the grand canonical ensemble, it is possible to impose
+    the chemical potential (or pressure, or fugacity) of a given fluid
+    in a nanoporous structure.
 
 .. include:: ../../contact/recommand-lj.rst
 
 .. include:: ../../contact/needhelp.rst
+
+.. include:: ../../contact/2Aug2023.rst
 
 Generation of the silica block
 ==============================
@@ -42,20 +49,24 @@ Generation of the silica block
     so, we are going to replicate a building block containing 3
     Si and 6 O atoms. 
     
+..  container:: justify
+
     Create two folders side by side, and name them respectively *Potential/*
     and *SilicaBlock/*.
+
+..  container:: justify
 
     An initial data file for the SiO atoms can be
     downloaded by clicking |download_SiO.data|.
     Save it in *SilicaBlock/*. This data file
     contains the coordinates of the 9 atoms, their masses, and
-    their charges. The fine can be directly read by LAMMPS using the
-    *read_file* command. Let us replicate these atoms using
+    their charges. The *.data* file can be directly read by LAMMPS using the
+    *read_data* command. Let us replicate these atoms using
     LAMMPS, and apply an annealing procedure to obtain a block
     of amorphous silica.
 
 .. admonition:: About annealing procedure
-    :class: dropdown
+    :class: info
 
     The annealing procedure consists of adjusting the system temperature in successive steps.
     Here, a large initial temperature is chosen to ensure the melting of the SiO2 structure.
@@ -76,7 +87,6 @@ Vashishta potential
    <a href="../../../../../inputs/level3/water-adsorption-in-silica/SilicaBlock/SiO.data" target="_blank">here</a>
 
 ..  code-block:: lammps
-    :caption: *to be copied in SilicaBlock/input.lammps*
 
     units metal
     boundary p p p
@@ -87,8 +97,8 @@ Vashishta potential
 
 ..  container:: justify
 
-    The main difference between the previous tutorials is the use of 
-    the Vashishta pair style. Download the Vashishta potential by
+    The main difference with some of the previous tutorials is the use of 
+    the *Vashishta* pair style. Download the *Vashishta* potential by
     clicking |download_vashishta|,
     and copy it within the *Potential/* folder.
 
@@ -100,10 +110,8 @@ Vashishta potential
     deduces the bonds between atoms from their relative
     positions. Therefore, there is no need to provide bond
     and angle information as we do with classic force fields
-    like GROMOS or AMBER.
-    
-    Note that Vashishta potential requires the use of metal units system. 
-    
+    like GROMOS or AMBER. When used with LAMMPS, the *Vashishta*
+    potential requires the use of metal units system. 
     Bond-angle energy based potentials
     are more computationally heavy than classical force
     fields and require the use of a smaller timestep, but
@@ -114,10 +122,10 @@ Vashishta potential
 ..  container:: justify
 
     Let us then import the system made of 9 atoms, replicate it four times in all three
-    directions of space, thus creating a system with 576 atoms.
+    directions of space, thus creating a system with 576 atoms. Add the following lines
+    to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in SilicaBlock/input.lammps*
 
     read_data SiO.data
     replicate 4 4 4
@@ -125,7 +133,8 @@ Vashishta potential
 ..  container:: justify
 
     Then, let us specify the pair coefficients by indicating
-    that the first atom type is Si, and the second is O. Let us also
+    that the first atom type is *Si*, and
+    the second is *O*. Let us also
     add a dump command for printing out the positions of the
     atoms every 5000 steps:
 
@@ -138,17 +147,15 @@ Vashishta potential
    <a href="https://pubmed.ncbi.nlm.nih.gov/9993674/" target="_blank">Vashishta</a>
 
 ..  code-block:: lammps
-    :caption: *to be copied in SilicaBlock/input.lammps*
 
     pair_coeff * * ../Potential/SiO.1990.vashishta Si O
 
 ..  container:: justify
 
-    Let us add some commands to help us follow the evolution of the system,
+    Let us add some commands to *input.lammps* to help us follow the evolution of the system,
     such as its temperature, volume, and potential-energy:
 
 ..  code-block:: lammps
-    :caption: *to be copied in SilicaBlock/input.lammps*
 
     dump dmp all atom 5000 dump.lammpstrj
     variable myvol equal vol
@@ -168,27 +175,40 @@ Annealing procedure
 ..  container:: justify
 
     Finally, let us create the last part of our script. The
-    annealing procedure is the following: we first start with a
-    small phase at 6000 K, then cool down the system to 4000 K
-    using a pressure of 100 atm. Then we cool down the system
-    further while also reducing the pressure, then perform a
-    small equilibration step at the final desired condition, 300
-    K and 1 atm.
-
-    *Disclaimer --* I created this procedure by intuition and
-    not from proper calibration, do not copy it without
-    making your own tests if you intend to publish your
-    results.
+    annealing procedure is made of four consecutive runs.
+    First, a :math:`50\,\text{ps}`
+    phase at :math:`T = 6000\,\text{K}`
+    and isotropic pressure coupling with desired pressure :math:`p = 100\,\text{atm}`:
 
 ..  code-block:: lammps
-    :caption: *to be copied in SilicaBlock/input.lammps*
 
     velocity all create 6000 4928459 rot yes dist gaussian
     fix npt1 all npt temp 6000 6000 0.1 iso 100 100 1
     timestep 0.001
     run 50000
+
+..  container:: justify
+
+    Then, a second phase during which the system is cooled down
+    from :math:`T = 6000\,\text{K}`
+    to :math:`T = 4000\,\text{K}`.
+    An anisotropic pressure coupling is used, allowing all three
+    dimensions of the box to evolve independently from one another:
+
+..  code-block:: lammps
+
     fix npt1 all npt temp 6000 4000 0.1 aniso 100 100 1
     run 50000
+
+..  container:: justify
+    
+    Then, let us cool down the system
+    further while also reducing the pressure, then perform a
+    small equilibration step at the final desired condition, :math:`T = 300\,\text{K}`
+    and :math:`p = 1\,\text{atm}`.
+
+..  code-block:: lammps
+
     fix npt1 all npt temp 4000 300 0.1 aniso 100 1 1
     run 200000
     fix npt1 all npt temp 300 300 0.1 aniso 1 1 1
@@ -196,11 +216,17 @@ Annealing procedure
 
     write_data amorphousSiO.data
 
+..  container:: justify
+
+    *Disclaimer --* I created this procedure by intuition and
+    not from proper calibration, do not copy it without
+    making your own tests if you intend to publish your results.
+
 .. admonition:: Anisotropic versus isotropic barostat
     :class: info
 
-    Here, an isotropic barostat is used for the melted phase at 6000 K, and then 
-    an anisotropic barostat when cooling down the system. With the anisotropic 
+    Here, an isotropic barostat is used for the melted phase at :math:`T = 6000\,\text{K}`,
+    and then an anisotropic barostat is used for all following phases. With the anisotropic 
     barostat, all three directions of space are adjusted independently from one another. Such
     anisotropic barostat is usually a better choice for a solid phase, 
     when there is no reason for the final solid phase to
@@ -210,6 +236,8 @@ Annealing procedure
 ..  container:: justify
 
     The simulation takes about 15-20 minutes on 4 cpu cores.
+
+..  container:: justify
 
     Let us check the evolution of the temperature from the *temperature.dat* file.
     Apart from an initial spike (may be due to an initial bad configuration, probably harmless here),
@@ -223,10 +251,16 @@ Annealing procedure
     :alt: silica temperature during annealing, from melt to solid
     :class: only-light
 
+..  container:: figurelegend
+
+    Figure: Temperature of the system during annealing. The vertical dashed lines
+    mark the transition between the different phases of the simulations.
+
 ..  container:: justify
 
     Let us also make sure that the box was indeed deformed isotropically during the first 
-    stage of the simulation, and then anisotropically by plotting lx (blue), ly (orange), and lz:
+    stage of the simulation, and then anisotropically by plotting the evolution of the
+    box dimensions over time.
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/dimensions_evolution-dark.png
     :alt: box dimensions during annealing, from melt to solid
@@ -236,21 +270,29 @@ Annealing procedure
     :alt: box dimensions during annealing, from melt to solid
     :class: only-light
 
+..  container:: figurelegend
+
+    Figure: Box dimensions during annealing. The vertical dashed lines
+    mark the transition between the different phases of the simulations.
+
+..  container:: justify
+
+    As always, let us also look at the system using VMD.
+
 .. figure:: ../figures/level3/water-adsorption-in-silica/generated-silica-dark.png
     :alt: silica block generated by temperature annealing using LAMMPS
     :class: only-dark
-    :height: 150
-    :align: right
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/generated-silica-light.png
     :alt: silica block generated by temperature annealing using LAMMPS
     :class: only-light
-    :height: 150
-    :align: right
+
+..  container:: figurelegend
+
+    Figure: Snapshot final amorphous silica (SiO2) with Si atom in yellow and
+    O atoms in red.
 
 ..  container:: justify
-
-    The snapshot on the side shows the final amorphous silica (SiO2).
 
     After running the simulation, the final LAMMPS topology file named
     *amorphousSiO.data* will be located in *SilicaBlock/*. Alternatively, if you are only interested in the
@@ -262,13 +304,11 @@ Annealing procedure
    <a href="../../../../../inputs/level3/water-adsorption-in-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
 
 .. admonition:: Tip for research project
-    :class: dropdown
+    :class: info
 
     In the case of a research project, the validity of the generated
     structure must be tested and compared to reference values, ideally from
-    experiments. 
-    
-    For instance, radial distribution functions or Young modulus
+    experiments. For instance, radial distribution functions or Young modulus
     can both be compared to experimental values. This is beyond the
     scope of this tutorial.
 
