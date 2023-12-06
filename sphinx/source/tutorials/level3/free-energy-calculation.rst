@@ -848,7 +848,7 @@ Surface adsorption of a molecule
 
 .. |topology-ethanol| raw:: html
 
-   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/system/" target="_blank">topology files</a>
+   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/system/init.data" target="_blank">topology files</a>
 
 .. |parameter-ethanol| raw:: html
 
