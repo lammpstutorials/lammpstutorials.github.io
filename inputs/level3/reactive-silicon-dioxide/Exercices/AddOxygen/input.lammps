@@ -24,38 +24,39 @@
 units real
 atom_style full
 
-read_data water_init.data
+read_data ../../Deform/silica-deformed.data
+
+mass 1 28.0855 # Si
+mass 2 15.999 # O
 
 pair_style reaxff NULL safezone 3.0 mincap 150
-pair_coeff * * qeq_ff.water O H
+pair_coeff * * ../../RelaxSilica/reaxCHOFe.ff Si O
+fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
-neighbor 1 bin
-neigh_modify every 1 delay 0 check yes
+displace_atoms all move -13 0 0 units box
 
-# define groups 
-group gO type 1
-group gH type 2
+molecule O2mol O2.mol
+create_atoms 0 random 10 456415 NULL mol O2mol 454756 overlap 3.0 maxtry 50
 
-# help the qeq/reax by setting reasonable charge from the start
-set group gO charge -1
-set group gH charge 0.5
+minimize 1.0e-4 1.0e-6 100 1000
+reset_timestep 0
 
-# initial dynamics with small timestep (because of box change during NPT)
-fix mynve all nve/limit 0.1 
-fix myber all temp/berendsen 1 360 1
-fix myqeq all qeq/reax 1 0.0 10.0 1e-6 param.qeq.reax
-fix myspr gO spring/self 5.0 # maintain the oxygen in place
-timestep 0.25
+group grpSi type 1
+group grpO type 2
+variable totqSi equal charge(grpSi)
+variable totqO equal charge(grpO)
+variable nSi equal count(grpSi)
+variable nO equal count(grpO)
+variable qSi equal v_totqSi/${nSi}
+variable qO equal v_totqO/${nO}
 
-include output.lammps
+dump dmp all custom 100 dump.lammpstrj id type q x y z
+thermo 5
+thermo_style custom step temp etotal press vol v_qSi v_qO
+fix myspec all reaxff/species 5 1 5 species.log element Si O
 
-# first short equilibration
-run 10000
-unfix mynve
-unfix myber
+fix mynvt all nvt temp 300.0 300.0 100
+timestep 0.5 
 
-# use langevin thermostating
-fix mynve all nve
-fix mylng all langevin 360 360 23.0 694835
+run 20000
 
-run 500000

@@ -38,8 +38,8 @@ Reactive silicon dioxide
 
 .. include:: ../../contact/2Aug2023.rst
 
-Relax the structure
-===================
+Prepare and relax
+=================
 
 ..  container:: justify
 
@@ -151,18 +151,8 @@ Relax the structure
 
 ..  container:: justify
 
-    Then, let us add some commands to the *input.lammps* file to
-    control the building of the neighbor lists:
-    
-..  code-block:: lammps
-
-    neighbor 0.5 bin
-    neigh_modify every 5 delay 0 check yes 
-
-..  container:: justify
-
-    Since the charges will evolve during the simulation,
-    let us extract it using *variable* commands:
+    Then, let us add some commands to the *input.lammps* file 
+    to measure the evolution of the charges during the simulation:
 
 ..  code-block:: lammps
 
@@ -184,8 +174,23 @@ Relax the structure
 ..  code-block:: lammps
 
     dump dmp all custom 100 dump.lammpstrj id type q x y z
-    thermo 10
+    thermo 5
     thermo_style custom step temp etotal press vol v_qSi v_qO
+
+..  container:: justify
+
+    Let us also use the *fix reaxff/species* to evaluate what
+    species are present within the simulation. It will
+    be useful later, when the system is deformed:
+
+..  code-block:: lammps
+
+    fix myspec all reaxff/species 5 1 5 species.log element Si O
+
+..  container:: justify
+
+    Here, the information will be printed every 5 steps in a
+    file named *species.log*.
 
 ..  container:: justify
 
@@ -198,12 +203,17 @@ Relax the structure
     fix mynpt all npt temp 300.0 300.0 100 aniso 1.0 1.0 1000
     timestep 0.5
 
-    run 10000
+    run 5000
 
 ..  container:: justify
 
-    As the simulation runs, you can see that the charges of the atoms are fluctuating.
-    The charge of every atom is actually adjusting to the local environnement.
+    Run the *input.lammps* file using LAMMPS. As can be seen from *species.log*,
+    only one species is detected, called *Si192O384*, which is the entire system.
+
+..  container:: justify
+
+    As the simulation progresses, you can see that the charges of the atoms are fluctuating
+    since the charge of every individual atom is adjusting to its local environnement.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/average-charge-light.png
     :alt: Charge of silica during equilibration with reaxff and LAMMPS
@@ -220,8 +230,9 @@ Relax the structure
 ..  container:: justify
 
     One can see that the charges of the atoms are strongly fluctuating
-    at the beginning of the simulation. This strong fluctuation correlate
-    with a large volume change of the box.
+    at the beginning of the simulation. This early fluctuation correlates
+    with a rapid volume change of the box, during which one can guess 
+    that the inter atomic distances are also quickly changing.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/volume-light.png
     :alt: volume of the system with reaxff and LAMMPS
@@ -238,7 +249,7 @@ Relax the structure
 ..  container:: justify
 
     Since each atom has a charge that depends on its local environnement,
-    the charge values are distributed around a mean value. We can plot 
+    the charge values are expected to be different for every atom in the system. We can plot 
     the charge distribution :math:`P(q)`, using the charge values printed in
     the *.lammptrj* file. To do so, a custom *Python* script 
     was written, you can download the notebook by clicking |plot_distribution|. 
@@ -317,9 +328,6 @@ Deform the structure
 
 ..  code-block:: lammps
 
-    neighbor 0.5 bin
-    neigh_modify every 5 delay 0 check yes 
-
     group grpSi type 1
     group grpO type 2
     variable totqSi equal charge(grpSi)
@@ -330,8 +338,9 @@ Deform the structure
     variable qO equal v_totqO/${nO}
 
     dump dmp all custom 100 dump.lammpstrj id type q x y z
-    thermo 100
+    thermo 5
     thermo_style custom step temp etotal press vol v_qSi v_qO
+    fix myspec all reaxff/species 5 1 5 species.log element Si O
 
 ..  container:: justify
 
@@ -342,7 +351,7 @@ Deform the structure
 ..  code-block:: lammps
 
     fix mynvt all nvt temp 300.0 300.0 100
-    timestep 0.5 
+    timestep 0.5
 
 ..  container:: justify
 
@@ -386,6 +395,23 @@ Deform the structure
 
 ..  container:: justify
 
+    There is also a strong increase in temperature during the rupture of the
+    material.
+
+.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-temperature-light.png
+    :alt: temperature of silica during deformation of the silicon oxide with LAMMPS and reaxff
+    :class: only-light
+
+.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-temperature-dark.png
+    :alt: temperature of silica during deformation of the silicon oxide with LAMMPS and reaxff
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Temperature of the system over time.
+
+..  container:: justify
+
     At the end of the deformation, one can visualize the broken material using VMD.
     Notice the different charge of the atoms located near the interface, compared to the 
     atoms located in the bulk of the material.
@@ -405,13 +431,8 @@ Deform the structure
 
 ..  container:: justify
 
-    One oxygen (:math:`\text{O}_2`) molecule was formed during the
-    process most likely because the rate of deformation was very high.
-
-..  container:: justify
-
-    One can have a look at the final charge distribution, and compare it
-    to the previously measured charge distribution.
+    One can have a look at the charge distribution after deformation,
+    as well as during the deformation.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-distribution-charge-light.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
@@ -424,28 +445,59 @@ Deform the structure
 ..  container:: figurelegend
 
     Figure: Distribution of charge of silicon (positive, blue) and oxygen (negative, orange)
-    after deformation. The small dots correspond to the charges of the previous undeformed 
-    structure.
+    after deformation. The stars correspond to the charge distribution during deformation. 
 
 ..  container:: justify
 
-    The final charge distribution differs from the previously calculated. For instance
-    there is a new peak near :math:`q=-0.5\,\text{e}` in the case of the oxygen atoms. 
-
-Add O2 molecules
-================
-
-..  container:: justify
-
-    Let us add more O2 molecule to our previously equilibrated structure, equilibrate it again, 
-    and extract the charge density profile along the x axis.
-
-    Create a new folder, name it AddOxygen/, and create a new molecule file named O2.mol in it:
+    The final charge distribution slightly differs from the previously calculated,
+    which was to be expected as the material was broken.
+    In my case, no need species was formed during the simulation,
+    as can be seen from the *species.log* file:
 
 ..  code-block:: lammps
-    :caption: *to be copied in AddOxygen/O2.mol*
 
-    # O2 reaxff file
+    #  Timestep    No_Moles    No_Specs   Si192O384
+            5           1           1           1
+    (...)
+    #  Timestep    No_Moles    No_Specs   Si192O384
+        30000           1           1           1
+
+..  container:: justify
+
+    Sometimes, :math:`\text{O}_2` molecules are formed during the
+    deformation. If this is the case, the species.log* file will look like:
+
+..  code-block:: lammps
+
+    #  Timestep    No_Moles    No_Specs   Si192O384
+              5           1           1           1
+    (...)
+    #  Timestep    No_Moles    No_Specs   Si192O382          O2
+          30000           1           1           1           1
+
+.. include:: ../../contact/accessfile.rst
+
+Going further with exercises
+============================
+
+.. container:: justify
+
+    A solution for each exercise is provided here: :ref:`solutions-label`. 
+
+Add O2 molecules
+----------------
+
+..  container:: justify
+
+    Add :math:`\text{O}_2` molecules to the previously
+    equilibrated structure. Equilibrate it again, and
+    extract the charge density profile along the :math:`x` axis. 
+
+..  container:: justify
+
+    Use the following molecule template named *O2.mol*:
+
+..  code-block:: lammps
 
     2 atoms
 
@@ -456,98 +508,18 @@ Add O2 molecules
 
     Types
 
-    1        2
-    2        2   
+    1 2
+    2 2   
 
     Charges 
 
-    1	0.0
-    2	0.0
+    1 0.0
+    2 0.0
 
 ..  container:: justify
 
-    Here the O2 molecule is simply made of 2 oxygen (type 2) atoms that are not 
-    connected by any bond (because there is no need with reaxff).
-
-    Then, create a new input.lammps file, and copy the same first lines as
-    previously in it: 
-
-..  code-block:: lammps
-    :caption: *to be copied in AddOxygen/input.lammps*
-
-    units real
-    atom_style full
-
-    read_data ../Deform/silica-deformed.data
-
-    mass 1 28.0855 # Si
-    mass 2 15.999 # O
-
-    pair_style reaxff NULL safezone 3.0 mincap 150
-    pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O
-    fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
-
-    neighbor 0.5 bin
-    neigh_modify every 5 delay 0 check yes 
-
-..  container:: justify
-
-    Optionally, let us shift the structure to recenter it in the box. The best value 
-    for the shift may be different in your case. This step is not necessary, but the
-    recentered system looks better.
-
-..  code-block:: lammps
-    :caption: *to be copied in AddOxygen/input.lammps*
-
-    displace_atoms all move -13 0 0 units box
-
-..  container:: justify
-
-    Then, let us import the molecule template O2.mol and create 10 molecules. 
-    The overlap and maxtry keywords allow us to prevent overlapping
-    between the atoms:
-
-..  code-block:: lammps
-    :caption: *to be copied in AddOxygen/input.lammps*
-
-    molecule O2mol O2.mol
-    create_atoms 0 random 10 456415 NULL mol O2mol 454756 overlap 3.0 maxtry 50
-
-..  container:: justify
-
-    The value of 3 Angstroms for the minimum interatomic overlapping is 
-    very safe for the present system. Smaller values may lead to molecules being 
-    too close from each others.
-
-    Finally, let us minimize the energy of the system, and run for a relatively long time:
-
-..  code-block:: lammps
-    :caption: *to be copied in AddOxygen/input.lammps*
-
-    minimize 1.0e-4 1.0e-6 100 1000
-    reset_timestep 0
-
-    group grpSi type 1
-    group grpO type 2
-    variable totqSi equal charge(grpSi)
-    variable totqO equal charge(grpO)
-    variable nSi equal count(grpSi)
-    variable nO equal count(grpO)
-    variable qSi equal v_totqSi/${nSi}
-    variable qO equal v_totqO/${nO}
-
-    dump dmp all custom 1000 dump.lammpstrj id type q x y z
-    thermo 1000
-    thermo_style custom step temp etotal press vol v_qSi v_qO
-
-    fix mynvt all nvt temp 300.0 300.0 100
-    timestep 0.5 
-
-    run 100000
-
-..  container:: justify
-
-    Run the simulation. You should see additional O2 molecules in the system:
+    Here, the :math:`\text{O}_2` molecule is simply made of 2 oxygen atoms that are not 
+    connected by any bond.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/O2_light.png
     :alt: Silicon oxide with additional O2 molecules
@@ -557,14 +529,9 @@ Add O2 molecules
     :alt: Silicon oxide with additional O2 molecules
     :class: only-dark
 
-    Deformed structure with additional O2 molecules
+..  container:: figurelegend
 
-.. include:: ../../contact/accessfile.rst
-
-Exercises
-=========
-
-.. include:: ../../contact/requestsolution.rst
+    Figure: Deformed structure with some :math:`\text{O}_2` molecules
 
 Decorate dandling oxygens
 -------------------------
@@ -572,11 +539,8 @@ Decorate dandling oxygens
 ..  container:: justify
 
     Under ambient conditions, dandling oxygen are typically terminated by hydrogen atoms. 
-    Let us improve the current structure by decorating some of the dandling oxygen with
-    hydrogen atoms, before relaxing it thanks to reaxff. 
-
-    Add hydrogen atoms to the dandling oxygens. Then relax the structure using *reaxff* with LAMMPS.
-    Hydrogen atoms can be added using *create_atoms* command, *gcmc*, or external *Python* script as I did here:
+    Improve the current structure by decorating some of the dandling oxygen atoms with
+    hydrogen atoms. 
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/exercice-light.png
     :alt: Silicon oxide decorated with hydrogens
@@ -586,28 +550,6 @@ Decorate dandling oxygens
     :alt: Silicon oxide decorated with hydrogens
     :class: only-dark
 
-    Hydrogen atoms are in white, oxygen in red, and silicon in yellow.
+..  container:: figurelegend
 
-.. admonition:: Hint n°1
-    :class: dropdown
-
-    The structure can be imported in MDAnalysis/Python using *u = mda.Universe("silica-deformed.data")*
-    Then dandling oxygen can be detected by counting the number of neighbor (oxygen with only 
-    one connected silicon is dandling and should be completed with an hydrogen).
-
-.. admonition:: Hint n°2
-    :class: dropdown
-
-    Once hydrogen have been added, run LAMMPS using:
-
-    ..  code-block:: lammps
-
-        mass 1 28.0855 # Si
-        mass 2 15.999 # O
-        mass 3 1.008 # H
-
-    and:
-
-    ..  code-block:: lammps
-
-        pair_coeff * * reaxCHOFe.ff Si O H
+    Figure: Hydrogen atoms are in white, oxygen in red, and silicon in yellow.

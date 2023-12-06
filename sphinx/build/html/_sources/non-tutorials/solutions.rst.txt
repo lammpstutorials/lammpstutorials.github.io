@@ -485,3 +485,185 @@ Induce a Poiseuille flow
 
     Figure: Ratio between the velocity of the center of mass :math:`v_\text{cm}` of the fluid
     and the forcing :math:`f` as a function of the forcing.
+
+Reactive silicon dioxide
+========================
+
+Add O2 molecules
+----------------
+
+.. container:: justify
+
+    In a separate folder, create a new input file,
+    and copy the same first lines as previously in it
+    (just adapt the path to *silica-deformed.data* accordingly): 
+
+..  code-block:: lammps
+
+    units real
+    atom_style full
+
+    read_data ../../Deform/silica-deformed.data
+
+    mass 1 28.0855 # Si
+    mass 2 15.999 # O
+
+    pair_style reaxff NULL safezone 3.0 mincap 150
+    pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O
+    fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
+
+..  container:: justify
+
+    Optionally, let us shift the structure to recenter it in the box. The best value 
+    for the shift may be different in your case. This step is not necessary, but the
+    recentered system looks better.
+
+..  code-block:: lammps
+
+    displace_atoms all move -13 0 0 units box
+
+..  container:: justify
+
+    Then, let us import the molecule template *O2.mol* and create 10 molecules. 
+    The overlap and maxtry keywords allow us to prevent overlapping
+    between the atoms:
+
+..  code-block:: lammps
+
+    molecule O2mol O2.mol
+    create_atoms 0 random 10 456415 NULL mol O2mol 454756 overlap 3.0 maxtry 50
+
+..  container:: justify
+
+    The value of 3 Angstroms for the minimum interatomic overlapping is 
+    very safe for the present system. Smaller values may lead to molecules being 
+    too close from each others.
+
+..  container:: justify
+
+    Finally, let us minimize the energy of the system, and run for :math:`10\,\text{ps}`:
+
+..  code-block:: lammps
+
+    minimize 1.0e-4 1.0e-6 100 1000
+    reset_timestep 0
+
+    group grpSi type 1
+    group grpO type 2
+    variable totqSi equal charge(grpSi)
+    variable totqO equal charge(grpO)
+    variable nSi equal count(grpSi)
+    variable nO equal count(grpO)
+    variable qSi equal v_totqSi/${nSi}
+    variable qO equal v_totqO/${nO}
+
+    dump dmp all custom 100 dump.lammpstrj id type q x y z
+    thermo 5
+    thermo_style custom step temp etotal press vol v_qSi v_qO
+    fix myspec all reaxff/species 5 1 5 species.log element Si O
+
+    fix mynvt all nvt temp 300.0 300.0 100
+    timestep 0.5 
+
+    run 20000
+
+..  container:: justify
+
+    You can vizualise the :math:`\text{O}_2` molecules with VMD, or have a look at the
+    *species.log* file:
+
+..  code-block:: lammps
+
+    #  Timestep    No_Moles    No_Specs   Si192O384          O2
+              5          11           2           1          10
+
+..  container:: justify
+
+    One can see that some reactions occur in the system, and
+    that eventually some of
+    the :math:`\text{O}_2` molecules react and reabsorb on the 
+    main structure:
+
+..  code-block:: lammps
+
+    #  Timestep    No_Moles    No_Specs   Si192O388          O2
+          20000           9           2           1           8
+
+.. figure:: ../tutorials/figures/level3/reactive-silicon-dioxide/O2_light.png
+    :alt: Silicon oxide with additional O2 molecules
+    :class: only-light
+
+.. figure:: ../tutorials/figures/level3/reactive-silicon-dioxide/O2_dark.png
+    :alt: Silicon oxide with additional O2 molecules
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Deformed structure with some :math:`\text{O}_2` molecules
+
+Decorate dandling oxygens
+-------------------------
+
+..  container:: justify
+
+    Space must be made for the hydrogen atoms. Modify the *silica-deformed.data* file
+    so that it starts with:
+
+..  code-block:: lammps
+
+    576 atoms
+    3 atom types
+
+..  container:: justify
+
+    Also add the mass of the hydrogen:
+
+..  code-block:: lammps
+
+    Masses
+
+    1 28.0855
+    2 15.999
+    3 1.008
+
+..  container:: justify
+
+    It is also important to change the *pair_coeff*:
+
+..  code-block:: lammps
+
+    pair_coeff * * ../../RelaxSilica/reaxCHOFe.ff Si O H
+
+..  container:: justify
+
+    One can create randomly a few hydrogen atoms:
+
+..  code-block:: lammps
+
+    create_atoms 3 random 10 456415 NULL overlap 3.0 maxtry 50
+
+..  container:: justify
+
+    Equilibrate the system, you should see the hydrogen atoms 
+    progressively decorating the surface of the SiO2 structure:
+
+..  code-block:: lammps
+
+    #  Timestep    No_Moles    No_Specs    Si192O384        H
+              5          11           2            1       10
+    (...)
+    #  Timestep    No_Moles    No_Specs Si192O384H10
+           5000           1           1            1
+
+
+.. figure:: ../tutorials/figures/level3/reactive-silicon-dioxide/exercice.png
+    :alt: Silicon oxide decorated with hydrogens
+    :class: only-light
+
+.. figure:: ../tutorials/figures/level3/reactive-silicon-dioxide/exercice.png
+    :alt: Silicon oxide decorated with hydrogens
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Hydrogen atoms are in white, oxygen in red, and silicon in yellow.
