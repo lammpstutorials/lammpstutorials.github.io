@@ -655,12 +655,11 @@ Decorate dandling oxygens
     #  Timestep    No_Moles    No_Specs Si192O384H10
            5000           1           1            1
 
-
-.. figure:: ../tutorials/figures/level3/reactive-silicon-dioxide/exercice.png
+.. figure:: ../tutorials/figures/level3/reactive-silicon-dioxide/exercice-light.png
     :alt: Silicon oxide decorated with hydrogens
     :class: only-light
 
-.. figure:: ../tutorials/figures/level3/reactive-silicon-dioxide/exercice.png
+.. figure:: ../tutorials/figures/level3/reactive-silicon-dioxide/exercice-light.png
     :alt: Silicon oxide decorated with hydrogens
     :class: only-dark
 
