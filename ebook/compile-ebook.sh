@@ -13,6 +13,11 @@ if [[ "$var1" == "full" ]];
 then
     pdflatex lammps-tutorials-ebook.tex
 fi
+
+mv lammps-tutorials-ebook.pdf _lammps-tutorials-ebook.pdf 
+pdftk logo/first-page.pdf _lammps-tutorials-ebook.pdf  cat output lammps-tutorials-ebook.pdf
+rm _lammps-tutorials-ebook.pdf 
+
 # recompile figures
 # if [[ "$var2" == "fig" ]];
 # then
