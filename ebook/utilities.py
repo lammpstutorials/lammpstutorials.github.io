@@ -259,6 +259,7 @@ def read_link(sub_line):
     rest = ["", "", ""]
     link = ["", ""]
     in_link = False
+    print(sub_line)
     for letter in sub_line:
         if (letter=='{') & (in_link==False):
             in_link = True
