@@ -422,10 +422,6 @@ Cracking the silica
     can download the final state directly by clicking
     |download_silica_dilated|. The final system with the crack resembles:
 
-.. |video_dilatation| raw:: html
-
-   <a href="https://www.youtube.com/watch?v=8rBqYIcTgno&ab_channel=SimonGravelle" target="_blank">this video</a>
-
 .. |download_silica_dilated| raw:: html
 
    <a href="../../../../../inputs/level3/water-adsorption-in-silica/Cracking/dilatedSiO.data" target="_blank">here</a>
@@ -461,17 +457,18 @@ Using hydrid potentials
 ..  container:: justify
 
     Create a new folder called *Addingwater/*. Download and save the
-    |download_TIP4P2005| file for the water molecule within *Addingwater/*.
+    |download_TIP4P2005| file for the
+    water molecule within *Addingwater/*.
+
+.. |download_TIP4P2005| raw:: html
+
+   <a href="../../../../../inputs/level3/water-adsorption-in-silica/AddingWater/H2O.mol" target="_blank">template</a>
 
 ..  container:: justify
 
     Create a new input file called *input.lammps*
     within *Addingwater/*, and copy the
     following lines into it:
-
-.. |download_TIP4P2005| raw:: html
-
-   <a href="../../../../../inputs/level3/water-adsorption-in-silica/AddingWater/H2O.mol" target="_blank">template</a>
 
 ..  code-block:: lammps
 

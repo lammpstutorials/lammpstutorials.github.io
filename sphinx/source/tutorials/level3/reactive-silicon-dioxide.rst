@@ -43,28 +43,32 @@ Prepare and relax
 
 ..  container:: justify
 
-    Create a folder, name it *RelaxSilica/*, and |download_silica_data|
-    the initial topology of a small amorphous silica structure.
+    Create a folder, name it *RelaxSilica/*,
+    and |download_silica_data| the initial topology of a small
+    amorphous silica structure.
+
+.. |download_silica_data| raw:: html
+
+   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/silica.data" target="_blank">download</a>
+
+..  container:: justify
+
     The system was created by temperature annealing using another force field 
-    (|download_SiO.1990.vashishta|), therefore the structure is slightly
+    named |download_SiO.1990.vashishta|, therefore the structure is slightly
     different to what is expected from the reaxff force field. 
     For instance, the average bond lengths, angles, and charges 
     are likely to be different, and the structure needs 
     to be relaxed again using reaxff. 
+
+.. |download_SiO.1990.vashishta| raw:: html
+
+   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>
 
 ..  container:: justify
 
     In case you are interested in the input creation, the input file
     used for creating the initial topology is available
     |lammps_input_creating|.
-
-.. |download_silica_data| raw:: html
-
-   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/silica.data" target="_blank">download</a>
-
-.. |download_SiO.1990.vashishta| raw:: html
-
-   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>
 
 .. |lammps_input_creating| raw:: html
 
@@ -125,7 +129,8 @@ Prepare and relax
 ..  container:: justify
 
     The *pair_coeff* uses
-    the |reaxCHOFe| file which is assumed to be saved within *RelaxSilica/*.
+    the |reaxCHOFe| file which is assumed
+    to be saved within *RelaxSilica/*.
     For consistency, the atoms of type 1 are set as silicon (Si),
     and the atoms of type 2 as oxygen (O).
 

@@ -627,7 +627,7 @@ Side note: on the choice of k
 
 ..  container:: figurelegend
 
-    Figure: Density probability for each run with :math:`k = 1.5` Kcal/mol/Å^2.
+    Figure: Density probability for each run with :math:`k = 1.5\,\text{Kcal}/\text{mol}/Å^2`.
 
 ..  container:: justify
 
@@ -644,7 +644,7 @@ Side note: on the choice of k
 
 ..  container:: figurelegend
 
-    Figure: Density probability for each run with :math:`k = 0.15` Kcal/mol/Å^2.
+    Figure: Density probability for each run with :math:`k = 0.15\,\text{Kcal}/\text{mol}/Å^2`.
 
 ..  container:: justify
 
@@ -662,7 +662,7 @@ Side note: on the choice of k
 
 ..  container:: figurelegend
 
-    Figure: Density probability for each run with :math:`k = 15` Kcal/mol/Å^2. 
+    Figure: Density probability for each run with :math:`k = 15\,\text{Kcal}/\text{mol}/Å^2`.
 
 Going further with exercises
 ============================
@@ -748,7 +748,17 @@ Surface adsorption of a molecule
 
     Apply umbrella sampling to calculate the free energy profile
     of ethanol in the direction normal to a crystal solid surface
-    (here made of sodium chloride). Find the |topology-ethanol| and |parameter-ethanol|.
+    (here made of sodium chloride). Find the |topology-ethanol|
+    and |parameter-ethanol|.
+
+.. |topology-ethanol| raw:: html
+
+   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/init.data" target="_blank">topology files</a>
+
+.. |parameter-ethanol| raw:: html
+
+   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/PARM.lammps" target="_blank">parameter file</a>
+
 
 ..  container:: justify
 
@@ -805,14 +815,6 @@ Surface adsorption of a molecule
     molecule when adsorbed to the solid surface, and
     the energy far from the surface. This difference corresponds to the
     free energy of adsorption.
-
-.. |topology-ethanol| raw:: html
-
-   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/init.data" target="_blank">topology files</a>
-
-.. |parameter-ethanol| raw:: html
-
-   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/PARM.lammps" target="_blank">parameter file</a>
 
 ..  container:: justify
 
