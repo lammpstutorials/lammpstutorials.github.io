@@ -768,9 +768,9 @@ Surface adsorption of a molecule
 
 ..  container:: justify
 
-    The PMF normal to a solid wall serves to indicate the free energy of adsorption, which is
-    calculated from the difference between the PMF far from the surface, and the 
-    PMF at the wall.
+    The PMF normal to a solid wall serves to indicate the free energy of adsorption,
+    which can be calculated from the difference between the PMF far
+    from the surface, and the PMF at the wall.
 
 .. figure:: ../figures/level3/free-energy-calculation/ethanol-light.png
     :alt: Ethanol molecule next to NaCl
@@ -801,6 +801,10 @@ Surface adsorption of a molecule
 
     Figure: PMF for a single ethanol molecule next to a NaCl
     solid surface. The position of the wall is in :math:`x=0`.
+    The arrow highlight the difference between the energy of the 
+    molecule when adsorbed to the solid surface, and
+    the energy far from the surface. This difference corresponds to the
+    free energy of adsorption.
 
 .. |topology-ethanol| raw:: html
 
