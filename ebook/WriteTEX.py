@@ -7,12 +7,13 @@ from utilities import replace_special_character, fix_math, fix_link, fix_italic,
 
 class WriteTex:
     """Write Tex file."""
-    def __init__(self, file_name, RST, git_path, *args, **kwargs,):
+    def __init__(self, file_name, RST, git_path, nonumber = False, *args, **kwargs,):
         """Initialize"""
         super().__init__(*args, **kwargs)
         self.file_name = file_name
         self.RST = RST
         self.git_path = git_path
+        self.nonumber = nonumber
 
     def convert_file(self):
         """Main convert function."""
@@ -42,7 +43,13 @@ class WriteTex:
 
     def write_main_title(self):
         title_position = self.RST.title_positions[np.where(np.array(self.RST.title_types) == "main")[0][0]]
-        self.f.write('\chapter{'+self.RST.file_content[title_position]+'}')
+        if self.nonumber is False:
+            self.f.write('\chapter{'+self.RST.file_content[title_position]+'}')
+        else:
+            if self.RST.file_content[title_position] == "Before you start":
+                self.f.write('\chapter*{Preface}')
+            else:
+                self.f.write('\chapter*{'+self.RST.file_content[title_position]+'}')
         self.f.write('\n')
 
     def write_main_label(self):
@@ -122,9 +129,9 @@ class WriteTex:
                 else:      
                     #print("webp convert into png")  
                     #print(new_figure)
-                    print()  
-                    print(figure_path)
-                    print()    
+                    # print()  
+                    # print(figure_path)
+                    # print()    
                     im = Image.open(figure_path).convert('RGB')
                     im.save(new_figure, 'png')
 
@@ -150,10 +157,16 @@ class WriteTex:
 
     def write_title(self, filtered_block, block_type):
         if ("subtitle" in block_type):
-            self.f.write('\section{' + filtered_block + '}')
+            if self.nonumber is False:
+                self.f.write('\section{' + filtered_block + '}')
+            else:
+                self.f.write('\section*{' + filtered_block + '}')
             self.f.write('\n')
         elif ("subsubtitle" in block_type):
-            self.f.write('\subsection{' + filtered_block + '}')
+            if self.nonumber is False:
+                self.f.write('\subsection{' + filtered_block + '}')
+            else:
+                self.f.write('\subsection*{' + filtered_block + '}')
             self.f.write('\n')
 
     def write_equation(self, filtered_block, block_type):

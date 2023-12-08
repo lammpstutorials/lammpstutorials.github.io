@@ -48,7 +48,7 @@ tex_file_name = git_path+'/ebook/non-tutorials/before-you-start.tex'
 RST = ReadRST(rst_file_name)
 RST.convert_file()
 assert len(RST.label_positions) == 1, """Careful, more than one label"""
-TEX = WriteTex(tex_file_name, RST, git_path)
+TEX = WriteTex(tex_file_name, RST, git_path, nonumber=True)
 TEX.convert_file()
 FIX = FixDocument(tex_file_name)
 FIX.fix_document()
@@ -61,7 +61,7 @@ tex_file_name = git_path+'/ebook/non-tutorials/solutions.tex'
 RST = ReadRST(rst_file_name)
 RST.convert_file()
 assert len(RST.label_positions) == 1, """Careful, more than one label"""
-TEX = WriteTex(tex_file_name, RST, git_path)
+TEX = WriteTex(tex_file_name, RST, git_path, nonumber=True)
 TEX.convert_file()
 FIX = FixDocument(tex_file_name)
 FIX.fix_document()
