@@ -5,7 +5,10 @@ var1=$1
 var2=$2
 
 # convert the sphinx bibliography to ebook
-python3 sphinx-to-ebook.py
+if [[ "$var1" == "full" ]];
+then
+    python3 sphinx-to-ebook.py
+fi
 # compile pdf
 pdflatex lammps-tutorials-ebook.tex
 # if full keyword is given, recompile pdf
