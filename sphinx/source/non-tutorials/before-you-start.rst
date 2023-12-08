@@ -3,6 +3,26 @@
 Before you start
 ****************
 
+..  container:: justify
+
+    *LAMMPS tutorials* is made of seven tutorials that are
+    ordered by increasing difficulty. Each tutorial
+    focus on a single system which is typically a
+    soft matter system. The very first tutorial
+    :ref:`lennard-jones-label` is meant for absolute LAMMPS
+    beginners. Then, the difficulty is progressively increased
+    during tutorials :ref:`carbon-nanotube-label`, 
+    :ref:`all-atoms-label`,
+    :ref:`sheared-confined-label`,
+    and :ref:`reactive-silicon-dioxide-label`.
+    Finally, the last two tutorials, :ref:`gcmc-silica-label`,
+    :ref:`umbrella-sampling-label`,
+    are meant to described some more advanced simulation methods
+    that are commonly used when studying soft matter systems,
+    respectively grand canonical Monte Carlo simulations and 
+    umbrella sampling which is method to measure the
+    free energy profile of a given species.
+
 Overall structure
 =================
 
