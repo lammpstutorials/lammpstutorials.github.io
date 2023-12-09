@@ -513,7 +513,7 @@ WHAM algorithm
     first need to create a metadata file. This file simply
     contains 
     
-    ..  container:: justify
+..  container:: justify
 
     - the paths to all the data files,
     - the value of :math:`x_\text{des}`,
