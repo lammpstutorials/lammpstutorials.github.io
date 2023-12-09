@@ -34,7 +34,10 @@ for level in tutorials.keys():
         RST = ReadRST(rst_file_name)
         RST.convert_file()
         assert len(RST.label_positions) == 1, """Careful, more than one label"""
-        TEX = WriteTex(tex_file_name, RST, git_path)
+        if "vmd" in tutorial:
+            TEX = WriteTex(tex_file_name, RST, git_path, nonumber=True)
+        else:
+            TEX = WriteTex(tex_file_name, RST, git_path)
         TEX.convert_file()
         FIX = FixDocument(tex_file_name)
         FIX.fix_document()

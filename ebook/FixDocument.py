@@ -122,7 +122,30 @@ class FixDocument:
                     label, rest = read_label(split[1])
                     if label is None:
                         print("WARNING, Wrong label", line)
-                    new_line = split[0] + r'Tutorial\,\ref{' + label + '}' + rest[1]
+
+                    if label == "solutions-label":  
+                        new_line = split[0] + '\hyperref[' + label + ']{Solutions to the exercises}' + rest[1]      
+                    elif label == "lennard-jones-label":
+                        new_line = split[0] + '\hyperref[' + label + ']{Lennard Jones fluid}' + rest[1]    
+                    elif label == "all-atoms-label":
+                        new_line = split[0] + '\hyperref[' + label + ']{Polymer in water}' + rest[1]    
+                    elif label == "reactive-silicon-dioxide-label":
+                        new_line = split[0] + '\hyperref[' + label + ']{Reactive silicon dioxide}' + rest[1]    
+                    elif label == "carbon-nanotube-label":
+                        new_line = split[0] + '\hyperref[' + label + ']{Pulling on a carbon nanotube}' + rest[1]  
+                    elif label == "sheared-confined-label":
+                        new_line = split[0] + '\hyperref[' + label + ']{Nanosheared electrolyte}' + rest[1]  
+                    elif label == "gcmc-silica-label":
+                        new_line = split[0] + '\hyperref[' + label + ']{Water adsorption in silica}' + rest[1]  
+                    elif label == "umbrella-sampling-label":
+                        new_line = split[0] + '\hyperref[' + label + ']{Free energy calculation}' + rest[1]  
+                    elif label == "vmd-label":
+                        new_line = split[0] + '\hyperref[' + label + ']{VMD tutorial}' + rest[1]  
+                    else:
+                        print("unfound label")
+                        print(label)
+                        stop
+                        new_line = split[0] + r'Tutorial\,\ref{' + label + '}' + rest[1]
                     new_tex_file_name.append(new_line)
                 else:
                     print("WARNING, several label per line", line)
