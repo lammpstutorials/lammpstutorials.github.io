@@ -34,7 +34,8 @@ LAMMPS (2 Aug 2023)
 
 ..  container:: justify
 
-    Download and install LAMMPS by following the instructions of the |LAMMPS website installation|.
+    Download and install the 2 Aug 2023 version of LAMMPS by following the
+    instructions of the |LAMMPS website installation|.
     Depending on you OS, the procedure may differ.
 
 .. |LAMMPS website installation| raw:: html
@@ -43,35 +44,20 @@ LAMMPS (2 Aug 2023)
 
 ..  container:: justify
 
-    If you are using *Ubuntu OS*, you can simply execute the
-    following command in a terminal:
-
-..  code-block:: bw
-
-   sudo apt-get install lammps
+    LAMMPS must be compiled with the following packages:
 
 ..  container:: justify
 
-    You can verify that LAMMPS is indeed installed on your
-    computer by typing in a terminal :
-
-..  code-block:: bw
-
-    lmp
-
-..  container:: justify
-
-    You should see the version of LAMMPS that has been
-    installed. On my computer I see
-
-..  code-block:: bw
-
-    LAMMPS (2 Aug 2023)
+    - MANYBODY
+    - MOLECULE
+    - KSPACE
+    - RIGID
+    - REAXFF
+    - EXTRA-DUMP
 
 ..  container:: justify
 
-    All the tutorials here were made with the *LAMMPS (2 Aug 2023)*
-    version. If you decide to use another LAMMPS version, certain commands
+    If you decide to use another LAMMPS version, certain commands
     may not work. In that case, an error message may appear.
 
 VMD (1.9.3)
@@ -138,4 +124,4 @@ Text editing software
 Find the input scripts
 ======================
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../contact/accessfile.rst
