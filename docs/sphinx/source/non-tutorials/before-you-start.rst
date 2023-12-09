@@ -7,15 +7,16 @@ Before you start
 
     *LAMMPS tutorials* is made of seven tutorials that are
     ordered by increasing difficulty. :ref:`lennard-jones-label`
-    is meant for absolute LAMMPS
-    beginners. Then, the difficulty is progressively increased
+    is meant for absolute LAMMPS and molecular dynamics
+    beginners, and the complexity of the simulation
+    is progressively increased
     for :ref:`carbon-nanotube-label`, 
     :ref:`all-atoms-label`,
     :ref:`sheared-confined-label`,
     and :ref:`reactive-silicon-dioxide-label`.
     Finally, :ref:`gcmc-silica-label`,
     :ref:`umbrella-sampling-label`,
-    are meant to described some more advanced simulation methods
+    are using some more advanced simulation methods
     that are commonly used when studying soft matter systems,
     respectively grand canonical Monte Carlo simulations and 
     a free energy method named umbrella sampling.
@@ -26,7 +27,7 @@ Required softwares
 ..  container:: justify
 
     The 2 Aug 2023 version of LAMMPS is required to follow the tutorials.
-    The other softwares listed here are optional but recommended.
+    The other softwares listed here are optional.
 
 LAMMPS (2 Aug 2023)
 -------------------
