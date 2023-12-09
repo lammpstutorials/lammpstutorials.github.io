@@ -14,9 +14,14 @@ sys.path.append(git_path+"/docs/inputs/shared-pyplot-files/")
 if os.path.exists(git_path+'/ebook/tutorials') is False:
     os.mkdir(git_path+'/ebook/tutorials')
 
-tutorials = {"level1": ["lennard-jones-fluid", "breaking-a-carbon-nanotube"],
-             "level2": ["polymer-in-water", "nanosheared-electrolyte"],
-             "level3": ["water-adsorption-in-silica", "free-energy-calculation", "reactive-silicon-dioxide"]}
+tutorials = {"level1": ["lennard-jones-fluid",
+                        "breaking-a-carbon-nanotube"],
+             "level2": ["polymer-in-water",
+                        "nanosheared-electrolyte"],
+             "level3": ["water-adsorption-in-silica",
+                        "free-energy-calculation",
+                        "reactive-silicon-dioxide"],
+             "vmd": ["vmd-tutorial"]}
 
 for level in tutorials.keys():
     if os.path.exists(git_path+'/ebook/tutorials/'+level) is False:
