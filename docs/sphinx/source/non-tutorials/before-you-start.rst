@@ -20,44 +20,12 @@ Before you start
     respectively grand canonical Monte Carlo simulations and 
     a free energy method named umbrella sampling.
 
-Overall structure
-=================
-
-..  container:: justify
-
-    The seven LAMMPS tutorials are grouped by level, with *Level 1*
-    being meant for LAMMPS beginners, and *Level 3* for LAMMPS advanced users. 
-    Although the tutorials are independent from each other, 
-    it is recommended to follow them in the order that is proposed
-    since the level of difficulty is progressively increasing.
-
-..  container:: justify
-
-    The **beginners** tutorials :ref:`lennard-jones-label`
-    and :ref:`carbon-nanotube-label` focus on the basics of
-    LAMMPS, such as the structure of the input files and some of the most
-    common commands.
-    
-..  container:: justify
-    
-    The **intermediate** tutorials :ref:`all-atoms-label`
-    and :ref:`sheared-confined-label` involve more complex
-    water-based system with electrostatics, and must help dealing with
-    systems containing different groups such as solid and liquid.
-
-..  container:: justify
-
-    The **advanced** tutorials focus on advanced technics like GCMC (:ref:`gcmc-silica-label`),
-    which permit simulation in the grand canonical ensemble when the number of atoms is
-    fluctuating, umbrella sampling (:ref:`umbrella-sampling-label`),
-    and the use of reactive force field (:ref:`reactive-silicon-dioxide-label`).
-
 Required softwares
 ==================
 
 ..  container:: justify
 
-    LAMMPS is obviously required to follow the tutorials.
+    The 2 Aug 2023 version of LAMMPS is required to follow the tutorials.
     The other softwares listed here are optional but recommended.
 
 LAMMPS (2 Aug 2023)
@@ -66,6 +34,7 @@ LAMMPS (2 Aug 2023)
 ..  container:: justify
 
     Download and install LAMMPS by following the instructions of the |LAMMPS website installation|.
+    Depending on you OS, the procedure may differ.
 
 .. |LAMMPS website installation| raw:: html
 
