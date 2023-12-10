@@ -486,7 +486,14 @@ Molecular dynamics
 
     In the run section, the *fix nve* is used to update the
     positions and the velocities of the atoms in the group
-    *all*. Therefore, *fix nve* is the most important command here.
+    *all*. Therefore, *fix nve* contains the time integrator and is
+    the most important command here.
+    
+.. admonition:: What is a fix?
+    :class: info
+    
+    In LAMMPS, a *fix* corresponds to an operation that is applied
+    to the system.
     
 ..  container:: justify
     
@@ -518,9 +525,10 @@ Molecular dynamics
 
 ..  container:: justify
 
-    From what has been printed in the *log* file, let us
-    plot the potential energy and the pressure of
-    the system over time:
+    From what has been printed in the *log* file, one can
+    plot the potential energy (:math:`p_\text{e}`)
+    and the kinetic energy (:math:`k_\text{e}`) of
+    the system over time (see the figure below).
 
 .. figure:: ../figures/level1/lennard-jones-fluid/energy-light.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time

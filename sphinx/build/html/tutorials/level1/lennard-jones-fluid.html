@@ -645,7 +645,13 @@ as soon as <em>PART B</em> starts.</p>
 <div class="justify docutils container">
 <p>In the run section, the <em>fix nve</em> is used to update the
 positions and the velocities of the atoms in the group
-<em>all</em>. Therefore, <em>fix nve</em> is the most important command here.</p>
+<em>all</em>. Therefore, <em>fix nve</em> contains the time integrator and is
+the most important command here.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">What is a fix?</p>
+<p>In LAMMPS, a <em>fix</em> corresponds to an operation that is applied
+to the system.</p>
 </div>
 <div class="justify docutils container">
 <p>The second fix applies a Langevin thermostat to the atoms of group
@@ -673,9 +679,10 @@ starts from 0, but rapidly reaches the
 requested value and stabilize itself near <span class="math notranslate nohighlight">\(T=1\)</span>.</p>
 </div>
 <div class="justify docutils container">
-<p>From what has been printed in the <em>log</em> file, let us
-plot the potential energy and the pressure of
-the system over time:</p>
+<p>From what has been printed in the <em>log</em> file, one can
+plot the potential energy (<span class="math notranslate nohighlight">\(p_\text{e}\)</span>)
+and the kinetic energy (<span class="math notranslate nohighlight">\(k_\text{e}\)</span>) of
+the system over time (see the figure below).</p>
 </div>
 <figure class="align-default">
 <img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-light" src="../../_images/energy-light.png" />
