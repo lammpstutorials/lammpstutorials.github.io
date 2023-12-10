@@ -494,13 +494,13 @@ arithmetic rule are based on rigorous arguments, so here
 the geometric rule will do just fine.</p>
 </div>
 <div class="justify docutils container">
-<p>Due to the chosen Lennard-Jones parameters, the two types of particle
+<p>Due to the chosen Lennard-Jones parameters, the two types of particles
 are given different effective diameters, as can be seen by plotting
 <span class="math notranslate nohighlight">\(E_{11} (r)\)</span>,
 <span class="math notranslate nohighlight">\(E_{12} (r)\)</span>,
 and <span class="math notranslate nohighlight">\(E_{22} (r)\)</span>.</p>
 </div>
-<figure class="align-default">
+<figure class="align-default" id="fig-lennard-jones">
 <img alt="Lennard jones potential" class="only-light" src="../../_images/lennard-jones-light.png" />
 </figure>
 <figure class="align-default">
@@ -540,7 +540,7 @@ asks LAMMPS to perform an energy minimization of the system.</p>
 <div class="info admonition">
 <p class="admonition-title">About energy minimization</p>
 <p>An energy minimization procedure consists in adjusting
-the coordinates of the atoms that are too close from one another until one of the stopping
+the coordinates of the atoms that are too close to each other until one of the stopping
 criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
 Here, there are four stopping criteria:</p>
 <ul class="simple">
@@ -568,9 +568,9 @@ variables evolve with time:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>These lines give us information concerning
-the progress of the energy minimization. First, at the start
-of the simulation (step 0), the energy in the system is
+<p>These lines give us information about
+the progresses of the energy minimization. First, at the start
+of the simulation (Step 0), the energy in the system is
 huge: 78840982 (unitless). This was expected because
 the atoms have been created at random positions within the
 simulation box, and some of them are probably overlapping,
@@ -578,8 +578,10 @@ resulting in a large initial energy which is the consequence
 of the repulsive part of the Lennard-Jones interaction
 potential. As the energy minimization progresses, the energy
 rapidly decreases and reaches a negative value, indicating that the atoms have been
-displaced at reasonable distances from one another. Other
-useful information have been printed in the terminal, for
+displaced at reasonable distances from each others.</p>
+</div>
+<div class="justify docutils container">
+<p>Other useful information has been printed in the terminal, for
 example, LAMMPS tells us that the first of the four criteria
 to be satisfied was the energy:</p>
 </div>
@@ -590,7 +592,12 @@ Stopping criterion = energy tolerance
 </section>
 <section id="molecular-dynamics">
 <h3>Molecular dynamics<a class="headerlink" href="#molecular-dynamics" title="Link to this heading">#</a></h3>
-<div class="dropdown admonition">
+<div class="justify docutils container">
+<p>The system is now ready. Let us continue filling up the
+input script and adding commands in order to perform an actual molecular dynamics
+simulation that will start from the final state of the energy minimization.</p>
+</div>
+<div class="info admonition">
 <p class="admonition-title">Background Information – What is molecular dynamics?</p>
 <p>Molecular dynamics (MD) is based on the numerical solution of the Newtonian
 equations of motion for every atom <span class="math notranslate nohighlight">\(i\)</span>,</p>
@@ -606,16 +613,13 @@ evolution of the positions and velocities of atoms and molecules over time.</p>
 <p>At every step, the following operations usually occur when
 performing a MD simulation:</p>
 <ul class="simple">
-<li><p>the forces between the atoms are calculated from the potential, here Lennard-Jones with given parameters <span class="math notranslate nohighlight">\(\epsilon\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>,</p></li>
+<li><p>the forces between the atoms are calculated from the potential (here Lennard-Jones),</p></li>
 <li><p>the acceleration of each atom is evaluated from the Newtonian equation,</p></li>
 <li><p>the velocity and position of each atom are updated according to the calculated acceleration, typically using the Verlet algorithm, or similar.</p></li>
 </ul>
 </div>
 <div class="justify docutils container">
-<p>The system is now ready. Let us continue filling up the
-input script and adding commands in order to perform an actual molecular dynamics
-simulation that will start from the final state of the energy minimization.
-In the same input script, after the <em>minimization</em> command, add the following
+<p>In the same input script, after the <em>minimization</em> command, add the following
 lines:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># PART B - MOLECULAR DYNAMICS</span>
@@ -636,17 +640,19 @@ minimization. There is no need to re-initialize the system
 re-define it, or re-specify the settings. The <em>thermo</em> command
 is called a second time within the same input, so the previously
 entered value of <em>10</em> will be replaced by the value of <em>100</em>
-as soon as the second run starts.</p>
+as soon as <em>PART B</em> starts.</p>
 </div>
 <div class="justify docutils container">
-<p>In the run section, the fix <em>nve</em> is used to update the
+<p>In the run section, the <em>fix nve</em> is used to update the
 positions and the velocities of the atoms in the group
-<em>all</em> (this is the most important command here). The second
-fix applies a Langevin thermostat to the atoms of group
+<em>all</em>. Therefore, <em>fix nve</em> is the most important command here.</p>
+</div>
+<div class="justify docutils container">
+<p>The second fix applies a Langevin thermostat to the atoms of group
 <em>all</em>, with a desired temperature of 1 and a <em>damping</em>
 parameter of 0.1. The number <em>1530917</em> is a seed, you can
 change it to perform statistically independent simulations.
-Finally we choose the timestep and we ask LAMMPS to
+Finally we choose the <em>timestep</em> and we ask LAMMPS to
 run for 10000 steps. After running the simulation, you
 should see the following information in the terminal:</p>
 </div>
@@ -662,9 +668,9 @@ should see the following information in the terminal:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The second column shows that the temperature
+<p>The second column shows that the temperature <em>Temp</em>
 starts from 0, but rapidly reaches the
-expected value near <span class="math notranslate nohighlight">\(T=1\)</span>, as requested.</p>
+requested value and stabilize itself near <span class="math notranslate nohighlight">\(T=1\)</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>From what has been printed in the <em>log</em> file, let us
