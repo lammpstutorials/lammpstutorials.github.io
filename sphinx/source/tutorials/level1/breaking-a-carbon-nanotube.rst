@@ -657,8 +657,6 @@ Finalize au run
     :alt: CNT in graphene in vacuum image VMD  before and after deformation
     :class: only-light
 
-.. include:: ../../contact/accessfile.rst
-
 Breakable bonds
 ===============
 
