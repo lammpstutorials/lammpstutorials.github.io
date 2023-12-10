@@ -240,12 +240,12 @@
 </figure>
 <div class="abstract docutils container">
 <p>The objective of this tutorial is to use
-LAMMPS to perform a simple molecular dynamics simulation
+LAMMPS and perform a simple molecular dynamics simulation
 of a simple binary fluid. The system is
 a simple Lennard-Jones fluid made of neutral
-particles with different sizes. A Langevin thermostat is
-applied to the particles to impose its temperature, and the
-simulation box is cubic with periodic boundary conditions.</p>
+particles with different sizes in a cubic with periodic
+boundary conditions. A Langevin thermostat is
+applied to the particles to impose the temperature of the system.</p>
 </div>
 <div class="abstract docutils container">
 <p>This tutorial illustrates the use of several key ingredients of
@@ -269,9 +269,9 @@ this script will be divided into five categories which we are going to
 fill up one by one.</p>
 </div>
 <div class="justify docutils container">
-<p>Create a folder, call it <em>my-first-input</em>, and then create a blank
-text file in it, called <em>input.lammps</em>. Copy the following lines
-in <em>my-first-input/input.lammps</em>, where a line starting with a brace (#)
+<p>Create a folder, call it <em>my-first-input/</em>, and then create a blank
+text file in it called <em>input.lammps</em>. Copy the following lines
+in <em>input.lammps</em>, where a line starting with a brace (#)
 is a comment that is ignored by LAMMPS:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># PART A - ENERGY MINIMIZATION</span>
@@ -298,10 +298,10 @@ input, and the <em>Run</em> category at the bottom.</p>
 let us indicate to LAMMPS the most basic information
 about the simulation, such as:</p>
 <ul class="simple">
-<li><p>the conditions at the boundaries of the box (periodic, non-periodic, …)</p></li>
+<li><p>the conditions at the boundaries of the box (periodic, non-periodic, …),</p></li>
 <li><p>the type of atoms (uncharged single dots, spheres with angular velocities, …).</p></li>
 </ul>
-<p>Enter the following lines in <em>my-first-input/input.lammps</em>:</p>
+<p>Enter the following lines in <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 1) Initialization</span>
 <span class="k">units</span><span class="w"> </span><span class="n">lj</span>
@@ -316,7 +316,7 @@ about the simulation, such as:</p>
 use the system of unit called <em>LJ</em>, for Lennard-Jones, for
 which all quantities are unitless.</p>
 </div>
-<div class="dropdown admonition">
+<div class="info admonition">
 <p class="admonition-title">About Lennard-Jones (LJ) units</p>
 <p>Lennard-Jones (LJ) units are a dimensionless system of units.
 LJ units are often used in molecular simulations
@@ -330,7 +330,7 @@ at which the particle-particle potential energy is zero,</p></li>
 </ul>
 <p>All the other quantities are normalized by a combination of <span class="math notranslate nohighlight">\(\epsilon\)</span>, <span class="math notranslate nohighlight">\(\sigma\)</span>,
 and <span class="math notranslate nohighlight">\(m\)</span>. For instance, time is expressed in units of <span class="math notranslate nohighlight">\(\sqrt{ \epsilon / m \sigma^2}\)</span>.
-Find the full list of quantities <a href="https://docs.lammps.org/units.html" target="_blank">from the LAMMPS website</a>.</p>
+Find on details on the <a href="https://docs.lammps.org/units.html" target="_blank">LAMMPS website</a>.</p>
 </div>
 <div class="justify docutils container">
 <p>The second line, <em>dimension 3</em>, indicates that the simulation
@@ -339,10 +339,10 @@ will be used, therefore each atom is just a dot with a mass.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About the atom style</p>
-<p>While we are keeping it simple here,
-in the following tutorials, different <em>atom_style</em> will be used,
-allowing us to create atoms with a net charge and to define
-bonds between atoms to form molecules.</p>
+<p>While we are keeping things as simple as possible in this tutorial,
+different <em>atom_style</em> will be used in the following tutorials.
+These other <em>atom_style</em> will allow us to create atoms with a net
+charge, as well as to define bonds between atoms to form molecules.</p>
 </div>
 <div class="justify docutils container">
 <p>The fourth line, <em>pair_style lj/cut 2.5</em>, indicates that atoms
@@ -351,14 +351,32 @@ a cut-off equal to <span class="math notranslate nohighlight">\(r_c = 2.5\)</spa
 </div>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[E (r) = 4 \epsilon \left[ \left( \dfrac{\sigma}{r} \right)^{12} - \left( \dfrac{\sigma}{r} \right)^{6} \right], ~ \text{for} ~ r &lt; r_c.\]</div>
+\[E_{ij} (r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12} - \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], ~ \text{for} ~ r &lt; r_c,\]</div>
+</div>
+<div class="justify docutils container">
+<p>where <span class="math notranslate nohighlight">\(r\)</span> is the inter-particles distance,
+<span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> the depth of potential well that sets the interaction strength, and
+<span class="math notranslate nohighlight">\(\sigma_{ij}\)</span> the distance parameter or particle effective size.
+Here, the index <em>ij</em> refer to the particle types <em>i</em> and <em>j</em>.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">About Lennard-Jones potential</p>
+<p>The Lennard-Jones potential offers a simplified representation that captures the fundamental
+aspects of interactions among basic atoms and molecules. It depicts a scenario where two
+particles exhibit repulsion at extremely close distances, attraction at moderate
+distances, and no interaction at infinite separation. The repulsive part of the
+Lennard-Jones potential (i.e. the term <span class="math notranslate nohighlight">\(\propto r^{-12}\)</span>) is linked
+with the Pauli exclusion principle, and the attractive part (i.e. the term in <span class="math notranslate nohighlight">\(\propto - r^{-6}\)</span>)
+with the van der Waals forces.</p>
 </div>
 <div class="justify docutils container">
 <p>The last line, <em>boundary p p p</em>, indicates that the
 periodic boundary conditions will be used along all three
 directions of space (the 3 <em>p</em> stand for <em>x</em>, <em>y</em>, and <em>z</em>,
 respectively).</p>
-<p>At this point, <em>my-first-input/input.lammps</em> is a
+</div>
+<div class="justify docutils container">
+<p>At this point, the <em>input.lammps</em> is a
 LAMMPS input script that does nothing.
 You can run it using LAMMPS to verify that the <em>input</em> contains
 no mistake by running the following command in the terminal
@@ -368,14 +386,15 @@ from the <em>my-first-input/</em>  folder:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>which should return:</p>
+<p>Here <em>lmp</em> is linked to my compiled LAMMPS version.
+Running the previous command should return:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>LAMMPS (2 Aug 2023 - Update 1)
 Total wall time: 0:00:00
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>If there is a mistake in the input script, for example if
+<p>In case there is a mistake in the input script, for example if
 <em>atom_stile</em> is written instead of <em>atom_style</em>, LAMMPS
 gives you an explicit warning:</p>
 </div>
@@ -426,6 +445,8 @@ Created 100 atoms
 LAMMPS correctly interpreted the commands, and first created
 the box with desired dimensions, then 1500 atoms, then 100
 atoms.</p>
+</div>
+<div class="justify docutils container">
 <p>Let us fill the <em>Simulation Settings</em> category section of
 the <em>input</em> script:</p>
 </div>
@@ -444,11 +465,13 @@ respectively.</p>
 <div class="justify docutils container">
 <p>The third line, <em>pair_coeff 1 1 1.0 1.0</em>, sets the Lennard-Jones
 coefficients for the interactions between atoms of type 1,
-respectively the depth of the potential well
-<span class="math notranslate nohighlight">\(\epsilon\)</span> and the distance at which the
-particle-particle potential energy is zero <span class="math notranslate nohighlight">\(\sigma\)</span>.
-Similarly, the last line sets the Lennard-Jones coefficients for
-the interactions between atoms of type 2.</p>
+respectively the energy parameter
+<span class="math notranslate nohighlight">\(\epsilon_{11} = 1.0\)</span> and the distance parameter <span class="math notranslate nohighlight">\(\sigma_{11} = 1.0\)</span>.</p>
+</div>
+<div class="justify docutils container">
+<p>Similarly, the last line sets the Lennard-Jones coefficients for
+the interactions between atoms of type 2, <span class="math notranslate nohighlight">\(\epsilon_{22} = 0.5\)</span>,
+and <span class="math notranslate nohighlight">\(\sigma_{22} = 3.0\)</span>.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About cross parameters</p>
@@ -461,18 +484,31 @@ In the present case, and even without specifying it explicitly, we thus have:</p
 <li><p><span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{1.0 \times 0.5} = 0.707\)</span>, and</p></li>
 <li><p><span class="math notranslate nohighlight">\(\sigma_{ij} = \sqrt{1.0 \times 3.0} = 1.732\)</span>.</p></li>
 </ul>
-<p>Eventually, cross parameters could also be explicitly specified by adding the following
-line to the input file (but there is no need to do it here, its only necessary if you need
-to set custom parameters):</p>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.707</span><span class="w"> </span><span class="m">1.732</span>
-</pre></div>
-</div>
+<p>When necessary, cross parameters can be explicitly specified by adding the following
+line to the input file: <em>pair_coeff 1 2 0.707 1.732</em>.</p>
 <p>Note that the arithmetic rule, where
 <span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\)</span>,
 <span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2\)</span>,
 is more common than the geometric rule. However, neither the geometric nor the
-arithmetic rule are based on rigorous argument, so here
+arithmetic rule are based on rigorous arguments, so here
 the geometric rule will do just fine.</p>
+</div>
+<div class="justify docutils container">
+<p>Due to the chosen Lennard-Jones parameters, the two types of particle
+are given different effective diameters, as can be seen by plotting
+<span class="math notranslate nohighlight">\(E_{11} (r)\)</span>,
+<span class="math notranslate nohighlight">\(E_{12} (r)\)</span>,
+and <span class="math notranslate nohighlight">\(E_{22} (r)\)</span>.</p>
+</div>
+<figure class="align-default">
+<img alt="Lennard jones potential" class="only-light" src="../../_images/lennard-jones-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="Lennard jones potential" class="only-dark" src="../../_images/lennard-jones-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: The Lennard-Jones potential <span class="math notranslate nohighlight">\(E_{ij} (r)\)</span>, where
+<span class="math notranslate nohighlight">\(i, j = 1 ~ \text{or} ~ 2\)</span>.</p>
 </div>
 </section>
 <section id="energy-minimization">

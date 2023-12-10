@@ -22,12 +22,12 @@ Lennard-Jones fluid
 ..  container:: abstract
 
     The objective of this tutorial is to use
-    LAMMPS to perform a simple molecular dynamics simulation
+    LAMMPS and perform a simple molecular dynamics simulation
     of a simple binary fluid. The system is
     a simple Lennard-Jones fluid made of neutral
-    particles with different sizes. A Langevin thermostat is
-    applied to the particles to impose its temperature, and the
-    simulation box is cubic with periodic boundary conditions.
+    particles with different sizes in a cubic with periodic
+    boundary conditions. A Langevin thermostat is
+    applied to the particles to impose the temperature of the system.
 
 ..  container:: abstract
 
@@ -52,9 +52,9 @@ The input script
     
 ..  container:: justify
 
-    Create a folder, call it *my-first-input*, and then create a blank
-    text file in it, called *input.lammps*. Copy the following lines
-    in *my-first-input/input.lammps*, where a line starting with a brace (#)
+    Create a folder, call it *my-first-input/*, and then create a blank
+    text file in it called *input.lammps*. Copy the following lines
+    in *input.lammps*, where a line starting with a brace (#)
     is a comment that is ignored by LAMMPS:
 
 .. code-block:: lammps
@@ -87,10 +87,10 @@ System creation
     let us indicate to LAMMPS the most basic information
     about the simulation, such as:
 
-    - the conditions at the boundaries of the box (periodic, non-periodic, ...)
+    - the conditions at the boundaries of the box (periodic, non-periodic, ...),
     - the type of atoms (uncharged single dots, spheres with angular velocities, ...).
 
-    Enter the following lines in *my-first-input/input.lammps*:
+    Enter the following lines in *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -108,7 +108,7 @@ System creation
     which all quantities are unitless. 
     
 .. admonition:: About Lennard-Jones (LJ) units
-    :class: dropdown
+    :class: info
 
     Lennard-Jones (LJ) units are a dimensionless system of units.
     LJ units are often used in molecular simulations
@@ -122,11 +122,11 @@ System creation
 
     All the other quantities are normalized by a combination of :math:`\epsilon`, :math:`\sigma`,
     and :math:`m`. For instance, time is expressed in units of :math:`\sqrt{ \epsilon / m \sigma^2}`.
-    Find the full list of quantities |LAMMPS_units|.
+    Find on details on the |LAMMPS_units|.
     
 .. |LAMMPS_units| raw:: html
 
-    <a href="https://docs.lammps.org/units.html" target="_blank">from the LAMMPS website</a>
+    <a href="https://docs.lammps.org/units.html" target="_blank">LAMMPS website</a>
 
 ..  container:: justify
 
@@ -137,10 +137,10 @@ System creation
 .. admonition:: About the atom style
     :class: info
 
-    While we are keeping it simple here,
-    in the following tutorials, different *atom_style* will be used,
-    allowing us to create atoms with a net charge and to define 
-    bonds between atoms to form molecules.
+    While we are keeping things as simple as possible in this tutorial,
+    different *atom_style* will be used in the following tutorials.
+    These other *atom_style* will allow us to create atoms with a net
+    charge, as well as to define bonds between atoms to form molecules.
 
 ..  container:: justify
 
@@ -150,7 +150,25 @@ System creation
     
 .. math::
 
-    E (r) = 4 \epsilon \left[ \left( \dfrac{\sigma}{r} \right)^{12} - \left( \dfrac{\sigma}{r} \right)^{6} \right], ~ \text{for} ~ r < r_c.
+    E_{ij} (r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12} - \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], ~ \text{for} ~ r < r_c,
+
+..  container:: justify
+
+    where :math:`r` is the inter-particles distance,
+    :math:`\epsilon_{ij}` the depth of potential well that sets the interaction strength, and
+    :math:`\sigma_{ij}` the distance parameter or particle effective size.
+    Here, the index *ij* refer to the particle types *i* and *j*.
+
+.. admonition:: About Lennard-Jones potential
+    :class: info
+
+    The Lennard-Jones potential offers a simplified representation that captures the fundamental
+    aspects of interactions among basic atoms and molecules. It depicts a scenario where two
+    particles exhibit repulsion at extremely close distances, attraction at moderate
+    distances, and no interaction at infinite separation. The repulsive part of the 
+    Lennard-Jones potential (i.e. the term :math:`\propto r^{-12}`) is linked
+    with the Pauli exclusion principle, and the attractive part (i.e. the term in :math:`\propto - r^{-6}`)
+    with the van der Waals forces.
 
 ..  container:: justify
     
@@ -159,7 +177,9 @@ System creation
     directions of space (the 3 *p* stand for *x*, *y*, and *z*,
     respectively).
 
-    At this point, *my-first-input/input.lammps* is a 
+..  container:: justify
+
+    At this point, the *input.lammps* is a 
     LAMMPS input script that does nothing.
     You can run it using LAMMPS to verify that the *input* contains
     no mistake by running the following command in the terminal
@@ -171,7 +191,8 @@ System creation
 
 ..  container:: justify
 
-    which should return:
+    Here *lmp* is linked to my compiled LAMMPS version.
+    Running the previous command should return:
 
 ..  code-block:: bw
 
@@ -180,7 +201,7 @@ System creation
 
 ..  container:: justify
 
-    If there is a mistake in the input script, for example if
+    In case there is a mistake in the input script, for example if
     *atom_stile* is written instead of *atom_style*, LAMMPS
     gives you an explicit warning:
 
@@ -241,6 +262,8 @@ System creation
     the box with desired dimensions, then 1500 atoms, then 100
     atoms.
 
+..  container:: justify
+
     Let us fill the *Simulation Settings* category section of
     the *input* script:
 
@@ -262,11 +285,14 @@ System creation
     
     The third line, *pair_coeff 1 1 1.0 1.0*, sets the Lennard-Jones
     coefficients for the interactions between atoms of type 1,
-    respectively the depth of the potential well
-    :math:`\epsilon` and the distance at which the
-    particle-particle potential energy is zero :math:`\sigma`. 
+    respectively the energy parameter
+    :math:`\epsilon_{11} = 1.0` and the distance parameter :math:`\sigma_{11} = 1.0`. 
+
+..  container:: justify
+
     Similarly, the last line sets the Lennard-Jones coefficients for
-    the interactions between atoms of type 2.
+    the interactions between atoms of type 2, :math:`\epsilon_{22} = 0.5`,
+    and :math:`\sigma_{22} = 3.0`.
    
 .. admonition:: About cross parameters
     :class: info
@@ -280,20 +306,36 @@ System creation
     - :math:`\epsilon_{ij} = \sqrt{1.0 \times 0.5} = 0.707`, and 
     - :math:`\sigma_{ij} = \sqrt{1.0 \times 3.0} = 1.732`.
 
-    Eventually, cross parameters could also be explicitly specified by adding the following 
-    line to the input file (but there is no need to do it here, its only necessary if you need 
-    to set custom parameters):
-
-    ..  code-block:: lammps
-        
-        pair_coeff 1 2 0.707 1.732 
+    When necessary, cross parameters can be explicitly specified by adding the following 
+    line to the input file: *pair_coeff 1 2 0.707 1.732*. 
 
     Note that the arithmetic rule, where 
     :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
     :math:`\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2`, 
     is more common than the geometric rule. However, neither the geometric nor the
-    arithmetic rule are based on rigorous argument, so here
+    arithmetic rule are based on rigorous arguments, so here
     the geometric rule will do just fine. 
+
+..  container:: justify
+
+    Due to the chosen Lennard-Jones parameters, the two types of particle
+    are given different effective diameters, as can be seen by plotting
+    :math:`E_{11} (r)`, 
+    :math:`E_{12} (r)`,
+    and :math:`E_{22} (r)`.
+
+.. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-light.png
+    :alt: Lennard jones potential
+    :class: only-light
+
+.. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-dark.png
+    :alt: Lennard jones potential
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: The Lennard-Jones potential :math:`E_{ij} (r)`, where
+    :math:`i, j = 1 ~ \text{or} ~ 2`.
 
 Energy minimization
 -------------------
