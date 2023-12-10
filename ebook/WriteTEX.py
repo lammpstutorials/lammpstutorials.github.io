@@ -115,7 +115,7 @@ class WriteTex:
                     figure_path = figure_path.split("tutorials/tutorials")[0] + "tutorials" + figure_path.split("tutorials/tutorials")[1]
                 
                 if os.path.exists(figure_path) is False:
-                    print("Figure not found", figure_path)
+                    print("Warning, figure not found", figure_path)
                 figure_format = figure_path.split('.')[-1]
                 level = figure_path.split('/')[-3]
                 tutorial = figure_path.split('/')[-2]
@@ -126,12 +126,7 @@ class WriteTex:
                 new_figure = self.git_path+'/ebook/tutorials/'+level+'/'+tutorial+'/'+name+'.png'
                 if os.path.exists(alternative_figure):
                     shutil.copyfile(alternative_figure, new_figure)
-                else:      
-                    #print("webp convert into png")  
-                    #print(new_figure)
-                    # print()  
-                    # print(figure_path)
-                    # print()    
+                else:         
                     im = Image.open(figure_path).convert('RGB')
                     im.save(new_figure, 'png')
 

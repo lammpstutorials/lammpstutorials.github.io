@@ -36,7 +36,8 @@ LAMMPS (2 Aug 2023)
 
     Download and install the 2 Aug 2023 version of LAMMPS by following the
     instructions of the |LAMMPS website installation|.
-    Depending on you OS, the procedure may differ.
+    Depending on your operative system (i.e. Linux, macOS, or Windows),
+    the procedure may differ.
 
 .. |LAMMPS website installation| raw:: html
 
@@ -58,15 +59,19 @@ LAMMPS (2 Aug 2023)
 ..  container:: justify
 
     If you decide to use another LAMMPS version, certain commands
-    may not work. In that case, an error message may appear.
+    may not work and LAMMPS will throw an |LAMMPS error|.
+
+.. |LAMMPS error| raw:: html
+
+   <a href="https://docs.lammps.org/Errors_messages.html" target="_blank">error message</a>
 
 VMD (1.9.3)
 -----------
 
 ..  container:: justify
 
-    In order to visualize the atomic system, the version 1.9.3 of |VMD| will be used.
-    If you don't know how to use VMD, you can find some basic instructions here:
+    In order to visualize the simulation, the version 1.9.3 of |VMD| will be used.
+    Some basic instructions for VMD are given here in the
     :ref:`vmd-label`. If you prefer, feel free to use an alternative visualization
     software like |Ovito|.
     
@@ -88,11 +93,6 @@ Matplotlib Pyplot
     in combination with |lammps_logfile|, a library allowing
     one to read the *log* file produced by LAMMPS.
 
-..  container:: justify
-
-    All the Python scripts used to generate the figure of *LAMMPStutorials*
-    can be found in the Github repository.
-
 .. |Matplotlib Pyplot| raw:: html
 
    <a href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html" target="_blank">Matplotlib Pyplot</a>
@@ -106,7 +106,7 @@ Text editing software
 
 ..  container:: justify
 
-    In order to write LAMMPS input file, a text editor is required.
+    In order to write and edit LAMMPS input files, a text editor is required.
     Any text editor will do, such as |gedit|, |vim|, or |vscode|.
     
 .. |gedit| raw:: html

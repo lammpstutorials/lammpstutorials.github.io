@@ -33,7 +33,6 @@ def replace_special_character(line, to_replace, replace_with):
         elif len(line.split(to_replace)) == 3:
             new_line = sentence[0] + replace_with + sentence[1] + replace_with + sentence[2]
         else:
-            print(line)
             print('ERROR ----', len(line.split(to_replace)))          
         return new_line
     else:
@@ -259,7 +258,6 @@ def read_link(sub_line):
     rest = ["", "", ""]
     link = ["", ""]
     in_link = False
-    print(sub_line)
     for letter in sub_line:
         if (letter=='{') & (in_link==False):
             in_link = True

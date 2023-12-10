@@ -1,4 +1,4 @@
-import rstparse
+import rstparse, os
 import numpy as np
 
 from utilities import count_line
@@ -14,6 +14,7 @@ class ReadRST:
     def convert_file(self):
         """Main convert function."""
         self.read_rst()
+        self.include_extra()
         self.detect_blocks()
         self.detect_sub_blocks()
         self.detect_title()
@@ -29,6 +30,22 @@ class ReadRST:
         for line in rst.lines:
             file_content.append(line)
         self.file_content = file_content
+
+    def include_extra(self):
+        new_content = []
+        for line in self.file_content:
+            if "contact/accessfile.rst" in line:
+                assert os.path.exists("../docs/sphinx/source/contact/accessfile.rst")
+                rst = rstparse.Parser()
+                with open("../docs/sphinx/source/contact/accessfile.rst") as f:
+                    rst.read(f)
+                rst.parse()
+                for extra_line in rst.lines:
+                    print(extra_line)
+                    new_content.append(extra_line)
+            else:
+                new_content.append(line)
+        self.file_content = new_content
 
     def detect_blocks(self):
         """Detect the blocks in the file"""
@@ -100,6 +117,8 @@ class ReadRST:
                     type = 'figurelegend'
                 elif 'math::' in line:
                     type = 'math'
+                elif '../contact/accessfile.rst' in line:
+                    type = 'accessfile'
                 else:
                     type = 'unknown'
             main_block_type.append(type)
@@ -148,7 +167,6 @@ class ReadRST:
                         #    type = 'figurelegend'
                         else:
                             type = 'unknown'
-                            # print("unknown type", line)
             sub_block_type.append(type)
             sub_block.append(cpt_sub_block)
         return sub_block_type, sub_block

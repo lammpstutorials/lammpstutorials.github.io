@@ -13,6 +13,7 @@ class FixDocument:
         """Improve the final document"""
         self.remove_space()
         keywords = [r'\end{lcverbatim}', r'\Large', r'\section{',
+                    r'\section*{', r'\subsection*{', r'\label{',
                     r'\subsection{', r'\end{wrapfigure}', r'\end{tcolorbox}',
                     r'\end{figure}']
         self.add_non_indent(keywords)
@@ -22,6 +23,9 @@ class FixDocument:
         self.detect_legend()
         self.write_legend()
         self.remove_space()
+        keywords = [r'\noindent', r'\section', r'\subsection', r'\begin',
+                    r'\begin{graytitle}', r'\end', r'\label']
+        self.add_vspace(keywords, '0.25cm')
 
     def add_non_indent(self, keywords):
         """Add nonindent command where appropriate"""
@@ -35,10 +39,39 @@ class FixDocument:
                 for word in keywords:
                     if word in line:
                         add_noindent = True
-            if prev_add_noindent: 
-                new_tex_file_name.append(r'\noindent '+line)
+            if prev_add_noindent:
+                if "subsection" not in line:
+                    new_tex_file_name.append(r'\noindent '+line)
+                else:
+                    new_tex_file_name.append(line)
                 add_noindent = False
                 prev_add_noindent = False
+            else:                
+                new_tex_file_name.append(line)
+        self.write_file(new_tex_file_name)
+
+    def add_vspace(self, keywords, space):
+        """Fix last paragraphs"""
+        initial_tex_file = self.import_tex_file()
+        new_tex_file_name = []
+        consecutive_empty = 0
+        to_fix = False
+        for line in initial_tex_file:
+            # remove double space
+            previously_empty = consecutive_empty
+            if line == '\n':
+                consecutive_empty += 1
+            else:
+                consecutive_empty = 0
+            if previously_empty == 1:
+                to_fix = True
+                for word in keywords:
+                    if word in line:
+                        to_fix = False
+                if to_fix:
+                    new_tex_file_name.append(r"\vspace{"+space+r"} \noindent " + line)
+                else:
+                    new_tex_file_name.append(line)
             else:
                 new_tex_file_name.append(line)
         self.write_file(new_tex_file_name)
@@ -142,9 +175,8 @@ class FixDocument:
                     elif label == "vmd-label":
                         new_line = split[0] + '\hyperref[' + label + ']{VMD tutorial}' + rest[1]  
                     else:
-                        print("unfound label")
+                        print("WARNING, unfound label")
                         print(label)
-                        stop
                         new_line = split[0] + r'Tutorial\,\ref{' + label + '}' + rest[1]
                     new_tex_file_name.append(new_line)
                 else:
