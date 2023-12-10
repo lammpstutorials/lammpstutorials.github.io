@@ -318,7 +318,7 @@ System creation
 
 ..  container:: justify
 
-    Due to the chosen Lennard-Jones parameters, the two types of particle
+    Due to the chosen Lennard-Jones parameters, the two types of particles
     are given different effective diameters, as can be seen by plotting
     :math:`E_{11} (r)`, 
     :math:`E_{12} (r)`,
@@ -327,6 +327,7 @@ System creation
 .. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-light.png
     :alt: Lennard jones potential
     :class: only-light
+    :name: fig-lennard-jones
 
 .. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-dark.png
     :alt: Lennard jones potential
@@ -369,7 +370,7 @@ Energy minimization
     :class: info
 
     An energy minimization procedure consists in adjusting
-    the coordinates of the atoms that are too close from one another until one of the stopping
+    the coordinates of the atoms that are too close to each other until one of the stopping
     criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
     Here, there are four stopping criteria:
 
@@ -399,9 +400,9 @@ Energy minimization
 
 ..  container:: justify
 
-    These lines give us information concerning
-    the progress of the energy minimization. First, at the start
-    of the simulation (step 0), the energy in the system is
+    These lines give us information about
+    the progresses of the energy minimization. First, at the start
+    of the simulation (Step 0), the energy in the system is
     huge: 78840982 (unitless). This was expected because
     the atoms have been created at random positions within the
     simulation box, and some of them are probably overlapping,
@@ -409,8 +410,11 @@ Energy minimization
     of the repulsive part of the Lennard-Jones interaction
     potential. As the energy minimization progresses, the energy
     rapidly decreases and reaches a negative value, indicating that the atoms have been
-    displaced at reasonable distances from one another. Other
-    useful information have been printed in the terminal, for
+    displaced at reasonable distances from each others.
+    
+..  container:: justify
+
+    Other useful information has been printed in the terminal, for
     example, LAMMPS tells us that the first of the four criteria
     to be satisfied was the energy:
 
@@ -422,8 +426,14 @@ Energy minimization
 Molecular dynamics
 ------------------
 
+..  container:: justify
+
+    The system is now ready. Let us continue filling up the
+    input script and adding commands in order to perform an actual molecular dynamics
+    simulation that will start from the final state of the energy minimization.
+
 .. admonition:: Background Information -- What is molecular dynamics?
-    :class: dropdown
+    :class: info
 
     Molecular dynamics (MD) is based on the numerical solution of the Newtonian
     equations of motion for every atom :math:`i`,
@@ -441,15 +451,12 @@ Molecular dynamics
     At every step, the following operations usually occur when 
     performing a MD simulation:
 
-    - the forces between the atoms are calculated from the potential, here Lennard-Jones with given parameters :math:`\epsilon` and :math:`\sigma`,
+    - the forces between the atoms are calculated from the potential (here Lennard-Jones),
     - the acceleration of each atom is evaluated from the Newtonian equation,
     - the velocity and position of each atom are updated according to the calculated acceleration, typically using the Verlet algorithm, or similar.
 
 ..  container:: justify
 
-    The system is now ready. Let us continue filling up the
-    input script and adding commands in order to perform an actual molecular dynamics
-    simulation that will start from the final state of the energy minimization.
     In the same input script, after the *minimization* command, add the following
     lines:
 
@@ -473,18 +480,21 @@ Molecular dynamics
     re-define it, or re-specify the settings. The *thermo* command
     is called a second time within the same input, so the previously
     entered value of *10* will be replaced by the value of *100*
-    as soon as the second run starts.
+    as soon as *PART B* starts.
 
 ..  container:: justify
 
-    In the run section, the fix *nve* is used to update the
+    In the run section, the *fix nve* is used to update the
     positions and the velocities of the atoms in the group
-    *all* (this is the most important command here). The second
-    fix applies a Langevin thermostat to the atoms of group
+    *all*. Therefore, *fix nve* is the most important command here.
+    
+..  container:: justify
+    
+    The second fix applies a Langevin thermostat to the atoms of group
     *all*, with a desired temperature of 1 and a *damping*
     parameter of 0.1. The number *1530917* is a seed, you can
     change it to perform statistically independent simulations.
-    Finally we choose the timestep and we ask LAMMPS to
+    Finally we choose the *timestep* and we ask LAMMPS to
     run for 10000 steps. After running the simulation, you
     should see the following information in the terminal:
 
@@ -502,9 +512,9 @@ Molecular dynamics
 
 ..  container:: justify
 
-    The second column shows that the temperature
+    The second column shows that the temperature *Temp*
     starts from 0, but rapidly reaches the
-    expected value near :math:`T=1`, as requested. 
+    requested value and stabilize itself near :math:`T=1`. 
 
 ..  container:: justify
 

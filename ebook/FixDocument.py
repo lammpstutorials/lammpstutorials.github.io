@@ -249,8 +249,10 @@ class FixDocument:
                     for m in legend_lines:
                         new_line = initial_tex_file[m].split("[legend-to-add]")[1]
                         if len(legend_lines) == 1:
+                            new_tex_file_name.append("\captionsetup{labelformat=empty} \n")
                             new_tex_file_name.append("\caption{" + new_line[8:] + "} \n")
                         elif m == legend_lines[0]:
+                            new_tex_file_name.append("\captionsetup{labelformat=empty} \n")
                             new_tex_file_name.append("\caption{" + new_line[8:])
                         elif m == legend_lines[-1]:
                             new_tex_file_name.append(new_line[:-1] + "} \n")
