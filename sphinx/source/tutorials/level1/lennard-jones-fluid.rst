@@ -640,25 +640,25 @@ Control the initial atom positions
 
 ..  container:: justify
 
-    Let us create three separate regions: the first one for the 
-    simulation box, the second one for the atoms of type 1, and
-    the third one for the atoms of type 2:
+    Let us create three separate regions: A cubic region
+    for the simulation box and two additional regions
+    for placing the atoms:
 
 ..  code-block:: lammps
 
     # 2) System definition
     region simulation_box block -20 20 -20 20 -20 20
     create_box 2 simulation_box
-    region mycylou cylinder z 0 0 10 INF INF side out
-    create_atoms 1 random 1000 341341 mycylou
-    region mycylin cylinder z 0 0 10 INF INF side in
-    create_atoms 2 random 150 127569 mycylin
+    region region_cylinder_in cylinder z 0 0 10 INF INF side in
+    region region_cylinder_out cylinder z 0 0 10 INF INF side out
+    create_atoms 1 random 1000 341341 region_cylinder_out
+    create_atoms 2 random 150 127569 region_cylinder_in
 
 ..  container:: justify
 
     The *side in* and *side out* keywords
     are used to define regions that are respectively inside
-    and outside of the cylinder. Then, copy similar lines
+    and outside of the cylinder of radius 10. Then, copy similar lines
     as previously into *input.min.lammps*:
 
 ..  code-block:: lammps
@@ -734,12 +734,12 @@ Control the initial atom positions
     (...)
     Atoms # atomic
 
-    345 1 -2.8836527978e+01 -2.9323791349e+01 0.0000000000e+00 0 0 0
-    979 1 -2.9382597284e+01 -2.8335352105e+01 0.00000000000e+00 0 0 0
-    435 1 -2.5412729704e+01 -2.9697644648e+01 0.00000000000e+00 0 0 0
-    533 1 -2.5033422381e+01 -2.8519424701e+01 0.00000000000e+00 0 0 0
-    347 1 -2.4330866813e+01 -2.9373591047e+01 0.00000000000e+00 0 0 0
-    448 1 -2.3610197298e+01 -2.8518781725e+01 0.00000000000e+00 0 0 0
+    970 1 4.4615279184230525 -19.88248310680258 -19.497251754277872 0 0 0
+    798 1 1.0773937287460968 -17.57843015813612 -19.353475858951473 0 0 0
+    21 1 -17.542385434367777 -16.647460269156497 -18.93914807895693 0 0 0
+    108 1 -15.96241088290946 -15.956274144833264 -19.016419910024062 0 0 0
+    351 1 0.08197850837343444 -16.852380573900156 -19.28249747472579 0 0 0
+    402 1 -5.270160783673711 -15.592291204068946 -19.6382667867645 0 0 0
     (...)
 
 ..  container:: justify
@@ -762,7 +762,6 @@ Restarting from a saved configuration
     named *input.md.lammps* and copy the same lines as previously:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input3.lammps*
 
     # 1) Initialization
     units lj
@@ -773,11 +772,10 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    Now, instead of creating a new region and adding atoms, we
+    Now, instead of creating a new region and adding atoms to it, we
     can simply add the following command:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input3.lammps*
 
     # 2) System definition
     read_data minimized_coordinate.data
@@ -786,66 +784,72 @@ Restarting from a saved configuration
 
     By visualizing the previously generated dump.min.lammpstrj
     file, you may have noticed that some atoms have moved from
-    one region to the other during minimisation, as seen in
-    |this video|.
+    one region to the other during minimisation.
     In order to start the simulation from a clean state, with
     only atoms of type 2 within the cylinder and atoms of type
     1 outside the cylinder, let us delete the misplaced atoms
     by adding the following commands to *input.md.lammps*:
 
-.. |this video| raw:: html
-
-   <a href="https://www.youtube.com/embed/gfJ_n33-F6A" target="_blank">this video</a>
-
 ..  code-block:: lammps
 
-    region mycylin cylinder z 0 0 10 INF INF side in
-    region mycylou cylinder z 0 0 10 INF INF side out
-    group mytype1 type 1
-    group mytype2 type 2
-    group incyl region mycylin
-    group oucyl region mycylou
-    group type1in intersect mytype1 incyl
-    group type2ou intersect mytype2 oucyl
-    delete_atoms group type1in
-    delete_atoms group type2ou
+    read_data minimized_coordinate.data
+    region region_cylinder_in cylinder z 0 0 10 INF INF side in
+    region region_cylinder_out cylinder z 0 0 10 INF INF side out
+    group group_type_1 type 1
+    group group_type_2 type 2
+    group group_region_in region region_cylinder_in
+    group group_region_out region region_cylinder_out
+    group group_type_1_in intersect group_type_1 group_region_in
+    group group_type_2_out intersect group_type_2 group_region_out
+    delete_atoms group group_type_1_in
+    delete_atoms group group_type_2_out
 
 ..  container:: justify
 
-    These commands will respectively recreate
-    the previously defined regions, since regions are not saved by the
-    *write_data* command, create groups, and finally delete the
-    atoms of type 1 that are located within the cylinder, as
-    well as the atoms of type 2 that are located outside the
-    cylinder. 
+    The two first *region* commands recreate
+    the previously defined regions, which is necessary since
+    regions are not saved by the *write_data* command.
+
+..  container:: justify
+
+    The first two *group* commands create atom groups based on their types.
+    The next two *group* commands create atom groups based on their
+    positions at the beginning of the simulation, i.e. when the commands
+    are being read by LAMMPS.
+    The last two *group* commands create atom groups based on intersection
+    between the previously defined groups.
     
 ..  container:: justify
 
-    If you run the *input.md.lammps* input using LAMMPS, you
+    Finally, the two *delete_atoms* commands delete the
+    atoms of type 1 that are located within the cylinder, as
+    well as the atoms of type 2 that are located outside the
+    cylinder, respectively. 
+    
+..  container:: justify
+
+    When you run the *input.md.lammps* input using LAMMPS, you
     can see in the *log* file how many atoms are in each group,
     and how many atoms have been deleted:
 
 ..  code-block:: bw
 
-    1000 atoms in group mytype1
-    150 atoms in group mytype2
-    149 atoms in group incyl
-    1001 atoms in group oucyl
-    0 atoms in group type1in
-    1 atoms in group type2ou
+    1000 atoms in group group_type_1
+    150 atoms in group group_type_2
+    149 atoms in group group_region_in
+    1001 atoms in group group_region_out
+    0 atoms in group group_type_1_in
+    1 atoms in group group_type_2_out
     Deleted 0 atoms, new total = 1150
     Deleted 1 atoms, new total = 1149
 
 ..  container:: justify
 
-    Add the following lines to *input.md.lammps*
-    (note the absence of mass and *pair_coeff* parameters):
+    Add the following lines to *input.md.lammps*.
+    Note the absence of *Simulation settings* section,
+    because the settings are taken from the *.data* file.
 
 ..  code-block:: lammps
-
-    # 3) Simulation settings
-    group mytype1 type 1
-    group mytype2 type 2
 
     # 4) Visualization
     thermo 1000
@@ -854,25 +858,28 @@ Restarting from a saved configuration
 ..  container:: justify
     
     Let us extract the number of atoms of each type
-    in each region as a function of time, by
+    inside the cylinder as a function of time, by
     adding the following commands to *input.md.lammps*:
 
 ..  code-block:: lammps
 
-    variable Ntype1in equal count(mytype1,mycylin)
-    variable Ntype1ou equal count(mytype1,mycylou)
-    variable Ntype2in equal count(mytype2,mycylin)
-    variable Ntype2ou equal count(mytype2,mycylou)
-    fix myat1 all ave/time 10 200 2000 v_Ntype1in v_Ntype1ou file population1vstime.dat
-    fix myat2 all ave/time 10 200 2000 v_Ntype2in v_Ntype2ou file population2vstime.dat
+    variable number_type1_in equal count(group_type_1,region_cylinder_in)
+    variable number_type2_in equal count(group_type_2,region_cylinder_in)
+    fix myat1 all ave/time 10 200 2000 v_number_type1_in file output-population1vstime.dat
+    fix myat2 all ave/time 10 200 2000 v_number_type2_in file output-population2vstime.dat
 
 ..  container:: justify
 
-    As seen previously, the *fix ave/time*
-    allows to evaluate previously defined variables and print
-    the values (here every 2000 steps, after averaging each quantities 200 times)
-    into data file. The 4 variables starting with *Ntype* are used to count
-    the number of atoms of a specific group in a specific region. 
+    The 2 *variables* are used to count
+    the number of atoms of a specific group in the *region_cylinder_in* region. 
+
+..  container:: justify
+
+    The two *fix ave/time*
+    are calling the previously defined variables and are printing
+    their values into text files.
+    By using *10 200 2000*, variables are evaluated every 10 steps, 
+    averaged 200 times, and printed in the *.dat* files every 2000 steps.
 
 ..  container:: justify
 
@@ -880,10 +887,11 @@ Restarting from a saved configuration
     of type 1 and 2, i.e. the average number of atoms of type 2 in the vicinity 
     of the atoms of type 1. This coordination number will be used as
     an indicator of the degree of mixing of our binary mixture. 
+    Add the folloxing lines into *input.md.lammps*:
     
 ..  code-block:: lammps
 
-    compute coor12 mytype1 coord/atom cutoff 2.0 group mytype2
+    compute coor12 group_type_1 coord/atom cutoff 2.0 group group_type_2
     compute sumcoor12 all reduce ave c_coor12
     fix myat3 all ave/time 10 200 2000 c_sumcoor12 file coordinationnumber12.dat
     
@@ -908,14 +916,14 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    There are a few differences with *input.min.lammps*.
+    There are a few differences with the previous simulation.
     First, the *velocity create*
-    command attributes an initial velocity each atom.
-    The initial velocity is chosen so that the initial
+    command attributes an initial velocity to every atom.
+    The initial velocity is chosen so that the average initial
     temperature is equal to 1 (unitless). The additional
-    keywords ensure that no linear momentum and no angular
-    momentum are given to the system, and that the generated
-    velocities are distributed as a Gaussian. Another novelty
+    keywords ensure that no linear momentum (*mom yes*) and no angular
+    momentum (*rot yes*) are given to the system, and that the generated
+    velocities are distributed as a Gaussian. Another improvement
     is the *zero yes* keyword in the Langevin thermostat, that
     ensures that the total random force is equal to zero.
 
@@ -952,7 +960,7 @@ Restarting from a saved configuration
 
 .. container:: figurelegend
 
-    Figure: Evolution of the number of atoms within the *mycylin* region
+    Figure: Evolution of the number of atoms within the *region_cylinder_in* region
     as a function of time (a), and evolution of the coordination number (b). 
 
 .. include:: ../../contact/accessfile.rst
