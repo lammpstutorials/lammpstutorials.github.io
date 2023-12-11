@@ -464,7 +464,7 @@ Molecular dynamics
 
     # PART B - MOLECULAR DYNAMICS
     # 4) Visualization
-    thermo 100
+    thermo 50
 
     # 5) Run
     fix mynve all nve
@@ -479,7 +479,7 @@ Molecular dynamics
     minimization. There is no need to re-initialize the system
     re-define it, or re-specify the settings. The *thermo* command
     is called a second time within the same input, so the previously
-    entered value of *10* will be replaced by the value of *100*
+    entered value of *10* will be replaced by the value of *50*
     as soon as *PART B* starts.
 
 ..  container:: justify
