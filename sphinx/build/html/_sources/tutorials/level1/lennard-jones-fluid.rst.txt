@@ -1012,8 +1012,9 @@ Fix a broken input
 ..  admonition:: Note
     :class: info
 
-    The reasons this script is failling are that particles are created
-    randomly in space, and that no energy minimization is performed prior
+    This script is failing because particles are created
+    randomly in space, some of them are likely overlapping,
+    and no energy minimization is performed prior
     to start the molecular dynamics simulation.
 
 Create a demixed dense phase
