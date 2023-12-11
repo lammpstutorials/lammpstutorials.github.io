@@ -32,34 +32,28 @@ boundary p p p
 
 # 2) System definition
 read_data minimized_coordinate.data
-region mycylin cylinder z 0 0 10 INF INF side in
-region mycylou cylinder z 0 0 10 INF INF side out
-group mytype1 type 1
-group mytype2 type 2
-group incyl region mycylin
-group oucyl region mycylou
-group type1in intersect mytype1 incyl
-group type2ou intersect mytype2 oucyl
-delete_atoms group type1in
-delete_atoms group type2ou
-
-# 3) Simulation settings
-group mytype1 type 1
-group mytype2 type 2
+region region_cylinder_in cylinder z 0 0 10 INF INF side in
+region region_cylinder_out cylinder z 0 0 10 INF INF side out
+group group_type_1 type 1
+group group_type_2 type 2
+group group_region_in region region_cylinder_in
+group group_region_out region region_cylinder_out
+group group_type_1_in intersect group_type_1 group_region_in
+group group_type_2_out intersect group_type_2 group_region_out
+delete_atoms group group_type_1_in
+delete_atoms group group_type_2_out
     
 # 4) Visualization
 thermo 1000
 thermo_style custom step temp pe ke etotal press
 dump mydmp all atom 1000 dump.md.lammpstrj
 
-variable Ntype1in equal count(mytype1,mycylin)
-variable Ntype1ou equal count(mytype1,mycylou)
-variable Ntype2in equal count(mytype2,mycylin)
-variable Ntype2ou equal count(mytype2,mycylou)
-fix myat1 all ave/time 10 200 2000 v_Ntype1in v_Ntype1ou file output-population1vstime.dat
-fix myat2 all ave/time 10 200 2000 v_Ntype2in v_Ntype2ou file output-population2vstime.dat
+variable number_type1_in equal count(group_type_1,region_cylinder_in)
+variable number_type2_in equal count(group_type_2,region_cylinder_in)
+fix myat1 all ave/time 10 200 2000 v_number_type1_in file output-population1vstime.dat
+fix myat2 all ave/time 10 200 2000 v_number_type2_in file output-population2vstime.dat
 
-compute coor12 mytype1 coord/atom cutoff 2.0 group mytype2
+compute coor12 group_type_1 coord/atom cutoff 2.0 group group_type_2
 compute sumcoor12 all reduce ave c_coor12
 fix myat3 all ave/time 10 200 2000 c_sumcoor12 file output-coordinationnumber12.dat
 

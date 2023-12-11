@@ -33,10 +33,10 @@ boundary p p p
 # 2) System definition
 region simulation_box block -20 20 -20 20 -20 20
 create_box 2 simulation_box
-region mycylou cylinder z 0 0 10 INF INF side out
-create_atoms 1 random 1000 341341 mycylou
-region mycylin cylinder z 0 0 10 INF INF side in
-create_atoms 2 random 150 127569 mycylin
+region region_cylinder_in cylinder z 0 0 10 INF INF side in
+region region_cylinder_out cylinder z 0 0 10 INF INF side out
+create_atoms 1 random 1000 341341 region_cylinder_out
+create_atoms 2 random 150 127569 region_cylinder_in
 
 # 3) Simulation settings
 mass 1 1
