@@ -241,14 +241,14 @@
 <div class="abstract docutils container">
 <p>The objective of this tutorial is to use
 LAMMPS and perform a simple molecular dynamics simulation
-of a simple binary fluid. The system is
-a simple Lennard-Jones fluid made of neutral
-particles with different sizes in a cubic with periodic
+of a binary fluid. The system is
+a Lennard-Jones fluid made of neutral
+particles with different diameters in a cubic box with periodic
 boundary conditions. A Langevin thermostat is
 applied to the particles to impose the temperature of the system.</p>
 </div>
 <div class="abstract docutils container">
-<p>This tutorial illustrates the use of several key ingredients of
+<p>This tutorial illustrates several key ingredients of
 molecular dynamics simulations, such as system initialization,
 energy minimization, integration of the equations of motion,
 and trajectory visualization.</p>
@@ -341,12 +341,12 @@ will be used, therefore each atom is just a dot with a mass.</p>
 <p class="admonition-title">About the atom style</p>
 <p>While we are keeping things as simple as possible in this tutorial,
 different <em>atom_style</em> will be used in the following tutorials.
-These other <em>atom_style</em> will allow us to create atoms with a net
-charge, as well as to define bonds between atoms to form molecules.</p>
+These other <em>atom_style</em> will allow us to create atoms with
+charges, chemical bonds, etc.</p>
 </div>
 <div class="justify docutils container">
 <p>The fourth line, <em>pair_style lj/cut 2.5</em>, indicates that atoms
-are going to interact through a Lennard-Jones potential with
+will be interacting through a Lennard-Jones potential with
 a cut-off equal to <span class="math notranslate nohighlight">\(r_c = 2.5\)</span> (unitless):</p>
 </div>
 <div class="math-wrapper docutils container">
@@ -362,12 +362,12 @@ Here, the index <em>ij</em> refer to the particle types <em>i</em> and <em>j</em
 <div class="info admonition">
 <p class="admonition-title">About Lennard-Jones potential</p>
 <p>The Lennard-Jones potential offers a simplified representation that captures the fundamental
-aspects of interactions among basic atoms and molecules. It depicts a scenario where two
+aspects of interactions among atoms. It depicts a scenario where two
 particles exhibit repulsion at extremely close distances, attraction at moderate
 distances, and no interaction at infinite separation. The repulsive part of the
-Lennard-Jones potential (i.e. the term <span class="math notranslate nohighlight">\(\propto r^{-12}\)</span>) is linked
-with the Pauli exclusion principle, and the attractive part (i.e. the term in <span class="math notranslate nohighlight">\(\propto - r^{-6}\)</span>)
-with the van der Waals forces.</p>
+Lennard-Jones potential (i.e. the term <span class="math notranslate nohighlight">\(\propto r^{-12}\)</span>) is associated
+with the Pauli exclusion principle. The attractive part (i.e. the term in <span class="math notranslate nohighlight">\(\propto - r^{-6}\)</span>)
+is linked with the van der Waals forces.</p>
 </div>
 <div class="justify docutils container">
 <p>The last line, <em>boundary p p p</em>, indicates that the
@@ -428,6 +428,8 @@ randomly within the region <em>simulation_box</em>. The integer <em>341341</em> 
 seed that can be changed in order to create different
 initial conditions for the simulation. The fourth line
 creates 100 atoms of type 2.</p>
+</div>
+<div class="justify docutils container">
 <p>If you run LAMMPS, you should see the following information in the
 terminal:</p>
 </div>
@@ -443,7 +445,7 @@ Created 100 atoms
 <div class="justify docutils container">
 <p>From what is printed in the terminal, it is clear that
 LAMMPS correctly interpreted the commands, and first created
-the box with desired dimensions, then 1500 atoms, then 100
+the box with desired dimensions, then 1500 atoms, and then 100
 atoms.</p>
 </div>
 <div class="justify docutils container">
@@ -460,7 +462,10 @@ the <em>input</em> script:</p>
 <div class="justify docutils container">
 <p>The two first commands, <em>mass (…)</em>, attribute a mass
 equal to 1 (unitless) to both atoms of type 1 and 2,
-respectively.</p>
+respectively.alternatively, one could have written
+these two commands into one single line: <em>mass * 1</em>,
+where the <span class="math notranslate nohighlight">\(*\)</span>
+means <em>all</em> the atom types of the simulation.</p>
 </div>
 <div class="justify docutils container">
 <p>The third line, <em>pair_coeff 1 1 1.0 1.0</em>, sets the Lennard-Jones
@@ -514,10 +519,9 @@ and <span class="math notranslate nohighlight">\(E_{22} (r)\)</span>.</p>
 <section id="energy-minimization">
 <h3>Energy minimization<a class="headerlink" href="#energy-minimization" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Now that the system is fully defined, let us fill the two last remaining sections:</p>
+<p>The system is now fully parametrized. Let us fill the two last remaining sections
+by adding the following line to <em>input.lammps</em>:</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input1.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 4) Visualization</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">10</span>
 <span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">pe</span><span class="w"> </span><span class="n">ke</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span>
@@ -525,7 +529,6 @@ and <span class="math notranslate nohighlight">\(E_{22} (r)\)</span>.</p>
 <span class="c"># 5) Run</span>
 <span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">10000</span>
 </pre></div>
-</div>
 </div>
 <div class="justify docutils container">
 <p>The <em>thermo</em> command asks LAMMPS to print

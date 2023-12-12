@@ -23,15 +23,15 @@ Lennard-Jones fluid
 
     The objective of this tutorial is to use
     LAMMPS and perform a simple molecular dynamics simulation
-    of a simple binary fluid. The system is
-    a simple Lennard-Jones fluid made of neutral
-    particles with different sizes in a cubic with periodic
+    of a binary fluid. The system is
+    a Lennard-Jones fluid made of neutral
+    particles with different diameters in a cubic box with periodic
     boundary conditions. A Langevin thermostat is
     applied to the particles to impose the temperature of the system.
 
 ..  container:: abstract
 
-    This tutorial illustrates the use of several key ingredients of
+    This tutorial illustrates several key ingredients of
     molecular dynamics simulations, such as system initialization,
     energy minimization, integration of the equations of motion,
     and trajectory visualization.
@@ -139,13 +139,13 @@ System creation
 
     While we are keeping things as simple as possible in this tutorial,
     different *atom_style* will be used in the following tutorials.
-    These other *atom_style* will allow us to create atoms with a net
-    charge, as well as to define bonds between atoms to form molecules.
+    These other *atom_style* will allow us to create atoms with
+    charges, chemical bonds, etc.
 
 ..  container:: justify
 
     The fourth line, *pair_style lj/cut 2.5*, indicates that atoms
-    are going to interact through a Lennard-Jones potential with
+    will be interacting through a Lennard-Jones potential with
     a cut-off equal to :math:`r_c = 2.5` (unitless):
     
 .. math::
@@ -163,12 +163,12 @@ System creation
     :class: info
 
     The Lennard-Jones potential offers a simplified representation that captures the fundamental
-    aspects of interactions among basic atoms and molecules. It depicts a scenario where two
+    aspects of interactions among atoms. It depicts a scenario where two
     particles exhibit repulsion at extremely close distances, attraction at moderate
     distances, and no interaction at infinite separation. The repulsive part of the 
-    Lennard-Jones potential (i.e. the term :math:`\propto r^{-12}`) is linked
-    with the Pauli exclusion principle, and the attractive part (i.e. the term in :math:`\propto - r^{-6}`)
-    with the van der Waals forces.
+    Lennard-Jones potential (i.e. the term :math:`\propto r^{-12}`) is associated
+    with the Pauli exclusion principle. The attractive part (i.e. the term in :math:`\propto - r^{-6}`)
+    is linked with the van der Waals forces.
 
 ..  container:: justify
     
@@ -242,6 +242,8 @@ System creation
     initial conditions for the simulation. The fourth line
     creates 100 atoms of type 2.
 
+..  container:: justify
+
     If you run LAMMPS, you should see the following information in the
     terminal:
 
@@ -259,7 +261,7 @@ System creation
 
     From what is printed in the terminal, it is clear that
     LAMMPS correctly interpreted the commands, and first created
-    the box with desired dimensions, then 1500 atoms, then 100
+    the box with desired dimensions, then 1500 atoms, and then 100
     atoms.
 
 ..  container:: justify
@@ -279,7 +281,10 @@ System creation
 
     The two first commands, *mass (...)*, attribute a mass
     equal to 1 (unitless) to both atoms of type 1 and 2,
-    respectively. 
+    respectively.alternatively, one could have written
+    these two commands into one single line: *mass * 1*,
+    where the :math:`*`
+    means *all* the atom types of the simulation. 
     
 ..  container:: justify
     
@@ -343,10 +348,10 @@ Energy minimization
 
 ..  container:: justify
 
-    Now that the system is fully defined, let us fill the two last remaining sections:
+    The system is now fully parametrized. Let us fill the two last remaining sections
+    by adding the following line to *input.lammps*:
 
 ..  code-block:: lammps
-    :caption: *to be copied in input1.lammps*
 
     # 4) Visualization
     thermo 10
