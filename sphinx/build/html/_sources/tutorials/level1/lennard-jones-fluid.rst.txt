@@ -150,7 +150,7 @@ System creation
     
 .. math::
 
-    E_{ij} (r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12} - \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], ~ \text{for} ~ r < r_c,
+    E_{ij} (r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12} - \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], \sim \text{for} \sim r < r_c,
 
 ..  container:: justify
 
@@ -283,7 +283,7 @@ System creation
     equal to 1 (unitless) to both atoms of type 1 and 2,
     respectively.alternatively, one could have written
     these two commands into one single line: *mass * 1*,
-    where the :math:`*`
+    where the star symbol
     means *all* the atom types of the simulation. 
     
 ..  container:: justify
