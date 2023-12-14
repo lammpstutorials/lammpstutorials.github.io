@@ -41,7 +41,6 @@ class ReadRST:
                     rst.read(f)
                 rst.parse()
                 for extra_line in rst.lines:
-                    print(extra_line)
                     new_content.append(extra_line)
             else:
                 new_content.append(line)

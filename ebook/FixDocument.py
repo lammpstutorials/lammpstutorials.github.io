@@ -176,7 +176,6 @@ class FixDocument:
                         new_line = split[0] + '\hyperref[' + label + ']{VMD tutorial}' + rest[1]  
                     else:
                         print("WARNING, unfound label")
-                        print(label)
                         new_line = split[0] + r'Tutorial\,\ref{' + label + '}' + rest[1]
                     new_tex_file_name.append(new_line)
                 else:
