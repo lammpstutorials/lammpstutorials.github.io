@@ -11,9 +11,15 @@ Fix a broken input
 
 .. container:: justify
 
-    You can download the |input_broken_solution| I wrote.
-    The key to make the simulation starts, is to initially 
-    reduce the *timestep*, as well as the imposed *temperature*.
+    You can download the working |input_broken_solution| I wrote.
+
+.. container:: justify
+
+    The trick to make the simulation starts is to reduce the initial 
+    *timestep* value as well as the imposed *temperature*.
+
+.. container:: justify
+
     Note that in order to make sure that the temperature of the particles
     quickly reaches a low value before the simulation crashes, I also reduced 
     the *damping* parameter of the *Langevin* command:
@@ -32,7 +38,7 @@ Fix a broken input
 
 .. container:: justify
 
-    In some case, several consecutive steps can be necessary:
+    In some cases, several consecutive steps can be necessary:
 
 ..  code-block:: lammps
 

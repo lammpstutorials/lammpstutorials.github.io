@@ -234,10 +234,14 @@
 <section id="fix-a-broken-input">
 <h3>Fix a broken input<a class="headerlink" href="#fix-a-broken-input" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>You can download the <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/broken/input.lammps" target="_blank">input</a> I wrote.
-The key to make the simulation starts, is to initially
-reduce the <em>timestep</em>, as well as the imposed <em>temperature</em>.
-Note that in order to make sure that the temperature of the particles
+<p>You can download the working <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/broken/input.lammps" target="_blank">input</a> I wrote.</p>
+</div>
+<div class="justify docutils container">
+<p>The trick to make the simulation starts is to reduce the initial
+<em>timestep</em> value as well as the imposed <em>temperature</em>.</p>
+</div>
+<div class="justify docutils container">
+<p>Note that in order to make sure that the temperature of the particles
 quickly reaches a low value before the simulation crashes, I also reduced
 the <em>damping</em> parameter of the <em>Langevin</em> command:</p>
 </div>
@@ -252,7 +256,7 @@ with the original <em>timestep</em> and <em>Langevin</em> parameters can start
 without issue.</p>
 </div>
 <div class="justify docutils container">
-<p>In some case, several consecutive steps can be necessary:</p>
+<p>In some cases, several consecutive steps can be necessary:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">0.0001</span><span class="w"> </span><span class="m">0.0001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">1530917</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.0001</span>

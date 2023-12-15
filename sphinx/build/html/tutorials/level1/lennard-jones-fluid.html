@@ -239,13 +239,15 @@
 <a class="only-light reference internal image-reference" href="../../_images/binary_LJ_fluid_light.webp"><img alt="video of a binary fluid simulated by LAMMPS" class="only-light" src="../../_images/binary_LJ_fluid_light.webp" style="height: 250px;" /></a>
 </figure>
 <div class="abstract docutils container">
-<p>The objective of this tutorial is to use
-LAMMPS and perform a simple molecular dynamics simulation
-of a binary fluid. The system is
-a Lennard-Jones fluid made of neutral
-particles with different diameters in a cubic box with periodic
-boundary conditions. A Langevin thermostat is
-applied to the particles to impose the temperature of the system.</p>
+<p>The objective of this tutorial is to perform a simple molecular
+dynamics simulation of a binary fluid using LAMMPS.</p>
+</div>
+<div class="abstract docutils container">
+<p>The system is a Lennard-Jones fluid made of neutral
+particles with two different diameters in a cubic box with periodic
+boundary conditions. The temperature of the system is imposed
+using a Langevin thermostat, and some basic quantities are extracted
+from the system, such as the energy</p>
 </div>
 <div class="abstract docutils container">
 <p>This tutorial illustrates several key ingredients of
@@ -1071,17 +1073,12 @@ This repository also contains the full solutions to the exercises.</p>
 <section id="going-further-with-exercises">
 <h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>A solution for each exercise is provided here: <a class="reference internal" href="../../non-tutorials/solutions.html#solutions-label"><span class="std std-ref">Solutions to the exercises</span></a>.
-Note that there often exist several different solutions to each
-molecular dynamics problem.</p>
+<p>See the complete <a class="reference internal" href="../../non-tutorials/solutions.html#solutions-label"><span class="std std-ref">Solutions to the exercises</span></a>.</p>
 </div>
-<section id="fix-a-broken-input">
-<h3>Fix a broken input<a class="headerlink" href="#fix-a-broken-input" title="Link to this heading">#</a></h3>
+<section id="solve-lost-atoms-error">
+<h3>Solve Lost atoms error<a class="headerlink" href="#solve-lost-atoms-error" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Fix the following failing <em>input.lammps</em> script without
-using any other command than the ones already present (you can
-however change the parameters values and replicate every
-command at many times as needed):</p>
+<p>For this exercise, the following input script is provided:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">lj</span>
 <span class="k">dimension</span><span class="w"> </span><span class="m">3</span>
@@ -1106,6 +1103,19 @@ command at many times as needed):</p>
 
 <span class="k">run</span><span class="w"> </span><span class="m">10000</span>
 </pre></div>
+</div>
+<div class="justify docutils container">
+<p>As it is, this input returns one of the most common
+error that you will encounter using LAMMPS:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR:<span class="w"> </span>Lost<span class="w"> </span>atoms:<span class="w"> </span>original<span class="w"> </span><span class="m">1000</span><span class="w"> </span>current<span class="w"> </span><span class="m">984</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The goal of this exercise is to fix the <em>Lost atoms</em> error without
+using any other command than the ones already present. You can
+only play with the values of the parameters and/or replicate every
+command at many times as needed.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Note</p>
@@ -1143,8 +1153,8 @@ and type 2 progressively demixing and forming large demixed areas.</p>
 <div class="info admonition">
 <p class="admonition-title">Hint</p>
 <p>An easy way to create a dense phase is to allow the box dimensions
-to relax until the vacuum phase disapear. You can do that
-by relacing the <em>fix nve</em> by a <em>fix nph</em> and impose a pressure of 1 (unitless).</p>
+to relax until the vacuum disapears. You can do that
+by replacing the <em>fix nve</em> by <em>fix nph</em>.</p>
 </div>
 </section>
 <section id="create-dumbbell-molecules">
@@ -1247,7 +1257,7 @@ template typically begins as follow:</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
-<li><a class="reference internal" href="#fix-a-broken-input">Fix a broken input</a></li>
+<li><a class="reference internal" href="#solve-lost-atoms-error">Solve Lost atoms error</a></li>
 <li><a class="reference internal" href="#create-a-demixed-dense-phase">Create a demixed dense phase</a></li>
 <li><a class="reference internal" href="#create-dumbbell-molecules">Create dumbbell molecules</a></li>
 </ul>
