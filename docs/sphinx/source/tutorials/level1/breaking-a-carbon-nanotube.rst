@@ -29,10 +29,14 @@ Pulling on a carbon nanotube
     In this tutorial, a small carbon nanotube (CNT) is simulated
     within an empty box using LAMMPS. An external 
     forcing is imposed to the CNT, and its deformation is measured with time.
-    Two different force fields are used:
-    a classical force field for which the bonds between atoms
-    are unbreakable, and a reactive force field named AIREBO.
-    With AIREBO, the breaking of the chemical bonds is possible when
+
+..  container:: abstract
+
+    The difference between classical and reactive force fields
+    is illustrated through this tutorial.
+    With a classical force field, the bonds between atoms
+    are unbreakable. With the reactive force field (named AIREBO),
+    the breaking of the chemical bonds is possible when
     the imposed deformation is strong enough.
 
 .. include:: ../../contact/recommand-lj.rst
