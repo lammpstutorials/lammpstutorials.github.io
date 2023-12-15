@@ -19,16 +19,21 @@ Pulling on a carbon nanotube
     :align: right
     :class: only-light
 
-.. container:: abstract
+..  container:: abstract
 
-    In this tutorial, a slightly more advanced system than the LJ gas
-    in :ref:`lennard-jones-label` is used.
-    The system is a small carbon nanotube (CNT) in vacuum. Some external 
-    forcing are imposed to the CNT, and its deformation is measured.
-    Two different force fields are used. First,
-    a classical force field is used, for which the bonds between atoms
-    are unbreakable. Second, a reactive force field named AIREBO is used.
-    With AIREBO, the breaking of bonds under strong deformation is possible.
+    The objective of this tutorial is to impose the deformation
+    of a carbon nanotube (CNT) using LAMMPS.
+
+..  container:: abstract
+
+    In this tutorial, a small carbon nanotube (CNT) is simulated
+    within an empty box using LAMMPS. An external 
+    forcing is imposed to the CNT, and its deformation is measured with time.
+    Two different force fields are used:
+    a classical force field for which the bonds between atoms
+    are unbreakable, and a reactive force field named AIREBO.
+    With AIREBO, the breaking of the chemical bonds is possible when
+    the imposed deformation is strong enough.
 
 .. include:: ../../contact/recommand-lj.rst
 

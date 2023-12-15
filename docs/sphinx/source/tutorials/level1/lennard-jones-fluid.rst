@@ -21,13 +21,16 @@ Lennard-Jones fluid
 
 ..  container:: abstract
 
-    The objective of this tutorial is to use
-    LAMMPS and perform a simple molecular dynamics simulation
-    of a binary fluid. The system is
-    a Lennard-Jones fluid made of neutral
-    particles with different diameters in a cubic box with periodic
-    boundary conditions. A Langevin thermostat is
-    applied to the particles to impose the temperature of the system.
+    The objective of this tutorial is to perform a simple molecular
+    dynamics simulation of a binary fluid using LAMMPS.
+    
+..  container:: abstract
+
+    The system is a Lennard-Jones fluid made of neutral
+    particles with two different diameters in a cubic box with periodic
+    boundary conditions. The temperature of the system is imposed
+    using a Langevin thermostat, and some basic quantities are extracted
+    from the system, such as the energy 
 
 ..  container:: abstract
 
@@ -975,20 +978,15 @@ Going further with exercises
 
 .. container:: justify
 
-    A solution for each exercise is provided here: :ref:`solutions-label`.
-    Note that there often exist several different solutions to each
-    molecular dynamics problem.  
+    See the complete :ref:`solutions-label`.
 
-Fix a broken input
-------------------
+Solve Lost atoms error
+----------------------
 
 .. container:: justify
 
-    Fix the following failing *input.lammps* script without 
-    using any other command than the ones already present (you can 
-    however change the parameters values and replicate every
-    command at many times as needed):
-
+    For this exercise, the following input script is provided:
+    
 ..  code-block:: lammps
 
     units lj
@@ -1013,6 +1011,22 @@ Fix a broken input
     timestep 0.005
 
     run 10000
+
+.. container:: justify
+ 
+    As it is, this input returns one of the most common
+    error that you will encounter using LAMMPS:
+
+..  code-block:: bash
+
+    ERROR: Lost atoms: original 1000 current 984
+
+.. container:: justify
+
+    The goal of this exercise is to fix the *Lost atoms* error without 
+    using any other command than the ones already present. You can 
+    only play with the values of the parameters and/or replicate every
+    command at many times as needed.
 
 ..  admonition:: Note
     :class: info
@@ -1056,8 +1070,8 @@ Create a demixed dense phase
     :class: info
 
     An easy way to create a dense phase is to allow the box dimensions 
-    to relax until the vacuum phase disapear. You can do that 
-    by relacing the *fix nve* by a *fix nph* and impose a pressure of 1 (unitless).
+    to relax until the vacuum disapears. You can do that 
+    by replacing the *fix nve* by *fix nph*.
 
 Create dumbbell molecules
 -------------------------
