@@ -1085,6 +1085,11 @@ From atoms to molecules
     :alt: Dumbbell Lennard-Jones molecules simulated using LAMMPS
     :class: only-light 
 
+.. container:: figurelegend
+
+    Figure: Dumbbell molecules made of 2 large spheres
+    mixed with smaller particles (small spheres). 
+
 ..  container:: justify
 
     Similarly, can you create a small polymer, i.e. a long chain of particles
@@ -1097,6 +1102,11 @@ From atoms to molecules
 .. figure:: ../figures/level1/lennard-jones-fluid/polymer-light.png
     :alt: Polymer Lennard-Jones molecules simulated using LAMMPS
     :class: only-light 
+
+.. container:: figurelegend
+
+    Figure: A single small polymer molecule made of
+    9 large spheres mixed with smaller particles. 
 
 .. admonition:: Hints
     :class: info
