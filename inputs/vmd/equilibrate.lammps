@@ -1,0 +1,76 @@
+# LAMMPS input script by Simon Gravelle
+# This input is part of a tutorial from https://lammpstutorials.github.io
+# Last tested using the 2Aug2023 stable LAMMPS version
+# This file was released under the GNU general public license v3.0
+
+# ⣿⣿⡆⠀⠀⠀⠀⠀⠀⣾⣿⣿⣆⠀⠀⠀⣿⣿⣿⣆⠀⠀⣰⣿⣿⣷⠀⢸⣿⣿⣷⡀⠀⢀⣾⣿⣿⠀⠀⣿⣿⣿⣿⣿⣷⣆⠀⢀⣶⣿⠿⠿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⣤⣶⣿⣿⣿⣦⡄⠀⠀⠀⠀⠀⠀⠀
+# ⣿⣿⡇⠀⠀⠀⠀⠀⣼⣿⡏⣿⣿⡄⠀⠀⣿⣿⡿⣿⡆⢰⣿⢿⣿⣿⠀⢸⣿⣿⢿⣧⠀⣾⡿⣿⣿⠀⠀⣿⣿⡇⠀⢈⣿⣿⠀⢸⣿⣧⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣾⣿⣿⠏⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀
+# ⣿⣿⡇⠀⠀⠀⠀⢰⣿⣿⣀⣸⣿⣷⡀⠀⣿⣿⡇⢻⣿⣿⡏⢸⣿⣿⠀⢸⣿⣿⠘⣿⣿⡿⠁⣿⣿⠀⠀⣿⣿⡿⠿⠿⠿⠋⠀⠀⠉⠛⠻⠿⣿⣷⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⡄⠻⣿⣿⣿⣿⡿⠟⣃⠀⠀⠀⠀⠀⠀
+# ⣿⣿⣧⣤⣤⣤⢠⣿⣿⠛⠛⠛⢻⣿⣧⠀⣿⣿⡇⠀⠛⠛⠀⢸⣿⣿⠀⢸⣿⣿⠀⠘⠛⠃⠀⣿⣿⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⢰⣶⣤⣤⣤⣿⡿⠀⠀⠀⠀⠀⣻⣿⣿⣿⣿⣿⣿⣄⡀⠉⠉⠁⠀⢠⣿⡄⠀⠀⠀⠀⠀
+# ⠉⠉⠉⠉⠉⠉⠈⠉⠁⠀⠀⠀⠀⠉⠉⠀⠉⠉⠁⠀⠀⠀⠀⠈⠉⠉⠀⠈⠉⠉⠀⠀⠀⠀⠀⠉⠉⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣾⣿⣿⡇⠀⠀⠀⠀⠀
+# ⢀⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣶⠀⠀⠀⠀⠀⠀⠀⠀⢰⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡃⠀⠀⠀⠀⠀
+# ⣼⣿⣴⡦⠀⣴⠀⠀⠀⣴⡄⢤⣿⣧⣶⠄⢀⣤⡶⣶⣄⠀⠀⣴⣤⣴⣦⢠⣦⠀⠀⣤⠶⢶⣤⡀⠀⢸⡇⠀⢠⣴⠶⢦⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠀⠀⠀
+# ⢸⣿⠀⠀⠀⣿⠀⠀⠀⣿⡇⠀⣿⡆⠀⠀⣿⠇⠀⠀⢻⡇⠀⣿⡇⠀⠀⢸⣿⠀⠀⣠⣤⣤⣽⡇⠀⢸⡇⠀⢻⣧⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡀⠀
+# ⠸⣿⠀⠀⠀⣿⡄⠀⢀⣿⡇⠀⣿⡇⠀⠀⢿⣇⠀⢀⣼⡇⠀⣿⡇⠀⠀⢸⣿⠀⢸⣏⠀⠀⣼⡇⠀⢸⡇⠀⡀⠀⠉⢹⣷⠀⠀⠀⠀⠀⠀⠀⣀⣴⣾⣿⣿⡟⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀
+# ⠀⠙⠛⠛⠀⠈⠛⠛⠋⠛⠁⠀⠈⠛⠛⠃⠈⠛⠛⠛⠋⠀⠀⠛⠃⠀⠀⠘⠛⠀⠈⠛⠛⠛⠙⠃⠀⠘⠃⠀⠙⠛⠛⠛⠁⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣿⣿⣿⣿⣿⣿⣿⡀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+#⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡘⣿⣿⣿⣿⣿⡏⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠨⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡈⠻⣿⣿⣿⣇⠸⣿⣿⣿⣿⣿⣿⡿⢻⣿⣿⠿⠋⠁⠀
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠈⠻⢿⣿⣦⣈⠙⠛⠛⠛⣁⣴⡿⠛⠁⠀⠀⠀⠀
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠈⠉⠛⠛⠓⠚⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⣿⣿⣿⣿⡿⠟⠋⠀
+
+
+boundary p p p
+units real
+atom_style full
+bond_style harmonic
+angle_style harmonic
+dihedral_style harmonic
+improper_style harmonic
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-5
+special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
+
+lattice sc 10
+region box block -4 4 -3 2 -3 2
+create_box 5 box &
+           bond/types 6 &
+           angle/types 5 &
+           dihedral/types 3 &
+           improper/types 1 &
+           extra/bond/per/atom 20 &
+           extra/angle/per/atom 20 &
+           extra/dihedral/per/atom 20 &
+           extra/improper/per/atom 20 &
+           extra/special/per/atom 20
+
+molecule tolmol toluene.mol
+molecule h2omol water.mol
+create_atoms 0 region box mol tolmol 482793
+lattice none 1.0
+create_atoms 0 random 1000 456415 NULL mol h2omol 454756 overlap 2.2 maxtry 50
+
+include parm.lammps
+
+group H2O type 1 2
+group tol type 3 4 5
+
+fix myshk H2O shake 1.0e-5 200 0 b 1 a 1
+
+fix mynve all nve/limit 0.1
+fix myber all temp/berendsen 300 300 100
+
+dump dp1 all atom 500 dump.lammpstrj 
+thermo 500
+
+timestep 1.0
+run 1000
+unfix mynve
+unfix myber
+
+fix mynve all npt temp 300 300 100 y 1 1 1000 z 1 1 1000 couple yz
+
+run 100000
+write_data mixed.data
