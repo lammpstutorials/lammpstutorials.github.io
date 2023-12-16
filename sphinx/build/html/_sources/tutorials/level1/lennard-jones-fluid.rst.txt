@@ -575,7 +575,7 @@ Trajectory visualization
 
     Run the *input.lammps* using LAMMPS again. A file named *dump.lammpstrj*
     must appear within *my-first-input/*. A *.lammpstrj* file can
-    be opened using VMD or Ovito. For instance with Ubuntu/Linux,
+    be opened using VMD. For instance with Ubuntu/Linux,
     you can simply execute in the terminal:
 
 ..  code-block:: bw
@@ -591,7 +591,7 @@ Trajectory visualization
 
     By default, you should see a cloud
     of lines, but you can improve the representation (see this :ref:`vmd-label`
-    for basic instruction): 
+    for basic instructions).
 
 .. figure:: ../figures/level1/lennard-jones-fluid/first-input-light.png
     :alt: binary fluid simulated by LAMMPS and visualized with VMD
@@ -604,7 +604,11 @@ Trajectory visualization
 ..  container:: figurelegend
 
     Figure: View of a slice of the system using VMD, with both
-    types of atoms represented as spheres. 
+    types of atoms represented as spheres. See the corresponding |my_first_input_video|.
+
+.. |my_first_input_video| raw:: html
+
+    <a href="https://youtu.be/vdSIJM5fVJE" target="_blank">video</a>
 
 Improving the script
 ====================
@@ -612,8 +616,9 @@ Improving the script
 ..  container:: justify
 
     Let us improve the input script and perform slightly more
-    advanced operations, such as imposing a more subtle initial
-    positions for the atoms, or saving and restarting the simulation. 
+    advanced operations, such as imposing a specific initial
+    positions to the atoms, and restarting the simulation
+    from a previously saved configuration. 
 
 Control the initial atom positions
 ----------------------------------
@@ -1089,11 +1094,16 @@ From atoms to molecules
 
     Figure: Dumbbell molecules made of 2 large spheres
     mixed with smaller particles (small spheres). 
+    See the corresponding |dumbell_video|.
+
+.. |dumbell_video| raw:: html
+
+    <a href="https://youtu.be/R_oHonOQi68" target="_blank">video</a>
 
 ..  container:: justify
 
     Similarly, can you create a small polymer, i.e. a long chain of particles
-    linked by bonds?
+    linked by bonds and angles?
 
 .. figure:: ../figures/level1/lennard-jones-fluid/polymer-dark.png
     :alt: Polymer Lennard-Jones molecules simulated using LAMMPS
