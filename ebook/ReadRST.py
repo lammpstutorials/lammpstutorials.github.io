@@ -34,10 +34,10 @@ class ReadRST:
     def include_extra(self):
         new_content = []
         for line in self.file_content:
-            if "contact/accessfile.rst" in line:
-                assert os.path.exists("../docs/sphinx/source/contact/accessfile.rst")
+            if "non-tutorials/accessfile.rst" in line:
+                assert os.path.exists("../docs/sphinx/source/non-tutorials/accessfile.rst")
                 rst = rstparse.Parser()
-                with open("../docs/sphinx/source/contact/accessfile.rst") as f:
+                with open("../docs/sphinx/source/non-tutorials/accessfile.rst") as f:
                     rst.read(f)
                 rst.parse()
                 for extra_line in rst.lines:
@@ -116,7 +116,7 @@ class ReadRST:
                     type = 'figurelegend'
                 elif 'math::' in line:
                     type = 'math'
-                elif '../contact/accessfile.rst' in line:
+                elif '../non-tutorials/accessfile.rst' in line:
                     type = 'accessfile'
                 else:
                     type = 'unknown'
