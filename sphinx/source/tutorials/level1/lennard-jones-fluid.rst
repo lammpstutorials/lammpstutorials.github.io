@@ -575,7 +575,7 @@ Trajectory visualization
 
     Run the *input.lammps* using LAMMPS again. A file named *dump.lammpstrj*
     must appear within *my-first-input/*. A *.lammpstrj* file can
-    be opened using VMD. For instance with Ubuntu/Linux,
+    be opened using VMD. With Ubuntu/Linux,
     you can simply execute in the terminal:
 
 ..  code-block:: bw

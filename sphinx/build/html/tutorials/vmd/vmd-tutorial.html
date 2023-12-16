@@ -232,13 +232,6 @@
 <div class="hatnote docutils container">
 <p>Generate good looking images and movies with VMD</p>
 </div>
-<div class="justify docutils container">
-<p>VMD is a great free software that has been used for all the snapshots
-of molecular dynamics systems here. In this extra tutorial,
-I provide some tips to make good looking pictures of molecular systems.</p>
-</div>
-<section id="practical-example">
-<h2>Practical example<a class="headerlink" href="#practical-example" title="Link to this heading">#</a></h2>
 <figure class="align-right">
 <a class="only-dark reference internal image-reference" href="../../_images/video-avatar-dark.webp"><img alt="Image of the lammps polymer-water system generated with VMD visual representation" class="only-dark" src="../../_images/video-avatar-dark.webp" style="height: 250px;" /></a>
 </figure>
@@ -246,18 +239,42 @@ I provide some tips to make good looking pictures of molecular systems.</p>
 <a class="only-light reference internal image-reference" href="../../_images/video-avatar-light.webp"><img alt="Image of the lammps polymer-water system generated with VMD visual representation" class="only-light" src="../../_images/video-avatar-light.webp" style="height: 250px;" /></a>
 </figure>
 <div class="justify docutils container">
+<p>Visual Molecular Dynamics (VMD) is a free molecular graphics software
+that can be used to visualize molecular dynamics systems. VMD has been
+used to generate all images of molecular systems here.</p>
+</div>
+<div class="justify docutils container">
+<p>The goal of this extra tutorial is to provide some tips
+to make good looking pictures and videos of molecular systems.</p>
+</div>
+<section id="practical-example">
+<h2>Practical example<a class="headerlink" href="#practical-example" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>To follow this tutorial, <a href="../../../../../inputs/miscellaneous/vmd/dump.lammpstrj" target="_blank">download</a>
-this LAMMPS trajectory file, which corresponds to a mixture of water and toluene,
-and can be opened with VMD by typing in a terminal:</p>
+this LAMMPS trajectory file, which corresponds to a
+mixture of water and toluene. As always, the input
+files are shared on Github.</p>
+</div>
+<div class="justify docutils container">
+<p>The water molecules use <em>types</em> 1 and 2,
+and the toluene molecules <em>types</em> 3, 4, and  5.</p>
+</div>
+<div class="justify docutils container">
+<p>With Ubuntu/Linux, the <em>lammptrj</em> file can be opened with
+VMD by typing in a terminal:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vmd<span class="w"> </span>dump.lammpstrj
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Go to <em>Display</em>, and change the view to <em>Orthographic</em>.</p>
+<p>Otherwise, simply open VMD
+and import the <em>dump.lammpstrj</em>
+file manually using <em>File -&gt; New molecule</em>.</p>
 </div>
 <div class="justify docutils container">
-<p>This is what I see:</p>
+<p>Go to <em>Display</em>, change
+the view to <em>Orthographic</em>,
+and unselect <em>Depth Cueing</em>.</p>
 </div>
 <figure class="align-default">
 <img alt="VMD tutorial for LAMMPS" class="only-dark" src="../../_images/step1-dark.png" />
@@ -265,6 +282,9 @@ and can be opened with VMD by typing in a terminal:</p>
 <figure class="align-default">
 <img alt="VMD tutorial for LAMMPS" class="only-light" src="../../_images/step1-light.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Initial system in absence of depth cueing and with orthographic view.</p>
+</div>
 </section>
 <section id="the-representation">
 <h2>The representation<a class="headerlink" href="#the-representation" title="Link to this heading">#</a></h2>
@@ -308,6 +328,9 @@ for <em>type 3 4 5</em>.</p>
 <figure class="align-default">
 <img alt="VMD tutorial for LAMMPS" class="only-light" src="../../_images/step2-light.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Orthographic view with improved representation.</p>
+</div>
 </section>
 <section id="the-colors">
 <h2>The colors<a class="headerlink" href="#the-colors" title="Link to this heading">#</a></h2>
@@ -345,6 +368,9 @@ manually the values 0, 1.0 and 0.88 in the RGB box.</p>
 <figure class="align-default">
 <img alt="VMD tutorial for LAMMPS" class="only-light" src="../../_images/step3-light.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Orthographic view with improved representation and color.</p>
+</div>
 </section>
 <section id="the-materials">
 <h2>The materials<a class="headerlink" href="#the-materials" title="Link to this heading">#</a></h2>
@@ -362,16 +388,19 @@ Click on <em>Opaque</em>
 hit <em>Create New</em> twice.</p>
 </div>
 <div class="justify docutils container">
-<p>Two new materials should have appeared, called something like
-Material23 and Material24. You can rename them to MWater and MToluene,
-although it is not important.</p>
+<p>Two new materials should have appeared, called something like <em>Material23</em>
+and <em>Material24</em>. Rename
+them <em>MWater</em>
+and <em>MToluene</em>, respectively.</p>
 </div>
 <div class="justify docutils container">
-<p>For MWater, change <em>Diffuse</em>,
+<p>For <em>MWater</em>,
+change <em>Diffuse</em>,
 <em>Specular</em>, and
 <em>Shininess</em>, to 0.43,
 0.48, and 0.35, respectively.
-For MToluene, use 0.78, 0.33, and 0.32.</p>
+For <em>MToluene</em>,
+use 0.78, 0.33, and 0.32.</p>
 </div>
 <div class="justify docutils container">
 <p>Then, from the <em>Representations</em> windows, change the
@@ -389,11 +418,15 @@ and <em>MToluene</em> for the 2 last.</p>
 <figure class="align-default">
 <img alt="VMD tutorial for LAMMPS" class="only-light" src="../../_images/step4-light.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Orthographic view with improved representation, color, and material.</p>
+</div>
 </section>
 <section id="box-border">
 <h2>Box border<a class="headerlink" href="#box-border" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Optionally, you can visualize the borders of your box by typing in the VMD terminal:</p>
+<p>Optionally, you can visualize the borders of the simulation
+box by typing in the VMD terminal:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pbc<span class="w"> </span>box<span class="w"> </span>-center<span class="w"> </span>origin<span class="w"> </span>-color<span class="w"> </span>black<span class="w"> </span>-width<span class="w"> </span><span class="m">2</span>
 </pre></div>
@@ -402,10 +435,10 @@ and <em>MToluene</em> for the 2 last.</p>
 <section id="saving-a-state">
 <h2>Saving a state<a class="headerlink" href="#saving-a-state" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>If you don’t
-want do redo these steps every time you open VMD, you can save the VMD state by
-clicking <em>File → Save vizualisation state</em>. This state can then be re-opened
-simply by clicking <em>File</em>
+<p>To avoid redoing all these steps every time
+VMD is re-opened, one can save the VMD state by
+clicking <em>File → Save vizualisation state</em>.
+This state can then be used simply by clicking <em>File</em>
 <span class="math notranslate nohighlight">\(\to\)</span>
 <em>Load vizualisation state</em>.</p>
 </div>
@@ -445,13 +478,18 @@ then hit <em>Make Movie</em>.</p>
 <p>From the linux terminal (not the VMD terminal), assemble the images
 (all starting with <em>untitled</em>) into a single movie by typing:</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-r<span class="w"> </span><span class="m">60</span><span class="w"> </span>-i<span class="w"> </span>untitled.%05d.ppm<span class="w"> </span>-vcodec<span class="w"> </span>libx264<span class="w"> </span>-crf<span class="w"> </span><span class="m">0</span><span class="w">  </span>-pix_fmt<span class="w"> </span>yuv420p<span class="w"> </span>myvideo.mp4
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-r<span class="w"> </span><span class="m">60</span><span class="w"> </span>-i<span class="w"> </span>untitled.%05d.ppm<span class="w"> </span>-vcodec<span class="w"> </span>libx264<span class="w"> </span><span class="se">\</span>
+-crf<span class="w"> </span><span class="m">0</span><span class="w">  </span>-pix_fmt<span class="w"> </span>yuv420p<span class="w"> </span>myvideo.mp4
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>You may receive the following error <em>width not divisible by 2 (1363x1134)</em>.
-If that’s the case, you can remove one line of pixel
-with the command:</p>
+<p>You may receive the following error:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>width<span class="w"> </span>not<span class="w"> </span>divisible<span class="w"> </span>by<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">(</span>1363x1134<span class="o">)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>In that case, simply remove one line of pixel with the command:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span>untitled.*.ppm<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>convert<span class="w"> </span><span class="nv">$file</span><span class="w"> </span>-crop<span class="w"> </span>1362x1134+0+0<span class="w"> </span><span class="nv">$file</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 </pre></div>
@@ -459,7 +497,8 @@ with the command:</p>
 <div class="justify docutils container">
 <p>To convert the video in <em>webp</em>, for web integration, use:</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>myvideo.mp4<span class="w"> </span>-vcodec<span class="w"> </span>libwebp<span class="w"> </span>-filter:v<span class="w"> </span><span class="nv">fps</span><span class="o">=</span><span class="nv">fps</span><span class="o">=</span><span class="m">20</span><span class="w"> </span>-lossless<span class="w"> </span><span class="m">1</span><span class="w"> </span>-loop<span class="w"> </span><span class="m">0</span><span class="w"> </span>-preset<span class="w"> </span>default<span class="w"> </span>-an<span class="w"> </span>-vsync<span class="w"> </span><span class="m">0</span><span class="w"> </span>myvideo.webp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>myvideo.mp4<span class="w"> </span>-vcodec<span class="w"> </span>libwebp<span class="w"> </span>-filter:v<span class="w"> </span><span class="nv">fps</span><span class="o">=</span><span class="nv">fps</span><span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+-lossless<span class="w"> </span><span class="m">1</span><span class="w"> </span>-loop<span class="w"> </span><span class="m">0</span><span class="w"> </span>-preset<span class="w"> </span>default<span class="w"> </span>-an<span class="w"> </span>-vsync<span class="w"> </span><span class="m">0</span><span class="w"> </span>myvideo.webp
 </pre></div>
 </div>
 </section>
