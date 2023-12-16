@@ -39,11 +39,11 @@ Pulling on a carbon nanotube
     the breaking of the chemical bonds is possible when
     the imposed deformation is strong enough.
 
-.. include:: ../../contact/recommand-lj.rst
+.. include:: ../../non-tutorials/recommand-lj.rst
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../../non-tutorials/needhelp.rst
 
-.. include:: ../../contact/2Aug2023.rst
+.. include:: ../../non-tutorials/2Aug2023.rst
 
 Unbreakable bonds
 =================
@@ -765,8 +765,6 @@ Adapt the topology file
 
    <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/cnt_atom.data" target="_blank">here</a>
 
-.. include:: ../../contact/supportme.rst
-
 Use of AIREBO potential
 -----------------------
 
@@ -1053,7 +1051,7 @@ Doing post-mortem analysis using Python
 
    Evolution of the bond length and bond number as a function of time.
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../../non-tutorials/accessfile.rst
 
 Going further with exercises
 ============================

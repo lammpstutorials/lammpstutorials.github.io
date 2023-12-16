@@ -39,9 +39,9 @@ Lennard-Jones fluid
     energy minimization, integration of the equations of motion,
     and trajectory visualization.
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../../non-tutorials/needhelp.rst
 
-.. include:: ../../contact/2Aug2023.rst
+.. include:: ../../non-tutorials/2Aug2023.rst
 
 The input script
 ================
@@ -78,8 +78,6 @@ The input script
     file from top to bottom, therefore the *Initialization* and 
     *System definition* categories must appear at the top of the
     input, and the *Run* category at the bottom.
-
-.. include:: ../../contact/supportme.rst
 
 System creation
 ---------------
@@ -971,7 +969,7 @@ Restarting from a saved configuration
     Figure: Evolution of the number of atoms within the *region_cylinder_in* region
     as a function of time (a), and evolution of the coordination number (b). 
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../../non-tutorials/accessfile.rst
 
 Going further with exercises
 ============================

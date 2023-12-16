@@ -32,11 +32,11 @@ Reactive silicon dioxide
     The chemical reactions occurring due to the deformation
     are tracked and discussed.
 
-.. include:: ../../contact/recommand-lj.rst
+.. include:: ../../non-tutorials/recommand-lj.rst
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../../non-tutorials/needhelp.rst
 
-.. include:: ../../contact/2Aug2023.rst
+.. include:: ../../non-tutorials/2Aug2023.rst
 
 Prepare and relax
 =================
@@ -296,8 +296,6 @@ Prepare and relax
     To color the atoms by their charge in VMD, use *Charge* as coloring method in the 
     representation windows, and then tune the *Color scale* in the *Color control windows*.
 
-.. include:: ../../contact/supportme.rst
-
 Deform the structure
 ====================
 
@@ -480,7 +478,7 @@ Deform the structure
     #  Timestep    No_Moles    No_Specs   Si192O382          O2
           30000           1           1           1           1
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../../non-tutorials/accessfile.rst
 
 Going further with exercises
 ============================

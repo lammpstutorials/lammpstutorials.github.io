@@ -34,11 +34,11 @@ Water adsorption in silica
     the chemical potential (or pressure, or fugacity) of a given fluid
     in a nanoporous structure.
 
-.. include:: ../../contact/recommand-lj.rst
+.. include:: ../../non-tutorials/recommand-lj.rst
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../../non-tutorials/needhelp.rst
 
-.. include:: ../../contact/2Aug2023.rst
+.. include:: ../../non-tutorials/2Aug2023.rst
 
 Generation of the silica block
 ==============================
@@ -436,8 +436,6 @@ Cracking the silica
     for properly inserting hydrogen atoms is given as an 
     exercise from this tutorial: :ref:`reactive-silicon-dioxide-label`.
 
-.. include:: ../../contact/supportme.rst
-
 Adding water
 ============
 
@@ -799,6 +797,8 @@ GCMC simulation
     :class: info
 
     By default, VMD fails to properly render systems with varying number of atoms.
+
+.. include:: ../../non-tutorials/accessfile.rst
 
 Going further with exercises
 ============================

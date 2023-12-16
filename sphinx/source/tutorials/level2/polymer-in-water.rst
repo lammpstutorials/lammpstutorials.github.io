@@ -38,11 +38,11 @@ Polymer in water
 
    <a href="https://doi.org/10.1021/acsnano.6b07071" target="_blank">publication</a>
 
-.. include:: ../../contact/recommand-lj.rst
+.. include:: ../../non-tutorials/recommand-lj.rst
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../../non-tutorials/needhelp.rst
 
-.. include:: ../../contact/2Aug2023.rst
+.. include:: ../../non-tutorials/2Aug2023.rst
 
 Preparing water and PEG separately
 ==================================
@@ -497,8 +497,6 @@ The water
 .. |download_H2O.data| raw:: html
 
    <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a>
-
-.. include:: ../../contact/supportme.rst
 
 The PEG molecule
 ----------------
@@ -1003,7 +1001,7 @@ Stretching the PEG molecule
     Figure: Evolution of the end-to-end distance of the PEG molecule
     with time. The forcing starts at :math:`t = 30` ps.
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../../non-tutorials/accessfile.rst
 
 Going further with exercises
 ============================
