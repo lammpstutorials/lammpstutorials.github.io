@@ -7,15 +7,6 @@ VMD tutorial
 
     Generate good looking images and movies with VMD
 
-.. container:: justify
-
-    VMD is a great free software that has been used for all the snapshots
-    of molecular dynamics systems here. In this extra tutorial,
-    I provide some tips to make good looking pictures of molecular systems.
-
-Practical example
-=================
-
 .. figure:: ../figures/vmd/vmd-tutorial/video-avatar-dark.webp
     :alt: Image of the lammps polymer-water system generated with VMD visual representation 
     :height: 250
@@ -30,9 +21,34 @@ Practical example
 
 .. container:: justify
 
+    Visual Molecular Dynamics (VMD) is a free molecular graphics software
+    that can be used to visualize molecular dynamics systems. VMD has been
+    used to generate all images of molecular systems here. 
+
+.. container:: justify
+
+    The goal of this extra tutorial is to provide some tips
+    to make good looking pictures and videos of molecular systems.
+
+Practical example
+=================
+
+.. container:: justify
+
     To follow this tutorial, |dump_download|
-    this LAMMPS trajectory file, which corresponds to a mixture of water and toluene,
-    and can be opened with VMD by typing in a terminal:
+    this LAMMPS trajectory file, which corresponds to a
+    mixture of water and toluene. As always, the input
+    files are shared on Github. 
+
+.. container:: justify
+
+    The water molecules use *types* 1 and 2,
+    and the toluene molecules *types* 3, 4, and  5.
+
+.. container:: justify
+
+    With Ubuntu/Linux, the *lammptrj* file can be opened with
+    VMD by typing in a terminal:
 
 .. |dump_download| raw:: html
 
@@ -44,11 +60,15 @@ Practical example
 
 .. container:: justify
 
-    Go to *Display*, and change the view to *Orthographic*. 
+    Otherwise, simply open VMD
+    and import the *dump.lammpstrj*
+    file manually using *File -> New molecule*.
 
 .. container:: justify
 
-    This is what I see:
+    Go to *Display*, change
+    the view to *Orthographic*,
+    and unselect *Depth Cueing*.
 
 .. figure:: ../figures/vmd/vmd-tutorial/step1-dark.png
     :alt: VMD tutorial for LAMMPS
@@ -57,6 +77,10 @@ Practical example
 .. figure:: ../figures/vmd/vmd-tutorial/step1-light.png
     :alt: VMD tutorial for LAMMPS
     :class: only-light
+
+.. container:: figurelegend
+
+    Figure: Initial system in absence of depth cueing and with orthographic view.
 
 The representation
 ==================
@@ -108,6 +132,10 @@ The representation
     :alt: VMD tutorial for LAMMPS
     :class: only-light
 
+.. container:: figurelegend
+
+    Figure: Orthographic view with improved representation.
+
 The colors
 ==========
 
@@ -151,6 +179,10 @@ The colors
     :alt: VMD tutorial for LAMMPS
     :class: only-light
 
+.. container:: figurelegend
+
+    Figure: Orthographic view with improved representation and color.
+
 The materials
 =============
 
@@ -171,17 +203,20 @@ The materials
     
 .. container:: justify
 
-    Two new materials should have appeared, called something like
-    Material23 and Material24. You can rename them to MWater and MToluene,
-    although it is not important. 
+    Two new materials should have appeared, called something like *Material23*
+    and *Material24*. Rename
+    them *MWater*
+    and *MToluene*, respectively. 
 
 .. container:: justify
 
-    For MWater, change *Diffuse*,
+    For *MWater*,
+    change *Diffuse*,
     *Specular*, and
     *Shininess*, to 0.43,
     0.48, and 0.35, respectively.
-    For MToluene, use 0.78, 0.33, and 0.32.
+    For *MToluene*,
+    use 0.78, 0.33, and 0.32.
 
 .. container:: justify
 
@@ -203,12 +238,17 @@ The materials
     :alt: VMD tutorial for LAMMPS
     :class: only-light
 
+.. container:: figurelegend
+
+    Figure: Orthographic view with improved representation, color, and material.
+
 Box border
 ==========
 
 .. container:: justify
 
-    Optionally, you can visualize the borders of your box by typing in the VMD terminal:
+    Optionally, you can visualize the borders of the simulation
+    box by typing in the VMD terminal:
 
 ..  code-block:: bash
 
@@ -219,10 +259,10 @@ Saving a state
 
 .. container:: justify
 
-    If you don't
-    want do redo these steps every time you open VMD, you can save the VMD state by
-    clicking *File → Save vizualisation state*. This state can then be re-opened 
-    simply by clicking *File* 
+    To avoid redoing all these steps every time
+    VMD is re-opened, one can save the VMD state by
+    clicking *File → Save vizualisation state*.
+    This state can then be used simply by clicking *File* 
     :math:`\to`
     *Load vizualisation state*.
 
@@ -270,13 +310,20 @@ High quality movie
 
 ..  code-block:: bash
 
-    ffmpeg -r 60 -i untitled.%05d.ppm -vcodec libx264 -crf 0  -pix_fmt yuv420p myvideo.mp4
+    ffmpeg -r 60 -i untitled.%05d.ppm -vcodec libx264 \
+    -crf 0  -pix_fmt yuv420p myvideo.mp4
 
 .. container:: justify
 
-    You may receive the following error *width not divisible by 2 (1363x1134)*.
-    If that's the case, you can remove one line of pixel
-    with the command:
+    You may receive the following error:
+    
+..  code-block:: bash
+    
+    width not divisible by 2 (1363x1134)
+
+.. container:: justify
+
+    In that case, simply remove one line of pixel with the command:
 
 ..  code-block:: bash
 
@@ -288,4 +335,5 @@ High quality movie
 
 ..  code-block:: bash
 
-    ffmpeg -i myvideo.mp4 -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 myvideo.webp
+    ffmpeg -i myvideo.mp4 -vcodec libwebp -filter:v fps=fps=20 \
+    -lossless 1 -loop 0 -preset default -an -vsync 0 myvideo.webp
