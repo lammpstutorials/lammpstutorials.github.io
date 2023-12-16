@@ -1107,6 +1107,11 @@ From atoms to molecules
 
     Figure: A single small polymer molecule made of
     9 large spheres mixed with smaller particles. 
+    See the corresponding |polymer_video|.
+
+.. |polymer_video| raw:: html
+
+    <a href="https://youtu.be/LfqcfP3ZQcY" target="_blank">video</a>
 
 .. admonition:: Hints
     :class: info
