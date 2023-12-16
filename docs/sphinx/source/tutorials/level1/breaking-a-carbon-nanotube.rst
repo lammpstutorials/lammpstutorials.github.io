@@ -1058,9 +1058,7 @@ Doing post-mortem analysis using Python
 Going further with exercises
 ============================
 
-.. container:: justify
-
-    A solution for each exercise is provided here: :ref:`solutions-label`.
+.. include:: ../../non-tutorials/link-to-solutions.rst
 
 Plot the strain-stress curves
 -----------------------------
