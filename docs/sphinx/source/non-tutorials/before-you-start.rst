@@ -107,7 +107,9 @@ Text editing software
 ..  container:: justify
 
     In order to write and edit LAMMPS input files, a text editor is required.
-    Any text editor will do, such as |gedit|, |vim|, or |vscode|.
+    Any text editor will do, such as |gedit|,
+    |vim|,
+    or |vscode|.
     
 .. |gedit| raw:: html
 
@@ -124,4 +126,4 @@ Text editing software
 Find the input scripts
 ======================
 
-.. include:: ../contact/accessfile.rst
+.. include:: ../non-tutorials/accessfile.rst
