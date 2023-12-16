@@ -15,14 +15,9 @@ Fix a broken input
 
 .. container:: justify
 
-    The trick to make the simulation starts is to reduce the initial 
-    *timestep* value as well as the imposed *temperature*.
-
-.. container:: justify
-
-    Note that in order to make sure that the temperature of the particles
-    quickly reaches a low value before the simulation crashes, I also reduced 
-    the *damping* parameter of the *Langevin* command:
+    The trick to make the simulation starts without error
+    is to reduce the initial *timestep* value as well as
+    the imposed *temperature*.
 
 ..  code-block:: lammps
 
@@ -31,14 +26,22 @@ Fix a broken input
 
 .. container:: justify
 
-    Then, after the first *run* finishes, the energy of the system 
-    has reduced due to the motion of the atoms, and a second *run*
-    with the original *timestep* and *Langevin* parameters can start
-    without issue. 
+    Note that in order to make sure that the temperature of the particles
+    quickly reaches a reasonable value, the *damping* parameter
+    of the *fix Langevin* was also reduced.
 
 .. container:: justify
 
-    In some cases, several consecutive steps can be necessary:
+    With these commands, you should see that after the first
+    *run* finishes, the energy of the system 
+    has reduced. Thus, a second *run*
+    with the original *timestep* and *Langevin* parameters
+    can start without issue. 
+
+.. container:: justify
+
+    In some cases, more than two consecutive *run* can
+    be the solution:
 
 ..  code-block:: lammps
 
