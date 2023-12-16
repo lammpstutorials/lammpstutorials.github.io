@@ -308,42 +308,52 @@ pressure was imposed by replacing <em>fix nve</em> by <em>fix nph</em>:</p>
 pressure is close to 1, which is require reducing the initial box dimensions.</p>
 </div>
 </section>
-<section id="create-dumbbell-molecules">
-<h3>Create dumbbell molecules<a class="headerlink" href="#create-dumbbell-molecules" title="Link to this heading">#</a></h3>
+<section id="from-atoms-to-molecules">
+<h3>From atoms to molecules<a class="headerlink" href="#from-atoms-to-molecules" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>You can download the <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/input.lammps" target="_blank">input</a> I wrote. The first important
-change is to choose an <em>atom_style</em> that allows for bond creation, and
-to specify the <em>bond_style</em>:</p>
+<p>You can download the <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/input.lammps" target="_blank">input</a> I wrote to make
+dumbell molecules.</p>
+</div>
+<div class="justify docutils container">
+<p>The first important change is to choose
+an <em>atom_style</em> that allows for atom to be connected by bonds.
+It is also necessary to specify the <em>bond_style</em>,
+i.e. the type of potential (here harmonic) that will keep the atoms
+together:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">atom_style</span><span class="w"> </span><span class="n">molecular</span>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>When creating the box, it is important to make space in the memory for
-the bonds:</p>
+<p>When creating the box, it is necessary to make
+memory space for the bond:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_box </span><span class="nv nv-Identifier">2</span><span class="w"> </span><span class="nv nv-Identifier">simulation_box</span><span class="w"> </span><span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_box </span><span class="nv nv-Identifier">2</span><span class="w"> </span><span class="nv nv-Identifier">simulation_box</span><span class="w"> </span><span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Then, import the <em>molecule templates</em>, and use these templates
+<p>Then, import the <em>molecule template</em>, and use this template
 when creating the atoms:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">dumbell1</span><span class="w"> </span><span class="n">dumbell1.mol</span>
-<span class="k">molecule</span><span class="w"> </span><span class="n">dumbell2</span><span class="w"> </span><span class="n">dumbell2.mol</span>
-<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">750</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">simulation_box</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">dumbell1</span><span class="w"> </span><span class="m">8766</span>
-<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">678865</span><span class="w"> </span><span class="n">simulation_box</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">dumbell2</span><span class="w"> </span><span class="m">8751</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">dumbell</span><span class="w"> </span><span class="n">dumbell.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">simulation_box</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">678865</span><span class="w"> </span><span class="n">simulation_box</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">dumbell</span><span class="w"> </span><span class="m">8754</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>You can download the molecule templates for <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/dumbell1.mol" target="_blank">type-1</a>
-and <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/dumbell2.mol" target="_blank">type-2</a>. Finally, some parameters for the two
-types of bonds, namely their rigidity and equilibrium lengths is specified:</p>
+<p>You can download the molecule template by clicking <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/dumbell.mol" target="_blank">here</a>.
+Finally, some parameters for the bond, namely its rigidity (5) and equilibrium
+length (2.5) need to be specified:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">0.5</span>
-<span class="k">bond_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">1.5</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">2.5</span>
 </pre></div>
+</div>
+<div class="justify docutils container">
+<p>You can download the <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/polymer/input.lammps" target="_blank">input</a> and
+<a href="../../../../inputs/level1/lennard-jones-fluid/exercises/polymer/polymer.mol" target="_blank">molecule template</a> I wrote to make the short polymer.
+Note that angular potentials are used to give some
+rigidity to the polymer.</p>
 </div>
 </section>
 </section>
@@ -364,7 +374,7 @@ define the area as the perimeter of the CNT multiplied by the
 effective width of the carbon atoms.</p>
 </div>
 <div class="justify docutils container">
-<p>Be careful with units, as the force is either in kCal/mol
+<p>Be careful with units, as the force is either in kcal/mol
 or eV, depending of the unit system, respectively <em>real</em> or <em>metal</em>.</p>
 </div>
 </section>
@@ -989,7 +999,7 @@ progressively decorating the surface of the SiO2 structure:</p>
 <li><a class="reference internal" href="#lennard-jones-fluid">Lennard Jones fluid</a><ul>
 <li><a class="reference internal" href="#fix-a-broken-input">Fix a broken input</a></li>
 <li><a class="reference internal" href="#create-a-demixed-dense-phase">Create a demixed dense phase</a></li>
-<li><a class="reference internal" href="#create-dumbbell-molecules">Create dumbbell molecules</a></li>
+<li><a class="reference internal" href="#from-atoms-to-molecules">From atoms to molecules</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#pulling-on-a-carbon-nanotube">Pulling on a carbon nanotube</a><ul>

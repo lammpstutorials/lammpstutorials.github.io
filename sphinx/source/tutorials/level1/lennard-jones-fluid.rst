@@ -1069,13 +1069,13 @@ Create a demixed dense phase
     to relax until the vacuum disapears. You can do that 
     by replacing the *fix nve* by *fix nph*.
 
-Create dumbbell molecules
--------------------------
+From atoms to molecules
+-----------------------
 
 ..  container:: justify
 
-    Add a bond between couple of identical atoms to create
-    dumbbell molecules, just like in the image:
+    Add a bond between particles of *type 2* to create
+    dumbbell molecules instead of single paticles.
 
 .. figure:: ../figures/level1/lennard-jones-fluid/dumbell-dark.png
     :alt: Dumbbell Lennard-Jones molecules simulated using LAMMPS
@@ -1083,6 +1083,19 @@ Create dumbbell molecules
 
 .. figure:: ../figures/level1/lennard-jones-fluid/dumbell-light.png
     :alt: Dumbbell Lennard-Jones molecules simulated using LAMMPS
+    :class: only-light 
+
+..  container:: justify
+
+    Similarly, can you create a small polymer, i.e. a long chain of particles
+    linked by bonds?
+
+.. figure:: ../figures/level1/lennard-jones-fluid/polymer-dark.png
+    :alt: Polymer Lennard-Jones molecules simulated using LAMMPS
+    :class: only-dark
+
+.. figure:: ../figures/level1/lennard-jones-fluid/polymer-light.png
+    :alt: Polymer Lennard-Jones molecules simulated using LAMMPS
     :class: only-light 
 
 .. admonition:: Hints
