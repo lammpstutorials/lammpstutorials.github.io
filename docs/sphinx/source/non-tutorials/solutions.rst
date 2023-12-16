@@ -105,18 +105,25 @@ Create a demixed dense phase
 
     <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/demixion/input.lammps" target="_blank">input</a>
 
-Create dumbbell molecules
--------------------------
+From atoms to molecules
+-----------------------
 
 .. container:: justify
 
-    You can download the |input_dumbbell_solution| I wrote. The first important 
-    change is to choose an *atom_style* that allows for bond creation, and 
-    to specify the *bond_style*:
-
+    You can download the |input_dumbbell_solution| I wrote to make 
+    dumbell molecules. 
+    
 .. |input_dumbbell_solution| raw:: html
 
     <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/input.lammps" target="_blank">input</a>
+
+.. container:: justify
+
+    The first important change is to choose
+    an *atom_style* that allows for atom to be connected by bonds.
+    It is also necessary to specify the *bond_style*,
+    i.e. the type of potential (here harmonic) that will keep the atoms
+    together:
 
 ..  code-block:: lammps
 
@@ -125,43 +132,52 @@ Create dumbbell molecules
 
 .. container:: justify
 
-    When creating the box, it is important to make space in the memory for 
-    the bonds:
+    When creating the box, it is necessary to make
+    memory space for the bond:
 
 ..  code-block:: lammps
 
-    create_box 2 simulation_box bond/types 2 extra/bond/per/atom 1
+    create_box 2 simulation_box bond/types 1 extra/bond/per/atom 1
 
 .. container:: justify
 
-    Then, import the *molecule templates*, and use these templates
+    Then, import the *molecule template*, and use this template
     when creating the atoms:
 
 ..  code-block:: lammps
 
-    molecule dumbell1 dumbell1.mol
-    molecule dumbell2 dumbell2.mol
-    create_atoms 0 random 750 341341 simulation_box mol dumbell1 8766
-    create_atoms 0 random 50 678865 simulation_box mol dumbell2 8751
+    molecule dumbell dumbell.mol
+    create_atoms 1 random 500 341341 simulation_box
+    create_atoms 0 random 5 678865 simulation_box mol dumbell 8754
 
 .. container:: justify
 
-    You can download the molecule templates for |mol1_dumbbell_solution|
-    and |mol2_dumbbell_solution|. Finally, some parameters for the two
-    types of bonds, namely their rigidity and equilibrium lengths is specified:
+    You can download the molecule template by clicking |mol_dumbbell_solution|.
+    Finally, some parameters for the bond, namely its rigidity (5) and equilibrium
+    length (2.5) need to be specified:
 
 ..  code-block:: lammps
 
-    bond_coeff 1 5 0.5
-    bond_coeff 2 5 1.5
+    bond_coeff 1 5 2.5
 
-.. |mol1_dumbbell_solution| raw:: html
+.. |mol_dumbbell_solution| raw:: html
 
-    <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/dumbell1.mol" target="_blank">type-1</a>
+    <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/dumbell.mol" target="_blank">here</a>
 
-.. |mol2_dumbbell_solution| raw:: html
+.. container:: justify
 
-    <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/dumbbell/dumbell2.mol" target="_blank">type-2</a>
+    You can download the |input_polymer_solution| and
+    |mol_polymer_solution| I wrote to make the short polymer. 
+    Note that angular potentials are used to give some
+    rigidity to the polymer.
+    
+.. |input_polymer_solution| raw:: html
+
+    <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/polymer/input.lammps" target="_blank">input</a>
+
+.. |mol_polymer_solution| raw:: html
+
+    <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/polymer/polymer.mol" target="_blank">molecule template</a>
 
 Pulling on a carbon nanotube
 ============================
@@ -185,7 +201,7 @@ Plot the strain-stress curves
 
 .. container:: justify
 
-    Be careful with units, as the force is either in kCal/mol
+    Be careful with units, as the force is either in kcal/mol
     or eV, depending of the unit system, respectively *real* or *metal*.
 
 .. |input_stress_strain_solution1| raw:: html
