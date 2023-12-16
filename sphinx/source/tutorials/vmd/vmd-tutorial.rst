@@ -108,17 +108,17 @@ The representation
 
     Create a third representation for *type 3 4 5*,
     i.e. all 3 atom types of toluene, respectively
-    hydrogen, oxygen, and carbon atoms.
+    carbon, hydrogen, and another carbon.
 
 .. container:: justify
 
     Choose *DynamicBonds*
     and increase the *bond resolution* to 42.
     With *DynamicBonds*, the ends of the bonds are rough. 
-    To smooth out the representation, create the fourth and last representation
-    (*VDW* with
+    To smooth out the representation, create the
+    fourth and last representation (*VDW* with
     *Sphere Scale* 0.2)
-    for *type 3 4 5*.
+    for *types* 3 4 5*.
 
 .. container:: justify
 
@@ -134,7 +134,7 @@ The representation
 
 .. container:: figurelegend
 
-    Figure: Orthographic view with improved representation.
+    Figure: Orthographic view of the system with improved representation.
 
 The colors
 ==========
@@ -153,14 +153,15 @@ The colors
     in *Categories*,
     click *Name*,
     in *Names*
-    choose *5* (this is the oxygen atoms),
-    and choose red. Then, do the same for 4 (carbon :math:`\to` pink),
-    3 (hydrogen :math:`\to` white),
+    choose *3* (carbon) and select the color pink. Then, do
+    the same for 5 (also a carbon :math:`\to` pink),
+    4 (hydrogen :math:`\to` white),
     2 (hydrogen :math:`\to` white),
+    1 (oxygen :math:`\to` red).
     
 .. container:: justify
 
-    These three colors are standard for oxygen,
+    These colors are standard for oxygen,
     carbon, and hydrogen, respectively. To mark the difference
     between the water and the toluene, let us choose a different
     color for the atoms of type 1 (oxygens of the water molecules) by
