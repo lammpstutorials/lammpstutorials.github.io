@@ -34,11 +34,11 @@ Free energy calculation
     for measuring adsorption barrier near a wall, or for calculating translocation
     barrier through a membrane.
 
-.. include:: ../../contact/recommand-lj.rst
+.. include:: ../../non-tutorials/recommand-lj.rst
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../../non-tutorials/needhelp.rst
 
-.. include:: ../../contact/2Aug2023.rst
+.. include:: ../../non-tutorials/2Aug2023.rst
 
 Method 1: Free sampling
 =======================
@@ -348,8 +348,6 @@ The limits of free sampling
     In that case, it is better to use the umbrella sampling method
     to extract free energy profiles, see the next section.
 
-.. include:: ../../contact/supportme.rst
-
 Method 2: Umbrella sampling
 ===========================
 
@@ -603,7 +601,7 @@ WHAM algorithm
     We can see that the agreement is quite good despite the very short calculation time
     and the very high value for the energy barrier. 
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../../non-tutorials/accessfile.rst
 
 Side note: on the choice of k
 -----------------------------

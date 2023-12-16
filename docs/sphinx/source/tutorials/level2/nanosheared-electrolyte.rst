@@ -33,11 +33,11 @@ Nanosheared electrolyte
     Also, contrarily to the :ref:`all-atoms-label` tutorial, a rigid 
     four points water model is used here.
 
-.. include:: ../../contact/recommand-lj.rst
+.. include:: ../../non-tutorials/recommand-lj.rst
 
-.. include:: ../../contact/needhelp.rst
+.. include:: ../../non-tutorials/needhelp.rst
 
-.. include:: ../../contact/2Aug2023.rst
+.. include:: ../../non-tutorials/2Aug2023.rst
 
 System generation
 =================
@@ -394,8 +394,6 @@ System generation
     Always check that your system has been correctly created
     by looking at the periodic images. Atomic defects may
     occur at the boundary.
-
-.. include:: ../../contact/supportme.rst
 
 Energy minimization
 ===================
@@ -872,7 +870,7 @@ Imposed shearing
 
    <a href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/PhysRevFluids.6.034303.pdf" target="_blank">gravelle2021</a>
 
-.. include:: ../../contact/accessfile.rst
+.. include:: ../../non-tutorials/accessfile.rst
 
 Going further with exercises
 ============================
