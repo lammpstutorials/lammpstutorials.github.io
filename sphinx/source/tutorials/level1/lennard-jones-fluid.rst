@@ -592,8 +592,8 @@ Trajectory visualization
 ..  container:: justify
 
     By default, you should see a cloud
-    of lines, but you can improve the representation
-    as I did here: 
+    of lines, but you can improve the representation (see this :ref:`vmd-label`
+    for basic instruction): 
 
 .. figure:: ../figures/level1/lennard-jones-fluid/first-input-light.png
     :alt: binary fluid simulated by LAMMPS and visualized with VMD
@@ -976,9 +976,7 @@ Restarting from a saved configuration
 Going further with exercises
 ============================
 
-.. container:: justify
-
-    See the complete :ref:`solutions-label`.
+.. include:: ../../non-tutorials/link-to-solutions.rst
 
 Solve Lost atoms error
 ----------------------
