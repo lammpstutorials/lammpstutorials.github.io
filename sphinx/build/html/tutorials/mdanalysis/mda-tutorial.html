@@ -1,0 +1,419 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-W1WGEC5GQ8');
+    </script>
+        <link href="../../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Use GROMACS instead" href="../../miscellaneous/use-gromacs-instead.html" /><link rel="prev" title="VMD tutorial" href="../vmd/vmd-tutorial.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+        <title>MDAnalysis tutorial - </title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=3ceca25e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">    </div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">    </span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../non-tutorials/before-you-start.html">Before you start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../non-tutorials/contact-me.html">Contact me</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Level 1</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../level1/lennard-jones-fluid.html">Lennard-Jones fluid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level1/breaking-a-carbon-nanotube.html">Pulling on a carbon nanotube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Level 2</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../level2/polymer-in-water.html">Polymer in water</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level2/nanosheared-electrolyte.html">Nanosheared electrolyte</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Level 3</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../level3/reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level3/water-adsorption-in-silica.html">Water adsorption in silica</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level3/free-energy-calculation.html">Free energy calculation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../non-tutorials/solutions.html">Solutions to the exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vmd/vmd-tutorial.html">VMD tutorial</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">MDAnalysis tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/use-gromacs-instead.html">Use GROMACS instead</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="mdanalysis-tutorial">
+<span id="mda-label"></span><h1>MDAnalysis tutorial<a class="headerlink" href="#mdanalysis-tutorial" title="Link to this heading">#</a></h1>
+<div class="hatnote docutils container">
+<p>Perform post-mortem analysis using Python</p>
+</div>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../../_images/CNT_dark.webp"><img alt="carbon nanotube image in vacuum" class="only-dark" src="../../_images/CNT_dark.webp" style="height: 250px;" /></a>
+</figure>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../../_images/CNT_light.webp"><img alt="carbon nanotube image in vacuum" class="only-light" src="../../_images/CNT_light.webp" style="height: 250px;" /></a>
+</figure>
+<div class="justify docutils container">
+<p>There are two main ways to analyze data from a MD simulation:
+(1) on-the-fly analysis, like is done for instance using <em>fix ave/time</em>,
+and (2) post-mortem analysis. Post-mortem analysis can be performed using
+the atom coordinates saved in the <em>lammpstrj</em> file.</p>
+</div>
+<div class="justify docutils container">
+<p>The goal of this extra tutorial is to provide some tips
+to import <em>lammpstrj</em>  trajectory file into Python.</p>
+</div>
+<div class="patreon admonition">
+<p class="admonition-title">I provide personal assistance for LAMMPS projects</p>
+<p>See the <a class="reference internal" href="../../non-tutorials/contact-me.html#contact-label"><span class="std std-ref">Contact me</span></a> page.</p>
+</div>
+<section id="counting-bonds">
+<h2>Counting bonds<a class="headerlink" href="#counting-bonds" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Here, we re-use the trajectory generated
+during the second part <em>Breakable bonds</em>
+of the <a class="reference internal" href="../level1/breaking-a-carbon-nanotube.html#carbon-nanotube-label"><span class="std std-ref">Pulling on a carbon nanotube</span></a> tutorial.
+It is recommended that you follow this tutorial
+first, but you can also directly download the <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/dump.lammpstrj" target="_blank">dump</a>
+file and the <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/cnt_atom.data" target="_blank">data</a> file and continue with this MDA tutorial.</p>
+</div>
+<div class="justify docutils container">
+<p>Open a new Jupyter notebook and
+call it <em>measure_bond_evolution.ipynb</em>. First, let us import both <em>MDAnalysis</em>
+and <em>NumPy</em> by copying the following lines into <em>measure_bond_evolution.ipynb</em>.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">MDAnalysis</span> <span class="k">as</span> <span class="nn">mda</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<blockquote>
+<div><p>Then, let us create a <em>MDAnalysis</em> <em>universe</em> using the LAMMPS
+data file <em>cnt_atom.data</em> as topology,
+and the <em>lammpstrj</em> file as trajectory. Let us guess the
+original bonds using the bond guesser of MDAnalysis (<em>guess_bonds=True</em>).
+Let us also create a single atom group named <em>cnt</em> and containing all the carbon atoms.
+Add the following lines into <em>measure_bond_evolution.ipynb</em>:</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path_to_data</span> <span class="o">=</span> <span class="s2">&quot;./&quot;</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="n">path_to_data</span> <span class="o">+</span> <span class="s2">&quot;cnt_deformed.data&quot;</span><span class="p">,</span>
+                 <span class="n">path_to_data</span> <span class="o">+</span> <span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span>
+                 <span class="n">topology_format</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;lammpsdump&quot;</span><span class="p">,</span>
+                 <span class="n">atom_style</span><span class="o">=</span><span class="s1">&#39;id type xs ys zs&#39;</span><span class="p">,</span>
+                 <span class="n">guess_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vdwradii</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span><span class="mf">1.7</span><span class="p">})</span>
+<span class="n">cnt</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s2">&quot;type 1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="justify docutils container">
+<p>Note that the bond guesser of MDAnalysis will not update the list of bond
+over time, so we will need to use a few tricks to extract the evolution
+of the number of bond with time.</p>
+</div>
+<div class="justify docutils container">
+<p>Then, let us loop over the trajectory and extract the bonds average length
+and total number over time. Add the
+following lines into <em>measure_bond_evolution.ipynb</em>:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">lbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># loop over trajectory</span>
+<span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
+    <span class="c1"># sabe the bond of the timestep ts in a list</span>
+    <span class="n">all_bonds_ts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># loop over all initially detected bond</span>
+    <span class="k">for</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span> <span class="ow">in</span> <span class="n">cnt</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">indices</span><span class="p">:</span>
+        <span class="c1"># detect positions</span>
+        <span class="n">pos1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id1</span><span class="p">]</span>
+        <span class="n">pos2</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id2</span><span class="p">]</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">pos1</span><span class="o">-</span><span class="n">pos2</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mf">1.8</span><span class="p">:</span> <span class="c1"># assume that bond longer than 1.8 angstroms are broken</span>
+            <span class="n">all_bonds_ts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">lbond_vs_time</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ts</span><span class="o">.</span><span class="n">time</span><span class="o">*</span><span class="mi">5000</span><span class="o">*</span><span class="mf">0.0005</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">all_bonds_ts</span><span class="p">)])</span>
+    <span class="n">nbond_vs_time</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ts</span><span class="o">.</span><span class="n">time</span><span class="o">*</span><span class="mi">5000</span><span class="o">*</span><span class="mf">0.0005</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_bonds_ts</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># divide by 2 to avoid counting twice</span>
+<span class="n">nbond_vs_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nbond_vs_time</span><span class="p">)</span>
+<span class="n">lbond_vs_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lbond_vs_time</span><span class="p">)</span>
+<span class="c1"># finally let us save the data to tex files:</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;number_bond_vs_time.dat&quot;</span><span class="p">,</span> <span class="n">nbond_vs_time</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;length_bond_vs_time.dat&quot;</span><span class="p">,</span> <span class="n">lbond_vs_time</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The array <em>nbond_vs_time</em> contains the number of bond as a function of time, and
+<em>lbond_vs_time</em> the bond length. Let us plot both of them:</p>
+</div>
+<figure class="align-default">
+<img alt="plot of the bond length and distance versus time" class="only-dark" src="tutorials/figures/level1/breaking-a-carbon-nanotube/bond-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="plot of the bond length and distance versus time" class="only-light" src="tutorials/figures/level1/breaking-a-carbon-nanotube/bond-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Evolution of the bond length (a) and bond number (b) as a function of time.</p>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../../miscellaneous/use-gromacs-instead.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Use GROMACS instead</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../vmd/vmd-tutorial.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">VMD tutorial</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">MDAnalysis tutorial</a><ul>
+<li><a class="reference internal" href="#counting-bonds">Counting bonds</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    </body>
+</html>
