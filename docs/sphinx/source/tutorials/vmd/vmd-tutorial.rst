@@ -222,6 +222,51 @@ The materials
 Additional options and rendering
 ================================
 
+Transparent field
+-----------------
+
+.. container:: justify
+
+    A great representation offered by VMD are the *Quick surf*,
+    that can be combined with *transparent* material.
+
+.. container:: justify
+
+    Here I turned off *Light 0*,
+    and turned on all three other defaults lights.
+
+.. figure:: ../figures/vmd/vmd-tutorial/transparent-dark.png
+    :alt: VMD tutorial for LAMMPS -  transparent field
+    :class: only-dark
+
+.. figure:: ../figures/vmd/vmd-tutorial/transparent-light.png
+    :alt: VMD tutorial for LAMMPS - transparent field
+    :class: only-light
+
+.. container:: figurelegend
+
+    Figure: System with water represented as a transparent field.
+
+Goodsell
+--------
+
+.. container:: justify
+
+    VMD also offers the Goodsell's representation, 
+    which can be an alternative alternative.
+
+.. figure:: ../figures/vmd/vmd-tutorial/goodsell-dark.png
+    :alt: VMD tutorial for LAMMPS - System in the style of David Goodsell
+    :class: only-dark
+
+.. figure:: ../figures/vmd/vmd-tutorial/goodsell-light.png
+    :alt: VMD tutorial for LAMMPS - System in the style of David Goodsell
+    :class: only-light
+
+.. container:: figurelegend
+
+    Figure: System in the style of David Goodsell.
+
 Box border
 ----------
 
