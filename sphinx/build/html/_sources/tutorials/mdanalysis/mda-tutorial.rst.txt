@@ -125,11 +125,11 @@ Counting bonds
     The array *nbond_vs_time* contains the number of bond as a function of time, and 
     *lbond_vs_time* the bond length. Let us plot both of them:
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/bond-dark.png
+.. figure:: ../figures/mdanalysis/bond-dark.png
     :alt: plot of the bond length and distance versus time
     :class: only-dark
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/bond-light.png
+.. figure:: ../figures/mdanalysis/bond-light.png
     :alt: plot of the bond length and distance versus time
     :class: only-light
 
