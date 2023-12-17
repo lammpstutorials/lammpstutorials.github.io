@@ -51,10 +51,18 @@ variable zmin equal bound(carbon_atoms,zmin)+0.5
 region rtop block INF INF INF INF ${zmax} INF
 region rbot block INF INF INF INF INF ${zmin}
 region rmid block INF INF INF INF ${zmin} ${zmax}
+
 group carbon_top region rtop
 group carbon_bot region rbot
 group carbon_mid region rmid
 
+variable zmax_del equal ${zmax}-2
+variable zmin_del equal ${zmin}+2
+region rdel block INF INF INF INF ${zmin_del} ${zmax_del}
+group rdel region rdel
+delete_atoms random fraction 0.02 no rdel NULL 482793 bond yes
+
+reset_atoms id sort yes
 velocity carbon_mid create ${T} 48455 mom yes rot yes
 fix mynve all nve
 compute Tmid carbon_mid temp

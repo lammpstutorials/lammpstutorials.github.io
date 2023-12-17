@@ -38,6 +38,13 @@ group carbon_mid region rmid
 set group carbon_top type 2
 set group carbon_bot type 3
 
+variable zmax_del equal ${zmax}-2
+variable zmin_del equal ${zmin}+2
+region rdel block INF INF INF INF ${zmin_del} ${zmax_del}
+group rdel region rdel
+delete_atoms random fraction 0.02 no rdel NULL 482793 bond yes
+
+reset_atoms id sort yes
 velocity carbon_mid create ${T} 48455 mom yes rot yes
 fix mynve all nve
 compute Tmid carbon_mid temp
@@ -62,16 +69,7 @@ thermo_modify temp Tmid
 timestep 1.0
 run 5000
 
-# uncomment for option A
-#variable var loop 10
-#	label loop
-#	displace_atoms carbon_top move 0 0 0.1
-#	displace_atoms carbon_bot move 0 0 -0.1
-#	run 5000
-#	next var
-#	jump input.lammps loop
-	
-# uncomment for option B
-velocity carbon_top set NULL NULL 0.0005
-velocity carbon_bot set NULL NULL -0.0005
+# 2*0.0005 A/fs = 0.001 A/fs = 100 m/s
+velocity carbon_top set 0 0 0.0005
+velocity carbon_bot set 0 0 -0.0005
 run 10000

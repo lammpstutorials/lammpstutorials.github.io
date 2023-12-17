@@ -74,7 +74,7 @@ Create topology with VMD
     When the system has a complex topology, like is the case of a CNT, 
     it is better to use an external preprocessing tool to create it.
     Many preprocessing tools exist, see a |prepross| on 
-    the LAMMPS website. Here,|VMD_uiuc| is used.
+    the LAMMPS website. Here, |VMD_uiuc| is used.
     Alternatively, you can skip this part of the tutorial by downloading the 
     CNT topology I did create by clicking |download_cnt_molecular_data|, 
     and continue with the tutorial.
@@ -100,6 +100,8 @@ Create topology with VMD
     Keep all default values, and click on *Generate
     Nanotube*.
 
+.. container:: justify
+
     At this point, this is not a molecular dynamics simulation,
     but a cloud of unconnected dots. In the VMD terminal, set the
     box dimensions by typing the following commands in the VMD terminal:
@@ -115,6 +117,8 @@ Create topology with VMD
     The values of 80 in each direction have been chosen
     so that the box is much larger than the carbon nanotube.
 
+.. container:: justify
+
     In order to generate the initial LAMMPS data file, let us use Topotool:
     to generate the LAMMPS data file, enter the following command
     in the VMD terminal:
@@ -129,12 +133,9 @@ Create topology with VMD
     *cnt_molecular.data* is the name of the file. 
 
 .. admonition:: About TopoTools
-    :class: dropdown
+    :class: info
 
-    Note that I am using TopoTools v1.7. Older or newer versions 
-    may require slightly different commands. 
-
-    More details about these commands can be found on the
+    More details about Topotool can be found on the
     personal page of |Axel_webpage|.
     In short, Topotools deduces the location of bonds, angles,
     dihedrals, and impropers from the respective positions of the atoms,
@@ -177,8 +178,8 @@ Create topology with VMD
 
     Save the *cnt_molecular.data* file in a folder named *unbreakable-bonds/*.
 
-Starting the LAMMPS input
--------------------------
+The LAMMPS input
+----------------
 
 .. container:: justify
 
@@ -186,8 +187,6 @@ Starting the LAMMPS input
    it *input.lammps*. Copy the following lines in it:
 
 .. code-block:: lammps
-
-   # Initialisation
 
    variable T equal 300
 
@@ -255,9 +254,6 @@ Starting the LAMMPS input
     not interact through a Lennard-Jones potential (therefore
     they only interact through the harmonic potential that bond the atoms
     of the graphene).
-
-CNT parameters
---------------
 
 .. container:: justify
 
@@ -380,6 +376,8 @@ Prepare initial state
     :math:`z_\mathrm{min} > z > z_\mathrm{max}` (middle), and  
     :math:`z > z_\mathrm{max}` (top).
 
+.. container:: justify
+
     Finally, let us define 3 groups of atoms
     corresponding to the atoms located in each of the 3 regions,
     respectively, by adding to *input.lammps*:
@@ -392,8 +390,8 @@ Prepare initial state
 
 .. container:: justify
 
-    The atoms of the edges as selected within the *carbon_top* and *carbon_bot* groups 
-    are represented with a different color:
+    The atoms of the edges as selected within the *carbon_top*
+    and *carbon_bot* groups can be represented with a different color.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/colored-edge-undef-dark.png
     :alt: CNT in graphene in vacuum image VMD
@@ -402,6 +400,11 @@ Prepare initial state
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/colored-edge-undef-light.png
     :alt: CNT in graphene in vacuum image VMD
     :class: only-light
+
+..  container:: figurelegend
+
+    Figure: CNT with atoms from the *carbon_top*
+    and the *carbon_bot* groups being represented with a different color.
 
 .. container:: justify
 
@@ -416,6 +419,40 @@ Prepare initial state
     10 atoms in group carbon_bot
     680 atoms in group carbon_mid
 
+.. container:: justify
+
+    Finally, let us randomly delete some of the carbon atoms.
+    In order to avoid deleting atoms that are too close from the edges,
+    let us define a new region name *rdel* that
+    starts :math:`2\,Å`
+    from the CNT edges.
+
+.. code-block:: lammps
+
+    variable zmax_del equal ${zmax}-2
+    variable zmin_del equal ${zmin}+2
+    region rdel block INF INF INF INF ${zmin_del} ${zmax_del}
+    group rdel region rdel
+    delete_atoms random fraction 0.02 no rdel NULL 482793 bond yes
+
+.. container:: justify
+
+    The *delete_atoms* command randomly
+    deletes :math:`2\,\%` of the atoms
+    from the *rdel* group (i.e. about 10 atoms).
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/colored-edge-deleted-dark.png
+    :alt: CNT in graphene in vacuum image VMD with delete atoms
+    :class: only-dark
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/colored-edge-deleted-light.png
+    :alt: CNT in graphene in vacuum image VMD with delete atoms
+    :class: only-light
+
+..  container:: figurelegend
+
+    Figure: CNT with *10* randomly deleted atoms. 
+
 The molecular dynamics
 ----------------------
 
@@ -426,11 +463,17 @@ The molecular dynamics
 
 .. code-block:: lammps
 
+    reset_atoms id sort yes
     velocity carbon_mid create ${T} 48455 mom yes rot yes
     fix mynve all nve
     compute Tmid carbon_mid temp
     fix myber carbon_mid temp/berendsen ${T} ${T} 100
     fix_modify myber temp Tmid
+
+.. container:: justify
+
+    Re-setting the atoms ids is necessary before using the *velocity* command,
+    this is done by the *reset_atoms* command.
 
 .. container:: justify
 
@@ -459,9 +502,6 @@ The molecular dynamics
     temperature of the system is effectively lower
     than the applied temperature because the frozen atoms 
     have no thermal motion (their temperature is therefore :math:`0\,\text{K}`). 
-    
-Deal with the frozen edges
---------------------------
 
 .. container:: justify
 
@@ -512,7 +552,6 @@ Data extraction
     the two edges as well as the force applied on the edges.
 
 .. code-block:: lammps
-    :caption: *to be copied in input.lammps*
 
     variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
     fix at1 all ave/time 10 10 100 v_L file output_cnt_length.dat
@@ -524,7 +563,6 @@ Data extraction
     *lammpstrj* file every 1000 steps.
 
 .. code-block:: lammps
-    :caption: *to be copied in input.lammps*
 
     dump mydmp all atom 1000 dump.lammpstrj
 
@@ -544,9 +582,6 @@ Data extraction
     extracted from the two *fix setforce* *mysf1* and *mysf2*, simply by
     calling them using *f_*, the same way variables are called
     using *v_* and computes are called using *c_*.
-
-Finalize au run
----------------
 
 .. container:: justify
 
@@ -627,8 +662,6 @@ Finalize au run
 .. container:: justify
 
     The chosen velocity for the deformation is :math:`100\,\text{m/s}`.
-    We can have a look at the evolution of the lenght of the CNT with time
-    (The CNT starts deforming at :math:`t = 5\,\text{ps}`):
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/length-unbreakable-dark.png
     :alt: length of the CNT with time - lammps molecular dynamics
@@ -638,12 +671,17 @@ Finalize au run
     :alt: length of the CNT with time - lammps molecular dynamics
     :class: only-light
 
+..  container:: figurelegend
+
+    Figure: Evolution of the lenght of the CNT with time.
+    The CNT starts deforming at :math:`t = 5\,\text{ps}`.
+
 .. container:: justify
 
-    The energy, which can be accessed fro mthe log file, shows a non-linear
+    The energy, which can be accessed from the log file, shows a non-linear
     increase with time once the deformation starts,
     which is extected from the typical dependency of bond energy with
-    bond distance :math:`U_b = k_b \left( r -r_0 \right)^2`:
+    bond distance :math:`U_b = k_b \left( r - r_0 \right)^2`.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-unbreakable-dark.png
     :alt: energy of the CNT with time - lammps molecular dynamics
@@ -653,18 +691,31 @@ Finalize au run
     :alt: energy of the CNT with time - lammps molecular dynamics
     :class: only-light
 
+..  container:: figurelegend
+
+    Figure: Evolution of the total energy of the system with time.
+    The CNT starts deforming at :math:`t = 5\,\text{ps}`.
+
 .. container:: justify
 
-    One can also have a look at the CNT before and after deformation by opening 
-    the *dump.lammpstrj* file with VMD:
+    As always, is it important to control that the simulation
+    behaved as expected by opening the *dump.lammpstrj* file with VMD.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/colored-edge-def-dark.png
-    :alt: CNT in graphene in vacuum image VMD  before and after deformation
+    :alt: CNT in graphene in vacuum image VMD before and after deformation
     :class: only-dark
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/colored-edge-def-light.png
-    :alt: CNT in graphene in vacuum image VMD  before and after deformation
+    :alt: CNT in graphene in vacuum image VMD before and after deformation
     :class: only-light
+
+..  container:: figurelegend
+
+    Figure: CNT before (top) and after (bottom) deformation. See the corresponding |unbreakable_cnt_video|.
+
+.. |unbreakable_cnt_video| raw:: html
+
+    <a href="https://youtu.be/S05nzreQR18" target="_blank">video</a>
 
 Breakable bonds
 ===============
@@ -822,6 +873,13 @@ Use of AIREBO potential
     group carbon_bot region rbot
     group carbon_mid region rmid
 
+    variable zmax_del equal ${zmax}-2
+    variable zmin_del equal ${zmin}+2
+    region rdel block INF INF INF INF ${zmin_del} ${zmax_del}
+    group rdel region rdel
+    delete_atoms random fraction 0.02 no rdel NULL 482793
+
+    reset_atoms id sort yes
     velocity carbon_mid create ${T} 48455 mom yes rot yes
     fix mynve all nve
     compute Tmid carbon_mid temp
@@ -877,7 +935,7 @@ Start the simulation
     used. Reactive force field usually requires smaller timestep
     than classical one.
     When running *input.lammps* with LAMMPS, you can see that the
-    temperature deviates from the target temperature of `300\,\text{K}`
+    temperature deviates from the target temperature of :math:`300\,\text{K}`
     at the start of the equilibration, but that
     after a few steps it reaches the target value:
 
@@ -914,12 +972,14 @@ Launch the deformation
 
 .. container:: justify
 
-   The CNT should break around the step 250000. If not, either 
-   run for a longer time, or use a larger velocity.
+   The CNT should break around the step 250000. If not, 
+   run for a longer time. 
+
+.. container:: justify
+
    When looking at the *lammpstrj* file using VMD, you will see
-   the bonds breaking, similar to |video_lammps_cnt|. Use
-   the DynamicBonds representation of VMD to properly vizualise
-   the bond breaking.
+   the bonds breaking. Use the *DynamicBonds*
+   representation to properly vizualise the bond breaking.
 
 .. |video_lammps_cnt| raw:: html
 
@@ -927,13 +987,19 @@ Launch the deformation
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/deformed-dark.png
    :alt: carbon nanotube with broken bonds after simulation with LAMMPS and AIREBO
-   :height: 250
    :class: only-dark
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/deformed-light.png
    :alt: carbon nanotube with broken bonds after simulation with LAMMPS and AIREBO
-   :height: 250
    :class: only-light
+
+..  container:: figurelegend
+
+    Figure: CNT with broken bonds. See the corresponding |breakable_cnt_video|.
+
+.. |breakable_cnt_video| raw:: html
+
+    <a href="https://youtu.be/H2_cjoTcVAM" target="_blank">video</a>
 
 .. admonition:: About bonds in VMD
    :class: info
@@ -946,7 +1012,7 @@ Launch the deformation
 .. container:: justify
 
     Looking at the evolution of the energy again, one can see the energy increasing 
-    with the deformation, before subitely relaxing when the CNT breaks:
+    with the deformation, before completely relaxing when the CNT finally breaks.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-breakable-dark.png
     :alt: energy of the CNT with time - lammps molecular dynamics
@@ -956,100 +1022,105 @@ Launch the deformation
     :alt: energy of the CNT with time - lammps molecular dynamics
     :class: only-light
 
-Doing post-mortem analysis using Python
----------------------------------------
+..  container:: figurelegend
 
-.. container:: justify
+    Figure: Evolution of the total energy of the system with time.
 
-   There are two main ways to analyse data from a MD simulation:
-   (1) on-the-fly analysis, like what we already did when using *fix ave/time* or
-   when analysing the thermo quantities in the *log.lammps* file,
-   and (2) post-mortem analysis. Post-mortem analysis can be performed using
-   the atom coordinate saved in the *lammpstrj* file.
+..
+    Doing post-mortem analysis using Python
+    ---------------------------------------
 
-.. container:: justify
+    .. container:: justify
 
-   Here, let us use *Python* and the open source
-   library named *MDAnalysis* which allows us to import
-   the *lammpstrj* file into a Python object named a *universe*.
+    There are two main ways to analyse data from a MD simulation:
+    (1) on-the-fly analysis, like what we already did when using *fix ave/time* or
+    when analysing the thermo quantities in the *log.lammps* file,
+    and (2) post-mortem analysis. Post-mortem analysis can be performed using
+    the atom coordinate saved in the *lammpstrj* file.
 
-.. container:: justify
+    .. container:: justify
 
-   Open a new Jupyter notebook within the folder *breakable-bonds/*,
-   and call it *bond_evolution.ipynb*. First, let us import both *MDAnalysis*
-   and *NumPy* by copying the following lines into *bond_evolution.ipynb*:
+    Here, let us use *Python* and the open source
+    library named *MDAnalysis* which allows us to import
+    the *lammpstrj* file into a Python object named a *universe*.
 
-.. code-block:: python
+    .. container:: justify
 
-   import MDAnalysis as mda
-   import numpy as np
+    Open a new Jupyter notebook within the folder *breakable-bonds/*,
+    and call it *bond_evolution.ipynb*. First, let us import both *MDAnalysis*
+    and *NumPy* by copying the following lines into *bond_evolution.ipynb*:
 
-.. container:: justify
+    .. code-block:: python
 
-   Then, let us create a *MDAnalysis* *universe* using the LAMMPS
-   data file *cnt_atom.data* as topology,
-   and the *lammpstrj* file as trajectory. Let us guess the
-   original bonds using the bond guesser of MDAnalysis (*guess_bonds=True*).
-   Let us also create a single atom group named *cnt* and containing all the carbon atoms.
-   Add the following lines into *bond_evolution.ipynb*:
+    import MDAnalysis as mda
+    import numpy as np
 
-.. code-block:: python
+    .. container:: justify
 
-   # create a universe from the dump file
-   # guess bond based on distance from the initial topology
-   u = mda.Universe("cnt_atom.data", "dump.lammpstrj",
-                  topology_format="data", format="lammpsdump",
-                  guess_bonds=True, vdwradii={'1':1.7})
-   # create a group with all the atoms
-   cnt = u.select_atoms("type 1")
+    Then, let us create a *MDAnalysis* *universe* using the LAMMPS
+    data file *cnt_atom.data* as topology,
+    and the *lammpstrj* file as trajectory. Let us guess the
+    original bonds using the bond guesser of MDAnalysis (*guess_bonds=True*).
+    Let us also create a single atom group named *cnt* and containing all the carbon atoms.
+    Add the following lines into *bond_evolution.ipynb*:
 
-.. container:: justify
+    .. code-block:: python
 
-   Note that the bond guesser of MDAnalysis will not update the list of bond
-   over time, so we will need to use a few tricks to extract the evolution 
-   of the number of bond with time.
-   Then, let us loop over the trajectory and extract the bonds average length
-   and total number over time. Add the following lines into *bond_evolution.ipynb*:
+    # create a universe from the dump file
+    # guess bond based on distance from the initial topology
+    u = mda.Universe("cnt_atom.data", "dump.lammpstrj",
+                    topology_format="data", format="lammpsdump",
+                    guess_bonds=True, vdwradii={'1':1.7})
+    # create a group with all the atoms
+    cnt = u.select_atoms("type 1")
 
-.. code-block:: python
+    .. container:: justify
 
-    nbond_vs_time = []
-    lbond_vs_time = []
-    # loop over trajectory
-    for ts in u.trajectory:
-        # sabe the bond of the timestep ts in a list
-        all_bonds_ts = []
-        # loop over all initially detected bond
-        for id1, id2 in cnt.atoms.bonds.indices:
-            # detect positions
-            pos1 = u.atoms.positions[u.atoms.indices == id1]
-            pos2 = u.atoms.positions[u.atoms.indices == id2]
-            d = pos1-pos2
-            r = np.sqrt(d[:, 0]**2 + d[:, 1]**2 + d[:, 2]**2)
-            if r < 1.8: # assume that bond longer than 1.8 angstroms are broken
-                all_bonds_ts.append(r)
-        lbond_vs_time.append([ts.time*5000*0.0005, np.mean(all_bonds_ts)]) 
-        nbond_vs_time.append([ts.time*5000*0.0005, len(all_bonds_ts)/2]) # divide by 2 to avoid counting twice
-    nbond_vs_time = np.array(nbond_vs_time)
-    lbond_vs_time = np.array(lbond_vs_time)
-    # finally let us save the data to tex files:
-    np.savetxt("output_number_bond_vs_time.dat", nbond_vs_time)
-    np.savetxt("output_length_bond_vs_time.dat", lbond_vs_time)
+    Note that the bond guesser of MDAnalysis will not update the list of bond
+    over time, so we will need to use a few tricks to extract the evolution 
+    of the number of bond with time.
+    Then, let us loop over the trajectory and extract the bonds average length
+    and total number over time. Add the following lines into *bond_evolution.ipynb*:
 
-.. container:: justify
+    .. code-block:: python
 
-   The array *nbond_vs_time* contains the number of bond as a function of time, and 
-   *lbond_vs_time* the bond length. Let us plot both of them:
+        nbond_vs_time = []
+        lbond_vs_time = []
+        # loop over trajectory
+        for ts in u.trajectory:
+            # sabe the bond of the timestep ts in a list
+            all_bonds_ts = []
+            # loop over all initially detected bond
+            for id1, id2 in cnt.atoms.bonds.indices:
+                # detect positions
+                pos1 = u.atoms.positions[u.atoms.indices == id1]
+                pos2 = u.atoms.positions[u.atoms.indices == id2]
+                d = pos1-pos2
+                r = np.sqrt(d[:, 0]**2 + d[:, 1]**2 + d[:, 2]**2)
+                if r < 1.8: # assume that bond longer than 1.8 angstroms are broken
+                    all_bonds_ts.append(r)
+            lbond_vs_time.append([ts.time*5000*0.0005, np.mean(all_bonds_ts)]) 
+            nbond_vs_time.append([ts.time*5000*0.0005, len(all_bonds_ts)/2]) # divide by 2 to avoid counting twice
+        nbond_vs_time = np.array(nbond_vs_time)
+        lbond_vs_time = np.array(lbond_vs_time)
+        # finally let us save the data to tex files:
+        np.savetxt("output_number_bond_vs_time.dat", nbond_vs_time)
+        np.savetxt("output_length_bond_vs_time.dat", lbond_vs_time)
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/bond-dark.png
-   :alt: plot of the bond length and distance versus time
-   :class: only-dark
+    .. container:: justify
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/bond-light.png
-   :alt: plot of the bond length and distance versus time
-   :class: only-light
+    The array *nbond_vs_time* contains the number of bond as a function of time, and 
+    *lbond_vs_time* the bond length. Let us plot both of them:
 
-   Evolution of the bond length and bond number as a function of time.
+    .. figure:: ../figures/level1/breaking-a-carbon-nanotube/bond-dark.png
+    :alt: plot of the bond length and distance versus time
+    :class: only-dark
+
+    .. figure:: ../figures/level1/breaking-a-carbon-nanotube/bond-light.png
+    :alt: plot of the bond length and distance versus time
+    :class: only-light
+
+    Evolution of the bond length and bond number as a function of time.
 
 .. include:: ../../non-tutorials/accessfile.rst
 

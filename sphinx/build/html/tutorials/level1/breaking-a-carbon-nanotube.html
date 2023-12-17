@@ -287,7 +287,7 @@ the relative orientations of neighbor atoms.</p>
 <p>When the system has a complex topology, like is the case of a CNT,
 it is better to use an external preprocessing tool to create it.
 Many preprocessing tools exist, see a <a href="https://www.lammps.org/prepost.html" target="_blank">non-exhaustive list</a> on
-the LAMMPS website. Here,|VMD_uiuc| is used.
+the LAMMPS website. Here, <a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">VMD</a> is used.
 Alternatively, you can skip this part of the tutorial by downloading the
 CNT topology I did create by clicking <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/unbreakable-bonds/cnt_molecular.data" target="_blank">here</a>,
 and continue with the tutorial.</p>
@@ -299,6 +299,8 @@ between generating a sheet or a nanotube, made either of graphene or
 of Boron Nitride (BN). For this tutorial, let us generate a carbon nanotube.
 Keep all default values, and click on <em>Generate
 Nanotube</em>.</p>
+</div>
+<div class="justify docutils container">
 <p>At this point, this is not a molecular dynamics simulation,
 but a cloud of unconnected dots. In the VMD terminal, set the
 box dimensions by typing the following commands in the VMD terminal:</p>
@@ -311,6 +313,8 @@ molinfo top set c 80
 <div class="justify docutils container">
 <p>The values of 80 in each direction have been chosen
 so that the box is much larger than the carbon nanotube.</p>
+</div>
+<div class="justify docutils container">
 <p>In order to generate the initial LAMMPS data file, let us use Topotool:
 to generate the LAMMPS data file, enter the following command
 in the VMD terminal:</p>
@@ -322,11 +326,9 @@ in the VMD terminal:</p>
 <p>Here <em>molecular</em> refers to the LAMMPS <em>atom_style</em>, and
 <em>cnt_molecular.data</em> is the name of the file.</p>
 </div>
-<div class="dropdown admonition">
+<div class="info admonition">
 <p class="admonition-title">About TopoTools</p>
-<p>Note that I am using TopoTools v1.7. Older or newer versions
-may require slightly different commands.</p>
-<p>More details about these commands can be found on the
+<p>More details about Topotool can be found on the
 personal page of <a href="https://sites.google.com/site/akohlmey/software/topotools" target="_blank">Axel Kohlmeyer</a>.
 In short, Topotools deduces the location of bonds, angles,
 dihedrals, and impropers from the respective positions of the atoms,
@@ -362,15 +364,13 @@ and <em>impropers</em> constraints.</p>
 <p>Save the <em>cnt_molecular.data</em> file in a folder named <em>unbreakable-bonds/</em>.</p>
 </div>
 </section>
-<section id="starting-the-lammps-input">
-<h3>Starting the LAMMPS input<a class="headerlink" href="#starting-the-lammps-input" title="Link to this heading">#</a></h3>
+<section id="the-lammps-input">
+<h3>The LAMMPS input<a class="headerlink" href="#the-lammps-input" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Create a new text file within <em>unbreakable-bonds/</em> and name
 it <em>input.lammps</em>. Copy the following lines in it:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Initialisation</span>
-
-<span class="k">variable </span><span class="nv nv-Identifier">T</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">300</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">T</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">300</span>
 
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">molecular</span>
@@ -429,9 +429,6 @@ not interact through a Lennard-Jones potential (therefore
 they only interact through the harmonic potential that bond the atoms
 of the graphene).</p>
 </div>
-</section>
-<section id="cnt-parameters">
-<h3>CNT parameters<a class="headerlink" href="#cnt-parameters" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>We need to specify the parameters of both bonded and
 non-bonded potentials. Create a new text file in the <em>unbreakable-bonds/</em>
@@ -536,6 +533,8 @@ the first atoms along <span class="math notranslate nohighlight">\(z\)</span> pl
 regions are defined, and correspond respectively to: <span class="math notranslate nohighlight">\(z &lt; z_\mathrm{min}\)</span>, (bottom)
 <span class="math notranslate nohighlight">\(z_\mathrm{min} &gt; z &gt; z_\mathrm{max}\)</span> (middle), and
 <span class="math notranslate nohighlight">\(z &gt; z_\mathrm{max}\)</span> (top).</p>
+</div>
+<div class="justify docutils container">
 <p>Finally, let us define 3 groups of atoms
 corresponding to the atoms located in each of the 3 regions,
 respectively, by adding to <em>input.lammps</em>:</p>
@@ -546,8 +545,8 @@ respectively, by adding to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The atoms of the edges as selected within the <em>carbon_top</em> and <em>carbon_bot</em> groups
-are represented with a different color:</p>
+<p>The atoms of the edges as selected within the <em>carbon_top</em>
+and <em>carbon_bot</em> groups can be represented with a different color.</p>
 </div>
 <figure class="align-default">
 <img alt="CNT in graphene in vacuum image VMD" class="only-dark" src="../../_images/colored-edge-undef-dark.png" />
@@ -555,6 +554,10 @@ are represented with a different color:</p>
 <figure class="align-default">
 <img alt="CNT in graphene in vacuum image VMD" class="only-light" src="../../_images/colored-edge-undef-light.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: CNT with atoms from the <em>carbon_top</em>
+and the <em>carbon_bot</em> groups being represented with a different color.</p>
+</div>
 <div class="justify docutils container">
 <p>When running a simulation, the number of atoms in each
 group is printed in the terminal (and in the log.lammps
@@ -566,6 +569,34 @@ corresponds to what is expected, just like here:</p>
 <span class="m">680</span><span class="w"> </span>atoms<span class="w"> </span><span class="k">in</span><span class="w"> </span>group<span class="w"> </span>carbon_mid
 </pre></div>
 </div>
+<div class="justify docutils container">
+<p>Finally, let us randomly delete some of the carbon atoms.
+In order to avoid deleting atoms that are too close from the edges,
+let us define a new region name <em>rdel</em> that
+starts <span class="math notranslate nohighlight">\(2\,Å\)</span>
+from the CNT edges.</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">zmax_del</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="nv">${zmax}</span><span class="o">-</span><span class="m">2</span>
+<span class="k">variable </span><span class="nv nv-Identifier">zmin_del</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="nv">${zmin}</span><span class="o">+</span><span class="m">2</span>
+<span class="k">region </span><span class="nv nv-Identifier">rdel</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="nv">${zmin_del}</span><span class="w"> </span><span class="nv">${zmax_del}</span>
+<span class="k">group </span><span class="nv nv-Identifier">rdel</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rdel</span>
+<span class="k">delete_atoms</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="n">fraction</span><span class="w"> </span><span class="m">0.02</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">rdel</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">482793</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">yes</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The <em>delete_atoms</em> command randomly
+deletes <span class="math notranslate nohighlight">\(2\,\%\)</span> of the atoms
+from the <em>rdel</em> group (i.e. about 10 atoms).</p>
+</div>
+<figure class="align-default">
+<img alt="CNT in graphene in vacuum image VMD with delete atoms" class="only-dark" src="../../_images/colored-edge-deleted-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="CNT in graphene in vacuum image VMD with delete atoms" class="only-light" src="../../_images/colored-edge-deleted-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: CNT with <em>10</em> randomly deleted atoms.</p>
+</div>
 </section>
 <section id="the-molecular-dynamics">
 <h3>The molecular dynamics<a class="headerlink" href="#the-molecular-dynamics" title="Link to this heading">#</a></h3>
@@ -573,12 +604,17 @@ corresponds to what is expected, just like here:</p>
 <p>Let us specify the thermalization and the dynamics of the
 system. Add the following lines to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">reset_atoms</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">compute </span><span class="nv nv-Identifier">Tmid</span><span class="w"> </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">100</span>
 <span class="k">fix_modify </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tmid</span>
 </pre></div>
+</div>
+<div class="justify docutils container">
+<p>Re-setting the atoms ids is necessary before using the <em>velocity</em> command,
+this is done by the <em>reset_atoms</em> command.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>velocity</em> command gives initial velocities to
@@ -605,9 +641,6 @@ temperature of the system is effectively lower
 than the applied temperature because the frozen atoms
 have no thermal motion (their temperature is therefore <span class="math notranslate nohighlight">\(0\,\text{K}\)</span>).</p>
 </div>
-</section>
-<section id="deal-with-the-frozen-edges">
-<h3>Deal with the frozen edges<a class="headerlink" href="#deal-with-the-frozen-edges" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>To restrain the motion of the atoms at the edges, let us add the
 following commands to <em>input.lammps</em>:</p>
@@ -650,23 +683,17 @@ during the entire simulation, thus producing a constant velocity motion.</p>
 CNT, let us extract the distance <span class="math notranslate nohighlight">\(L\)</span> between
 the two edges as well as the force applied on the edges.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">L</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(carbon_top,z)</span><span class="o">-</span><span class="n">xcm</span><span class="nv">(carbon_bot,z)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">at1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_L</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">output_cnt_length.dat</span>
 <span class="k">fix </span><span class="nv nv-Identifier">at2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">f_mysf1[1]</span><span class="w"> </span><span class="n">f_mysf2[1]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">output_edge_force.dat</span>
 </pre></div>
 </div>
-</div>
 <div class="justify docutils container">
 <p>Let us also add a command to print the atom coordinates in a
 <em>lammpstrj</em> file every 1000 steps.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text"><em>to be copied in input.lammps</em></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
-</div>
 </div>
 <div class="justify docutils container">
 <p>Finally, let us check the temperature of the non-frozen group over time
@@ -682,9 +709,6 @@ extracted from the two <em>fix setforce</em> <em>mysf1</em> and <em>mysf2</em>, 
 calling them using <em>f_</em>, the same way variables are called
 using <em>v_</em> and computes are called using <em>c_</em>.</p>
 </div>
-</section>
-<section id="finalize-au-run">
-<h3>Finalize au run<a class="headerlink" href="#finalize-au-run" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Let us run a small equilibration step to bring the system
 to the required temperature before applying any deformation:</p>
@@ -716,9 +740,7 @@ right after the last <em>run 5000</em> command:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The chosen velocity for the deformation is <span class="math notranslate nohighlight">\(100\,\text{m/s}\)</span>.
-We can have a look at the evolution of the lenght of the CNT with time
-(The CNT starts deforming at <span class="math notranslate nohighlight">\(t = 5\,\text{ps}\)</span>):</p>
+<p>The chosen velocity for the deformation is <span class="math notranslate nohighlight">\(100\,\text{m/s}\)</span>.</p>
 </div>
 <figure class="align-default">
 <img alt="length of the CNT with time - lammps molecular dynamics" class="only-dark" src="../../_images/length-unbreakable-dark.png" />
@@ -726,11 +748,15 @@ We can have a look at the evolution of the lenght of the CNT with time
 <figure class="align-default">
 <img alt="length of the CNT with time - lammps molecular dynamics" class="only-light" src="../../_images/length-unbreakable-light.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Evolution of the lenght of the CNT with time.
+The CNT starts deforming at <span class="math notranslate nohighlight">\(t = 5\,\text{ps}\)</span>.</p>
+</div>
 <div class="justify docutils container">
-<p>The energy, which can be accessed fro mthe log file, shows a non-linear
+<p>The energy, which can be accessed from the log file, shows a non-linear
 increase with time once the deformation starts,
 which is extected from the typical dependency of bond energy with
-bond distance <span class="math notranslate nohighlight">\(U_b = k_b \left( r -r_0 \right)^2\)</span>:</p>
+bond distance <span class="math notranslate nohighlight">\(U_b = k_b \left( r - r_0 \right)^2\)</span>.</p>
 </div>
 <figure class="align-default">
 <img alt="energy of the CNT with time - lammps molecular dynamics" class="only-dark" src="../../_images/energy-unbreakable-dark.png" />
@@ -738,16 +764,23 @@ bond distance <span class="math notranslate nohighlight">\(U_b = k_b \left( r -r
 <figure class="align-default">
 <img alt="energy of the CNT with time - lammps molecular dynamics" class="only-light" src="../../_images/energy-unbreakable-light.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Evolution of the total energy of the system with time.
+The CNT starts deforming at <span class="math notranslate nohighlight">\(t = 5\,\text{ps}\)</span>.</p>
+</div>
 <div class="justify docutils container">
-<p>One can also have a look at the CNT before and after deformation by opening
-the <em>dump.lammpstrj</em> file with VMD:</p>
+<p>As always, is it important to control that the simulation
+behaved as expected by opening the <em>dump.lammpstrj</em> file with VMD.</p>
 </div>
 <figure class="align-default">
-<img alt="CNT in graphene in vacuum image VMD  before and after deformation" class="only-dark" src="../../_images/colored-edge-def-dark.png" />
+<img alt="CNT in graphene in vacuum image VMD before and after deformation" class="only-dark" src="../../_images/colored-edge-def-dark.png" />
 </figure>
 <figure class="align-default">
-<img alt="CNT in graphene in vacuum image VMD  before and after deformation" class="only-light" src="../../_images/colored-edge-def-light.png" />
+<img alt="CNT in graphene in vacuum image VMD before and after deformation" class="only-light" src="../../_images/colored-edge-def-light.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: CNT before (top) and after (bottom) deformation. See the corresponding <a href="https://youtu.be/S05nzreQR18" target="_blank">video</a>.</p>
+</div>
 </section>
 </section>
 <section id="breakable-bonds">
@@ -878,6 +911,13 @@ The rest of the <em>input.lammps</em> is very similar to the previous one:</p>
 <span class="k">group </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span>
 <span class="k">group </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rmid</span>
 
+<span class="k">variable </span><span class="nv nv-Identifier">zmax_del</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="nv">${zmax}</span><span class="o">-</span><span class="m">2</span>
+<span class="k">variable </span><span class="nv nv-Identifier">zmin_del</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="nv">${zmin}</span><span class="o">+</span><span class="m">2</span>
+<span class="k">region </span><span class="nv nv-Identifier">rdel</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="nv">${zmin_del}</span><span class="w"> </span><span class="nv">${zmax_del}</span>
+<span class="k">group </span><span class="nv nv-Identifier">rdel</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rdel</span>
+<span class="k">delete_atoms</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="n">fraction</span><span class="w"> </span><span class="m">0.02</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">rdel</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">482793</span>
+
+<span class="k">reset_atoms</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">velocity </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">compute </span><span class="nv nv-Identifier">Tmid</span><span class="w"> </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">temp</span>
@@ -929,7 +969,7 @@ Add the following lines to LAMMPS:</p>
 used. Reactive force field usually requires smaller timestep
 than classical one.
 When running <em>input.lammps</em> with LAMMPS, you can see that the
-temperature deviates from the target temperature of <cite>300,text{K}</cite>
+temperature deviates from the target temperature of <span class="math notranslate nohighlight">\(300\,\text{K}\)</span>
 at the start of the equilibration, but that
 after a few steps it reaches the target value:</p>
 </div>
@@ -962,19 +1002,23 @@ a longer duration that previously. Add the following lines into
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The CNT should break around the step 250000. If not, either
-run for a longer time, or use a larger velocity.
-When looking at the <em>lammpstrj</em> file using VMD, you will see
-the bonds breaking, similar to <a href="https://www.youtube.com/watch?v=f1ve1j3yA6w" target="_blank">this video</a>. Use
-the DynamicBonds representation of VMD to properly vizualise
-the bond breaking.</p>
+<p>The CNT should break around the step 250000. If not,
+run for a longer time.</p>
+</div>
+<div class="justify docutils container">
+<p>When looking at the <em>lammpstrj</em> file using VMD, you will see
+the bonds breaking. Use the <em>DynamicBonds</em>
+representation to properly vizualise the bond breaking.</p>
 </div>
 <figure class="align-default">
-<a class="only-dark reference internal image-reference" href="../../_images/deformed-dark.png"><img alt="carbon nanotube with broken bonds after simulation with LAMMPS and AIREBO" class="only-dark" src="../../_images/deformed-dark.png" style="height: 250px;" /></a>
+<img alt="carbon nanotube with broken bonds after simulation with LAMMPS and AIREBO" class="only-dark" src="../../_images/deformed-dark.png" />
 </figure>
 <figure class="align-default">
-<a class="only-light reference internal image-reference" href="../../_images/deformed-light.png"><img alt="carbon nanotube with broken bonds after simulation with LAMMPS and AIREBO" class="only-light" src="../../_images/deformed-light.png" style="height: 250px;" /></a>
+<img alt="carbon nanotube with broken bonds after simulation with LAMMPS and AIREBO" class="only-light" src="../../_images/deformed-light.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: CNT with broken bonds. See the corresponding <a href="https://youtu.be/H2_cjoTcVAM" target="_blank">video</a>.</p>
+</div>
 <div class="info admonition">
 <p class="admonition-title">About bonds in VMD</p>
 <p>Note that VMD guesses bonds based on the distances
@@ -984,7 +1028,7 @@ in VMD can sometimes be misleading.</p>
 </div>
 <div class="justify docutils container">
 <p>Looking at the evolution of the energy again, one can see the energy increasing
-with the deformation, before subitely relaxing when the CNT breaks:</p>
+with the deformation, before completely relaxing when the CNT finally breaks.</p>
 </div>
 <figure class="align-default">
 <img alt="energy of the CNT with time - lammps molecular dynamics" class="only-dark" src="../../_images/energy-breakable-dark.png" />
@@ -992,91 +1036,9 @@ with the deformation, before subitely relaxing when the CNT breaks:</p>
 <figure class="align-default">
 <img alt="energy of the CNT with time - lammps molecular dynamics" class="only-light" src="../../_images/energy-breakable-light.png" />
 </figure>
-</section>
-<section id="doing-post-mortem-analysis-using-python">
-<h3>Doing post-mortem analysis using Python<a class="headerlink" href="#doing-post-mortem-analysis-using-python" title="Link to this heading">#</a></h3>
-<div class="justify docutils container">
-<p>There are two main ways to analyse data from a MD simulation:
-(1) on-the-fly analysis, like what we already did when using <em>fix ave/time</em> or
-when analysing the thermo quantities in the <em>log.lammps</em> file,
-and (2) post-mortem analysis. Post-mortem analysis can be performed using
-the atom coordinate saved in the <em>lammpstrj</em> file.</p>
+<div class="figurelegend docutils container">
+<p>Figure: Evolution of the total energy of the system with time.</p>
 </div>
-<div class="justify docutils container">
-<p>Here, let us use <em>Python</em> and the open source
-library named <em>MDAnalysis</em> which allows us to import
-the <em>lammpstrj</em> file into a Python object named a <em>universe</em>.</p>
-</div>
-<div class="justify docutils container">
-<p>Open a new Jupyter notebook within the folder <em>breakable-bonds/</em>,
-and call it <em>bond_evolution.ipynb</em>. First, let us import both <em>MDAnalysis</em>
-and <em>NumPy</em> by copying the following lines into <em>bond_evolution.ipynb</em>:</p>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">MDAnalysis</span> <span class="k">as</span> <span class="nn">mda</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Then, let us create a <em>MDAnalysis</em> <em>universe</em> using the LAMMPS
-data file <em>cnt_atom.data</em> as topology,
-and the <em>lammpstrj</em> file as trajectory. Let us guess the
-original bonds using the bond guesser of MDAnalysis (<em>guess_bonds=True</em>).
-Let us also create a single atom group named <em>cnt</em> and containing all the carbon atoms.
-Add the following lines into <em>bond_evolution.ipynb</em>:</p>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a universe from the dump file</span>
-<span class="c1"># guess bond based on distance from the initial topology</span>
-<span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="s2">&quot;cnt_atom.data&quot;</span><span class="p">,</span> <span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span>
-               <span class="n">topology_format</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;lammpsdump&quot;</span><span class="p">,</span>
-               <span class="n">guess_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vdwradii</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span><span class="mf">1.7</span><span class="p">})</span>
-<span class="c1"># create a group with all the atoms</span>
-<span class="n">cnt</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s2">&quot;type 1&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Note that the bond guesser of MDAnalysis will not update the list of bond
-over time, so we will need to use a few tricks to extract the evolution
-of the number of bond with time.
-Then, let us loop over the trajectory and extract the bonds average length
-and total number over time. Add the following lines into <em>bond_evolution.ipynb</em>:</p>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">lbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="c1"># loop over trajectory</span>
-<span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
-    <span class="c1"># sabe the bond of the timestep ts in a list</span>
-    <span class="n">all_bonds_ts</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># loop over all initially detected bond</span>
-    <span class="k">for</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span> <span class="ow">in</span> <span class="n">cnt</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">indices</span><span class="p">:</span>
-        <span class="c1"># detect positions</span>
-        <span class="n">pos1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id1</span><span class="p">]</span>
-        <span class="n">pos2</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id2</span><span class="p">]</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">pos1</span><span class="o">-</span><span class="n">pos2</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mf">1.8</span><span class="p">:</span> <span class="c1"># assume that bond longer than 1.8 angstroms are broken</span>
-            <span class="n">all_bonds_ts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-    <span class="n">lbond_vs_time</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ts</span><span class="o">.</span><span class="n">time</span><span class="o">*</span><span class="mi">5000</span><span class="o">*</span><span class="mf">0.0005</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">all_bonds_ts</span><span class="p">)])</span>
-    <span class="n">nbond_vs_time</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ts</span><span class="o">.</span><span class="n">time</span><span class="o">*</span><span class="mi">5000</span><span class="o">*</span><span class="mf">0.0005</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_bonds_ts</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># divide by 2 to avoid counting twice</span>
-<span class="n">nbond_vs_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nbond_vs_time</span><span class="p">)</span>
-<span class="n">lbond_vs_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lbond_vs_time</span><span class="p">)</span>
-<span class="c1"># finally let us save the data to tex files:</span>
-<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;output_number_bond_vs_time.dat&quot;</span><span class="p">,</span> <span class="n">nbond_vs_time</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;output_length_bond_vs_time.dat&quot;</span><span class="p">,</span> <span class="n">lbond_vs_time</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>The array <em>nbond_vs_time</em> contains the number of bond as a function of time, and
-<em>lbond_vs_time</em> the bond length. Let us plot both of them:</p>
-</div>
-<figure class="align-default">
-<img alt="plot of the bond length and distance versus time" class="only-dark" src="../../_images/bond-dark.png" />
-</figure>
-<figure class="align-default" id="id3">
-<img alt="plot of the bond length and distance versus time" class="only-light" src="../../_images/bond-light.png" />
-<figcaption>
-<p><span class="caption-text">Evolution of the bond length and bond number as a function of time.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
 <div class="justify docutils container">
 <p>You can access all the input scripts and data files that
 are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a> on Github.
@@ -1185,13 +1147,10 @@ along <em>xy</em>.</p>
 <li><a class="reference internal" href="#">Pulling on a carbon nanotube</a><ul>
 <li><a class="reference internal" href="#unbreakable-bonds">Unbreakable bonds</a><ul>
 <li><a class="reference internal" href="#create-topology-with-vmd">Create topology with VMD</a></li>
-<li><a class="reference internal" href="#starting-the-lammps-input">Starting the LAMMPS input</a></li>
-<li><a class="reference internal" href="#cnt-parameters">CNT parameters</a></li>
+<li><a class="reference internal" href="#the-lammps-input">The LAMMPS input</a></li>
 <li><a class="reference internal" href="#prepare-initial-state">Prepare initial state</a></li>
 <li><a class="reference internal" href="#the-molecular-dynamics">The molecular dynamics</a></li>
-<li><a class="reference internal" href="#deal-with-the-frozen-edges">Deal with the frozen edges</a></li>
 <li><a class="reference internal" href="#data-extraction">Data extraction</a></li>
-<li><a class="reference internal" href="#finalize-au-run">Finalize au run</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#breakable-bonds">Breakable bonds</a><ul>
@@ -1200,7 +1159,6 @@ along <em>xy</em>.</p>
 <li><a class="reference internal" href="#use-of-airebo-potential">Use of AIREBO potential</a></li>
 <li><a class="reference internal" href="#start-the-simulation">Start the simulation</a></li>
 <li><a class="reference internal" href="#launch-the-deformation">Launch the deformation</a></li>
-<li><a class="reference internal" href="#doing-post-mortem-analysis-using-python">Doing post-mortem analysis using Python</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
