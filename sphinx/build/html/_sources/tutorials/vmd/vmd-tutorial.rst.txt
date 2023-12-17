@@ -45,7 +45,7 @@ Practical example
 
 .. |dump_download| raw:: html
 
-   <a href="../../../../../inputs/miscellaneous/vmd/dump.lammpstrj" target="_blank">download</a>
+   <a href="../../../../../inputs/vmd/dump.lammpstrj" target="_blank">download</a>
 
 .. container:: justify
 
@@ -299,11 +299,6 @@ Rendering image
     To generate high a resolution image, go in *File → Render*,
     choose *Tachyon*,
     hit *Start Rendering*.
-
-.. container:: justify
-
-    Optionally, add *-res 1000 1000* in the *Render command* cell to 
-    increase the resolution.
 
 Rendering movie
 ---------------
