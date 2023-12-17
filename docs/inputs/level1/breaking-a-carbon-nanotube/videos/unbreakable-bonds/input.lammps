@@ -21,8 +21,6 @@
 # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠈⠉⠛⠛⠓⠚⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀
 # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⣿⣿⣿⣿⡿⠟⠋⠀
 
-# Initialisation
-
 variable T equal 300
 
 units real
@@ -37,8 +35,8 @@ improper_style harmonic
 
 special_bonds lj 0.0 0.0 0.5
 
-read_data ../cnt_molecular.data
-include ../parm.lammps
+read_data ../../unbreakable-bonds/cnt_molecular.data
+include ../../unbreakable-bonds/parm.lammps
 
 group carbon_atoms type 1
 variable carbon_xcm equal -1*xcm(carbon_atoms,x)
@@ -53,15 +51,28 @@ variable zmin equal bound(carbon_atoms,zmin)+0.5
 region rtop block INF INF INF INF ${zmax} INF
 region rbot block INF INF INF INF INF ${zmin}
 region rmid block INF INF INF INF ${zmin} ${zmax}
+
 group carbon_top region rtop
 group carbon_bot region rbot
 group carbon_mid region rmid
 
+variable zmax_del equal ${zmax}-2
+variable zmin_del equal ${zmin}+2
+region rdel block INF INF INF INF ${zmin_del} ${zmax_del}
+group rdel region rdel
+delete_atoms random fraction 0.02 no rdel NULL 482793 bond yes
+
+reset_atoms id sort yes
 velocity carbon_mid create ${T} 48455 mom yes rot yes
 fix mynve all nve
 compute Tmid carbon_mid temp
 fix myber carbon_mid temp/berendsen ${T} ${T} 100
 fix_modify myber temp Tmid
+
+fix mysf1 carbon_top setforce 0 0 0
+fix mysf2 carbon_bot setforce 0 0 0
+velocity carbon_top set 0 0 0
+velocity carbon_bot set 0 0 0
 
 thermo 100
 thermo_modify temp Tmid
@@ -69,7 +80,7 @@ thermo_modify temp Tmid
 timestep 1.0
 run 5000
 
-dump mydmp all atom 20 dump.lammpstrj
-
-run 2000
-
+# 2*0.0005 A/fs = 0.001 A/fs = 100 m/s
+velocity carbon_top set 0 0 0.0005
+velocity carbon_bot set 0 0 -0.0005
+run 10000

@@ -7,13 +7,13 @@ VMD tutorial
 
     Generate good looking images and movies with VMD
 
-.. figure:: ../figures/vmd/vmd-tutorial/video-avatar-dark.webp
+.. figure:: ../figures/vmd/vmd-tutorial/avatar-dark.png
     :alt: Image of the lammps polymer-water system generated with VMD visual representation 
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/vmd/vmd-tutorial/video-avatar-light.webp
+.. figure:: ../figures/vmd/vmd-tutorial/avatar-light.png
     :alt: Image of the lammps polymer-water system generated with VMD visual representation 
     :height: 250
     :align: right
@@ -30,6 +30,10 @@ VMD tutorial
     The goal of this extra tutorial is to provide some tips
     to make good looking pictures and videos of molecular systems.
 
+.. include:: ../../non-tutorials/needhelp.rst
+
+.. include:: ../../non-tutorials/1.9.2.rst
+
 Practical example
 =================
 
@@ -37,22 +41,21 @@ Practical example
 
     To follow this tutorial, |dump_download|
     this LAMMPS trajectory file, which corresponds to a
-    mixture of water and toluene. As always, the input
-    files are shared on Github. 
+    mixture of water and toluene.
+
+.. |dump_download| raw:: html
+
+   <a href="../../../../../inputs/miscellaneous/vmd/dump.lammpstrj" target="_blank">download</a>
 
 .. container:: justify
 
     The water molecules use *types* 1 and 2,
-    and the toluene molecules *types* 3, 4, and  5.
+    and the toluene molecules use *types* 3, 4, and  5.
 
 .. container:: justify
 
     With Ubuntu/Linux, the *lammptrj* file can be opened with
     VMD by typing in a terminal:
-
-.. |dump_download| raw:: html
-
-   <a href="../../../../../inputs/miscellaneous/vmd/dump.lammpstrj" target="_blank">download</a>
 
 ..  code-block:: bash
     
@@ -70,6 +73,11 @@ Practical example
     the view to *Orthographic*,
     and unselect *Depth Cueing*.
 
+.. container:: justify
+
+    Still in *Display*, select
+    *Axes -> Off*.
+
 .. figure:: ../figures/vmd/vmd-tutorial/step1-dark.png
     :alt: VMD tutorial for LAMMPS
     :class: only-dark
@@ -83,7 +91,7 @@ Practical example
     Figure: Initial system in absence of depth cueing and with orthographic view.
 
 The representation
-==================
+------------------
 
 .. container:: justify
 
@@ -96,13 +104,13 @@ The representation
     from *Lines*
     to *VDW*.
     Tune the *Sphere Scale*
-    to 0.8, and increase the resolution to 42.
+    to 0.9, and increase the resolution to 52.
 
 .. container:: justify
 
     Click on *Create Rep* to create a second representation for the hydrogen
     of water, select *type 2*,
-    and change the *Sphere Scale* to 0.4.
+    and change the *Sphere Scale* to 0.5.
 
 .. container:: justify
 
@@ -113,16 +121,12 @@ The representation
 .. container:: justify
 
     Choose *DynamicBonds*
-    and increase the *bond resolution* to 42.
+    and increase the *bond resolution* to 52.
     With *DynamicBonds*, the ends of the bonds are rough. 
     To smooth out the representation, create the
     fourth and last representation (*VDW* with
     *Sphere Scale* 0.2)
     for *types* 3 4 5*.
-
-.. container:: justify
-
-    This is what I see:
 
 .. figure:: ../figures/vmd/vmd-tutorial/step2-dark.png
     :alt: VMD tutorial for LAMMPS
@@ -137,7 +141,7 @@ The representation
     Figure: Orthographic view of the system with improved representation.
 
 The colors
-==========
+----------
 
 .. container:: justify
 
@@ -151,26 +155,24 @@ The colors
 
     Still in the *Color Controls* windows,
     in *Categories*,
-    click *Name*,
-    in *Names*
-    choose *3* (carbon) and select the color pink. Then, do
-    the same for 5 (also a carbon :math:`\to` pink),
+    click *Name*.
+    In the *Names* sub windows
+    choose *3* (carbon) and select the color silver. Then, do
+    the same for 5 (also a carbon :math:`\to` silver),
     4 (hydrogen :math:`\to` white),
     2 (hydrogen :math:`\to` white),
-    1 (oxygen :math:`\to` red).
+    1 (oxygen :math:`\to` cyan).
     
 .. container:: justify
 
-    These colors are standard for oxygen,
-    carbon, and hydrogen, respectively. To mark the difference
-    between the water and the toluene, let us choose a different
-    color for the atoms of type 1 (oxygens of the water molecules) by
-    choosing *cyan*, and then modifying it by entering
-    manually the values 0, 1.0 and 0.88 in the RGB box.
-
+    Note that the cyan color is not standard for
+    oxygen. Feel free to change it based on your taste.
+    
 .. container:: justify
 
-    This is what I see:
+    Let us slightly change the original *cyan* of VMD
+    by entering
+    manually the values 0.3, 1.0 and 1.0 in the RGB box.
 
 .. figure:: ../figures/vmd/vmd-tutorial/step3-dark.png
     :alt: VMD tutorial for LAMMPS
@@ -185,51 +187,20 @@ The colors
     Figure: Orthographic view with improved representation and color.
 
 The materials
-=============
-
-.. container:: justify
-
-    An often neglected aspect is the texture of the representation, given
-    by the material. Finding the right degree of shininess is often
-    difficult, but it is really important if you want a good looking system. 
+-------------
 
 .. container:: justify
 
     In the *Representations* windows, you can choose
-    among several materials. I prefer to create my own. To do so, 
-    go in *Graphics, Materials*.
-    Click on *Opaque*
-    (this is the one used by default), and
-    hit *Create New* twice.
+    among several materials that are more or less shiny
+    or opaque. 
     
 .. container:: justify
-
-    Two new materials should have appeared, called something like *Material23*
-    and *Material24*. Rename
-    them *MWater*
-    and *MToluene*, respectively. 
-
-.. container:: justify
-
-    For *MWater*,
-    change *Diffuse*,
+    
+    Let us select the default material named *Opaque*,
+    and change *Diffuse*,
     *Specular*, and
-    *Shininess*, to 0.43,
-    0.48, and 0.35, respectively.
-    For *MToluene*,
-    use 0.78, 0.33, and 0.32.
-
-.. container:: justify
-
-    Then, from the *Representations* windows, change the
-    *Material*
-    from *Opaque*
-    to *MWater* for the 2 first representations,
-    and *MToluene* for the 2 last.
-
-.. container:: justify
-
-    This is what I see:
+    *Shininess*, to 0.56, 0.12, and 0.29, respectively.
 
 .. figure:: ../figures/vmd/vmd-tutorial/step4-dark.png
     :alt: VMD tutorial for LAMMPS
@@ -242,9 +213,17 @@ The materials
 .. container:: figurelegend
 
     Figure: Orthographic view with improved representation, color, and material.
+    See the corresponding |vmd_video|.
+
+.. |vmd_video| raw:: html
+
+    <a href="https://youtu.be/PR7W3EM_t2w" target="_blank">video</a>
+
+Additional options and rendering
+================================
 
 Box border
-==========
+----------
 
 .. container:: justify
 
@@ -256,7 +235,7 @@ Box border
     pbc box -center origin -color black -width 2
 
 Saving a state
-==============
+--------------
 
 .. container:: justify
 
@@ -267,8 +246,8 @@ Saving a state
     :math:`\to`
     *Load vizualisation state*.
 
-Rendering
-=========
+Rendering image
+---------------
 
 .. container:: justify
 
@@ -281,8 +260,8 @@ Rendering
     Optionally, add *-res 1000 1000* in the *Render command* cell to 
     increase the resolution.
 
-High quality movie
-==================
+Rendering movie
+---------------
 
 .. container:: justify
 

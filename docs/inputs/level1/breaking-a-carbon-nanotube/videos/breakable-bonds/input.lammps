@@ -23,20 +23,15 @@
 
 variable T equal 300
 
-units real
-atom_style molecular
-boundary f f f
-pair_style lj/cut 14
+units metal
+atom_style atomic
+boundary p p p
+pair_style airebo 2.5 1 1
 
-bond_style harmonic
-angle_style harmonic
-dihedral_style opls
-improper_style harmonic
+read_data ../../breakable-bonds/cnt_atom.data
+pair_coeff * * ../../breakable-bonds/CH.airebo C
 
-special_bonds lj 0.0 0.0 0.5
-
-read_data cnt_molecular.data
-include parm.lammps
+change_box all x final -40 40 y final -40 40 z final -60 60
 
 group carbon_atoms type 1
 variable carbon_xcm equal -1*xcm(carbon_atoms,x)
@@ -44,14 +39,11 @@ variable carbon_ycm equal -1*xcm(carbon_atoms,y)
 variable carbon_zcm equal -1*xcm(carbon_atoms,z)
 displace_atoms carbon_atoms move ${carbon_xcm} ${carbon_ycm} ${carbon_zcm}
 
-change_box all x final -40 40 y final -40 40 z final -40 40
-
 variable zmax equal bound(carbon_atoms,zmax)-0.5
 variable zmin equal bound(carbon_atoms,zmin)+0.5
 region rtop block INF INF INF INF ${zmax} INF
 region rbot block INF INF INF INF INF ${zmin}
 region rmid block INF INF INF INF ${zmin} ${zmax}
-
 group carbon_top region rtop
 group carbon_bot region rbot
 group carbon_mid region rmid
@@ -60,34 +52,28 @@ variable zmax_del equal ${zmax}-2
 variable zmin_del equal ${zmin}+2
 region rdel block INF INF INF INF ${zmin_del} ${zmax_del}
 group rdel region rdel
-delete_atoms random fraction 0.02 no rdel NULL 482793 bond yes
+delete_atoms random fraction 0.02 no rdel NULL 482793
 
 reset_atoms id sort yes
 velocity carbon_mid create ${T} 48455 mom yes rot yes
 fix mynve all nve
 compute Tmid carbon_mid temp
-fix myber carbon_mid temp/berendsen ${T} ${T} 100
+fix myber carbon_mid temp/berendsen ${T} ${T} 0.1
 fix_modify myber temp Tmid
 
-fix mysf1 carbon_top setforce 0 0 0
-fix mysf2 carbon_bot setforce 0 0 0
-velocity carbon_top set 0 0 0
+fix mysf1 carbon_bot setforce 0 0 0
+fix mysf2 carbon_top setforce 0 0 0
 velocity carbon_bot set 0 0 0
+velocity carbon_top set 0 0 0
 
-variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
-fix at1 all ave/time 10 10 100 v_L file output_cnt_length.dat
-fix at2 all ave/time 10 10 100 f_mysf1[1] f_mysf2[1] file output_edge_force.dat
-dump mydmp all atom 1000 dump.lammpstrj
+dump mydmp all atom 500 dump.lammpstrj
 
-fix at3 all ave/time 10 10 100 c_Tmid file output_temperature_middle_group.dat
-
-thermo 100
+thermo 1000
 thermo_modify temp Tmid
 
-timestep 1.0
+timestep 0.0005
 run 5000
 
-# 2*0.0005 A/fs = 0.001 A/fs = 100 m/s
-velocity carbon_top set 0 0 0.0005
-velocity carbon_bot set 0 0 -0.0005
-run 10000
+# 0.15 A/ps = 15 m/s
+velocity carbon_top set 0 0 0.15
+run 280000

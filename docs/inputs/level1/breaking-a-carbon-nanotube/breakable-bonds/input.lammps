@@ -48,6 +48,13 @@ group carbon_top region rtop
 group carbon_bot region rbot
 group carbon_mid region rmid
 
+variable zmax_del equal ${zmax}-2
+variable zmin_del equal ${zmin}+2
+region rdel block INF INF INF INF ${zmin_del} ${zmax_del}
+group rdel region rdel
+delete_atoms random fraction 0.02 no rdel NULL 482793
+
+reset_atoms id sort yes
 velocity carbon_mid create ${T} 48455 mom yes rot yes
 fix mynve all nve
 compute Tmid carbon_mid temp
@@ -64,7 +71,7 @@ fix at1 all ave/time 10 10 100 v_L file output_cnt_length.dat
 fix at2 all ave/time 10 10 100 f_mysf1[1] f_mysf2[1] file output_edge_force.dat
 dump mydmp all atom 1000 dump.lammpstrj
 
-thermo 100
+thermo 1000
 thermo_modify temp Tmid
 
 timestep 0.0005

@@ -33,29 +33,30 @@ pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
 kspace_style pppm/tip4p 1.0e-5
 special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 
-read_data mixed.data extra/bond/per/atom 20 &
-                    extra/angle/per/atom 20 &
-                    extra/dihedral/per/atom 20 &
-                    extra/improper/per/atom 20 &
-                    extra/special/per/atom 20
+read_data equilibrated.data extra/bond/per/atom 20 &
+                            extra/angle/per/atom 20 &
+                            extra/dihedral/per/atom 20 &
+                            extra/improper/per/atom 20 &
+                            extra/special/per/atom 20
 
-set atom * image 0 0 0
-
-include parm.lammps 
+include parm.lammps
 
 group H2O type 1 2
 group tol type 3 4 5
 
-fix myshk H2O shake 1.0e-5 200 0 b 1 a 1
+region wall_box block -32 32 -14.4 14.4 -14.4 14.4
+fix mywll1 H2O wall/region wall_box lj1043 1.0 1.0 1.0
+fix mywll2 tol wall/region wall_box lj1043 1.0 1.0 1.0
 
+fix myshk H2O shake 1.0e-5 200 0 b 1 a 1
 fix mynve all nve
 fix myber all temp/berendsen 300 300 100
-
 timestep 1.0
 
-dump dp2 all custom 2500 dump.lammpstrj id type x y z
+run 500
 
+dump dp1 all custom 20 dump.lammpstrj id type x y z
 thermo 500
 
-run 250000
-write_data mixed.data 
+run 10000
+
