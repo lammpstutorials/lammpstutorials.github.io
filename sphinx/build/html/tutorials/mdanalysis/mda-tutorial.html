@@ -273,14 +273,15 @@ and <em>NumPy</em> by copying the following lines into <em>measure_bond_evolutio
 </pre></div>
 </div>
 <div class="justify docutils container">
-<blockquote>
-<div><p>Then, let us create a <em>MDAnalysis</em> <em>universe</em> using the LAMMPS
-data file <em>cnt_atom.data</em> as topology,
+<p>Then, let us create a <em>MDAnalysis</em> <em>universe</em> using
+the LAMMPS data file <em>cnt_atom.data</em> as topology,
 and the <em>lammpstrj</em> file as trajectory. Let us guess the
-original bonds using the bond guesser of MDAnalysis (<em>guess_bonds=True</em>).
-Let us also create a single atom group named <em>cnt</em> and containing all the carbon atoms.
+original bonds using the bond guesser
+of MDAnalysis (<em>guess_bonds=True</em>).
+Let us also create a single atom group
+named <em>cnt</em> and containing all the carbon atoms.
 Add the following lines into <em>measure_bond_evolution.ipynb</em>:</p>
-</div></blockquote>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path_to_data</span> <span class="o">=</span> <span class="s2">&quot;./&quot;</span>
 <span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="n">path_to_data</span> <span class="o">+</span> <span class="s2">&quot;cnt_deformed.data&quot;</span><span class="p">,</span>
                  <span class="n">path_to_data</span> <span class="o">+</span> <span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span>
@@ -289,7 +290,6 @@ Add the following lines into <em>measure_bond_evolution.ipynb</em>:</p>
                  <span class="n">guess_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vdwradii</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span><span class="mf">1.7</span><span class="p">})</span>
 <span class="n">cnt</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s2">&quot;type 1&quot;</span><span class="p">)</span>
 </pre></div>
-</div>
 </div>
 <div class="justify docutils container">
 <p>Note that the bond guesser of MDAnalysis will not update the list of bond

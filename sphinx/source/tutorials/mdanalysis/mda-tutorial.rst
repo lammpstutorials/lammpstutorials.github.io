@@ -66,14 +66,16 @@ Counting bonds
 
 .. container:: justify
 
-    Then, let us create a *MDAnalysis* *universe* using the LAMMPS
-    data file *cnt_atom.data* as topology,
+    Then, let us create a *MDAnalysis* *universe* using
+    the LAMMPS data file *cnt_atom.data* as topology,
     and the *lammpstrj* file as trajectory. Let us guess the
-    original bonds using the bond guesser of MDAnalysis (*guess_bonds=True*).
-    Let us also create a single atom group named *cnt* and containing all the carbon atoms.
+    original bonds using the bond guesser
+    of MDAnalysis (*guess_bonds=True*).
+    Let us also create a single atom group
+    named *cnt* and containing all the carbon atoms.
     Add the following lines into *measure_bond_evolution.ipynb*:
 
- .. code-block:: python
+.. code-block:: python
 
     path_to_data = "./"
     u = mda.Universe(path_to_data + "cnt_deformed.data",
