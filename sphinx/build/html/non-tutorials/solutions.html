@@ -363,34 +363,45 @@ rigidity to the polymer.</p>
 <section id="plot-the-strain-stress-curves">
 <h3>Plot the strain-stress curves<a class="headerlink" href="#plot-the-strain-stress-curves" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>You can download the <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input</a>
-and <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input</a> I wrote.</p>
+<p>You can download the <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input for the breakable CNT</a>
+and <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input for the unbreakable CNT</a> I wrote.</p>
 </div>
 <div class="justify docutils container">
-<p>The main difficulty here is to calculate the stress. Here,
-the stress is calculated as the force divided by the
-surface area of the CNT. Note that the surface area
+<p>The stress is calculated as the total force
+induced on the CNT by the pulling divided by the
+surface area of the CNT.</p>
+</div>
+<div class="justify docutils container">
+<p>On the side note, the surface area
 of a CNT is not a well defined quantity. I choose to
 define the area as the perimeter of the CNT multiplied by the
 effective width of the carbon atoms.</p>
 </div>
 <div class="justify docutils container">
-<p>Be careful with units, as the force is either in kcal/mol
-or eV, depending of the unit system, respectively <em>real</em> or <em>metal</em>.</p>
+<p>Be careful with units, as the force is either in kcal/mol/Å
+when the unit is <em>real</em>, i.e. for the unbreakable CNT,
+or in eV/Å when the unit is <em>metal</em>, i.e. for the breakable CNT.</p>
 </div>
 </section>
-<section id="deform-a-cnt-membrane">
-<h3>Deform a CNT membrane<a class="headerlink" href="#deform-a-cnt-membrane" title="Link to this heading">#</a></h3>
+<section id="make-a-membrane-of-cnts">
+<h3>Make a membrane of CNTs<a class="headerlink" href="#make-a-membrane-of-cnts" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>You can download the <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/membrane/input.lammps" target="_blank">input</a> I wrote.
-The CNT can be replicated using the <em>replicate</em> command.
-Then, it is important to change the box to triclinic:</p>
+<p>You can download the <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/membrane/input.lammps" target="_blank">input</a> I wrote.</p>
+</div>
+<div class="justify docutils container">
+<p>The CNT can be replicated using the <em>replicate</em> command.
+It is recommended to adjust the box size before replicating,
+as done here using the <em>change_box</em> command.</p>
+</div>
+<div class="justify docutils container">
+<p>To allow for the deformation of the box along the
+<em>xy</em> plane, the box has to be changed to triclinic first:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">triclinic</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Before deforming the system using:</p>
+<p>Deformation can be imposed to the system using:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">muyef</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">deform</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">xy</span><span class="w"> </span><span class="n">erate</span><span class="w"> </span><span class="m">5e-5</span>
 </pre></div>
@@ -1005,7 +1016,7 @@ progressively decorating the surface of the SiO2 structure:</p>
 </li>
 <li><a class="reference internal" href="#pulling-on-a-carbon-nanotube">Pulling on a carbon nanotube</a><ul>
 <li><a class="reference internal" href="#plot-the-strain-stress-curves">Plot the strain-stress curves</a></li>
-<li><a class="reference internal" href="#deform-a-cnt-membrane">Deform a CNT membrane</a></li>
+<li><a class="reference internal" href="#make-a-membrane-of-cnts">Make a membrane of CNTs</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#polymer-in-water">Polymer in water</a><ul>

@@ -1030,8 +1030,8 @@ Launch the deformation
 
 ..  container:: justify
 
-    There is a follow-up to this tutorial as a :ref:`mda-label`,
-    where a post-mortem analysis of the data using Python is performed.
+    There is a follow-up to this CNT tutorial as a :ref:`mda-label`,
+    where a post-mortem analysis is performed using Python.
 
 Going further with exercises
 ============================
@@ -1043,8 +1043,8 @@ Plot the strain-stress curves
 
 ..  container:: justify
 
-    Adapt the current script and extract the strain-stress curves for
-    the two CNTs (breakable and unbreakable):
+    Adapt the current scripts and extract the strain-stress curves for
+    the two breakable and unbreakable CNTs:
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/stress-strain-curve-dark.png
     :alt: strain stain curve of the CNTs
@@ -1058,14 +1058,18 @@ Plot the strain-stress curves
 
     Figure: Strain-stain curves for the two CNTs, breakable and unbreakable.
 
-Deform a CNT membrane
----------------------
+Make a membrane of CNTs
+-----------------------
 
 .. container:: justify
 
-    Replicate the CNT along *x* and *y*, and equilibrate the system to 
-    create a membrane made of multiple CNTs. 
-    Then, apply a shear deformation along *xy*.
+    Replicate the CNT along the *x*
+    and *y* direction, and equilibrate the system to 
+    create an infinite membrane made of multiple CNTs. 
+
+.. container:: justify
+
+    Apply a shear deformation along *xy*.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/membrane-dark.png
     :alt: deformed membrane of CNTs

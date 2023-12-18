@@ -190,36 +190,54 @@ Plot the strain-stress curves
     You can download the |input_stress_strain_solution1|
     and |input_stress_strain_solution2| I wrote.
 
-.. container:: justify
-
-    The main difficulty here is to calculate the stress. Here, 
-    the stress is calculated as the force divided by the 
-    surface area of the CNT. Note that the surface area 
-    of a CNT is not a well defined quantity. I choose to 
-    define the area as the perimeter of the CNT multiplied by the 
-    effective width of the carbon atoms. 
-
-.. container:: justify
-
-    Be careful with units, as the force is either in kcal/mol
-    or eV, depending of the unit system, respectively *real* or *metal*.
-
 .. |input_stress_strain_solution1| raw:: html
 
-    <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input</a>
+    <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input for the breakable CNT</a>
 
 .. |input_stress_strain_solution2| raw:: html
 
-    <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input</a>
+    <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input for the unbreakable CNT</a>
 
-Deform a CNT membrane
----------------------
+.. container:: justify
+
+    The stress is calculated as the total force
+    induced on the CNT by the pulling divided by the 
+    surface area of the CNT. 
+
+.. container:: justify
+    
+    On the side note, the surface area 
+    of a CNT is not a well defined quantity. I choose to 
+    define the area as the perimeter of the CNT multiplied by the 
+    effective width of the carbon atoms.
+
+.. container:: justify
+
+    Be careful with units, as the force is either in kcal/mol/Å
+    when the unit is *real*, i.e. for the unbreakable CNT,
+    or in eV/Å when the unit is *metal*, i.e. for the breakable CNT.
+
+Make a membrane of CNTs
+-----------------------
 
 .. container:: justify
 
     You can download the |input_membrane_solution1| I wrote.
+
+.. |input_membrane_solution1| raw:: html
+
+    <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/membrane/input.lammps" target="_blank">input</a>
+
+.. container:: justify
+
     The CNT can be replicated using the *replicate* command.
-    Then, it is important to change the box to triclinic:
+    It is recommended to adjust the box size before replicating,
+    as done here using the *change_box* command.
+
+.. container:: justify
+
+    To allow for the deformation of the box along the 
+    *xy* plane, the box has to be changed to triclinic first:
 
 ..  code-block:: lammps
 
@@ -227,15 +245,11 @@ Deform a CNT membrane
 
 .. container:: justify
 
-    Before deforming the system using:
+    Deformation can be imposed to the system using:
 
 ..  code-block:: lammps
 
     fix muyef all deform 1 xy erate 5e-5
-
-.. |input_membrane_solution1| raw:: html
-
-    <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/membrane/input.lammps" target="_blank">input</a>
 
 Polymer in water
 ================
