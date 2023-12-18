@@ -256,11 +256,11 @@ Counting the bonds
     np.savetxt("number_bond_vs_time.dat", nbond_vs_time)
     np.savetxt("length_bond_vs_time.dat", lbond_vs_time)
 
-.. figure:: ../figures/mdanalysis/bond-dark.png
+.. figure:: ../figures/mdanalysis/mdanalysis-tutorial/bond-dark.png
     :alt: plot of the bond length and distance versus time
     :class: only-dark
 
-.. figure:: ../figures/mdanalysis/bond-light.png
+.. figure:: ../figures/mdanalysis/mdanalysis-tutorial/bond-light.png
     :alt: plot of the bond length and distance versus time
     :class: only-light
 
@@ -293,11 +293,11 @@ Bond length distributions
             r_val = (r_val[1:]+r_val[:-1])/2
             bond_length_distributions.append(np.vstack([r_val, histo]))
 
-.. figure:: ../figures/mdanalysis/bond-distribution-dark.png
+.. figure:: ../figures/mdanalysis/mdanalysis-tutorial/bond-distribution-dark.png
     :alt: plot of the bond distribution
     :class: only-dark
 
-.. figure:: ../figures/mdanalysis/bond-distribution-light.png
+.. figure:: ../figures/mdanalysis/mdanalysis-tutorial/bond-distribution-light.png
     :alt: plot of the bond distribution
     :class: only-light
 
