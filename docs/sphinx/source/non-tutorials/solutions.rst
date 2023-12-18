@@ -217,6 +217,38 @@ Plot the strain-stress curves
     when the unit is *real*, i.e. for the unbreakable CNT,
     or in eV/Å when the unit is *metal*, i.e. for the breakable CNT.
 
+Solve the flying ice cube artifact
+----------------------------------
+
+.. container:: justify
+
+    The issue occurs because the atoms have a large momentum in the 
+    :math:`x` direction, as can be seen by looking at the net velocity 
+    of the atoms in the *cnt_molecular.data* file.
+
+..  code-block:: lammps
+
+    Velocities
+
+    24 0.007983439029626362 -6.613056392124822e-05 7.867644943646289e-05
+    1 0.007906200203484036 3.252025147011299e-05 -4.4209216231039336e-05
+    25 0.007861090484107148 9.95045322688365e-06 -0.00014277147407215768
+    (...)
+
+.. container:: justify
+
+    The Berendsen thermostat is trying to adjust the temperature of the
+    system by rescaling the velocity of the atoms, but fails due to the
+    large momentum of the system that makes it look like the system is
+    warm, since in MD temperature is measured from the kinetic energy.
+
+.. container:: justify
+
+    This leads to the system appearing frozen. The solution is to cancel
+    the net momentum of the atoms, for instance by using *fix momentum*,
+    re-setting the velocity with the *velocity create* command,
+    or use a different thermostat.
+
 Insert gas in the carbon nanotube
 ---------------------------------
 
