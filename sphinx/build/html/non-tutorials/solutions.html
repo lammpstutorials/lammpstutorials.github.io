@@ -383,6 +383,34 @@ when the unit is <em>real</em>, i.e. for the unbreakable CNT,
 or in eV/Å when the unit is <em>metal</em>, i.e. for the breakable CNT.</p>
 </div>
 </section>
+<section id="solve-the-flying-ice-cube-artifact">
+<h3>Solve the flying ice cube artifact<a class="headerlink" href="#solve-the-flying-ice-cube-artifact" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>The issue occurs because the atoms have a large momentum in the
+<span class="math notranslate nohighlight">\(x\)</span> direction, as can be seen by looking at the net velocity
+of the atoms in the <em>cnt_molecular.data</em> file.</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">Velocities</span>
+
+<span class="m">24</span><span class="w"> </span><span class="m">0.007983439029626362</span><span class="w"> </span><span class="o">-</span><span class="m">6.613056392124822e-05</span><span class="w"> </span><span class="m">7.867644943646289e-05</span>
+<span class="m">1</span><span class="w"> </span><span class="m">0.007906200203484036</span><span class="w"> </span><span class="m">3.252025147011299e-05</span><span class="w"> </span><span class="o">-</span><span class="m">4.4209216231039336e-05</span>
+<span class="m">25</span><span class="w"> </span><span class="m">0.007861090484107148</span><span class="w"> </span><span class="m">9.95045322688365e-06</span><span class="w"> </span><span class="o">-</span><span class="m">0.00014277147407215768</span>
+<span class="nv">(...)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The Berendsen thermostat is trying to adjust the temperature of the
+system by rescaling the velocity of the atoms, but fails due to the
+large momentum of the system that makes it look like the system is
+warm, since in MD temperature is measured from the kinetic energy.</p>
+</div>
+<div class="justify docutils container">
+<p>This leads to the system appearing frozen. The solution is to cancel
+the net momentum of the atoms, for instance by using <em>fix momentum</em>,
+re-setting the velocity with the <em>velocity create</em> command,
+or use a different thermostat.</p>
+</div>
+</section>
 <section id="insert-gas-in-the-carbon-nanotube">
 <h3>Insert gas in the carbon nanotube<a class="headerlink" href="#insert-gas-in-the-carbon-nanotube" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
@@ -1075,6 +1103,7 @@ progressively decorating the surface of the SiO2 structure:</p>
 </li>
 <li><a class="reference internal" href="#pulling-on-a-carbon-nanotube">Pulling on a carbon nanotube</a><ul>
 <li><a class="reference internal" href="#plot-the-strain-stress-curves">Plot the strain-stress curves</a></li>
+<li><a class="reference internal" href="#solve-the-flying-ice-cube-artifact">Solve the flying ice cube artifact</a></li>
 <li><a class="reference internal" href="#insert-gas-in-the-carbon-nanotube">Insert gas in the carbon nanotube</a></li>
 <li><a class="reference internal" href="#make-a-membrane-of-cnts">Make a membrane of CNTs</a></li>
 </ul>

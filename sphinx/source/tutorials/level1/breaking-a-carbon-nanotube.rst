@@ -1058,6 +1058,50 @@ Plot the strain-stress curves
 
     Figure: Strain-stain curves for the two CNTs, breakable and unbreakable.
 
+Solve the flying ice cube artifact
+----------------------------------
+
+.. container:: justify
+
+    The flying ice cube effect is one of the most famous
+    artifact of molecular simulations.
+    Download this seemingly simple |input_flying_cube|, that was inspired by the
+    first part of the tutorial, and simplified by removing some of it. 
+    Run the input with this |data_flying_cube| file
+    and this |parm_flying_cube| file.
+
+.. |input_flying_cube| raw:: html
+
+    <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/input.lammps" target="_blank">input</a>
+
+.. |data_flying_cube| raw:: html
+
+    <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/cnt_molecular.data" target="_blank">data</a>
+
+.. |parm_flying_cube| raw:: html
+
+    <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/parm.lammps" target="_blank">parameter</a>
+
+.. container:: justify
+
+    When you run this simulation using LAMMPS, you should see that the temperature is
+    very close to :math:`300\,\text{K}`, as expected.
+
+.. code-block:: bash
+
+    Step   Temp        E_pair      E_mol       TotEng      Press     
+    0      327.4142    589.20707   1980.6012   3242.2444   60.344754    
+    1000   300.00184   588.90015   1980.9013   3185.9386   51.695282
+    (...)
+
+.. container:: justify
+
+    However, if you look at the system using VMD, the atoms are not moving.
+
+.. container:: justify
+
+    Can you identify the origin of the issue, and fix the input?
+
 Insert gas in the carbon nanotube
 ---------------------------------
 
