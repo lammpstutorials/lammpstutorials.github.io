@@ -253,8 +253,8 @@ to import <em>lammpstrj</em>  trajectory file into Python.</p>
 <p class="admonition-title">I provide personal assistance for LAMMPS projects</p>
 <p>See the <a class="reference internal" href="../../non-tutorials/contact-me.html#contact-label"><span class="std std-ref">Contact me</span></a> page.</p>
 </div>
-<section id="counting-bonds">
-<h2>Counting bonds<a class="headerlink" href="#counting-bonds" title="Link to this heading">#</a></h2>
+<section id="counting-the-bonds-of-a-cnt">
+<h2>Counting the bonds of a CNT<a class="headerlink" href="#counting-the-bonds-of-a-cnt" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>Here, we re-use the trajectory generated
 during the second part <em>Breakable bonds</em>
@@ -263,6 +263,8 @@ It is recommended that you follow this tutorial
 first, but you can also directly download the <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/dump.lammpstrj" target="_blank">dump</a>
 file and the <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/cnt_atom.data" target="_blank">data</a> file and continue with this MDA tutorial.</p>
 </div>
+<section id="create-a-universe">
+<h3>Create a Universe<a class="headerlink" href="#create-a-universe" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Open a new Jupyter notebook and
 call it <em>measure_bond_evolution.ipynb</em>. First, let us import both <em>MDAnalysis</em>
@@ -275,11 +277,7 @@ and <em>NumPy</em> by copying the following lines into <em>measure_bond_evolutio
 <div class="justify docutils container">
 <p>Then, let us create a <em>MDAnalysis</em> <em>universe</em> using
 the LAMMPS data file <em>cnt_atom.data</em> as topology,
-and the <em>lammpstrj</em> file as trajectory. Let us guess the
-original bonds using the bond guesser
-of MDAnalysis (<em>guess_bonds=True</em>).
-Let us also create a single atom group
-named <em>cnt</em> and containing all the carbon atoms.
+and the <em>lammpstrj</em> file as trajectory.
 Add the following lines into <em>measure_bond_evolution.ipynb</em>:</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path_to_data</span> <span class="o">=</span> <span class="s2">&quot;./&quot;</span>
@@ -288,8 +286,12 @@ Add the following lines into <em>measure_bond_evolution.ipynb</em>:</p>
                  <span class="n">topology_format</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;lammpsdump&quot;</span><span class="p">,</span>
                  <span class="n">atom_style</span><span class="o">=</span><span class="s1">&#39;id type xs ys zs&#39;</span><span class="p">,</span>
                  <span class="n">guess_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vdwradii</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span><span class="mf">1.7</span><span class="p">})</span>
-<span class="n">cnt</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s2">&quot;type 1&quot;</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="justify docutils container">
+<p>Since the “.data” file does not contain any bond information
+the original bonds are guessed using the bond guesser
+of MDAnalysis using <em>guess_bonds=True</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>Note that the bond guesser of MDAnalysis will not update the list of bond
@@ -297,37 +299,143 @@ over time, so we will need to use a few tricks to extract the evolution
 of the number of bond with time.</p>
 </div>
 <div class="justify docutils container">
-<p>Then, let us loop over the trajectory and extract the bonds average length
-and total number over time. Add the
-following lines into <em>measure_bond_evolution.ipynb</em>:</p>
+<p>Let us create a single atom group
+named <em>cnt</em> and containing all the carbon atoms,
+i.e. all the atoms of type 1,
+by adding the following lines into <em>measure_bond_evolution.ipynb</em>.</p>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">lbond_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="c1"># loop over trajectory</span>
-<span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
-    <span class="c1"># sabe the bond of the timestep ts in a list</span>
-    <span class="n">all_bonds_ts</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># loop over all initially detected bond</span>
-    <span class="k">for</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span> <span class="ow">in</span> <span class="n">cnt</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">indices</span><span class="p">:</span>
-        <span class="c1"># detect positions</span>
-        <span class="n">pos1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id1</span><span class="p">]</span>
-        <span class="n">pos2</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id2</span><span class="p">]</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">pos1</span><span class="o">-</span><span class="n">pos2</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mf">1.8</span><span class="p">:</span> <span class="c1"># assume that bond longer than 1.8 angstroms are broken</span>
-            <span class="n">all_bonds_ts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-    <span class="n">lbond_vs_time</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ts</span><span class="o">.</span><span class="n">time</span><span class="o">*</span><span class="mi">5000</span><span class="o">*</span><span class="mf">0.0005</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">all_bonds_ts</span><span class="p">)])</span>
-    <span class="n">nbond_vs_time</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ts</span><span class="o">.</span><span class="n">time</span><span class="o">*</span><span class="mi">5000</span><span class="o">*</span><span class="mf">0.0005</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_bonds_ts</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># divide by 2 to avoid counting twice</span>
-<span class="n">nbond_vs_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nbond_vs_time</span><span class="p">)</span>
-<span class="n">lbond_vs_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lbond_vs_time</span><span class="p">)</span>
-<span class="c1"># finally let us save the data to tex files:</span>
-<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;number_bond_vs_time.dat&quot;</span><span class="p">,</span> <span class="n">nbond_vs_time</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;length_bond_vs_time.dat&quot;</span><span class="p">,</span> <span class="n">lbond_vs_time</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s2">&quot;type 1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="some-basics-of-mdanalysis">
+<h3>Some basics of MDAnalysis<a class="headerlink" href="#some-basics-of-mdanalysis" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>MDAnalysis allows us to easily access information concerning the simulation, such
+as the number of atoms, or the number of frames in the trajectory:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of atoms =&quot;</span><span class="p">,</span> <span class="n">cnt</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of frames =&quot;</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">n_frames</span><span class="p">)</span>
+
+<span class="n">Number</span> <span class="n">of</span> <span class="n">atoms</span> <span class="o">=</span> <span class="mi">690</span>
+<span class="n">Number</span> <span class="n">of</span> <span class="n">frames</span> <span class="o">=</span> <span class="mi">286</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The array <em>nbond_vs_time</em> contains the number of bond as a function of time, and
-<em>lbond_vs_time</em> the bond length. Let us plot both of them:</p>
+<p>It is also possible to access the indexes of the atoms that
+are considered as bonded by the bond guesser of MDAnalysis:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cnt</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">indices</span><span class="p">)</span>
+
+<span class="p">[[</span>  <span class="mi">0</span>   <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span>  <span class="mi">0</span>  <span class="mi">23</span><span class="p">]</span>
+<span class="p">[</span>  <span class="mi">0</span>  <span class="mi">56</span><span class="p">]</span>
+<span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">686</span> <span class="mi">687</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">686</span> <span class="mi">689</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">688</span> <span class="mi">689</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>MDAnalysis also offer the possibility to loop over all the frame of the trajectory using:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span>
+
+<span class="mi">0</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="mi">283</span>
+<span class="mi">284</span>
+<span class="mi">285</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The positions of the atoms can also be obtained using:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span>
+
+<span class="n">array</span><span class="p">([[</span> <span class="mf">75.14728</span> <span class="p">,</span>  <span class="mf">78.17872</span> <span class="p">,</span>  <span class="mf">95.61408</span> <span class="p">],</span>
+<span class="p">[</span> <span class="mf">75.33008</span> <span class="p">,</span>  <span class="mf">77.751114</span><span class="p">,</span>  <span class="mf">93.20232</span> <span class="p">],</span>
+<span class="p">[</span> <span class="mf">75.550476</span><span class="p">,</span>  <span class="mf">77.34152</span> <span class="p">,</span>  <span class="mf">94.54224</span> <span class="p">],</span>
+<span class="o">...</span><span class="p">,</span>
+<span class="p">[</span> <span class="mf">84.66992</span> <span class="p">,</span>  <span class="mf">82.24888</span> <span class="p">,</span> <span class="mf">143.84988</span> <span class="p">],</span>
+<span class="p">[</span> <span class="mf">84.66992</span> <span class="p">,</span>  <span class="mf">82.24888</span> <span class="p">,</span> <span class="mf">147.60156</span> <span class="p">],</span>
+<span class="p">[</span> <span class="mf">84.85272</span> <span class="p">,</span>  <span class="mf">81.82128</span> <span class="p">,</span> <span class="mf">146.26175</span> <span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>where the three columns of the array are the <em>x</em>,
+<em>y</em>,
+and <em>z</em> coordinates of the atoms.</p>
+</div>
+</section>
+<section id="counting-the-bonds">
+<h3>Counting the bonds<a class="headerlink" href="#counting-the-bonds" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>In order to measure the evolution of the number of
+bonds over time, let us loop over the trajectory
+and manually extract the inter-atomic distance over time.</p>
+</div>
+<div class="justify docutils container">
+<p>To to so, for every step of the trajectory, let us
+loop over the indexes of the atoms that were initially
+detected as bonded, and calculate the
+distance between the two atoms, which can be done using:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span> <span class="ow">in</span> <span class="n">cnt</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">indices</span><span class="p">:</span>
+        <span class="c1"># detect positions</span>
+        <span class="n">pos1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">pos2</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">pos1</span><span class="o">-</span><span class="n">pos2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then, let us assume that if <span class="math notranslate nohighlight">\(r\)</span> is larger that a
+certain cut-off value of, let’s say, <span class="math notranslate nohighlight">\(1.8\,Å\)</span>,
+the bond is broken:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span> <span class="ow">in</span> <span class="n">cnt</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">indices</span><span class="p">:</span>
+        <span class="n">pos1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">pos2</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">pos1</span><span class="o">-</span><span class="n">pos2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mf">1.8</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the bond has a length&quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="s2">&quot;Å&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the bond is broken&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Finally, let us store both mean length of bonds
+and total number of bond in lists.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lbond_vs_frame</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">nbond_vs_frame</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">frame</span>
+    <span class="n">all_bonds_ts</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># temporary list to store bond length</span>
+    <span class="k">for</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span> <span class="ow">in</span> <span class="n">cnt</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">indices</span><span class="p">:</span>
+        <span class="n">pos1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id1</span><span class="p">]</span>
+        <span class="n">pos2</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id2</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">pos1</span><span class="o">-</span><span class="n">pos2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mf">1.8</span><span class="p">:</span>
+            <span class="n">all_bonds_ts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">mean_length_bonds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">all_bonds_ts</span><span class="p">)</span>
+    <span class="n">number_of_bond</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_bonds_ts</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># divide by 2 to avoid counting twice</span>
+    <span class="n">lbond_vs_frame</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">frame</span><span class="p">,</span> <span class="n">mean_length_bonds</span><span class="p">])</span>
+    <span class="n">nbond_vs_frame</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">frame</span><span class="p">,</span> <span class="n">number_of_bond</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The data can then be saved to files:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;number_bond_vs_time.dat&quot;</span><span class="p">,</span> <span class="n">nbond_vs_time</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;length_bond_vs_time.dat&quot;</span><span class="p">,</span> <span class="n">lbond_vs_time</span><span class="p">)</span>
+</pre></div>
 </div>
 <figure class="align-default">
 <img alt="plot of the bond length and distance versus time" class="only-dark" src="../../_images/bond-dark.png" />
@@ -336,8 +444,42 @@ following lines into <em>measure_bond_evolution.ipynb</em>:</p>
 <img alt="plot of the bond length and distance versus time" class="only-light" src="../../_images/bond-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Evolution of the bond length (a) and bond number (b) as a function of time.</p>
+<p>Figure: Evolution of the average bond length (a) and bond number (b) as a function of time.</p>
 </div>
+</section>
+<section id="bond-length-distributions">
+<h3>Bond length distributions<a class="headerlink" href="#bond-length-distributions" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Using a similar script,
+let us extract the bond length distribution
+at the beginning of the simulation (let us say the 20 first frame),
+as well as near the maximum deformation of the CNT:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
+    <span class="n">all_bonds_ts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span> <span class="ow">in</span> <span class="n">cnt</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">indices</span><span class="p">:</span>
+        <span class="n">pos1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id1</span><span class="p">]</span>
+        <span class="n">pos2</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id2</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">pos1</span><span class="o">-</span><span class="n">pos2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mf">1.8</span><span class="p">:</span>
+            <span class="n">all_bonds_ts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># ignore the first frame</span>
+        <span class="n">histo</span><span class="p">,</span> <span class="n">r_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">all_bonds_ts</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.65</span><span class="p">))</span>
+        <span class="n">r_val</span> <span class="o">=</span> <span class="p">(</span><span class="n">r_val</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">+</span><span class="n">r_val</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">bond_length_distributions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">r_val</span><span class="p">,</span> <span class="n">histo</span><span class="p">]))</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<img alt="plot of the bond distribution" class="only-dark" src="../../_images/bond-distribution-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="plot of the bond distribution" class="only-light" src="../../_images/bond-distribution-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Distribution in bond length near the start of the simulation,
+as well as near the maximum deformation of the CNT.</p>
+</div>
+</section>
 </section>
 </section>
 
@@ -393,7 +535,13 @@ following lines into <em>measure_bond_evolution.ipynb</em>:</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">MDAnalysis tutorial</a><ul>
-<li><a class="reference internal" href="#counting-bonds">Counting bonds</a></li>
+<li><a class="reference internal" href="#counting-the-bonds-of-a-cnt">Counting the bonds of a CNT</a><ul>
+<li><a class="reference internal" href="#create-a-universe">Create a Universe</a></li>
+<li><a class="reference internal" href="#some-basics-of-mdanalysis">Some basics of MDAnalysis</a></li>
+<li><a class="reference internal" href="#counting-the-bonds">Counting the bonds</a></li>
+<li><a class="reference internal" href="#bond-length-distributions">Bond length distributions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -415,5 +563,6 @@ following lines into <em>measure_bond_evolution.ipynb</em>:</p>
     <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>

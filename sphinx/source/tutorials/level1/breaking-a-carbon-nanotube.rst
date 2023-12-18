@@ -1028,6 +1028,11 @@ Launch the deformation
 
 .. include:: ../../non-tutorials/accessfile.rst
 
+..  container:: justify
+
+    There is a follow-up to this tutorial as a :ref:`mda-label`,
+    where a post-mortem analysis of the data using Python is performed.
+
 Going further with exercises
 ============================
 
