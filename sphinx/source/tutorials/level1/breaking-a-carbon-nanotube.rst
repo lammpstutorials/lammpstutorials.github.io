@@ -1058,6 +1058,39 @@ Plot the strain-stress curves
 
     Figure: Strain-stain curves for the two CNTs, breakable and unbreakable.
 
+Insert gas in the carbon nanotube
+---------------------------------
+
+.. container:: justify
+
+    Modify the input from the unbreakable CNT, and add atoms of argon
+    within the CNT. 
+    
+.. container:: justify
+    
+    Use the following *pair_coeff* for the argon,
+    and a mass of *39.948*:
+
+.. code-block:: lammps
+
+    pair_coeff 2 2 0.232 3.3952 
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT-gas-dark.png
+    :alt: CNT with Argon modeled in LAMMPS
+    :class: only-dark
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT-gas-light.png
+    :alt: CNT with Argon modeled in LAMMPS
+    :class: only-light
+
+.. container:: figurelegend
+
+    Figure: Argon atoms in a CNT.  See the corresponding |gas_cnt_video|.
+
+.. |gas_cnt_video| raw:: html
+
+    <a href="https://www.youtube.com/watch?v=J4z_fZK7ekA" target="_blank">video</a>
+
 Make a membrane of CNTs
 -----------------------
 
@@ -1088,3 +1121,4 @@ Make a membrane of CNTs
 
     The box must be converted to triclinic to support deformation
     along *xy*.
+

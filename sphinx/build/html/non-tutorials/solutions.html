@@ -383,6 +383,65 @@ when the unit is <em>real</em>, i.e. for the unbreakable CNT,
 or in eV/Å when the unit is <em>metal</em>, i.e. for the breakable CNT.</p>
 </div>
 </section>
+<section id="insert-gas-in-the-carbon-nanotube">
+<h3>Insert gas in the carbon nanotube<a class="headerlink" href="#insert-gas-in-the-carbon-nanotube" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>You can download the <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/gas/input.lammps" target="_blank">input</a> I wrote.</p>
+</div>
+<div class="justify docutils container">
+<p>The key is to modify the <em>.data</em> file
+to make space for the second atom type 2.</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">670</span><span class="w"> </span><span class="n">impropers</span>
+<span class="m">2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
+<span class="m">1</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">types</span>
+
+<span class="nv">(...)</span>
+
+<span class="n">Masses</span>
+
+<span class="m">1</span><span class="w"> </span><span class="m">12.010700</span><span class="w"> </span><span class="c"># CA</span>
+<span class="m">2</span><span class="w"> </span><span class="m">39.948</span><span class="w"> </span><span class="c"># Ar</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The <em>parm.lammps</em> must contain the second pair coeff:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.066047</span><span class="w"> </span><span class="m">3.4</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.232</span><span class="w"> </span><span class="m">3.3952</span>
+<span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">469</span><span class="w"> </span><span class="m">1.4</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Combine the <em>region</em> and
+<em>create_atoms</em> commands to
+create the atoms of type 2 within the CNT:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">inside_CNT</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="nv">${zmin}</span><span class="w"> </span><span class="nv">${zmax}</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="m">323485</span><span class="w"> </span><span class="n">inside_CNT</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.8</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>It is good practice to thermalize the CNT separately from the
+gas to avoid having large temperature difference between the two
+type of atoms.</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">tcar</span><span class="w"> </span><span class="nv nv-Identifier">carbon_atoms</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tcar</span>
+<span class="k">compute </span><span class="nv nv-Identifier">tgas</span><span class="w"> </span><span class="nv nv-Identifier">gas</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tgas</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Here I also choose to keep the CNT near its original
+position,</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myspr</span><span class="w"> </span><span class="nv nv-Identifier">carbon_atoms</span><span class="w"> </span><span class="n">spring</span><span class="o">/</span><span class="n">self</span><span class="w"> </span><span class="m">5</span>
+</pre></div>
+</div>
+</section>
 <section id="make-a-membrane-of-cnts">
 <h3>Make a membrane of CNTs<a class="headerlink" href="#make-a-membrane-of-cnts" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
@@ -1016,6 +1075,7 @@ progressively decorating the surface of the SiO2 structure:</p>
 </li>
 <li><a class="reference internal" href="#pulling-on-a-carbon-nanotube">Pulling on a carbon nanotube</a><ul>
 <li><a class="reference internal" href="#plot-the-strain-stress-curves">Plot the strain-stress curves</a></li>
+<li><a class="reference internal" href="#insert-gas-in-the-carbon-nanotube">Insert gas in the carbon nanotube</a></li>
 <li><a class="reference internal" href="#make-a-membrane-of-cnts">Make a membrane of CNTs</a></li>
 </ul>
 </li>

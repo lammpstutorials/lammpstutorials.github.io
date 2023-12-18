@@ -217,6 +217,80 @@ Plot the strain-stress curves
     when the unit is *real*, i.e. for the unbreakable CNT,
     or in eV/Å when the unit is *metal*, i.e. for the breakable CNT.
 
+Insert gas in the carbon nanotube
+---------------------------------
+
+.. container:: justify
+
+    You can download the |input_gas_cnt| I wrote.
+
+.. |input_gas_cnt| raw:: html
+
+    <a href="../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/gas/input.lammps" target="_blank">input</a>
+
+.. container:: justify
+
+    The key is to modify the *.data* file
+    to make space for the second atom type 2.
+
+..  code-block:: lammps
+
+    670 impropers
+    2 atom types
+    1 bond types
+
+    (...)
+
+    Masses
+
+    1 12.010700 # CA
+    2 39.948 # Ar
+
+.. container:: justify
+
+    The *parm.lammps* must contain the second pair coeff:
+
+..  code-block:: lammps
+
+    pair_coeff 1 1 0.066047 3.4
+    pair_coeff 2 2 0.232 3.3952 
+    bond_coeff 1 469 1.4
+
+.. container:: justify
+
+    Combine the *region* and
+    *create_atoms* commands to
+    create the atoms of type 2 within the CNT:
+
+..  code-block:: lammps
+
+    region inside_CNT cylinder z 0 0 2.5 ${zmin} ${zmax}
+    create_atoms 2 random 40 323485 inside_CNT overlap 1.8 maxtry 50
+
+.. container:: justify
+
+    It is good practice to thermalize the CNT separately from the 
+    gas to avoid having large temperature difference between the two
+    type of atoms. 
+
+..  code-block:: lammps
+
+    compute tcar carbon_atoms temp
+    fix myber1 all temp/berendsen ${T} ${T} 100
+    fix_modify myber1 temp tcar
+    compute tgas gas temp
+    fix myber2 all temp/berendsen ${T} ${T} 100
+    fix_modify myber2 temp tgas
+
+.. container:: justify
+
+    Here I also choose to keep the CNT near its original
+    position, 
+
+..  code-block:: lammps
+
+    fix myspr carbon_atoms spring/self 5
+
 Make a membrane of CNTs
 -----------------------
 
