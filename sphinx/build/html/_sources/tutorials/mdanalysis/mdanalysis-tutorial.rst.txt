@@ -59,8 +59,10 @@ Create a Universe
 .. container:: justify
 
     Open a new Jupyter notebook and
-    call it *measure_bond_evolution.ipynb*. First, let us import both *MDAnalysis*
-    and *NumPy* by copying the following lines into *measure_bond_evolution.ipynb*.
+    call it *measure_bond_evolution.ipynb*. First,
+    let us import both *MDAnalysis*
+    and *NumPy* by copying the following
+    lines into *measure_bond_evolution.ipynb*.
 
 .. code-block:: python
 
@@ -69,7 +71,7 @@ Create a Universe
 
 .. container:: justify
 
-    Then, let us create a *MDAnalysis* *universe* using
+    Then, let us create a MDAnalysis *universe* using
     the LAMMPS data file *cnt_atom.data* as topology,
     and the *lammpstrj* file as trajectory.
     Add the following lines into *measure_bond_evolution.ipynb*:
@@ -85,7 +87,7 @@ Create a Universe
 
 .. container:: justify
 
-    Since the ".data" file does not contain any bond information
+    Since the *.data* file does not contain any bond information
     the original bonds are guessed using the bond guesser
     of MDAnalysis using *guess_bonds=True*.
 
