@@ -83,13 +83,19 @@ VMD (1.9.3)
 
    <a href="https://www.ovito.org" target="_blank">Ovito</a>
     
-Matplotlib Pyplot
------------------
+Python (3.11.4)
+---------------
+
+..  container:: justify
+
+    To perform post-mortem analysis of the data during the :ref:`mda-label`,
+    the version *2.6.1* of MDAnalysis is used
+    together with the version *3.11.4* of Python.
 
 ..  container:: justify
 
     In order to plot the results from the simulations,
-    you will need a plotting tool. I will use |Matplotlib Pyplot|
+    the version *3.5.2* of |Matplotlib Pyplot| is used
     in combination with |lammps_logfile|, a library allowing
     one to read the *log* file produced by LAMMPS.
 
