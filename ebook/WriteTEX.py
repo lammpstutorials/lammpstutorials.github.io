@@ -120,8 +120,12 @@ class WriteTex:
                 level = figure_path.split('/')[-3]
                 tutorial = figure_path.split('/')[-2]
                 name = figure_path.split('/')[-1].split('.')[0]
-                if os.path.exists(self.git_path+'/ebook/tutorials/'+level+'/'+tutorial) is False:
-                    os.mkdir(self.git_path+'/ebook/tutorials/'+level+'/'+tutorial+'/')
+                if self.nonumber:
+                    if os.path.exists(self.git_path+'/ebook/tutorials/'+tutorial) is False:
+                        os.mkdir(self.git_path+'/ebook/tutorials/'+tutorial+'/')
+                else:
+                    if os.path.exists(self.git_path+'/ebook/tutorials/'+level+'/'+tutorial) is False:
+                        os.mkdir(self.git_path+'/ebook/tutorials/'+level+'/'+tutorial+'/')
                 alternative_figure = figure_path[:-len(figure_format)]+'png'
                 new_figure = self.git_path+'/ebook/tutorials/'+level+'/'+tutorial+'/'+name+'.png'
                 if os.path.exists(alternative_figure):

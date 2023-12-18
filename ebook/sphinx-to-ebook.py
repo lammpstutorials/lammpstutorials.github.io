@@ -21,7 +21,8 @@ tutorials = {"level1": ["lennard-jones-fluid",
              "level3": ["water-adsorption-in-silica",
                         "free-energy-calculation",
                         "reactive-silicon-dioxide"],
-             "vmd": ["vmd-tutorial"]}
+             "vmd": ["vmd-tutorial"],
+             "mdanalysis": ["mdanalysis-tutorial"]}
 
 for level in tutorials.keys():
     if os.path.exists(git_path+'/ebook/tutorials/'+level) is False:
@@ -34,7 +35,7 @@ for level in tutorials.keys():
         RST = ReadRST(rst_file_name)
         RST.convert_file()
         assert len(RST.label_positions) == 1, """Careful, more than one label"""
-        if "vmd" in tutorial:
+        if ("vmd" in tutorial) | ("mdanalysis" in tutorial):
             TEX = WriteTex(tex_file_name, RST, git_path, nonumber=True)
         else:
             TEX = WriteTex(tex_file_name, RST, git_path)
