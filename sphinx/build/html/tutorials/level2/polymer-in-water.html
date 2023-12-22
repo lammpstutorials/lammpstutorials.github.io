@@ -346,13 +346,13 @@ periodic boundary conditions (PBCs).’</em></p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us create a 3D simulation box of dimensions <span class="math notranslate nohighlight">\(3 \times 3 \times 3 \; \text{nm}^3\)</span>,
-and make space for 7 atom types (1 and 2 for
-the water molecule, and 3 to 7 for the PEG molecule), 6 bond types, 9
+and make space for 8 atom types (1 and 2 for
+the water molecule, and 3 to 8 for the PEG molecule), 6 bond types, 9
 angle types, and 14 dihedrals types.
 Copy the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span>
-<span class="k">create_box </span><span class="nv nv-Identifier">7</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="k">create_box </span><span class="nv nv-Identifier">8</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">dihedral</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">&amp;</span>
@@ -378,51 +378,16 @@ distances, etc). In <em>input.lammps</em>, add the following line:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Then, next to the <em>pureH2O/</em> folder, create a blank file called
-<em>PARM.lammps</em> and copy the following lines in it:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">15.9994</span><span class="w"> </span><span class="c"># H2O O</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1.008</span><span class="w"> </span><span class="c"># H2O H</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">12.011</span><span class="w"> </span><span class="c"># CC32A</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">15.9994</span><span class="w"> </span><span class="c"># OC30A</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">1.008</span><span class="w"> </span><span class="c"># HCA2</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">15.9994</span><span class="w"> </span><span class="c"># OC311</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">1.008</span><span class="w"> </span><span class="c"># HCP1</span>
-
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.119431704</span><span class="w"> </span><span class="m">3.400251</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0.25265643</span><span class="w"> </span><span class="m">2.8491607</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0.06630155</span><span class="w"> </span><span class="m">3.5811794</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">0.028293679</span><span class="w"> </span><span class="m">2.373408</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">0.11949714</span><span class="w"> </span><span class="m">3.1000042</span>
-
-<span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">442.1606</span><span class="w"> </span><span class="m">0.972</span>
-<span class="k">bond_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1109.2926</span><span class="w"> </span><span class="m">1.12</span>
-<span class="k">bond_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">399.79163</span><span class="w"> </span><span class="m">1.43</span>
-<span class="k">bond_coeff</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">400.0343</span><span class="w"> </span><span class="m">1.53</span>
-<span class="k">bond_coeff</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">179.2543</span><span class="w"> </span><span class="m">0.971</span>
-<span class="k">bond_coeff</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">155.35373</span><span class="w"> </span><span class="m">1.42</span>
-
-<span class="k">angle_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">47.555878</span><span class="w"> </span><span class="m">103.0</span>
-<span class="k">angle_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">30.173132</span><span class="w"> </span><span class="m">109.5</span>
-<span class="k">angle_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">47.69405</span><span class="w"> </span><span class="m">109.5</span>
-<span class="k">angle_coeff</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">55.113907</span><span class="w"> </span><span class="m">111.0</span>
-<span class="k">angle_coeff</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">65.47197</span><span class="w"> </span><span class="m">111.3</span>
-<span class="k">angle_coeff</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">54.993103</span><span class="w"> </span><span class="m">110.3</span>
-<span class="k">angle_coeff</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">55.0234</span><span class="w"> </span><span class="m">111.4</span>
-<span class="k">angle_coeff</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">180.46019</span><span class="w"> </span><span class="m">109.0</span>
-<span class="k">angle_coeff</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">30.173132</span><span class="w"> </span><span class="m">110.0</span>
-
-<span class="k">dihedral_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.30114722</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span>
-<span class="k">dihedral_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1.414914</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span>
-<span class="k">dihedral_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
-</pre></div>
+<p>Then, download and save the <a href="../../../../../inputs/level2/polymer-in-water/PARM.lammps" target="_blank">parameter</a> file
+next to the <em>pureH2O/</em> folder.</p>
 </div>
 <div class="justify docutils container">
-<p>The <em>mass</em> and <em>pair_coeff</em> of atoms of type 1 and 2 are for water, while
-those of atoms type 3 to 7 are for the PEG. In addition, <em>bond_coeff 1</em> and
-<em>angle_coeff 1</em> are for water, while all the other parameters are for the PEG.</p>
+<p>Within <em>PARM.lammps</em>, the <em>mass</em> and <em>pair_coeff</em> of atoms
+of type 1 and 2 are for water, while
+those of atoms type 3 to 8 are for the PEG
+molecule. Similarly, the <em>bond_coeff 1</em> and
+<em>angle_coeff 1</em> are for water, while all
+the other parameters are for the PEG.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us create water molecules. To do so, let us
@@ -764,7 +729,7 @@ by 25 Angstroms along the <em>x</em> axis.</p>
 by adding the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
-<span class="k">group </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span>
+<span class="k">group </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">8</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -881,47 +846,19 @@ adding to the <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Then, let us create 3 atom groups: H2O and PEG (as
-previously) as well as a groups containing only the
-2 oxygen atoms of types 6
-corresponding to the oxygen atoms located at the
+<p>Then, let us create 4 atom groups: H2O and PEG (as
+previously) as well as 2 groups containing only the
+2 oxygen atoms of types 6 and 7, respectively.
+Atoms of types 6 and 7 correspond to the oxygen atoms located at the
 ends of the PEG molecule, which we are going to use
 to pull on the PEG molecule. Add the following lines to
 the <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
-<span class="k">group </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span>
-
-<span class="k">group </span><span class="nv nv-Identifier">topull</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">6</span>
-<span class="k">write_dump </span><span class="nv nv-Identifier">topull</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">topull.lammpstrj</span>
-<span class="k">run</span><span class="w"> </span><span class="m">0</span>
+<span class="k">group </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">8</span>
+<span class="k">group </span><span class="nv nv-Identifier">topull1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">6</span>
+<span class="k">group </span><span class="nv nv-Identifier">topull2</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">7</span>
 </pre></div>
-</div>
-<div class="justify docutils container">
-<p>Here, we use the <em>write_dump</em> command to print the
-<em>topull</em> group in a file. Execute the <em>input.lammps</em>
-file using LAMMPS so that <em>topull.lammpstrj</em> get written.
-In my case, the two last lines of <em>topull.lammpstrj</em> reads:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
-<span class="m">3216</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">0.339394</span><span class="w"> </span><span class="m">0.0930772</span><span class="w"> </span><span class="m">0.737381</span>
-<span class="m">3151</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">0.523881</span><span class="w"> </span><span class="m">0.760453</span><span class="w"> </span><span class="m">0.520978</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>From these two lines, one can extract the two ids
-of the atoms of types 6, 3216 and 3151, respectively.
-Let us then create two additional groups by adding to
-<em>input.lammps</em>:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">topull1</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="m">3216</span>
-<span class="k">group </span><span class="nv nv-Identifier">topull2</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="m">3151</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>The values of the atom id may be different in your case.
-Be sure to use the id values corresponding to the atoms
-of your system.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us add the <em>dump</em> command again to print the atom positions:</p>
@@ -957,14 +894,14 @@ by adding the following lines to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Finally, let us run the simulation for 10 ps without
+<p>Finally, let us run the simulation for 30 ps without
 any external forcing:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">30000</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>This 30 ps run will serve a benchmark to quatify the changes
+<p>This first run serves a benchmark to quantify the changes
 induced by the forcing. Then, let us apply a forcing on the 2 oxygen
 atoms using two <em>add_force</em> commands, and run for an extra 30 ps:</p>
 </div>

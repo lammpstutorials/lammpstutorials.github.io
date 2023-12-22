@@ -144,15 +144,15 @@ The water
 ..  container:: justify
 
     Then, let us create a 3D simulation box of dimensions :math:`3 \times 3 \times 3 \; \text{nm}^3`,
-    and make space for 7 atom types (1 and 2 for
-    the water molecule, and 3 to 7 for the PEG molecule), 6 bond types, 9
+    and make space for 8 atom types (1 and 2 for
+    the water molecule, and 3 to 8 for the PEG molecule), 6 bond types, 9
     angle types, and 14 dihedrals types.
     Copy the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
     region box block -15 15 -15 15 -15 15
-    create_box 7 box &
+    create_box 8 box &
     bond/types 6 &
     angle/types 9 &
     dihedral/types 3 &
@@ -181,53 +181,21 @@ The water
 
 ..  container:: justify
 
-   Then, next to the *pureH2O/* folder, create a blank file called
-   *PARM.lammps* and copy the following lines in it:
+   Then, download and save the |PARM_PEG.data| file
+   next to the *pureH2O/* folder.
 
-..  code-block:: lammps
+.. |PARM_PEG.data| raw:: html
 
-    mass 1 15.9994 # H2O O
-    mass 2 1.008 # H2O H
-    mass 3 12.011 # CC32A
-    mass 4 15.9994 # OC30A
-    mass 5 1.008 # HCA2
-    mass 6 15.9994 # OC311
-    mass 7 1.008 # HCP1
-
-    pair_coeff 1 1 0.119431704 3.400251
-    pair_coeff 2 2 0.0 0.0
-    pair_coeff 3 3 0.25265643 2.8491607 
-    pair_coeff 4 4 0.06630155 3.5811794 
-    pair_coeff 5 5 0.028293679 2.373408  
-    pair_coeff 6 6 0.0 0.0 
-    pair_coeff 7 7 0.11949714 3.1000042 
-
-    bond_coeff 1 442.1606 0.972 
-    bond_coeff 2 1109.2926 1.12 
-    bond_coeff 3 399.79163 1.43 
-    bond_coeff 4 400.0343 1.53 
-    bond_coeff 5 179.2543 0.971 
-    bond_coeff 6 155.35373 1.42
-
-    angle_coeff 1 47.555878 103.0 
-    angle_coeff 2 30.173132 109.5 
-    angle_coeff 3 47.69405 109.5 
-    angle_coeff 4 55.113907 111.0 
-    angle_coeff 5 65.47197 111.3 
-    angle_coeff 6 54.993103 110.3 
-    angle_coeff 7 55.0234 111.4 
-    angle_coeff 8 180.46019 109.0 
-    angle_coeff 9 30.173132 110.0 
-
-    dihedral_coeff 1 0.30114722 1 3 
-    dihedral_coeff 2 1.414914 1 3 
-    dihedral_coeff 3 0.0 1 1 
+   <a href="../../../../../inputs/level2/polymer-in-water/PARM.lammps" target="_blank">parameter</a>
 
 ..  container:: justify
 
-    The *mass* and *pair_coeff* of atoms of type 1 and 2 are for water, while 
-    those of atoms type 3 to 7 are for the PEG. In addition, *bond_coeff 1* and 
-    *angle_coeff 1* are for water, while all the other parameters are for the PEG.
+    Within *PARM.lammps*, the *mass* and *pair_coeff* of atoms
+    of type 1 and 2 are for water, while 
+    those of atoms type 3 to 8 are for the PEG
+    molecule. Similarly, the *bond_coeff 1* and 
+    *angle_coeff 1* are for water, while all
+    the other parameters are for the PEG.
 
 ..  container:: justify
 
@@ -714,7 +682,7 @@ Mixing the PEG with water
 ..  code-block:: lammps
 
     group H2O type 1 2
-    group PEG type 3 4 5 6 7
+    group PEG type 3 4 5 6 7 8
 
 ..  container:: justify
 
@@ -854,10 +822,10 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    Then, let us create 3 atom groups: H2O and PEG (as
-    previously) as well as a groups containing only the 
-    2 oxygen atoms of types 6
-    corresponding to the oxygen atoms located at the
+    Then, let us create 4 atom groups: H2O and PEG (as
+    previously) as well as 2 groups containing only the 
+    2 oxygen atoms of types 6 and 7, respectively.
+    Atoms of types 6 and 7 correspond to the oxygen atoms located at the
     ends of the PEG molecule, which we are going to use 
     to pull on the PEG molecule. Add the following lines to
     the *input.lammps*:
@@ -865,42 +833,9 @@ Stretching the PEG molecule
 ..  code-block:: lammps
 
     group H2O type 1 2
-    group PEG type 3 4 5 6 7
-
-    group topull type 6
-    write_dump topull atom topull.lammpstrj
-    run 0
-
-..  container:: justify
-
-    Here, we use the *write_dump* command to print the 
-    *topull* group in a file. Execute the *input.lammps*
-    file using LAMMPS so that *topull.lammpstrj* get written.
-    In my case, the two last lines of *topull.lammpstrj* reads:
-
-..  code-block:: lammps
-
-    (...)
-    3216 6 0.339394 0.0930772 0.737381
-    3151 6 0.523881 0.760453 0.520978
-
-..  container:: justify
-
-    From these two lines, one can extract the two ids 
-    of the atoms of types 6, 3216 and 3151, respectively. 
-    Let us then create two additional groups by adding to 
-    *input.lammps*:
-
-..  code-block:: lammps
-
-    group topull1 id 3216
-    group topull2 id 3151
-
-..  container:: justify
-
-    The values of the atom id may be different in your case. 
-    Be sure to use the id values corresponding to the atoms 
-    of your system.
+    group PEG type 3 4 5 6 7 8
+    group topull1 type 6
+    group topull2 type 7
 
 ..  container:: justify
 
@@ -943,7 +878,7 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    Finally, let us run the simulation for 10 ps without
+    Finally, let us run the simulation for 30 ps without
     any external forcing:
 
 ..  code-block:: lammps
@@ -952,7 +887,7 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    This 30 ps run will serve a benchmark to quatify the changes
+    This first run serves a benchmark to quantify the changes
     induced by the forcing. Then, let us apply a forcing on the 2 oxygen
     atoms using two *add_force* commands, and run for an extra 30 ps:
 

@@ -735,12 +735,6 @@ the previously created folders, and create a new
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The first two variables allow us to extract the centers of mass of
-the two walls. Then, the <span class="math notranslate nohighlight">\(\delta_z\)</span>
-variable is used to calculate the distance between
-the two centers of mass.</p>
-</div>
-<div class="justify docutils container">
 <p>Finally, let us complete the <em>input.lammps</em> file
 by adding the commands to manage the atoms dynamic:</p>
 </div>
@@ -767,6 +761,12 @@ the trajectory visualization and output:</p>
 <span class="k">variable </span><span class="nv nv-Identifier">deltaz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_walltopz</span><span class="o">-</span><span class="n">v_wallbotz</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_deltaz</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">interwall_distance.dat</span>
 </pre></div>
+</div>
+<div class="justify docutils container">
+<p>The first two variables allow us to extract the centers of mass of
+the two walls. Then, the <span class="math notranslate nohighlight">\(\delta_z\)</span>
+variable is used to calculate the distance between
+the two centers of mass.</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, let us add the <em>run</em> command:</p>

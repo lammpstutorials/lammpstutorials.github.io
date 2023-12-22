@@ -36,12 +36,9 @@ read_data ../mergePEGH2O/mix.data
 include ../PARM.lammps
 
 group H2O type 1 2
-group PEG type 3 4 5 6 7
-
-group topull type 6
-write_dump topull atom topull.lammpstrj
-group topull1 id 3216
-group topull2 id 3151
+group PEG type 3 4 5 6 7 8
+group topull1 type 6
+group topull2 type 7
 
 dump mydmp all atom 1000 dump.lammpstrj
 
@@ -53,7 +50,7 @@ fix mynvt all nvt temp 300 300 100
 #fix myrct PEG recenter INIT INIT INIT
 
 variable mytemp equal temp
-fix myat1 all ave/time 10 10 100 v_mytemp file output-temperature.dat
+fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
 variable x1 equal xcm(topull1,x)
 variable x2 equal xcm(topull2,x)
 variable y1 equal xcm(topull1,y)
@@ -61,7 +58,7 @@ variable y2 equal xcm(topull2,y)
 variable z1 equal xcm(topull1,z)
 variable z2 equal xcm(topull2,z)
 variable delta_r equal sqrt((v_x1-v_x2)^2+(v_y1-v_y2)^2+(v_z1-v_z2)^2)
-fix myat2 all ave/time 10 10 100 v_delta_r file output-end-to-end-distance.dat
+fix myat2 all ave/time 10 10 100 v_delta_r file end-to-end-distance.dat
 thermo 1000
 
 compute bond_H2O H2O bond/local dist # engpot
@@ -79,7 +76,7 @@ compute bond_PEG PEG bond/local dist # engpot
 #fix myah3 all ave/histo 100 80 10000 0 180 300 c_angle_H2O file angle_H2O_free.dat mode vector
 #fix myah4 all ave/histo 100 80 10000 0.5 2.0 300 c_bond_PEG file bond_PEG_free.dat mode vector
 
-run 10000
+run 30000
 
 #unfix myah1
 #unfix myah2
@@ -94,4 +91,4 @@ fix myaf2 topull2 addforce -${f0} 0 0
 #fix myah3 all ave/histo 100 80 10000 0 180 300 c_angle_H2O file angle_H2O_pull.dat mode vector
 #fix myah4 all ave/histo 100 80 10000 0.5 2.0 300 c_bond_PEG file bond_PEG_pull.dat mode vector
 
-run 10000
+run 30000
