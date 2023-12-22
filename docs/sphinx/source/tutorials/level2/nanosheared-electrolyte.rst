@@ -601,13 +601,6 @@ System equilibration
 
 ..  container:: justify
 
-    The first two variables allow us to extract the centers of mass of
-    the two walls. Then, the :math:`\delta_z`
-    variable is used to calculate the distance between
-    the two centers of mass.
-
-..  container:: justify
-
     Finally, let us complete the *input.lammps* file
     by adding the commands to manage the atoms dynamic:
 
@@ -638,6 +631,13 @@ System equilibration
     variable wallbotz equal xcm(wallbot,z)
     variable deltaz equal v_walltopz-v_wallbotz
     fix myat1 all ave/time 100 1 100 v_deltaz file interwall_distance.dat
+
+..  container:: justify
+
+    The first two variables allow us to extract the centers of mass of
+    the two walls. Then, the :math:`\delta_z`
+    variable is used to calculate the distance between
+    the two centers of mass.
 
 ..  container:: justify
 
