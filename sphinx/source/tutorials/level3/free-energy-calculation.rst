@@ -341,7 +341,17 @@ The limits of free sampling
     If we increase the value of :math:`U_0`, the average number of
     atoms in the central region will decrease, making it
     difficult to obtain a good resolution for the free energy
-    profile.
+    profile. For instance, using :math:`U_0 = 10 \epsilon`,
+    not a single atom crosses the central part of the simulation,
+    despite the 8 ns of simulation.
+
+.. figure:: ../figures/level3/free-energy-calculation/density_profile_large_potential-light.png
+   :alt: Averaged density profile with large potential
+   :class: only-light
+
+.. figure:: ../figures/level3/free-energy-calculation/density_profile_large_potential-dark.png
+   :alt: Averaged density profile  large potential
+   :class: only-dark
 
 ..  container:: justify
 
