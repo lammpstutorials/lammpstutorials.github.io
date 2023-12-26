@@ -366,7 +366,11 @@ Extract radial distribution function
 .. container:: justify
 
     You can download the |input_PEG_RDF| file I wrote. 
-    
+
+.. |input_PEG_RDF| raw:: html
+
+    <a href="../../../../inputs/level2/polymer-in-water/exercises/radial-distribution-function/input.lammps" target="_blank">input</a>
+
 .. container:: justify
 
     I use the *compute rdf* command of LAMMPS
@@ -379,10 +383,6 @@ Extract radial distribution function
         
     compute myRDF_PEG_H2O all rdf 200 1 8 2 8 cutoff 10
     fix myat2 all ave/time 10 4000 50000 c_myRDF_PEG_H2O[*] file PEG-H2O-initial.dat mode vector
-    
-.. |input_PEG_RDF| raw:: html
-
-    <a href="../../../../inputs/level2/polymer-in-water/exercises/radial-distribution-function/input.lammps" target="_blank">input</a>
 
 Add salt to the mixture
 -----------------------
