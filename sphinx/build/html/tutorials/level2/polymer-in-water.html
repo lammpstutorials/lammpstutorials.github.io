@@ -240,21 +240,21 @@
 <a class="only-light reference internal image-reference" href="../../_images/PEG-light.webp"><img alt="Movie of a peg molecule in water as simulated with LAMMPS" class="only-light" src="../../_images/PEG-light.webp" style="height: 250px;" /></a>
 </figure>
 <div class="justify docutils container">
-<p>The goal of this tutorial is to use LAMMPS and
-create a small hydrophilic polymer (PEG -
-PolyEthylene Glycol) in a reservoir of water.
-An all-atom description is used for all species.
-Once the system is created, a constant stretching force is applied to both
+<p>The goal of this tutorial is to use LAMMPS and solvate a small
+hydrophilic polymer (PEG - PolyEthylene Glycol) in a reservoir of water.
+An all-atom description is used for all species, and the long
+range Coulomb interaction are solved. Once the system is properly
+equilibrated, a constant stretching force is applied to both
 ends of the polymer, and the evolution of its length with time
-will be measured.</p>
+is measured.</p>
 </div>
 <div class="justify docutils container">
-<p>This tutorial was inspired by a very nice <a href="https://doi.org/10.1021/acsnano.6b07071" target="_blank">publication</a> by Liese and coworkers, in which
-they compare molecular dynamics simulations with force spectroscopy experiments.</p>
+<p>This tutorial was inspired by a <a href="https://doi.org/10.1021/acsnano.6b07071" target="_blank">publication</a> by Liese and coworkers, in which
+molecular dynamics simulations are compared with force spectroscopy experiments.</p>
 </div>
 <div class="justify docutils container">
 <p>If you are completely new to LAMMPS, I recommend you to follow
-this simpler tutorial first: <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a>.</p>
+this tutorial on a simple <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a> first.</p>
 </div>
 <div class="patreon admonition">
 <p class="admonition-title">I provide personal assistance for LAMMPS projects</p>
@@ -289,16 +289,19 @@ lines in it:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>With the unit style <em>real</em>,
-masses are in grams per
+<p>With the unit style <em>real</em>, masses are in grams per
 mole, distances in Ångstroms, time in femtoseconds, energies
 in Kcal/mole. With the <em>atom_style full</em>, each atom is a dot
 with a mass and a charge that can be
 linked by bonds, angles, dihedrals and impropers. The <em>bond_style</em>,
 <em>angle_style</em>, and <em>dihedral_style</em> commands define the
-styles of bond angle, and dihedrals used in the simulation,
-respectively, and the <em>harmonic</em> keyword
-imposes the form of the potentials.</p>
+potentials for the bonds, angles, and dihedrals used in the simulation,
+here <em>harmonic</em>.</p>
+</div>
+<div class="justify docutils container">
+<p>Always refer to the LAMMPS <a href="https://docs.lammps.org/" target="_blank">documentation</a> if you have doubts about the
+potential used by LAMMPS. For instance, this <a href="https://docs.lammps.org/angle_harmonic.html" target="_blank">page</a>
+gives the expression for the harmonic angular potential.</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, the <em>special_bonds</em> command cancels the
@@ -307,27 +310,29 @@ atoms of a same molecule.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About <em>special bonds</em></p>
-<p>Usually, molecular dynamics force fields are parametrized assuming that the first neighbors within a molecule do not
-interact directly though LJ or Coulomb potential. Here, since we use <em>lj 0.0 0.0 0.5</em>, the first and second
+<p>Usually, molecular dynamics force fields are parametrized assuming that
+the first neighbors within a molecule do not
+interact directly though LJ or Coulomb potential. Here, since we
+use <em>lj 0.0 0.0 0.5</em> and <em>coul 0.0 0.0 1.0</em>, the first and second
 neighbors in a molecule only interact through direct bond interactions.
 For the third neighbor (here third neighbor only concerns the PEG molecule, not the water),
 only half of the LJ interaction will be taken into account, and the full Coulomb interaction
-will be present.</p>
+will be used.</p>
 </div>
 <div class="justify docutils container">
 <p>With the <em>pair_style</em> named <em>lj/cut/coul/long</em>, atoms
 interact through both a Lennard-Jones (LJ) potential and
-Coulombic interactions. The value of <em>12</em> is
-the cut off for the short range interactions.</p>
+Coulombic interactions. The value of <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span> is
+the cutoff.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About cutoff in molecular dynamics</p>
-<p>The cutoff of 12 Ångstroms applies to both LJ and Coulombic
+<p>The cutoff of <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span> applies to both LJ and Coulombic
 interactions, but in a different way. For LJ <em>cut</em>
 interactions, atoms interact with each others only if they
 are separated by a distance smaller than the cutoff. For
-Coulombic <em>long</em>, interaction between atoms closer than
-the cutoff are computed directly, and interaction between
+Coulombic <em>long</em>, interactions between atoms closer than
+the cutoff are computed directly, and interactions between
 atoms outside that cutoff are computed in the reciprocal space.</p>
 </div>
 <div class="justify docutils container">
@@ -396,18 +401,19 @@ define what a water molecule is using a molecule <em>template</em> called
 Add the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">FlexibleH2O.txt</span>
-<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">350</span><span class="w"> </span><span class="m">456415</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">454756</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">350</span><span class="w"> </span><span class="m">45615</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">14756</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The <em>overlap 1.0</em> option of the <em>create_atoms</em> command ensures that no atoms are
+<p>The <em>overlap 1</em> option of the <em>create_atoms</em> command ensures that no atoms are
 placed exactly at the same position, as this would cause the simulation to
 crash. The <em>maxtry 50</em> asks LAMMPS to try at most
-50 times to insert the molecules, which is useful in case some of the
-insertion attempt are rejected due to overlap. In some case, depending on
+50 times to insert the molecules, which is useful in case some
+insertion attempts are rejected due to overlap. In some case, depending on
 the system and on the values of <em>overlap</em>
-and <em>maxtry</em>, LAMMPS may not create the desired number of molecules. We
-can check in the <em>log</em> file that it is indeed the case:</p>
+and <em>maxtry</em>, LAMMPS may not create the desired number of molecules.
+Always check the number of created atoms in the <em>log</em> file after
+starting the simulation:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Created 1050 atoms
 </pre></div>
@@ -422,8 +428,7 @@ can be <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/FlexibleH2
 and saved in the <em>pureH2O/</em> folder.
 This template contains the necessary structural
 information of a water molecule, such as the number of atoms,
-which pair of atoms are connected by bonds, which
-groups of atoms are connected by angles, etc.</p>
+the id of the atoms that are connected by bonds, by angles, etc.</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us organize the atoms of type 1 and 2 of the water molecules in a group named
@@ -466,28 +471,25 @@ print the information in the terminal every 1000 steps:</p>
 <span class="k">variable </span><span class="nv nv-Identifier">myvol</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">vol</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_mytemp</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">temperature.dat</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_myvol</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">volume.dat</span>
-<span class="k">variable </span><span class="nv nv-Identifier">myoxy</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(H2O)</span><span class="o">/</span><span class="m">3</span><span class="w"> </span><span class="c"># divide by 3 to get the number of molecule, not atom</span>
+<span class="k">variable </span><span class="nv nv-Identifier">myoxy</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(H2O)</span><span class="o">/</span><span class="m">3</span>
 <span class="k">variable </span><span class="nv nv-Identifier">mydensity</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="nv">${myoxy}</span><span class="o">/</span><span class="n">v_myvol</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat3</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_mydensity</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">density.dat</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
 </pre></div>
 </div>
+<div class="justify docutils container">
+<p>The variable <em>myoxy</em> corresponds to the number of atoms
+divided by 3, i.e. the number of molecules.</p>
+</div>
 <div class="info admonition">
 <p class="admonition-title">On calling variables in LAMMPS</p>
-<p>Both <span class="math notranslate nohighlight">\(\$ \text{var}\)</span> and <span class="math notranslate nohighlight">\(v_\text{var}\)</span> can be used to
-call a previously defined variable named <em>var</em>.
-However, <span class="math notranslate nohighlight">\(\$ \text{var}\)</span> returns the initial value of <em>var</em>,
-while <span class="math notranslate nohighlight">\(v_\text{var}\)</span> returns the instantaneous value of <em>var</em>.
-In the case where we want to probe the evolution of a variable with time,
-<span class="math notranslate nohighlight">\(v_\text{var}\)</span> must be used.</p>
-</div>
-<div class="justify docutils container">
-<p>In the formula for the density (number of
-molecule divided by volume), the underscore <em>_</em> is used to
-call <em>myvol</em> because the volume is expected
-to evolve in time when using <em>fix npt</em>, but the dollar sign <span class="math notranslate nohighlight">\(\$\)</span>
-is used to call <em>myoxy</em> as the number of molecules is not
-expected to change during the simulation.</p>
+<p>Both dollar sign (<span class="math notranslate nohighlight">\(\$\)</span>)
+and underscore (<span class="math notranslate nohighlight">\(v_\text{var}\)</span>) can be used to
+call a previously defined variable.
+With the dollar sign, the initial value of of the variable is returned,
+while with the underscore, the instantaneous value of the variable is returned.
+To probe the temporal evolution of a variable with time,
+the underscore must be used.</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, let us set the timestep to 1.0 fs,
@@ -503,16 +505,14 @@ following lines to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The <em>replicate</em> command is used to replicate the cubic
+<p>The <em>replicate</em> command is used to replicate the final cubic
 box three times along
 the <em>x</em> direction, thus creating a rectangular box of water
 just before the final state is written into <em>H2O.data</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you open the <em>dump.lammpstrj</em> file using VMD, you should
-see the system quickly reaching its equilibrium volume and density.
-Here is a snapshot of the final state of the simulation, after
-the <em>replicate 3 1 1</em> command:</p>
+see the system quickly reaching its equilibrium volume and density.</p>
 </div>
 <figure class="align-default">
 <img alt="Curves showing the equilibration of the water reservoir" class="only-light" src="../../_images/water-light.png" />
@@ -521,13 +521,14 @@ the <em>replicate 3 1 1</em> command:</p>
 <img alt="Curves showing the equilibration of the water reservoir" class="only-dark" src="../../_images/water-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Water reservoir after equilibration. Oxygen atoms are in red, and
+<p>Figure: Water reservoir after equilibration and after
+the <em>replicate 3 1 1</em> command. Oxygen atoms are in red, and
 hydrogen atoms in white.</p>
 </div>
 <div class="justify docutils container">
 <p>You can also open the <em>density.dat</em> file
 to ensure that the system converged toward an equilibrated
-liquid water system during the 50 ps of simulation:</p>
+liquid water system during the 50 ps of simulation.</p>
 </div>
 <figure class="align-default">
 <img alt="Curves showing the equilibration of the water reservoir" class="only-light" src="../../_images/density_H2O-light.png" />
@@ -537,7 +538,8 @@ liquid water system during the 50 ps of simulation:</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Evolution of the density of water with time. The
-density <span class="math notranslate nohighlight">\(\rho\)</span> reaches a plateau after <span class="math notranslate nohighlight">\(\approx 30\,\text{ps}\)</span>.</p>
+density <span class="math notranslate nohighlight">\(\rho\)</span> reaches
+a plateau after <span class="math notranslate nohighlight">\(\approx 30\,\text{ps}\)</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>If needed, you can <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a>

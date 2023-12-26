@@ -21,18 +21,18 @@ Polymer in water
 
 ..  container:: justify
 
-   The goal of this tutorial is to use LAMMPS and
-   create a small hydrophilic polymer (PEG -
-   PolyEthylene Glycol) in a reservoir of water. 
-   An all-atom description is used for all species.
-   Once the system is created, a constant stretching force is applied to both
+   The goal of this tutorial is to use LAMMPS and solvate a small
+   hydrophilic polymer (PEG - PolyEthylene Glycol) in a reservoir of water. 
+   An all-atom description is used for all species, and the long
+   range Coulomb interaction are solved. Once the system is properly
+   equilibrated, a constant stretching force is applied to both
    ends of the polymer, and the evolution of its length with time
-   will be measured.
+   is measured.
 
 ..  container:: justify
 
-   This tutorial was inspired by a very nice |Liese2017| by Liese and coworkers, in which
-   they compare molecular dynamics simulations with force spectroscopy experiments.
+   This tutorial was inspired by a |Liese2017| by Liese and coworkers, in which
+   molecular dynamics simulations are compared with force spectroscopy experiments.
 
 .. |Liese2017| raw:: html
 
@@ -76,16 +76,28 @@ The water
 
 ..  container:: justify
 
-    With the unit style *real*,
-    masses are in grams per
+    With the unit style *real*, masses are in grams per
     mole, distances in Ångstroms, time in femtoseconds, energies
     in Kcal/mole. With the *atom_style full*, each atom is a dot
     with a mass and a charge that can be
     linked by bonds, angles, dihedrals and impropers. The *bond_style*,
     *angle_style*, and *dihedral_style* commands define the
-    styles of bond angle, and dihedrals used in the simulation,
-    respectively, and the *harmonic* keyword
-    imposes the form of the potentials.
+    potentials for the bonds, angles, and dihedrals used in the simulation,
+    here *harmonic*.
+
+..  container:: justify
+
+    Always refer to the LAMMPS |lammps_documentation| if you have doubts about the
+    potential used by LAMMPS. For instance, this |lammps_documentation_angle_harmonic|
+    gives the expression for the harmonic angular potential.
+
+.. |lammps_documentation| raw:: html
+
+   <a href="https://docs.lammps.org/" target="_blank">documentation</a>
+
+.. |lammps_documentation_angle_harmonic| raw:: html
+
+   <a href="https://docs.lammps.org/angle_harmonic.html" target="_blank">page</a>
 
 ..  container:: justify
 
@@ -96,29 +108,31 @@ The water
 .. admonition:: About *special bonds*
     :class: info
 
-    Usually, molecular dynamics force fields are parametrized assuming that the first neighbors within a molecule do not
-    interact directly though LJ or Coulomb potential. Here, since we use *lj 0.0 0.0 0.5*, the first and second
+    Usually, molecular dynamics force fields are parametrized assuming that
+    the first neighbors within a molecule do not
+    interact directly though LJ or Coulomb potential. Here, since we
+    use *lj 0.0 0.0 0.5* and *coul 0.0 0.0 1.0*, the first and second
     neighbors in a molecule only interact through direct bond interactions.
     For the third neighbor (here third neighbor only concerns the PEG molecule, not the water),
     only half of the LJ interaction will be taken into account, and the full Coulomb interaction
-    will be present.   
+    will be used.   
 
 ..  container:: justify
 
     With the *pair_style* named *lj/cut/coul/long*, atoms
     interact through both a Lennard-Jones (LJ) potential and
-    Coulombic interactions. The value of *12* is 
-    the cut off for the short range interactions.
+    Coulombic interactions. The value of :math:`12\,\text{Å}` is 
+    the cutoff.
 
 .. admonition:: About cutoff in molecular dynamics
     :class: info
 
-    The cutoff of 12 Ångstroms applies to both LJ and Coulombic
+    The cutoff of :math:`12\,\text{Å}` applies to both LJ and Coulombic
     interactions, but in a different way. For LJ *cut*
     interactions, atoms interact with each others only if they
     are separated by a distance smaller than the cutoff. For
-    Coulombic *long*, interaction between atoms closer than
-    the cutoff are computed directly, and interaction between
+    Coulombic *long*, interactions between atoms closer than
+    the cutoff are computed directly, and interactions between
     atoms outside that cutoff are computed in the reciprocal space.
 
 ..  container:: justify
@@ -207,18 +221,19 @@ The water
 ..  code-block:: lammps
 
     molecule h2omol FlexibleH2O.txt
-    create_atoms 0 random 350 456415 NULL mol h2omol 454756 overlap 1.0 maxtry 50
+    create_atoms 0 random 350 45615 NULL mol h2omol 14756 overlap 1 maxtry 50
 
 ..  container:: justify
 
-    The *overlap 1.0* option of the *create_atoms* command ensures that no atoms are
+    The *overlap 1* option of the *create_atoms* command ensures that no atoms are
     placed exactly at the same position, as this would cause the simulation to
     crash. The *maxtry 50* asks LAMMPS to try at most
-    50 times to insert the molecules, which is useful in case some of the
-    insertion attempt are rejected due to overlap. In some case, depending on
+    50 times to insert the molecules, which is useful in case some
+    insertion attempts are rejected due to overlap. In some case, depending on
     the system and on the values of *overlap*
-    and *maxtry*, LAMMPS may not create the desired number of molecules. We 
-    can check in the *log* file that it is indeed the case:
+    and *maxtry*, LAMMPS may not create the desired number of molecules.
+    Always check the number of created atoms in the *log* file after
+    starting the simulation:
 
 ..  code-block:: bw
 
@@ -236,8 +251,7 @@ The water
     and saved in the *pureH2O/* folder.
     This template contains the necessary structural
     information of a water molecule, such as the number of atoms, 
-    which pair of atoms are connected by bonds, which
-    groups of atoms are connected by angles, etc.
+    the id of the atoms that are connected by bonds, by angles, etc.
 
 .. |download_FlexibleH2O.txt| raw:: html
 
@@ -293,29 +307,26 @@ The water
    variable myvol equal vol
    fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
    fix myat2 all ave/time 10 10 100 v_myvol file volume.dat
-   variable myoxy equal count(H2O)/3 # divide by 3 to get the number of molecule, not atom
+   variable myoxy equal count(H2O)/3
    variable mydensity equal ${myoxy}/v_myvol
    fix myat3 all ave/time 10 10 100 v_mydensity file density.dat
    thermo 1000
 
+..  container:: justify
+
+    The variable *myoxy* corresponds to the number of atoms
+    divided by 3, i.e. the number of molecules.
+
 .. admonition:: On calling variables in LAMMPS
     :class: info
 
-    Both :math:`\$ \text{var}` and :math:`v_\text{var}` can be used to
-    call a previously defined variable named *var*. 
-    However, :math:`\$ \text{var}` returns the initial value of *var*,
-    while :math:`v_\text{var}` returns the instantaneous value of *var*. 
-    In the case where we want to probe the evolution of a variable with time,
-    :math:`v_\text{var}` must be used.
-
-..  container:: justify
-
-    In the formula for the density (number of
-    molecule divided by volume), the underscore *_* is used to
-    call *myvol* because the volume is expected
-    to evolve in time when using *fix npt*, but the dollar sign :math:`\$`
-    is used to call *myoxy* as the number of molecules is not
-    expected to change during the simulation.
+    Both dollar sign (:math:`\$`)
+    and underscore (:math:`v_\text{var}`) can be used to
+    call a previously defined variable. 
+    With the dollar sign, the initial value of of the variable is returned,
+    while with the underscore, the instantaneous value of the variable is returned. 
+    To probe the temporal evolution of a variable with time,
+    the underscore must be used.
 
 ..  container:: justify
 
@@ -334,7 +345,7 @@ The water
 
 ..  container:: justify
 
-    The *replicate* command is used to replicate the cubic
+    The *replicate* command is used to replicate the final cubic
     box three times along 
     the *x* direction, thus creating a rectangular box of water 
     just before the final state is written into *H2O.data*.
@@ -421,8 +432,6 @@ The water
 
    If you open the *dump.lammpstrj* file using VMD, you should
    see the system quickly reaching its equilibrium volume and density.
-   Here is a snapshot of the final state of the simulation, after 
-   the *replicate 3 1 1* command:
 
 .. figure:: ../figures/level2/polymer-in-water/water-light.png
     :alt: Curves showing the equilibration of the water reservoir
@@ -434,14 +443,15 @@ The water
 
 .. container:: figurelegend
 
-    Figure: Water reservoir after equilibration. Oxygen atoms are in red, and 
+    Figure: Water reservoir after equilibration and after 
+    the *replicate 3 1 1* command. Oxygen atoms are in red, and 
     hydrogen atoms in white.
 
 ..  container:: justify
 
    You can also open the *density.dat* file
    to ensure that the system converged toward an equilibrated
-   liquid water system during the 50 ps of simulation:
+   liquid water system during the 50 ps of simulation.
 
 .. figure:: ../figures/level2/polymer-in-water/density_H2O-light.png
     :alt: Curves showing the equilibration of the water reservoir
@@ -454,7 +464,8 @@ The water
 .. container:: figurelegend
 
     Figure: Evolution of the density of water with time. The
-    density :math:`\rho` reaches a plateau after :math:`\approx 30\,\text{ps}`.
+    density :math:`\rho` reaches
+    a plateau after :math:`\approx 30\,\text{ps}`.
 
 ..  container:: justify
 
