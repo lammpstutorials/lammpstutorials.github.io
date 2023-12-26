@@ -910,6 +910,12 @@ Extract radial distribution function
     of water, as well as between the oxygen atoms of water and the 
     oxygen atoms of the PEG molecule.  
 
+.. container:: justify
+
+    Note the difference in the structure of the water before and after
+    the PEG molecule is being stretched. This effect is described in
+    the 2017 publication by Liese et al.
+
 Add salt to the mixture
 -----------------------
 
