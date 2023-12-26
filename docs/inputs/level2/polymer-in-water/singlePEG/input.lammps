@@ -33,8 +33,6 @@ special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 read_data init.data
 include ../PARM.lammps
 
-group PEG type 3 4 5 6 7
-
 dump mydmp all atom 10 dump.lammpstrj
 thermo 1
 
@@ -50,7 +48,7 @@ dump mydmp all atom 1000 dump.lammpstrj
 dump_modify mydmp append yes
 thermo 1000
 variable mytemp equal temp
-fix myat1 all ave/time 10 10 100 v_mytemp file output-temperature.dat
+fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
 
 timestep 1
 run 10000
