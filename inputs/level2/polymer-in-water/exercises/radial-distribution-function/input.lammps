@@ -21,6 +21,8 @@
 # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠈⠉⠛⠛⠓⠚⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀
 # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⣿⣿⣿⣿⡿⠟⠋⠀
 
+variable f0 equal 5 # kcal/mol/A # 1 kcal/mol/A = 67.2 pN
+
 units real
 atom_style full
 bond_style harmonic
@@ -33,21 +35,28 @@ special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 read_data ../../mergePEGH2O/mix.data
 include ../../PARM.lammps
 
-group H2O type 1 2
-group PEG type 3 4 5 6 7
+group H2O type 8 9
+group PEG type 1 2 3 4 5 6 7
+group topull1 type 6
+group topull2 type 7
 
+dump mydmp all atom 1000 dump.lammpstrj
+
+timestep 1
 fix mynvt all nvt temp 300 300 100
-timestep 1.0
 
-thermo 10000
-dump mydmp all atom 10000 dump.lammpstrj
+thermo 1000
 
-# H2O (type 1) - H2O (type 1)
-compute myRDF_H2O_H2O all rdf 200 1 1 cutoff 10
-fix myat1 all ave/time 10 20000 200000 c_myRDF_H2O_H2O[*] file H2O-H2O.dat mode vector
+compute myRDF_PEG_H2O all rdf 200 1 8 2 8 cutoff 10
+fix myat2 all ave/time 10 4000 50000 c_myRDF_PEG_H2O[*] file PEG-H2O-initial.dat mode vector
 
-# PEG (type 3, 4, and 6) - H2O (type 1)
-compute myRDF_PEG_H2O all rdf 200 3 1 4 1 6 1 cutoff 10
-fix myat2 all ave/time 10 20000 200000 c_myRDF_PEG_H2O[*] file PEG-H2O.dat mode vector
+run 50000
 
-run 200000
+unfix myat2
+
+fix myaf1 topull1 addforce ${f0} 0 0
+fix myaf2 topull2 addforce -${f0} 0 0
+
+fix myat2 all ave/time 10 4000 50000 c_myRDF_PEG_H2O[*] file PEG-H2O-final.dat mode vector
+
+run 50000

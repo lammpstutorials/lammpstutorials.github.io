@@ -500,17 +500,17 @@ as done here using the <em>change_box</em> command.</p>
 <section id="extract-radial-distribution-function">
 <h3>Extract radial distribution function<a class="headerlink" href="#extract-radial-distribution-function" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>You can download the <a href="../../../../inputs/level2/polymer-in-water/exercises/radial-distribution-function/input.lammps" target="_blank">input</a> file I wrote. I use
-the <em>compute rdf</em> command of LAMMPS. I define two different <em>compute</em>,
-one for the H2O-H2O RDF, and another one for the H2O-PEG RDF:</p>
+<p>You can download the <a href="../../../../inputs/level2/polymer-in-water/exercises/radial-distribution-function/input.lammps" target="_blank">input</a> file I wrote.</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># H2O (type 1) - H2O (type 1)</span>
-<span class="k">compute </span><span class="nv nv-Identifier">myRDF_H2O_H2O</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">rdf</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">10</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">c_myRDF_H2O_H2O[</span><span class="o">*</span><span class="n">]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">H2O</span><span class="o">-</span><span class="n">H2O.dat</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">vector</span>
-
-<span class="c"># PEG (type 3, 4, and 6) - H2O (type 1)</span>
-<span class="k">compute </span><span class="nv nv-Identifier">myRDF_PEG_H2O</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">rdf</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">10</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">c_myRDF_PEG_H2O[</span><span class="o">*</span><span class="n">]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">PEG</span><span class="o">-</span><span class="n">H2O.dat</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">vector</span>
+<div class="justify docutils container">
+<p>I use the <em>compute rdf</em> command of LAMMPS
+to extract the RDF between atoms of type 8 (oxygen from water)
+and one of the oxygen type from the PEG (1).
+The 10 first pico seconds are disregarded. Then, once the force
+is applied to the PEG, a second <em>fix ave/time</em> is used.</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">myRDF_PEG_H2O</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">rdf</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">10</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">4000</span><span class="w"> </span><span class="m">50000</span><span class="w"> </span><span class="n">c_myRDF_PEG_H2O[</span><span class="o">*</span><span class="n">]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">PEG</span><span class="o">-</span><span class="n">H2O</span><span class="o">-</span><span class="n">initial.dat</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">vector</span>
 </pre></div>
 </div>
 </section>

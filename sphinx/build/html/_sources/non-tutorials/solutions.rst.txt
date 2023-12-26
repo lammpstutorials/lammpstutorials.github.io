@@ -365,19 +365,20 @@ Extract radial distribution function
 
 .. container:: justify
 
-    You can download the |input_PEG_RDF| file I wrote. I use 
-    the *compute rdf* command of LAMMPS. I define two different *compute*,
-    one for the H2O-H2O RDF, and another one for the H2O-PEG RDF:
+    You can download the |input_PEG_RDF| file I wrote. 
+    
+.. container:: justify
+
+    I use the *compute rdf* command of LAMMPS
+    to extract the RDF between atoms of type 8 (oxygen from water)
+    and one of the oxygen type from the PEG (1).
+    The 10 first pico seconds are disregarded. Then, once the force
+    is applied to the PEG, a second *fix ave/time* is used.
 
 ..  code-block:: lammps
         
-    # H2O (type 1) - H2O (type 1)
-    compute myRDF_H2O_H2O all rdf 200 1 1 cutoff 10
-    fix myat1 all ave/time 10 20000 200000 c_myRDF_H2O_H2O[*] file H2O-H2O.dat mode vector
-
-    # PEG (type 3, 4, and 6) - H2O (type 1)
-    compute myRDF_PEG_H2O all rdf 200 3 1 4 1 6 1 cutoff 10
-    fix myat2 all ave/time 10 20000 200000 c_myRDF_PEG_H2O[*] file PEG-H2O.dat mode vector
+    compute myRDF_PEG_H2O all rdf 200 1 8 2 8 cutoff 10
+    fix myat2 all ave/time 10 4000 50000 c_myRDF_PEG_H2O[*] file PEG-H2O-initial.dat mode vector
     
 .. |input_PEG_RDF| raw:: html
 
