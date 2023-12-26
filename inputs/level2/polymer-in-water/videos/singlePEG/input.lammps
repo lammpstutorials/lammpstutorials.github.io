@@ -28,31 +28,27 @@ angle_style harmonic
 dihedral_style harmonic
 pair_style lj/cut/coul/long 12
 kspace_style pppm 1e-5
-special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes
+special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 
-region box block -20 20 -20 20 -20 20
-create_box 7 box &
-bond/types 6 &
-angle/types 9 &
-dihedral/types 3 &
-extra/bond/per/atom 2 &
-extra/angle/per/atom 1 &
-extra/special/per/atom 2
-
+read_data init.data
 include ../../PARM.lammps
 
-molecule h2omol FlexibleH2O.txt
-create_atoms 0 random 500 456415 NULL mol h2omol 454756 overlap 1.0 maxtry 50
-group H2O type 1 2
+group PEG type 1 2 3 4 5 6 7
+
+dump mydmp all atom 10 dump.lammpstrj
+thermo 1
+
 minimize 1.0e-4 1.0e-6 100 1000
+
+undump mydmp
 reset_timestep 0
 
-fix mynpt all npt temp 300 300 100 iso 1 1 1000
+fix mynve all nve
+fix myber all temp/berendsen 300 300 100
 
-timestep 1.0
+dump mydmp all atom 10 dump.lammpstrj
+dump_modify mydmp append yes
 thermo 1000
-run 50000
 
-# replicate 3 1 1
-
-write_data H2O.data
+timestep 1
+run 10000

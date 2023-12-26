@@ -31,9 +31,9 @@ kspace_style pppm 1e-5
 special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes
 
 region box block -15 15 -15 15 -15 15
-create_box 8 box &
+create_box 9 box &
 bond/types 6 &
-angle/types 9 &
+angle/types 15 &
 dihedral/types 3 &
 extra/bond/per/atom 2 &
 extra/angle/per/atom 1 &
@@ -43,7 +43,7 @@ include ../PARM.lammps
 
 molecule h2omol FlexibleH2O.txt
 create_atoms 0 random 350 456415 NULL mol h2omol 454756 overlap 1.0 maxtry 50
-group H2O type 1 2
+group H2O type 8 9
 minimize 1.0e-4 1.0e-6 100 1000
 reset_timestep 0
 

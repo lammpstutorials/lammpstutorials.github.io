@@ -166,9 +166,9 @@ The water
 ..  code-block:: lammps
 
     region box block -15 15 -15 15 -15 15
-    create_box 8 box &
+    create_box 9 box &
     bond/types 6 &
-    angle/types 9 &
+    angle/types 15 &
     dihedral/types 3 &
     extra/bond/per/atom 2 &
     extra/angle/per/atom 1 &
@@ -205,8 +205,8 @@ The water
 ..  container:: justify
 
     Within *PARM.lammps*, the *mass* and *pair_coeff* of atoms
-    of type 1 and 2 are for water, while 
-    those of atoms type 3 to 8 are for the PEG
+    of type 8 and 9 are for water, while 
+    those of atoms type 1 to 7 are for the PEG
     molecule. Similarly, the *bond_coeff 1* and 
     *angle_coeff 1* are for water, while all
     the other parameters are for the PEG.
@@ -259,14 +259,14 @@ The water
 
 ..  container:: justify
 
-    Then, let us organize the atoms of type 1 and 2 of the water molecules in a group named
+    Then, let us organize the atoms of type 8 and 9 of the water molecules in a group named
     *H2O*, and then perform a small energy minimization. The energy minimization
     is mandatory here given the small *overlap* value of 1 Angstrom chosen in the *create_atoms*
     command. Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
-    group H2O type 1 2
+    group H2O type 8 9
     minimize 1.0e-4 1.0e-6 100 1000
     reset_timestep 0
 
@@ -349,84 +349,6 @@ The water
     box three times along 
     the *x* direction, thus creating a rectangular box of water 
     just before the final state is written into *H2O.data*.
-
-..
-    TO BE PLACED IN A DEDICATED ANNEXE
-    .. admonition:: Running LAMMPS in parallel
-        :class: info
-
-        This simulation may be a bit slow to complete on 1 single CPU core.
-        You can speed it up by running LAMMPS on 2, 4 or even more cores, by typing:
-
-        .. code-block:: bw
-
-            mpirun -np 8 lmp -in input.lammps
-
-        Here, 8 CPU cores are used. The command may vary, depending
-        on your OS and LAMMPS installation.
-
-    .. admonition:: Choosing the right number of cores
-        :class: dropdown
-
-        When running a simulation in parallel using more than one CPU core, LAMMPS divides the system into
-        blocks, and each core is assigned to a given block. Here, as can be seen
-        from the terminal, when using *mpirun -np 4*, LAMMPS divides 
-        the system into 4 blocks along the x axis:
-
-        .. code-block:: bw
-        
-            Created orthogonal box = (-40.000000 -15.000000 -15.000000) to (40.000000 15.000000 15.000000)
-            4 by 1 by 1 MPI processor grid
-
-        You can force LAMMPS to divide the system differently, let us say along both y and z axis,
-        by using the command (in the *input.lammps* file):
-
-        ..  code-block:: bw
-
-            processors 1 2 2
-
-        However, communication between the different cores slows down the computation, so ideally you want 
-        to minimize the size of the surface between domains. Here the default choice of LAMMPS (i.e. processors 4 1 1)
-        is certainly a better choice.
-
-        If you don't know what is the best number of processors or the best way to cut the system, just perform 
-        a short simulation and look at the log file. For instance, if I run the simulation on 1 core I get : 
-
-        .. code-block:: bw
-
-            Performance: 31.567 ns/day, 0.760 hours/ns, 182.680 timesteps/s
-
-        On 4 cores (keeping the default processors 4 1 1):
-
-        .. code-block:: bw
-
-            Performance: 109.631 ns/day, 0.219 hours/ns, 634.440 timesteps/s
-
-        This is much faster, but this is not 4 times faster, because of the cost of communicating between processors.
-
-        On 4 cores and enforcing the stupid choice: processors 1 2 2, I get
-
-        .. code-block:: bw
-
-            Performance: 99.864 ns/day, 0.240 hours/ns, 577.919 timesteps/s
-
-        Its not so bad but still not at good as 4 1 1. 
-
-        On 8 cores (the max I got), I get :
-
-        .. code-block:: bw
-
-            4 by 1 by 2 MPI processor grid
-
-            ...
-
-            Performance: 152.106 ns/day, 0.158 hours/ns, 880.243 timesteps/s
-
-        So LAMMPS chooses to divide the system once along z, and 4 times along x, and the speed is improved, but again the improvement 
-        is not linear with the number of cores. 
-
-        **Choose carefully the best number of cores for your simulation so that you don't waste computational resource.
-        Sometimes it is better to run 2 simulations on 2 cores each than 1 simulation on 4 cores.**
 
 ..  container:: justify
 
@@ -511,14 +433,17 @@ The PEG molecule
 
 ..  container:: justify
 
-   |download_init.data|
-   the init.data file and save it in the *singlePEG/* folder.
+   |download_init.data| the init.data file and save it in the *singlePEG/* folder.
    It contains the initial parameters of the PEG molecules
-   (atoms, bonds, charges, etc.) that was downloaded from the ATB repository.
+   (atoms, bonds, charges, etc.), and was downloaded from the |atb_repo| repository.
 
 .. |download_init.data| raw:: html
 
    <a href="../../../../../inputs/level2/polymer-in-water/singlePEG/init.data" target="_blank">Download</a>
+
+.. |atb_repo| raw:: html
+
+   <a href="https://atb.uq.edu.au/" target="_blank">ATB</a>
 
 ..  container:: justify
 
@@ -534,9 +459,7 @@ The PEG molecule
 
 ..  container:: justify
 
-    Next, let us perform a minimization of energy. Here, this
-    step is required because the initial configuration of the
-    PEG molecule is really far from equilibrium. Add the following line
+    Next, let us perform a minimization of energy. Add the following line
     to *input.lammps*:
 
 ..  code-block:: lammps
@@ -577,7 +500,7 @@ The PEG molecule
     dump_modify mydmp append yes
     thermo 1000
     variable mytemp equal temp
-    fix myat1 all ave/time 10 10 100 v_mytemp file output-temperature.dat
+    fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
 
 ..  container:: justify
 
@@ -609,8 +532,12 @@ The PEG molecule
 ..  container:: figurelegend
 
     Figure: The PEG molecule in vacuum.
-    The carbon atoms are in pink, the oxygen atoms in red, and the hydrogen
-    atoms in white. 
+    The carbon atoms are in gray, the oxygen atoms in red, and the hydrogen
+    atoms in white. See the corresponding |peg_in_vacuum|.
+
+.. |peg_in_vacuum| raw:: html
+
+    <a href="https://youtu.be/E3nV66ErMo8" target="_blank">video</a>
     
 ..  container:: justify
 
@@ -626,7 +553,7 @@ Solvated PEG
 
 ..  container:: justify
 
-    Once both the water and the PEG are equilibrated, 
+    Once both the water and the PEG are equilibrated separately, 
     we can safely merge the two systems before performing the 
     pull experiment on the polymer.
 
@@ -638,7 +565,7 @@ Mixing the PEG with water
     To merge the two systems, let us:
 
     - (1) import both previously generated data files (PEG.data and H2O.data) into the same simulation,
-    - (2) delete the overlapping molecules, and 
+    - (2) delete the water molecules that are overlapping with the PEG molecule, and 
     - (3) re-equilibrate the new system. 
 
 ..  container:: justify
@@ -667,7 +594,10 @@ Mixing the PEG with water
 
 ..  code-block:: lammps
 
-    read_data ../pureH2O/H2O.data extra/bond/per/atom 2 extra/angle/per/atom 5 extra/dihedral/per/atom 9
+    read_data ../pureH2O/H2O.data &
+    extra/bond/per/atom 2 &
+    extra/angle/per/atom 5 &
+    extra/dihedral/per/atom 9
     read_data ../singlePEG/PEG.data add append shift 25 0 0
     include ../PARM.lammps
 
@@ -692,8 +622,8 @@ Mixing the PEG with water
 
 ..  code-block:: lammps
 
-    group H2O type 1 2
-    group PEG type 3 4 5 6 7 8
+    group H2O type 8 9
+    group PEG type 1 2 3 4 5 6 7
 
 ..  container:: justify
 
@@ -763,10 +693,6 @@ Mixing the PEG with water
     or have a look at the evolution of the volume in *volume.dat*,
     you should see that the box dimension slightly evolves along *x*
     to accomodate the new configuration.
-    
-..  container:: justify
-
-    The final system looks like that:
 
 .. figure:: ../figures/level2/polymer-in-water/solvatedPEG_light.png
    :alt: PEG in water
@@ -779,7 +705,7 @@ Mixing the PEG with water
 .. container:: figurelegend
 
    Figure: A single PEG molecule in water. 
-   Some water molecules are represented as a transparent continuum 
+   Water molecules are represented as a transparent continuum 
    field for clarity.
 
 Stretching the PEG molecule
@@ -803,11 +729,13 @@ Stretching the PEG molecule
 
 ..  code-block:: lammps
 
-    variable f0 equal 5 # kcal/mol/A # 1 kcal/mol/A = 67.2 pN
+    variable f0 equal 5
 
 ..  container:: justify
 
-    Then, as previouly, copy:
+    Note that :math:`1\,\text{kcal/mol/Å}` corresponds
+    to :math:`67.2\,\text{pN}`.
+    Then, copy the same lines as previouly,:
 
 ..  code-block:: lammps
 
@@ -824,7 +752,7 @@ Stretching the PEG molecule
 
     Start the simulation from the equilibrated PEG and water
     system, and include again the parameter file by
-    adding to the *input.lammps*:
+    adding the following lines to the *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -834,7 +762,7 @@ Stretching the PEG molecule
 ..  container:: justify
 
     Then, let us create 4 atom groups: H2O and PEG (as
-    previously) as well as 2 groups containing only the 
+    previously), as well as 2 groups containing only the 
     2 oxygen atoms of types 6 and 7, respectively.
     Atoms of types 6 and 7 correspond to the oxygen atoms located at the
     ends of the PEG molecule, which we are going to use 
@@ -843,8 +771,8 @@ Stretching the PEG molecule
 
 ..  code-block:: lammps
 
-    group H2O type 1 2
-    group PEG type 3 4 5 6 7 8
+    group H2O type 8 9
+    group PEG type 1 2 3 4 5 6 7
     group topull1 type 6
     group topull2 type 7
 
@@ -912,7 +840,7 @@ Stretching the PEG molecule
 
     If you open the *dump.lammpstrj* file using *VMD*, you should
     see that the PEG molecule eventually aligns in the direction
-    of the force:
+    of the force.
 
 .. figure:: ../figures/level2/polymer-in-water/pulled_peg_dark.png
     :alt: PEG molecule in water
@@ -925,8 +853,12 @@ Stretching the PEG molecule
 .. container:: figurelegend
 
     Figure: PEG molecule streched along the *x* direction in water.
-    Some water molecules are represented as a transparent continuum 
-    field for clarity.
+    Water molecules are represented as a transparent continuum 
+    field for clarity. See the corresponding |pulled_on_peg|.
+
+.. |pulled_on_peg| raw:: html
+
+    <a href="https://youtu.be/mjc6O6d9F-Y" target="_blank">video</a>
 
 ..  container:: justify
 
@@ -960,7 +892,7 @@ Extract radial distribution function
 ..  container:: justify
 
     Extract the radial distribution functions (RDF or :math:`g(r)`)
-    between water molecules, as well as between water and PEG molecules:
+    between water molecules, as well as between water molecule and the PEG molecule.
 
 .. figure:: ../figures/level2/polymer-in-water/RDF-dark.png
     :alt: RDF g(r) for water and peg

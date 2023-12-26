@@ -357,9 +357,9 @@ angle types, and 14 dihedrals types.
 Copy the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span>
-<span class="k">create_box </span><span class="nv nv-Identifier">8</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="k">create_box </span><span class="nv nv-Identifier">9</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">dihedral</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
@@ -388,8 +388,8 @@ next to the <em>pureH2O/</em> folder.</p>
 </div>
 <div class="justify docutils container">
 <p>Within <em>PARM.lammps</em>, the <em>mass</em> and <em>pair_coeff</em> of atoms
-of type 1 and 2 are for water, while
-those of atoms type 3 to 8 are for the PEG
+of type 8 and 9 are for water, while
+those of atoms type 1 to 7 are for the PEG
 molecule. Similarly, the <em>bond_coeff 1</em> and
 <em>angle_coeff 1</em> are for water, while all
 the other parameters are for the PEG.</p>
@@ -431,12 +431,12 @@ information of a water molecule, such as the number of atoms,
 the id of the atoms that are connected by bonds, by angles, etc.</p>
 </div>
 <div class="justify docutils container">
-<p>Then, let us organize the atoms of type 1 and 2 of the water molecules in a group named
+<p>Then, let us organize the atoms of type 8 and 9 of the water molecules in a group named
 <em>H2O</em>, and then perform a small energy minimization. The energy minimization
 is mandatory here given the small <em>overlap</em> value of 1 Angstrom chosen in the <em>create_atoms</em>
 command. Add the following lines to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">9</span>
 <span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
 <span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 </pre></div>
@@ -575,10 +575,9 @@ lines to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p><a href="../../../../../inputs/level2/polymer-in-water/singlePEG/init.data" target="_blank">Download</a>
-the init.data file and save it in the <em>singlePEG/</em> folder.
+<p><a href="../../../../../inputs/level2/polymer-in-water/singlePEG/init.data" target="_blank">Download</a> the init.data file and save it in the <em>singlePEG/</em> folder.
 It contains the initial parameters of the PEG molecules
-(atoms, bonds, charges, etc.) that was downloaded from the ATB repository.</p>
+(atoms, bonds, charges, etc.), and was downloaded from the <a href="https://atb.uq.edu.au/" target="_blank">ATB</a> repository.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us print the atom positions and thermodynamic
@@ -591,9 +590,7 @@ to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Next, let us perform a minimization of energy. Here, this
-step is required because the initial configuration of the
-PEG molecule is really far from equilibrium. Add the following line
+<p>Next, let us perform a minimization of energy. Add the following line
 to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
@@ -626,7 +623,7 @@ adding the following lines to <em>input.lammps</em>:</p>
 <span class="k">dump_modify </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="n">append</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
 <span class="k">variable </span><span class="nv nv-Identifier">mytemp</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">temp</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_mytemp</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">output</span><span class="o">-</span><span class="n">temperature.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_mytemp</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">temperature.dat</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -653,8 +650,8 @@ gently equilibrating until reaching a reasonable state.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: The PEG molecule in vacuum.
-The carbon atoms are in pink, the oxygen atoms in red, and the hydrogen
-atoms in white.</p>
+The carbon atoms are in gray, the oxygen atoms in red, and the hydrogen
+atoms in white. See the corresponding <a href="https://youtu.be/E3nV66ErMo8" target="_blank">video</a>.</p>
 </div>
 <div class="justify docutils container">
 <p>Alternatively, you can <a href="../../../../../inputs/level2/polymer-in-water/singlePEG/PEG.data" target="_blank">download</a>
@@ -665,7 +662,7 @@ the PEG molecule I have equilibrated and continue with the tutorial.</p>
 <section id="solvated-peg">
 <h2>Solvated PEG<a class="headerlink" href="#solvated-peg" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Once both the water and the PEG are equilibrated,
+<p>Once both the water and the PEG are equilibrated separately,
 we can safely merge the two systems before performing the
 pull experiment on the polymer.</p>
 </div>
@@ -679,7 +676,7 @@ pull experiment on the polymer.</p>
 </ol>
 </li>
 <li><ol class="arabic simple" start="2">
-<li><p>delete the overlapping molecules, and</p></li>
+<li><p>delete the water molecules that are overlapping with the PEG molecule, and</p></li>
 </ol>
 </li>
 <li><ol class="arabic simple" start="3">
@@ -709,7 +706,10 @@ previously:</p>
 and <em>PEG.data</em>, as well as the <em>PARM.lammps</em> file
 by adding that to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">pureH2O</span><span class="o">/</span><span class="n">H2O.data</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">dihedral</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">9</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">pureH2O</span><span class="o">/</span><span class="n">H2O.data</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">extra</span><span class="o">/</span><span class="n">dihedral</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">9</span>
 <span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">singlePEG</span><span class="o">/</span><span class="n">PEG.data</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">append</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 </pre></div>
@@ -730,8 +730,8 @@ by 25 Angstroms along the <em>x</em> axis.</p>
 <p>Let us create 2 groups to differentiate the PEG from the H2O,
 by adding the following lines to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
-<span class="k">group </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">8</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">9</span>
+<span class="k">group </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -791,9 +791,6 @@ or have a look at the evolution of the volume in <em>volume.dat</em>,
 you should see that the box dimension slightly evolves along <em>x</em>
 to accomodate the new configuration.</p>
 </div>
-<div class="justify docutils container">
-<p>The final system looks like that:</p>
-</div>
 <figure class="align-default">
 <img alt="PEG in water" class="only-light" src="../../_images/solvatedPEG_light.png" />
 </figure>
@@ -802,7 +799,7 @@ to accomodate the new configuration.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: A single PEG molecule in water.
-Some water molecules are represented as a transparent continuum
+Water molecules are represented as a transparent continuum
 field for clarity.</p>
 </div>
 </section>
@@ -822,11 +819,13 @@ agitation and the entropic contribution from both water
 and PEG molecules (it was chosen by trial and error). Copy
 in the <em>input.lammps</em> file:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">f0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="c"># kcal/mol/A # 1 kcal/mol/A = 67.2 pN</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">f0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Then, as previouly, copy:</p>
+<p>Note that <span class="math notranslate nohighlight">\(1\,\text{kcal/mol/Å}\)</span> corresponds
+to <span class="math notranslate nohighlight">\(67.2\,\text{pN}\)</span>.
+Then, copy the same lines as previouly,:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
@@ -841,7 +840,7 @@ in the <em>input.lammps</em> file:</p>
 <div class="justify docutils container">
 <p>Start the simulation from the equilibrated PEG and water
 system, and include again the parameter file by
-adding to the <em>input.lammps</em>:</p>
+adding the following lines to the <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">mergePEGH2O</span><span class="o">/</span><span class="n">mix.data</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
@@ -849,15 +848,15 @@ adding to the <em>input.lammps</em>:</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us create 4 atom groups: H2O and PEG (as
-previously) as well as 2 groups containing only the
+previously), as well as 2 groups containing only the
 2 oxygen atoms of types 6 and 7, respectively.
 Atoms of types 6 and 7 correspond to the oxygen atoms located at the
 ends of the PEG molecule, which we are going to use
 to pull on the PEG molecule. Add the following lines to
 the <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
-<span class="k">group </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">8</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">9</span>
+<span class="k">group </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span>
 <span class="k">group </span><span class="nv nv-Identifier">topull1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">6</span>
 <span class="k">group </span><span class="nv nv-Identifier">topull2</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">7</span>
 </pre></div>
@@ -915,7 +914,7 @@ atoms using two <em>add_force</em> commands, and run for an extra 30 ps:</p>
 <div class="justify docutils container">
 <p>If you open the <em>dump.lammpstrj</em> file using <em>VMD</em>, you should
 see that the PEG molecule eventually aligns in the direction
-of the force:</p>
+of the force.</p>
 </div>
 <figure class="align-default">
 <img alt="PEG molecule in water" class="only-dark" src="../../_images/pulled_peg_dark.png" />
@@ -925,8 +924,8 @@ of the force:</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: PEG molecule streched along the <em>x</em> direction in water.
-Some water molecules are represented as a transparent continuum
-field for clarity.</p>
+Water molecules are represented as a transparent continuum
+field for clarity. See the corresponding <a href="https://youtu.be/mjc6O6d9F-Y" target="_blank">video</a>.</p>
 </div>
 <div class="justify docutils container">
 <p>The evolution of the end-to-end
@@ -960,7 +959,7 @@ see <a class="reference internal" href="../../non-tutorials/solutions.html#solut
 <h3>Extract radial distribution function<a class="headerlink" href="#extract-radial-distribution-function" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Extract the radial distribution functions (RDF or <span class="math notranslate nohighlight">\(g(r)\)</span>)
-between water molecules, as well as between water and PEG molecules:</p>
+between water molecules, as well as between water molecule and the PEG molecule.</p>
 </div>
 <figure class="align-default">
 <img alt="RDF g(r) for water and peg" class="only-dark" src="../../_images/RDF-dark.png" />
