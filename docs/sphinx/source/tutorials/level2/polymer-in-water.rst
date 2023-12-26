@@ -892,7 +892,9 @@ Extract radial distribution function
 ..  container:: justify
 
     Extract the radial distribution functions (RDF or :math:`g(r)`)
-    between water molecules, as well as between water molecule and the PEG molecule.
+    between the oxygen atom of the water molecules
+    and the oxygen atom from the PEG molecule. Compare the rdf
+    before and after the force is applied to the PEG.
 
 .. figure:: ../figures/level2/polymer-in-water/RDF-dark.png
     :alt: RDF g(r) for water and peg
@@ -906,7 +908,7 @@ Extract radial distribution function
 
     Figure: Radial distribution function between the oxygen atoms 
     of water, as well as between the oxygen atoms of water and the 
-    carbon and oxygen atoms of the PEG molecule.  
+    oxygen atoms of the PEG molecule.  
 
 Add salt to the mixture
 -----------------------
