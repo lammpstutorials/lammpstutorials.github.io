@@ -1,4 +1,4 @@
 .. container:: justify
 
     If you are completely new to LAMMPS, I recommend you to follow
-    this simpler tutorial first: :ref:`lennard-jones-label`.
+    this tutorial on a simple :ref:`lennard-jones-label` first.
