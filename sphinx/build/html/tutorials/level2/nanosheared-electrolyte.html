@@ -263,8 +263,10 @@ this tutorial on a simple <a class="reference internal" href="../level1/lennard-
 <div class="version docutils container">
 <p>This tutorial was tested with the <em>2Aug2023</em> LAMMPS version.</p>
 </div>
+<section id="system-preparation">
+<h2>System preparation<a class="headerlink" href="#system-preparation" title="Link to this heading">#</a></h2>
 <section id="system-generation">
-<h2>System generation<a class="headerlink" href="#system-generation" title="Link to this heading">#</a></h2>
+<h3>System generation<a class="headerlink" href="#system-generation" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Create a new folder called <em>SystemCreation/</em>.
 Within <em>SystemCreation/</em>, open a blank file
@@ -565,7 +567,7 @@ occur at the boundary.</p>
 </div>
 </section>
 <section id="energy-minimization">
-<h2>Energy minimization<a class="headerlink" href="#energy-minimization" title="Link to this heading">#</a></h2>
+<h3>Energy minimization<a class="headerlink" href="#energy-minimization" title="Link to this heading">#</a></h3>
 <div class="info admonition">
 <p class="admonition-title">Why is energy minimization necessary?</p>
 <p>It is clear from the way the system has been created that
@@ -635,17 +637,13 @@ of <span class="math notranslate nohighlight">\(T = 1\,\text{K}\)</span>:</p>
 <p>Just like <em>fix nve</em>, the fix <em>nve/limit</em> performs constant NVE integration to
 update positions and velocities of the atoms at each
 timestep, but also limits the maximum distance atoms can travel at
-each timestep. Here, only the fluid molecules and ions will move,
-as we anticipate that they are the problematic species in this
-system.</p>
+each timestep. Here, only the fluid molecules and ions will move.</p>
 </div>
 <div class="justify docutils container">
-<p>The <em>temp/berendsen</em> fix rescales the
-velocities of the atoms to impose their temperature.</p>
-</div>
-<div class="justify docutils container">
-<p>The shake algorithm is used in order to maintain the shape
-of water molecules.</p>
+<p>The <em>fix temp/berendsen</em> rescales the
+velocities of the atoms to force the temperature of the system
+to reach the desired value of 1 K, and the shake algorithm
+is used in order to maintain the shape of the water molecules.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us also print the atom positions in a <em>.lammpstrj</em> file by
@@ -664,7 +662,8 @@ following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="justify docutils container">
 <p>In order to better equilibrate the system, let us perform
-two additional step with larger timestep and temperature:</p>
+two additional steps with a larger timestep and a larger
+imposed temperature:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
@@ -682,15 +681,14 @@ two additional step with larger timestep and temperature:</p>
 </div>
 <div class="justify docutils container">
 <p>For the last of the 3 steps, fix <em>nve</em> is used instead of
-nve/limit*, which will allow for a better relaxation of the
+<em>nve/limit</em>, which will allow for a better relaxation of the
 atom positions.</p>
 </div>
 <div class="justify docutils container">
 <p>When running the <em>input.lammps</em> file with LAMMPS, you should see that the
 total energy of the system decreases during the first
 of the 3 steps, before re-increasing a little after the
-temperature is increased from 1 to <span class="math notranslate nohighlight">\(300\,\text{K}\)</span>,
-as expected:</p>
+temperature is increased from 1 to <span class="math notranslate nohighlight">\(300\,\text{K}\)</span>.</p>
 </div>
 <figure class="align-default">
 <img alt="Energy minimisation of the confined water and salt" class="only-light" src="../../_images/minimization-light.png" />
@@ -709,7 +707,7 @@ positions, slightly move from each others, as seen in <a href="https://youtu.be/
 </div>
 </section>
 <section id="system-equilibration">
-<h2>System equilibration<a class="headerlink" href="#system-equilibration" title="Link to this heading">#</a></h2>
+<h3>System equilibration<a class="headerlink" href="#system-equilibration" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Now, let us equilibrate further the entire system by letting both
 fluid and piston relax at ambient temperature.</p>
@@ -734,8 +732,7 @@ the previously created folders, and create a new
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Finally, let us complete the <em>input.lammps</em> file
-by adding the commands to manage the atoms dynamic:</p>
+<p>Finally, let us complete the <em>input.lammps</em> file:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
@@ -762,10 +759,11 @@ the trajectory visualization and output:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The first two variables allow us to extract the centers of mass of
-the two walls. Then, the <span class="math notranslate nohighlight">\(\delta_z\)</span>
+<p>The first two variables extract the centers of mass of
+the two walls. Then, the <em>deltaz</em>
 variable is used to calculate the distance between
-the two centers of mass.</p>
+the two variables <em>walltopz</em>
+and <em>wallbotz</em>, i.e. the distance between the two walls.</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, let us add the <em>run</em> command:</p>
@@ -775,16 +773,12 @@ the two centers of mass.</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Run the <em>input.lammps</em> file using LAMMPS. You can speed-up the
-calculation by using multiple CPU cores:</p>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">4</span><span class="w"> </span>lmp<span class="w"> </span>-in<span class="w"> </span>input.lammps
-</pre></div>
+<p>Run the <em>input.lammps</em> file using LAMMPS.</p>
 </div>
 <div class="justify docutils container">
-<p>The distance <span class="math notranslate nohighlight">\(\delta_z\)</span> between the two walls
-reduces until it reaches an equilibrium value. One can have a look
-at the data printed by <em>fix myat1</em>:</p>
+<p>As seen from the data printed by <em>fix myat1</em>,
+the distance <span class="math notranslate nohighlight">\(\delta_z\)</span> between the two walls
+reduces until it reaches an equilibrium value.</p>
 </div>
 <figure class="align-default">
 <img alt="Plot showing the distance between the walls as a function of time." class="only-light" src="../../_images/equilibration-light.png" />
@@ -793,17 +787,19 @@ at the data printed by <em>fix myat1</em>:</p>
 <img alt="Plot showing the distance between the walls as a function of time." class="only-dark" src="../../_images/equilibration-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Distance between the walls as a function of time. After about <span class="math notranslate nohighlight">\(15\,\text{ps}\)</span>, the
-distance between the walls is very close to its final equilibrium value.</p>
+<p>Figure: Distance between the walls as a function of time.
+After about <span class="math notranslate nohighlight">\(15\,\text{ps}\)</span>, the
+distance between the two walls is very close to its final equilibrium value.</p>
 </div>
 <div class="justify docutils container">
 <p>Note that it is generaly recommended to run longer equilibration.
 Here for instance, the slowest
-process is the ionic diffusion. Therefore the equilibration
+process in the system is probably the ionic diffusion. Therefore the equilibration
 should in principle be longer than the time
 the ions need to diffuse over the size of the pore
 (<span class="math notranslate nohighlight">\(\approx 1.2\,\text{nm}\)</span>), i.e. of the order of half a nanosecond.</p>
 </div>
+</section>
 </section>
 <section id="imposed-shearing">
 <h2>Imposed shearing<a class="headerlink" href="#imposed-shearing" title="Link to this heading">#</a></h2>
@@ -820,8 +816,14 @@ create a new <em>input.lammps</em> file that starts like the previous ones:</p>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
-
-<span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Equilibration</span><span class="o">/</span><span class="n">system.data</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Let us import the previously equilibrated data,
+include the parameter and group files,
+and then deal with the dynamics of the system.</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Equilibration</span><span class="o">/</span><span class="n">system.data</span>
 
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">GROUP.lammps</span>
@@ -845,7 +847,7 @@ with <em>compute</em> ensures that the right temperature value
 is used by the thermostats.</p>
 </div>
 <div class="justify docutils container">
-<p>The use of temperature <em>compute</em> with <em>temp/partial 0 1 1</em> operations
+<p>The use of temperature <em>compute</em> with <em>temp/partial 0 1 1</em>
 is meant to exclude the <em>x</em> coordinate from the
 thermalisation, which is important since a large velocity
 will be imposed along <em>x</em>.</p>
@@ -861,8 +863,8 @@ by adding the following command to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The <em>setforce</em> commands cancel the forces on a group of atoms at
-every timestep, so the atoms of the group do not
+<p>The <em>setforce</em> commands cancel the forces on <em>walltop</em> and
+<em>wallbot</em>, respectively. Therefore the atoms of the two groups do not
 experience any force from the rest of the system. In absence of force
 acting on those atoms, they will conserve their initial velocity.</p>
 </div>
@@ -885,17 +887,23 @@ Add the following lines to <em>input.lammps</em>:</p>
 <span class="k">compute </span><span class="nv nv-Identifier">cc2</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
 <span class="k">compute </span><span class="nv nv-Identifier">cc3</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
 
-<span class="k">fix </span><span class="nv nv-Identifier">myac1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc1</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">water.profile_1A.dat</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac2</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc2</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">wall.profile_1A.dat</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac3</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc3</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">ions.profile_1A.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">cc1</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">water.profile_1A.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac2</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">cc2</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">wall.profile_1A.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac3</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">cc3</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">ions.profile_1A.dat</span>
 
 <span class="k">compute </span><span class="nv nv-Identifier">cc4</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.1</span>
 <span class="k">compute </span><span class="nv nv-Identifier">cc5</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.1</span>
 <span class="k">compute </span><span class="nv nv-Identifier">cc6</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.1</span>
 
-<span class="k">fix </span><span class="nv nv-Identifier">myac4</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc4</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">water.profile_0.1A.dat</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac5</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc5</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">wall.profile_0.1A.dat</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac6</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">cc6</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">ions.profile_0.1A.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac4</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">cc4</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">water.profile_0.1A.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac5</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">cc5</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">wall.profile_0.1A.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac6</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">cc6</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">ions.profile_0.1A.dat</span>
 
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">f_mysf1[1]</span><span class="w"> </span><span class="n">f_mysf2[1]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">forces.dat</span>
 
@@ -909,10 +917,9 @@ Add the following lines to <em>input.lammps</em>:</p>
 a binning of <span class="math notranslate nohighlight">\(1\,Å\)</span>, the second series is using a binning of <span class="math notranslate nohighlight">\(0.1\,Å\)</span>.</p>
 </div>
 <div class="justify docutils container">
-<p>The averaged velocity profile obtained with a <span class="math notranslate nohighlight">\(200\,\text{ps}\)</span>
-can be plotted. The velocity increases linearly with the distance <span class="math notranslate nohighlight">\(z\)</span>.
-One can adjust the velocity profile with a linear fit and deduce an effective
-value of <span class="math notranslate nohighlight">\(h = 1.2\,\text{nm}\)</span> for the pore size.</p>
+<p>The averaged velocity profile of the fluid
+can be plotted. As expected here, the velocity
+of the fluid is found to increase linearly along <span class="math notranslate nohighlight">\(z\)</span>.</p>
 </div>
 <figure class="align-default">
 <img alt="Velocity of the nanosheared fluid" class="only-light" src="../../_images/shearing-light.png" />
@@ -925,9 +932,6 @@ value of <span class="math notranslate nohighlight">\(h = 1.2\,\text{nm}\)</span
 along the <em>z</em> axis. The line is a linear fit assuming that
 the pore size is <span class="math notranslate nohighlight">\(h = 1.2\,\text{nm}\)</span>.</p>
 </div>
-<div class="justify docutils container">
-<p>The averaged density profile for the water is the following:</p>
-</div>
 <figure class="align-default">
 <img alt="density of the nanosheared fluid" class="only-light" src="../../_images/density-light.png" />
 </figure>
@@ -935,7 +939,8 @@ the pore size is <span class="math notranslate nohighlight">\(h = 1.2\,\text{nm}
 <img alt="density of the nanosheared fluid" class="only-dark" src="../../_images/density-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Water density profiles for water along the <em>z</em> axis.</p>
+<p>Figure: Water density <span class="math notranslate nohighlight">\(\rho\)</span> profile
+along the <em>z</em> axis.</p>
 </div>
 <div class="justify docutils container">
 <p>From the force applied by the fluid on the solid, one can
@@ -978,9 +983,11 @@ see <a class="reference internal" href="../../non-tutorials/solutions.html#solut
 <section id="make-a-hydrophobic-nanopore">
 <h3>Make a hydrophobic nanopore<a class="headerlink" href="#make-a-hydrophobic-nanopore" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>The walls of the nanopore used in the tutorial are extremely hydrophilic, as visible from the
-density profile showing large peaks near the walls. Play with the interaction
-parameters and make the nanopore more hydrophobic.</p>
+<p>The walls of the nanopore used in the tutorial are extremely
+hydrophilic, as visible from the
+density profile showing large peaks near the walls. Make the nanopore
+more hydrophobic without affecting the interaction occuring between the
+atoms of the wall.</p>
 </div>
 <figure class="align-default">
 <img alt="hydrophobic vs hydrophilic pores : density profiles" class="only-light" src="../../_images/hydrophobic-pore-light.png" />
@@ -1006,8 +1013,7 @@ resulting velocity profile is consistent with the Poiseuille equation,
 which can be derived from the Stokes equation <span class="math notranslate nohighlight">\(\eta \nabla \textbf{v} = - \textbf{f} \rho\)</span>
 where <span class="math notranslate nohighlight">\(f\)</span> is the applied force,
 <span class="math notranslate nohighlight">\(\rho\)</span> is the fluid density,
-<span class="math notranslate nohighlight">\(\eta\)</span> is the fluid viscosity, and
-<span class="math notranslate nohighlight">\(h = 1.2\,\text{nm}\)</span> is the pore size.</p>
+<span class="math notranslate nohighlight">\(\eta\)</span> is the fluid viscosity.</p>
 </div>
 <figure class="align-default">
 <img alt="Velocity of the fluid forming a Poiseuille flow" class="only-light" src="../../_images/shearing-poiseuille-light.png" />
@@ -1075,9 +1081,12 @@ The line is the Poiseuille equation.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Nanosheared electrolyte</a><ul>
+<li><a class="reference internal" href="#system-preparation">System preparation</a><ul>
 <li><a class="reference internal" href="#system-generation">System generation</a></li>
 <li><a class="reference internal" href="#energy-minimization">Energy minimization</a></li>
 <li><a class="reference internal" href="#system-equilibration">System equilibration</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#imposed-shearing">Imposed shearing</a></li>
 <li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
 <li><a class="reference internal" href="#make-a-hydrophobic-nanopore">Make a hydrophobic nanopore</a></li>
