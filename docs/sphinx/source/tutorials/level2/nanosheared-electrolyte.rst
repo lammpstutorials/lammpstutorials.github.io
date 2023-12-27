@@ -43,13 +43,18 @@ Nanosheared electrolyte
 System preparation
 ==================
 
+..  container:: justify
+
+    The fluid and walls must first be generated, and then
+    equilibrated at reasonable temperature and pressure.
+
 System generation
 -----------------
 
 ..  container:: justify
 
-    Create a new folder called *SystemCreation/*.
-    Within *SystemCreation/*, open a blank file
+    Create a new folder called *systemcreation/*.
+    Within *systemcreation/*, open a blank file
     called *input.lammps*, and copy the following
     lines into it:
 
@@ -163,7 +168,7 @@ System generation
 
     In order to add the water molecules, first
     download the |download_TIP4P2005.txt|
-    and place it within *SystemCreation/*. The template contains all the
+    and place it within *systemcreation/*. The template contains all the
     necessary information concerning the water molecule, such as
     atom positions, bonds, and angle.
 
@@ -252,7 +257,7 @@ System generation
 ..  container:: justify
 
     Create a new text file, call it *PARM.lammps*, and copy it
-    next to the *SystemCreation/* folder. Copy the following lines
+    next to the *systemcreation/* folder. Copy the following lines
     into PARM.lammps:
 
 ..  code-block:: lammps
@@ -433,7 +438,7 @@ Energy minimization
 ..  container:: justify
 
     To perform this energy minimization, let us
-    create a new folder named *Minimization/* next to *SystemCreation/*,
+    create a new folder named *minimization/* next to *systemcreation/*,
     and create a new input file named *input.lammps* in it. Copy the following lines
     in *input.lammps*:
 
@@ -447,7 +452,7 @@ Energy minimization
     pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
     kspace_style pppm/tip4p 1.0e-4
 
-    read_data ../SystemCreation/system.data
+    read_data ../systemcreation/system.data
 
     include ../PARM.lammps
     include ../GROUP.lammps
@@ -456,7 +461,7 @@ Energy minimization
 
     The only difference with the previous input is that, instead
     of creating a new box and new atoms, we open the
-    previously created file *system.data* located in *SystemCreation/*.
+    previously created file *system.data* located in *systemcreation/*.
     The file *system.data* contains the definition of the simulation box
     and the positions of the atoms.
 
@@ -577,7 +582,7 @@ System equilibration
 
 ..  container:: justify
 
-    Create a new folder called *Equilibration/* next to 
+    Create a new folder called *equilibration/* next to 
     the previously created folders, and create a new
     *input.lammps* file in it. Add the following lines into *input.lammps*:
 
@@ -591,7 +596,7 @@ System equilibration
     pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
     kspace_style pppm/tip4p 1.0e-4
 
-    read_data ../Minimization/system.data
+    read_data ../minimization/system.data
 
     include ../PARM.lammps
     include ../GROUP.lammps
@@ -685,7 +690,7 @@ Imposed shearing
 
     From the equilibrated configuration, let us impose a laterial
     motion to the two walls and shear the electrolyte.
-    In a new folder called *Shearing/*,
+    In a new folder called *shearing/*,
     create a new *input.lammps* file that starts like the previous ones:
 
 ..  code-block:: lammps
@@ -706,7 +711,7 @@ Imposed shearing
 
 ..  code-block:: lammps
 
-    read_data ../Equilibration/system.data
+    read_data ../equilibration/system.data
 
     include ../PARM.lammps
     include ../GROUP.lammps
