@@ -265,11 +265,15 @@ this tutorial on a simple <a class="reference internal" href="../level1/lennard-
 </div>
 <section id="system-preparation">
 <h2>System preparation<a class="headerlink" href="#system-preparation" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>The fluid and walls must first be generated, and then
+equilibrated at reasonable temperature and pressure.</p>
+</div>
 <section id="system-generation">
 <h3>System generation<a class="headerlink" href="#system-generation" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Create a new folder called <em>SystemCreation/</em>.
-Within <em>SystemCreation/</em>, open a blank file
+<p>Create a new folder called <em>systemcreation/</em>.
+Within <em>systemcreation/</em>, open a blank file
 called <em>input.lammps</em>, and copy the following
 lines into it:</p>
 </div>
@@ -366,7 +370,7 @@ defined lattice, thus forming fcc solids.</p>
 <div class="justify docutils container">
 <p>In order to add the water molecules, first
 download the <a href="../../../../../inputs/level2/nanosheared-electrolyte/SystemCreation/RigidH2O.txt" target="_blank">molecule template</a>
-and place it within <em>SystemCreation/</em>. The template contains all the
+and place it within <em>systemcreation/</em>. The template contains all the
 necessary information concerning the water molecule, such as
 atom positions, bonds, and angle.</p>
 </div>
@@ -438,7 +442,7 @@ Copy the following line into input.lammps:</p>
 </div>
 <div class="justify docutils container">
 <p>Create a new text file, call it <em>PARM.lammps</em>, and copy it
-next to the <em>SystemCreation/</em> folder. Copy the following lines
+next to the <em>systemcreation/</em> folder. Copy the following lines
 into PARM.lammps:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">15.9994</span><span class="w"> </span><span class="c"># water</span>
@@ -597,7 +601,7 @@ in tutorial <a class="reference internal" href="../level1/lennard-jones-fluid.ht
 </div>
 <div class="justify docutils container">
 <p>To perform this energy minimization, let us
-create a new folder named <em>Minimization/</em> next to <em>SystemCreation/</em>,
+create a new folder named <em>minimization/</em> next to <em>systemcreation/</em>,
 and create a new input file named <em>input.lammps</em> in it. Copy the following lines
 in <em>input.lammps</em>:</p>
 </div>
@@ -609,7 +613,7 @@ in <em>input.lammps</em>:</p>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 
-<span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">SystemCreation</span><span class="o">/</span><span class="n">system.data</span>
+<span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">systemcreation</span><span class="o">/</span><span class="n">system.data</span>
 
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">GROUP.lammps</span>
@@ -618,7 +622,7 @@ in <em>input.lammps</em>:</p>
 <div class="justify docutils container">
 <p>The only difference with the previous input is that, instead
 of creating a new box and new atoms, we open the
-previously created file <em>system.data</em> located in <em>SystemCreation/</em>.
+previously created file <em>system.data</em> located in <em>systemcreation/</em>.
 The file <em>system.data</em> contains the definition of the simulation box
 and the positions of the atoms.</p>
 </div>
@@ -713,7 +717,7 @@ positions, slightly move from each others, as seen in <a href="https://youtu.be/
 fluid and piston relax at ambient temperature.</p>
 </div>
 <div class="justify docutils container">
-<p>Create a new folder called <em>Equilibration/</em> next to
+<p>Create a new folder called <em>equilibration/</em> next to
 the previously created folders, and create a new
 <em>input.lammps</em> file in it. Add the following lines into <em>input.lammps</em>:</p>
 </div>
@@ -725,7 +729,7 @@ the previously created folders, and create a new
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
 
-<span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Minimization</span><span class="o">/</span><span class="n">system.data</span>
+<span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">minimization</span><span class="o">/</span><span class="n">system.data</span>
 
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">GROUP.lammps</span>
@@ -806,7 +810,7 @@ the ions need to diffuse over the size of the pore
 <div class="justify docutils container">
 <p>From the equilibrated configuration, let us impose a laterial
 motion to the two walls and shear the electrolyte.
-In a new folder called <em>Shearing/</em>,
+In a new folder called <em>shearing/</em>,
 create a new <em>input.lammps</em> file that starts like the previous ones:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
@@ -823,7 +827,7 @@ create a new <em>input.lammps</em> file that starts like the previous ones:</p>
 include the parameter and group files,
 and then deal with the dynamics of the system.</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">Equilibration</span><span class="o">/</span><span class="n">system.data</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">equilibration</span><span class="o">/</span><span class="n">system.data</span>
 
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">GROUP.lammps</span>

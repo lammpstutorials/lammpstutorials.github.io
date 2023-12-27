@@ -1,0 +1,76 @@
+# LAMMPS input script by Simon Gravelle
+# This input is part of a tutorial from https://lammpstutorials.github.io
+# Last tested using the 2Aug2023 stable LAMMPS version
+# This file was released under the GNU general public license v3.0
+
+# ⣿⣿⡆⠀⠀⠀⠀⠀⠀⣾⣿⣿⣆⠀⠀⠀⣿⣿⣿⣆⠀⠀⣰⣿⣿⣷⠀⢸⣿⣿⣷⡀⠀⢀⣾⣿⣿⠀⠀⣿⣿⣿⣿⣿⣷⣆⠀⢀⣶⣿⠿⠿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⣤⣶⣿⣿⣿⣦⡄⠀⠀⠀⠀⠀⠀⠀
+# ⣿⣿⡇⠀⠀⠀⠀⠀⣼⣿⡏⣿⣿⡄⠀⠀⣿⣿⡿⣿⡆⢰⣿⢿⣿⣿⠀⢸⣿⣿⢿⣧⠀⣾⡿⣿⣿⠀⠀⣿⣿⡇⠀⢈⣿⣿⠀⢸⣿⣧⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣾⣿⣿⠏⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀
+# ⣿⣿⡇⠀⠀⠀⠀⢰⣿⣿⣀⣸⣿⣷⡀⠀⣿⣿⡇⢻⣿⣿⡏⢸⣿⣿⠀⢸⣿⣿⠘⣿⣿⡿⠁⣿⣿⠀⠀⣿⣿⡿⠿⠿⠿⠋⠀⠀⠉⠛⠻⠿⣿⣷⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⡄⠻⣿⣿⣿⣿⡿⠟⣃⠀⠀⠀⠀⠀⠀
+# ⣿⣿⣧⣤⣤⣤⢠⣿⣿⠛⠛⠛⢻⣿⣧⠀⣿⣿⡇⠀⠛⠛⠀⢸⣿⣿⠀⢸⣿⣿⠀⠘⠛⠃⠀⣿⣿⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⢰⣶⣤⣤⣤⣿⡿⠀⠀⠀⠀⠀⣻⣿⣿⣿⣿⣿⣿⣄⡀⠉⠉⠁⠀⢠⣿⡄⠀⠀⠀⠀⠀
+# ⠉⠉⠉⠉⠉⠉⠈⠉⠁⠀⠀⠀⠀⠉⠉⠀⠉⠉⠁⠀⠀⠀⠀⠈⠉⠉⠀⠈⠉⠉⠀⠀⠀⠀⠀⠉⠉⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣾⣿⣿⡇⠀⠀⠀⠀⠀
+# ⢀⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣶⠀⠀⠀⠀⠀⠀⠀⠀⢰⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡃⠀⠀⠀⠀⠀
+# ⣼⣿⣴⡦⠀⣴⠀⠀⠀⣴⡄⢤⣿⣧⣶⠄⢀⣤⡶⣶⣄⠀⠀⣴⣤⣴⣦⢠⣦⠀⠀⣤⠶⢶⣤⡀⠀⢸⡇⠀⢠⣴⠶⢦⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠀⠀⠀
+# ⢸⣿⠀⠀⠀⣿⠀⠀⠀⣿⡇⠀⣿⡆⠀⠀⣿⠇⠀⠀⢻⡇⠀⣿⡇⠀⠀⢸⣿⠀⠀⣠⣤⣤⣽⡇⠀⢸⡇⠀⢻⣧⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡀⠀
+# ⠸⣿⠀⠀⠀⣿⡄⠀⢀⣿⡇⠀⣿⡇⠀⠀⢿⣇⠀⢀⣼⡇⠀⣿⡇⠀⠀⢸⣿⠀⢸⣏⠀⠀⣼⡇⠀⢸⡇⠀⡀⠀⠉⢹⣷⠀⠀⠀⠀⠀⠀⠀⣀⣴⣾⣿⣿⡟⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀
+# ⠀⠙⠛⠛⠀⠈⠛⠛⠋⠛⠁⠀⠈⠛⠛⠃⠈⠛⠛⠛⠋⠀⠀⠛⠃⠀⠀⠘⠛⠀⠈⠛⠛⠛⠙⠃⠀⠘⠃⠀⠙⠛⠛⠛⠁⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣿⣿⣿⣿⣿⣿⣿⡀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+#⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡘⣿⣿⣿⣿⣿⡏⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠨⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡈⠻⣿⣿⣿⣇⠸⣿⣿⣿⣿⣿⣿⡿⢻⣿⣿⠿⠋⠁⠀
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠈⠻⢿⣿⣦⣈⠙⠛⠛⠛⣁⣴⡿⠛⠁⠀⠀⠀⠀
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠈⠉⠛⠛⠓⠚⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⣿⣿⣿⣿⡿⠟⠋⠀
+
+boundary p p p
+units real
+atom_style full
+bond_style harmonic
+angle_style harmonic
+pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
+kspace_style pppm/tip4p 1.0e-4
+
+read_data ../equilibration/system.data
+
+include ../PARM.lammps
+include ../GROUP.lammps
+
+fix mynve all nve
+compute Tfluid fluid temp/partial 0 1 1
+fix myber1 fluid temp/berendsen 300 300 100
+fix_modify myber1 temp Tfluid
+compute Twall wall temp/partial 0 1 1
+fix myber2 wall temp/berendsen 300 300 100
+fix_modify myber2 temp Twall
+fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
+fix myrct all recenter NULL NULL 0
+
+fix mysf1 walltop setforce 0 NULL NULL
+fix mysf2 wallbot setforce 0 NULL NULL
+velocity wallbot set -2e-4 NULL NULL
+velocity walltop set 2e-4 NULL NULL
+
+dump mydmp all atom 5000 dump.lammpstrj
+thermo 500
+thermo_modify temp Tfluid
+
+compute cc1 H2O chunk/atom bin/1d z 0.0 1.0
+compute cc2 wall chunk/atom bin/1d z 0.0 1.0
+compute cc3 ions chunk/atom bin/1d z 0.0 1.0
+
+fix myac1 H2O ave/chunk 10 15000 200000 cc1 density/mass vx file water.profile_1A.dat
+fix myac2 wall ave/chunk 10 15000 200000 cc2 density/mass vx file wall.profile_1A.dat
+fix myac3 ions ave/chunk 10 15000 200000 cc3 density/mass vx file ions.profile_1A.dat
+
+compute cc4 H2O chunk/atom bin/1d z 0.0 0.1
+compute cc5 wall chunk/atom bin/1d z 0.0 0.1
+compute cc6 ions chunk/atom bin/1d z 0.0 0.1
+
+fix myac4 H2O ave/chunk 10 15000 200000 cc4 density/mass vx file water.profile_0.1A.dat
+fix myac5 wall ave/chunk 10 15000 200000 cc5 density/mass vx file wall.profile_0.1A.dat
+fix myac6 ions ave/chunk 10 15000 200000 cc6 density/mass vx file ions.profile_0.1A.dat
+
+fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat
+
+timestep 1.0
+run 200000
+write_data system.data
