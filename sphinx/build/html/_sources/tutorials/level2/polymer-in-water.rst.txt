@@ -23,11 +23,16 @@ Polymer in water
 
    The goal of this tutorial is to use LAMMPS and solvate a small
    hydrophilic polymer (PEG - PolyEthylene Glycol) in a reservoir of water. 
-   An all-atom description is used for all species, and the long
-   range Coulomb interaction are solved. Once the system is properly
-   equilibrated, a constant stretching force is applied to both
-   ends of the polymer, and the evolution of its length with time
-   is measured.
+
+..  container:: justify
+
+   An all-atom description is used for both PEG and water, and the long
+   range Coulomb interactions are solved using the PPPM solver.    
+   Once the PEG and water system is properly
+   equilibrated at the desired temperature and pressure,
+   a constant stretching force is applied to both
+   ends of the polymer, and the evolution of its length
+   is measured as a function of the time.
 
 ..  container:: justify
 

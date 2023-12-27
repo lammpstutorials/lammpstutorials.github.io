@@ -241,15 +241,16 @@
 </figure>
 <div class="justify docutils container">
 <p>The objective of this tutorial is to
-simulate an electrolyte sheared by two walls. Some properties
-of the sheared fluid, such as the time-averaged velocity profile
-will be extracted.</p>
+simulate an electrolyte nanoconfined and sheared by two walls.
+Some properties of the sheared fluid, such as its
+density and velocity profiles, will be extracted.</p>
 </div>
 <div class="justify docutils container">
-<p>This tutorial illustrates the important aspects of
+<p>This tutorial illustrates some key aspects of
 combining a fluid and a solid in the same simulation.
-Also, contrarily to the <a class="reference internal" href="polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a> tutorial, a rigid
-four points water model is used here.</p>
+A major difference with <a class="reference internal" href="polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a> is that
+here a rigid four points water model named TIP4P is used. TIP4P is one
+of the most common water model due to its high accuracy.</p>
 </div>
 <div class="justify docutils container">
 <p>If you are completely new to LAMMPS, I recommend you to follow
@@ -270,9 +271,7 @@ Within <em>SystemCreation/</em>, open a blank file
 called <em>input.lammps</em>, and copy the following
 lines into it:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># LAMMPS input file</span>
-
-<span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
@@ -285,17 +284,18 @@ lines into it:</p>
 including the <em>atom</em>, <em>bond</em>, and <em>angle</em> styles, as well as
 interaction potential. Here <em>lj/cut/tip4p/long</em> imposes
 a Lennard Jones potential with a cut-off at <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span>
-and long range Coulomb potential.</p>
+and a long range Coulomb potential.</p>
 </div>
 <div class="justify docutils container">
-<p>These lines are relatively similar to the
+<p>So far, the commands are relatively similar to the
 previous tutorial (<a class="reference internal" href="polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a>),
 with two major differences; the use of <em>lj/cut/tip4p/long</em>
 and <em>pppm/tip4p</em>, instead of <em>lj/cut/coul/long</em> and pppm*.
 These two tip4p-specific commands allow us to
 model a four point water molecule without explicitly
 defining the fourth massless atom <em>M</em>. The value of
-<em>0.1546</em> corresponds to the <em>O-M</em> distance in Angstrom and is
+<span class="math notranslate nohighlight">\(0.1546\,\text{Å}\)</span> corresponds
+to the <em>O-M</em> distance and is
 given by the water model. Here, <a href="http://www.sklogwiki.org/SklogWiki/index.php/TIP4P/2005_model_of_water" target="_blank">TIP4P-2005</a> is used.</p>
 </div>
 <div class="info admonition">
@@ -312,11 +312,11 @@ are treated <em>normally</em> with long range coulomb interaction.</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">lattice</span><span class="w"> </span><span class="n">fcc</span><span class="w"> </span><span class="m">4.04</span>
 <span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">7</span><span class="w"> </span><span class="m">7</span>
 <span class="k">create_box </span><span class="nv nv-Identifier">5</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">        </span><span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">        </span><span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">        </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">        </span><span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">        </span><span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span>
+<span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -329,7 +329,8 @@ of the walls.</p>
 <p>The <em>region</em> command defines a geometric
 region of space. By choosing <em>xlo=-3</em> and <em>xhi=3</em>, and
 because we have previously chosen a lattice with scale
-factor of 4.04, the region box extends from -12.12 Å to 12.12 Å.</p>
+factor of 4.04, the region box extends from -12.12 Å to 12.12 Å
+along the x direction.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>create_box</em> command creates a simulation box with 5 types of atoms:
@@ -361,7 +362,7 @@ regions. Add the following lines to <em>input.lammps</em>:</p>
 defined lattice, thus forming fcc solids.</p>
 </div>
 <div class="justify docutils container">
-<p>In order to add the water molecules, we first need to
+<p>In order to add the water molecules, first
 download the <a href="../../../../../inputs/level2/nanosheared-electrolyte/SystemCreation/RigidH2O.txt" target="_blank">molecule template</a>
 and place it within <em>SystemCreation/</em>. The template contains all the
 necessary information concerning the water molecule, such as
@@ -393,8 +394,9 @@ previous one, as LAMMPS reads a script from top to bottom.</p>
 <div class="justify docutils container">
 <p>Molecules are created on the <em>sc 3.1</em> lattice
 by the <em>create_atoms</em> command. The
-first parameter is ‘0’ because we use the atom id from the
-<em>RigidH2O.txt</em> file. The number <em>482793</em> is a seed that is
+first parameter is ‘0’, meaning that the atom ids from the
+<em>RigidH2O.txt</em> file will be used.
+The number <em>482793</em> is a seed that is
 required by LAMMPS, it can be any positive integer.</p>
 </div>
 <div class="justify docutils container">
@@ -416,7 +418,7 @@ concentration by changing the number of desired ions. To keep the system charge 
 always insert the same number of
 <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>
 and <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>,
-unless of course there are other charges in the system.</p>
+unless there are other charges in the system.</p>
 </div>
 <div class="justify docutils container">
 <p>The charges of the newly added ions are specified by the two <em>set</em> commands.</p>
@@ -472,8 +474,8 @@ taken from the CHARMM-27 force field.</p>
 identical type were assigned. By default, LAMMPS calculates
 the pair coefficients for the interactions between atoms
 of different types (i and j) by using geometrical
-average: <span class="math notranslate nohighlight">\(\epsilon_{ij} = \epsilon_i + \epsilon_j)/2\)</span>,
-<span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_i + \sigma_j)/2.\)</span>
+average: <span class="math notranslate nohighlight">\(\epsilon_{ij} = (\epsilon_{ii} + \epsilon_{jj})/2\)</span>,
+<span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_{ii} + \sigma_{jj})/2.\)</span>
 Other rules for cross coefficients can be set with the
 <em>pair_modify</em> command, but for the sake of simplicity,
 let us keep the default option here.</p>
@@ -526,11 +528,11 @@ to delete any overlapping molecules:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>With <em>run 0</em>, the simulation will run for 0 step,
+<p>With <em>run 0</em>, the simulation will run for 0 step, which is
 enough for creating the system and saving the final state.</p>
 </div>
 <div class="justify docutils container">
-<p>The <em>write_data</em> finally creates a file named <em>system.data</em>
+<p>The <em>write_data</em> creates a file named <em>system.data</em>
 containing all the information required to restart the
 simulation from the final configuration generated by this
 input file.</p>
@@ -541,9 +543,7 @@ positions of the atoms, and can be opened with VMD
 to visualize the system.</p>
 </div>
 <div class="justify docutils container">
-<p>Run the <em>input.lammps</em> file using LAMMPS. From the <em>log</em> file, make
-sure that atoms have been created by looking at the log file, or simply
-open the <em>dump.lammpstrj</em> file with VMD:</p>
+<p>Run the <em>input.lammps</em> file using LAMMPS.</p>
 </div>
 <figure class="align-default">
 <img alt="LAMMPS: electrolyte made of water and salt between walls" class="only-light" src="../../_images/systemcreation-light.png" />
@@ -572,20 +572,18 @@ occur at the boundary.</p>
 the atoms are not at equilibrium distances from each
 others. Indeed, some of the ions added using the <em>create_atoms</em>
 commands are too close to the water molecules.
-If we were to start a <em>normal</em> molecular dynamics
-simulation now, the atoms
+If we were to start a <em>normal</em> (i.e. with a timestep of about 1 fs)
+molecular dynamics simulation now, the atoms
 would exert huge forces on each others, accelerate
 brutally, and the simulation would likely fail.</p>
 </div>
-<div class="dropdown admonition">
+<div class="info admonition">
 <p class="admonition-title">Dealing with overlapping atoms</p>
 <p>MD simulations failing due to overlapping atoms are
-extremely common, and I can almost guarantee that you
-will face a similar issue at some point. If it occurs,
-you can either</p>
+extremely common. If it occurs, you can either</p>
 <ul class="simple">
 <li><p>delete the overlapping atoms using the <em>delete_atoms</em> command of LAMMPS,</p></li>
-<li><p>move the atoms to more reasonable distances before the simulation starts.</p></li>
+<li><p>move the atoms to more reasonable distances before the simulation starts using energy minimization, or using molecular dynamics with a small timestep.</p></li>
 </ul>
 </div>
 <div class="justify docutils container">
@@ -619,11 +617,12 @@ in <em>input.lammps</em>:</p>
 <p>The only difference with the previous input is that, instead
 of creating a new box and new atoms, we open the
 previously created file <em>system.data</em> located in <em>SystemCreation/</em>.
-<em>system.data</em> contains the definition of the simulation box and the positions of the atoms.</p>
+The file <em>system.data</em> contains the definition of the simulation box
+and the positions of the atoms.</p>
 </div>
 <div class="justify docutils container">
-<p>Now, let us create a first step using a relatively small
-timestep (<span class="math notranslate nohighlight">\(0.5\,\text{fs}\)</span>), and a low temperature
+<p>Now, let us create a first simulation step using a relatively small
+timestep (<span class="math notranslate nohighlight">\(0.5\,\text{fs}\)</span>), as well as a low temperature
 of <span class="math notranslate nohighlight">\(T = 1\,\text{K}\)</span>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">nve</span><span class="o">/</span><span class="n">limit</span><span class="w"> </span><span class="m">0.1</span>

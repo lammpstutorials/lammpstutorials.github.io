@@ -22,16 +22,17 @@ Nanosheared electrolyte
 ..  container:: justify
 
     The objective of this tutorial is to
-    simulate an electrolyte sheared by two walls. Some properties
-    of the sheared fluid, such as the time-averaged velocity profile
-    will be extracted. 
+    simulate an electrolyte nanoconfined and sheared by two walls.
+    Some properties of the sheared fluid, such as its
+    density and velocity profiles, will be extracted. 
 
 ..  container:: justify
 
-    This tutorial illustrates the important aspects of
+    This tutorial illustrates some key aspects of
     combining a fluid and a solid in the same simulation.
-    Also, contrarily to the :ref:`all-atoms-label` tutorial, a rigid 
-    four points water model is used here.
+    A major difference with :ref:`all-atoms-label` is that
+    here a rigid four points water model named TIP4P is used. TIP4P is one
+    of the most common water model due to its high accuracy.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
@@ -51,8 +52,6 @@ System generation
 
 ..  code-block:: lammps
 
-    # LAMMPS input file
-
     units real
     atom_style full
     bond_style harmonic
@@ -66,18 +65,19 @@ System generation
     including the *atom*, *bond*, and *angle* styles, as well as 
     interaction potential. Here *lj/cut/tip4p/long* imposes
     a Lennard Jones potential with a cut-off at :math:`12\,\text{Å}`
-    and long range Coulomb potential. 
+    and a long range Coulomb potential. 
 
 ..  container:: justify
 
-    These lines are relatively similar to the 
+    So far, the commands are relatively similar to the 
     previous tutorial (:ref:`all-atoms-label`),
     with two major differences; the use of *lj/cut/tip4p/long*
     and *pppm/tip4p*, instead of *lj/cut/coul/long* and pppm*.
     These two tip4p-specific commands allow us to 
     model a four point water molecule without explicitly 
     defining the fourth massless atom *M*. The value of 
-    *0.1546* corresponds to the *O-M* distance in Angstrom and is 
+    :math:`0.1546\,\text{Å}` corresponds
+    to the *O-M* distance and is 
     given by the water model. Here, |TIP4P-2005| is used.
 
 .. |TIP4P-2005| raw:: html
@@ -102,11 +102,11 @@ System generation
     lattice fcc 4.04
     region box block -3 3 -3 3 -7 7
     create_box 5 box &
-            bond/types 1 &
-            angle/types 1 &
-            extra/bond/per/atom 2 &
-            extra/angle/per/atom 1 &
-            extra/special/per/atom 2
+    bond/types 1 &
+    angle/types 1 &
+    extra/bond/per/atom 2 &
+    extra/angle/per/atom 1 &
+    extra/special/per/atom 2
 
 ..  container:: justify
 
@@ -120,7 +120,8 @@ System generation
     The *region* command defines a geometric
     region of space. By choosing *xlo=-3* and *xhi=3*, and
     because we have previously chosen a lattice with scale
-    factor of 4.04, the region box extends from -12.12 Å to 12.12 Å.
+    factor of 4.04, the region box extends from -12.12 Å to 12.12 Å
+    along the x direction.
 
 ..  container:: justify
 
@@ -157,7 +158,7 @@ System generation
 
 ..  container:: justify
 
-    In order to add the water molecules, we first need to
+    In order to add the water molecules, first
     download the |download_TIP4P2005.txt|
     and place it within *SystemCreation/*. The template contains all the
     necessary information concerning the water molecule, such as
@@ -199,8 +200,9 @@ System generation
 
     Molecules are created on the *sc 3.1* lattice
     by the *create_atoms* command. The
-    first parameter is '0' because we use the atom id from the
-    *RigidH2O.txt* file. The number *482793* is a seed that is
+    first parameter is '0', meaning that the atom ids from the
+    *RigidH2O.txt* file will be used.
+    The number *482793* is a seed that is
     required by LAMMPS, it can be any positive integer.
 
 ..  container:: justify
@@ -225,7 +227,7 @@ System generation
     always insert the same number of 
     :math:`\text{Na}^+`
     and :math:`\text{Cl}^-`,
-    unless of course there are other charges in the system.
+    unless there are other charges in the system.
 
 ..  container:: justify
 
@@ -289,8 +291,8 @@ System generation
     identical type were assigned. By default, LAMMPS calculates
     the pair coefficients for the interactions between atoms
     of different types (i and j) by using geometrical
-    average: :math:`\epsilon_{ij} = \epsilon_i + \epsilon_j)/2`, 
-    :math:`\sigma_{ij} = (\sigma_i + \sigma_j)/2.`
+    average: :math:`\epsilon_{ij} = (\epsilon_{ii} + \epsilon_{jj})/2`, 
+    :math:`\sigma_{ij} = (\sigma_{ii} + \sigma_{jj})/2.`
     Other rules for cross coefficients can be set with the
     *pair_modify* command, but for the sake of simplicity,
     let us keep the default option here.
@@ -351,12 +353,12 @@ System generation
 
 ..  container:: justify
 
-    With *run 0*, the simulation will run for 0 step,
+    With *run 0*, the simulation will run for 0 step, which is
     enough for creating the system and saving the final state.
 
 ..  container:: justify
 
-    The *write_data* finally creates a file named *system.data*
+    The *write_data* creates a file named *system.data*
     containing all the information required to restart the
     simulation from the final configuration generated by this
     input file.
@@ -369,9 +371,7 @@ System generation
 
 ..  container:: justify
 
-    Run the *input.lammps* file using LAMMPS. From the *log* file, make
-    sure that atoms have been created by looking at the log file, or simply
-    open the *dump.lammpstrj* file with VMD:
+    Run the *input.lammps* file using LAMMPS. 
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/systemcreation-light.png
     :alt: LAMMPS: electrolyte made of water and salt between walls
@@ -405,21 +405,19 @@ Energy minimization
     the atoms are not at equilibrium distances from each
     others. Indeed, some of the ions added using the *create_atoms*
     commands are too close to the water molecules.
-    If we were to start a *normal* molecular dynamics
-    simulation now, the atoms
+    If we were to start a *normal* (i.e. with a timestep of about 1 fs)
+    molecular dynamics simulation now, the atoms
     would exert huge forces on each others, accelerate
     brutally, and the simulation would likely fail.
 
 .. admonition:: Dealing with overlapping atoms
-    :class: dropdown
+    :class: info
 
     MD simulations failing due to overlapping atoms are
-    extremely common, and I can almost guarantee that you
-    will face a similar issue at some point. If it occurs,
-    you can either
+    extremely common. If it occurs, you can either
 
     - delete the overlapping atoms using the *delete_atoms* command of LAMMPS,
-    - move the atoms to more reasonable distances before the simulation starts.
+    - move the atoms to more reasonable distances before the simulation starts using energy minimization, or using molecular dynamics with a small timestep.
 
 ..  container:: justify
 
@@ -456,12 +454,13 @@ Energy minimization
     The only difference with the previous input is that, instead
     of creating a new box and new atoms, we open the
     previously created file *system.data* located in *SystemCreation/*.
-    *system.data* contains the definition of the simulation box and the positions of the atoms.
+    The file *system.data* contains the definition of the simulation box
+    and the positions of the atoms.
 
 ..  container:: justify
 
-    Now, let us create a first step using a relatively small 
-    timestep (:math:`0.5\,\text{fs}`), and a low temperature
+    Now, let us create a first simulation step using a relatively small 
+    timestep (:math:`0.5\,\text{fs}`), as well as a low temperature
     of :math:`T = 1\,\text{K}`:
 
 ..  code-block:: lammps

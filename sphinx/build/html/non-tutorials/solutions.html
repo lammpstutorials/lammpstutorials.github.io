@@ -259,8 +259,8 @@ with the original <em>timestep</em> and <em>Langevin</em> parameters
 can start without issue.</p>
 </div>
 <div class="justify docutils container">
-<p>In some cases, more than two consecutive <em>run</em> can
-be the solution:</p>
+<p>In some cases, more than two consecutive <em>runs</em> can
+be an appropriate solution:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">0.0001</span><span class="w"> </span><span class="m">0.0001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">1530917</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.0001</span>
@@ -282,8 +282,10 @@ a given system.</p>
 <h3>Create a demixed dense phase<a class="headerlink" href="#create-a-demixed-dense-phase" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>You can download the <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/demixion/input.lammps" target="_blank">input</a> I wrote. Note that
-I use a large number of particles: 8000 for each type. Then,
-the key to create a demixing phase is to play with the Lennard-Jones
+I use a large number of particles: 8000 for each type.</p>
+</div>
+<div class="justify docutils container">
+<p>The key to create a demixing phase is to play with the Lennard-Jones
 parameters:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.0</span><span class="w"> </span><span class="m">1.0</span>
@@ -305,8 +307,8 @@ pressure was imposed by replacing <em>fix nve</em> by <em>fix nph</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>With <em>fix nph</em> and a pressure of 1, LAMMPS adjusts the box dimension until the
-pressure is close to 1, which is require reducing the initial box dimensions.</p>
+<p>With <em>fix nph</em> and a pressure of 1, LAMMPS adjusts the box dimensions until the
+pressure is close to 1. Here, reaching a pressure of 1 requires reducing the initial box dimensions.</p>
 </div>
 </section>
 <section id="from-atoms-to-molecules">
@@ -317,7 +319,7 @@ dumbell molecules.</p>
 </div>
 <div class="justify docutils container">
 <p>The first important change is to choose
-an <em>atom_style</em> that allows for atom to be connected by bonds.
+an <em>atom_style</em> that allows for the atoms to be connected by bonds.
 It is also necessary to specify the <em>bond_style</em>,
 i.e. the type of potential (here harmonic) that will keep the atoms
 together:</p>
@@ -334,7 +336,7 @@ memory space for the bond:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Then, import the <em>molecule template</em>, and use this template
+<p>Then, import the <em>molecule template</em>, and use the template
 when creating the atoms:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">dumbell</span><span class="w"> </span><span class="n">dumbell.mol</span>
@@ -353,7 +355,7 @@ length (2.5) need to be specified:</p>
 <div class="justify docutils container">
 <p>You can download the <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/polymer/input.lammps" target="_blank">input</a> and
 <a href="../../../../inputs/level1/lennard-jones-fluid/exercises/polymer/polymer.mol" target="_blank">molecule template</a> I wrote to make the short polymer.
-Note that angular potentials are used to give some
+Note that some additional angular potentials are used to give its
 rigidity to the polymer.</p>
 </div>
 </section>
@@ -373,7 +375,7 @@ surface area of the CNT.</p>
 </div>
 <div class="justify docutils container">
 <p>On the side note, the surface area
-of a CNT is not a well defined quantity. I choose to
+of a CNT is not a well defined quantity. Here, I choose to
 define the area as the perimeter of the CNT multiplied by the
 effective width of the carbon atoms.</p>
 </div>
@@ -405,7 +407,10 @@ large momentum of the system that makes it look like the system is
 warm, since in MD temperature is measured from the kinetic energy.</p>
 </div>
 <div class="justify docutils container">
-<p>This leads to the system appearing frozen. The solution is to cancel
+<p>This leads to the system appearing frozen.</p>
+</div>
+<div class="justify docutils container">
+<p>The solution is to cancel
 the net momentum of the atoms, for instance by using <em>fix momentum</em>,
 re-setting the velocity with the <em>velocity create</em> command,
 or use a different thermostat.</p>

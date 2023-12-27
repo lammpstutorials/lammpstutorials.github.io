@@ -40,8 +40,8 @@ Fix a broken input
 
 .. container:: justify
 
-    In some cases, more than two consecutive *run* can
-    be the solution:
+    In some cases, more than two consecutive *runs* can
+    be an appropriate solution:
 
 ..  code-block:: lammps
 
@@ -70,8 +70,11 @@ Create a demixed dense phase
 .. container:: justify
 
     You can download the |input_demixed_solution| I wrote. Note that 
-    I use a large number of particles: 8000 for each type. Then,
-    the key to create a demixing phase is to play with the Lennard-Jones 
+    I use a large number of particles: 8000 for each type. 
+
+.. container:: justify
+
+    The key to create a demixing phase is to play with the Lennard-Jones 
     parameters:
 
 ..  code-block:: lammps
@@ -98,8 +101,8 @@ Create a demixed dense phase
 
 .. container:: justify
 
-    With *fix nph* and a pressure of 1, LAMMPS adjusts the box dimension until the 
-    pressure is close to 1, which is require reducing the initial box dimensions.
+    With *fix nph* and a pressure of 1, LAMMPS adjusts the box dimensions until the 
+    pressure is close to 1. Here, reaching a pressure of 1 requires reducing the initial box dimensions.
 
 .. |input_demixed_solution| raw:: html
 
@@ -120,7 +123,7 @@ From atoms to molecules
 .. container:: justify
 
     The first important change is to choose
-    an *atom_style* that allows for atom to be connected by bonds.
+    an *atom_style* that allows for the atoms to be connected by bonds.
     It is also necessary to specify the *bond_style*,
     i.e. the type of potential (here harmonic) that will keep the atoms
     together:
@@ -141,7 +144,7 @@ From atoms to molecules
 
 .. container:: justify
 
-    Then, import the *molecule template*, and use this template
+    Then, import the *molecule template*, and use the template
     when creating the atoms:
 
 ..  code-block:: lammps
@@ -168,7 +171,7 @@ From atoms to molecules
 
     You can download the |input_polymer_solution| and
     |mol_polymer_solution| I wrote to make the short polymer. 
-    Note that angular potentials are used to give some
+    Note that some additional angular potentials are used to give its
     rigidity to the polymer.
     
 .. |input_polymer_solution| raw:: html
@@ -207,7 +210,7 @@ Plot the strain-stress curves
 .. container:: justify
     
     On the side note, the surface area 
-    of a CNT is not a well defined quantity. I choose to 
+    of a CNT is not a well defined quantity. Here, I choose to 
     define the area as the perimeter of the CNT multiplied by the 
     effective width of the carbon atoms.
 
@@ -244,7 +247,11 @@ Solve the flying ice cube artifact
 
 .. container:: justify
 
-    This leads to the system appearing frozen. The solution is to cancel
+    This leads to the system appearing frozen. 
+    
+.. container:: justify
+
+    The solution is to cancel
     the net momentum of the atoms, for instance by using *fix momentum*,
     re-setting the velocity with the *velocity create* command,
     or use a different thermostat.
