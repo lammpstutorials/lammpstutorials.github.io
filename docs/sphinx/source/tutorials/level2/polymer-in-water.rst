@@ -158,9 +158,9 @@ The water
 ..  container:: justify
 
     Then, let us create a 3D simulation box of dimensions :math:`3 \times 3 \times 3 \; \text{nm}^3`,
-    and make space for 8 atom types (1 and 2 for
-    the water molecule, and 3 to 8 for the PEG molecule), 6 bond types, 9
-    angle types, and 14 dihedrals types.
+    and make space for 9 atom types (2 for
+    the water molecule, and 7 for the PEG molecule), 6 bond types, 15
+    angle types, and 3 dihedrals types.
     Copy the following lines into *input.lammps*:
 
 ..  code-block:: lammps
@@ -207,8 +207,8 @@ The water
     Within *PARM.lammps*, the *mass* and *pair_coeff* of atoms
     of type 8 and 9 are for water, while 
     those of atoms type 1 to 7 are for the PEG
-    molecule. Similarly, the *bond_coeff 1* and 
-    *angle_coeff 1* are for water, while all
+    molecule. Similarly, the *bond_coeff 6* and 
+    *angle_coeff 15* are for water, while all
     the other parameters are for the PEG.
 
 ..  container:: justify
