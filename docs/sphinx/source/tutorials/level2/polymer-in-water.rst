@@ -320,10 +320,9 @@ The water
 .. admonition:: On calling variables in LAMMPS
     :class: info
 
-    Both dollar sign (:math:`\$`)
-    and underscore (:math:`v_\text{var}`) can be used to
+    Both dollar sign and underscore can be used to
     call a previously defined variable. 
-    With the dollar sign, the initial value of of the variable is returned,
+    With the dollar sign, the initial value of the variable is returned,
     while with the underscore, the instantaneous value of the variable is returned. 
     To probe the temporal evolution of a variable with time,
     the underscore must be used.
