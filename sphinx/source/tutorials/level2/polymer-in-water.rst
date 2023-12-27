@@ -886,8 +886,8 @@ Going further with exercises
 
 .. include:: ../../non-tutorials/link-to-solutions.rst
 
-Extract radial distribution function
-------------------------------------
+Extract the radial distribution function
+----------------------------------------
 
 ..  container:: justify
 
@@ -916,8 +916,14 @@ Extract radial distribution function
     the PEG molecule is being stretched. This effect is described in
     the 2017 publication by Liese et al.
 
-Add salt to the mixture
------------------------
+Add salt to the system
+----------------------
+
+..  container:: justify
+
+    More relistic systems contain ions. Let us make the system
+    slightly more realistic by adding some :math:`\text{Na}^+` and 
+    :math:`\text{Cl}^-` to it.
 
 ..  container:: justify
 
@@ -942,5 +948,33 @@ Add salt to the mixture
 
 .. container:: figurelegend
 
-    Figure: A PEG molecule in water, with :math:`\text{Na}^+` ions in 
+    Figure: A PEG molecule in electrolyte, with :math:`\text{Na}^+` ions in 
     purple and :math:`\text{Cl}^-` ions in cyan.
+
+Evaluate the deformation of the PEG
+-----------------------------------
+
+.. container:: justify
+
+    Once the PEG is fully stretched, its structure differs from the
+    unstretched case. This can be probed by looking at the typical
+    bond parameters, such as the dihedrals.
+
+.. container:: justify
+
+    Extract the histograms of the anglar distribution of the PEG dihedrals,
+    in the absence and in the presence of stretching.
+
+.. figure:: ../figures/level2/polymer-in-water/dihedral_angle-dark.png
+    :alt: PEG in a NaCl solution
+    :class: only-dark
+
+.. figure:: ../figures/level2/polymer-in-water/dihedral_angle-light.png
+    :alt: PEG in a NaCl solution
+    :class: only-light
+
+.. container:: figurelegend
+
+    Figure: Probability distribution for the dihedral angle :math:`\phi`, for a streched
+    and for an unstretched PEG molecule. 
+

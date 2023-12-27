@@ -391,36 +391,7 @@ Add salt to the mixture
 
     You can download the |input_PEG_salt|,
     |data_PEG_salt|,
-    and |parm_PEG_salt| files I wrote. It is important to 
-    make space for the salt by modifying the data file as follow:
-
-..  code-block:: lammps
-
-    (...)
-    9 atom types
-    (...)
-
-.. container:: justify
-
-    Additional *mass* and *pair_coeff* lines 
-    must be added to the parm file (be careful to use the 
-    appropriate units):
-
-..  code-block:: lammps
-
-    (...)
-    mass 8 22.98 # Na
-    mass 9 35.453 # Cl
-    (...)
-    pair_coeff 8 8 0.04690 2.43 # Na
-    pair_coeff 9 9 0.1500 4.045
-    (...)
-
-.. container:: justify
-
-    Finally, here I choose to add the ions using two separate
-    *create_atoms* commands with a very small *overlap*
-    values, followed by an energy minimization. 
+    and |parm_PEG_salt| files I wrote. 
 
 .. |input_PEG_salt| raw:: html
 
@@ -433,6 +404,72 @@ Add salt to the mixture
 .. |parm_PEG_salt| raw:: html
 
     <a href="../../../../inputs/level2/polymer-in-water/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a>
+    
+.. container:: justify
+    
+    It is important to 
+    make space for the two salt atoms by modifying the data file as follow:
+
+..  code-block:: lammps
+
+    (...)
+    11 atom types
+    (...)
+
+.. container:: justify
+
+    Additional *mass* and *pair_coeff* lines 
+    must also be added to the parm file (be careful to use the 
+    appropriate units):
+
+..  code-block:: lammps
+
+    (...)
+    mass 10 22.98 # Na
+    mass 11 35.453 # Cl
+    (...)
+    pair_coeff 10 10 0.04690 2.43 # Na
+    pair_coeff 11 11 0.1500 4.045
+    (...)
+
+.. container:: justify
+
+    Finally, here I choose to add the ions using two separate
+    *create_atoms* commands with a very small *overlap*
+    values, followed by an energy minimization. 
+
+.. container:: justify
+
+    Note also the presence of the *set* commands to
+    give a net charge to the ions.
+
+Evaluate the deformation of the PEG
+-----------------------------------
+
+.. container:: justify
+
+    You can download the |input_PEG_dihedral| file I wrote. 
+
+.. |input_PEG_dihedral| raw:: html
+
+    <a href="../../../../inputs/level2/polymer-in-water/exercises/structurePEG/input.lammps" target="_blank">input</a>
+
+.. container:: justify
+
+    The key is to combine the *compute dihedral/local*,
+    which computes the angles of the dihedrals and returns
+    them in a vector, with the *ave/histo* functionalities of LAMMPS:
+
+..  code-block:: lammps
+
+    compute mydihe all dihedral/local phi
+    fix myavehisto all ave/histo 10 2000 30000 0 180 500 c_mydihe file initial.histo mode vector
+
+.. container:: justify
+
+    Here I choose to unfix *myavehisto* at the end of the first run,
+    and to re-start it with a different file name during the second phase
+    of the simulation.
 
 Nanosheared electrolyte
 =======================

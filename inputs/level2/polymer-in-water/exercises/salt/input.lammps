@@ -33,12 +33,15 @@ special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 read_data mix-with-salt.data
 include PARM-with-salt.lammps
 
-create_atoms 8 random 20 456415 NULL overlap 0.5 maxtry 50
-create_atoms 9 random 20 456415 NULL overlap 0.5 maxtry 50
+create_atoms 10 random 20 456415 NULL overlap 0.5 maxtry 50
+create_atoms 11 random 20 456415 NULL overlap 0.5 maxtry 50
 
-group H2O type 1 2
-group PEG type 3 4 5 6 7
-group NaCl type 8 9
+group H2O type 8 9
+group PEG type 1 2 3 4 5 6 7
+group NaCl type 10 11
+
+set type 10 charge 1
+set type 11 charge -1
 
 minimize 1.0e-4 1.0e-6 100 1000
 reset_timestep 0

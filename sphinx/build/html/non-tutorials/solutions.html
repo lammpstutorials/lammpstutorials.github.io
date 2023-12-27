@@ -519,25 +519,28 @@ is applied to the PEG, a second <em>fix ave/time</em> is used.</p>
 <div class="justify docutils container">
 <p>You can download the <a href="../../../../inputs/level2/polymer-in-water/exercises/salt/input.lammps" target="_blank">input</a>,
 <a href="../../../../inputs/level2/polymer-in-water/exercises/salt/mix-with-salt.data" target="_blank">data</a>,
-and <a href="../../../../inputs/level2/polymer-in-water/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a> files I wrote. It is important to
-make space for the salt by modifying the data file as follow:</p>
+and <a href="../../../../inputs/level2/polymer-in-water/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a> files I wrote.</p>
+</div>
+<div class="justify docutils container">
+<p>It is important to
+make space for the two salt atoms by modifying the data file as follow:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
-<span class="m">9</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
+<span class="m">11</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
 <span class="nv">(...)</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
 <p>Additional <em>mass</em> and <em>pair_coeff</em> lines
-must be added to the parm file (be careful to use the
+must also be added to the parm file (be careful to use the
 appropriate units):</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">22.98</span><span class="w"> </span><span class="c"># Na</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">35.453</span><span class="w"> </span><span class="c"># Cl</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">22.98</span><span class="w"> </span><span class="c"># Na</span>
+<span class="k">mass</span><span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">35.453</span><span class="w"> </span><span class="c"># Cl</span>
 <span class="nv">(...)</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">0.04690</span><span class="w"> </span><span class="m">2.43</span><span class="w"> </span><span class="c"># Na</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">0.1500</span><span class="w"> </span><span class="m">4.045</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">0.04690</span><span class="w"> </span><span class="m">2.43</span><span class="w"> </span><span class="c"># Na</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">0.1500</span><span class="w"> </span><span class="m">4.045</span>
 <span class="nv">(...)</span>
 </pre></div>
 </div>
@@ -545,6 +548,30 @@ appropriate units):</p>
 <p>Finally, here I choose to add the ions using two separate
 <em>create_atoms</em> commands with a very small <em>overlap</em>
 values, followed by an energy minimization.</p>
+</div>
+<div class="justify docutils container">
+<p>Note also the presence of the <em>set</em> commands to
+give a net charge to the ions.</p>
+</div>
+</section>
+<section id="evaluate-the-deformation-of-the-peg">
+<h3>Evaluate the deformation of the PEG<a class="headerlink" href="#evaluate-the-deformation-of-the-peg" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>You can download the <a href="../../../../inputs/level2/polymer-in-water/exercises/structurePEG/input.lammps" target="_blank">input</a> file I wrote.</p>
+</div>
+<div class="justify docutils container">
+<p>The key is to combine the <em>compute dihedral/local</em>,
+which computes the angles of the dihedrals and returns
+them in a vector, with the <em>ave/histo</em> functionalities of LAMMPS:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">mydihe</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">dihedral</span><span class="o">/</span><span class="n">local</span><span class="w"> </span><span class="n">phi</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myavehisto</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">histo</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="m">30000</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="n">c_mydihe</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">initial.histo</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">vector</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Here I choose to unfix <em>myavehisto</em> at the end of the first run,
+and to re-start it with a different file name during the second phase
+of the simulation.</p>
 </div>
 </section>
 </section>
@@ -1111,6 +1138,7 @@ progressively decorating the surface of the SiO2 structure:</p>
 <li><a class="reference internal" href="#polymer-in-water">Polymer in water</a><ul>
 <li><a class="reference internal" href="#extract-radial-distribution-function">Extract radial distribution function</a></li>
 <li><a class="reference internal" href="#add-salt-to-the-mixture">Add salt to the mixture</a></li>
+<li><a class="reference internal" href="#evaluate-the-deformation-of-the-peg">Evaluate the deformation of the PEG</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#nanosheared-electrolyte">Nanosheared electrolyte</a><ul>
