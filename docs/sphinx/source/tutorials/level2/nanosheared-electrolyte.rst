@@ -40,8 +40,11 @@ Nanosheared electrolyte
 
 .. include:: ../../non-tutorials/2Aug2023.rst
 
+System preparation
+==================
+
 System generation
-=================
+-----------------
 
 ..  container:: justify
 
@@ -396,7 +399,7 @@ System generation
     occur at the boundary.
 
 Energy minimization
-===================
+-------------------
 
 .. admonition:: Why is energy minimization necessary?
     :class: info
@@ -475,19 +478,14 @@ Energy minimization
     Just like *fix nve*, the fix *nve/limit* performs constant NVE integration to
     update positions and velocities of the atoms at each
     timestep, but also limits the maximum distance atoms can travel at
-    each timestep. Here, only the fluid molecules and ions will move, 
-    as we anticipate that they are the problematic species in this
-    system.
+    each timestep. Here, only the fluid molecules and ions will move.
 
 ..  container:: justify
 
-    The *temp/berendsen* fix rescales the
-    velocities of the atoms to impose their temperature.
-
-..  container:: justify
-
-    The shake algorithm is used in order to maintain the shape
-    of water molecules.
+    The *fix temp/berendsen* rescales the
+    velocities of the atoms to force the temperature of the system
+    to reach the desired value of 1 K, and the shake algorithm
+    is used in order to maintain the shape of the water molecules.
 
 ..  container:: justify
 
@@ -511,7 +509,8 @@ Energy minimization
 ..  container:: justify
 
     In order to better equilibrate the system, let us perform 
-    two additional step with larger timestep and temperature:
+    two additional steps with a larger timestep and a larger
+    imposed temperature:
 
 ..  code-block:: lammps
 
@@ -531,7 +530,7 @@ Energy minimization
 ..  container:: justify
 
     For the last of the 3 steps, fix *nve* is used instead of 
-    nve/limit*, which will allow for a better relaxation of the 
+    *nve/limit*, which will allow for a better relaxation of the 
     atom positions.
 
 ..  container:: justify
@@ -539,8 +538,7 @@ Energy minimization
     When running the *input.lammps* file with LAMMPS, you should see that the
     total energy of the system decreases during the first 
     of the 3 steps, before re-increasing a little after the 
-    temperature is increased from 1 to :math:`300\,\text{K}`,
-    as expected:
+    temperature is increased from 1 to :math:`300\,\text{K}`.
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/minimization-light.png
     :alt: Energy minimisation of the confined water and salt
@@ -570,7 +568,7 @@ Energy minimization
    <a href="https://youtu.be/JWGZnFN4TOo" target="_blank">this video</a>
 
 System equilibration
-====================
+--------------------
 
 ..  container:: justify
 
@@ -600,8 +598,7 @@ System equilibration
 
 ..  container:: justify
 
-    Finally, let us complete the *input.lammps* file
-    by adding the commands to manage the atoms dynamic:
+    Finally, let us complete the *input.lammps* file:
 
 ..  code-block:: lammps
 
@@ -633,10 +630,11 @@ System equilibration
 
 ..  container:: justify
 
-    The first two variables allow us to extract the centers of mass of
-    the two walls. Then, the :math:`\delta_z`
+    The first two variables extract the centers of mass of
+    the two walls. Then, the *deltaz*
     variable is used to calculate the distance between
-    the two centers of mass.
+    the two variables *walltopz*
+    and *wallbotz*, i.e. the distance between the two walls.
 
 ..  container:: justify
 
@@ -649,18 +647,13 @@ System equilibration
 
 ..  container:: justify
 
-    Run the *input.lammps* file using LAMMPS. You can speed-up the 
-    calculation by using multiple CPU cores:
-
-..  code-block:: bash
-
-    mpirun -np 4 lmp -in input.lammps
+    Run the *input.lammps* file using LAMMPS.
 
 ..  container:: justify
 
-    The distance :math:`\delta_z` between the two walls
-    reduces until it reaches an equilibrium value. One can have a look
-    at the data printed by *fix myat1*:
+    As seen from the data printed by *fix myat1*,
+    the distance :math:`\delta_z` between the two walls
+    reduces until it reaches an equilibrium value.
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/equilibration-light.png
     :alt: Plot showing the distance between the walls as a function of time.
@@ -672,14 +665,15 @@ System equilibration
 
 ..  container:: figurelegend
 
-    Figure: Distance between the walls as a function of time. After about :math:`15\,\text{ps}`, the 
-    distance between the walls is very close to its final equilibrium value. 
+    Figure: Distance between the walls as a function of time.
+    After about :math:`15\,\text{ps}`, the 
+    distance between the two walls is very close to its final equilibrium value. 
     
 ..  container:: justify
 
     Note that it is generaly recommended to run longer equilibration.
     Here for instance, the slowest
-    process is the ionic diffusion. Therefore the equilibration 
+    process in the system is probably the ionic diffusion. Therefore the equilibration 
     should in principle be longer than the time
     the ions need to diffuse over the size of the pore
     (:math:`\approx 1.2\,\text{nm}`), i.e. of the order of half a nanosecond.
@@ -703,6 +697,14 @@ Imposed shearing
     angle_style harmonic
     pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
     kspace_style pppm/tip4p 1.0e-4
+
+..  container:: justify
+
+    Let us import the previously equilibrated data,
+    include the parameter and group files,
+    and then deal with the dynamics of the system.
+
+..  code-block:: lammps
 
     read_data ../Equilibration/system.data
 
@@ -729,7 +731,7 @@ Imposed shearing
 
 ..  container:: justify
 
-    The use of temperature *compute* with *temp/partial 0 1 1* operations
+    The use of temperature *compute* with *temp/partial 0 1 1*
     is meant to exclude the *x* coordinate from the
     thermalisation, which is important since a large velocity
     will be imposed along *x*. 
@@ -748,8 +750,8 @@ Imposed shearing
         
 ..  container:: justify
 
-    The *setforce* commands cancel the forces on a group of atoms at
-    every timestep, so the atoms of the group do not
+    The *setforce* commands cancel the forces on *walltop* and
+    *wallbot*, respectively. Therefore the atoms of the two groups do not
     experience any force from the rest of the system. In absence of force
     acting on those atoms, they will conserve their initial velocity.
 
@@ -776,17 +778,23 @@ Imposed shearing
     compute cc2 wall chunk/atom bin/1d z 0.0 1.0
     compute cc3 ions chunk/atom bin/1d z 0.0 1.0
 
-    fix myac1 H2O ave/chunk 10 15000 200000 cc1 density/mass vx file water.profile_1A.dat
-    fix myac2 wall ave/chunk 10 15000 200000 cc2 density/mass vx file wall.profile_1A.dat
-    fix myac3 ions ave/chunk 10 15000 200000 cc3 density/mass vx file ions.profile_1A.dat
+    fix myac1 H2O ave/chunk 10 15000 200000 &
+    cc1 density/mass vx file water.profile_1A.dat
+    fix myac2 wall ave/chunk 10 15000 200000 &
+    cc2 density/mass vx file wall.profile_1A.dat
+    fix myac3 ions ave/chunk 10 15000 200000 &
+    cc3 density/mass vx file ions.profile_1A.dat
 
     compute cc4 H2O chunk/atom bin/1d z 0.0 0.1
     compute cc5 wall chunk/atom bin/1d z 0.0 0.1
     compute cc6 ions chunk/atom bin/1d z 0.0 0.1
 
-    fix myac4 H2O ave/chunk 10 15000 200000 cc4 density/mass vx file water.profile_0.1A.dat
-    fix myac5 wall ave/chunk 10 15000 200000 cc5 density/mass vx file wall.profile_0.1A.dat
-    fix myac6 ions ave/chunk 10 15000 200000 cc6 density/mass vx file ions.profile_0.1A.dat
+    fix myac4 H2O ave/chunk 10 15000 200000 &
+    cc4 density/mass vx file water.profile_0.1A.dat
+    fix myac5 wall ave/chunk 10 15000 200000 &
+    cc5 density/mass vx file wall.profile_0.1A.dat
+    fix myac6 ions ave/chunk 10 15000 200000 &
+    cc6 density/mass vx file ions.profile_0.1A.dat
 
     fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat
 
@@ -801,10 +809,9 @@ Imposed shearing
 
 ..  container:: justify
 
-    The averaged velocity profile obtained with a :math:`200\,\text{ps}`
-    can be plotted. The velocity increases linearly with the distance :math:`z`.
-    One can adjust the velocity profile with a linear fit and deduce an effective
-    value of :math:`h = 1.2\,\text{nm}` for the pore size.
+    The averaged velocity profile of the fluid 
+    can be plotted. As expected here, the velocity
+    of the fluid is found to increase linearly along :math:`z`.
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/shearing-light.png
     :alt: Velocity of the nanosheared fluid
@@ -820,10 +827,6 @@ Imposed shearing
     along the *z* axis. The line is a linear fit assuming that 
     the pore size is :math:`h = 1.2\,\text{nm}`.
 
-..  container:: justify
-
-    The averaged density profile for the water is the following:
-
 .. figure:: ../figures/level2/nanosheared-electrolyte/density-light.png
     :alt: density of the nanosheared fluid
     :class: only-light
@@ -834,7 +837,8 @@ Imposed shearing
 
 ..  container:: figurelegend
 
-    Figure: Water density profiles for water along the *z* axis.
+    Figure: Water density :math:`\rho` profile
+    along the *z* axis.
 
 ..  container:: justify
 
@@ -881,9 +885,11 @@ Make a hydrophobic nanopore
 
 ..  container:: justify
 
-    The walls of the nanopore used in the tutorial are extremely hydrophilic, as visible from the 
-    density profile showing large peaks near the walls. Play with the interaction
-    parameters and make the nanopore more hydrophobic.
+    The walls of the nanopore used in the tutorial are extremely
+    hydrophilic, as visible from the 
+    density profile showing large peaks near the walls. Make the nanopore
+    more hydrophobic without affecting the interaction occuring between the
+    atoms of the wall.
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/hydrophobic-pore-light.png
     :alt: hydrophobic vs hydrophilic pores : density profiles
@@ -914,8 +920,7 @@ Induce a Poiseuille flow
     which can be derived from the Stokes equation :math:`\eta \nabla \textbf{v} = - \textbf{f} \rho`
     where :math:`f` is the applied force,
     :math:`\rho` is the fluid density,
-    :math:`\eta` is the fluid viscosity, and
-    :math:`h = 1.2\,\text{nm}` is the pore size.
+    :math:`\eta` is the fluid viscosity.
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/shearing-poiseuille-light.png
     :alt: Velocity of the fluid forming a Poiseuille flow
