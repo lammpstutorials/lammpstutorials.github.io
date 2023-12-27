@@ -921,9 +921,8 @@ Add salt to the system
 
 ..  container:: justify
 
-    More relistic systems contain ions. Let us make the system
-    slightly more realistic by adding some :math:`\text{Na}^+` and 
-    :math:`\text{Cl}^-` to it.
+    Realistic systems usually contain ions. Let us add some :math:`\text{Na}^+` and 
+    :math:`\text{Cl}^-` ions to our current PEG-water system.
 
 ..  container:: justify
 
@@ -957,12 +956,12 @@ Evaluate the deformation of the PEG
 .. container:: justify
 
     Once the PEG is fully stretched, its structure differs from the
-    unstretched case. This can be probed by looking at the typical
-    bond parameters, such as the dihedrals.
+    unstretched case. The deformation can be probed by extracting the typical
+    intra-molecular parameters, such as the typical angles of the dihedrals.
 
 .. container:: justify
 
-    Extract the histograms of the anglar distribution of the PEG dihedrals,
+    Extract the histograms of the anglar distribution of the PEG dihedrals
     in the absence and in the presence of stretching.
 
 .. figure:: ../figures/level2/polymer-in-water/dihedral_angle-dark.png
