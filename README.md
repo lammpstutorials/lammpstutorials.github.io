@@ -14,6 +14,11 @@ The Python scripts used to generate the figures are also provided.
   <img src="docs/sphinx/source/_static/screenshot_readme_lammps_tutorials_2.png" width="100%" /></a>
 </p>
 
+### Template
+
+The template from the first page has been adapted from HTML5 UP. The other pages are
+using sphinx with the furo style.
+
 ### You noticed a mistake in one of the tutorial?
 
 You can report issue here on Github, or send me an [email](https://simongravelle.github.io/). Your feedback is always highly appreciated.
