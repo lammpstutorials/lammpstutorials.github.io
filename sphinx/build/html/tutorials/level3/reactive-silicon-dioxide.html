@@ -240,14 +240,15 @@
 <a class="only-dark reference internal image-reference" href="../../_images/SiO_gif_dark.webp"><img alt="Figure showing silicon dioxide structure with colored charges as simulated with lammps and reaxff" class="only-dark" src="../../_images/SiO_gif_dark.webp" style="height: 250px;" /></a>
 </figure>
 <div class="justify docutils container">
-<p>The objective of this tutorial is to use a molecular
-dynamics system made of silicon dioxide (SiO2), and deform
-it until it breaks. The reactive force field <em>reaxff</em> is used, and
-a particular attention is given to the evolution of the charges
-of the atoms during the deformation of the structure.</p>
+<p>The objective of this tutorial is to use the
+reactive force field named <em>reaxff</em>. This force field
+allows for the calculation of chemical bond formation.</p>
 </div>
 <div class="justify docutils container">
-<p>The chemical reactions occurring due to the deformation
+<p>The system simulated here is a block of silicon dioxide (SiO2), that is deformed
+until rupture. A particular attention is given to the evolution of the charges
+of the atoms during the deformation of the structure, and
+the chemical reactions occurring due to the deformation
 are tracked and discussed.</p>
 </div>
 <div class="justify docutils container">
@@ -270,11 +271,7 @@ amorphous silica structure.</p>
 </div>
 <div class="justify docutils container">
 <p>The system was created by temperature annealing using another force field
-named <a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>, therefore the structure is slightly
-different to what is expected from the reaxff force field.
-For instance, the average bond lengths, angles, and charges
-are likely to be different, and the structure needs
-to be relaxed again using reaxff.</p>
+named <a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>.</p>
 </div>
 <div class="justify docutils container">
 <p>In case you are interested in the input creation, the input file
@@ -291,9 +288,9 @@ reaxff is used. Let us keep that in mind for now.</p>
 </div>
 <div class="justify docutils container">
 <p>The first step we need to perform here is to relax
-the structure, which we are gonna do using molecular
+the structure with <em>reaxff</em>, which we are gonna do using molecular
 dynamics. To make sure that the system equilibrates
-nicely, we will track the changes over time.</p>
+nicely, let us track some changes over time.</p>
 </div>
 <div class="justify docutils container">
 <p>Create an input file called <em>input.lammps</em> in <em>RelaxSilica/</em>,
@@ -321,10 +318,10 @@ Now let us enter 3 crucial lines in the <em>input.lammps</em> file:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here, the reaxff <em>pair_style</em> is used with no control file,
-and the <em>safezone</em> and <em>mincap</em> keywords have been added
-to avoid memory allocation issue. If not there, the segmentation
-faults and bondchk failed errors sometimes occur.</p>
+<p>Here, the reaxff <em>pair_style</em> is used with no control file.
+The <em>safezone</em> and <em>mincap</em> keywords have been added
+to avoid memory allocation issue, which sometimes can trigger
+the segmentation faults and bondchk failed errors.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>pair_coeff</em> uses
@@ -343,7 +340,7 @@ equilibrate the charge.</p>
 <div class="info admonition">
 <p class="admonition-title">Note</p>
 <p>If the charge does not
-properly equilibrate despite the 400 attempts, a warning will appear. Such warning
+properly equilibrate despite the 400 attempts, a warning will appear. Such warnings
 are likely to appear at the beginning of the simulation if the initial charges
 are too far from the equilibrium values.</p>
 </div>
@@ -530,11 +527,11 @@ Add the following line to <em>input.lammps</em>:</p>
 </div>
 <div class="justify docutils container">
 <p>During the deformation, the charges progressively change until the structure eventually
-breaks up. After the structure breaks, the charges equilibrate near new
-mean values that differ from the starting charges. The difference between
-the initial and the final charge can be explained by
-presence of a new solid/vacuum interface (surface atoms have different charges
-compared to bulk atoms).</p>
+breaks down. After the structure breaks down, the charges equilibrate near new
+average values that differ from the starting averages. The difference between
+the initial and the final charges can be explained by
+presence of a new solid/vacuum interface: surface atoms typically have different charges
+compared to bulk atoms.</p>
 </div>
 <figure class="align-default">
 <img alt="Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff" class="only-light" src="../../_images/deformed-charge-light.png" />
@@ -591,7 +588,7 @@ after deformation. The stars correspond to the charge distribution during deform
 <div class="justify docutils container">
 <p>The final charge distribution slightly differs from the previously calculated,
 which was to be expected as the material was broken.
-In my case, no need species was formed during the simulation,
+In my case, no new species was formed during the simulation,
 as can be seen from the <em>species.log</em> file:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c">#  Timestep    No_Moles    No_Specs   Si192O384</span>
@@ -603,7 +600,7 @@ as can be seen from the <em>species.log</em> file:</p>
 </div>
 <div class="justify docutils container">
 <p>Sometimes, <span class="math notranslate nohighlight">\(\text{O}_2\)</span> molecules are formed during the
-deformation. If this is the case, the species.log* file will look like:</p>
+deformation. If this is the case, the <em>species.log</em> file will look like:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c">#  Timestep    No_Moles    No_Specs   Si192O384</span>
 <span class="w">          </span><span class="m">5</span><span class="w">           </span><span class="m">1</span><span class="w">           </span><span class="m">1</span><span class="w">           </span><span class="m">1</span>
@@ -630,27 +627,6 @@ see <a class="reference internal" href="../../non-tutorials/solutions.html#solut
 <p>Add <span class="math notranslate nohighlight">\(\text{O}_2\)</span> molecules to the previously
 equilibrated structure. Equilibrate it again, and
 extract the charge density profile along the <span class="math notranslate nohighlight">\(x\)</span> axis.</p>
-</div>
-<div class="justify docutils container">
-<p>Use the following molecule template named <em>O2.mol</em>:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">2</span><span class="w"> </span><span class="n">atoms</span>
-
-<span class="n">Coords</span>
-
-<span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">0.6</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="m">2</span><span class="w"> </span><span class="m">0.6</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-
-<span class="n">Types</span>
-
-<span class="m">1</span><span class="w"> </span><span class="m">2</span>
-<span class="m">2</span><span class="w"> </span><span class="m">2</span>
-
-<span class="n">Charges</span>
-
-<span class="m">1</span><span class="w"> </span><span class="m">0.0</span>
-<span class="m">2</span><span class="w"> </span><span class="m">0.0</span>
-</pre></div>
 </div>
 <div class="justify docutils container">
 <p>Here, the <span class="math notranslate nohighlight">\(\text{O}_2\)</span> molecule is simply made of 2 oxygen atoms that are not

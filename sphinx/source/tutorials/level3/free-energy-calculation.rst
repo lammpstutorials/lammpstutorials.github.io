@@ -825,5 +825,5 @@ Surface adsorption of a molecule
 ..  container:: justify
 
     Alternatively to using ethanol, feel free to download the molecule of your choice, for 
-    instance from the  Automated Topology Builder (ATB). You will make your life simpler
-    by choosing one small molecule, like for instance CO2, a small alcohol, water, etc.
+    instance from the Automated Topology Builder (ATB). Make your life simpler
+    by choosing a small molecule like CO2.

@@ -673,8 +673,8 @@ System equilibration
 ..  container:: figurelegend
 
     Figure: Distance between the walls as a function of time.
-    After about :math:`15\,\text{ps}`, the 
-    distance between the two walls is very close to its final equilibrium value. 
+    After a few pico seconds, the distance between the two walls equilibrates near
+    its final value. 
     
 ..  container:: justify
 

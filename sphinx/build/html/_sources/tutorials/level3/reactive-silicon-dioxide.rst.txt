@@ -21,15 +21,16 @@ Reactive silicon dioxide
 
 ..  container:: justify
 
-    The objective of this tutorial is to use a molecular
-    dynamics system made of silicon dioxide (SiO2), and deform 
-    it until it breaks. The reactive force field *reaxff* is used, and 
-    a particular attention is given to the evolution of the charges
-    of the atoms during the deformation of the structure. 
+    The objective of this tutorial is to use the 
+    reactive force field named *reaxff*. This force field
+    allows for the calculation of chemical bond formation. 
 
 ..  container:: justify
 
-    The chemical reactions occurring due to the deformation
+    The system simulated here is a block of silicon dioxide (SiO2), that is deformed 
+    until rupture. A particular attention is given to the evolution of the charges
+    of the atoms during the deformation of the structure, and 
+    the chemical reactions occurring due to the deformation
     are tracked and discussed.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
@@ -54,11 +55,7 @@ Prepare and relax
 ..  container:: justify
 
     The system was created by temperature annealing using another force field 
-    named |download_SiO.1990.vashishta|, therefore the structure is slightly
-    different to what is expected from the reaxff force field. 
-    For instance, the average bond lengths, angles, and charges 
-    are likely to be different, and the structure needs 
-    to be relaxed again using reaxff. 
+    named |download_SiO.1990.vashishta|.
 
 .. |download_SiO.1990.vashishta| raw:: html
 
@@ -86,9 +83,9 @@ Prepare and relax
 ..  container:: justify
 
     The first step we need to perform here is to relax
-    the structure, which we are gonna do using molecular
+    the structure with *reaxff*, which we are gonna do using molecular
     dynamics. To make sure that the system equilibrates
-    nicely, we will track the changes over time.
+    nicely, let us track some changes over time.
 
 ..  container:: justify
 
@@ -121,10 +118,10 @@ Prepare and relax
 
 ..  container:: justify
 
-    Here, the reaxff *pair_style* is used with no control file,
-    and the *safezone* and *mincap* keywords have been added
-    to avoid memory allocation issue. If not there, the segmentation
-    faults and bondchk failed errors sometimes occur.
+    Here, the reaxff *pair_style* is used with no control file.
+    The *safezone* and *mincap* keywords have been added
+    to avoid memory allocation issue, which sometimes can trigger
+    the segmentation faults and bondchk failed errors.
 
 ..  container:: justify
 
@@ -146,7 +143,7 @@ Prepare and relax
     :class: info
 
     If the charge does not
-    properly equilibrate despite the 400 attempts, a warning will appear. Such warning
+    properly equilibrate despite the 400 attempts, a warning will appear. Such warnings
     are likely to appear at the beginning of the simulation if the initial charges
     are too far from the equilibrium values.
 
@@ -377,11 +374,11 @@ Deform the structure
 ..  container:: justify
 
     During the deformation, the charges progressively change until the structure eventually
-    breaks up. After the structure breaks, the charges equilibrate near new 
-    mean values that differ from the starting charges. The difference between 
-    the initial and the final charge can be explained by
-    presence of a new solid/vacuum interface (surface atoms have different charges
-    compared to bulk atoms).
+    breaks down. After the structure breaks down, the charges equilibrate near new 
+    average values that differ from the starting averages. The difference between 
+    the initial and the final charges can be explained by
+    presence of a new solid/vacuum interface: surface atoms typically have different charges
+    compared to bulk atoms.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-charge-light.png
     :alt: Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff
@@ -454,7 +451,7 @@ Deform the structure
 
     The final charge distribution slightly differs from the previously calculated,
     which was to be expected as the material was broken.
-    In my case, no need species was formed during the simulation,
+    In my case, no new species was formed during the simulation,
     as can be seen from the *species.log* file:
 
 ..  code-block:: lammps
@@ -468,7 +465,7 @@ Deform the structure
 ..  container:: justify
 
     Sometimes, :math:`\text{O}_2` molecules are formed during the
-    deformation. If this is the case, the species.log* file will look like:
+    deformation. If this is the case, the *species.log* file will look like:
 
 ..  code-block:: lammps
 
@@ -493,29 +490,6 @@ Add O2 molecules
     Add :math:`\text{O}_2` molecules to the previously
     equilibrated structure. Equilibrate it again, and
     extract the charge density profile along the :math:`x` axis. 
-
-..  container:: justify
-
-    Use the following molecule template named *O2.mol*:
-
-..  code-block:: lammps
-
-    2 atoms
-
-    Coords
-
-    1 -0.6 0 0
-    2 0.6 0 0
-
-    Types
-
-    1 2
-    2 2   
-
-    Charges 
-
-    1 0.0
-    2 0.0
 
 ..  container:: justify
 

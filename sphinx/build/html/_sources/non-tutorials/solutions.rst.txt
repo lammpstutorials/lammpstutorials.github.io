@@ -885,6 +885,29 @@ Add O2 molecules
 
 ..  container:: justify
 
+    Use the following molecule template named *O2.mol*:
+
+..  code-block:: lammps
+
+    2 atoms
+
+    Coords
+
+    1 -0.6 0 0
+    2 0.6 0 0
+
+    Types
+
+    1 2
+    2 2   
+
+    Charges 
+
+    1 0.0
+    2 0.0
+
+..  container:: justify
+
     The value of 3 Angstroms for the minimum interatomic overlapping is 
     very safe for the present system. Smaller values may lead to molecules being 
     too close from each others.
