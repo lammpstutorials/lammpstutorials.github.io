@@ -149,7 +149,8 @@ The water
 .. admonition:: About PPPM
     :class: info
 
-    From |Luty and van Gunsteren|: *'The PPPM method is based on separating the total interaction
+    From |Luty and van Gunsteren|:
+    *'The PPPM method is based on separating the total interaction
     between particles into the sum of short-range
     interactions, which are computed by direct
     particle-particle summation, and long-range interactions,
@@ -396,8 +397,7 @@ The water
 ..  container:: justify
 
    If needed, you can |download_H2O.data|
-   the water reservoir I have equilibrated and continue with
-   the tutorial.
+   the water reservoir I have equilibrated and continue with the tutorial.
 
 .. |download_H2O.data| raw:: html
 
