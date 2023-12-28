@@ -312,7 +312,8 @@ System creation
     - :math:`\epsilon_{ij} = \sqrt{1.0 \times 0.5} = 0.707`, and 
     - :math:`\sigma_{ij} = \sqrt{1.0 \times 3.0} = 1.732`.
 
-    When necessary, cross parameters can be explicitly specified by adding the following 
+    When necessary, cross parameters can be explicitly specifie
+    by adding the following 
     line to the input file: *pair_coeff 1 2 0.707 1.732*. 
 
     Note that the arithmetic rule, where 
@@ -350,7 +351,7 @@ Energy minimization
 ..  container:: justify
 
     The system is now fully parametrized. Let us fill the two last remaining sections
-    by adding the following line to *input.lammps*:
+    by adding the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
