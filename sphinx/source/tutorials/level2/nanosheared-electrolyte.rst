@@ -154,8 +154,8 @@ System generation
 
 ..  code-block:: lammps
 
-    region rbotwall block -3 3 -3 3 -5 -4
-    region rtopwall block -3 3 -3 3 4 5
+    region rbotwall block -3 3 -3 3 -4 -3
+    region rtopwall block -3 3 -3 3 3 4
     region rwall union 2 rbotwall rtopwall
     create_atoms 5 region rwall
 
@@ -182,9 +182,8 @@ System generation
 
 ..  code-block:: lammps
 
-    region rliquid block INF INF INF INF -3 3
+    region rliquid block INF INF INF INF -2 2
     molecule h2omol RigidH2O.txt
-    lattice sc 3.1
     create_atoms 0 region rliquid mol h2omol 482793
 
 ..  container:: justify
@@ -199,14 +198,7 @@ System generation
 
 ..  container:: justify
 
-    A new simple cubic lattice is defined in order to place the water
-    molecules on it, with a distance of 3.1 Ångstroms between
-    each water molecule. Note that the new lattice replaces the
-    previous one, as LAMMPS reads a script from top to bottom.
-
-..  container:: justify
-
-    Molecules are created on the *sc 3.1* lattice
+    Molecules are created on the *fcc 4.04* lattice
     by the *create_atoms* command. The
     first parameter is '0', meaning that the atom ids from the
     *RigidH2O.txt* file will be used.
@@ -221,8 +213,8 @@ System generation
 
 ..  code-block:: lammps
 
-    create_atoms 3 random 15 52802 rliquid overlap 0.6 maxtry 500
-    create_atoms 4 random 15 90182 rliquid overlap 0.6 maxtry 500
+    create_atoms 3 random 15 52802 rliquid overlap 0.3 maxtry 500
+    create_atoms 4 random 15 90182 rliquid overlap 0.3 maxtry 500
     set type 3 charge 1
     set type 4 charge -1
 
@@ -273,6 +265,7 @@ System generation
     pair_coeff 3 3 0.04690 2.4299 # ion
     pair_coeff 4 4 0.1500 4.04470 # ion
     pair_coeff 5 5 11.697 2.574 # wall
+    pair_coeff 1 5 0.4 2.86645 # water-wall
 
     bond_coeff 1 0 0.9572 # water
 
@@ -295,7 +288,9 @@ System generation
 
 ..  container:: justify
 
-    As already seen in previous tutorials, only pairwise interaction between atoms of
+    As already seen in previous tutorials, 
+    and with the important exception of *pair_coeff 1 5*,
+    only pairwise interaction between atoms of
     identical type were assigned. By default, LAMMPS calculates
     the pair coefficients for the interactions between atoms
     of different types (i and j) by using geometrical
@@ -304,6 +299,18 @@ System generation
     Other rules for cross coefficients can be set with the
     *pair_modify* command, but for the sake of simplicity,
     let us keep the default option here.
+
+.. container:: justify
+
+    By default, the value
+    of :math:`\epsilon_\text{1-5} = 5.941\,\text{kcal/mol}` would
+    be extremely high
+    (compare to the water-water
+    energy :math:`\epsilon_\text{1-1} = 0.185199\,\text{kcal/mol}`),
+    which would make the surface extremely hydrophilic.
+    The walls were made less hydrophilic by reducing the 
+    LJ energy of interaction :math:`\epsilon_\text{1-5}`
+    to a lower value.
 
 ..  container:: justify
 
@@ -340,13 +347,13 @@ System generation
 
 ..  container:: justify
 
-    To avoid potential issues near the 
-    box boundaries, let us add the following lines to *input.lammps*
-    to delete any overlapping molecules:
+    To avoid high density and pressure,
+    let us add the following lines to *input.lammps*
+    to delete a few of the water molecules:
 
 ..  code-block:: lammps
 
-    delete_atoms overlap 0.8 H2O H2O mol yes
+    delete_atoms random fraction 0.15 yes H2O NULL 482793 mol yes
 
 ..  container:: justify
 
@@ -391,10 +398,10 @@ System generation
 
 ..  container:: figurelegend
 
-    Figure: The left panel is a side view of the system. Periodic images are represented in lighter
+    Figure: Side view of the system. Periodic images are represented in darker
     color. Water molecules are in red and white, :math:`\text{Na}^+`
     ions in purple, :math:`\text{Cl}^-` ions in lime, and wall atoms in
-    gray. The right panel is the top view of the system. Note the absence of
+    gray. Note the absence of
     atomic defect at the cell boundaries.
 
 ..  container:: justify
@@ -526,7 +533,6 @@ Energy minimization
 
     unfix mynve
     fix mynve fluid nve
-    timestep 1.0
 
     run 4000
 
@@ -557,20 +563,17 @@ Energy minimization
 
     Figure: Energy as a function of time extracted from the log
     file using *Python* and *lammps_logfile*.
+    See the corresponding |youtube_video_nanosheared|.
 
-.. |lammps_logfile| raw:: html
+.. |youtube_video_nanosheared| raw:: html
 
-   <a href="https://pypi.org/project/lammps-logfile/" target="_blank">LAMMPS logfile</a>
+   <a href="https://youtu.be/SK3FkJt0TmM" target="_blank">video</a>
 
 ..  container:: justify
 
     If you look at the trajectory using VMD, you will see some
     of the atoms, in particular the one that where initially in problematic
-    positions, slightly move from each others, as seen in |youtube_video_lammps|.
-
-.. |youtube_video_lammps| raw:: html
-
-   <a href="https://youtu.be/JWGZnFN4TOo" target="_blank">this video</a>
+    positions. 
 
 System equilibration
 --------------------
@@ -810,7 +813,8 @@ Imposed shearing
 ..  container:: justify
 
     Here, two series of *ave/chunk* commands are used. The first series is using 
-    a binning of :math:`1\,Å`, the second series is using a binning of :math:`0.1\,Å`.
+    a binning of :math:`1\,\text{Å}`, the second series is
+    using a binning of :math:`0.1\,\text{Å}`.
 
 ..  container:: justify
 
@@ -830,7 +834,7 @@ Imposed shearing
 
     Figure: Velocity profiles for water molecules, ions and walls
     along the *z* axis. The line is a linear fit assuming that 
-    the pore size is :math:`h = 1.2\,\text{nm}`.
+    the pore size is :math:`h = 1.8\,\text{nm}`.
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/density-light.png
     :alt: density of the nanosheared fluid
@@ -885,30 +889,6 @@ Going further with exercises
 
 .. include:: ../../non-tutorials/link-to-solutions.rst
 
-Make a hydrophobic nanopore
----------------------------
-
-..  container:: justify
-
-    The walls of the nanopore used in the tutorial are extremely
-    hydrophilic, as visible from the 
-    density profile showing large peaks near the walls. Make the nanopore
-    more hydrophobic without affecting the interaction occuring between the
-    atoms of the wall.
-
-.. figure:: ../figures/level2/nanosheared-electrolyte/hydrophobic-pore-light.png
-    :alt: hydrophobic vs hydrophilic pores : density profiles
-    :class: only-light
-
-.. figure:: ../figures/level2/nanosheared-electrolyte/hydrophobic-pore-dark.png
-    :alt: hydrophobic vs hydrophilic pores : density profiles
-    :class: only-dark
-
-..  container:: figurelegend
-
-    Figure: Density profile for the water along the *z* axis
-    comparing the original hydrophilic pore with the hydrophobic pore.
-
 Induce a Poiseuille flow
 ------------------------
 
@@ -916,7 +896,7 @@ Induce a Poiseuille flow
 
     Instead of inducing a shearing of the fluid using the walls,
     induce a net flux of the liquid in the direction tangential
-    to the (immobile) walls.
+    to the walls. The walls must be kept immobile.
 
 ..  container:: justify
     
@@ -939,3 +919,7 @@ Induce a Poiseuille flow
 
     Figure: Velocity profiles of the water molecules along the *z* axis (disks).
     The line is the Poiseuille equation.
+
+..  container:: justify
+
+    An important step is to choose the proper value for the addidional force.

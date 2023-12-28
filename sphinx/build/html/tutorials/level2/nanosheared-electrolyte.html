@@ -357,8 +357,8 @@ walls, and create a larger region from the union of the two
 regions. Then, let us create atoms of type 5 (the wall) within the two
 regions. Add the following lines to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rbotwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="o">-</span><span class="m">4</span>
-<span class="k">region </span><span class="nv nv-Identifier">rtopwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rbotwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">3</span>
+<span class="k">region </span><span class="nv nv-Identifier">rtopwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
 <span class="k">region </span><span class="nv nv-Identifier">rwall</span><span class="w"> </span><span class="n">union</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">rbotwall</span><span class="w"> </span><span class="n">rtopwall</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rwall</span>
 </pre></div>
@@ -377,9 +377,8 @@ atom positions, bonds, and angle.</p>
 <div class="justify docutils container">
 <p>Add the following lines to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="o">-</span><span class="m">2</span><span class="w"> </span><span class="m">2</span>
 <span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">RigidH2O.txt</span>
-<span class="k">lattice</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="m">3.1</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">482793</span>
 </pre></div>
 </div>
@@ -392,13 +391,7 @@ water molecules is created based on the last defined lattice, which is <em>fcc 4
 <em>RigidH2O.txt</em>, and names the associated molecule <em>h2omol</em>.</p>
 </div>
 <div class="justify docutils container">
-<p>A new simple cubic lattice is defined in order to place the water
-molecules on it, with a distance of 3.1 Ångstroms between
-each water molecule. Note that the new lattice replaces the
-previous one, as LAMMPS reads a script from top to bottom.</p>
-</div>
-<div class="justify docutils container">
-<p>Molecules are created on the <em>sc 3.1</em> lattice
+<p>Molecules are created on the <em>fcc 4.04</em> lattice
 by the <em>create_atoms</em> command. The
 first parameter is ‘0’, meaning that the atom ids from the
 <em>RigidH2O.txt</em> file will be used.
@@ -410,8 +403,8 @@ required by LAMMPS, it can be any positive integer.</p>
 and 15 <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>)
 in between the water molecules, by adding the following commands to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_atoms</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">52802</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.6</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
-<span class="k">create_atoms</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">90182</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.6</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_atoms</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">52802</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">90182</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
 <span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="m">1</span>
 <span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="o">-</span><span class="m">1</span>
 </pre></div>
@@ -456,6 +449,7 @@ into PARM.lammps:</p>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0.04690</span><span class="w"> </span><span class="m">2.4299</span><span class="w"> </span><span class="c"># ion</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0.1500</span><span class="w"> </span><span class="m">4.04470</span><span class="w"> </span><span class="c"># ion</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">11.697</span><span class="w"> </span><span class="m">2.574</span><span class="w"> </span><span class="c"># wall</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">0.4</span><span class="w"> </span><span class="m">2.86645</span><span class="w"> </span><span class="c"># water-wall</span>
 
 <span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.9572</span><span class="w"> </span><span class="c"># water</span>
 
@@ -476,7 +470,9 @@ for <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and <span 
 taken from the CHARMM-27 force field.</p>
 </div>
 <div class="justify docutils container">
-<p>As already seen in previous tutorials, only pairwise interaction between atoms of
+<p>As already seen in previous tutorials,
+and with the important exception of <em>pair_coeff 1 5</em>,
+only pairwise interaction between atoms of
 identical type were assigned. By default, LAMMPS calculates
 the pair coefficients for the interactions between atoms
 of different types (i and j) by using geometrical
@@ -485,6 +481,17 @@ average: <span class="math notranslate nohighlight">\(\epsilon_{ij} = (\epsilon_
 Other rules for cross coefficients can be set with the
 <em>pair_modify</em> command, but for the sake of simplicity,
 let us keep the default option here.</p>
+</div>
+<div class="justify docutils container">
+<p>By default, the value
+of <span class="math notranslate nohighlight">\(\epsilon_\text{1-5} = 5.941\,\text{kcal/mol}\)</span> would
+be extremely high
+(compare to the water-water
+energy <span class="math notranslate nohighlight">\(\epsilon_\text{1-1} = 0.185199\,\text{kcal/mol}\)</span>),
+which would make the surface extremely hydrophilic.
+The walls were made less hydrophilic by reducing the
+LJ energy of interaction <span class="math notranslate nohighlight">\(\epsilon_\text{1-5}\)</span>
+to a lower value.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>bond_coeff</em>, which is here used for the O-H bond of the water
@@ -517,11 +524,11 @@ to <em>PARM.lammps</em>, and copy the following lines into it:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>To avoid potential issues near the
-box boundaries, let us add the following lines to <em>input.lammps</em>
-to delete any overlapping molecules:</p>
+<p>To avoid high density and pressure,
+let us add the following lines to <em>input.lammps</em>
+to delete a few of the water molecules:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.8</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="n">fraction</span><span class="w"> </span><span class="m">0.15</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">482793</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -558,10 +565,10 @@ to visualize the system.</p>
 <img alt="LAMMPS: electrolyte made of water and salt between walls" class="only-dark" src="../../_images/systemcreation-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: The left panel is a side view of the system. Periodic images are represented in lighter
+<p>Figure: Side view of the system. Periodic images are represented in darker
 color. Water molecules are in red and white, <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>
 ions in purple, <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span> ions in lime, and wall atoms in
-gray. The right panel is the top view of the system. Note the absence of
+gray. Note the absence of
 atomic defect at the cell boundaries.</p>
 </div>
 <div class="justify docutils container">
@@ -676,7 +683,6 @@ imposed temperature:</p>
 
 <span class="k">unfix </span><span class="nv nv-Identifier">mynve</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">nve</span>
-<span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
 
 <span class="k">run</span><span class="w"> </span><span class="m">4000</span>
 
@@ -702,12 +708,13 @@ temperature is increased from 1 to <span class="math notranslate nohighlight">\(
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Energy as a function of time extracted from the log
-file using <em>Python</em> and <em>lammps_logfile</em>.</p>
+file using <em>Python</em> and <em>lammps_logfile</em>.
+See the corresponding <a href="https://youtu.be/SK3FkJt0TmM" target="_blank">video</a>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you look at the trajectory using VMD, you will see some
 of the atoms, in particular the one that where initially in problematic
-positions, slightly move from each others, as seen in <a href="https://youtu.be/JWGZnFN4TOo" target="_blank">this video</a>.</p>
+positions.</p>
 </div>
 </section>
 <section id="system-equilibration">
@@ -918,7 +925,8 @@ Add the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="justify docutils container">
 <p>Here, two series of <em>ave/chunk</em> commands are used. The first series is using
-a binning of <span class="math notranslate nohighlight">\(1\,Å\)</span>, the second series is using a binning of <span class="math notranslate nohighlight">\(0.1\,Å\)</span>.</p>
+a binning of <span class="math notranslate nohighlight">\(1\,\text{Å}\)</span>, the second series is
+using a binning of <span class="math notranslate nohighlight">\(0.1\,\text{Å}\)</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>The averaged velocity profile of the fluid
@@ -934,7 +942,7 @@ of the fluid is found to increase linearly along <span class="math notranslate n
 <div class="figurelegend docutils container">
 <p>Figure: Velocity profiles for water molecules, ions and walls
 along the <em>z</em> axis. The line is a linear fit assuming that
-the pore size is <span class="math notranslate nohighlight">\(h = 1.2\,\text{nm}\)</span>.</p>
+the pore size is <span class="math notranslate nohighlight">\(h = 1.8\,\text{nm}\)</span>.</p>
 </div>
 <figure class="align-default">
 <img alt="density of the nanosheared fluid" class="only-light" src="../../_images/density-light.png" />
@@ -984,32 +992,12 @@ This repository also contains the full solutions to the exercises.</p>
 <p>Each exercise comes with a proposed solution,
 see <a class="reference internal" href="../../non-tutorials/solutions.html#solutions-label"><span class="std std-ref">Solutions to the exercises</span></a>.</p>
 </div>
-<section id="make-a-hydrophobic-nanopore">
-<h3>Make a hydrophobic nanopore<a class="headerlink" href="#make-a-hydrophobic-nanopore" title="Link to this heading">#</a></h3>
-<div class="justify docutils container">
-<p>The walls of the nanopore used in the tutorial are extremely
-hydrophilic, as visible from the
-density profile showing large peaks near the walls. Make the nanopore
-more hydrophobic without affecting the interaction occuring between the
-atoms of the wall.</p>
-</div>
-<figure class="align-default">
-<img alt="hydrophobic vs hydrophilic pores : density profiles" class="only-light" src="../../_images/hydrophobic-pore-light.png" />
-</figure>
-<figure class="align-default">
-<img alt="hydrophobic vs hydrophilic pores : density profiles" class="only-dark" src="../../_images/hydrophobic-pore-dark.png" />
-</figure>
-<div class="figurelegend docutils container">
-<p>Figure: Density profile for the water along the <em>z</em> axis
-comparing the original hydrophilic pore with the hydrophobic pore.</p>
-</div>
-</section>
 <section id="induce-a-poiseuille-flow">
 <h3>Induce a Poiseuille flow<a class="headerlink" href="#induce-a-poiseuille-flow" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Instead of inducing a shearing of the fluid using the walls,
 induce a net flux of the liquid in the direction tangential
-to the (immobile) walls.</p>
+to the walls. The walls must be kept immobile.</p>
 </div>
 <div class="justify docutils container">
 <p>Extract the velocity profile, and make sure that the
@@ -1028,6 +1016,9 @@ where <span class="math notranslate nohighlight">\(f\)</span> is the applied for
 <div class="figurelegend docutils container">
 <p>Figure: Velocity profiles of the water molecules along the <em>z</em> axis (disks).
 The line is the Poiseuille equation.</p>
+</div>
+<div class="justify docutils container">
+<p>An important step is to choose the proper value for the addidional force.</p>
 </div>
 </section>
 </section>
@@ -1093,7 +1084,6 @@ The line is the Poiseuille equation.</p>
 </li>
 <li><a class="reference internal" href="#imposed-shearing">Imposed shearing</a></li>
 <li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
-<li><a class="reference internal" href="#make-a-hydrophobic-nanopore">Make a hydrophobic nanopore</a></li>
 <li><a class="reference internal" href="#induce-a-poiseuille-flow">Induce a Poiseuille flow</a></li>
 </ul>
 </li>
