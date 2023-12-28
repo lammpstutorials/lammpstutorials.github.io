@@ -37,27 +37,27 @@ create_box 5 box &
            extra/angle/per/atom 1 &
            extra/special/per/atom 2
  
-region rbotwall block -3 3 -3 3 -5 -4
-region rtopwall block -3 3 -3 3 4 5
+region rbotwall block -3 3 -3 3 -4 -3
+region rtopwall block -3 3 -3 3 3 4
 region rwall union 2 rbotwall rtopwall
 create_atoms 5 region rwall
 
-region rliquid block INF INF INF INF -3 3
+region rliquid block INF INF INF INF -2 2
 molecule h2omol RigidH2O.txt
-lattice sc 3.1
 create_atoms 0 region rliquid mol h2omol 482793
 
-create_atoms 3 random 15 52802 rliquid overlap 0.6 maxtry 500
-create_atoms 4 random 15 90182 rliquid overlap 0.6 maxtry 500
+create_atoms 3 random 15 52802 rliquid overlap 0.3 maxtry 500
+create_atoms 4 random 15 90182 rliquid overlap 0.3 maxtry 500
 set type 3 charge 1
 set type 4 charge -1
 
 include ../PARM.lammps
 include ../GROUP.lammps
 
-delete_atoms overlap 0.8 H2O H2O mol yes
+delete_atoms random fraction 0.15 yes H2O NULL 482793 mol yes
 
 run 0
 
 write_data system.data nocoeff
-write_dump all atom dump.lammpstrj
+#write_dump all atom dump.lammpstrj
+write_dump all custom dump.lammpstrj id type xu yu zu
