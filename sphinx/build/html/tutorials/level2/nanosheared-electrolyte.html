@@ -568,8 +568,8 @@ to visualize the system.</p>
 <p>Figure: Side view of the system. Periodic images are represented in darker
 color. Water molecules are in red and white, <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>
 ions in purple, <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span> ions in lime, and wall atoms in
-gray. Note the absence of
-atomic defect at the cell boundaries.</p>
+gray. Note the absence of atomic defect at the cell boundaries.
+See the corresponding <a href="https://youtu.be/SK3FkJt0TmM" target="_blank">video</a>.</p>
 </div>
 <div class="justify docutils container">
 <p>Always check that your system has been correctly created
@@ -708,8 +708,7 @@ temperature is increased from 1 to <span class="math notranslate nohighlight">\(
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Energy as a function of time extracted from the log
-file using <em>Python</em> and <em>lammps_logfile</em>.
-See the corresponding <a href="https://youtu.be/SK3FkJt0TmM" target="_blank">video</a>.</p>
+file using <em>Python</em> and <em>lammps_logfile</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you look at the trajectory using VMD, you will see some
@@ -905,17 +904,6 @@ Add the following lines to <em>input.lammps</em>:</p>
 <span class="k">fix </span><span class="nv nv-Identifier">myac3</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">cc3</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">ions.profile_1A.dat</span>
 
-<span class="k">compute </span><span class="nv nv-Identifier">cc4</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.1</span>
-<span class="k">compute </span><span class="nv nv-Identifier">cc5</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.1</span>
-<span class="k">compute </span><span class="nv nv-Identifier">cc6</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.1</span>
-
-<span class="k">fix </span><span class="nv nv-Identifier">myac4</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">cc4</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">water.profile_0.1A.dat</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac5</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">cc5</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">wall.profile_0.1A.dat</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac6</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">cc6</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">ions.profile_0.1A.dat</span>
-
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">f_mysf1[1]</span><span class="w"> </span><span class="n">f_mysf2[1]</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">forces.dat</span>
 
 <span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
@@ -924,9 +912,8 @@ Add the following lines to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here, two series of <em>ave/chunk</em> commands are used. The first series is using
-a binning of <span class="math notranslate nohighlight">\(1\,\text{Å}\)</span>, the second series is
-using a binning of <span class="math notranslate nohighlight">\(0.1\,\text{Å}\)</span>.</p>
+<p>Here, a binning of <span class="math notranslate nohighlight">\(1\,\text{Å}\)</span> is used. For smoother
+profiles, you can reduce its value.</p>
 </div>
 <div class="justify docutils container">
 <p>The averaged velocity profile of the fluid

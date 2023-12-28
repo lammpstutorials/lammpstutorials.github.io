@@ -401,8 +401,12 @@ System generation
     Figure: Side view of the system. Periodic images are represented in darker
     color. Water molecules are in red and white, :math:`\text{Na}^+`
     ions in purple, :math:`\text{Cl}^-` ions in lime, and wall atoms in
-    gray. Note the absence of
-    atomic defect at the cell boundaries.
+    gray. Note the absence of atomic defect at the cell boundaries.
+    See the corresponding |youtube_video_nanosheared|.
+
+.. |youtube_video_nanosheared| raw:: html
+
+   <a href="https://youtu.be/SK3FkJt0TmM" target="_blank">video</a>
 
 ..  container:: justify
 
@@ -563,11 +567,6 @@ Energy minimization
 
     Figure: Energy as a function of time extracted from the log
     file using *Python* and *lammps_logfile*.
-    See the corresponding |youtube_video_nanosheared|.
-
-.. |youtube_video_nanosheared| raw:: html
-
-   <a href="https://youtu.be/SK3FkJt0TmM" target="_blank">video</a>
 
 ..  container:: justify
 
@@ -793,17 +792,6 @@ Imposed shearing
     fix myac3 ions ave/chunk 10 15000 200000 &
     cc3 density/mass vx file ions.profile_1A.dat
 
-    compute cc4 H2O chunk/atom bin/1d z 0.0 0.1
-    compute cc5 wall chunk/atom bin/1d z 0.0 0.1
-    compute cc6 ions chunk/atom bin/1d z 0.0 0.1
-
-    fix myac4 H2O ave/chunk 10 15000 200000 &
-    cc4 density/mass vx file water.profile_0.1A.dat
-    fix myac5 wall ave/chunk 10 15000 200000 &
-    cc5 density/mass vx file wall.profile_0.1A.dat
-    fix myac6 ions ave/chunk 10 15000 200000 &
-    cc6 density/mass vx file ions.profile_0.1A.dat
-
     fix myat1 all ave/time 10 100 1000 f_mysf1[1] f_mysf2[1] file forces.dat
 
     timestep 1.0
@@ -812,9 +800,8 @@ Imposed shearing
 
 ..  container:: justify
 
-    Here, two series of *ave/chunk* commands are used. The first series is using 
-    a binning of :math:`1\,\text{Å}`, the second series is
-    using a binning of :math:`0.1\,\text{Å}`.
+    Here, a binning of :math:`1\,\text{Å}` is used. For smoother
+    profiles, you can reduce its value.
 
 ..  container:: justify
 
@@ -864,6 +851,10 @@ Imposed shearing
     gets an estimate for the shear viscosity for the confined
     fluid of :math:`\eta = 6.6\,\text{mPa.s}`
 
+.. |reference_gravelle2021| raw:: html
+
+   <a href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/PhysRevFluids.6.034303.pdf" target="_blank">gravelle2021</a>
+
 ..  container:: justify
 
     The viscosity calculated at such high shear rate may
@@ -877,10 +868,6 @@ Imposed shearing
     typically larger than in bulk due to interaction with the
     walls. Therefore, one expects the present simulation to return 
     a viscosity that is slightly larger than what would be measured in absence of wall.
-
-.. |reference_gravelle2021| raw:: html
-
-   <a href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/PhysRevFluids.6.034303.pdf" target="_blank">gravelle2021</a>
 
 .. include:: ../../non-tutorials/accessfile.rst
 
