@@ -290,7 +290,7 @@ of amorphous silica.</p>
 Here, a large initial temperature is chosen to ensure the melting of the SiO2 structure.
 Then, several steps are used to progressively cool down the system until it solidifies and forms
 amorphous silica. Depending on the material, different cooling velocities can sometimes
-lead to different crystal structure or different degree of defect.</p>
+lead to different crystal structures or different degrees of defect.</p>
 </div>
 <section id="vashishta-potential">
 <h3>Vashishta potential<a class="headerlink" href="#vashishta-potential" title="Link to this heading">#</a></h3>
@@ -359,7 +359,8 @@ such as its temperature, volume, and potential-energy:</p>
 <span class="k">variable </span><span class="nv nv-Identifier">mypot</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">pe</span>
 <span class="k">variable </span><span class="nv nv-Identifier">mytemp</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_mytemp</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">temperature.dat</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_myvol</span><span class="w"> </span><span class="n">v_mylx</span><span class="w"> </span><span class="n">v_myly</span><span class="w"> </span><span class="n">v_mylz</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">dimensions.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">v_myvol</span><span class="w"> </span><span class="n">v_mylx</span><span class="w"> </span><span class="n">v_myly</span><span class="w"> </span><span class="n">v_mylz</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">dimensions.dat</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat3</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_mypot</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">potential</span><span class="o">-</span><span class="n">energy.dat</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
 </pre></div>
@@ -415,9 +416,7 @@ making your own tests if you intend to publish your results.</p>
 <p>Here, an isotropic barostat is used for the melted phase at <span class="math notranslate nohighlight">\(T = 6000\,\text{K}\)</span>,
 and then an anisotropic barostat is used for all following phases. With the anisotropic
 barostat, all three directions of space are adjusted independently from one another. Such
-anisotropic barostat is usually a better choice for a solid phase,
-when there is no reason for the final solid phase to
-have the same dimensions along all 3 axis. For a
+anisotropic barostat is usually a better choice for a solid phase. For a
 liquid or a gas, the isotropic barostat is usually the best choice.</p>
 </div>
 <div class="justify docutils container">
@@ -426,7 +425,7 @@ liquid or a gas, the isotropic barostat is usually the best choice.</p>
 <div class="justify docutils container">
 <p>Let us check the evolution of the temperature from the <em>temperature.dat</em> file.
 Apart from an initial spike (may be due to an initial bad configuration, probably harmless here),
-the temperature follows well the desired annealing procedure:</p>
+the temperature follows well the desired annealing procedure.</p>
 </div>
 <figure class="align-default">
 <img alt="silica temperature during annealing, from melt to solid" class="only-dark" src="../../_images/temperature_evolution-dark.png" />
@@ -453,9 +452,6 @@ box dimensions over time.</p>
 <p>Figure: Box dimensions during annealing. The vertical dashed lines
 mark the transition between the different phases of the simulations.</p>
 </div>
-<div class="justify docutils container">
-<p>As always, let us also look at the system using VMD.</p>
-</div>
 <figure class="align-default">
 <img alt="silica block generated by temperature annealing using LAMMPS" class="only-dark" src="../../_images/generated-silica-dark.png" />
 </figure>
@@ -463,7 +459,7 @@ mark the transition between the different phases of the simulations.</p>
 <img alt="silica block generated by temperature annealing using LAMMPS" class="only-light" src="../../_images/generated-silica-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Snapshot final amorphous silica (SiO2) with Si atom in yellow and
+<p>Figure: Snapshot of the final amorphous silica (SiO2) with Si atom in yellow and
 O atoms in red.</p>
 </div>
 <div class="justify docutils container">
@@ -504,15 +500,16 @@ new <em>input.lammps</em> file starting with familiar lines:</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us progressively increase the size of the
-box in the z direction, thus forcing the silica to deform and crack. To do
-so, we are going to make a loop using the jump command. At
+box in the z direction, thus forcing the silica to deform
+and eventually crack. To do
+so, let us make a loop using the jump command. At
 every step of the loop, the box dimension over x will
 be multiplied by a factor 1.005. Here, we use a NVT
 thermostat because we want to impose a deformation of the
 volume.</p>
 </div>
 <div class="info admonition">
-<p class="admonition-title">NVT vs 2D barostat</p>
+<p class="admonition-title">On using barostat during deformation</p>
 <p>Here, box deformations are applied in the x-direction, while the
 y and z box dimensions are kept constants.</p>
 <p>Another possible choice would be to apply a barostat along the y and z
@@ -525,7 +522,7 @@ can be done by using :</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
 </pre></div>
 </div>
-<p>Here, the latter command will be used (see below), but feel free to improvise.</p>
+<p>Here, the second option will be used.</p>
 </div>
 <div class="justify docutils container">
 <p>Add the following lines to the <em>input.lammps</em>:</p>
@@ -554,14 +551,13 @@ steps in the loop (here 45) if you want to generate different defects in the sil
 <img alt="silica block with crack" class="only-light" src="../../_images/cracked-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Block of silica after deformation, with some holes
-and some deformed bonds.</p>
+<p>Figure: Block of silica after deformation, with some visible holes.</p>
 </div>
 <div class="justify docutils container">
 <p>After the dilatation, a final equilibration step of 20
 picoseconds is performed. If you look at the <em>dump.lammpstrj</em> file
 using VMD, you can see the dilatation occurring step-by-step, and the
-atoms adjusting progressively to the box size.</p>
+atoms progressively adjusting to the box dimensions.</p>
 </div>
 <div class="justify docutils container">
 <p>At first, the deformations
@@ -580,7 +576,7 @@ passivated by forming covalent bonds with hydrogen (H)
 atoms. For the sake of simplicity, we are not going to
 add surface hydrogen atoms here. An example of procedure allowing
 for properly inserting hydrogen atoms is given as an
-exercise from this tutorial: <a class="reference internal" href="reactive-silicon-dioxide.html#reactive-silicon-dioxide-label"><span class="std std-ref">Reactive silicon dioxide</span></a>.</p>
+exercise from <a class="reference internal" href="reactive-silicon-dioxide.html#reactive-silicon-dioxide-label"><span class="std std-ref">Reactive silicon dioxide</span></a>.</p>
 </div>
 </section>
 <section id="adding-water">
@@ -622,8 +618,16 @@ following lines into it:</p>
 used in this tutorial. From now on, the system will combine water and silica,
 and therefore two force fields are combined: Vashishta for
 SiO, and lj/cut/tip4p/long for TIP4P water model.
-Combining the two force field is
-done using the <em>hybrid/overlay</em> pair style.</p>
+Combining the two force fields is done using the <em>hybrid/overlay</em> pair style.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">About hybrid and hybrid/overlay pair style</p>
+<p>From the LAMMPS documentation:
+The hybrid and hybrid/overlay styles enable the use
+of multiple pair styles in one simulation. With the hybrid style,
+exactly one pair style is assigned to each pair of atom types.
+With the hybrid/overlay and hybrid/scaled styles, one or more pair
+styles can be assigned to each pair of atom types.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>kspace</em> solver is used to calculate the long
@@ -746,20 +750,20 @@ parameters used for atoms of types 3 and 4.</p>
 <p>Pair coefficients for lj/cut/tip4p/long are
 defined between O atoms, as well as between
 O(SiO)-O(H2O) and Si(SiO)-O(H2O). Therefore, the fluid-solid
-interactions will be set by Lennard Jones and Coulomb potential.</p>
+interactions will be set by Lennard Jones and Coulomb potentials.</p>
 </div>
 <div class="justify docutils container">
-<p>The number of oxygen atoms from water molecule (i.e. the number of molecule)
+<p>The number of oxygen atoms from water molecules (i.e. the number of molecules)
 will be printed in the file <em>numbermolecule.dat</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>The shake algorithm is used to
-maintain the shape of the water molecule over time. Some of
+maintain the shape of the water molecules over time. Some of
 these features have been seen in previous tutorials.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us delete the overlapping water molecules, and print their
-positions in a <em>.lammpstrj</em> file by adding the following
+<p>Let us delete the overlapping water molecules, and print the
+positions of the remaining atoms in a <em>.lammpstrj</em> file by adding the following
 lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">SiO</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
@@ -796,7 +800,8 @@ liquid. It is particularly important to use two thermostats
 here because the number of water molecules will fluctuate with time.</p>
 </div>
 <div class="justify docutils container">
-<p>The <em>compute_modify</em> ‘dynamic yes’ for water is used to specify that the
+<p>The <em>compute_modify</em> with
+<em>dynamic yes</em> for water is used to specify that the
 number of molecules is not constant.</p>
 </div>
 <div class="justify docutils container">
@@ -826,7 +831,7 @@ which seems to occur with the 2Aug2023 LAMMPS version.</p>
 <p>The <em>tfac_insert</em> option ensures that the correct estimate is
 made for the temperature of the inserted water molecules by
 taking into account the internal degrees of freedom. Running
-this simulation, you should see the number of molecule
+this simulation, you should see the number of molecules
 increasing progressively. When using the pressure argument,
 LAMMPS ignores the value of the chemical potential [here <span class="math notranslate nohighlight">\(\mu = -0.5\,\text{eV}\)</span>
 which corresponds roughly to ambient conditions (i.e. <span class="math notranslate nohighlight">\(\text{RH} \approx 50\,\%\)</span>).]
@@ -841,14 +846,14 @@ that either using the log file, or using the <em>numbermolecule.dat</em> data fi
 </div>
 <div class="justify docutils container">
 <p>You can see, by looking at the log file, that 280 molecules
-were added by the <em>create_atoms</em> command (the exact number may differ):</p>
+were added by the <em>create_atoms</em> command (the exact number you get may differ):</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Created 840 atoms
 </pre></div>
 </div>
 <div class="justify docutils container">
 <p>You can also see that 258 molecules where immediately deleted,
-leaving 24 water molecules (the exact number may differ):</p>
+leaving 24 water molecules (the exact number you get may differ):</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Deleted 774 atoms, new total = 642
 Deleted 516 bonds, new total = 44
@@ -857,9 +862,9 @@ Deleted 258 angles, new total = 22
 </div>
 <div class="justify docutils container">
 <p>After just a few GCMC steps,
-the number of molecules start increasing with time.
+the number of molecules starts increasing with time.
 Once the crack is fully filled with water molecules, the number of
-molecule reaches a plateau.</p>
+molecules reaches a plateau.</p>
 </div>
 <figure class="align-default">
 <img alt="number of water molecules added by the LAMMPS gcmc" class="only-dark" src="../../_images/number_evolution-dark.png" />
