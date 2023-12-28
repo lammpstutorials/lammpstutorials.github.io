@@ -5,7 +5,7 @@ Free energy calculation
 
 .. container:: hatnote
 
-   Simple sampling of a free energy barrier using umbrella sampling
+   Sampling a free energy barrier
 
 .. figure:: ../figures/level3/free-energy-calculation/avatar_light.webp
     :height: 250
@@ -40,6 +40,16 @@ Free energy calculation
 
 .. include:: ../../non-tutorials/2Aug2023.rst
 
+.. admonition:: What is free energy
+    :class: info
+
+    The *free energy* refers to the potential energy of a system that
+    is available to perform work. In molecular simulations, it is
+    common to calculate free energy differences between different states
+    or conformations of a molecular system. This can be useful in understanding
+    the thermodynamics of a system, predicting reaction pathways, and
+    determining the stability of different molecular configurations.
+
 Method 1: Free sampling
 =======================
 
@@ -50,7 +60,9 @@ Method 1: Free sampling
     dynamics simulation, and then to estimate the Gibbs free
     energy using 
     
-.. math:: \Delta G = -RT \ln(p/p_0),
+.. math::
+    
+    \Delta G = -RT \ln(p/p_0),
     
 ..  container:: justify
 
@@ -83,7 +95,7 @@ Basic LAMMPS parameters
 
     units real
     atom_style atomic
-    pair_style lj/cut 3.822 # 2^(1/6) * 3.405 WCA potential
+    pair_style lj/cut 3.822
     pair_modify shift yes
     boundary p p p
 
@@ -96,9 +108,16 @@ Basic LAMMPS parameters
 
 ..  container:: justify
 
-    The system of unit 'real', for which energy is in kcal/mol, distance in Ångstrom,
-    time in femtosecond, has been chosen for practical reason,
-    as the WHAM algorithm we are going to use in the second
+    The value of 3.822 for the cut off was chosen to 
+    create a WCA, purely repulsive, potential. It was calculated
+    as :math:`2^{1/6} \times 3.405` where
+    :math:`3.405 = \sigma`.
+
+..  container:: justify
+
+    The system of unit '*real*, for which energy is in kcal/mol, distance in Ångstrom,
+    time in femtosecond, has been chosen for practical reason:
+    the WHAM algorithm used in the second
     part of the tutorial automatically assumes the energy to
     be in kcal/mol. Atoms will interact through a
     Lennard-Jones potential with a cut-off equal to 
@@ -169,7 +188,7 @@ System creation and settings
 
 ..  container:: figurelegend
 
-    Figure: Potential :math:`U (x)` (top) and force :math:`F (x)` (bottom) imposed to the atoms.
+    Figure: a) Potential :math:`U (x)`. b) force :math:`F (x)` (bottom) imposed to the atoms.
 
 **Energy minimization and equilibration**
 
@@ -247,11 +266,7 @@ Run and data acquisition
 
     This simulation with a total duration of :math:`9\,\text{ns}` needs a few
     minutes to complete. Feel free to increase the 
-    duration of the run for smoother results.
-    
-..  container:: justify
-
-    You can visualize the dump file using VMD:
+    duration of the last run for smoother results.
 
 .. figure:: ../figures/level3/free-energy-calculation/system-light.png
    :alt: Lennard jones atoms simulated with LAMMPS MD code
@@ -272,7 +287,7 @@ Data analysis
 ..  container:: justify
 
     First, let us make sure that the initial equilibration of :math:`1\,\text{ns}`
-    is long enough by looking at the *density_evolution.dat* file:
+    is long enough by looking at the *density_evolution.dat* file.
 
 .. figure:: ../figures/level3/free-energy-calculation/density_evolution-light.png
    :alt: Number of particle in the central region as a function of time
@@ -289,12 +304,14 @@ Data analysis
 ..  container:: justify
 
     Here, we can clearly see that the number of atoms in the
-    central region, :math:`n_\mathrm{central}`, evolves to its equilibrium value
-    after about :math:`0.1\,\text{ns}`.
+    central region, :math:`n_\mathrm{central}`, evolves near its
+    equilibrium value (which is close to 0) after about :math:`0.1\,\text{ns}`.
 
 ..  container:: justify
-    
-    Let us also plot the equilibrium density profile :math:`\rho`:
+
+    One can also have a look at the density profile, which shows that the density in the
+    center of the box is about two orders of magnitude lower than inside
+    the reservoir.
 
 .. figure:: ../figures/level3/free-energy-calculation/density_profile-light.png
    :alt: Averaged density profile
@@ -313,7 +330,7 @@ Data analysis
 ..  container:: justify
 
     Then, let us plot :math:`-R T \ln(\rho/\rho_\mathrm{bulk})` and compare it
-    with the imposed (reference) potential :math:`U`:
+    with the imposed (reference) potential :math:`U`.
 
 .. figure:: ../figures/level3/free-energy-calculation/freesampling-potential-light.png
    :alt: Averaged density profile
@@ -367,15 +384,21 @@ Method 2: Umbrella sampling
     i.e. a method in which additional forces are added to the
     atoms in order to make the unfavourable states more likely
     to occur.
+
+..  container:: justify
+
+
+    Several simulations (or windows) will be performed with different parameters
+    for the imposed biasing.
     
 ..  container:: justify
 
-    Keeping the present configuration, we are going to force one of the atom to
+    Here, let us force one of the atom to
     explore the central region of the box. To do so,
     let us add a potential :math:`V` to one
     of the particle, and force it to move along the axis :math:`x`.
-    The chosen path is called the axis of reaction. The final
-    simulation will be analyzed using the weighted histogram
+    The chosen path is called the axis of reaction. The results 
+    will be analyzed using the weighted histogram
     analysis method (WHAM), which allows to remove the effect of
     the bias and eventually deduce the unbiased free energy profile.
 
@@ -435,12 +458,6 @@ LAMMPS input script
 
 ..  container:: justify
 
-    The value of the potential :math:`U_0` was chosen to be much larger than in part 1, 
-    just to proof that umbrella sampling can easily deal with huge potential value,
-    while free sampling couldn't.
-
-..  container:: justify
-
     Let us create a loop with 50 steps, and move progressively
     the centre of the bias potential by increment of 0.1 nm.
     Add the following lines into *input.lammps*:
@@ -468,9 +485,9 @@ LAMMPS input script
     The spring command serves to impose the
     additional harmonic potential with spring constant :math:`k`.
     Note that the value of :math:`k` should be chosen with care,
-    if its too small, the particle wont follow the biasing potential
-    center, if its too large, there will be no overlapping between the 
-    different windows.
+    if :math:`k` is too small, the particle wont follow the biasing potential
+    center, if :math:`k` is too large, there will be no overlapping between the 
+    different windows. See the side note named *on the choice of k* below.
 
 ..  container:: justify
 
@@ -488,21 +505,15 @@ WHAM algorithm
 ..  container:: justify
 
     In order to generate the free energy profile from the density distribution, we are going to use
-    the WHAM algorithm. You can download it from |Grossfield| website, or alternatively use 
-    the |wham-version| I have downloaded, or try your luck with the version 
-    i did precompile; |wham-precompiled|. After extraction, it can be compiled by simply running:
+    the WHAM algorithm. 
+    
+..  container:: justify
+
+    You can download it from |Grossfield| website, and compile it using: 
 
 .. |Grossfield| raw:: html
 
    <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a>
-
-.. |wham-version| raw:: html
-
-   <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham-release-2.0.11.tgz" target="_blank">version 2.0.11</a>
-
-.. |wham-precompiled| raw:: html
-
-   <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham" target="_blank">precompiled wham</a>
 
 ..  code-block:: bash
 
@@ -513,7 +524,17 @@ WHAM algorithm
 ..  container:: justify
 
     The compilation creates an executable called *wham* that you can 
-    copy in the *BiasedSampling/* folder.
+    copy in the *BiasedSampling/* folder. Alternatively, use 
+    the |wham-version| I have downloaded, or try your luck with the version 
+    i did precompile; |wham-precompiled|.
+
+.. |wham-version| raw:: html
+
+   <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham-release-2.0.11.tgz" target="_blank">version 2.0.11</a>
+
+.. |wham-precompiled| raw:: html
+
+   <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham" target="_blank">precompiled wham</a>
 
 ..  container:: justify
 
@@ -536,7 +557,7 @@ WHAM algorithm
 
     import os
 
-    k=1.5 # set the value of  k in kCal/mol
+    k=1.5 
     folder='data-k1.5/'
 
     f = open("metadata.dat", "w")
@@ -555,6 +576,7 @@ WHAM algorithm
 
 ..  container:: justify
 
+    Here :math:`k` is in kcal/mol.
     The generated file named *metadata.dat* looks like that:
 
 ..  code-block:: bash
@@ -569,7 +591,7 @@ WHAM algorithm
 
 ..  container:: justify
 
-    Alternatively, you can download my |download_metadata| file.
+    Alternatively, you can download this |download_metadata| file.
     Then, simply run the following command in the terminal:
 
 .. |download_metadata| raw:: html
@@ -591,7 +613,8 @@ WHAM algorithm
 
 ..  container:: justify
 
-    We can compare the result of the PMF with the imposed potential :math:`U`:
+    Again, one can compare the result of the PMF with the imposed potential :math:`U`,
+    which shows that the agreement is excellent.
 
 .. figure:: ../figures/level3/free-energy-calculation/freeenergy-light.png
     :alt: Result of the umbrella sampling
@@ -609,7 +632,9 @@ WHAM algorithm
 ..  container:: justify
 
     We can see that the agreement is quite good despite the very short calculation time
-    and the very high value for the energy barrier. 
+    and the very high value for the energy barrier. Obtaining the same 
+    results with Free Sampling would require to perform extremely long
+    and costly simulations.
 
 .. include:: ../../non-tutorials/accessfile.rst
 
@@ -623,7 +648,7 @@ Side note: on the choice of k
     the chosen atom to move along the axis, and you also want the
     fluctuations of the atom position to be large enough to
     have some overlap in the density probability of two
-    neighbor positions, like we have here with :math:`k = 1.5`:
+    neighbor positions. Here, 3 different values of :math:`k` are being tested.
 
 .. figure:: ../figures/level3/free-energy-calculation/overlap-light.png
     :alt: Averaged density profile
@@ -635,42 +660,20 @@ Side note: on the choice of k
 
 ..  container:: figurelegend
 
-    Figure: Density probability for each run with :math:`k = 1.5\,\text{Kcal}/\text{mol}/Å^2`.
-
+    Figure: Density probability for each run with :math:`k = 0.15\,\text{Kcal}/\text{mol}/Å^2` (a),
+    :math:`k = 1.5\,\text{Kcal}/\text{mol}/Å^2` (b),
+    and :math:`k = 15\,\text{Kcal}/\text{mol}/Å^2` (c).
+    
 ..  container:: justify
 
     If :math:`k` is too small, the biasing potential is too weak to force the particle to explores the 
     region of interest, making it impossible to reconstruct the PMF:
 
-.. figure:: ../figures/level3/free-energy-calculation/overlap015-light.png
-    :alt: Averaged density profile
-    :class: only-light
-
-.. figure:: ../figures/level3/free-energy-calculation/overlap015-dark.png
-    :alt: Averaged density profile
-    :class: only-dark
-
-..  container:: figurelegend
-
-    Figure: Density probability for each run with :math:`k = 0.15\,\text{Kcal}/\text{mol}/Å^2`.
-
 ..  container:: justify
 
     If :math:`k` is too large, the biasing potential is too large 
     compared to the potential one want to probe, which reduces the 
-    sensitivity of the method. In that case, note the bad overlap between neighbor windows:
-
-.. figure:: ../figures/level3/free-energy-calculation/overlap15-light.png
-    :alt: Averaged density profile
-    :class: only-light
-
-.. figure:: ../figures/level3/free-energy-calculation/overlap15-dark.png
-    :alt: Averaged density profile
-    :class: only-dark
-
-..  container:: figurelegend
-
-    Figure: Density probability for each run with :math:`k = 15\,\text{Kcal}/\text{mol}/Å^2`.
+    sensitivity of the method.
 
 Going further with exercises
 ============================

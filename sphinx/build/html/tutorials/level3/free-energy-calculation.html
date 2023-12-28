@@ -231,7 +231,7 @@
           <section id="free-energy-calculation">
 <span id="umbrella-sampling-label"></span><h1>Free energy calculation<a class="headerlink" href="#free-energy-calculation" title="Link to this heading">#</a></h1>
 <div class="hatnote docutils container">
-<p>Simple sampling of a free energy barrier using umbrella sampling</p>
+<p>Sampling a free energy barrier</p>
 </div>
 <figure class="align-right">
 <a class="only-light reference internal image-reference" href="../../_images/avatar_light.webp"><img alt="Lennard Jones atoms simulated with LAMMPS" class="only-light" src="../../_images/avatar_light.webp" style="height: 250px;" /></a>
@@ -262,6 +262,15 @@ this tutorial on a simple <a class="reference internal" href="../level1/lennard-
 </div>
 <div class="version docutils container">
 <p>This tutorial was tested with the <em>2Aug2023</em> LAMMPS version.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">What is free energy</p>
+<p>The <em>free energy</em> refers to the potential energy of a system that
+is available to perform work. In molecular simulations, it is
+common to calculate free energy differences between different states
+or conformations of a molecular system. This can be useful in understanding
+the thermodynamics of a system, predicting reaction pathways, and
+determining the stability of different molecular configurations.</p>
 </div>
 <section id="method-1-free-sampling">
 <h2>Method 1: Free sampling<a class="headerlink" href="#method-1-free-sampling" title="Link to this heading">#</a></h2>
@@ -301,7 +310,7 @@ named <em>input.lammps</em> in it. Copy the following lines into it:</p>
 
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">atomic</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="m">3.822</span><span class="w"> </span><span class="c"># 2^(1/6) * 3.405 WCA potential</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="m">3.822</span>
 <span class="k">pair_modify</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 </pre></div>
@@ -313,9 +322,15 @@ the repulsive potential <span class="math notranslate nohighlight">\(U (x)\)</sp
 see the analytical expression below.</p>
 </div>
 <div class="justify docutils container">
-<p>The system of unit ‘real’, for which energy is in kcal/mol, distance in Ångstrom,
-time in femtosecond, has been chosen for practical reason,
-as the WHAM algorithm we are going to use in the second
+<p>The value of 3.822 for the cut off was chosen to
+create a WCA, purely repulsive, potential. It was calculated
+as <span class="math notranslate nohighlight">\(2^{1/6} \times 3.405\)</span> where
+<span class="math notranslate nohighlight">\(3.405 = \sigma\)</span>.</p>
+</div>
+<div class="justify docutils container">
+<p>The system of unit ‘<em>real</em>, for which energy is in kcal/mol, distance in Ångstrom,
+time in femtosecond, has been chosen for practical reason:
+the WHAM algorithm used in the second
 part of the tutorial automatically assumes the energy to
 be in kcal/mol. Atoms will interact through a
 Lennard-Jones potential with a cut-off equal to
@@ -377,7 +392,7 @@ axis resemble:</p>
 <img alt="Averaged density profile" class="only-dark" src="../../_images/potential-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Potential <span class="math notranslate nohighlight">\(U (x)\)</span> (top) and force <span class="math notranslate nohighlight">\(F (x)\)</span> (bottom) imposed to the atoms.</p>
+<p>Figure: a) Potential <span class="math notranslate nohighlight">\(U (x)\)</span>. b) force <span class="math notranslate nohighlight">\(F (x)\)</span> (bottom) imposed to the atoms.</p>
 </div>
 <p><strong>Energy minimization and equilibration</strong></p>
 <div class="justify docutils container">
@@ -446,10 +461,7 @@ canceled before a reset time):</p>
 <div class="justify docutils container">
 <p>This simulation with a total duration of <span class="math notranslate nohighlight">\(9\,\text{ns}\)</span> needs a few
 minutes to complete. Feel free to increase the
-duration of the run for smoother results.</p>
-</div>
-<div class="justify docutils container">
-<p>You can visualize the dump file using VMD:</p>
+duration of the last run for smoother results.</p>
 </div>
 <figure class="align-default">
 <img alt="Lennard jones atoms simulated with LAMMPS MD code" class="only-light" src="../../_images/system-light.png" />
@@ -466,7 +478,7 @@ part of the box, due to the additional force <span class="math notranslate nohig
 <h3>Data analysis<a class="headerlink" href="#data-analysis" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>First, let us make sure that the initial equilibration of <span class="math notranslate nohighlight">\(1\,\text{ns}\)</span>
-is long enough by looking at the <em>density_evolution.dat</em> file:</p>
+is long enough by looking at the <em>density_evolution.dat</em> file.</p>
 </div>
 <figure class="align-default">
 <img alt="Number of particle in the central region as a function of time" class="only-light" src="../../_images/density_evolution-light.png" />
@@ -479,11 +491,13 @@ is long enough by looking at the <em>density_evolution.dat</em> file:</p>
 </div>
 <div class="justify docutils container">
 <p>Here, we can clearly see that the number of atoms in the
-central region, <span class="math notranslate nohighlight">\(n_\mathrm{central}\)</span>, evolves to its equilibrium value
-after about <span class="math notranslate nohighlight">\(0.1\,\text{ns}\)</span>.</p>
+central region, <span class="math notranslate nohighlight">\(n_\mathrm{central}\)</span>, evolves near its
+equilibrium value (which is close to 0) after about <span class="math notranslate nohighlight">\(0.1\,\text{ns}\)</span>.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us also plot the equilibrium density profile <span class="math notranslate nohighlight">\(\rho\)</span>:</p>
+<p>One can also have a look at the density profile, which shows that the density in the
+center of the box is about two orders of magnitude lower than inside
+the reservoir.</p>
 </div>
 <figure class="align-default">
 <img alt="Averaged density profile" class="only-light" src="../../_images/density_profile-light.png" />
@@ -498,7 +512,7 @@ was estimated from the raw density profiles.</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us plot <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_\mathrm{bulk})\)</span> and compare it
-with the imposed (reference) potential <span class="math notranslate nohighlight">\(U\)</span>:</p>
+with the imposed (reference) potential <span class="math notranslate nohighlight">\(U\)</span>.</p>
 </div>
 <figure class="align-default">
 <img alt="Averaged density profile" class="only-light" src="../../_images/freesampling-potential-light.png" />
@@ -546,12 +560,16 @@ atoms in order to make the unfavourable states more likely
 to occur.</p>
 </div>
 <div class="justify docutils container">
-<p>Keeping the present configuration, we are going to force one of the atom to
+<p>Several simulations (or windows) will be performed with different parameters
+for the imposed biasing.</p>
+</div>
+<div class="justify docutils container">
+<p>Here, let us force one of the atom to
 explore the central region of the box. To do so,
 let us add a potential <span class="math notranslate nohighlight">\(V\)</span> to one
 of the particle, and force it to move along the axis <span class="math notranslate nohighlight">\(x\)</span>.
-The chosen path is called the axis of reaction. The final
-simulation will be analyzed using the weighted histogram
+The chosen path is called the axis of reaction. The results
+will be analyzed using the weighted histogram
 analysis method (WHAM), which allows to remove the effect of
 the bias and eventually deduce the unbiased free energy profile.</p>
 </div>
@@ -606,11 +624,6 @@ mass and Lennard-Jones parameters), but will be exposed to the
 biasing potential.</p>
 </div>
 <div class="justify docutils container">
-<p>The value of the potential <span class="math notranslate nohighlight">\(U_0\)</span> was chosen to be much larger than in part 1,
-just to proof that umbrella sampling can easily deal with huge potential value,
-while free sampling couldn’t.</p>
-</div>
-<div class="justify docutils container">
 <p>Let us create a loop with 50 steps, and move progressively
 the centre of the bias potential by increment of 0.1 nm.
 Add the following lines into <em>input.lammps</em>:</p>
@@ -635,9 +648,9 @@ Add the following lines into <em>input.lammps</em>:</p>
 <p>The spring command serves to impose the
 additional harmonic potential with spring constant <span class="math notranslate nohighlight">\(k\)</span>.
 Note that the value of <span class="math notranslate nohighlight">\(k\)</span> should be chosen with care,
-if its too small, the particle wont follow the biasing potential
-center, if its too large, there will be no overlapping between the
-different windows.</p>
+if <span class="math notranslate nohighlight">\(k\)</span> is too small, the particle wont follow the biasing potential
+center, if <span class="math notranslate nohighlight">\(k\)</span> is too large, there will be no overlapping between the
+different windows. See the side note named <em>on the choice of k</em> below.</p>
 </div>
 <div class="justify docutils container">
 <p>The centre of the harmonic potential <span class="math notranslate nohighlight">\(x_\text{des}\)</span>
@@ -653,9 +666,10 @@ can always increase the duration of the runs for better samplings.</p>
 <h3>WHAM algorithm<a class="headerlink" href="#wham-algorithm" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>In order to generate the free energy profile from the density distribution, we are going to use
-the WHAM algorithm. You can download it from <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a> website, or alternatively use
-the <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham-release-2.0.11.tgz" target="_blank">version 2.0.11</a> I have downloaded, or try your luck with the version
-i did precompile; <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham" target="_blank">precompiled wham</a>. After extraction, it can be compiled by simply running:</p>
+the WHAM algorithm.</p>
+</div>
+<div class="justify docutils container">
+<p>You can download it from <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a> website, and compile it using:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>wham
 make<span class="w"> </span>clean
@@ -664,7 +678,9 @@ make
 </div>
 <div class="justify docutils container">
 <p>The compilation creates an executable called <em>wham</em> that you can
-copy in the <em>BiasedSampling/</em> folder.</p>
+copy in the <em>BiasedSampling/</em> folder. Alternatively, use
+the <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham-release-2.0.11.tgz" target="_blank">version 2.0.11</a> I have downloaded, or try your luck with the version
+i did precompile; <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham" target="_blank">precompiled wham</a>.</p>
 </div>
 <div class="justify docutils container">
 <p>In order to apply the WHAM algorithm to our simulation, we
@@ -684,7 +700,7 @@ from the <em>BiasedSampling/</em> folder:</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">k</span><span class="o">=</span><span class="mf">1.5</span> <span class="c1"># set the value of  k in kCal/mol</span>
+<span class="n">k</span><span class="o">=</span><span class="mf">1.5</span>
 <span class="n">folder</span><span class="o">=</span><span class="s1">&#39;data-k1.5/&#39;</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;metadata.dat&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
@@ -703,7 +719,8 @@ from the <em>BiasedSampling/</em> folder:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The generated file named <em>metadata.dat</em> looks like that:</p>
+<p>Here <span class="math notranslate nohighlight">\(k\)</span> is in kcal/mol.
+The generated file named <em>metadata.dat</em> looks like that:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./data-k1.5/position.1.dat<span class="w"> </span>-24<span class="w"> </span><span class="m">1</span>.5
 ./data-k1.5/position.2.dat<span class="w"> </span>-23<span class="w"> </span><span class="m">1</span>.5
@@ -715,7 +732,7 @@ from the <em>BiasedSampling/</em> folder:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Alternatively, you can download my <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/metadata.dat" target="_blank">metadata.dat</a> file.
+<p>Alternatively, you can download this <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/metadata.dat" target="_blank">metadata.dat</a> file.
 Then, simply run the following command in the terminal:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./wham<span class="w"> </span>-25<span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="m">50</span><span class="w"> </span>1e-8<span class="w"> </span><span class="m">119</span>.8<span class="w"> </span><span class="m">0</span><span class="w"> </span>metadata.dat<span class="w"> </span>PMF.dat
@@ -729,7 +746,8 @@ profile in Kcal/mol.</p>
 </div>
 <p><strong>Results</strong></p>
 <div class="justify docutils container">
-<p>We can compare the result of the PMF with the imposed potential <span class="math notranslate nohighlight">\(U\)</span>:</p>
+<p>Again, one can compare the result of the PMF with the imposed potential <span class="math notranslate nohighlight">\(U\)</span>,
+which shows that the agreement is excellent.</p>
 </div>
 <figure class="align-default">
 <img alt="Result of the umbrella sampling" class="only-light" src="../../_images/freeenergy-light.png" />
@@ -743,7 +761,9 @@ the imposed potential. The calculated potential is in blue.</p>
 </div>
 <div class="justify docutils container">
 <p>We can see that the agreement is quite good despite the very short calculation time
-and the very high value for the energy barrier.</p>
+and the very high value for the energy barrier. Obtaining the same
+results with Free Sampling would require to perform extremely long
+and costly simulations.</p>
 </div>
 <div class="justify docutils container">
 <p>You can access all the input scripts and data files that
@@ -759,7 +779,7 @@ Ideally, you want the biasing potential to be strong enough to force
 the chosen atom to move along the axis, and you also want the
 fluctuations of the atom position to be large enough to
 have some overlap in the density probability of two
-neighbor positions, like we have here with <span class="math notranslate nohighlight">\(k = 1.5\)</span>:</p>
+neighbor positions. Here, 3 different values of <span class="math notranslate nohighlight">\(k\)</span> are being tested.</p>
 </div>
 <figure class="align-default">
 <img alt="Averaged density profile" class="only-light" src="../../_images/overlap-light.png" />
@@ -768,34 +788,18 @@ neighbor positions, like we have here with <span class="math notranslate nohighl
 <img alt="Averaged density profile" class="only-dark" src="../../_images/overlap-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Density probability for each run with <span class="math notranslate nohighlight">\(k = 1.5\,\text{Kcal}/\text{mol}/Å^2\)</span>.</p>
+<p>Figure: Density probability for each run with <span class="math notranslate nohighlight">\(k = 0.15\,\text{Kcal}/\text{mol}/Å^2\)</span> (a),
+<span class="math notranslate nohighlight">\(k = 1.5\,\text{Kcal}/\text{mol}/Å^2\)</span> (b),
+and <span class="math notranslate nohighlight">\(k = 15\,\text{Kcal}/\text{mol}/Å^2\)</span> (c).</p>
 </div>
 <div class="justify docutils container">
 <p>If <span class="math notranslate nohighlight">\(k\)</span> is too small, the biasing potential is too weak to force the particle to explores the
 region of interest, making it impossible to reconstruct the PMF:</p>
 </div>
-<figure class="align-default">
-<img alt="Averaged density profile" class="only-light" src="../../_images/overlap015-light.png" />
-</figure>
-<figure class="align-default">
-<img alt="Averaged density profile" class="only-dark" src="../../_images/overlap015-dark.png" />
-</figure>
-<div class="figurelegend docutils container">
-<p>Figure: Density probability for each run with <span class="math notranslate nohighlight">\(k = 0.15\,\text{Kcal}/\text{mol}/Å^2\)</span>.</p>
-</div>
 <div class="justify docutils container">
 <p>If <span class="math notranslate nohighlight">\(k\)</span> is too large, the biasing potential is too large
 compared to the potential one want to probe, which reduces the
-sensitivity of the method. In that case, note the bad overlap between neighbor windows:</p>
-</div>
-<figure class="align-default">
-<img alt="Averaged density profile" class="only-light" src="../../_images/overlap15-light.png" />
-</figure>
-<figure class="align-default">
-<img alt="Averaged density profile" class="only-dark" src="../../_images/overlap15-dark.png" />
-</figure>
-<div class="figurelegend docutils container">
-<p>Figure: Density probability for each run with <span class="math notranslate nohighlight">\(k = 15\,\text{Kcal}/\text{mol}/Å^2\)</span>.</p>
+sensitivity of the method.</p>
 </div>
 </section>
 </section>
