@@ -1050,10 +1050,6 @@ Create a demixed dense phase
     - both particles of type 1 and 2 must have the same size,
     - particles of type 1 and 2 must demix. 
 
-..  container:: justify
-
-    The final system should look like that:
-
 .. figure:: ../figures/level1/lennard-jones-fluid/demixing-light.png
     :alt: VMD/LAMMPS exercice molecular dynamics simulation: demixing lennard jones fluids
     :class: only-light
