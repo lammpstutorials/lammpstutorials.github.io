@@ -667,7 +667,7 @@ Side note: on the choice of k
 ..  container:: justify
 
     If :math:`k` is too small, the biasing potential is too weak to force the particle to explores the 
-    region of interest, making it impossible to reconstruct the PMF:
+    region of interest, making it impossible to reconstruct the PMF.
 
 ..  container:: justify
 
