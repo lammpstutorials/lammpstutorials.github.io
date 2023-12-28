@@ -37,10 +37,17 @@ include ../../GROUP.lammps
 fix mynve fluid nve/limit 0.1
 fix myber fluid temp/berendsen 1 1 100
 fix myshk H2O shake 1.0e-4 200 0 b 1 a 1
-timestep 0.05
+timestep 0.5
+fix myrct all recenter INIT INIT INIT
 
-dump mydmp all atom 2 dump.lammpstrj
+dump mydmp all atom 6 dump.lammpstrj
 thermo 200
 
 run 2000
+unfix myber
+unfix mynve
 
+fix myber all temp/berendsen 300 300 100
+fix mynve all nve
+
+run 10000
