@@ -53,4 +53,4 @@ This project has received funding from the European
 Union's Horizon 2020 research and innovation programme
 under the Marie Skłodowska-Curie grant agreement No 101065060.
 
-.. image:: [docs/source/figures/logo/msca.png](https://raw.githubusercontent.com/simongravelle/nmrformd/main/docs/source/figures/logo/msca.png)https://raw.githubusercontent.com/simongravelle/nmrformd/main/docs/source/figures/logo/msca.png
+![MSCA image]([http://url/to/img.png](https://raw.githubusercontent.com/simongravelle/nmrformd/main/docs/source/figures/logo/msca.png))
