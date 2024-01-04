@@ -1,7 +1,7 @@
 # LAMMPS tutorials
 
 Welcome to the repository of the [LAMMPS Tutorials](https://lammpstutorials.github.io/)
-webpage. All the input scripts and data files can be found in the [inputs](docs/inputs/) folder.
+webpage. All the LAMMPS input scripts and data files can be found in the [inputs](docs/inputs/) folder.
 The Python scripts used to generate the figures are also provided.
 
 <p float="left">
@@ -30,6 +30,6 @@ find more information on my [personal webpage](https://simongravelle.github.io/)
 
 ### License ###
 
-All the inputs, scripts, and data files are released under the 
+All the LAMMPS inputs/data/parameter files and Python scripts are released under the 
 GNU general public license v3.0.
 
