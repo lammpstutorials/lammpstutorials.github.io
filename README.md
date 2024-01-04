@@ -32,9 +32,10 @@ are using some more advanced simulation methods that are commonly used when stud
 The template from the first page has been adapted from HTML5 UP. The other pages are
 using sphinx with the furo style.
 
-### You noticed a mistake in one of the tutorial?
+### Contact me
 
-You can report issue here on Github, or send me an [email](https://simongravelle.github.io/). Your feedback is always highly appreciated.
+See the [contact page](https://lammpstutorials.github.io/sphinx/build/html/non-tutorials/contact-me.html). 
+You can report issues here on Github, or send me an [email](https://simongravelle.github.io/). Your feedback is always appreciated.
 
 ### About me ###
 
