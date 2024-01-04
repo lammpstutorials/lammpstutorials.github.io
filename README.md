@@ -27,12 +27,12 @@ are using some more advanced simulation methods that are commonly used when stud
   <img src="docs/sphinx/source/_static/screenshot_readme_lammps_tutorials_2.png" width="100%" /></a>
 </p>
 
-### Template
+### Template ###
 
 The template from the first page has been adapted from HTML5 UP. The other pages are
 using sphinx with the furo style.
 
-### Contact me
+### Contact me ###
 
 See the [contact page](https://lammpstutorials.github.io/sphinx/build/html/non-tutorials/contact-me.html). 
 You can report issues here on Github, or send me an [email](https://simongravelle.github.io/). Your feedback is always appreciated.
@@ -47,3 +47,10 @@ find more information on my [personal webpage](https://simongravelle.github.io/)
 All the LAMMPS inputs/data/parameter files and Python scripts are released under the 
 GNU general public license v3.0.
 
+### Acknowledgments ###
+
+This project has received funding from the European
+Union's Horizon 2020 research and innovation programme
+under the Marie Skłodowska-Curie grant agreement No 101065060.
+
+.. image:: [docs/source/figures/logo/msca.png](https://raw.githubusercontent.com/simongravelle/nmrformd/main/docs/source/figures/logo/msca.png)https://raw.githubusercontent.com/simongravelle/nmrformd/main/docs/source/figures/logo/msca.png
