@@ -4,24 +4,6 @@ This is the repository of the [LAMMPS Tutorials](https://lammpstutorials.github.
 webpage. All the LAMMPS input scripts and data files can be found
 in a separate [repository](https://github.com/lammpstutorials/lammpstutorials-inputs).
 
-<p float="left">
-    <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/lennard-jones-fluid.html">
-        <img src="docs/avatars/level1/lennard-jones-fluid/avatar-LJ-LAMMPS.png" width="32%" />
-    </a>
-    <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/breaking-a-carbon-nanotube.html">
-        <img src="docs/avatars/level1/breaking-a-carbon-nanotube/CNT.png" width="32%" />
-    </a>
-    <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/water-adsorption-in-silica.html">
-        <img src="docs/avatars/level3/water-adsorption-in-silica/water-adsorption.png" width="32%" />
-    </a>
-</p>
-
-You can access all the files by cloning this repository with its submodules:
-
-```
-git clone https://github.com/lammpstutorials/lammpstutorials.github.io.git --recurse-submodule
-```
-
 ## About LAMMPS tutorials
 
 LAMMPS tutorials is made of seven tutorials that are ordered by increasing difficulty.
@@ -34,6 +16,38 @@ and [Reactive silicon dioxide](https://lammpstutorials.github.io/sphinx/build/ht
 Finally, [Water adsorption in silica](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/water-adsorption-in-silica.html),
 [Free energy calculation](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/free-energy-calculation.html), 
 are using some more advanced simulation methods that are commonly used when studying soft matter systems, respectively grand canonical Monte Carlo simulations and a free energy method named umbrella sampling.
+
+<p float="left">
+    <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/lennard-jones-fluid.html">
+        <img src="docs/avatars/level1/lennard-jones-fluid/avatar-LJ-LAMMPS.png" width="32%" />
+    </a>
+    <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/breaking-a-carbon-nanotube.html">
+        <img src="docs/avatars/level1/breaking-a-carbon-nanotube/CNT.png" width="32%" />
+    </a>
+    <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/water-adsorption-in-silica.html">
+        <img src="docs/avatars/level3/water-adsorption-in-silica/water-adsorption.png" width="32%" />
+    </a>
+</p>
+
+## Access the files
+
+You can access all the files by cloning this repository with its submodules:
+
+```
+git clone https://github.com/lammpstutorials/lammpstutorials.github.io.git --recurse-submodule
+```
+
+Alternatively, you can download the inputs only:
+
+```
+git clone https://github.com/lammpstutorials/lammpstutorials.github.io.git
+```
+
+The Matplotlib Pyplot codes for the figures are shared here:
+
+```
+https://github.com/simongravelle/pyplot-perso
+```
 
 ### Template ###
 
