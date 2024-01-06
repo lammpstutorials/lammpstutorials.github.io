@@ -89,13 +89,13 @@ Python (3.11.4)
 ..  container:: justify
 
     To perform post-mortem analysis of the data during the :ref:`mda-label`,
-    the version *2.6.1* of MDAnalysis is used
-    together with the version *3.11.4* of Python.
+    the version 2.6.1 of MDAnalysis is used
+    together with the version 3.11.4 of Python.
 
 ..  container:: justify
 
     In order to plot the results from the simulations,
-    the version *3.5.2* of |Matplotlib Pyplot| is used
+    the version 3.5.2 of |Matplotlib Pyplot| is used
     in combination with |lammps_logfile|, a library allowing
     one to read the *log* file produced by LAMMPS.
 
