@@ -10,13 +10,13 @@ in a dedicated [repository](https://github.com/lammpstutorials/lammpstutorials-i
 
 <p float="left">
     <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/lennard-jones-fluid.html">
-        <img src="docs/avatars/level1/lennard-jones-fluid/avatar-LJ-LAMMPS.png" width="33%" />
+        <img src="docs/avatars/level1/lennard-jones-fluid/avatar-LJ-LAMMPS.png" width="32%" />
     </a>
     <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/breaking-a-carbon-nanotube.html">
-        <img src="docs/avatars/level1/breaking-a-carbon-nanotube/CNT.png" width="33%" />
+        <img src="docs/avatars/level1/breaking-a-carbon-nanotube/CNT.png" width="32%" />
     </a>
     <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/water-adsorption-in-silica.html">
-        <img src="docs/avatars/level3/water-adsorption-in-silica/water-adsorption.png" width="33%" />
+        <img src="docs/avatars/level3/water-adsorption-in-silica/water-adsorption.png" width="32%" />
     </a>
 </p>
 
@@ -33,16 +33,6 @@ and [Reactive silicon dioxide](https://lammpstutorials.github.io/sphinx/build/ht
 Finally, [Water adsorption in silica](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/water-adsorption-in-silica.html),
 [Free energy calculation](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/free-energy-calculation.html), 
 are using some more advanced simulation methods that are commonly used when studying soft matter systems, respectively grand canonical Monte Carlo simulations and a free energy method named umbrella sampling.
-
-<p float="left">
-  <a href="https://lammpstutorials.github.io">
-  <img src="docs/sphinx/source/_static/screenshot_readme_lammps_tutorials_1.png" width="100%" /></a>
-</p>
-
-<p float="left">
-  <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/surface-profile.html">
-  <img src="docs/sphinx/source/_static/screenshot_readme_lammps_tutorials_2.png" width="100%" /></a>
-</p>
 
 ### Template ###
 
