@@ -84,7 +84,7 @@ Vashishta potential
 
 .. |download_SiO.data| raw:: html
 
-   <a href="../../../../../inputs/level3/water-adsorption-in-silica/SilicaBlock/SiO.data" target="_blank">here</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/SilicaBlock/SiO.data" target="_blank">here</a>
 
 ..  code-block:: lammps
 
@@ -140,7 +140,7 @@ Vashishta potential
 
 .. |download_vashishta| raw:: html
 
-   <a href="../../../../../inputs/level3/water-adsorption-in-silica/Potential/SiO.1990.vashishta" target="_blank">here</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Potential/SiO.1990.vashishta" target="_blank">here</a>
 
 .. |website_vashishta| raw:: html
 
@@ -296,7 +296,7 @@ Annealing procedure
 
 .. |download_silica_block| raw:: html
 
-   <a href="../../../../../inputs/level3/water-adsorption-in-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
 
 .. admonition:: Tip for research project
     :class: info
@@ -419,7 +419,7 @@ Cracking the silica
 
 .. |download_silica_dilated| raw:: html
 
-   <a href="../../../../../inputs/level3/water-adsorption-in-silica/Cracking/dilatedSiO.data" target="_blank">here</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Cracking/dilatedSiO.data" target="_blank">here</a>
 
 .. admonition:: Passivated silica
     :class: info
@@ -455,7 +455,7 @@ Using hydrid potentials
 
 .. |download_TIP4P2005| raw:: html
 
-   <a href="../../../../../inputs/level3/water-adsorption-in-silica/AddingWater/H2O.mol" target="_blank">template</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/AddingWater/H2O.mol" target="_blank">template</a>
 
 ..  container:: justify
 
@@ -846,7 +846,7 @@ Mixture adsorption
 
 .. |CO2-template| raw:: html
 
-    <a href="../../../../../inputs/level3/water-adsorption-in-silica/Exercises/MixtureH2OCO2/CO2.mol" target="_blank">CO2 template</a>
+    <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/MixtureH2OCO2/CO2.mol" target="_blank">CO2 template</a>
 
 Adsorb water in ZIF-8 nanopores
 -------------------------------
@@ -901,12 +901,12 @@ Adsorb water in ZIF-8 nanopores
 
 .. |Zif-8-structure| raw:: html
 
-   <a href="../../../../../inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/zif-8.data" target="_blank">structure</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/zif-8.data" target="_blank">structure</a>
 
 .. |Zif-8-parameters| raw:: html
 
-   <a href="../../../../../inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/parm.lammps" target="_blank">parameters</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/parm.lammps" target="_blank">parameters</a>
 
 .. |water-template| raw:: html
 
-    <a href="../../../../../inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/water.mol" target="_blank">water template</a>
+    <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/water.mol" target="_blank">water template</a>

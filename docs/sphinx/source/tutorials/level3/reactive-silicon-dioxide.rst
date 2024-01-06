@@ -50,7 +50,7 @@ Prepare and relax
 
 .. |download_silica_data| raw:: html
 
-   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/silica.data" target="_blank">download</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/RelaxSilica/silica.data" target="_blank">download</a>
 
 ..  container:: justify
 
@@ -59,7 +59,7 @@ Prepare and relax
 
 .. |download_SiO.1990.vashishta| raw:: html
 
-   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>
 
 ..  container:: justify
 
@@ -69,7 +69,7 @@ Prepare and relax
 
 .. |lammps_input_creating| raw:: html
 
-   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/CreateSilica/input.lammps" target="_blank">here</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/CreateSilica/input.lammps" target="_blank">here</a>
 
 ..  container:: justify
 
@@ -149,7 +149,7 @@ Prepare and relax
 
 .. |reaxCHOFe| raw:: html
 
-   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a>
 
 ..  container:: justify
 
@@ -258,7 +258,7 @@ Prepare and relax
 
 .. |plot_distribution| raw:: html
 
-   <a href="../../../../../inputs/level3/reactive-silicon-dioxide/RelaxSilica/plot_distribution.ipynb" target="_blank">here</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/RelaxSilica/plot_distribution.ipynb" target="_blank">here</a>
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/distribution-charge-light.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
