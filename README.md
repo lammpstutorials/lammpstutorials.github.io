@@ -1,8 +1,12 @@
 # LAMMPS tutorials
 
 Welcome to the repository of the [LAMMPS Tutorials](https://lammpstutorials.github.io/)
-webpage. All the LAMMPS input scripts and data files can be found in the [inputs](docs/inputs/) folder.
-The Python scripts used to generate the figures are also provided.
+webpage. 
+
+## LAMMPS inputs and scripts
+
+All the LAMMPS input scripts and data files can be found
+in a dedicated [repository]([docs/inputs/](https://github.com/lammpstutorials/lammpstutorials-inputs)).
 
 ## About LAMMPS tutorials
 
