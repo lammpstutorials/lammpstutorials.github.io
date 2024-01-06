@@ -7,6 +7,10 @@ The files include:
 - the solutions to the exercises,
 - the Python scripts for generating structures, analysing data, and generating the figures.
 
+### Main repository ###
+
+Find [here](https://github.com/lammpstutorials/lammpstutorials.github.io) the main repository for LAMMPS tutorial.
+
 ### Contact me ###
 
 See the [contact page](https://lammpstutorials.github.io/sphinx/build/html/non-tutorials/contact-me.html). 
