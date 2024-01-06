@@ -530,11 +530,11 @@ WHAM algorithm
 
 .. |wham-version| raw:: html
 
-   <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham-release-2.0.11.tgz" target="_blank">version 2.0.11</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/free-energy-calculation/BiasedSampling/wham-release-2.0.11.tgz" target="_blank">version 2.0.11</a>
 
 .. |wham-precompiled| raw:: html
 
-   <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/wham" target="_blank">precompiled wham</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/free-energy-calculation/BiasedSampling/wham" target="_blank">precompiled wham</a>
 
 ..  container:: justify
 
@@ -596,7 +596,7 @@ WHAM algorithm
 
 .. |download_metadata| raw:: html
 
-   <a href="../../../../../inputs/level3/free-energy-calculation/BiasedSampling/metadata.dat" target="_blank">metadata.dat</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/free-energy-calculation/BiasedSampling/metadata.dat" target="_blank">metadata.dat</a>
 
 ..  code-block:: bash
 
@@ -762,11 +762,11 @@ Surface adsorption of a molecule
 
 .. |topology-ethanol| raw:: html
 
-   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/init.data" target="_blank">topology files</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/init.data" target="_blank">topology files</a>
 
 .. |parameter-ethanol| raw:: html
 
-   <a href="../../../../../inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/PARM.lammps" target="_blank">parameter file</a>
+   <a href="../../../../../lammpstutorials-inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/PARM.lammps" target="_blank">parameter file</a>
 
 
 ..  container:: justify

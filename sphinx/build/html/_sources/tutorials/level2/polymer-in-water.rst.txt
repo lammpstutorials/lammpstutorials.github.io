@@ -206,7 +206,7 @@ The water
 
 .. |PARM_PEG.data| raw:: html
 
-   <a href="../../../../../inputs/level2/polymer-in-water/PARM.lammps" target="_blank">parameter</a>
+   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/PARM.lammps" target="_blank">parameter</a>
 
 ..  container:: justify
 
@@ -261,7 +261,7 @@ The water
 
 .. |download_FlexibleH2O.txt| raw:: html
 
-   <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/FlexibleH2O.txt" target="_blank">downloaded</a>
+   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/FlexibleH2O.txt" target="_blank">downloaded</a>
 
 ..  container:: justify
 
@@ -401,7 +401,7 @@ The water
 
 .. |download_H2O.data| raw:: html
 
-   <a href="../../../../../inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a>
+   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a>
 
 The PEG molecule
 ----------------
@@ -444,7 +444,7 @@ The PEG molecule
 
 .. |download_init.data| raw:: html
 
-   <a href="../../../../../inputs/level2/polymer-in-water/singlePEG/init.data" target="_blank">Download</a>
+   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/singlePEG/init.data" target="_blank">Download</a>
 
 .. |atb_repo| raw:: html
 
@@ -551,7 +551,7 @@ The PEG molecule
 
 .. |download_PEG.data| raw:: html
 
-   <a href="../../../../../inputs/level2/polymer-in-water/singlePEG/PEG.data" target="_blank">download</a>
+   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/singlePEG/PEG.data" target="_blank">download</a>
 
 Solvated PEG
 ============

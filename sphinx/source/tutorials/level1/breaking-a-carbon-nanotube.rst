@@ -81,7 +81,7 @@ Create topology with VMD
 
 .. |download_cnt_molecular_data| raw:: html
 
-   <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/unbreakable-bonds/cnt_molecular.data" target="_blank">here</a>
+   <a href="../../../../..lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/unbreakable-bonds/cnt_molecular.data" target="_blank">here</a>
 
 .. |prepross| raw:: html
 
@@ -814,7 +814,7 @@ Adapt the topology file
 
 .. |download_CNT.data| raw:: html
 
-   <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/cnt_atom.data" target="_blank">here</a>
+   <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/cnt_atom.data" target="_blank">here</a>
 
 Use of AIREBO potential
 -----------------------
@@ -851,7 +851,7 @@ Use of AIREBO potential
 
 .. |download_CH.airebo| raw:: html
 
-    <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/CH.airebo" target="_blank">here</a>
+    <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/CH.airebo" target="_blank">here</a>
 
 .. code-block:: lammps
 
@@ -1072,15 +1072,15 @@ Solve the flying ice cube artifact
 
 .. |input_flying_cube| raw:: html
 
-    <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/input.lammps" target="_blank">input</a>
+    <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/input.lammps" target="_blank">input</a>
 
 .. |data_flying_cube| raw:: html
 
-    <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/cnt_molecular.data" target="_blank">data</a>
+    <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/cnt_molecular.data" target="_blank">data</a>
 
 .. |parm_flying_cube| raw:: html
 
-    <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/parm.lammps" target="_blank">parameter</a>
+    <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/parm.lammps" target="_blank">parameter</a>
 
 .. container:: justify
 

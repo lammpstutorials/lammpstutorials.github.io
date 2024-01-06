@@ -174,7 +174,7 @@ System generation
 
 .. |download_TIP4P2005.txt| raw:: html
 
-   <a href="../../../../../inputs/level2/nanosheared-electrolyte/SystemCreation/RigidH2O.txt" target="_blank">molecule template</a>
+   <a href="../../../../../lammpstutorials-inputs/level2/nanosheared-electrolyte/SystemCreation/RigidH2O.txt" target="_blank">molecule template</a>
 
 ..  container:: justify
 

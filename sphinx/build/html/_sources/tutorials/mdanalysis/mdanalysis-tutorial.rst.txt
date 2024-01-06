@@ -47,11 +47,11 @@ Counting the bonds of a CNT
 
 .. |dump_cnt| raw:: html
 
-   <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/dump.lammpstrj" target="_blank">dump</a>
+   <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/dump.lammpstrj" target="_blank">dump</a>
 
 .. |data_cnt| raw:: html
 
-   <a href="../../../../../inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/cnt_atom.data" target="_blank">data</a>
+   <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/cnt_atom.data" target="_blank">data</a>
 
 Create a Universe
 -----------------

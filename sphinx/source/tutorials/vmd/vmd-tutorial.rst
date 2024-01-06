@@ -45,7 +45,7 @@ Practical example
 
 .. |dump_download| raw:: html
 
-   <a href="../../../../../inputs/vmd/dump.lammpstrj" target="_blank">download</a>
+   <a href="../../../../../lammpstutorials-inputs/vmd/dump.lammpstrj" target="_blank">download</a>
 
 .. container:: justify
 
