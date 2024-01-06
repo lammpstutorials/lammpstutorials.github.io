@@ -50,12 +50,12 @@ dump mydmp all atom 1000 dump.md.lammpstrj
 
 variable number_type1_in equal count(group_type_1,region_cylinder_in)
 variable number_type2_in equal count(group_type_2,region_cylinder_in)
-fix myat1 all ave/time 10 200 2000 v_number_type1_in file output-population1vstime.dat
-fix myat2 all ave/time 10 200 2000 v_number_type2_in file output-population2vstime.dat
+fix myat1 all ave/time 10 200 2000 v_number_type1_in file population1vstime.dat
+fix myat2 all ave/time 10 200 2000 v_number_type2_in file population2vstime.dat
 
 compute coor12 group_type_1 coord/atom cutoff 2.0 group group_type_2
 compute sumcoor12 all reduce ave c_coor12
-fix myat3 all ave/time 10 200 2000 c_sumcoor12 file output-coordinationnumber12.dat
+fix myat3 all ave/time 10 200 2000 c_sumcoor12 file coordinationnumber12.dat
 
 # 5) Run
 velocity all create 1.0 4928459 mom yes rot yes dist gaussian
