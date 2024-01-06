@@ -37,13 +37,13 @@ You can access all the files by cloning this repository with its submodules:
 git clone https://github.com/lammpstutorials/lammpstutorials.github.io.git --recurse-submodule
 ```
 
-Alternatively, you can download the inputs only:
+Alternatively, you can download the [inputs](https://github.com/lammpstutorials/lammpstutorials-inputs) only:
 
 ```
 git clone https://github.com/lammpstutorials/lammpstutorials.github.io.git
 ```
 
-The Matplotlib Pyplot codes for the figures are shared here:
+The Matplotlib Pyplot [codes](https://github.com/simongravelle/pyplot-perso) for the figures are shared here:
 
 ```
 https://github.com/simongravelle/pyplot-perso
