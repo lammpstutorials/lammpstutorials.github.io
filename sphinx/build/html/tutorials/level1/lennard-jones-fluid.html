@@ -354,7 +354,7 @@ a cut-off equal to <span class="math notranslate nohighlight">\(r_c = 2.5\)</spa
 </div>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[E_{ij} (r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12} - \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], \sim \text{for} \sim r &lt; r_c,\]</div>
+\[E_{ij} (r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12} - \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], ~ \text{for} ~ r &lt; r_c,\]</div>
 </div>
 <div class="justify docutils container">
 <p>where <span class="math notranslate nohighlight">\(r\)</span> is the inter-particles distance,
@@ -982,8 +982,10 @@ adding the following commands to <em>input.md.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">number_type1_in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(group_type_1,region_cylinder_in)</span>
 <span class="k">variable </span><span class="nv nv-Identifier">number_type2_in</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(group_type_2,region_cylinder_in)</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_number_type1_in</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">output</span><span class="o">-</span><span class="n">population1vstime.dat</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_number_type2_in</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">output</span><span class="o">-</span><span class="n">population2vstime.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_number_type1_in</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">file</span><span class="w"> </span><span class="n">output</span><span class="o">-</span><span class="n">population1vstime.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">v_number_type2_in</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">file</span><span class="w"> </span><span class="n">output</span><span class="o">-</span><span class="n">population2vstime.dat</span>
 </pre></div>
 </div>
 <div class="justify docutils container">

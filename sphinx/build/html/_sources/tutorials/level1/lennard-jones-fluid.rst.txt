@@ -151,7 +151,7 @@ System creation
     
 .. math::
 
-    E_{ij} (r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12} - \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], \sim \text{for} \sim r < r_c,
+    E_{ij} (r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12} - \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], ~ \text{for} ~ r < r_c,
 
 ..  container:: justify
 
@@ -877,8 +877,10 @@ Restarting from a saved configuration
 
     variable number_type1_in equal count(group_type_1,region_cylinder_in)
     variable number_type2_in equal count(group_type_2,region_cylinder_in)
-    fix myat1 all ave/time 10 200 2000 v_number_type1_in file output-population1vstime.dat
-    fix myat2 all ave/time 10 200 2000 v_number_type2_in file output-population2vstime.dat
+    fix myat1 all ave/time 10 200 2000 v_number_type1_in &
+    file output-population1vstime.dat
+    fix myat2 all ave/time 10 200 2000 v_number_type2_in &
+    file output-population2vstime.dat
 
 ..  container:: justify
 
