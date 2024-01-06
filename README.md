@@ -3,11 +3,6 @@
 Welcome to the repository of the [LAMMPS Tutorials](https://lammpstutorials.github.io/)
 webpage. 
 
-## LAMMPS inputs and scripts
-
-All the LAMMPS input scripts and data files can be found
-in a dedicated [repository](https://github.com/lammpstutorials/lammpstutorials-inputs).
-
 <p float="left">
     <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/lennard-jones-fluid.html">
         <img src="docs/avatars/level1/lennard-jones-fluid/avatar-LJ-LAMMPS.png" width="32%" />
@@ -20,6 +15,10 @@ in a dedicated [repository](https://github.com/lammpstutorials/lammpstutorials-i
     </a>
 </p>
 
+## LAMMPS inputs and scripts
+
+All the LAMMPS input scripts and data files can be found
+in a dedicated [repository](https://github.com/lammpstutorials/lammpstutorials-inputs).
 
 ## About LAMMPS tutorials
 
