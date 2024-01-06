@@ -258,7 +258,7 @@ Prepare and relax
 
 .. |plot_distribution| raw:: html
 
-   <a href="../../../../../tutorials/docs/sphinx/source/tutorials/figures/level3/reactive-silicon-dioxide/distribution-charge-pyplot.ipynb" target="_blank">here</a>
+   <a href="../../../../../sphinx/source/tutorials/figures/level3/reactive-silicon-dioxide/distribution-charge-pyplot.ipynb" target="_blank">here</a>
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/distribution-charge-light.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
