@@ -81,7 +81,7 @@ Create topology with VMD
 
 .. |download_cnt_molecular_data| raw:: html
 
-   <a href="../../../../..lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/unbreakable-bonds/cnt_molecular.data" target="_blank">here</a>
+   <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/unbreakable-bonds/cnt_molecular.data" target="_blank">here</a>
 
 .. |prepross| raw:: html
 
