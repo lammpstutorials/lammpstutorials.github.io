@@ -253,13 +253,8 @@ Prepare and relax
     Since each atom has a charge that depends on its local environnement,
     the charge values are expected to be different for every atom in the system. We can plot 
     the charge distribution :math:`P(q)`, using the charge values printed in
-    the *.lammptrj* file. To do so, a custom *Python* script 
-    was written, you can download the notebook by clicking |plot_distribution|. 
-
-.. |plot_distribution| raw:: html
-
-   <a href="../figures/level3/reactive-silicon-dioxide/distribution-charge-pyplot.ipynb" target="_blank">here</a>
-
+    the *.lammptrj* file. 
+    
 .. figure:: ../figures/level3/reactive-silicon-dioxide/distribution-charge-light.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
     :class: only-light
