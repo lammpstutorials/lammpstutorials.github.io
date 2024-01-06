@@ -1,7 +1,8 @@
 # LAMMPS tutorials
 
-Welcome to the repository of the [LAMMPS Tutorials](https://lammpstutorials.github.io/)
-webpage. 
+This is the repository of the [LAMMPS Tutorials](https://lammpstutorials.github.io/)
+webpage. All the LAMMPS input scripts and data files can be found
+in a separate [repository](https://github.com/lammpstutorials/lammpstutorials-inputs).
 
 <p float="left">
     <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/lennard-jones-fluid.html">
@@ -15,10 +16,11 @@ webpage.
     </a>
 </p>
 
-## LAMMPS inputs and scripts
+You can access all the files by cloning this repository with its submodules:
 
-All the LAMMPS input scripts and data files can be found
-in a dedicated [repository](https://github.com/lammpstutorials/lammpstutorials-inputs).
+```
+git clone https://github.com/lammpstutorials/lammpstutorials.github.io.git --recurse-submodule
+```
 
 ## About LAMMPS tutorials
 
