@@ -6,4 +6,4 @@
 
 .. |Github_repository_input_folder| raw:: html
 
-    <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/tree/version2.0/docs/inputs" target="_blank">the inputs folder</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/" target="_blank">the inputs folder</a>
