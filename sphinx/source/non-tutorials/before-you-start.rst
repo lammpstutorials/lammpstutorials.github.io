@@ -8,17 +8,16 @@ Before you start
     *LAMMPS tutorials* is made of seven tutorials that are
     ordered by increasing difficulty. :ref:`lennard-jones-label`
     is meant for absolute LAMMPS and molecular dynamics
-    beginners, and the complexity of the simulation
-    is progressively increased
+    beginners. The complexity of the molecular simulation
+    is then progressively increased
     for :ref:`carbon-nanotube-label`, 
     :ref:`all-atoms-label`,
     :ref:`sheared-confined-label`,
     and :ref:`reactive-silicon-dioxide-label`.
-    Finally, :ref:`gcmc-silica-label`,
+    Finally, in :ref:`gcmc-silica-label` and
     :ref:`umbrella-sampling-label`,
-    are using some more advanced simulation methods
-    that are commonly used when studying soft matter systems,
-    respectively grand canonical Monte Carlo simulations and 
+    some more advanced simulation methods
+    are used, namely grand canonical Monte Carlo simulations and 
     a free energy method named umbrella sampling.
 
 Required softwares
