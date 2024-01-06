@@ -6,7 +6,7 @@ webpage.
 ## LAMMPS inputs and scripts
 
 All the LAMMPS input scripts and data files can be found
-in a dedicated [repository]([docs/inputs/](https://github.com/lammpstutorials/lammpstutorials-inputs)).
+in a dedicated [repository]([docs/inputs/](https://github.com/lammpstutorials/lammpstutorials-inputs).
 
 ## About LAMMPS tutorials
 
