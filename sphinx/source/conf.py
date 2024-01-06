@@ -32,3 +32,10 @@ favicons = [
 html_show_copyright = False
 html_show_sphinx = False
 html_short_title = "True"
+
+#html_context = {
+#    "lammpstutorials.github.io ": True, # Integrate GitHub
+#    "github_user": "lammpstutorials", # Username
+#    "github_repo": "lammpstutorials.github.io ", # Repo name
+#    "github_version": "version2.0", # Version
+#}
