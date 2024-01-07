@@ -356,7 +356,7 @@ Cracking the silica
         fix npt1 all npt temp 300 300 0.1 y 1 1 1 z 1 1 1
 
     instead of:
-    
+
     .. code-block:: lammps
 
         fix nvt1 all nvt temp 300 300 0.1
