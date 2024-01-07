@@ -389,7 +389,8 @@ Extract radial distribution function
 ..  code-block:: lammps
         
     compute myRDF_PEG_H2O all rdf 200 1 8 2 8 cutoff 10
-    fix myat2 all ave/time 10 4000 50000 c_myRDF_PEG_H2O[*] file PEG-H2O-initial.dat mode vector
+    fix myat2 all ave/time 10 4000 50000 c_myRDF_PEG_H2O[*] &
+        file PEG-H2O-initial.dat mode vector
 
 Add salt to the mixture
 -----------------------
@@ -470,7 +471,8 @@ Evaluate the deformation of the PEG
 ..  code-block:: lammps
 
     compute mydihe all dihedral/local phi
-    fix myavehisto all ave/histo 10 2000 30000 0 180 500 c_mydihe file initial.histo mode vector
+    fix myavehisto all ave/histo 10 2000 30000 0 180 500 c_mydihe &
+        file initial.histo mode vector
 
 .. container:: justify
 
@@ -635,8 +637,10 @@ Mixture adsorption
 
     molecule h2omol H2O.mol
     molecule co2mol CO2.mol
-    create_atoms 0 random 5 456415 NULL mol h2omol 454756 overlap 2.0 maxtry 50
-    create_atoms 0 random 5 373823 NULL mol co2mol 989812 overlap 2.0 maxtry 50
+    create_atoms 0 random 5 456415 NULL &
+        mol h2omol 454756 overlap 2.0 maxtry 50
+    create_atoms 0 random 5 373823 NULL &
+        mol co2mol 989812 overlap 2.0 maxtry 50
 
 .. container:: justify
 
@@ -645,14 +649,15 @@ Mixture adsorption
 
 ..  code-block:: lammps
 
-    pair_coeff * * vashishta ../../Potential/SiO.1990.vashishta Si O NULL NULL NULL NULL
+    pair_coeff * * vashishta ../../Potential/SiO.1990.vashishta &
+        Si O NULL NULL NULL NULL
     pair_coeff * * lj/cut/tip4p/long 0 0
-    pair_coeff 1 3 lj/cut/tip4p/long 0.0057 4.42 # epsilonSi = 0.00403, sigmaSi = 3.69
-    pair_coeff 1 5 lj/cut/tip4p/long 0.01096 3.158 # epsilonSi = 0.00403, sigmaSi = 3.69
-    pair_coeff 1 6 lj/cut/tip4p/long 0.007315 3.2507 # epsilonSi = 0.00403, sigmaSi = 3.69
-    pair_coeff 2 3 lj/cut/tip4p/long 0.0043 3.12 # epsilonO = 0.0023, sigmaO = 3.091
-    pair_coeff 2 5 lj/cut/tip4p/long 0.0101 2.858 # epsilonO = 0.0023, sigmaO = 3.091
-    pair_coeff 2 6 lj/cut/tip4p/long 0.0065 2.9512 # epsilonO = 0.0023, sigmaO = 3.091
+    pair_coeff 1 3 lj/cut/tip4p/long 0.0057 4.42
+    pair_coeff 1 5 lj/cut/tip4p/long 0.01096 3.158
+    pair_coeff 1 6 lj/cut/tip4p/long 0.007315 3.2507
+    pair_coeff 2 3 lj/cut/tip4p/long 0.0043 3.12
+    pair_coeff 2 5 lj/cut/tip4p/long 0.0101 2.858
+    pair_coeff 2 6 lj/cut/tip4p/long 0.0065 2.9512
     pair_coeff 3 3 lj/cut/tip4p/long 0.008 3.1589
     pair_coeff 3 5 lj/cut/tip4p/long 0.01295 2.8924
     pair_coeff 3 6 lj/cut/tip4p/long 0.0093 2.985
@@ -690,11 +695,15 @@ Mixture adsorption
     label loop
     variable a loop 30
 
-    fix fgcmc_H2O H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} group H2O shake shak full_energy pressure 100 region system
+    fix fgcmc_H2O H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 &
+        mol h2omol tfac_insert ${tfac} group H2O shake shak &
+        full_energy pressure 100 region system
     run 500
     unfix fgcmc_H2O
 
-    fix fgcmc_CO2 CO2 gcmc 100 100 0 0 87787 300 -0.5 0.1 mol co2mol tfac_insert ${tfac} group CO2 full_energy pressure 100 region system
+    fix fgcmc_CO2 CO2 gcmc 100 100 0 0 87787 300 -0.5 0.1 &
+        mol co2mol tfac_insert ${tfac} group CO2 &
+        full_energy pressure 100 region system
     run 500
     unfix fgcmc_CO2
 
@@ -776,14 +785,18 @@ The binary fluid that wont mix
 ..  code-block:: lammps
     
     group t1 type 1
-    variable U1 atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
-    variable F1 atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
+    variable U1 atom ${U0}*atan((x+${x0})/${dlt}) &
+        -${U0}*atan((x-${x0})/${dlt})
+    variable F1 atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt} &
+        -${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
     fix myadf1 t1 addforce v_F1 0.0 0.0 energy v_U1
     fix_modify myadf1 energy yes
 
     group t2 type 2
-    variable U2 atom -${U0}*atan((x+${x0})/${dlt})+${U0}*atan((x-${x0})/${dlt})
-    variable F2 atom -${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}+${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
+    variable U2 atom -${U0}*atan((x+${x0})/${dlt}) & 
+        +${U0}*atan((x-${x0})/${dlt})
+    variable F2 atom -${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt} &
+        +${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
     fix myadf2 t2 addforce v_F2 0.0 0.0 energy v_U2
     fix_modify myadf2 energy yes
 
@@ -881,7 +894,8 @@ Add O2 molecules
 ..  code-block:: lammps
 
     molecule O2mol O2.mol
-    create_atoms 0 random 10 456415 NULL mol O2mol 454756 overlap 3.0 maxtry 50
+    create_atoms 0 random 10 456415 NULL &
+        mol O2mol 454756 overlap 3.0 maxtry 50
 
 ..  container:: justify
 
