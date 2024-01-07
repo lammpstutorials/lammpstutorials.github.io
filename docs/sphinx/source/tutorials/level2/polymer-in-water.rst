@@ -227,7 +227,8 @@ The water
 ..  code-block:: lammps
 
     molecule h2omol FlexibleH2O.txt
-    create_atoms 0 random 350 45615 NULL mol h2omol 14756 overlap 1 maxtry 50
+    create_atoms 0 random 350 45615 NULL mol &
+        h2omol 14756 overlap 1 maxtry 50
 
 ..  container:: justify
 
@@ -817,7 +818,8 @@ Stretching the PEG molecule
     variable z1 equal xcm(topull1,z)
     variable z2 equal xcm(topull2,z)
     variable delta_r equal sqrt((v_x1-v_x2)^2+(v_y1-v_y2)^2+(v_z1-v_z2)^2)
-    fix myat2 all ave/time 10 10 100 v_delta_r file output-end-to-end-distance.dat
+    fix myat2 all ave/time 10 10 100 v_delta_r &
+        file output-end-to-end-distance.dat
     thermo 1000
 
 ..  container:: justify
