@@ -322,7 +322,8 @@ Prepare initial state
     variable carbon_xcm equal -1*xcm(carbon_atoms,x)
     variable carbon_ycm equal -1*xcm(carbon_atoms,y)
     variable carbon_zcm equal -1*xcm(carbon_atoms,z)
-    displace_atoms carbon_atoms move ${carbon_xcm} ${carbon_ycm} ${carbon_zcm}
+    displace_atoms carbon_atoms &
+        move ${carbon_xcm} ${carbon_ycm} ${carbon_zcm}
 
 .. container:: justify
 
@@ -919,7 +920,8 @@ Start the simulation
 
     variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
     fix at1 all ave/time 10 10 100 v_L file output_cnt_length.dat
-    fix at2 all ave/time 10 10 100 f_mysf1[1] f_mysf2[1] file output_edge_force.dat
+    fix at2 all ave/time 10 10 100 f_mysf1[1] f_mysf2[1] &
+        file output_edge_force.dat
 
     dump mydmp all atom 1000 dump.lammpstrj
 
