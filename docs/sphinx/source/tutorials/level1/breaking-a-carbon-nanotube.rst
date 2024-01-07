@@ -575,7 +575,8 @@ Data extraction
 
 .. code-block:: lammps
 
-    fix at3 all ave/time 10 10 100 c_Tmid file output_temperature_middle_group.dat
+    fix at3 all ave/time 10 10 100 c_Tmid &
+        file output_temperature_middle_group.dat
 
 .. admonition:: About extracting quantity from variable compute or fix
     :class: info
