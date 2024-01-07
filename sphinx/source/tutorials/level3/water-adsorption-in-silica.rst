@@ -609,8 +609,10 @@ Using hydrid potentials
 
     pair_coeff * * vashishta ../Potential/SiO.1990.vashishta Si O NULL NULL
     pair_coeff * * lj/cut/tip4p/long 0 0
-    pair_coeff 1 3 lj/cut/tip4p/long 0.0057 4.42 # epsilonSi = 0.00403, sigmaSi = 3.69
-    pair_coeff 2 3 lj/cut/tip4p/long 0.0043 3.12 # epsilonO = 0.0023, sigmaO = 3.091
+    # epsilonSi = 0.00403, sigmaSi = 3.69
+    # epsilonO = 0.0023, sigmaO = 3.091
+    pair_coeff 1 3 lj/cut/tip4p/long 0.0057 4.42
+    pair_coeff 2 3 lj/cut/tip4p/long 0.0043 3.12
     pair_coeff 3 3 lj/cut/tip4p/long 0.008 3.1589
     pair_coeff 4 4 lj/cut/tip4p/long 0.0 0.0
     bond_coeff 1 0 0.9572
@@ -712,7 +714,9 @@ GCMC simulation
     variable zlo equal zlo+0.1
     variable zhi equal zhi-0.1
     region system block ${xlo} ${xhi} ${ylo} ${yhi} ${zlo} ${zhi} 
-    fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} group H2O shake shak full_energy pressure 10000 region system
+    fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 &
+        mol h2omol tfac_insert ${tfac} group H2O shake shak &
+        full_energy pressure 10000 region system
     run 45000
     write_data SiOwithwater.data
     write_dump all atom dump.lammpstrj
@@ -720,7 +724,8 @@ GCMC simulation
 .. admonition:: Dirty fix
     :class: info
 
-    The region *system* was created to avoid the error "Fix gcmc region extends outside simulation box"
+    The region *system* was created to avoid the error *Fix gcmc
+    region extends outside simulation box*
     which seems to occur with the 2Aug2023 LAMMPS version.
 
 ..  container:: justify
