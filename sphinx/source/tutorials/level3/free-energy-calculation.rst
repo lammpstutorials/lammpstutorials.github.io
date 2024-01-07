@@ -204,8 +204,10 @@ System creation and settings
     minimize 1e-4 1e-6 100 1000
     reset_timestep 0
 
-    variable U atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
-    variable F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
+    variable U atom ${U0}*atan((x+${x0})/${dlt}) &
+        -${U0}*atan((x-${x0})/${dlt})
+    variable F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt} &
+        -${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
     fix myadf all addforce v_F 0.0 0.0 energy v_U
 
 ..  container:: justify
@@ -256,7 +258,8 @@ Run and data acquisition
     reset_timestep 0
 
     compute cc1 all chunk/atom bin/1d x 0.0 1.0
-    fix myac all ave/chunk 10 400000 4000000 cc1 density/number file density_profile_8ns.dat
+    fix myac all ave/chunk 10 400000 4000000 &
+        cc1 density/number file density_profile_8ns.dat
     dump mydmp all atom 200000 dump.lammpstrj
 
     thermo 100000
@@ -342,7 +345,8 @@ Data analysis
 
 ..  container:: figurelegend
 
-    Figure: Calculated potential :math:`-R T \ln(\rho/\rho_\mathrm{bulk})` compared to imposed potential.
+    Figure: Calculated potential :math:`-R T \ln(\rho/\rho_\mathrm{bulk})`
+    compared to imposed potential.
     The calculated potential is in blue.
 
 ..  container:: justify
@@ -435,8 +439,10 @@ LAMMPS input script
     neigh_modify every 1 delay 4 check yes
     group topull type 2
 
-    variable U atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
-    variable F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
+    variable U atom ${U0}*atan((x+${x0})/${dlt}) &
+        -${U0}*atan((x-${x0})/${dlt})
+    variable F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt} &
+        -${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
     fix pot all addforce v_F 0.0 0.0 energy v_U
 
     fix mynve all nve
@@ -470,7 +476,8 @@ LAMMPS input script
     variable xave equal xcm(topull,x)
     fix mytth topull spring tether ${k} ${xdes} 0 0 0
     run 200000
-    fix myat1 all ave/time 10 10 100 v_xave v_xdes file data-k1.5/position.${a}.dat
+    fix myat1 all ave/time 10 10 100 v_xave v_xdes &
+        file data-k1.5/position.${a}.dat
     run 1000000
     unfix myat1
     next a
@@ -708,7 +715,8 @@ The binary fluid that wont mix
 
     **2 - Measure the PMFs**
 
-    Using the same protocole as the one used in the tutorial (i.e. umbrella sampling with the wham algorithm),
+    Using the same protocole as the one used in the tutorial
+    (i.e. umbrella sampling with the wham algorithm),
     extract the PMF for each particle type.
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice-binary-light.png
@@ -728,9 +736,10 @@ Particles under convection
 
 ..  container:: justify
 
-    Use a similar simulation as the one from the tutorial, with a repulsive potential in the center
-    of the box. Add an additional forcing to the particles and force them to flow
-    in the :math:`x` direction.
+    Use a similar simulation as the one from the tutorial,
+    with a repulsive potential in the center
+    of the box. Add an additional forcing to the particles
+    and force them to flow in the :math:`x` direction.
 
 ..  container:: justify
 
@@ -783,7 +792,7 @@ Surface adsorption of a molecule
     boundary p p p # periodic boundary conditions
     pair_style lj/cut/coul/long 10 # cut-off 1 nm
     kspace_style pppm 1.0e-4
-    pair_modify mix arithmetic tail yes # eij = sqrt(ei*ej), dij = 0.5*(di+dj)
+    pair_modify mix arithmetic tail yes
 
 ..  container:: justify
 

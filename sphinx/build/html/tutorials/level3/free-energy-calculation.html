@@ -404,8 +404,10 @@ Add the following lines to <em>input.lammps</em>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">minimize</span><span class="w"> </span><span class="m">1e-4</span><span class="w"> </span><span class="m">1e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
 <span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 
-<span class="k">variable </span><span class="nv nv-Identifier">U</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
-<span class="k">variable </span><span class="nv nv-Identifier">F</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
+<span class="k">variable </span><span class="nv nv-Identifier">U</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
+<span class="k">variable </span><span class="nv nv-Identifier">F</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myadf</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U</span>
 </pre></div>
 </div>
@@ -451,7 +453,8 @@ canceled before a reset time):</p>
 <span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 
 <span class="k">compute </span><span class="nv nv-Identifier">cc1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myac</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">400000</span><span class="w"> </span><span class="m">4000000</span><span class="w"> </span><span class="n">cc1</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">number</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">density_profile_8ns.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">400000</span><span class="w"> </span><span class="m">4000000</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">cc1</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">number</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">density_profile_8ns.dat</span>
 <span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 
 <span class="k">thermo</span><span class="w"> </span><span class="m">100000</span>
@@ -521,7 +524,8 @@ with the imposed (reference) potential <span class="math notranslate nohighlight
 <img alt="Averaged density profile" class="only-dark" src="../../_images/freesampling-potential-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Calculated potential <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_\mathrm{bulk})\)</span> compared to imposed potential.
+<p>Figure: Calculated potential <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_\mathrm{bulk})\)</span>
+compared to imposed potential.
 The calculated potential is in blue.</p>
 </div>
 <div class="justify docutils container">
@@ -602,8 +606,10 @@ named <em>input.lammps</em> in it, and copy the following lines:</p>
 <span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">group </span><span class="nv nv-Identifier">topull</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
 
-<span class="k">variable </span><span class="nv nv-Identifier">U</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
-<span class="k">variable </span><span class="nv nv-Identifier">F</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
+<span class="k">variable </span><span class="nv nv-Identifier">U</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
+<span class="k">variable </span><span class="nv nv-Identifier">F</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
 <span class="k">fix </span><span class="nv nv-Identifier">pot</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U</span>
 
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
@@ -634,7 +640,8 @@ Add the following lines into <em>input.lammps</em>:</p>
 <span class="k">variable </span><span class="nv nv-Identifier">xave</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(topull,x)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mytth</span><span class="w"> </span><span class="nv nv-Identifier">topull</span><span class="w"> </span><span class="n">spring</span><span class="w"> </span><span class="n">tether</span><span class="w"> </span><span class="nv">${k}</span><span class="w"> </span><span class="nv">${xdes}</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">run</span><span class="w"> </span><span class="m">200000</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_xave</span><span class="w"> </span><span class="n">v_xdes</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">data</span><span class="o">-</span><span class="n">k1.5</span><span class="o">/</span><span class="n">position.</span><span class="nv">${a}</span><span class="n">.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_xave</span><span class="w"> </span><span class="n">v_xdes</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">file</span><span class="w"> </span><span class="n">data</span><span class="o">-</span><span class="n">k1.5</span><span class="o">/</span><span class="n">position.</span><span class="nv">${a}</span><span class="n">.dat</span>
 <span class="k">run</span><span class="w"> </span><span class="m">1000000</span>
 <span class="k">unfix </span><span class="nv nv-Identifier">myat1</span>
 <span class="k">next </span><span class="nv nv-Identifier">a</span>
@@ -829,7 +836,8 @@ of type 2 are excluded from the rest of the box.</p>
 </div>
 <div class="justify docutils container">
 <p><strong>2 - Measure the PMFs</strong></p>
-<p>Using the same protocole as the one used in the tutorial (i.e. umbrella sampling with the wham algorithm),
+<p>Using the same protocole as the one used in the tutorial
+(i.e. umbrella sampling with the wham algorithm),
 extract the PMF for each particle type.</p>
 </div>
 <figure class="align-default">
@@ -845,9 +853,10 @@ extract the PMF for each particle type.</p>
 <section id="particles-under-convection">
 <h3>Particles under convection<a class="headerlink" href="#particles-under-convection" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Use a similar simulation as the one from the tutorial, with a repulsive potential in the center
-of the box. Add an additional forcing to the particles and force them to flow
-in the <span class="math notranslate nohighlight">\(x\)</span> direction.</p>
+<p>Use a similar simulation as the one from the tutorial,
+with a repulsive potential in the center
+of the box. Add an additional forcing to the particles
+and force them to flow in the <span class="math notranslate nohighlight">\(x\)</span> direction.</p>
 </div>
 <div class="justify docutils container">
 <p>Re-measure the potential in presence of the flow, and observe the difference
@@ -883,7 +892,7 @@ and <a href="../../../../../lammpstutorials-inputs/level3/free-energy-calculatio
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="c"># periodic boundary conditions</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="c"># cut-off 1 nm</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="w"> </span><span class="m">1.0e-4</span>
-<span class="k">pair_modify</span><span class="w"> </span><span class="n">mix</span><span class="w"> </span><span class="n">arithmetic</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="c"># eij = sqrt(ei*ej), dij = 0.5*(di+dj)</span>
+<span class="k">pair_modify</span><span class="w"> </span><span class="n">mix</span><span class="w"> </span><span class="n">arithmetic</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="n">yes</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
