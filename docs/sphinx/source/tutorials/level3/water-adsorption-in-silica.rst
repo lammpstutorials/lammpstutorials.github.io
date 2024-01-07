@@ -344,24 +344,32 @@ Cracking the silica
 .. admonition:: On using barostat during deformation
     :class: info
 
-    Here, box deformations are applied in the x-direction, while the 
-    y and z box dimensions are kept constants. 
+    ..  container:: justify
 
-    Another possible choice would be to apply a barostat along the y and z 
-    direction, allowing the system more freedom to deform. In LAMMPS, this 
-    can be done by using :
+        Here, box deformations are applied in the x-direction, while the 
+        y and z box dimensions are kept constants. 
+
+    ..  container:: justify
+
+        Another possible choice would be to apply a barostat along the y and z 
+        direction, allowing the system more freedom to deform. In LAMMPS, this 
+        can be done by using :
 
     .. code-block:: lammps
 
         fix npt1 all npt temp 300 300 0.1 y 1 1 1 z 1 1 1
 
-    instead of:
+    ..  container:: justify
+
+        instead of:
 
     .. code-block:: lammps
 
         fix nvt1 all nvt temp 300 300 0.1
 
-    Here, the second option will be used.
+    ..  container:: justify
+
+        Here, the second option will be used.
 
 ..  container:: justify
     
