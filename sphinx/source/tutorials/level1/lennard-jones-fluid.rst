@@ -1126,13 +1126,13 @@ From atoms to molecules
 .. admonition:: Hints
     :class: info
 
-    Use a *molecule template* to easily insert as many atoms connected
-    by bonds (i.e. molecules) as you want. A molecule 
-    template typically begins as follow:
+    ..  container:: justify
+
+        Use a *molecule template* to easily insert as many atoms connected
+        by bonds (i.e. molecules) as you want. A molecule 
+        template typically begins as follow:
 
     ..  code-block:: lammps
-
-        # Dumbell molecule
 
         2 atoms
         1 bonds
@@ -1143,3 +1143,7 @@ From atoms to molecules
         2 -0.5 0 0
 
         (...)
+
+    ..  container:: justify
+
+        A bond section also needs to be added.
