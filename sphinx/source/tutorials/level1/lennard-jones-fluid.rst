@@ -878,9 +878,9 @@ Restarting from a saved configuration
     variable number_type1_in equal count(group_type_1,region_cylinder_in)
     variable number_type2_in equal count(group_type_2,region_cylinder_in)
     fix myat1 all ave/time 10 200 2000 v_number_type1_in &
-    file output-population1vstime.dat
+        file output-population1vstime.dat
     fix myat2 all ave/time 10 200 2000 v_number_type2_in &
-    file output-population2vstime.dat
+        file output-population2vstime.dat
 
 ..  container:: justify
 
@@ -907,7 +907,8 @@ Restarting from a saved configuration
 
     compute coor12 group_type_1 coord/atom cutoff 2.0 group group_type_2
     compute sumcoor12 all reduce ave c_coor12
-    fix myat3 all ave/time 10 200 2000 c_sumcoor12 file coordinationnumber12.dat
+    fix myat3 all ave/time 10 200 2000 &
+        c_sumcoor12 file coordinationnumber12.dat
     
 ..  container:: justify
 
