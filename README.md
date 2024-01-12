@@ -43,16 +43,12 @@ Alternatively, you can download the [inputs](https://github.com/lammpstutorials/
 git clone https://github.com/lammpstutorials/lammpstutorials.github.io.git
 ```
 
-The Matplotlib Pyplot [codes](https://github.com/simongravelle/pyplot-perso) for the figures are shared here:
-
-```
-https://github.com/simongravelle/pyplot-perso
-```
+The Matplotlib Pyplot for the figures are shared [here](https://github.com/simongravelle/pyplot-perso).
 
 ### Template ###
 
-The template from the first page has been adapted from HTML5 UP. The other pages are
-using sphinx with the furo style.
+The template from the first page has been adapted from [HTML5 UP](https://html5up.net/). The other pages are
+using sphinx with the [furo style](https://github.com/pradyunsg/furo).
 
 ### Contact me ###
 
