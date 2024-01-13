@@ -605,48 +605,7 @@ Data extraction
     want the temperature :math:`T_\mathrm{mid}` to be printed in
     the terminal, not the temperature of the entire system
     (because of the frozen edges, the temperature of the entire
-    system is not relevant). 
-    
-.. 
-    Option A: Incremental deformation
-    ---------------------------------
-        
-    .. container:: justify
-
-        A first possibility to deform the CNT is to 
-        use the loop function of LAMMPS. 
-
-        Let us perform a loop (indentation is optional):
-
-    .. code-block:: lammps
-
-        variable var loop 50
-            label loop
-            displace_atoms carbon_top move 0 0 0.1
-            displace_atoms carbon_bot move 0 0 -0.1
-            run 1000
-            next var
-            jump input.lammps loop
-
-    .. container:: justify
-        
-        At each step of the loop, the edges are slightly displaced, and
-        the simulation runs for 1000. Then the variable *var* is iterated
-        by the *next var*, and the simulation *jumps* back to the beginning of 
-        the loop. It will be repeated 50 times, for a total elongation
-        equal to :math:`2 \times 0.1 \times 50 = 10` Angstroms. Increase the number of iteration 
-        for larger deformation.
-
-        You should observe the CNT being progressively elongated
-        and being deformed.
-
-        With the present force field, no matter how large is the
-        imposed deformation, the bonds will never break. To study
-        such bond breaking, one has to use a reactive force
-        field, which is done in some other tutorials here (like :ref:`carbon-nanotube-label`).
-
-    Option B: Constant-velocity
-    ---------------------------
+    system is not relevant).
 
 .. container:: justify
 

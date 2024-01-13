@@ -252,8 +252,8 @@ Goodsell
 
 .. container:: justify
 
-    VMD also offers the Goodsell's representation, 
-    which can be an alternative alternative.
+    VMD also offers the Goodsell cartoon-like representation, 
+    which can be an interesting alternative.
 
 .. figure:: ../figures/vmd/vmd-tutorial/goodsell-dark.png
     :alt: VMD tutorial for LAMMPS - System in the style of David Goodsell
@@ -331,7 +331,7 @@ Rendering movie
 ..  code-block:: bash
 
     ffmpeg -r 60 -i untitled.%05d.ppm -vcodec libx264 \
-    -crf 0  -pix_fmt yuv420p myvideo.mp4
+        -crf 0  -pix_fmt yuv420p myvideo.mp4
 
 .. container:: justify
 
@@ -356,4 +356,4 @@ Rendering movie
 ..  code-block:: bash
 
     ffmpeg -i myvideo.mp4 -vcodec libwebp -filter:v fps=fps=20 \
-    -lossless 1 -loop 0 -preset default -an -vsync 0 myvideo.webp
+        -lossless 1 -loop 0 -preset default -an -vsync 0 myvideo.webp
