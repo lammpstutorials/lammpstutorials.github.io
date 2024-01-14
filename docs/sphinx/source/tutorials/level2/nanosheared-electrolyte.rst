@@ -31,8 +31,8 @@ Nanosheared electrolyte
     This tutorial illustrates some key aspects of
     combining a fluid and a solid in the same simulation.
     A major difference with :ref:`all-atoms-label` is that
-    here a rigid four points water model named TIP4P is used. TIP4P is one
-    of the most common water model due to its high accuracy.
+    here a rigid four points water model named TIP4P is used :cite:`abascal2005general`.
+    TIP4P is one of the most common water model due to its high accuracy.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
@@ -284,7 +284,7 @@ System generation
     The parameters for water
     correspond to the TIP4P/2005 water model, and the parameters
     for :math:`\text{Na}^+` and :math:`\text{Cl}^-`  are
-    taken from the CHARMM-27 force field.
+    taken from the CHARMM-27 force field :cite:`mackerell2000development`.
 
 ..  container:: justify
 

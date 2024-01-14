@@ -488,7 +488,8 @@ Using hydrid potentials
     There are several differences with the previous input files
     used in this tutorial. From now on, the system will combine water and silica,
     and therefore two force fields are combined: Vashishta for
-    SiO, and lj/cut/tip4p/long for TIP4P water model.
+    SiO, and lj/cut/tip4p/long for TIP4P water model (here 
+    the TIP4P/2005 model is used :cite:`abascal2005general`).
     Combining the two force fields is done using the *hybrid/overlay* pair style.
 
 .. admonition:: About hybrid and hybrid/overlay pair style
@@ -666,7 +667,7 @@ GCMC simulation
 
 ..  container:: justify
 
-    Just before starting the GCMC simulation,
+    To prepare for the GCMC simulation,
     let us make a first equilibration step
     by adding the following lines to *input.lammps*:
 

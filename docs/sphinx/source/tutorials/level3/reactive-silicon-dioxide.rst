@@ -22,7 +22,7 @@ Reactive silicon dioxide
 ..  container:: justify
 
     The objective of this tutorial is to use the 
-    reactive force field named *reaxff*. This force field
+    reactive force field named *reaxff* :cite:`van2001reaxff, zou2012investigation`. This force field
     allows for the calculation of chemical bond formation. 
 
 ..  container:: justify
