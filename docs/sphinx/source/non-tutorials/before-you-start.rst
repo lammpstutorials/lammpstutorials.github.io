@@ -90,14 +90,15 @@ Python (3.11.4)
 
     To perform post-mortem analysis of the data during the :ref:`mda-label`,
     the version 2.6.1 of MDAnalysis is used
-    together with the version 3.11.4 of Python.
+    together with the version 3.11.4
+    of Python :cite:`van1995python, michaud2011mdanalysis, gowers2016mdanalysis`.
 
 ..  container:: justify
 
     In order to plot the results from the simulations,
     the version 3.5.2 of |Matplotlib Pyplot| is used
     in combination with |lammps_logfile|, a library allowing
-    one to read the *log* file produced by LAMMPS.
+    one to read the *log* file produced by LAMMPS :cite:`hunter2007Matplotlib, sveinsson2021logfile`.
 
 .. |Matplotlib Pyplot| raw:: html
 
@@ -133,3 +134,10 @@ Find the input scripts
 ======================
 
 .. include:: ../non-tutorials/accessfile.rst
+
+Recommended reading
+-------------------
+
+My favorite molecular simulation reading is
+*Understanding molecular simulation* by Daan Frenkel and Berend
+Smit :cite:`frenkel2023understanding`.
