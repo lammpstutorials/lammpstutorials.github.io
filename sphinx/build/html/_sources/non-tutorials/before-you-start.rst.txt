@@ -25,7 +25,8 @@ Required softwares
 
 ..  container:: justify
 
-    The 2 Aug 2023 version of LAMMPS is required to follow the tutorials.
+    The 2 Aug 2023 version of LAMMPS is required
+    to follow the tutorials :cite:`thompson2022lammps`.
     The other softwares listed here are optional.
 
 LAMMPS (2 Aug 2023)
@@ -69,7 +70,8 @@ VMD (1.9.3)
 
 ..  container:: justify
 
-    In order to visualize the simulation, the version 1.9.3 of |VMD| will be used.
+    In order to visualize the simulation, the version
+    1.9.3 of |VMD| will be used :cite:`humphrey1996vmd`.
     Some basic instructions for VMD are given here in the
     :ref:`vmd-label`. If you prefer, feel free to use an alternative visualization
     software like |Ovito|.
@@ -89,14 +91,15 @@ Python (3.11.4)
 
     To perform post-mortem analysis of the data during the :ref:`mda-label`,
     the version 2.6.1 of MDAnalysis is used
-    together with the version 3.11.4 of Python.
+    together with the version 3.11.4
+    of Python :cite:`van1995python, michaud2011mdanalysis, gowers2016mdanalysis`.
 
 ..  container:: justify
 
     In order to plot the results from the simulations,
     the version 3.5.2 of |Matplotlib Pyplot| is used
     in combination with |lammps_logfile|, a library allowing
-    one to read the *log* file produced by LAMMPS.
+    one to read the *log* file produced by LAMMPS :cite:`hunter2007Matplotlib, sveinsson2021logfile`.
 
 .. |Matplotlib Pyplot| raw:: html
 
@@ -132,3 +135,10 @@ Find the input scripts
 ======================
 
 .. include:: ../non-tutorials/accessfile.rst
+
+Recommended reading
+-------------------
+
+My favorite molecular simulation reading is
+*Understanding molecular simulation* by Daan Frenkel and Berend
+Smit :cite:`frenkel2023understanding`.

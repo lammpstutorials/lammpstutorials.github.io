@@ -135,11 +135,11 @@ Create topology with VMD
 .. admonition:: About TopoTools
     :class: info
 
+    Topotools deduces the location of bonds, angles,
+    dihedrals, and impropers from the respective positions of the atoms,
+    and generates a *.data* file that can be read by LAMMPS :cite:`kohlmeyer2017topotools`.
     More details about Topotool can be found on the
     personal page of |Axel_webpage|.
-    In short, Topotools deduces the location of bonds, angles,
-    dihedrals, and impropers from the respective positions of the atoms,
-    and generates a *.data* file that can be read by LAMMPS.
 
 .. |Axel_webpage| raw:: html
 
