@@ -137,7 +137,7 @@ Find the input scripts
 .. include:: ../non-tutorials/accessfile.rst
 
 Recommended reading
--------------------
+===================
 
 My favorite molecular simulation reading is
 *Understanding molecular simulation* by Daan Frenkel and Berend

@@ -23,7 +23,8 @@ Free energy calculation
 
     The objective of this tutorial is to measure a free
     energy profile of particles across a barrier potential
-    using two methods; free sampling and umbrella sampling.
+    using two methods; free sampling
+    and umbrella sampling :cite:`frenkel2023understanding`.
     
 ..  container:: justify
 
@@ -387,7 +388,7 @@ Method 2: Umbrella sampling
     Umbrella sampling is a biased molecular dynamics method,
     i.e. a method in which additional forces are added to the
     atoms in order to make the unfavourable states more likely
-    to occur.
+    to occur :cite:`frenkel2023understanding`.
 
 ..  container:: justify
 
@@ -511,8 +512,8 @@ WHAM algorithm
 
 ..  container:: justify
 
-    In order to generate the free energy profile from the density distribution, we are going to use
-    the WHAM algorithm. 
+    In order to generate the free energy profile from the density distribution,
+    let us use the WHAM algorithm :cite:`grossfieldimplementation`. 
     
 ..  container:: justify
 
