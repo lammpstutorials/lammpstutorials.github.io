@@ -149,13 +149,13 @@ The water
 .. admonition:: About PPPM
     :class: info
 
-    From |Luty and van Gunsteren|:
-    *'The PPPM method is based on separating the total interaction
+    Extracted from |Luty and van Gunsteren|:
+    The PPPM method is based on separating the total interaction
     between particles into the sum of short-range
     interactions, which are computed by direct
     particle-particle summation, and long-range interactions,
     which are calculated by solving Poisson's equation using
-    periodic boundary conditions (PBCs).'* 
+    periodic boundary conditions (PBCs) :cite:`luty1996calculating`.
 
 .. |Luty and van Gunsteren| raw:: html
 

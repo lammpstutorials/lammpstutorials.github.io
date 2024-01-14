@@ -25,7 +25,8 @@ Required softwares
 
 ..  container:: justify
 
-    The 2 Aug 2023 version of LAMMPS is required to follow the tutorials.
+    The 2 Aug 2023 version of LAMMPS is required
+    to follow the tutorials :cite:`thompson2022lammps`.
     The other softwares listed here are optional.
 
 LAMMPS (2 Aug 2023)
@@ -69,7 +70,7 @@ VMD (1.9.3)
 
 ..  container:: justify
 
-    In order to visualize the simulation, the version 1.9.3 of |VMD| will be used.
+    In order to visualize the simulation, the version 1.9.3 of |VMD| will be used :cite:`humphrey1996vmd`.
     Some basic instructions for VMD are given here in the
     :ref:`vmd-label`. If you prefer, feel free to use an alternative visualization
     software like |Ovito|.

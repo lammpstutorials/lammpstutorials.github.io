@@ -5,7 +5,8 @@ author = 'Simon Gravelle'
 
 extensions = ['sphinxcontrib.googleanalytics',
               'sphinx_togglebutton',
-              'sphinx_favicon'] # 'rst2pdf.pdfbuilder'
+              'sphinx_favicon',
+              'sphinxcontrib.bibtex'] # 'rst2pdf.pdfbuilder'
 
 googleanalytics_id = 'G-W1WGEC5GQ8'
 
@@ -32,6 +33,8 @@ favicons = [
 html_show_copyright = False
 html_show_sphinx = False
 html_short_title = "True"
+
+bibtex_bibfiles = ['journal-article.bib']
 
 #html_context = {
 #    "lammpstutorials.github.io ": True, # Integrate GitHub
