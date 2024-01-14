@@ -442,7 +442,8 @@ The PEG molecule
    |download_init.data| the init.data file and
    save it in the *singlePEG/* folder.
    It contains the initial parameters of the PEG molecules
-   (atoms, bonds, charges, etc.), and was downloaded from the |atb_repo| repository.
+   (atoms, bonds, charges, etc.), and was downloaded from the |atb_repo|
+   repository :cite:`malde2011automated, oostenbrink2004biomolecular`.
 
 .. |download_init.data| raw:: html
 
