@@ -35,7 +35,8 @@ Pulling on a carbon nanotube
     The difference between classical and reactive force fields
     is illustrated through this tutorial.
     With a classical force field, the bonds between atoms
-    are unbreakable. With the reactive force field (named AIREBO),
+    are unbreakable. With the reactive
+    force field (named AIREBO :cite:`stuart2000reactive`),
     the breaking of the chemical bonds is possible when
     the imposed deformation is strong enough.
 
@@ -97,8 +98,7 @@ Create topology with VMD
     A window named Carbon Nanostructures opens up, allowing us to choose
     between generating a sheet or a nanotube, made either of graphene or
     of Boron Nitride (BN). For this tutorial, let us generate a carbon nanotube.
-    Keep all default values, and click on *Generate
-    Nanotube*.
+    Keep all default values, and click on *Generate Nanotube*.
 
 .. container:: justify
 
@@ -225,7 +225,8 @@ The LAMMPS input
     The *bond_style*, *angle_style*, *dihedral_style*, and *improper_style* commands specify the
     different potentials used to restrain the relative positions of the
     atoms. For more details about the potentials used here, you can have a look
-    at the LAMMPS website, see for example the page of the |OPLS|.
+    at the LAMMPS website, see for example
+    the page of the |OPLS| :cite:`jorgensen1988opls`.
 
 .. |OPLS| raw:: html
 
@@ -488,7 +489,8 @@ The molecular dynamics
     The *fix nve* is applied to all atoms so that all
     atom positions are recalculated at every step, and
     a *Berendsen* thermostat is applied to the atoms
-    of the group *carbon_mid* only. The *fix_modify myber* ensures that the
+    of the group *carbon_mid* only :cite:`berendsen1984molecular`.
+    The *fix_modify myber* ensures that the
     *fix Berendsen* uses the temperature of the group *carbon_mid* as an
     input, instead of the temperature of whole system. This is necessary
     to make sure that the frozen edges won't bias the temperature. Note that the atoms
