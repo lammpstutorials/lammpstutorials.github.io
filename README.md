@@ -1,6 +1,6 @@
 # LAMMPS tutorials
 
-This is the repository of the [LAMMPS Tutorials](https://lammpstutorials.github.io/)
+This is the repository of the [LAMMPS tutorials](https://lammpstutorials.github.io/)
 webpage. All the LAMMPS input scripts and data files can be found
 in a separate [repository](https://github.com/lammpstutorials/lammpstutorials-inputs).
 
