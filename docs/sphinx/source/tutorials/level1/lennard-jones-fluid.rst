@@ -29,8 +29,9 @@ Lennard-Jones fluid
     The system is a Lennard-Jones fluid made of neutral
     particles with two different diameters in a cubic box with periodic
     boundary conditions. The temperature of the system is imposed
-    using a Langevin thermostat, and some basic quantities are extracted
-    from the system, such as the energy 
+    using a Langevin thermostat :cite:`schneider1978molecular`, and some
+    basic quantities are extracted
+    from the system, such as the potential and kinetic energies. 
 
 ..  container:: abstract
 

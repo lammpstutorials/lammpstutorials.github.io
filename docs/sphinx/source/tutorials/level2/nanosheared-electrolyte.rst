@@ -86,7 +86,7 @@ System generation
     defining the fourth massless atom *M*. The value of 
     :math:`0.1546\,\text{Å}` corresponds
     to the *O-M* distance and is 
-    given by the water model. Here, |TIP4P-2005| is used.
+    given by the water model. Here, |TIP4P-2005| is used :cite:`abascal2005general`.
 
 .. |TIP4P-2005| raw:: html
 

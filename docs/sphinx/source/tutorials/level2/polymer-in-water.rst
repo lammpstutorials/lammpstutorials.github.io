@@ -37,7 +37,8 @@ Polymer in water
 ..  container:: justify
 
    This tutorial was inspired by a |Liese2017| by Liese and coworkers, in which
-   molecular dynamics simulations are compared with force spectroscopy experiments.
+   molecular dynamics simulations are
+   compared with force spectroscopy experiments :cite:`liese2017hydration`.
 
 .. |Liese2017| raw:: html
 
