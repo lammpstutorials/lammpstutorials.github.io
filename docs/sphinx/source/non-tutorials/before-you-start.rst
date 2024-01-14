@@ -70,7 +70,8 @@ VMD (1.9.3)
 
 ..  container:: justify
 
-    In order to visualize the simulation, the version 1.9.3 of |VMD| will be used :cite:`humphrey1996vmd`.
+    In order to visualize the simulation, the version
+    1.9.3 of |VMD| will be used :cite:`humphrey1996vmd`.
     Some basic instructions for VMD are given here in the
     :ref:`vmd-label`. If you prefer, feel free to use an alternative visualization
     software like |Ovito|.
