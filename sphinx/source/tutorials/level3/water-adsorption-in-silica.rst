@@ -102,13 +102,17 @@ Vashishta potential
     clicking |download_vashishta|,
     and copy it within the *Potential/* folder.
 
+.. |download_vashishta| raw:: html
+
+   <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Potential/SiO.1990.vashishta" target="_blank">here</a>
+
 .. admonition:: About the Vashishta potential
     :class: info
 
     The |website_vashishta|
     potential is a bond-angle energy based potential, it
     deduces the bonds between atoms from their relative
-    positions. Therefore, there is no need to provide bond
+    positions :cite:`vashishta1990interaction`. Therefore, there is no need to provide bond
     and angle information as we do with classic force fields
     like GROMOS or AMBER. When used with LAMMPS, the *Vashishta*
     potential requires the use of metal units system. 
@@ -118,6 +122,10 @@ Vashishta potential
     they allow for the modelling of bond formation and
     breaking, which is what we need here as we want to create
     a crack in the silica.
+
+.. |website_vashishta| raw:: html
+
+   <a href="https://pubmed.ncbi.nlm.nih.gov/9993674/" target="_blank">Vashishta</a>
 
 ..  container:: justify
 
@@ -137,14 +145,6 @@ Vashishta potential
     the second is *O*. Let us also
     add a dump command for printing out the positions of the
     atoms every 5000 steps:
-
-.. |download_vashishta| raw:: html
-
-   <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Potential/SiO.1990.vashishta" target="_blank">here</a>
-
-.. |website_vashishta| raw:: html
-
-   <a href="https://pubmed.ncbi.nlm.nih.gov/9993674/" target="_blank">Vashishta</a>
 
 ..  code-block:: lammps
 
