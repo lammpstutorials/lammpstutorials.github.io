@@ -27,10 +27,15 @@ Fix
 A *fix* is a command that performs specific tasks during a simulation,
 such as imposing constraints, applying forces, or modifying particle properties.
 
+Minimization
+============
+
+Energy minimization are used to find a stable configuration for a given system.
+
 Neighbor list
 =============
 
-Neighbor list enumerates all pairs of atoms with separation smaller than the
+*Neighbor list* enumerates all pairs of atoms with separation smaller than the
 cutoff distance.
 
 Pair style
@@ -42,7 +47,7 @@ The *pair_style* command sets the potential interactions between pairs of atoms
 Restart file
 ============
 
-Restart files allow users to continue simulations from a saved state.
+A *restart file* allows users to continue simulations from a saved state.
 
 Run
 ===
@@ -52,4 +57,4 @@ A *run* is a command that executes the simulation for a specified number of time
 Time step
 =========
 
-The simulation progresses through discrete time steps.
+The simulation progresses through discrete *time steps*.
