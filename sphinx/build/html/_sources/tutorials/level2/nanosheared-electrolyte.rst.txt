@@ -845,7 +845,7 @@ Imposed shearing
     :math:`\eta = \tau / \dot{\gamma}` where :math:`\tau`
     is the stress applied by the fluid on the shearing wall, and
     :math:`\dot{\gamma}` the shear rate (which is imposed
-    here). Here the shear rate
+    here) :cite:`gravelle2021violations`. Here the shear rate
     is approximatively :math:`\dot{\gamma} = 16 \cdot 10^9\,\text{s}^{-1}`,
     and using a surface area of :math:`A = 6 \cdot 10^{-18}\,\text{m}^2`, one
     gets an estimate for the shear viscosity for the confined
