@@ -1,15 +1,18 @@
 ## Input files for LAMMPS tutorials
 
-LAMMPS and Python input files corresponding to the tutorials of [lammps tutorials](https://lammpstutorials.github.io/).
+LAMMPS and Python input files corresponding
+associated with [lammps tutorials](https://lammpstutorials.github.io/).
+
 The files include:
 
-- the LAMMPS data files, input files, and parameter files,
-- the solutions to the exercises,
-- the Python scripts for generating structures, analysing data, and generating the figures.
+- LAMMPS data files, input files, and parameter files,
+- the detailed solutions to the exercises,
+- Python scripts for generating structures and analysing data.
 
 ### Main repository ###
 
-Find [here](https://github.com/lammpstutorials/lammpstutorials.github.io) the main repository for LAMMPS tutorial.
+Find [here](https://github.com/lammpstutorials/lammpstutorials.github.io)
+the main repository for LAMMPS tutorial.
 
 ### Contact me ###
 

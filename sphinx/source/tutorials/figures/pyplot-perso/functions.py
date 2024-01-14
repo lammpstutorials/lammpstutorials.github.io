@@ -13,9 +13,21 @@ plt.rcParams.update({
 fontsize = 34
 font = {'family': 'sans', 'color':  'black', 'weight': 'normal', 'size': fontsize}
 
+
+def prepare_figure(mode, transparency = False, desired_figsize=(18,6)):
+    if transparency is False:
+        if mode == 'dark':
+            plt.style.use('dark_background')
+        elif mode == 'light':
+            plt.style.use('default')
+        else:
+            print("WARNING: unknown choice of mode")
+    fig = plt.figure(figsize=desired_figsize)
+    return fig
+
 def add_subplotlabels(fig, ax, labels, shift=0.2, specific_shift=None, color=None):
     """Add a labels to each axis of a figure."""
-    assert len(ax) == len(labels)
+    assert len(ax) == len(labels), """WARNING: number of labels different from the number of subplots"""
 
     for i, subplotlabel in enumerate(labels):
         if specific_shift is None:
@@ -114,17 +126,20 @@ def complete_panel(ax, xlabel, ylabel, cancel_x=False, cancel_y=False,
     if ypad is not None:
         ax.tick_params(axis='y', colors=axis_color, pad = ypad)
 
-def save_figure(plt, fig, mode, git_root, path_figures, filename, show=False, trans=True):
+def save_figure(plt, fig, mode, git_root, path_figures, filename, show=False, transparency=True):
     assert os.path.exists(git_root + path_figures)
     fig.tight_layout()
     if mode == 'light':
+        if transparency is False:
+            plt.style.use('default')
         plt.savefig(git_root + path_figures + filename + "-light.png",
                     bbox_inches = 'tight', pad_inches = 0.062,
-                    transparent=trans, dpi=200)
+                    transparent=transparency, dpi=200)
     else:
+ 
         plt.savefig(git_root + path_figures + filename + "-dark.png",
                     bbox_inches = 'tight', pad_inches = 0.062,
-                    transparent=trans, dpi=200)
+                    transparent=transparency, dpi=200)
     if show:
         plt.show()
 

@@ -39,6 +39,7 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     tutorials/vmd/vmd-tutorial.rst
     tutorials/mdanalysis/mdanalysis-tutorial.rst
     miscellaneous/use-gromacs-instead.rst
+    non-tutorials/glossary.rst
 
 Indices and tables
 ==================
