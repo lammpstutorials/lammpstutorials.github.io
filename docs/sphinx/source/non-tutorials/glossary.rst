@@ -36,8 +36,8 @@ Ensemble
 
 .. container:: justify
 
-    Careful: It is not because a simulation involves the *fix nve* that the system
-    is in the microcanonical or (NVE) ensemble. For instance, in :ref:`lennard-jones-label`,
+    Careful, it is not because an input file involves the *fix nve* that the system
+    is necessary in the NVE ensemble. For instance, in :ref:`lennard-jones-label`,
     the following commands are used:
 
 ..  code-block:: lammps
@@ -47,7 +47,7 @@ Ensemble
 
 .. container:: justify
 
-    Therefore the temperature is imposed by the *fix langevin*,
+    The temperature of the system is imposed by the *fix langevin*,
     and the simulated system is effectively in the NVT ensemble
     (constant number of particles (N), volume (V), and temperature (T)).
 
