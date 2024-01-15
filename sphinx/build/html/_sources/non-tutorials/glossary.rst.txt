@@ -44,6 +44,13 @@ Pair style
 The *pair_style* command sets the potential interactions between pairs of atoms
 (e.g. Lennard-Jones, Coulomb, Morse).
 
+Parallel
+========
+
+LAMMPS is designed for parallel computing, enabling simulations to be
+distributed across multiple processors or cores. Parallel execution in
+LAMMPS can be achieved using message-passing parallelism (MPI) or threads.
+
 Restart file
 ============
 
@@ -53,6 +60,12 @@ Run
 ===
 
 A *run* is a command that executes the simulation for a specified number of time steps.
+
+Serial
+======
+
+LAMMPS can be run in serial mode on a single processor or core. This is suitable for
+small-scale simulations or when parallel computing resources are not available.
 
 Time step
 =========
