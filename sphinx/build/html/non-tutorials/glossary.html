@@ -232,68 +232,131 @@
         <article role="main">
           <section id="glossary">
 <span id="glossary-label"></span><h1>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h1>
+<div class="justify docutils container">
 <p>This glossary contains definition of terms commonly encountered when working with LAMMPS.</p>
+</div>
 <section id="compute">
 <h2>Compute<a class="headerlink" href="#compute" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>A <em>compute</em> is a command that calculates and outputs specific quantities during a
 simulation, such as energy, temperature, or pressure.</p>
+</div>
 </section>
 <section id="dump-file">
 <h2>Dump file<a class="headerlink" href="#dump-file" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>The <em>dump</em> command writes particle coordinates, velocities, and other
 information to a file for post-mortem analysis or visualization.</p>
+</div>
+</section>
+<section id="ensemble">
+<h2>Ensemble<a class="headerlink" href="#ensemble" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>An ensemble refers to a specific thermodynamic state or a collection
+of states that characterizes a system of particles. Different ensembles
+represent systems with different degrees of separation from the surrounding
+environment, ranging from completely isolated systems (e.g. microcanonical ensemble)
+to open systems (e.g. grand canonical ensemble). The ensemble you choose depends on the specific
+problem you are trying to solve and the conditions under which you want to simulate the system.</p>
+</div>
+<div class="justify docutils container">
+<p>Careful: It is not because a simulation involves the <em>fix nve</em> that the system
+is in the microcanonical or (NVE) ensemble. For instance, in <a class="reference internal" href="../tutorials/level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a>,
+the following commands are used:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="m">1530917</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Therefore the temperature is imposed by the <em>fix langevin</em>,
+and the simulated system is effectively in the NVT ensemble
+(constant number of particles (N), volume (V), and temperature (T)).</p>
+</div>
 </section>
 <section id="input-script">
 <h2>Input script<a class="headerlink" href="#input-script" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>The <em>input script</em> is a text file where users define simulation parameters,
 forces, constraints, and other settings using LAMMPS commands.</p>
+</div>
 </section>
 <section id="fix">
 <h2>Fix<a class="headerlink" href="#fix" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>A <em>fix</em> is a command that performs specific tasks during a simulation,
 such as imposing constraints, applying forces, or modifying particle properties.</p>
+</div>
+</section>
+<section id="force-field">
+<h2>Force field<a class="headerlink" href="#force-field" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>A force field is a mathematical model describing the potential energy and forces
+between atoms or particles in a molecular system. It includes the potential energy
+functions (e.g. Lennard-Jones potential) and the parameters (e.g. the
+Lennard-Jones coefficients <span class="math notranslate nohighlight">\(\sigma_{ij}\)</span>
+and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>).</p>
+</div>
 </section>
 <section id="lammps">
 <h2>LAMMPS<a class="headerlink" href="#lammps" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>LAMMPS is the acronym for Large-scale Atomic/Molecular Massively Parallel Simulator, it
 designs the open-source molecular simulation software.</p>
+</div>
 </section>
 <section id="minimization">
 <h2>Minimization<a class="headerlink" href="#minimization" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>Energy minimization are used to find a stable configuration for a given system.</p>
+</div>
 </section>
 <section id="neighbor-list">
 <h2>Neighbor list<a class="headerlink" href="#neighbor-list" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p><em>Neighbor list</em> enumerates all pairs of atoms with separation smaller than the
 cutoff distance.</p>
+</div>
 </section>
 <section id="pair-style">
 <h2>Pair style<a class="headerlink" href="#pair-style" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>The <em>pair_style</em> command sets the potential interactions between pairs of atoms
 (e.g. Lennard-Jones, Coulomb, Morse).</p>
+</div>
 </section>
 <section id="parallel">
 <h2>Parallel<a class="headerlink" href="#parallel" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>LAMMPS is designed for parallel computing, enabling simulations to be
 distributed across multiple processors or cores. Parallel execution in
 LAMMPS can be achieved using message-passing parallelism (MPI) or threads.</p>
+</div>
 </section>
 <section id="restart-file">
 <h2>Restart file<a class="headerlink" href="#restart-file" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>A <em>restart file</em> allows users to continue simulations from a saved state.</p>
+</div>
 </section>
 <section id="run">
 <h2>Run<a class="headerlink" href="#run" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>A <em>run</em> is a command that executes the simulation for a specified number of time steps.</p>
+</div>
 </section>
 <section id="serial">
 <h2>Serial<a class="headerlink" href="#serial" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>LAMMPS can be run in serial mode on a single processor or core. This is suitable for
 small-scale simulations or when parallel computing resources are not available.</p>
+</div>
 </section>
 <section id="time-step">
 <h2>Time step<a class="headerlink" href="#time-step" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
 <p>The simulation progresses through discrete <em>time steps</em>.</p>
+</div>
 </section>
 </section>
 
@@ -351,8 +414,10 @@ small-scale simulations or when parallel computing resources are not available.<
 <li><a class="reference internal" href="#">Glossary</a><ul>
 <li><a class="reference internal" href="#compute">Compute</a></li>
 <li><a class="reference internal" href="#dump-file">Dump file</a></li>
+<li><a class="reference internal" href="#ensemble">Ensemble</a></li>
 <li><a class="reference internal" href="#input-script">Input script</a></li>
 <li><a class="reference internal" href="#fix">Fix</a></li>
+<li><a class="reference internal" href="#force-field">Force field</a></li>
 <li><a class="reference internal" href="#lammps">LAMMPS</a></li>
 <li><a class="reference internal" href="#minimization">Minimization</a></li>
 <li><a class="reference internal" href="#neighbor-list">Neighbor list</a></li>
@@ -383,5 +448,6 @@ small-scale simulations or when parallel computing resources are not available.<
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>
