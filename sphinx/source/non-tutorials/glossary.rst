@@ -79,6 +79,16 @@ Force field
     Lennard-Jones coefficients :math:`\sigma_{ij}` 
     and :math:`\epsilon_{ij}`).
 
+Grand canonical ensemble
+========================
+
+.. container:: justify
+
+    In the grand canonical ensemble, which is also called the macrocanonical ensemble,
+    the chemical potential (:math:`\mu`), volume (V), and temperature (T) of the
+    system are kept constant. This ensemble is relevant for systems exchanging particles
+    with the environment.
+
 LAMMPS
 ======
 
@@ -101,6 +111,36 @@ Neighbor list
 
     *Neighbor list* enumerates all pairs of atoms with separation smaller than the
     cutoff distance.
+
+NVE ensemble
+============
+
+.. container:: justify
+
+    In the NVE ensemble, which is also called the microcanonical ensemble,
+    the number of particles (N), the volume (V), and the total energy (E) of the
+    system are kept constant. This ensemble is relevant for systems that are fully isolated
+    and experience no exchange of particles or heat the environment.
+
+NVT ensemble
+============
+
+.. container:: justify
+
+    In the NPT ensemble, which is also called the canonical ensemble,
+    the number of particles (N), volume (V), and temperature (T) of the
+    system are kept constant. This ensemble is relevant for systems in thermal
+    contact with the environment.
+
+NPT ensemble
+============
+
+.. container:: justify
+
+    In the NPT ensemble, which is also called the isothermal-isobaric ensemble,
+    the number of particles (N), pressure (P), and temperature (T) are kept constant.
+    This ensemble is relevant for systems in thermal and mechanical equilibrium
+    with the environment.
 
 Pair style
 ==========
