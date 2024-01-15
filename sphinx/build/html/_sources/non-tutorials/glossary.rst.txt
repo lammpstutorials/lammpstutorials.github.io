@@ -3,7 +3,7 @@
 Glossary
 ********
 
-This glossary contains 
+This glossary contains definition of terms commonly encountered when working with LAMMPS. 
 
 Compute
 =======
@@ -28,6 +28,12 @@ Fix
 
 A *fix* is a command that performs specific tasks during a simulation,
 such as imposing constraints, applying forces, or modifying particle properties.
+
+LAMMPS
+======
+
+LAMMPS is the acronym for Large-scale Atomic/Molecular Massively Parallel Simulator, it
+designs the open-source molecular simulation software.
 
 Minimization
 ============
