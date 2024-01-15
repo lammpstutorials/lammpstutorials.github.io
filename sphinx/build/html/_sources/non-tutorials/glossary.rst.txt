@@ -32,8 +32,7 @@ Ensemble
     of states that characterizes a system of particles. Different ensembles
     represent systems with different degrees of separation from the surrounding
     environment, ranging from completely isolated systems (e.g. microcanonical ensemble)
-    to open systems (e.g. grand canonical ensemble). The ensemble you choose depends on the specific
-    problem you are trying to solve and the conditions under which you want to simulate the system.
+    to open systems (e.g. grand canonical ensemble).
 
 .. container:: justify
 
