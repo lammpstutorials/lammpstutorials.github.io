@@ -24,7 +24,7 @@ MDAnalysis tutorial
     There are two main ways to analyze data from a MD simulation:
     (1) on-the-fly analysis, like is done for instance using *fix ave/time*,
     and (2) post-mortem analysis. Post-mortem analysis can be performed using
-    the atom coordinates saved in the *lammpstrj* file. 
+    the data saved in the *lammpstrj* file. 
 
 .. container:: justify
 
@@ -252,9 +252,9 @@ Counting the bonds
     The data can then be saved to files:
 
 .. code-block:: python
-
-    np.savetxt("number_bond_vs_time.dat", nbond_vs_time)
-    np.savetxt("length_bond_vs_time.dat", lbond_vs_time)
+    
+    np.savetxt("number_bond_vs_time.dat", nbond_vs_frame)
+    np.savetxt("length_bond_vs_time.dat", lbond_vs_frame)
 
 .. figure:: ../figures/mdanalysis/mdanalysis-tutorial/bond-dark.png
     :alt: plot of the bond length and distance versus time
