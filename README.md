@@ -43,7 +43,7 @@ Alternatively, you can download the [inputs](https://github.com/lammpstutorials/
 git clone https://github.com/lammpstutorials/lammpstutorials.github.io.git
 ```
 
-The Matplotlib Pyplot scripts functions for the figures are shared [here](https://github.com/simongravelle/pyplot-perso).
+The Matplotlib Pyplot functions for the figures are shared [here](https://github.com/simongravelle/pyplot-perso).
 
 ### Template ###
 
