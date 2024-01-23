@@ -44,8 +44,8 @@ Lennard-Jones fluid
 
 .. include:: ../../non-tutorials/2Aug2023.rst
 
-The input script
-================
+My first input
+==============
 
 ..  container:: justify
 
