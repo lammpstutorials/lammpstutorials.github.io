@@ -97,10 +97,12 @@ def complete_panel(ax, xlabel, ylabel, cancel_x=False, cancel_y=False,
     ax.spines["left"].set_linewidth(linewidth)
     ax.spines["right"].set_linewidth(linewidth)
 
-    minor_locator_x = AutoMinorLocator(locator_x)
-    ax.xaxis.set_minor_locator(minor_locator_x)
-    minor_locator_y = AutoMinorLocator(locator_y)
-    ax.yaxis.set_minor_locator(minor_locator_y)
+    if locator_x is not None:
+        minor_locator_x = AutoMinorLocator(locator_x)
+        ax.xaxis.set_minor_locator(minor_locator_x)
+    if locator_y is not None:
+        minor_locator_y = AutoMinorLocator(locator_y)
+        ax.yaxis.set_minor_locator(minor_locator_y)
 
     if legend:
         ax.legend(frameon=False, fontsize=fontsize, labelcolor=axis_color,

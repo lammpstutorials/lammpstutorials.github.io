@@ -235,12 +235,6 @@
 <div class="hatnote docutils container">
 <p>Perform post-mortem analysis using Python</p>
 </div>
-<figure class="align-right">
-<a class="only-dark reference internal image-reference" href="../../_images/CNT_dark.webp"><img alt="carbon nanotube image in vacuum" class="only-dark" src="../../_images/CNT_dark.webp" style="height: 250px;" /></a>
-</figure>
-<figure class="align-right">
-<a class="only-light reference internal image-reference" href="../../_images/CNT_light.webp"><img alt="carbon nanotube image in vacuum" class="only-light" src="../../_images/CNT_light.webp" style="height: 250px;" /></a>
-</figure>
 <div class="justify docutils container">
 <p>There are two main ways to analyze data from a MD simulation:
 (1) on-the-fly analysis, like is done for instance using <em>fix ave/time</em>,
@@ -255,6 +249,103 @@ to import <em>lammpstrj</em>  trajectory file into Python.</p>
 <p class="admonition-title">I provide personal assistance for LAMMPS projects</p>
 <p>See the <a class="reference internal" href="../../non-tutorials/contact-me.html#contact-label"><span class="std std-ref">Contact me</span></a> page.</p>
 </div>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../../_images/PEG-dark.webp"><img alt="Movie of a peg molecule in water as simulated with LAMMPS" class="only-dark" src="../../_images/PEG-dark.webp" style="height: 250px;" /></a>
+</figure>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../../_images/PEG-light.webp"><img alt="Movie of a peg molecule in water as simulated with LAMMPS" class="only-light" src="../../_images/PEG-light.webp" style="height: 250px;" /></a>
+</figure>
+<section id="importing-a-simple-trajectory">
+<h2>Importing a simple trajectory<a class="headerlink" href="#importing-a-simple-trajectory" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Here, we re-use a trajectory generated
+during the <a class="reference internal" href="../level2/polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a> tutorial.
+Download the <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/mergePEGH2O/dump.lammpstrj" target="_blank">dump</a> and the <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/mergePEGH2O/mix.data" target="_blank">data</a> files
+to continue with this tutorial.</p>
+</div>
+<section id="create-a-universe">
+<h3>Create a Universe<a class="headerlink" href="#create-a-universe" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Open a new Jupyter notebook and
+call it <em>simple_import.ipynb</em>. First, let us import both <em>MDAnalysis</em>
+and <em>NumPy</em> by copying the following lines into <em>simple_import.ipynb</em>.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">MDAnalysis</span> <span class="k">as</span> <span class="nn">mda</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then, let us create a MDAnalysis <em>universe</em> using
+the LAMMPS data file <em>mix.data</em> as topology,
+and the <em>dump.lammpstrj</em> file as trajectory.
+Add the following lines into the notebook
+(adapt the <em>path_to_data</em> accordingly):</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path_to_data</span> <span class="o">=</span> <span class="s2">&quot;./&quot;</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="n">path_to_data</span> <span class="o">+</span> <span class="s2">&quot;mix.data&quot;</span><span class="p">,</span>
+                 <span class="n">path_to_data</span> <span class="o">+</span> <span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span>
+                 <span class="n">topology_format</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;lammpsdump&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="create-groups">
+<h3>Create groups<a class="headerlink" href="#create-groups" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>From the <a class="reference internal" href="../level2/polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a> tutorial, we know that
+types 1 to 7 are from the PEG atoms, and types 8 and 9 are from
+the water molecules.</p>
+</div>
+<div class="justify docutils container">
+<p>Let us create MDAnalysis groups using the atom types
+and the <em>select_atoms</em> option:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">peg</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s2">&quot;type 1 2 3 4 5 6 7&quot;</span><span class="p">)</span>
+<span class="n">h2o</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s2">&quot;type 8 9&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Let us print the number of atoms in each group:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;atoms in peg:&quot;</span><span class="p">,</span> <span class="n">peg</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;atoms in h2o:&quot;</span><span class="p">,</span> <span class="n">h2o</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>atoms in peg: 101
+atoms in h2o: 3045
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Atom groups are atom containers, from which
+information about the atoms can be read.</p>
+</div>
+<div class="justify docutils container">
+<p>For instance, one can loop over the 6 first atoms
+from the peg group, and extract their ids,
+types, masses, and charges:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">peg</span><span class="p">[:</span><span class="mi">6</span><span class="p">]:</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">atom</span><span class="o">.</span><span class="n">id</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">atom</span><span class="o">.</span><span class="n">type</span>
+    <span class="n">mass</span> <span class="o">=</span> <span class="n">atom</span><span class="o">.</span><span class="n">mass</span>
+    <span class="n">charge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">charge</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Atom id:&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;type:&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="s2">&quot;mass:&quot;</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="s2">&quot;g/mol charge:&quot;</span><span class="p">,</span> <span class="n">charge</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">)</span>
+
+<span class="n">Atom</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">3151</span> <span class="nb">type</span><span class="p">:</span> <span class="mi">4</span> <span class="n">mass</span><span class="p">:</span> <span class="mf">1.008</span> <span class="n">g</span><span class="o">/</span><span class="n">mol</span> <span class="n">charge</span><span class="p">:</span> <span class="mf">0.19</span> <span class="n">e</span>
+<span class="n">Atom</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">3152</span> <span class="nb">type</span><span class="p">:</span> <span class="mi">6</span> <span class="n">mass</span><span class="p">:</span> <span class="mf">15.9994</span> <span class="n">g</span><span class="o">/</span><span class="n">mol</span> <span class="n">charge</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.31</span> <span class="n">e</span>
+<span class="n">Atom</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">3153</span> <span class="nb">type</span><span class="p">:</span> <span class="mi">5</span> <span class="n">mass</span><span class="p">:</span> <span class="mf">12.011</span> <span class="n">g</span><span class="o">/</span><span class="n">mol</span> <span class="n">charge</span><span class="p">:</span> <span class="mf">0.06</span> <span class="n">e</span>
+<span class="n">Atom</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">3154</span> <span class="nb">type</span><span class="p">:</span> <span class="mi">3</span> <span class="n">mass</span><span class="p">:</span> <span class="mf">1.008</span> <span class="n">g</span><span class="o">/</span><span class="n">mol</span> <span class="n">charge</span><span class="p">:</span> <span class="mf">0.05</span> <span class="n">e</span>
+<span class="n">Atom</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">3155</span> <span class="nb">type</span><span class="p">:</span> <span class="mi">3</span> <span class="n">mass</span><span class="p">:</span> <span class="mf">1.008</span> <span class="n">g</span><span class="o">/</span><span class="n">mol</span> <span class="n">charge</span><span class="p">:</span> <span class="mf">0.05</span> <span class="n">e</span>
+<span class="n">Atom</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">3156</span> <span class="nb">type</span><span class="p">:</span> <span class="mi">2</span> <span class="n">mass</span><span class="p">:</span> <span class="mf">12.011</span> <span class="n">g</span><span class="o">/</span><span class="n">mol</span> <span class="n">charge</span><span class="p">:</span> <span class="mf">0.02</span> <span class="n">e</span>
+</pre></div>
+</div>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../../_images/CNT_dark.webp"><img alt="carbon nanotube image in vacuum" class="only-dark" src="../../_images/CNT_dark.webp" style="height: 250px;" /></a>
+</figure>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../../_images/CNT_light.webp"><img alt="carbon nanotube image in vacuum" class="only-light" src="../../_images/CNT_light.webp" style="height: 250px;" /></a>
+</figure>
+</section>
+</section>
 <section id="counting-the-bonds-of-a-cnt">
 <h2>Counting the bonds of a CNT<a class="headerlink" href="#counting-the-bonds-of-a-cnt" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
@@ -265,8 +356,8 @@ It is recommended that you follow this tutorial
 first, but you can also directly download the <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/dump.lammpstrj" target="_blank">dump</a>
 file and the <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/cnt_atom.data" target="_blank">data</a> file and continue with this MDA tutorial.</p>
 </div>
-<section id="create-a-universe">
-<h3>Create a Universe<a class="headerlink" href="#create-a-universe" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h3>Create a Universe<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Open a new Jupyter notebook and
 call it <em>measure_bond_evolution.ipynb</em>. First,
@@ -539,8 +630,13 @@ as well as near the maximum deformation of the CNT.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">MDAnalysis tutorial</a><ul>
-<li><a class="reference internal" href="#counting-the-bonds-of-a-cnt">Counting the bonds of a CNT</a><ul>
+<li><a class="reference internal" href="#importing-a-simple-trajectory">Importing a simple trajectory</a><ul>
 <li><a class="reference internal" href="#create-a-universe">Create a Universe</a></li>
+<li><a class="reference internal" href="#create-groups">Create groups</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#counting-the-bonds-of-a-cnt">Counting the bonds of a CNT</a><ul>
+<li><a class="reference internal" href="#id1">Create a Universe</a></li>
 <li><a class="reference internal" href="#some-basics-of-mdanalysis">Some basics of MDAnalysis</a></li>
 <li><a class="reference internal" href="#counting-the-bonds">Counting the bonds</a></li>
 <li><a class="reference internal" href="#bond-length-distributions">Bond length distributions</a></li>

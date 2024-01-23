@@ -7,18 +7,6 @@ MDAnalysis tutorial
 
     Perform post-mortem analysis using Python
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_dark.webp
-    :alt: carbon nanotube image in vacuum
-    :height: 250
-    :align: right
-    :class: only-dark
-
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_light.webp
-    :alt: carbon nanotube image in vacuum
-    :height: 250
-    :align: right
-    :class: only-light
-
 .. container:: justify
 
     There are two main ways to analyze data from a MD simulation:
@@ -32,6 +20,137 @@ MDAnalysis tutorial
     to import *lammpstrj*  trajectory file into Python.
 
 .. include:: ../../non-tutorials/needhelp.rst
+
+.. figure:: ../figures/level2/polymer-in-water/PEG-dark.webp
+    :alt: Movie of a peg molecule in water as simulated with LAMMPS
+    :height: 250
+    :align: right
+    :class: only-dark
+
+.. figure:: ../figures/level2/polymer-in-water/PEG-light.webp
+    :alt: Movie of a peg molecule in water as simulated with LAMMPS
+    :height: 250
+    :align: right
+    :class: only-light
+
+Importing a simple trajectory
+=============================
+
+.. container:: justify
+
+    Here, we re-use a trajectory generated
+    during the :ref:`all-atoms-label` tutorial.
+    Download the |dump_all_atom| and the |data_all_atom| files
+    to continue with this tutorial.
+
+.. |dump_all_atom| raw:: html
+
+   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/mergePEGH2O/dump.lammpstrj" target="_blank">dump</a>
+
+.. |data_all_atom| raw:: html
+
+   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/mergePEGH2O/mix.data" target="_blank">data</a>
+
+Create a Universe
+-----------------
+
+.. container:: justify
+
+    Open a new Jupyter notebook and
+    call it *simple_import.ipynb*. First, let us import both *MDAnalysis*
+    and *NumPy* by copying the following lines into *simple_import.ipynb*.
+
+.. code-block:: python
+
+    import MDAnalysis as mda
+    import numpy as np
+
+.. container:: justify
+
+    Then, let us create a MDAnalysis *universe* using
+    the LAMMPS data file *mix.data* as topology,
+    and the *dump.lammpstrj* file as trajectory.
+    Add the following lines into the notebook
+    (adapt the *path_to_data* accordingly):
+
+.. code-block:: python
+
+    path_to_data = "./"
+    u = mda.Universe(path_to_data + "mix.data",
+                     path_to_data + "dump.lammpstrj",
+                     topology_format="data", format="lammpsdump")
+
+Create groups
+-------------
+
+.. container:: justify
+
+    From the :ref:`all-atoms-label` tutorial, we know that
+    types 1 to 7 are from the PEG atoms, and types 8 and 9 are from
+    the water molecules. 
+
+.. container:: justify
+
+    Let us create MDAnalysis groups using the atom types
+    and the *select_atoms* option:
+
+.. code-block:: python
+
+    peg = u.select_atoms("type 1 2 3 4 5 6 7")
+    h2o = u.select_atoms("type 8 9")
+
+.. container:: justify
+
+    Let us print the number of atoms in each group:
+
+.. code-block:: python
+
+    print("atoms in peg:", peg.atoms.n_atoms)
+    print("atoms in h2o:", h2o.atoms.n_atoms)
+
+.. code-block:: bw 
+
+    atoms in peg: 101
+    atoms in h2o: 3045
+
+.. container:: justify
+
+    Atom groups are atom containers, from which 
+    information about the atoms can be read.
+
+.. container:: justify
+
+    For instance, one can loop over the 6 first atoms
+    from the peg group, and extract their ids,
+    types, masses, and charges:
+
+.. code-block:: python
+
+    for atom in peg[:6]:
+        id = atom.id
+        type = atom.type
+        mass = atom.mass
+        charge = np.round(atom.charge,2)
+        print("Atom id:", id, "type:", type, "mass:", mass, "g/mol charge:", charge, "e")
+
+    Atom id: 3151 type: 4 mass: 1.008 g/mol charge: 0.19 e
+    Atom id: 3152 type: 6 mass: 15.9994 g/mol charge: -0.31 e
+    Atom id: 3153 type: 5 mass: 12.011 g/mol charge: 0.06 e
+    Atom id: 3154 type: 3 mass: 1.008 g/mol charge: 0.05 e
+    Atom id: 3155 type: 3 mass: 1.008 g/mol charge: 0.05 e
+    Atom id: 3156 type: 2 mass: 12.011 g/mol charge: 0.02 e
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_dark.webp
+    :alt: carbon nanotube image in vacuum
+    :height: 250
+    :align: right
+    :class: only-dark
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_light.webp
+    :alt: carbon nanotube image in vacuum
+    :height: 250
+    :align: right
+    :class: only-light
 
 Counting the bonds of a CNT
 ===========================
