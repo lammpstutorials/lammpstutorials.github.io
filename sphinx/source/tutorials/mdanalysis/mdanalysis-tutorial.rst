@@ -33,8 +33,8 @@ MDAnalysis tutorial
     :align: right
     :class: only-light
 
-Importing a simple trajectory
-=============================
+Simple trajectory import 
+========================
 
 .. container:: justify
 
