@@ -15,7 +15,7 @@
         <link href="../../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Glossary" href="../../non-tutorials/glossary.html" /><link rel="prev" title="VMD tutorial" href="../vmd/vmd-tutorial.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>MDAnalysis tutorial - </title>
+        <title>MDAnalysis short tutorials - </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
@@ -192,7 +192,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../non-tutorials/solutions.html">Solutions to the exercises</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../vmd/vmd-tutorial.html">VMD tutorial</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">MDAnalysis tutorial</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">MDAnalysis short tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../non-tutorials/glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../non-tutorials/bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/use-gromacs-instead.html">Use GROMACS instead</a></li>
@@ -230,8 +230,8 @@
           </label>
         </div>
         <article role="main">
-          <section id="mdanalysis-tutorial">
-<span id="mda-label"></span><h1>MDAnalysis tutorial<a class="headerlink" href="#mdanalysis-tutorial" title="Link to this heading">#</a></h1>
+          <section id="mdanalysis-short-tutorials">
+<span id="mda-label"></span><h1>MDAnalysis short tutorials<a class="headerlink" href="#mdanalysis-short-tutorials" title="Link to this heading">#</a></h1>
 <div class="hatnote docutils container">
 <p>Perform post-mortem analysis using Python</p>
 </div>
@@ -288,8 +288,8 @@ Add the following lines into the notebook
 </pre></div>
 </div>
 </section>
-<section id="create-groups">
-<h3>Create groups<a class="headerlink" href="#create-groups" title="Link to this heading">#</a></h3>
+<section id="read-topology-information">
+<h3>Read topology information<a class="headerlink" href="#read-topology-information" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>From the <a class="reference internal" href="../level2/polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a> tutorial, we know that
 types 1 to 7 are from the PEG atoms, and types 8 and 9 are from
@@ -337,6 +337,36 @@ types, masses, and charges:</p>
 <span class="n">Atom</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">3155</span> <span class="nb">type</span><span class="p">:</span> <span class="mi">3</span> <span class="n">mass</span><span class="p">:</span> <span class="mf">1.008</span> <span class="n">g</span><span class="o">/</span><span class="n">mol</span> <span class="n">charge</span><span class="p">:</span> <span class="mf">0.05</span> <span class="n">e</span>
 <span class="n">Atom</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">3156</span> <span class="nb">type</span><span class="p">:</span> <span class="mi">2</span> <span class="n">mass</span><span class="p">:</span> <span class="mf">12.011</span> <span class="n">g</span><span class="o">/</span><span class="n">mol</span> <span class="n">charge</span><span class="p">:</span> <span class="mf">0.02</span> <span class="n">e</span>
 </pre></div>
+</div>
+</section>
+<section id="extract-temporal-evolution">
+<h3>Extract temporal evolution<a class="headerlink" href="#extract-temporal-evolution" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Let us extract the position of the first atom
+of the peg (i.e. the hydrogen of type 4),
+and store its coordinate into a list:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">atom1</span> <span class="o">=</span> <span class="n">peg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">position_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">atom1</span><span class="o">.</span><span class="n">position</span>
+    <span class="n">position_vs_time</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ts</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Here, the for loop runs over all the frames, and the position
+from the atom named <em>atom1</em> is read, and <em>ts.frame</em> is the id of the frame
+tht goes from 0 to 300, i.e. the total number of frame.</p>
+</div>
+<figure class="align-default">
+<img alt="plot of the position-atom" class="only-dark" src="../../_images/position-atom-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="plot of the position-atom" class="only-light" src="../../_images/position-atom-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Position of the <em>atom1</em> along time. The size of the disk
+increases with the time.</p>
 </div>
 <figure class="align-right">
 <a class="only-dark reference internal image-reference" href="../../_images/CNT_dark.webp"><img alt="carbon nanotube image in vacuum" class="only-dark" src="../../_images/CNT_dark.webp" style="height: 250px;" /></a>
@@ -550,7 +580,8 @@ let us extract the bond length distribution
 at the beginning of the simulation (let us say the 20 first frame),
 as well as near the maximum deformation of the CNT:</p>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bond_length_distributions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
     <span class="n">all_bonds_ts</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span> <span class="ow">in</span> <span class="n">cnt</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">indices</span><span class="p">:</span>
         <span class="n">pos1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">indices</span> <span class="o">==</span> <span class="n">id1</span><span class="p">]</span>
@@ -629,10 +660,11 @@ as well as near the maximum deformation of the CNT.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">MDAnalysis tutorial</a><ul>
+<li><a class="reference internal" href="#">MDAnalysis short tutorials</a><ul>
 <li><a class="reference internal" href="#simple-trajectory-import">Simple trajectory import</a><ul>
 <li><a class="reference internal" href="#create-a-universe">Create a Universe</a></li>
-<li><a class="reference internal" href="#create-groups">Create groups</a></li>
+<li><a class="reference internal" href="#read-topology-information">Read topology information</a></li>
+<li><a class="reference internal" href="#extract-temporal-evolution">Extract temporal evolution</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#counting-the-bonds-of-a-cnt">Counting the bonds of a CNT</a><ul>

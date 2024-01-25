@@ -1,7 +1,7 @@
 .. _mda-label:
 
-MDAnalysis tutorial
-*******************
+MDAnalysis short tutorials
+**************************
 
 .. container:: hatnote
 
@@ -80,8 +80,8 @@ Create a Universe
                      path_to_data + "dump.lammpstrj",
                      topology_format="data", format="lammpsdump")
 
-Create groups
--------------
+Read topology information
+-------------------------
 
 .. container:: justify
 
@@ -139,6 +139,42 @@ Create groups
     Atom id: 3154 type: 3 mass: 1.008 g/mol charge: 0.05 e
     Atom id: 3155 type: 3 mass: 1.008 g/mol charge: 0.05 e
     Atom id: 3156 type: 2 mass: 12.011 g/mol charge: 0.02 e
+
+Extract temporal evolution
+--------------------------
+
+.. container:: justify
+
+    Let us extract the position of the first atom
+    of the peg (i.e. the hydrogen of type 4),
+    and store its coordinate into a list:
+
+.. code-block:: python
+
+    atom1 = peg[0]
+    position_vs_time = []
+    for ts in u.trajectory:
+        x, y, z = atom1.position
+        position_vs_time.append([ts.frame, x, y, z])
+
+.. container:: justify
+
+    Here, the for loop runs over all the frames, and the position
+    from the atom named *atom1* is read, and *ts.frame* is the id of the frame
+    tht goes from 0 to 300, i.e. the total number of frame.
+
+.. figure:: ../figures/mdanalysis/mdanalysis-tutorial/position-atom-dark.png
+    :alt: plot of the position-atom
+    :class: only-dark
+
+.. figure:: ../figures/mdanalysis/mdanalysis-tutorial/position-atom-light.png
+    :alt: plot of the position-atom
+    :class: only-light
+
+.. container:: figurelegend
+
+    Figure: Position of the *atom1* along time. The size of the disk
+    increases with the time.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_dark.webp
     :alt: carbon nanotube image in vacuum
@@ -399,6 +435,7 @@ Bond length distributions
 
 .. code-block:: python
 
+    bond_length_distributions = []
     for ts in u.trajectory:
         all_bonds_ts = []
         for id1, id2 in cnt.atoms.bonds.indices:
