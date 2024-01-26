@@ -296,13 +296,13 @@ Add the following lines into the notebook
 <section id="read-topology-information">
 <h3>Read topology information<a class="headerlink" href="#read-topology-information" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>From the <a class="reference internal" href="../level2/polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a> tutorial, we know that
-types 1 to 7 are from the PEG atoms, and types 8 and 9 are from
+<p>From the <a class="reference internal" href="../level2/polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a> tutorial, we know that atom
+types 1 to 7 are from the PEG atoms, and atom types 8 and 9 are from
 the water molecules.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us create MDAnalysis groups using the atom types
-and the <em>select_atoms</em> option:</p>
+<p>One can create atom groups using the atom types
+with the <em>select_atoms</em> option of MDAnalysis:</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">peg</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s2">&quot;type 1 2 3 4 5 6 7&quot;</span><span class="p">)</span>
 <span class="n">h2o</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s2">&quot;type 8 9&quot;</span><span class="p">)</span>
@@ -321,10 +321,8 @@ atoms in h2o: 3045
 </div>
 <div class="justify docutils container">
 <p>Atom groups are atom containers, from which
-information about the atoms can be read.</p>
-</div>
-<div class="justify docutils container">
-<p>For instance, one can loop over the 6 first atoms
+information about the atoms can be read.
+For instance, one can loop over the 6 first atoms
 from the peg group, and extract their ids,
 types, masses, and charges:</p>
 </div>
@@ -348,8 +346,8 @@ types, masses, and charges:</p>
 <h3>Extract temporal evolution<a class="headerlink" href="#extract-temporal-evolution" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>Let us extract the position of the first atom
-of the peg (i.e. the hydrogen of type 4),
-and store its coordinate into a list:</p>
+of the peg group (i.e. the hydrogen of type 4),
+and store its coordinates in each frame into a list:</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">atom1</span> <span class="o">=</span> <span class="n">peg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">position_vs_time</span> <span class="o">=</span> <span class="p">[]</span>
@@ -359,9 +357,14 @@ and store its coordinate into a list:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here, the for loop runs over all the frames, and the position
-from the atom named <em>atom1</em> is read, and <em>ts.frame</em> is the id of the frame
-tht goes from 0 to 300, i.e. the total number of frame.</p>
+<p>Here, the for loop runs over all the frames, and the x, y, and z coordinates
+of the atom named <em>atom1</em> is read. Here <em>ts.frame</em> is the id of the frame,
+it goes from 0 to 300, i.e. the total number of frames. The <em>position_vs_time</em> list
+contains 301 items, each item being the frame id, and the corresponding coordinates of <em>atom1</em>.</p>
+</div>
+<div class="justify docutils container">
+<p>One can use Matplotlib Pyplot to visualize all the x and y coordinates occupied by <em>atom1</em>
+during the simulation.</p>
 </div>
 <figure class="align-default">
 <img alt="plot of the position-atom" class="only-dark" src="../../_images/position-atom-dark.png" />
@@ -370,8 +373,8 @@ tht goes from 0 to 300, i.e. the total number of frame.</p>
 <img alt="plot of the position-atom" class="only-light" src="../../_images/position-atom-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Position of the <em>atom1</em> along time. The size of the disk
-increases with the time.</p>
+<p>Figure: Position of the <em>atom1</em> along time. The size of the disks
+is proportional to the frame id.</p>
 </div>
 <figure class="align-right">
 <a class="only-dark reference internal image-reference" href="../../_images/CNT_dark.webp"><img alt="carbon nanotube image in vacuum" class="only-dark" src="../../_images/CNT_dark.webp" style="height: 250px;" /></a>

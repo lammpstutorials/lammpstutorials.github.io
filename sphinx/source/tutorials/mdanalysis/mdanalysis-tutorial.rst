@@ -91,14 +91,14 @@ Read topology information
 
 .. container:: justify
 
-    From the :ref:`all-atoms-label` tutorial, we know that
-    types 1 to 7 are from the PEG atoms, and types 8 and 9 are from
+    From the :ref:`all-atoms-label` tutorial, we know that atom
+    types 1 to 7 are from the PEG atoms, and atom types 8 and 9 are from
     the water molecules. 
 
 .. container:: justify
 
-    Let us create MDAnalysis groups using the atom types
-    and the *select_atoms* option:
+    One can create atom groups using the atom types
+    with the *select_atoms* option of MDAnalysis:
 
 .. code-block:: python
 
@@ -123,9 +123,6 @@ Read topology information
 
     Atom groups are atom containers, from which 
     information about the atoms can be read.
-
-.. container:: justify
-
     For instance, one can loop over the 6 first atoms
     from the peg group, and extract their ids,
     types, masses, and charges:
@@ -152,8 +149,8 @@ Extract temporal evolution
 .. container:: justify
 
     Let us extract the position of the first atom
-    of the peg (i.e. the hydrogen of type 4),
-    and store its coordinate into a list:
+    of the peg group (i.e. the hydrogen of type 4),
+    and store its coordinates in each frame into a list:
 
 .. code-block:: python
 
@@ -165,9 +162,15 @@ Extract temporal evolution
 
 .. container:: justify
 
-    Here, the for loop runs over all the frames, and the position
-    from the atom named *atom1* is read, and *ts.frame* is the id of the frame
-    tht goes from 0 to 300, i.e. the total number of frame.
+    Here, the for loop runs over all the frames, and the x, y, and z coordinates
+    of the atom named *atom1* is read. Here *ts.frame* is the id of the frame,
+    it goes from 0 to 300, i.e. the total number of frames. The *position_vs_time* list
+    contains 301 items, each item being the frame id, and the corresponding coordinates of *atom1*.
+
+.. container:: justify
+
+    One can use Matplotlib Pyplot to visualize all the x and y coordinates occupied by *atom1*
+    during the simulation.
 
 .. figure:: ../figures/mdanalysis/mdanalysis-tutorial/position-atom-dark.png
     :alt: plot of the position-atom
@@ -179,8 +182,8 @@ Extract temporal evolution
 
 .. container:: figurelegend
 
-    Figure: Position of the *atom1* along time. The size of the disk
-    increases with the time.
+    Figure: Position of the *atom1* along time. The size of the disks
+    is proportional to the frame id.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_dark.webp
     :alt: carbon nanotube image in vacuum
