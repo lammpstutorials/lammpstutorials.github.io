@@ -5,19 +5,25 @@ MDAnalysis short tutorials
 
 .. container:: hatnote
 
-    Perform post-mortem analysis using Python
+    Perform post-mortem analysis using Python and MDAnalysis
 
 .. container:: justify
 
-    There are two main ways to analyze data from a MD simulation:
-    (1) on-the-fly analysis, like is done for instance using *fix ave/time*,
-    and (2) post-mortem analysis. Post-mortem analysis can be performed using
-    the data saved in the *lammpstrj* file. 
+    There are two main ways to analyze data from a molecular dynamics simulation:
+    (1) on-the-fly analysis, for instance using *fix ave/time* command,
+    and (2) post-mortem analysis, using the trajectories dumped in the *lammpstrj* file.
 
 .. container:: justify
 
-    The goal of this extra tutorial is to provide some tips
-    to import *lammpstrj*  trajectory file into Python.
+    The main advantage of post-mortem analysis is that there is no need to
+    know what we want to measure before starting the simulation. 
+
+.. container:: justify
+
+    In these short tutorials, several trajectories are
+    imported into Python using MDAnalysis and different
+    information are extracted. All the trajectories required for these
+    tutorials are provided below, and were generated from one of the LAMMPS tutorial.
 
 .. include:: ../../non-tutorials/needhelp.rst
 
