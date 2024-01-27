@@ -159,12 +159,8 @@ Prepare and relax
 
     group grpSi type 1
     group grpO type 2
-    variable totqSi equal charge(grpSi)
-    variable totqO equal charge(grpO)
-    variable nSi equal count(grpSi)
-    variable nO equal count(grpO)
-    variable qSi equal v_totqSi/${nSi}
-    variable qO equal v_totqO/${nO}
+    variable qSi equal charge(grpSi)/count(grpSi)
+    variable qO equal charge(grpO)/count(grpO)
     
 ..  container:: justify
 
@@ -287,7 +283,10 @@ Prepare and relax
 
 ..  container:: figurelegend
 
-    Figure: Amorphous silica colored by charges using VMD. Dandling oxygen groups appear in green.
+    Figure: A slice of the amorphous silica, where atoms are colored by
+    their charges. Dandling oxygen groups appear in greenish, bulk Si atoms
+    with charge of about 1.8e appear in red/orange, bulk O atoms
+    with charge of about -0.9e appear in blue.
     To color the atoms by their charge in VMD, use *Charge* as coloring method in the 
     representation windows, and then tune the *Color scale* in the *Color control windows*.
 
@@ -330,12 +329,8 @@ Deform the structure
 
     group grpSi type 1
     group grpO type 2
-    variable totqSi equal charge(grpSi)
-    variable totqO equal charge(grpO)
-    variable nSi equal count(grpSi)
-    variable nO equal count(grpO)
-    variable qSi equal v_totqSi/${nSi}
-    variable qO equal v_totqO/${nO}
+    variable qSi equal charge(grpSi)/count(grpSi)
+    variable qO equal charge(grpO)/count(grpO)
 
     thermo 5
     thermo_style custom step temp etotal press vol v_qSi v_qO
@@ -432,7 +427,7 @@ Deform the structure
 ..  container:: figurelegend
 
     Figure: Amorphous silicon oxide after deformation. The atoms are colored by
-    charges using VMD.
+    their charges.
 
 ..  container:: justify
 
@@ -479,59 +474,26 @@ Deform the structure
     #  Timestep    No_Moles    No_Specs   Si192O382          O2
           30000           1           1           1           1
 
-Hydrate the surface
-===================
+Decorate the surface
+====================
 
 ..  container:: justify
 
-    Let us add water molecules to the cracked silica, add measure how the
-    system evolves and how the different species evolve with time. 
+    Let us add hydrogen atoms to the cracked silica, and measure how the
+    system evolves with time. 
 
 ..  container:: justify
 
-    Next to *RelaxSilica/* and *Deform/*, create a folder, call it *Hydrate/*
-    and create a molecule template named *H2O.mol* in it. Add the
-    following lines to *H2O.mol*:
-    
-..  code-block:: lammps
-
-    3 atoms
-
-    Coords
-
-    1    0 0 0
-    2    0.9584 0 0
-    3    -0.23996 0.92787 0
-
-    Types
-
-    1        3
-    2        4
-    3        4
-
-    Charges
-
-    1       -1.1128
-    2        0.5564
-    3        0.5564
-
-..  container:: justify
-
-    Note that this molecule template does not contain any bond, as
-    expected when using *Reaxff*, and that type 3 was attributed to 
-    the oxygen of water molecule, and 4 to the hydrogens.
-        
-..  container:: justify
-
-    Let us prepare the previously generated data file
-    *silica-deformed.data* to make space for four atom type.
+    Next to *RelaxSilica/* and *Deform/*, create a folder, call it *Decorate/*.
+    Then, let us modify the previously generated data file
+    *silica-deformed.data* and make space for a third atom type.
     Copy *silica-deformed.data* from the *Deform/* folder,
     and modify the first lines as follow:
 
 ..  code-block:: lammps
 
     576 atoms
-    4 atom types
+    3 atom types
 
     -12.15958814509652 32.74516585669389 xlo xhi
     2.316358282925984 18.26921942866687 ylo yhi
@@ -541,15 +503,15 @@ Hydrate the surface
 
     1 28.0855
     2 15.999
-    3 15.999
-    4 1.008
+    3 1.008
 
     (...)
 
 ..  container:: justify
 
-    Then, create an file named *input.lammps* 
-    into *Hydrate*, and copy the following lines into it:
+    Create a file named *input.lammps* 
+    into the *Decorate/* folder, and copy
+    the following lines into it:
 
 ..  code-block:: lammps
 
@@ -560,7 +522,7 @@ Hydrate the surface
     displace_atoms all move -12 0 0 # optional
 
     pair_style reaxff NULL safezone 3.0 mincap 150
-    pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O O H
+    pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O H
     fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
 ..  container:: justify
@@ -575,91 +537,92 @@ Hydrate the surface
 ..  container:: justify
 
     A difference with the previous input, is that
-    four atom types are specified in the
-    *pair_coeff* command, *Si O O H*, instead of two.
+    three atom types are specified in the
+    *pair_coeff* command, *Si O H*, instead of two.
 
 ..  container:: justify
 
-    Then, let us create 20 molecules of water
-    randomly:
-
-..  code-block:: lammps
-
-    molecule h2omol H2O.mol
-    create_atoms 0 random 10 805672 NULL overlap 2.6 maxtry 50 mol h2omol 45585
-
-..  container:: justify
-
-    Let us add some familiar commands:
+    Then, let us adapt some familiar commands
+    to measure the charges of all three types of atoms,
+    and output the charge values into log files:
 
 ..  code-block:: lammps
 
     group grpSi type 1
     group grpO type 2
-    variable totqSi equal charge(grpSi)
-    variable totqO equal charge(grpO)
-    variable nSi equal count(grpSi)
-    variable nO equal count(grpO)
-    variable qSi equal v_totqSi/${nSi}
-    variable qO equal v_totqO/${nO}
+    group grpH type 3
+    variable qSi equal charge(grpSi)/count(grpSi)
+    variable qO equal charge(grpO)/count(grpO)
+    variable qH equal charge(grpH)/(count(grpH)+1e-10)
 
     thermo 5
-    thermo_style custom step temp etotal press vol v_qSi v_qO
-    dump dmp all custom 50 dump.lammpstrj id type q x y z
-
-    fix myspec all reaxff/species 5 1 5 species.log element Si O O H
-
-..  container:: justify
-
-    The mai difference here is again the four atom types 
-    in *fix reaxff/species*: *Si O O H*.
+    thermo_style custom step temp etotal press vol &
+        v_qSi v_qO v_qH
+    fix myspec all reaxff/species 5 1 5 species.log element Si O H
 
 ..  container:: justify
 
-    Finally, let us use different thermostats for the
-    :math:`\text{SiO}_2` and the water,
-    and run the simulation for 10 ps: 
+    Here, the :math:`+1\text{e}-10` was added to the 
+    denominator of the *variable qH* in order to avoid dividing by 0
+    at the beginning of the simulation.
+
+..  container:: justify
+
+    Finally, let us use create a loop with 20 steps,
+    and create two hydrogens atom at random locations at every step: 
 
 ..  code-block:: lammps
 
-    group grpSiO type 1 2
-    group grpH2O type 3 4
-
-    compute tSiO grpSiO temp
-    fix mynvt1 grpSiO nvt temp 300.0 300.0 100
-    fix_modify mynvt1 temp tSiO
-
-    compute tH2O grpH2O temp
-    fix mynvt2 grpH2O nvt temp 300.0 300.0 100
-    fix_modify mynvt2 temp tH2O
-
+    fix mynvt all nvt temp 300.0 300.0 100
     timestep 0.5 
 
-    run 20000
+    label loop
+    variable a loop 10
 
-    write_data hydrated-deformed.data
+    variable seed equal 35672+${a} 
+    create_atoms 3 random 2 ${seed} NULL overlap 2.6 maxtry 50
+    group grpH type 3
+    run 2000
+    write_dump all custom dump.${a}.lammpstrj id type q x y z
+
+    next a
+    jump SELF loop
+
+    write_data decorated.data
     
+..  container:: justify
+
+    Here a different *lammpstrj* file is created for each step of the
+    loop, in order to avoid creating dump files with varying number of atoms
+    that VMD can't read.
+
 ..  container:: justify
 
     Once the simulation is over, it can be seen from the *species.log*
-    file that most of the initial 20 :math:`\text{H}_2\text{O}` molecules reacted with 
-    the silicon dioxide to form :math:`\text{OH}`
-    and :math:`\text{H}_3\text{O}_2` compounds:
+    file that most of the added hydrogen atoms reacted with 
+    the :math:`\text{SiO}_{2}` structure to form hydroxyl (-OH) groups.
 
 ..  code-block:: lammps
 
-    # Timestep   No_Moles   No_Specs  Si192O384  OH2
-      5          21         2         1          20
+    # Timestep   No_Moles   No_Specs  Si192O384  H
+      5          3          2         1          2
     (...)
-    # Timestep   No_Moles No_Specs Si192O384O11H25  OH2   OH O2H3
-      20000      8        4        1                4     1  2
+    # Timestep   No_Moles No_Specs Si192O384H20
+      20000      1        1        1
 
-..  container:: justify
+.. figure:: ../figures/level3/reactive-silicon-dioxide/decorated-light.png
+    :alt: Cracked silicon oxide after addition of hydrogen atoms
+    :class: only-light
 
-    The main silica block, that was initially composed of :math:`\text{Si}_{192}\text{O}_{384}`,
-    is formed of :math:`\text{Si}_{192}\text{O}_{395}` after 10 ps, with some hydroxyl (-OH)
-    groups formed at its surface. 
-    
+.. figure:: ../figures/level3/reactive-silicon-dioxide/decorated-dark.png
+    :alt: Cracked silicon oxide after addition of hydrogen atoms
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Cracked silicon oxide after addition of hydrogen atoms. The atoms are colored by
+    their charges.
+
 .. include:: ../../non-tutorials/accessfile.rst
 
 Going further with exercises
@@ -667,49 +630,37 @@ Going further with exercises
 
 .. include:: ../../non-tutorials/link-to-solutions.rst
 
-Add O2 molecules
-----------------
+..
+    Add O2 molecules
+    ----------------
+
+    ..  container:: justify
+
+        Add :math:`\text{O}_2` molecules to the previously
+        equilibrated structure. Equilibrate it again, and
+        extract the charge density profile along the :math:`x` axis. 
+
+    ..  container:: justify
+
+        Here, the :math:`\text{O}_2` molecule is simply made of 2 oxygen atoms that are not 
+        connected by any bond.
+
+    .. figure:: ../figures/level3/reactive-silicon-dioxide/O2_light.png
+        :alt: Silicon oxide with additional O2 molecules
+        :class: only-light
+
+    .. figure:: ../figures/level3/reactive-silicon-dioxide/O2_dark.png
+        :alt: Silicon oxide with additional O2 molecules
+        :class: only-dark
+
+    ..  container:: figurelegend
+
+        Figure: Deformed structure with some :math:`\text{O}_2` molecules
+
+Hydrate the structure
+---------------------
 
 ..  container:: justify
 
-    Add :math:`\text{O}_2` molecules to the previously
-    equilibrated structure. Equilibrate it again, and
-    extract the charge density profile along the :math:`x` axis. 
-
-..  container:: justify
-
-    Here, the :math:`\text{O}_2` molecule is simply made of 2 oxygen atoms that are not 
-    connected by any bond.
-
-.. figure:: ../figures/level3/reactive-silicon-dioxide/O2_light.png
-    :alt: Silicon oxide with additional O2 molecules
-    :class: only-light
-
-.. figure:: ../figures/level3/reactive-silicon-dioxide/O2_dark.png
-    :alt: Silicon oxide with additional O2 molecules
-    :class: only-dark
-
-..  container:: figurelegend
-
-    Figure: Deformed structure with some :math:`\text{O}_2` molecules
-
-Decorate dandling oxygens
--------------------------
-
-..  container:: justify
-
-    Under ambient conditions, dandling oxygen are typically terminated by hydrogen atoms. 
-    Improve the current structure by decorating some of the dandling oxygen atoms with
-    hydrogen atoms. 
-
-.. figure:: ../figures/level3/reactive-silicon-dioxide/exercice-light.png
-    :alt: Silicon oxide decorated with hydrogens
-    :class: only-light
-
-.. figure:: ../figures/level3/reactive-silicon-dioxide/exercice-dark.png
-    :alt: Silicon oxide decorated with hydrogens
-    :class: only-dark
-
-..  container:: figurelegend
-
-    Figure: Hydrogen atoms are in white, oxygen in red, and silicon in yellow.
+    Add water molecules to the current structure, and follow the
+    reactions over time.
