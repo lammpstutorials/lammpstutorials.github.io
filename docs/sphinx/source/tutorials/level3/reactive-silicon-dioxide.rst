@@ -677,3 +677,22 @@ Hydrate the structure
 
     Figure: Cracked silicon oxide after addition of hydrogen atoms and water molecules.
     The atoms are colored by their charges.
+
+A slightly acidic bulk solution
+-------------------------------
+
+..  container:: justify
+
+    Create a bulk water system with a few hydronium ions using *ReaxFF*
+
+.. figure:: ../figures/level3/reactive-silicon-dioxide/acidic-water-light.png
+    :alt: Acidic bulk water with ReaxFF
+    :class: only-light
+
+.. figure:: ../figures/level3/reactive-silicon-dioxide/acidic-water-dark.png
+    :alt: Acidic bulk water with ReaxFF
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Slightly acidic bulk water simulated with *ReaxFF*.
