@@ -359,7 +359,7 @@ Deform the structure
 
 ..  container:: justify
 
-    Then, let us use run for 5000 steps without deformation,
+    Let us run for 5000 steps without deformation,
     then apply the *fix deform* for elongating
     progressively the box along *x* during 25000 steps.
     Add the following line to *input.lammps*:
@@ -380,8 +380,8 @@ Deform the structure
     breaks down. After the structure breaks down, the charges equilibrate near new 
     average values that differ from the starting averages. The difference between 
     the initial and the final charges can be explained by
-    presence of a new solid/vacuum interface: surface atoms typically have different charges
-    compared to bulk atoms.
+    presence of defects as well as a new solid/vacuum interfaces, and the fact that
+    surface atoms typically have different charges compared to bulk atoms.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-charge-light.png
     :alt: Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff
@@ -416,8 +416,8 @@ Deform the structure
 ..  container:: justify
 
     At the end of the deformation, one can visualize the broken material using VMD.
-    Notice the different charge of the atoms located near the interface, compared to the 
-    atoms located in the bulk of the material.
+    Notice the different charge values of the atoms located near the vacuum interfaces,
+    compared to the atoms located in the bulk of the material.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-light.png
     :alt: Deformed amorphous silica colored by charges using VMD
@@ -452,8 +452,7 @@ Deform the structure
 
 ..  container:: justify
 
-    The final charge distribution slightly differs from the previously calculated,
-    which was to be expected as the material was broken.
+    As expected, the final charge distribution slightly differs from the previously calculated.
     In my case, no new species was formed during the simulation,
     as can be seen from the *species.log* file:
 
