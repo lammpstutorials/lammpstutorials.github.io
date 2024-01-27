@@ -1046,7 +1046,7 @@ Decorate dandling oxygens
     :alt: Silicon oxide decorated with hydrogens
     :class: only-light
 
-.. figure:: ../tutorials/figures/level3/reactive-silicon-dioxide/exercice-light.png
+.. figure:: ../tutorials/figures/level3/reactive-silicon-dioxide/exercice-dark.png
     :alt: Silicon oxide decorated with hydrogens
     :class: only-dark
 
