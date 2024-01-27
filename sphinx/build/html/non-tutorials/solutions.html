@@ -890,175 +890,39 @@ reduced compared to the case in absence of additional forcing.</p>
 </section>
 <section id="reactive-silicon-dioxide">
 <h2>Reactive silicon dioxide<a class="headerlink" href="#reactive-silicon-dioxide" title="Link to this heading">#</a></h2>
-<section id="add-o2-molecules">
-<h3>Add O2 molecules<a class="headerlink" href="#add-o2-molecules" title="Link to this heading">#</a></h3>
+<section id="hydrate-the-structure">
+<h3>Hydrate the structure<a class="headerlink" href="#hydrate-the-structure" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>In a separate folder, create a new input file,
-and copy the same first lines as previously in it
-(just adapt the path to <em>silica-deformed.data</em> accordingly):</p>
+<p>See the input <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/Hydrate/input.lammps" target="_blank">here</a>, and
+create a molecule template named <em>H2O.mol</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
-<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
-
-<span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">..</span><span class="o">/</span><span class="n">Deform</span><span class="o">/</span><span class="n">silica</span><span class="o">-</span><span class="n">deformed.data</span>
-
-<span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">28.0855</span><span class="w"> </span><span class="c"># Si</span>
-<span class="k">mass</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">15.999</span><span class="w"> </span><span class="c"># O</span>
-
-<span class="k">pair_style</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">safezone</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mincap</span><span class="w"> </span><span class="m">150</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">RelaxSilica</span><span class="o">/</span><span class="n">reaxCHOFe.ff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myqeq</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">qeq</span><span class="o">/</span><span class="n">reaxff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">maxiter</span><span class="w"> </span><span class="m">400</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Optionally, let us shift the structure to recenter it in the box. The best value
-for the shift may be different in your case. This step is not necessary, but the
-recentered system looks better.</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">displace_atoms </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="o">-</span><span class="m">13</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="n">box</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Then, let us import the molecule template <em>O2.mol</em> and create 10 molecules.
-The overlap and maxtry keywords allow us to prevent overlapping
-between the atoms:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">O2mol</span><span class="w"> </span><span class="n">O2.mol</span>
-<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">456415</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">    </span><span class="n">mol</span><span class="w"> </span><span class="n">O2mol</span><span class="w"> </span><span class="m">454756</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Use the following molecule template named <em>O2.mol</em>:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">2</span><span class="w"> </span><span class="n">atoms</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">3</span><span class="w"> </span><span class="n">atoms</span>
 
 <span class="n">Coords</span>
 
-<span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="m">0.6</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="m">2</span><span class="w"> </span><span class="m">0.6</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">1</span><span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">2</span><span class="w">    </span><span class="m">0.9584</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">3</span><span class="w">    </span><span class="o">-</span><span class="m">0.23996</span><span class="w"> </span><span class="m">0.92787</span><span class="w"> </span><span class="m">0</span>
 
 <span class="n">Types</span>
 
-<span class="m">1</span><span class="w"> </span><span class="m">2</span>
-<span class="m">2</span><span class="w"> </span><span class="m">2</span>
+<span class="m">1</span><span class="w">        </span><span class="m">2</span>
+<span class="m">2</span><span class="w">        </span><span class="m">3</span>
+<span class="m">3</span><span class="w">        </span><span class="m">3</span>
 
 <span class="n">Charges</span>
 
-<span class="m">1</span><span class="w"> </span><span class="m">0.0</span>
-<span class="m">2</span><span class="w"> </span><span class="m">0.0</span>
+<span class="m">1</span><span class="w">       </span><span class="o">-</span><span class="m">1.1128</span>
+<span class="m">2</span><span class="w">        </span><span class="m">0.5564</span>
+<span class="m">3</span><span class="w">        </span><span class="m">0.5564</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The value of 3 Angstroms for the minimum interatomic overlapping is
-very safe for the present system. Smaller values may lead to molecules being
-too close from each others.</p>
+<p>Add molecules to the crack using:</p>
 </div>
-<div class="justify docutils container">
-<p>Finally, let us minimize the energy of the system, and run for <span class="math notranslate nohighlight">\(10\,\text{ps}\)</span>:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
-<span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
-
-<span class="k">group </span><span class="nv nv-Identifier">grpSi</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
-<span class="k">group </span><span class="nv nv-Identifier">grpO</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
-<span class="k">variable </span><span class="nv nv-Identifier">totqSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">charge</span><span class="nv">(grpSi)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">totqO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">charge</span><span class="nv">(grpO)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">nSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(grpSi)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">nO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(grpO)</span>
-<span class="k">variable </span><span class="nv nv-Identifier">qSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_totqSi</span><span class="o">/</span><span class="nv">${nSi}</span>
-<span class="k">variable </span><span class="nv nv-Identifier">qO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_totqO</span><span class="o">/</span><span class="nv">${nO}</span>
-
-<span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span>
-<span class="k">thermo</span><span class="w"> </span><span class="m">5</span>
-<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="n">v_qSi</span><span class="w"> </span><span class="n">v_qO</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myspec</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">reaxff</span><span class="o">/</span><span class="n">species</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">species.log</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
-
-<span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">100</span>
-<span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
-
-<span class="k">run</span><span class="w"> </span><span class="m">20000</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">805672</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.6</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">45585</span>
 </pre></div>
-</div>
-<div class="justify docutils container">
-<p>You can vizualise the <span class="math notranslate nohighlight">\(\text{O}_2\)</span> molecules with VMD, or have a look at the
-<em>species.log</em> file:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c">#  Timestep    No_Moles    No_Specs   Si192O384          O2</span>
-<span class="w">          </span><span class="m">5</span><span class="w">          </span><span class="m">11</span><span class="w">           </span><span class="m">2</span><span class="w">           </span><span class="m">1</span><span class="w">          </span><span class="m">10</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>One can see that some reactions occur in the system, and
-that eventually some of
-the <span class="math notranslate nohighlight">\(\text{O}_2\)</span> molecules react and reabsorb on the
-main structure:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c">#  Timestep    No_Moles    No_Specs   Si192O388          O2</span>
-<span class="w">      </span><span class="m">20000</span><span class="w">           </span><span class="m">9</span><span class="w">           </span><span class="m">2</span><span class="w">           </span><span class="m">1</span><span class="w">           </span><span class="m">8</span>
-</pre></div>
-</div>
-<figure class="align-default">
-<img alt="Silicon oxide with additional O2 molecules" class="only-light" src="../_images/O2_light.png" />
-</figure>
-<figure class="align-default">
-<img alt="Silicon oxide with additional O2 molecules" class="only-dark" src="../_images/O2_dark.png" />
-</figure>
-<div class="figurelegend docutils container">
-<p>Figure: Deformed structure with some <span class="math notranslate nohighlight">\(\text{O}_2\)</span> molecules</p>
-</div>
-</section>
-<section id="decorate-dandling-oxygens">
-<h3>Decorate dandling oxygens<a class="headerlink" href="#decorate-dandling-oxygens" title="Link to this heading">#</a></h3>
-<div class="justify docutils container">
-<p>Space must be made for the hydrogen atoms. Modify the <em>silica-deformed.data</em> file
-so that it starts with:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">576</span><span class="w"> </span><span class="n">atoms</span>
-<span class="m">3</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Also add the mass of the hydrogen:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">Masses</span>
-
-<span class="m">1</span><span class="w"> </span><span class="m">28.0855</span>
-<span class="m">2</span><span class="w"> </span><span class="m">15.999</span>
-<span class="m">3</span><span class="w"> </span><span class="m">1.008</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>It is also important to change the <em>pair_coeff</em>:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">..</span><span class="o">/</span><span class="n">RelaxSilica</span><span class="o">/</span><span class="n">reaxCHOFe.ff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>One can create randomly a few hydrogen atoms:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_atoms</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">456415</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Equilibrate the system, you should see the hydrogen atoms
-progressively decorating the surface of the SiO2 structure:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c">#  Timestep    No_Moles    No_Specs    Si192O384        H</span>
-<span class="w">          </span><span class="m">5</span><span class="w">          </span><span class="m">11</span><span class="w">           </span><span class="m">2</span><span class="w">            </span><span class="m">1</span><span class="w">       </span><span class="m">10</span>
-<span class="nv">(...)</span>
-<span class="c">#  Timestep    No_Moles    No_Specs Si192O384H10</span>
-<span class="w">       </span><span class="m">5000</span><span class="w">           </span><span class="m">1</span><span class="w">           </span><span class="m">1</span><span class="w">            </span><span class="m">1</span>
-</pre></div>
-</div>
-<figure class="align-default">
-<img alt="Silicon oxide decorated with hydrogens" class="only-light" src="../_images/exercice-light.png" />
-</figure>
-<figure class="align-default">
-<img alt="Silicon oxide decorated with hydrogens" class="only-dark" src="../_images/exercice-dark.png" />
-</figure>
-<div class="figurelegend docutils container">
-<p>Figure: Hydrogen atoms are in white, oxygen in red, and silicon in yellow.</p>
 </div>
 </section>
 </section>
@@ -1151,8 +1015,7 @@ progressively decorating the surface of the SiO2 structure:</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#reactive-silicon-dioxide">Reactive silicon dioxide</a><ul>
-<li><a class="reference internal" href="#add-o2-molecules">Add O2 molecules</a></li>
-<li><a class="reference internal" href="#decorate-dandling-oxygens">Decorate dandling oxygens</a></li>
+<li><a class="reference internal" href="#hydrate-the-structure">Hydrate the structure</a></li>
 </ul>
 </li>
 </ul>
