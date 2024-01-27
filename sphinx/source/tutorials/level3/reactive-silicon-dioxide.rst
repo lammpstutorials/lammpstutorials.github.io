@@ -683,7 +683,7 @@ A slightly acidic bulk solution
 
 ..  container:: justify
 
-    Create a bulk water system with a few hydronium ions using *ReaxFF*
+    Create a bulk water system with a few hydronium ions using *ReaxFF*.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/acidic-water-light.png
     :alt: Acidic bulk water with ReaxFF
