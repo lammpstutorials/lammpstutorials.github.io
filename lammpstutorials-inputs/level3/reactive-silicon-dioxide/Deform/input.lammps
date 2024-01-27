@@ -39,12 +39,8 @@ fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
 group grpSi type 1
 group grpO type 2
-variable totqSi equal charge(grpSi)
-variable totqO equal charge(grpO)
-variable nSi equal count(grpSi)
-variable nO equal count(grpO)
-variable qSi equal v_totqSi/${nSi}
-variable qO equal v_totqO/${nO}
+variable qSi equal charge(grpSi)/count(grpSi)
+variable qO equal charge(grpO)/count(grpO)
 
 thermo 5
 thermo_style custom step temp etotal press vol v_qSi v_qO
