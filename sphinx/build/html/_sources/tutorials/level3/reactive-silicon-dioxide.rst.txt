@@ -299,6 +299,8 @@ Deform the structure
     Let us apply a deformation to the structure in order to
     force some :math:`\text{Si}-\text{O}` bonds to break and re-assemble. 
 
+..  container:: justify
+
     Next to *RelaxSilica/*, create a folder, call it *Deform/* and create a
     file named *input.lammps* in it. Copy the same lines
     as previously in *input.lammps*:
@@ -477,6 +479,187 @@ Deform the structure
     #  Timestep    No_Moles    No_Specs   Si192O382          O2
           30000           1           1           1           1
 
+Hydrate the surface
+===================
+
+..  container:: justify
+
+    Let us add water molecules to the cracked silica, add measure how the
+    system evolves and how the different species evolve with time. 
+
+..  container:: justify
+
+    Next to *RelaxSilica/* and *Deform/*, create a folder, call it *Hydrate/*
+    and create a molecule template named *H2O.mol* in it. Add the
+    following lines to *H2O.mol*:
+    
+..  code-block:: lammps
+
+    3 atoms
+
+    Coords
+
+    1    0 0 0
+    2    0.9584 0 0
+    3    -0.23996 0.92787 0
+
+    Types
+
+    1        3
+    2        4
+    3        4
+
+    Charges
+
+    1       -1.1128
+    2        0.5564
+    3        0.5564
+
+..  container:: justify
+
+    Note that this molecule template does not contain any bond, as
+    expected when using *Reaxff*, and that type 3 was attributed to 
+    the oxygen of water molecule, and 4 to the hydrogens.
+        
+..  container:: justify
+
+    Let us prepare the previously generated data file
+    *silica-deformed.data* to make space for four atom type.
+    Copy *silica-deformed.data* from the *Deform/* folder,
+    and modify the first lines as follow:
+
+..  code-block:: lammps
+
+    576 atoms
+    4 atom types
+
+    -12.15958814509652 32.74516585669389 xlo xhi
+    2.316358282925984 18.26921942866687 ylo yhi
+    1.3959542953413138 19.189623416252907 zlo zhi
+
+    Masses
+
+    1 28.0855
+    2 15.999
+    3 15.999
+    4 1.008
+
+    (...)
+
+..  container:: justify
+
+    Then, create an file named *input.lammps* 
+    into *Hydrate*, and copy the following lines into it:
+
+..  code-block:: lammps
+
+    units real
+    atom_style full
+
+    read_data silica-deformed.data
+    displace_atoms all move -12 0 0 # optional
+
+    pair_style reaxff NULL safezone 3.0 mincap 150
+    pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O O H
+    fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
+
+..  container:: justify
+
+    Here, the *displace_atoms* command was used to
+    move the center of the crack near the center of the box.
+    This step is optional, but makes the visualizing
+    of the interface in VMD easier.
+    A different value for the shift may be needed in your case,
+    depending on the location of the crack.
+
+..  container:: justify
+
+    A difference with the previous input, is that
+    four atom types are specified in the
+    *pair_coeff* command, *Si O O H*, instead of two.
+
+..  container:: justify
+
+    Then, let us create 20 molecules of water
+    randomly:
+
+..  code-block:: lammps
+
+    molecule h2omol H2O.mol
+    create_atoms 0 random 10 805672 NULL overlap 2.6 maxtry 50 mol h2omol 45585
+
+..  container:: justify
+
+    Let us add some familiar commands:
+
+..  code-block:: lammps
+
+    group grpSi type 1
+    group grpO type 2
+    variable totqSi equal charge(grpSi)
+    variable totqO equal charge(grpO)
+    variable nSi equal count(grpSi)
+    variable nO equal count(grpO)
+    variable qSi equal v_totqSi/${nSi}
+    variable qO equal v_totqO/${nO}
+
+    thermo 5
+    thermo_style custom step temp etotal press vol v_qSi v_qO
+    dump dmp all custom 50 dump.lammpstrj id type q x y z
+
+    fix myspec all reaxff/species 5 1 5 species.log element Si O O H
+
+..  container:: justify
+
+    The mai difference here is again the four atom types 
+    in *fix reaxff/species*: *Si O O H*.
+
+..  container:: justify
+
+    Finally, let us use different thermostats for the
+    :math:`\text{SiO}_2` and the water,
+    and run the simulation for 10 ps: 
+
+..  code-block:: lammps
+
+    group grpSiO type 1 2
+    group grpH2O type 3 4
+
+    compute tSiO grpSiO temp
+    fix mynvt1 grpSiO nvt temp 300.0 300.0 100
+    fix_modify mynvt1 temp tSiO
+
+    compute tH2O grpH2O temp
+    fix mynvt2 grpH2O nvt temp 300.0 300.0 100
+    fix_modify mynvt2 temp tH2O
+
+    timestep 0.5 
+
+    run 20000
+
+    write_data hydrated-deformed.data
+    
+..  container:: justify
+
+    Once the simulation is over, it can be seen from the *species.log*
+    file that most of the initial 20 :math:`\text{H}_2\text{O}` molecules reacted with 
+    the silicon dioxide to form :math:`\text{OH}`
+    and :math:`\text{H}_3\text{O}_2` compounds:
+
+..  code-block:: lammps
+
+    # Timestep   No_Moles   No_Specs  Si192O384  OH2
+      5          21         2         1          20
+    (...)
+    # Timestep   No_Moles No_Specs Si192O384O11H25  OH2   OH O2H3
+      20000      8        4        1                4     1  2
+
+..  container:: justify
+
+    The main silica block, that was initially composed of :math:`\text{Si}_{192}\text{O}_{384}`,
+    is formed of :math:`\text{Si}_{192}\text{O}_{395}` after 10 ps, with some hydroxyl (-OH)
+    groups formed at its surface. 
+    
 .. include:: ../../non-tutorials/accessfile.rst
 
 Going further with exercises

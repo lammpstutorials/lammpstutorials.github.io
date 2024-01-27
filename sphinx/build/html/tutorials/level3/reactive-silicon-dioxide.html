@@ -467,6 +467,8 @@ representation windows, and then tune the <em>Color scale</em> in the <em>Color 
 <div class="justify docutils container">
 <p>Let us apply a deformation to the structure in order to
 force some <span class="math notranslate nohighlight">\(\text{Si}-\text{O}\)</span> bonds to break and re-assemble.</p>
+</div>
+<div class="justify docutils container">
 <p>Next to <em>RelaxSilica/</em>, create a folder, call it <em>Deform/</em> and create a
 file named <em>input.lammps</em> in it. Copy the same lines
 as previously in <em>input.lammps</em>:</p>
@@ -617,6 +619,167 @@ deformation. If this is the case, the <em>species.log</em> file will look like:<
 <span class="w">      </span><span class="m">30000</span><span class="w">           </span><span class="m">1</span><span class="w">           </span><span class="m">1</span><span class="w">           </span><span class="m">1</span><span class="w">           </span><span class="m">1</span>
 </pre></div>
 </div>
+</section>
+<section id="hydrate-the-surface">
+<h2>Hydrate the surface<a class="headerlink" href="#hydrate-the-surface" title="Link to this heading">#</a></h2>
+<div class="justify docutils container">
+<p>Let us add water molecules to the cracked silica, add measure how the
+system evolves and how the different species evolve with time.</p>
+</div>
+<div class="justify docutils container">
+<p>Next to <em>RelaxSilica/</em> and <em>Deform/</em>, create a folder, call it <em>Hydrate/</em>
+and create a molecule template named <em>H2O.mol</em> in it. Add the
+following lines to <em>H2O.mol</em>:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">3</span><span class="w"> </span><span class="n">atoms</span>
+
+<span class="n">Coords</span>
+
+<span class="m">1</span><span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">2</span><span class="w">    </span><span class="m">0.9584</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="m">3</span><span class="w">    </span><span class="o">-</span><span class="m">0.23996</span><span class="w"> </span><span class="m">0.92787</span><span class="w"> </span><span class="m">0</span>
+
+<span class="n">Types</span>
+
+<span class="m">1</span><span class="w">        </span><span class="m">3</span>
+<span class="m">2</span><span class="w">        </span><span class="m">4</span>
+<span class="m">3</span><span class="w">        </span><span class="m">4</span>
+
+<span class="n">Charges</span>
+
+<span class="m">1</span><span class="w">       </span><span class="o">-</span><span class="m">1.1128</span>
+<span class="m">2</span><span class="w">        </span><span class="m">0.5564</span>
+<span class="m">3</span><span class="w">        </span><span class="m">0.5564</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Note that this molecule template does not contain any bond, as
+expected when using <em>Reaxff</em>, and that type 3 was attributed to
+the oxygen of water molecule, and 4 to the hydrogens.</p>
+</div>
+<div class="justify docutils container">
+<p>Let us prepare the previously generated data file
+<em>silica-deformed.data</em> to make space for four atom type.
+Copy <em>silica-deformed.data</em> from the <em>Deform/</em> folder,
+and modify the first lines as follow:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">576</span><span class="w"> </span><span class="n">atoms</span>
+<span class="m">4</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
+
+<span class="o">-</span><span class="m">12.15958814509652</span><span class="w"> </span><span class="m">32.74516585669389</span><span class="w"> </span><span class="n">xlo</span><span class="w"> </span><span class="n">xhi</span>
+<span class="m">2.316358282925984</span><span class="w"> </span><span class="m">18.26921942866687</span><span class="w"> </span><span class="n">ylo</span><span class="w"> </span><span class="n">yhi</span>
+<span class="m">1.3959542953413138</span><span class="w"> </span><span class="m">19.189623416252907</span><span class="w"> </span><span class="n">zlo</span><span class="w"> </span><span class="n">zhi</span>
+
+<span class="n">Masses</span>
+
+<span class="m">1</span><span class="w"> </span><span class="m">28.0855</span>
+<span class="m">2</span><span class="w"> </span><span class="m">15.999</span>
+<span class="m">3</span><span class="w"> </span><span class="m">15.999</span>
+<span class="m">4</span><span class="w"> </span><span class="m">1.008</span>
+
+<span class="nv">(...)</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then, create an file named <em>input.lammps</em>
+into <em>Hydrate</em>, and copy the following lines into it:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+
+<span class="k">read_data</span><span class="w"> </span><span class="n">silica</span><span class="o">-</span><span class="n">deformed.data</span>
+<span class="k">displace_atoms </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="o">-</span><span class="m">12</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c"># optional</span>
+
+<span class="k">pair_style</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">safezone</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mincap</span><span class="w"> </span><span class="m">150</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">RelaxSilica</span><span class="o">/</span><span class="n">reaxCHOFe.ff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myqeq</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">qeq</span><span class="o">/</span><span class="n">reaxff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">maxiter</span><span class="w"> </span><span class="m">400</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Here, the <em>displace_atoms</em> command was used to
+move the center of the crack near the center of the box.
+This step is optional, but makes the visualizing
+of the interface in VMD easier.
+A different value for the shift may be needed in your case,
+depending on the location of the crack.</p>
+</div>
+<div class="justify docutils container">
+<p>A difference with the previous input, is that
+four atom types are specified in the
+<em>pair_coeff</em> command, <em>Si O O H</em>, instead of two.</p>
+</div>
+<div class="justify docutils container">
+<p>Then, let us create 20 molecules of water
+randomly:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">805672</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.6</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">45585</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Let us add some familiar commands:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">grpSi</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
+<span class="k">group </span><span class="nv nv-Identifier">grpO</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
+<span class="k">variable </span><span class="nv nv-Identifier">totqSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">charge</span><span class="nv">(grpSi)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">totqO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">charge</span><span class="nv">(grpO)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">nSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(grpSi)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">nO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(grpO)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">qSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_totqSi</span><span class="o">/</span><span class="nv">${nSi}</span>
+<span class="k">variable </span><span class="nv nv-Identifier">qO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_totqO</span><span class="o">/</span><span class="nv">${nO}</span>
+
+<span class="k">thermo</span><span class="w"> </span><span class="m">5</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="n">v_qSi</span><span class="w"> </span><span class="n">v_qO</span>
+<span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="n">dump.lammpstrj</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">myspec</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">reaxff</span><span class="o">/</span><span class="n">species</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">species.log</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The mai difference here is again the four atom types
+in <em>fix reaxff/species</em>: <em>Si O O H</em>.</p>
+</div>
+<div class="justify docutils container">
+<p>Finally, let us use different thermostats for the
+<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span> and the water,
+and run the simulation for 10 ps:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">grpSiO</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+<span class="k">group </span><span class="nv nv-Identifier">grpH2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+
+<span class="k">compute </span><span class="nv nv-Identifier">tSiO</span><span class="w"> </span><span class="nv nv-Identifier">grpSiO</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="nv nv-Identifier">grpSiO</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tSiO</span>
+
+<span class="k">compute </span><span class="nv nv-Identifier">tH2O</span><span class="w"> </span><span class="nv nv-Identifier">grpH2O</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt2</span><span class="w"> </span><span class="nv nv-Identifier">grpH2O</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">mynvt2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tH2O</span>
+
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
+
+<span class="k">run</span><span class="w"> </span><span class="m">20000</span>
+
+<span class="k">write_data </span><span class="nv nv-Identifier">hydrated-deformed.data</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Once the simulation is over, it can be seen from the <em>species.log</em>
+file that most of the initial 20 <span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span> molecules reacted with
+the silicon dioxide to form <span class="math notranslate nohighlight">\(\text{OH}\)</span>
+and <span class="math notranslate nohighlight">\(\text{H}_3\text{O}_2\)</span> compounds:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># Timestep   No_Moles   No_Specs  Si192O384  OH2</span>
+<span class="w">  </span><span class="m">5</span><span class="w">          </span><span class="m">21</span><span class="w">         </span><span class="m">2</span><span class="w">         </span><span class="m">1</span><span class="w">          </span><span class="m">20</span>
+<span class="nv">(...)</span>
+<span class="c"># Timestep   No_Moles No_Specs Si192O384O11H25  OH2   OH O2H3</span>
+<span class="w">  </span><span class="m">20000</span><span class="w">      </span><span class="m">8</span><span class="w">        </span><span class="m">4</span><span class="w">        </span><span class="m">1</span><span class="w">                </span><span class="m">4</span><span class="w">     </span><span class="m">1</span><span class="w">  </span><span class="m">2</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The main silica block, that was initially composed of <span class="math notranslate nohighlight">\(\text{Si}_{192}\text{O}_{384}\)</span>,
+is formed of <span class="math notranslate nohighlight">\(\text{Si}_{192}\text{O}_{395}\)</span> after 10 ps, with some hydroxyl (-OH)
+groups formed at its surface.</p>
+</div>
 <div class="justify docutils container">
 <p>You can access all the input scripts and data files that
 are used in these tutorials from <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/" target="_blank">the inputs folder</a> on Github.
@@ -724,6 +887,7 @@ hydrogen atoms.</p>
 <li><a class="reference internal" href="#">Reactive silicon dioxide</a><ul>
 <li><a class="reference internal" href="#prepare-and-relax">Prepare and relax</a></li>
 <li><a class="reference internal" href="#deform-the-structure">Deform the structure</a></li>
+<li><a class="reference internal" href="#hydrate-the-surface">Hydrate the surface</a></li>
 <li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
 <li><a class="reference internal" href="#add-o2-molecules">Add O2 molecules</a></li>
 <li><a class="reference internal" href="#decorate-dandling-oxygens">Decorate dandling oxygens</a></li>

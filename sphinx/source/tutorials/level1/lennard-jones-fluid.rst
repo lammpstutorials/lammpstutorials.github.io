@@ -1103,8 +1103,8 @@ From atoms to molecules
 
 ..  container:: justify
 
-    Similarly, can you create a small polymer, i.e. a long chain of particles
-    linked by bonds and angles?
+    Similarly to the dumbbell molecules, create a small polymer,
+    i.e. a long chain of particles linked by bonds and angles.
 
 .. figure:: ../figures/level1/lennard-jones-fluid/polymer-dark.png
     :alt: Polymer Lennard-Jones molecules simulated using LAMMPS

@@ -24,18 +24,15 @@
 units real
 atom_style full
 
-read_data ../RelaxSilica/silica-relaxed.data
-
-mass 1 28.0855 # Si
-mass 2 15.999 # O
+read_data silica-deformed.data
+displace_atoms all move -12 0 0 
 
 pair_style reaxff NULL safezone 3.0 mincap 150
-pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O
+pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O O H
 fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
-# no need then
-# neighbor 0.5 bin
-# neigh_modify every 5 delay 0 check yes 
+molecule h2omol H2O.mol
+create_atoms 0 random 20 805672 NULL overlap 2.6 maxtry 50 mol h2omol 45585
 
 group grpSi type 1
 group grpO type 2
@@ -48,17 +45,23 @@ variable qO equal v_totqO/${nO}
 
 thermo 5
 thermo_style custom step temp etotal press vol v_qSi v_qO
-dump dmp all custom 100 dump.lammpstrj id type q x y z
+dump dmp all custom 50 dump.lammpstrj id type q x y z
 
-fix myspec all reaxff/species 5 1 5 species.log element Si O
+fix myspec all reaxff/species 5 1 5 species.log element Si O O H
 
-fix mynvt all nvt temp 300.0 300.0 100
+group grpSiO type 1 2
+group grpH2O type 3 4
+
+compute tSiO grpSiO temp
+fix mynvt1 grpSiO nvt temp 300.0 300.0 100
+fix_modify mynvt1 temp tSiO
+
+compute tH2O grpH2O temp
+fix mynvt2 grpH2O nvt temp 300.0 300.0 100
+fix_modify mynvt2 temp tH2O
+
 timestep 0.5 
 
-run 5000
+run 20000
 
-fix mydef all deform 1 x erate 5e-5
-
-run 25000
-
-write_data silica-deformed.data
+write_data hydrated-deformed.data

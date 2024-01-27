@@ -42,9 +42,10 @@ variable nO equal count(grpO)
 variable qSi equal v_totqSi/${nSi}
 variable qO equal v_totqO/${nO}
 
-dump dmp all custom 100 dump.lammpstrj id type q xs ys zs
 thermo 5
 thermo_style custom step temp etotal press vol v_qSi v_qO
+dump dmp all custom 100 dump.lammpstrj id type q xs ys zs
+
 fix myspec all reaxff/species 5 1 5 species.log element Si O
 
 velocity all create 300.0 3482028
