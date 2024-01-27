@@ -334,8 +334,8 @@ and the atoms of type 2 as oxygen (O).</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, the <em>fix qeq/reaxff</em> is used to perform charge equilibration. The charge
-equilibration occurs at every step. The values 0 and 10.0
-are the low and the high cutoffs, respectively, and <span class="math notranslate nohighlight">\(1.0 \text{e}-6\)</span> is a
+equilibration occurs at every step. The values 0.0 and 10.0
+are the low and the high cutoffs, respectively, and <span class="math notranslate nohighlight">\(1.0 \text{e} -6\)</span> is a
 tolerance. Finally, <em>maxiter</em> sets a upper limit to the number of attempt to
 equilibrate the charge.</p>
 </div>
@@ -365,9 +365,9 @@ to measure the evolution of the charges during the simulation:</p>
 and create a <em>.lammpstrj</em> file for visualization.
 Add the following lines to the <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span>
-<span class="k">thermo</span><span class="w"> </span><span class="m">5</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">thermo</span><span class="w"> </span><span class="m">5</span>
 <span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="n">v_qSi</span><span class="w"> </span><span class="n">v_qO</span>
+<span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -408,13 +408,15 @@ since the charge of every individual atom is adjusting to its local environnemen
 <img alt="Charge of silica during equilibration with reaxff and LAMMPS" class="only-dark" src="../../_images/average-charge-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Average charge per atom of the silicon (a) and oxygen (b) atoms during equilibration.</p>
+<p>Figure: Average charge per atom of the silicon (a) and oxygen (b)
+atoms during equilibration, as given by the
+<em>v_qSi</em> and <em>v_qO</em> variables.</p>
 </div>
 <div class="justify docutils container">
 <p>One can see that the charges of the atoms are strongly fluctuating
 at the beginning of the simulation. This early fluctuation correlates
-with a rapid volume change of the box, during which one can guess
-that the inter atomic distances are also quickly changing.</p>
+with a rapid volume change of the box, during which
+the inter atomic distances are expected to quickly change.</p>
 </div>
 <figure class="align-default">
 <img alt="volume of the system with reaxff and LAMMPS" class="only-light" src="../../_images/volume-light.png" />
