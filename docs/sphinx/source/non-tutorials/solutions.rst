@@ -1056,7 +1056,6 @@ Hydrate the structure
 
     <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/Hydrate/input.lammps" target="_blank">here</a>
 
-
 .. code-block:: lammps
 
     3 atoms
@@ -1099,3 +1098,37 @@ Hydrate the structure
 
     #  Timestep No_Moles No_Specs Si192O387H26 OH2 OH3 O2H3
        10000    17       4        1            14  1   1
+
+A slightly acidic bulk solution
+-------------------------------
+
+.. container:: justify
+
+    See the input |input_reax_water_2|, and
+    create a molecule template named *H2O.mol*: 
+
+.. |input_reax_water_2| raw:: html
+
+    <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/BulkWater/input.lammps" target="_blank">here</a>
+
+.. code-block:: lammps
+
+    3 atoms
+
+    Coords
+
+    1    0 0 0
+    2    0.9584 0 0
+    3    -0.23996 0.92787 0
+
+    Types
+
+    1        1
+    2        2
+    3        2
+
+    Charges
+
+    1       -1.1128
+    2        0.5564
+    3        0.5564
