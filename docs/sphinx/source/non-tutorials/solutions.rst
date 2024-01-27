@@ -1087,3 +1087,15 @@ Hydrate the structure
 
     molecule h2omol H2O.mol
     create_atoms 0 random 10 805672 NULL overlap 2.6 maxtry 50 mol h2omol 45585
+
+.. container:: justify
+
+    One can see that some water molecules have reacted during the simulation:
+
+.. code-block:: lammps
+
+    #  Timestep No_Moles No_Specs Si192O384H20 OH2
+       5        21       2        1            20
+
+    #  Timestep No_Moles No_Specs Si192O387H26 OH2 OH3 O2H3
+       10000    17       4        1            14  1   1

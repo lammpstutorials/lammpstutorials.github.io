@@ -664,3 +664,16 @@ Hydrate the structure
 
     Add water molecules to the current structure, and follow the
     reactions over time.
+
+.. figure:: ../figures/level3/reactive-silicon-dioxide/hydrated-light.png
+    :alt: Cracked silicon oxide after addition of water molecule
+    :class: only-light
+
+.. figure:: ../figures/level3/reactive-silicon-dioxide/hydrated-dark.png
+    :alt: Cracked silicon oxide after addition of water molecule
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Cracked silicon oxide after addition of hydrogen atoms and water molecules.
+    The atoms are colored by their charges.
