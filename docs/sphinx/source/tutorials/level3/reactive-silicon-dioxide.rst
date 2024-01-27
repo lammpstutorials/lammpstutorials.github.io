@@ -21,9 +21,10 @@ Reactive silicon dioxide
 
 ..  container:: justify
 
-    The objective of this tutorial is to use the 
-    reactive force field named *reaxff* :cite:`van2001reaxff, zou2012investigation`. This force field
-    allows for the calculation of chemical bond formation. 
+    The objective of this tutorial is to use a 
+    reactive force field (*ReaxFF* :cite:`van2001reaxff, zou2012investigation`),
+    and calculate the partial charges of a system undergoing
+    deformation, as well as chemical bonds formation and breaking.  
 
 ..  container:: justify
 
@@ -31,7 +32,7 @@ Reactive silicon dioxide
     until rupture. A particular attention is given to the evolution of the charges
     of the atoms during the deformation of the structure, and 
     the chemical reactions occurring due to the deformation
-    are tracked and discussed.
+    are tracked.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
@@ -52,20 +53,18 @@ Prepare and relax
 
    <a href="../../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/RelaxSilica/silica.data" target="_blank">download</a>
 
-..  container:: justify
+.. admonition:: About the initial structure
+    :class: info
 
     The system was created by temperature annealing using another force field 
-    named |download_SiO.1990.vashishta|.
+    named |download_SiO.1990.vashishta|. In case you are
+    interested in the input creation, the files
+    used for creating the initial topology is available
+    |lammps_input_creating|.
 
 .. |download_SiO.1990.vashishta| raw:: html
 
    <a href="../../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>
-
-..  container:: justify
-
-    In case you are interested in the input creation, the input file
-    used for creating the initial topology is available
-    |lammps_input_creating|.
 
 .. |lammps_input_creating| raw:: html
 
@@ -78,12 +77,12 @@ Prepare and relax
     all silicon atoms have the same charge :math:`q = 1.1\,\text{e}`,
     and all oxygen atoms the charge :math:`q = -0.55\,\text{e}`.
     This is common with classical force field, and will change once
-    reaxff is used. Let us keep that in mind for now.
+    *ReaxFF* is used. Let us keep that in mind for now.
 
 ..  container:: justify
 
     The first step we need to perform here is to relax
-    the structure with *reaxff*, which we are gonna do using molecular
+    the structure with *ReaxFF*, which we are gonna do using molecular
     dynamics. To make sure that the system equilibrates
     nicely, let us track some changes over time.
 
@@ -118,7 +117,7 @@ Prepare and relax
 
 ..  container:: justify
 
-    Here, the reaxff *pair_style* is used with no control file.
+    Here, the *ReaxFF pair_style* is used with no control file.
     The *safezone* and *mincap* keywords have been added
     to avoid memory allocation issue, which sometimes can trigger
     the segmentation faults and bondchk failed errors.

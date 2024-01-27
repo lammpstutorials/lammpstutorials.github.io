@@ -23,7 +23,7 @@ VMD tutorial
 
     Visual Molecular Dynamics (VMD) is a free molecular graphics software
     that can be used to visualize molecular dynamics systems. VMD has been
-    used to generate all images of molecular systems here. 
+    used to generate all the images of molecular systems here. 
 
 .. container:: justify
 
