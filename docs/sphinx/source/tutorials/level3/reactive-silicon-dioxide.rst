@@ -133,8 +133,8 @@ Prepare and relax
 ..  container:: justify
 
     Finally, the *fix qeq/reaxff* is used to perform charge equilibration. The charge
-    equilibration occurs at every step. The values 0 and 10.0
-    are the low and the high cutoffs, respectively, and :math:`1.0 \text{e}-6` is a
+    equilibration occurs at every step. The values 0.0 and 10.0
+    are the low and the high cutoffs, respectively, and :math:`1.0 \text{e} -6` is a
     tolerance. Finally, *maxiter* sets a upper limit to the number of attempt to
     equilibrate the charge. 
 
@@ -174,9 +174,9 @@ Prepare and relax
 
 ..  code-block:: lammps
 
-    dump dmp all custom 100 dump.lammpstrj id type q x y z
     thermo 5
     thermo_style custom step temp etotal press vol v_qSi v_qO
+    dump dmp all custom 100 dump.lammpstrj id type q x y z
 
 ..  container:: justify
 
@@ -226,14 +226,16 @@ Prepare and relax
 
 ..  container:: figurelegend
 
-    Figure: Average charge per atom of the silicon (a) and oxygen (b) atoms during equilibration.
+    Figure: Average charge per atom of the silicon (a) and oxygen (b)
+    atoms during equilibration, as given by the
+    *v_qSi* and *v_qO* variables.
 
 ..  container:: justify
 
     One can see that the charges of the atoms are strongly fluctuating
     at the beginning of the simulation. This early fluctuation correlates
-    with a rapid volume change of the box, during which one can guess 
-    that the inter atomic distances are also quickly changing.
+    with a rapid volume change of the box, during which
+    the inter atomic distances are expected to quickly change.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/volume-light.png
     :alt: volume of the system with reaxff and LAMMPS
