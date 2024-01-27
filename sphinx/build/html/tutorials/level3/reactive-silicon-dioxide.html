@@ -391,6 +391,8 @@ and relax the density of the system.</p>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
 
 <span class="k">run</span><span class="w"> </span><span class="m">5000</span>
+
+<span class="k">write_data </span><span class="nv nv-Identifier">silica-relaxed.data</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -464,10 +466,10 @@ representation windows, and then tune the <em>Color scale</em> in the <em>Color 
 <h2>Deform the structure<a class="headerlink" href="#deform-the-structure" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>Let us apply a deformation to the structure in order to
-force some <span class="math notranslate nohighlight">\(\text{Si}-\text{O}\)</span> bonds to break and/or re-assemble.</p>
+force some <span class="math notranslate nohighlight">\(\text{Si}-\text{O}\)</span> bonds to break and re-assemble.</p>
 <p>Next to <em>RelaxSilica/</em>, create a folder, call it <em>Deform/</em> and create a
 file named <em>input.lammps</em> in it. Copy the same lines
-as previously in input.lammps*:</p>
+as previously in <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
@@ -497,26 +499,30 @@ Copy the following lines as well:</p>
 <span class="k">variable </span><span class="nv nv-Identifier">qSi</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_totqSi</span><span class="o">/</span><span class="nv">${nSi}</span>
 <span class="k">variable </span><span class="nv nv-Identifier">qO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_totqO</span><span class="o">/</span><span class="nv">${nO}</span>
 
-<span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">5</span>
 <span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="n">v_qSi</span><span class="w"> </span><span class="n">v_qO</span>
+<span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span>
+
 <span class="k">fix </span><span class="nv nv-Identifier">myspec</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">reaxff</span><span class="o">/</span><span class="n">species</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">species.log</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
 <p>Then, let us use <em>fix nvt</em> instead of <em>fix npt</em> to apply a
-thermostat, but no barostat because the box deformations
-will be imposed.</p>
+thermostat:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">100</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
 </pre></div>
 </div>
+<div class="info admonition">
+<p class="admonition-title">Note</p>
+<p>Here, no barostat is used because the box volume
+will be imposed by the <em>fix deform</em>.</p>
+</div>
 <div class="justify docutils container">
-<p>Then, let us use run for 5000 steps,
+<p>Then, let us use run for 5000 steps without deformation,
 then apply the <em>fix deform</em> for elongating
-progressively the box along <em>x</em>. Let us apply
-fix deform during 25000 steps.
+progressively the box along <em>x</em> during 25000 steps.
 Add the following line to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">5000</span>

@@ -206,6 +206,8 @@ Prepare and relax
 
     run 5000
 
+    write_data silica-relaxed.data
+
 ..  container:: justify
 
     Run the *input.lammps* file using LAMMPS. As can be seen from *species.log*,
@@ -295,11 +297,11 @@ Deform the structure
 ..  container:: justify
 
     Let us apply a deformation to the structure in order to
-    force some :math:`\text{Si}-\text{O}` bonds to break and/or re-assemble. 
+    force some :math:`\text{Si}-\text{O}` bonds to break and re-assemble. 
 
     Next to *RelaxSilica/*, create a folder, call it *Deform/* and create a
     file named *input.lammps* in it. Copy the same lines
-    as previously in input.lammps*:
+    as previously in *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -333,28 +335,33 @@ Deform the structure
     variable qSi equal v_totqSi/${nSi}
     variable qO equal v_totqO/${nO}
 
-    dump dmp all custom 100 dump.lammpstrj id type q x y z
     thermo 5
     thermo_style custom step temp etotal press vol v_qSi v_qO
+    dump dmp all custom 100 dump.lammpstrj id type q x y z
+
     fix myspec all reaxff/species 5 1 5 species.log element Si O
 
 ..  container:: justify
 
     Then, let us use *fix nvt* instead of *fix npt* to apply a
-    thermostat, but no barostat because the box deformations
-    will be imposed.
+    thermostat:
 
 ..  code-block:: lammps
 
     fix mynvt all nvt temp 300.0 300.0 100
     timestep 0.5
 
+.. admonition:: Note
+    :class: info
+
+    Here, no barostat is used because the box volume
+    will be imposed by the *fix deform*.
+
 ..  container:: justify
 
-    Then, let us use run for 5000 steps,
+    Then, let us use run for 5000 steps without deformation,
     then apply the *fix deform* for elongating
-    progressively the box along *x*. Let us apply 
-    fix deform during 25000 steps.
+    progressively the box along *x* during 25000 steps.
     Add the following line to *input.lammps*:
 
 ..  code-block:: lammps
