@@ -272,32 +272,34 @@ this tutorial on a simple <a class="reference internal" href="lennard-jones-flui
 </div>
 <section id="unbreakable-bonds">
 <h2>Unbreakable bonds<a class="headerlink" href="#unbreakable-bonds" title="Link to this heading">#</a></h2>
-<div class="justify docutils container">
-<p>With most classical molecular dynamics force fields, the chemical bonds
+<div class="info admonition">
+<p class="admonition-title">About bonds in classical molecular dynamics</p>
+<blockquote>
+<div><p>With most classical molecular dynamics force fields, the chemical bonds
 between the atoms are set at the start of the simulation. Regardless of the
 forces applied on the atoms during the simulations, the bonds remain intact.
 The bonds between neighbor atoms typically consist of springs with
 given equilibrium distances <span class="math notranslate nohighlight">\(r_0\)</span> and
-constant <span class="math notranslate nohighlight">\(k_b\)</span>:</p>
-</div>
-<div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[U_b = k_b \left( r -r_0 \right)^2.\]</div>
-</div>
-<div class="justify docutils container">
-<p>Additionally, angular and dihedral constraints are usually applied to maintain
+constant :math:U_b = k_b left( r -r_0 right)^2`.
+Additionally, angular and dihedral constraints are usually applied to maintain
 the relative orientations of neighbor atoms.</p>
+</div></blockquote>
 </div>
 <section id="create-topology-with-vmd">
 <h3>Create topology with VMD<a class="headerlink" href="#create-topology-with-vmd" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
+<p>The first part of this tutorial is dedicated to creating
+the initial topology with VMD. You can skip this part by
+downloading directly the CNT topology <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/unbreakable-bonds/cnt_molecular.data" target="_blank">here</a>,
+and continue with the LAMMPS part of the tutorial.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">Why use a preprocessing tool?</p>
 <p>When the system has a complex topology, like is the case of a CNT,
-it is better to use an external preprocessing tool to create it.
-Many preprocessing tools exist, see a <a href="https://www.lammps.org/prepost.html" target="_blank">non-exhaustive list</a> on
-the LAMMPS website. Here, <a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">VMD</a> is used.
-Alternatively, you can skip this part of the tutorial by downloading the
-CNT topology I did create by clicking <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/unbreakable-bonds/cnt_molecular.data" target="_blank">here</a>,
-and continue with the tutorial.</p>
+it is better to use an external preprocessing tool to create it as it would be
+difficult (yet not impossible) to place the atoms at their correct position
+using only LAMMPS commands. Many preprocessing tools exist, see
+this <a href="https://www.lammps.org/prepost.html" target="_blank">non-exhaustive list</a> on the LAMMPS website.</p>
 </div>
 <div class="justify docutils container">
 <p>Open VMD, go to Extensions, Modeling, and then Nanotube Builder.
@@ -367,6 +369,8 @@ like that:</p>
 about the positions of the carbons atoms, as well as the
 identity of the atoms that are linked by <em>bonds</em>, <em>angles</em>, <em>dihedrals</em>,
 and <em>impropers</em> constraints.</p>
+</div>
+<div class="justify docutils container">
 <p>Save the <em>cnt_molecular.data</em> file in a folder named <em>unbreakable-bonds/</em>.</p>
 </div>
 </section>
