@@ -49,17 +49,16 @@ Pulling on a carbon nanotube
 Unbreakable bonds
 =================
 
-.. admonition:: About bonds in classical molecular dynamics
-    :class: info
+.. container:: justify
 
-        With most classical molecular dynamics force fields, the chemical bonds
-        between the atoms are set at the start of the simulation. Regardless of the 
-        forces applied on the atoms during the simulations, the bonds remain intact.
-        The bonds between neighbor atoms typically consist of springs with
-        given equilibrium distances :math:`r_0` and
-        constant :math:U_b = k_b \left( r -r_0 \right)^2`.
-        Additionally, angular and dihedral constraints are usually applied to maintain
-        the relative orientations of neighbor atoms. 
+    With most classical molecular dynamics force fields, the chemical bonds
+    between the atoms are set at the start of the simulation. Regardless of the 
+    forces applied on the atoms during the simulations, the bonds remain intact.
+    The bonds between neighbor atoms typically consist of springs with
+    given equilibrium distances :math:`r_0` and
+    constant :math:U_b = k_b \left( r -r_0 \right)^2`.
+    Additionally, angular and dihedral constraints are usually applied to maintain
+    the relative orientations of neighbor atoms. 
 
 Create topology with VMD
 ------------------------
@@ -204,7 +203,7 @@ The LAMMPS input
 
 .. container:: justify
 
-    The chosen unit system is *real* (therefore distances are in Angstrom, time in femtosecond),
+    The chosen unit system is *real* (therefore distances are in Ångstrom, time in femtosecond),
     the *atom_style* is molecular (therefore atoms are dots that can be bonded with each other),
     and the boundary conditions are fixed. The boundary conditions
     do not really matter here, as the box boundaries were placed far from the CNT. 
@@ -215,7 +214,7 @@ The LAMMPS input
     the pair style is *lj/cut* (i.e. a Lennard-Jones potential 
     with a short range cutoff) with
     parameter 14, which means that only the atoms closer than 14
-    Angstroms from each others interact through a Lennard-Jones
+    Ångstroms from each others interact through a Lennard-Jones
     potential.
 
 .. container:: justify
@@ -370,8 +369,8 @@ Prepare initial state
    
     The variable :math:`z_\mathrm{max}` corresponds to
     the coordinate of the last atoms along :math:`z` minus 0.5
-    Angstroms, and :math:`z_\mathrm{min}` to the coordinate of
-    the first atoms along :math:`z` plus 0.5 Angstroms. Then, 3
+    Ångstroms, and :math:`z_\mathrm{min}` to the coordinate of
+    the first atoms along :math:`z` plus 0.5 Ångstroms. Then, 3
     regions are defined, and correspond respectively to: :math:`z < z_\mathrm{min}`, (bottom)
     :math:`z_\mathrm{min} > z > z_\mathrm{max}` (middle), and  
     :math:`z > z_\mathrm{max}` (top).
@@ -719,7 +718,7 @@ Input file initialization
     :class: info
 
     With the *metal* units system of LAMMPS, the time is in pico second, 
-    distances are in Angstrom, and the energy is in eV.
+    distances are in Ångstrom, and the energy is in eV.
 
 Adapt the topology file
 -----------------------
@@ -850,7 +849,7 @@ Use of AIREBO potential
 
 .. container:: justify
 
-    Note that a large distance of 120 Angstroms was used for the box size along 
+    Note that a large distance of 120 Ångstroms was used for the box size along 
     the *z* axis, to allow for larger deformation. In additoin, the *change_box* command
     was placed before the *displace_atoms* to avoid issue with the 
     CNT crossing the edge of the box.
@@ -936,7 +935,7 @@ Launch the deformation
 .. container:: justify
 
    The CNT should break around the step 250000. If not, 
-   run for a longer time. 
+   use a longer run. 
 
 .. container:: justify
 
@@ -969,8 +968,8 @@ Launch the deformation
 
    Note that VMD guesses bonds based on the distances
    between atoms, and not based on the presence of actual
-   bonds between atoms in the LAMMPS simulation. Therefore what is seen
-   in VMD can sometimes be misleading.
+   bonds between atoms in the LAMMPS simulation. Therefore the bonds seen
+   in VMD when using the *DynamicBonds* representation can be misleading.
 
 .. container:: justify
 
@@ -993,7 +992,7 @@ Launch the deformation
 
 ..  container:: justify
 
-    There is a follow-up to this CNT tutorial as a :ref:`mda-label`,
+    There is a follow-up to this CNT tutorial as :ref:`mda-label`,
     where a post-mortem analysis is performed using Python.
 
 Going further with exercises

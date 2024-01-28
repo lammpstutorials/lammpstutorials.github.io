@@ -272,10 +272,8 @@ this tutorial on a simple <a class="reference internal" href="lennard-jones-flui
 </div>
 <section id="unbreakable-bonds">
 <h2>Unbreakable bonds<a class="headerlink" href="#unbreakable-bonds" title="Link to this heading">#</a></h2>
-<div class="info admonition">
-<p class="admonition-title">About bonds in classical molecular dynamics</p>
-<blockquote>
-<div><p>With most classical molecular dynamics force fields, the chemical bonds
+<div class="justify docutils container">
+<p>With most classical molecular dynamics force fields, the chemical bonds
 between the atoms are set at the start of the simulation. Regardless of the
 forces applied on the atoms during the simulations, the bonds remain intact.
 The bonds between neighbor atoms typically consist of springs with
@@ -283,7 +281,6 @@ given equilibrium distances <span class="math notranslate nohighlight">\(r_0\)</
 constant :math:U_b = k_b left( r -r_0 right)^2`.
 Additionally, angular and dihedral constraints are usually applied to maintain
 the relative orientations of neighbor atoms.</p>
-</div></blockquote>
 </div>
 <section id="create-topology-with-vmd">
 <h3>Create topology with VMD<a class="headerlink" href="#create-topology-with-vmd" title="Link to this heading">#</a></h3>
@@ -398,7 +395,7 @@ it <em>input.lammps</em>. Copy the following lines in it:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The chosen unit system is <em>real</em> (therefore distances are in Angstrom, time in femtosecond),
+<p>The chosen unit system is <em>real</em> (therefore distances are in Ångstrom, time in femtosecond),
 the <em>atom_style</em> is molecular (therefore atoms are dots that can be bonded with each other),
 and the boundary conditions are fixed. The boundary conditions
 do not really matter here, as the box boundaries were placed far from the CNT.</p>
@@ -408,7 +405,7 @@ do not really matter here, as the box boundaries were placed far from the CNT.</
 the pair style is <em>lj/cut</em> (i.e. a Lennard-Jones potential
 with a short range cutoff) with
 parameter 14, which means that only the atoms closer than 14
-Angstroms from each others interact through a Lennard-Jones
+Ångstroms from each others interact through a Lennard-Jones
 potential.</p>
 </div>
 <div class="justify docutils container">
@@ -540,8 +537,8 @@ Add the following lines to <em>input.lammps</em>:</p>
 <div class="justify docutils container">
 <p>The variable <span class="math notranslate nohighlight">\(z_\mathrm{max}\)</span> corresponds to
 the coordinate of the last atoms along <span class="math notranslate nohighlight">\(z\)</span> minus 0.5
-Angstroms, and <span class="math notranslate nohighlight">\(z_\mathrm{min}\)</span> to the coordinate of
-the first atoms along <span class="math notranslate nohighlight">\(z\)</span> plus 0.5 Angstroms. Then, 3
+Ångstroms, and <span class="math notranslate nohighlight">\(z_\mathrm{min}\)</span> to the coordinate of
+the first atoms along <span class="math notranslate nohighlight">\(z\)</span> plus 0.5 Ångstroms. Then, 3
 regions are defined, and correspond respectively to: <span class="math notranslate nohighlight">\(z &lt; z_\mathrm{min}\)</span>, (bottom)
 <span class="math notranslate nohighlight">\(z_\mathrm{min} &gt; z &gt; z_\mathrm{max}\)</span> (middle), and
 <span class="math notranslate nohighlight">\(z &gt; z_\mathrm{max}\)</span> (top).</p>
@@ -831,7 +828,7 @@ single no explicit bond information is required with AIREBO.</p>
 <div class="info admonition">
 <p class="admonition-title">About metal units</p>
 <p>With the <em>metal</em> units system of LAMMPS, the time is in pico second,
-distances are in Angstrom, and the energy is in eV.</p>
+distances are in Ångstrom, and the energy is in eV.</p>
 </div>
 </section>
 <section id="adapt-the-topology-file">
@@ -941,7 +938,7 @@ The rest of the <em>input.lammps</em> is very similar to the previous one:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Note that a large distance of 120 Angstroms was used for the box size along
+<p>Note that a large distance of 120 Ångstroms was used for the box size along
 the <em>z</em> axis, to allow for larger deformation. In additoin, the <em>change_box</em> command
 was placed before the <em>displace_atoms</em> to avoid issue with the
 CNT crossing the edge of the box.</p>
@@ -1019,7 +1016,7 @@ a longer duration that previously. Add the following lines into
 </div>
 <div class="justify docutils container">
 <p>The CNT should break around the step 250000. If not,
-run for a longer time.</p>
+use a longer run.</p>
 </div>
 <div class="justify docutils container">
 <p>When looking at the <em>lammpstrj</em> file using VMD, you will see
@@ -1039,8 +1036,8 @@ representation to properly vizualise the bond breaking.</p>
 <p class="admonition-title">About bonds in VMD</p>
 <p>Note that VMD guesses bonds based on the distances
 between atoms, and not based on the presence of actual
-bonds between atoms in the LAMMPS simulation. Therefore what is seen
-in VMD can sometimes be misleading.</p>
+bonds between atoms in the LAMMPS simulation. Therefore the bonds seen
+in VMD when using the <em>DynamicBonds</em> representation can be misleading.</p>
 </div>
 <div class="justify docutils container">
 <p>Looking at the evolution of the energy again, one can see the energy increasing
@@ -1061,7 +1058,7 @@ are used in these tutorials from <a href="https://github.com/lammpstutorials/lam
 This repository also contains the full solutions to the exercises.</p>
 </div>
 <div class="justify docutils container">
-<p>There is a follow-up to this CNT tutorial as a <a class="reference internal" href="../mdanalysis/mdanalysis-tutorial.html#mda-label"><span class="std std-ref">MDAnalysis short tutorials</span></a>,
+<p>There is a follow-up to this CNT tutorial as <a class="reference internal" href="../mdanalysis/mdanalysis-tutorial.html#mda-label"><span class="std std-ref">MDAnalysis short tutorials</span></a>,
 where a post-mortem analysis is performed using Python.</p>
 </div>
 </section>
