@@ -888,6 +888,11 @@ Stretching the PEG molecule
     Figure: Evolution of the end-to-end distance of the PEG molecule
     with time. The forcing starts at :math:`t = 30` ps.
 
+..  container:: justify
+
+    There is a follow-up to this polymer in water tutorial as :ref:`mda-label`,
+    where the trajectory is imported in Python using MDAnalysis.
+
 .. include:: ../../non-tutorials/accessfile.rst
 
 Going further with exercises
