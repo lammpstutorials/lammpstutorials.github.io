@@ -1132,3 +1132,9 @@ A slightly acidic bulk solution
     1       -1.1128
     2        0.5564
     3        0.5564
+
+.. container:: justify
+
+    Here, appart from creating water molecules everywere in the box, a few 
+    additional hydrogen atom are added randomly to the system to make the solution
+    slightly acidic.
