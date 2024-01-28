@@ -568,7 +568,7 @@ Decorate the surface
 
 ..  container:: justify
 
-    Finally, let us use create a loop with 20 steps,
+    Finally, let us use create a loop with 10 steps,
     and create two hydrogens atom at random locations at every step: 
 
 ..  code-block:: lammps
@@ -592,15 +592,16 @@ Decorate the surface
     
 ..  container:: justify
 
-    Here a different *lammpstrj* file is created for each step of the
-    loop, in order to avoid creating dump files with varying number of atoms
-    that VMD can't read.
+    Here, a different *lammpstrj* file is created for each step of the
+    loop in order to avoid creating dump files with varying number of atoms,
+    which VMD can't read.
 
 ..  container:: justify
 
     Once the simulation is over, it can be seen from the *species.log*
-    file that most of the added hydrogen atoms reacted with 
-    the :math:`\text{SiO}_{2}` structure to form hydroxyl (-OH) groups.
+    file that all the created hydrogen atoms reacted with 
+    the :math:`\text{SiO}_{2}` structure to form surface groups
+    (such as hydroxyl (-OH) groups).
 
 ..  code-block:: lammps
 
@@ -620,8 +621,9 @@ Decorate the surface
 
 ..  container:: figurelegend
 
-    Figure: Cracked silicon oxide after addition of hydrogen atoms. The atoms are colored by
-    their charges.
+    Figure: Cracked silicon oxide after addition of hydrogen atoms. 
+    Some hydroxyl groups can be seen at the interfaces.
+    The atoms are colored by their charges.
 
 .. include:: ../../non-tutorials/accessfile.rst
 
@@ -683,7 +685,8 @@ A slightly acidic bulk solution
 
 ..  container:: justify
 
-    Create a bulk water system with a few hydronium ions using *ReaxFF*.
+    Create a bulk water system with a few hydronium ions (:math:`H_3O^+`
+    or :math:`H^+`) using *ReaxFF*.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/acidic-water-light.png
     :alt: Acidic bulk water with ReaxFF
