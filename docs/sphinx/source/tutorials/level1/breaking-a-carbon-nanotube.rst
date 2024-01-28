@@ -55,8 +55,8 @@ Unbreakable bonds
     between the atoms are set at the start of the simulation. Regardless of the 
     forces applied on the atoms during the simulations, the bonds remain intact.
     The bonds between neighbor atoms typically consist of springs with
-    given equilibrium distances :math:`r_0` and
-    constant :math:`U_b = k_b \left( r - r_0 \right)^2`.
+    given equilibrium distances :math:`r_0` and a constant :math:`k_b`:
+    :math:`U_b = k_b \left( r - r_0 \right)^2`.
     Additionally, angular and dihedral constraints are usually applied to maintain
     the relative orientations of neighbor atoms. 
 
