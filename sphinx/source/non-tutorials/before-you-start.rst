@@ -25,16 +25,16 @@ Required softwares
 
 ..  container:: justify
 
-    The 2 Aug 2023 version of LAMMPS is required
+    The 2Aug2023 version of LAMMPS is required
     to follow the tutorials :cite:`thompson2022lammps`.
     The other softwares listed here are optional.
 
-LAMMPS (2 Aug 2023)
+LAMMPS (2Aug2023)
 -------------------
 
 ..  container:: justify
 
-    Download and install the 2 Aug 2023 version of LAMMPS by following the
+    Download and install the 2Aug2023 version of LAMMPS by following the
     instructions of the |LAMMPS website installation|.
     Depending on your operative system (i.e. Linux, macOS, or Windows),
     the procedure may differ.
@@ -139,6 +139,8 @@ Find the input scripts
 Recommended reading
 ===================
 
-My favorite molecular simulation reading is
-*Understanding molecular simulation* by Daan Frenkel and Berend
-Smit :cite:`frenkel2023understanding`.
+..  container:: justify
+
+    My favorite molecular simulation reading is
+    *Understanding molecular simulation* by Daan Frenkel and Berend
+    Smit :cite:`frenkel2023understanding`.

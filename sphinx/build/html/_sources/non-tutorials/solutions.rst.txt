@@ -1080,7 +1080,7 @@ Hydrate the structure
 
 .. container:: justify
 
-    Add molecules to the crack using:
+    Add molecules to the system using:
 
 .. code-block:: lammps
 

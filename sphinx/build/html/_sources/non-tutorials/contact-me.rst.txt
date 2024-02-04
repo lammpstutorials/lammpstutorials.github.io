@@ -35,8 +35,7 @@ Support the project
 ..  container:: justify
 
     You can support the project financially by registering on |patreon|
-    or by donating on |tipeee|. You can also contribute by sending me
-    feedback from the tutorial by `email`_.
+    or by donating on |tipeee|.
 
 .. |patreon| raw:: html
 
@@ -52,7 +51,7 @@ About me
 ..  container:: justify
 
     I have been using LAMMPS for research and education since 2012, see my |personal_page_simon_gravelle|.
-    Follow me on |mastodon_simon_gravelle| or |twitter_simon_gravelle|, where I post news about these tutorials
+    Follow me on |twitter_simon_gravelle|, where I post news about these tutorials
     and about my research, or follow me on |github_simon_gravelle|, where I share more molecular simulation content.
 
 .. |personal_page_simon_gravelle| raw:: html
@@ -62,10 +61,6 @@ About me
 .. |twitter_simon_gravelle| raw:: html
 
    <a href="https://twitter.com/GravelleSimon" target="_blank">twitter</a>
-
-.. |mastodon_simon_gravelle| raw:: html
-
-    <a href="https://mastodon.social/@simongravelle" target="_blank">mastodon</a>
 
 .. |github_simon_gravelle| raw:: html
 
