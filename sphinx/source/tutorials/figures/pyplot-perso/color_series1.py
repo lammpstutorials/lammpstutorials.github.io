@@ -1,3 +1,4 @@
+import numpy as np
 
 colors = {
   "myblue": [0.0, 0.588, 0.694],
@@ -8,3 +9,15 @@ colors = {
   "mygray": [0.5, 0.5, 0.5],
   "mydarkgray": [0.9, 0.9, 0.9],
 }
+
+def mygradient(N, color1, color2, final_value=False):
+    """Generate a color gradient from color1 to color2"""
+    if final_value:
+        R = np.linspace(color1[0], color2[0], N)
+        G = np.linspace(color1[1], color2[1], N)
+        B = np.linspace(color1[2], color2[2], N)
+    else:
+        R = np.linspace(color1[0], color2[0], N)[1:-1]
+        G = np.linspace(color1[1], color2[1], N)[1:-1]
+        B = np.linspace(color1[2], color2[2], N)[1:-1]
+    return np.vstack([R, G, B]).T

@@ -1,19 +1,39 @@
 .. _glossary-label:
 
-Glossary
-********
+LAMMPS Glossary
+***************
 
 .. container:: justify
 
-    This glossary contains definition of terms commonly encountered when working with LAMMPS. 
+    This glossary contains short definitions of the most common LAMMPS-specific words
+    encountered when working with LAMMPS. 
 
 Compute
 =======
 
 .. container:: justify
 
-    A *compute* is a command that calculates and outputs specific quantities during a
-    simulation, such as energy, temperature, or pressure. 
+    A *compute* is a command that calculates specific quantities during a
+    simulation, such as energy, temperature, or pressure. The output(s) of a
+    |compute-documentation| named *cname* can be accessed using "c_cname". 
+
+.. |compute-documentation| raw:: html
+
+   <a href="https://docs.lammps.org/compute.html" target="_blank">computes</a>
+    
+.. container:: justify
+
+    **Example:** Here, the first compute named *ke_per_atom* returns a vector
+    containing the kinetic energy *ke* for each atom, and the second
+    compute named *mean_ke* returns the sum of the elements 
+    of the vector. The sum is then printed in the log file using *thermo_style*,
+    alongside the simulation *step*:
+
+..  code-block:: lammps
+
+    compute ke_per_atom all ke/atom
+    compute mean_ke all reduce sum c_ke_per_atom
+    thermo_style custom step c_mean_ke
 
 Dump file
 =========

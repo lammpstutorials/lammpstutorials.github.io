@@ -15,7 +15,7 @@
         <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Bibliography" href="bibliography.html" /><link rel="prev" title="MDAnalysis short tutorials" href="../tutorials/mdanalysis/mdanalysis-tutorial.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
-        <title>Glossary - </title>
+        <title>LAMMPS Glossary - </title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
@@ -193,7 +193,7 @@
 <li class="toctree-l1"><a class="reference internal" href="solutions.html">Solutions to the exercises</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/vmd/vmd-tutorial.html">VMD tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/mdanalysis/mdanalysis-tutorial.html">MDAnalysis short tutorials</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Glossary</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">LAMMPS Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../miscellaneous/use-gromacs-instead.html">Use GROMACS instead</a></li>
 </ul>
@@ -230,16 +230,30 @@
           </label>
         </div>
         <article role="main">
-          <section id="glossary">
-<span id="glossary-label"></span><h1>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h1>
+          <section id="lammps-glossary">
+<span id="glossary-label"></span><h1>LAMMPS Glossary<a class="headerlink" href="#lammps-glossary" title="Link to this heading">#</a></h1>
 <div class="justify docutils container">
-<p>This glossary contains definition of terms commonly encountered when working with LAMMPS.</p>
+<p>This glossary contains short definitions of the most common LAMMPS-specific words
+encountered when working with LAMMPS.</p>
 </div>
 <section id="compute">
 <h2>Compute<a class="headerlink" href="#compute" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>A <em>compute</em> is a command that calculates and outputs specific quantities during a
-simulation, such as energy, temperature, or pressure.</p>
+<p>A <em>compute</em> is a command that calculates specific quantities during a
+simulation, such as energy, temperature, or pressure. The output(s) of a
+<a href="https://docs.lammps.org/compute.html" target="_blank">computes</a> named <em>cname</em> can be accessed using “c_cname”.</p>
+</div>
+<div class="justify docutils container">
+<p><strong>Example:</strong> Here, the first compute named <em>ke_per_atom</em> returns a vector
+containing the kinetic energy <em>ke</em> for each atom, and the second
+compute named <em>mean_ke</em> returns the sum of the elements
+of the vector. The sum is then printed in the log file using <em>thermo_style</em>,
+alongside the simulation <em>step</em>:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">ke_per_atom</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ke</span><span class="o">/</span><span class="n">atom</span>
+<span class="k">compute </span><span class="nv nv-Identifier">mean_ke</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">reduce</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="n">c_ke_per_atom</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">c_mean_ke</span>
+</pre></div>
 </div>
 </section>
 <section id="dump-file">
@@ -455,7 +469,7 @@ small-scale simulations or when parallel computing resources are not available.<
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Glossary</a><ul>
+<li><a class="reference internal" href="#">LAMMPS Glossary</a><ul>
 <li><a class="reference internal" href="#compute">Compute</a></li>
 <li><a class="reference internal" href="#dump-file">Dump file</a></li>
 <li><a class="reference internal" href="#ensemble">Ensemble</a></li>
