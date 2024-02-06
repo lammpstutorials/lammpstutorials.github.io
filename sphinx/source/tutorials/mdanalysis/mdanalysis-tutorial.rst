@@ -46,7 +46,8 @@ Simple trajectory import
 
     Here, we re-use a trajectory generated
     during the :ref:`all-atoms-label` tutorial.
-    Download the |dump_all_atom| and the |data_all_atom| files
+    Download the |dump_all_atom|
+    and the |data_all_atom| files
     to continue with this tutorial.
 
 .. |dump_all_atom| raw:: html
