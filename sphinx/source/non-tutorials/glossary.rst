@@ -15,7 +15,7 @@ Compute
 
     A *compute* is a command that calculates specific quantities during a
     simulation, such as energy, temperature, or pressure. The output(s) of a
-    |compute-documentation| named *cname* can be accessed using "c_cname". 
+    |compute-documentation| named *cname* can be accessed using :math:`\text{c}\_\text{cname}`. 
 
 .. |compute-documentation| raw:: html
 
