@@ -10,8 +10,8 @@ Contact me
 
 .. _email: simon.gravelle@live.fr
 
-Need help?
-==========
+Looking for help?
+=================
 
 .. figure:: figures/contact-me/patreon.png
     :height: 100
@@ -21,8 +21,8 @@ Need help?
 
 ..  container:: justify
 
-    If you are looking for support and advice for your simulations, you can
-    become a |patreon|, and:
+    If you are looking for support in setting-up your
+    molecular simulations, you can become a |patreon|, and:
 
     - Receive **personalized advice** for your project
     - Have your LAMMPS **inputs reviewed**
