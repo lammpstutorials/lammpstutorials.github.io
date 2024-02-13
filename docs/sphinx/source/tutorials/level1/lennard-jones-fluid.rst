@@ -21,8 +21,8 @@ Lennard-Jones fluid
 
 ..  container:: abstract
 
-    The objective of this tutorial is to perform a simple molecular
-    dynamics simulation of a binary fluid using LAMMPS.
+    The objective of this tutorial is to set, launch, and analyze
+    a molecular dynamics simulation of a binary fluid using LAMMPS.
     
 ..  container:: abstract
 
