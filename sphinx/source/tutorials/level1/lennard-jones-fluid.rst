@@ -7,17 +7,10 @@ Lennard-Jones fluid
 
    The very basics of LAMMPS through a simple example
 
-.. figure:: ../figures/level1/lennard-jones-fluid/binary_LJ_fluid_dark.webp
-    :alt: video of a binary fluid simulated by LAMMPS
+.. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-fluid-avatar.png
+    :alt: binary lennard jones fluid simulated with LAMMPS
     :height: 250
     :align: right
-    :class: only-dark
-
-.. figure:: ../figures/level1/lennard-jones-fluid/binary_LJ_fluid_light.webp
-    :alt: video of a binary fluid simulated by LAMMPS
-    :height: 250
-    :align: right
-    :class: only-light
 
 ..  container:: abstract
 
