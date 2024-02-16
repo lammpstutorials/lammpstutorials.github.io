@@ -841,8 +841,8 @@ Stretching the PEG molecule
 
 ..  code-block:: lammps
 
-    fix myaf1 oxygen_end1 addforce ${f0} 0 0
-    fix myaf2 oxygen_end2 addforce -${f0} 0 0
+    fix myaf1 topull1 addforce ${f0} 0 0
+    fix myaf2 topull2 addforce -${f0} 0 0
     run 30000
 
 ..  container:: justify
