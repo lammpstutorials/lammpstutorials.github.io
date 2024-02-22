@@ -563,15 +563,16 @@ Induce a Poiseuille flow
 
 .. container:: justify
 
-    which can be derived from the Stokes equation :math:`\eta \nabla \textbf{v} = - \textbf{f} \rho`
-    where :math:`f` is the applied force,
+    where :math:`\textbf{f}` is the applied force,
     :math:`\rho` is the fluid density,
     :math:`\eta` is the fluid viscosity, and
-    :math:`h = 1.2\,\text{nm}` is the pore size.
-    A small correction :math:`\alpha = 0.78` was used. This correction 
-    compensates the fact that using bulk density and bulk viscosity is obviously
+    :math:`h = 1.2\,\text{nm}` is the pore size. The expression
+    for :math:`v` can be derived
+    from the Stokes equation :math:`\eta \nabla \textbf{v} = - \textbf{f} \rho`.
+    A small correction :math:`\alpha = 0.78` was necessary,
+    since using bulk density and bulk viscosity is obviously
     no correct in such nanoconfined pore. More subtle corrections could be applied
-    by correcting both density and viscosity based on independent measurement, but this is 
+    by correcting both density and viscosity based on independent measurements, but this is 
     beyond the scope of the present exercise.
 
 .. container:: justify

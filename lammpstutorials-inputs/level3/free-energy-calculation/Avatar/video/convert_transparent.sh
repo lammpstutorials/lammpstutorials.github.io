@@ -10,7 +10,7 @@ do
 	convert $file -transparent white ${file:0:11}.png;
 done
 
-img2webp -o ../../../../../docs/sphinx/source/tutorials/figures/level3/free-energy-calculation/avatar_light.webp -q 30 -mixed -d 70 light*.png
+img2webp -o avatar_light.webp -q 30 -mixed -d 70 light*.png
 
 # 2) Generate black background movie
 for file in dark.*.ppm; 
@@ -18,4 +18,4 @@ do
 	convert $file -transparent black ${file:0:10}.png;
 done
 
-img2webp -o ../../../../../docs/sphinx/source/tutorials/figures/level3/free-energy-calculation/avatar_dark.webp -q 30 -mixed -d 70 dark*.png
+img2webp -o avatar_dark.webp -q 30 -mixed -d 70 dark*.png
