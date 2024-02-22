@@ -448,7 +448,7 @@ into PARM.lammps:</p>
 <span class="k">mass</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">26.9815</span><span class="w"> </span><span class="c"># wall</span>
 
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.185199</span><span class="w"> </span><span class="m">3.1589</span><span class="w"> </span><span class="c"># water</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="c"># water</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="c"># water</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0.04690</span><span class="w"> </span><span class="m">2.4299</span><span class="w"> </span><span class="c"># ion</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0.1500</span><span class="w"> </span><span class="m">4.04470</span><span class="w"> </span><span class="c"># ion</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">11.697</span><span class="w"> </span><span class="m">2.574</span><span class="w"> </span><span class="c"># wall</span>
@@ -468,33 +468,32 @@ particle-particle potential energy is 0.</p>
 <div class="info admonition">
 <p class="admonition-title">About the parameters</p>
 <p>The parameters for water
-correspond to the TIP4P/2005 water model, and the parameters
-for <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>  are
-taken from the CHARMM-27 force field <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id21" title="Alexander D MacKerell Jr, Nilesh Banavali, and Nicolas Foloppe. Development and current status of the charmm force field for nucleic acids. Biopolymers: original Research on biomolecules, 56(4):257–265, 2000.">19</a>]</span>.</p>
+correspond to the TIP4P/2005 water model, for which only
+the oxygen interacts through Lennard-Jones potentiel, and the parameters
+for <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span> are
+from the CHARMM-27 force field <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id21" title="Alexander D MacKerell Jr, Nilesh Banavali, and Nicolas Foloppe. Development and current status of the charmm force field for nucleic acids. Biopolymers: original Research on biomolecules, 56(4):257–265, 2000.">19</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>As already seen in previous tutorials,
 and with the important exception of <em>pair_coeff 1 5</em>,
 only pairwise interaction between atoms of
-identical type were assigned. By default, LAMMPS calculates
+identical types were assigned. By default, LAMMPS calculates
 the pair coefficients for the interactions between atoms
 of different types (i and j) by using geometrical
 average: <span class="math notranslate nohighlight">\(\epsilon_{ij} = (\epsilon_{ii} + \epsilon_{jj})/2\)</span>,
 <span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_{ii} + \sigma_{jj})/2.\)</span>
 Other rules for cross coefficients can be set with the
 <em>pair_modify</em> command, but for the sake of simplicity,
-let us keep the default option here.</p>
+the default option is kept here.</p>
 </div>
 <div class="justify docutils container">
 <p>By default, the value
 of <span class="math notranslate nohighlight">\(\epsilon_\text{1-5} = 5.941\,\text{kcal/mol}\)</span> would
-be extremely high
-(compare to the water-water
+be extremely high (compare to the water-water
 energy <span class="math notranslate nohighlight">\(\epsilon_\text{1-1} = 0.185199\,\text{kcal/mol}\)</span>),
 which would make the surface extremely hydrophilic.
 The walls were made less hydrophilic by reducing the
-LJ energy of interaction <span class="math notranslate nohighlight">\(\epsilon_\text{1-5}\)</span>
-to a lower value.</p>
+LJ energy of interaction <span class="math notranslate nohighlight">\(\epsilon_\text{1-5}\)</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>bond_coeff</em>, which is here used for the O-H bond of the water

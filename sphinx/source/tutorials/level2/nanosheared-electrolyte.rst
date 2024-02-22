@@ -261,7 +261,7 @@ System generation
     mass 5 26.9815 # wall
 
     pair_coeff 1 1 0.185199 3.1589 # water
-    pair_coeff 2 2 0.0 0.0 # water
+    pair_coeff 2 2 0.0 1.0 # water
     pair_coeff 3 3 0.04690 2.4299 # ion
     pair_coeff 4 4 0.1500 4.04470 # ion
     pair_coeff 5 5 11.697 2.574 # wall
@@ -282,35 +282,34 @@ System generation
     :class: info
 
     The parameters for water
-    correspond to the TIP4P/2005 water model, and the parameters
-    for :math:`\text{Na}^+` and :math:`\text{Cl}^-`  are
-    taken from the CHARMM-27 force field :cite:`mackerell2000development`.
+    correspond to the TIP4P/2005 water model, for which only 
+    the oxygen interacts through Lennard-Jones potentiel, and the parameters
+    for :math:`\text{Na}^+` and :math:`\text{Cl}^-` are
+    from the CHARMM-27 force field :cite:`mackerell2000development`.
 
 ..  container:: justify
 
     As already seen in previous tutorials, 
     and with the important exception of *pair_coeff 1 5*,
     only pairwise interaction between atoms of
-    identical type were assigned. By default, LAMMPS calculates
+    identical types were assigned. By default, LAMMPS calculates
     the pair coefficients for the interactions between atoms
     of different types (i and j) by using geometrical
     average: :math:`\epsilon_{ij} = (\epsilon_{ii} + \epsilon_{jj})/2`, 
     :math:`\sigma_{ij} = (\sigma_{ii} + \sigma_{jj})/2.`
     Other rules for cross coefficients can be set with the
     *pair_modify* command, but for the sake of simplicity,
-    let us keep the default option here.
+    the default option is kept here.
 
 .. container:: justify
 
     By default, the value
     of :math:`\epsilon_\text{1-5} = 5.941\,\text{kcal/mol}` would
-    be extremely high
-    (compare to the water-water
+    be extremely high (compare to the water-water
     energy :math:`\epsilon_\text{1-1} = 0.185199\,\text{kcal/mol}`),
     which would make the surface extremely hydrophilic.
     The walls were made less hydrophilic by reducing the 
-    LJ energy of interaction :math:`\epsilon_\text{1-5}`
-    to a lower value.
+    LJ energy of interaction :math:`\epsilon_\text{1-5}`.
 
 ..  container:: justify
 
