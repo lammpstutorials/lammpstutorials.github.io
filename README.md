@@ -47,8 +47,9 @@ The Matplotlib Pyplot functions for the figures are shared [here](https://github
 
 ### Template ###
 
-The template from the first page has been adapted from [HTML5 UP](https://html5up.net/). The other pages are
-using sphinx with the [furo style](https://github.com/pradyunsg/furo).
+The template from the first page has been adapted from [HTML5 UP](https://html5up.net/).
+The other pages are using the [Sphinx generator](https://www.sphinx-doc.org/)
+with the [furo style](https://github.com/pradyunsg/furo).
 
 ### Contact me ###
 
