@@ -242,16 +242,16 @@
 <a class="only-light reference internal image-reference" href="../../_images/lennard-jones-fluid-avatar-light.webp"><img alt="binary lennard jones fluid simulated with LAMMPS" class="only-light" src="../../_images/lennard-jones-fluid-avatar-light.webp" style="height: 250px;" /></a>
 </figure>
 <div class="abstract docutils container">
-<p>The objective of this tutorial is to set, launch, and analyze
-a molecular dynamics simulation of a binary fluid using LAMMPS.</p>
+<p>The objective of this tutorial is to perform
+the simulation of a binary fluid using LAMMPS.</p>
 </div>
 <div class="abstract docutils container">
 <p>The system is a Lennard-Jones fluid made of neutral
 particles with two different diameters in a cubic box with periodic
-boundary conditions. The temperature of the system is imposed
-using a Langevin thermostat <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id20" title="T Schneider and E Stoll. Molecular-dynamics study of a three-dimensional one-component model for distortive phase transitions. Physical Review B, 17(3):1302, 1978.">9</a>]</span>, and some
+boundary conditions. The temperature of the system is maintained
+using a Langevin thermostat <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id20" title="T Schneider and E Stoll. Molecular-dynamics study of a three-dimensional one-component model for distortive phase transitions. Physical Review B, 17(3):1302, 1978.">9</a>]</span>, and
 basic quantities are extracted
-from the system, such as the potential and kinetic energies.</p>
+from the system, including the potential and kinetic energies.</p>
 </div>
 <div class="abstract docutils container">
 <p>This tutorial illustrates several key ingredients of
@@ -305,8 +305,8 @@ input, and the <em>Run</em> category at the bottom.</p>
 let us indicate to LAMMPS the most basic information
 about the simulation, such as:</p>
 <ul class="simple">
-<li><p>the conditions at the boundaries of the box (periodic, non-periodic, …),</p></li>
-<li><p>the type of atoms (uncharged single dots, spheres with angular velocities, …).</p></li>
+<li><p>the conditions at the boundaries of the box (e.g. periodic or non-periodic),</p></li>
+<li><p>the type of atoms (e.g. uncharged single dots or spheres with angular velocities).</p></li>
 </ul>
 <p>Enter the following lines in <em>input.lammps</em>:</p>
 </div>
@@ -348,8 +348,8 @@ will be used, therefore each atom is just a dot with a mass.</p>
 <p class="admonition-title">About the atom style</p>
 <p>While we are keeping things as simple as possible in this tutorial,
 different <em>atom_style</em> will be used in the following tutorials.
-These other <em>atom_style</em> will allow us to create atoms with
-charges, chemical bonds, etc.</p>
+Notably, these other atom styles will allow us to create molecules,
+i.e. atoms with partial charges and chemical bonds.</p>
 </div>
 <div class="justify docutils container">
 <p>The fourth line, <em>pair_style lj/cut 2.5</em>, indicates that atoms
@@ -363,8 +363,8 @@ a cut-off equal to <span class="math notranslate nohighlight">\(r_c = 2.5\)</spa
 <div class="justify docutils container">
 <p>where <span class="math notranslate nohighlight">\(r\)</span> is the inter-particles distance,
 <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> the depth of potential well that sets the interaction strength, and
-<span class="math notranslate nohighlight">\(\sigma_{ij}\)</span> the distance parameter or particle effective size.
-Here, the index <em>ij</em> refer to the particle types <em>i</em> and <em>j</em>.</p>
+<span class="math notranslate nohighlight">\(\sigma_{ij}\)</span> the distance parameter, or particle effective size.
+Here, the indexes <em>ij</em> refer to the particle types <em>i</em> and <em>j</em>.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About Lennard-Jones potential</p>
@@ -468,11 +468,10 @@ the <em>input</em> script:</p>
 </div>
 <div class="justify docutils container">
 <p>The two first commands, <em>mass (…)</em>, attribute a mass
-equal to 1 (unitless) to both atoms of type 1 and 2,
-respectively.alternatively, one could have written
+equal to 1 (unitless) to both atoms of type 1 and 2.
+Alternatively, one could have written
 these two commands into one single line: <em>mass * 1</em>,
-where the star symbol
-means <em>all</em> the atom types of the simulation.</p>
+where the star symbol means <em>all</em> the atom types of the simulation.</p>
 </div>
 <div class="justify docutils container">
 <p>The third line, <em>pair_coeff 1 1 1.0 1.0</em>, sets the Lennard-Jones
@@ -493,17 +492,16 @@ using geometric average:
 <span class="math notranslate nohighlight">\(\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}\)</span>.
 In the present case, and even without specifying it explicitly, we thus have:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{1.0 \times 0.5} = 0.707\)</span>, and</p></li>
-<li><p><span class="math notranslate nohighlight">\(\sigma_{ij} = \sqrt{1.0 \times 3.0} = 1.732\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon_{12} = \sqrt{1.0 \times 0.5} = 0.707\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732\)</span>.</p></li>
 </ul>
-<p>When necessary, cross parameters can be explicitly specifie
-by adding the following
-line to the input file: <em>pair_coeff 1 2 0.707 1.732</em>.</p>
+<p>When necessary, cross parameters can be explicitly specified
+by adding the following line to the input file: <em>pair_coeff 1 2 0.707 1.732</em>.</p>
 <p>Note that the arithmetic rule, where
 <span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\)</span>,
 <span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2\)</span>,
 is more common than the geometric rule. However, neither the geometric nor the
-arithmetic rule are based on rigorous arguments, so here
+arithmetic rules are based on rigorous arguments, so here
 the geometric rule will do just fine.</p>
 </div>
 <div class="justify docutils container">
@@ -520,7 +518,8 @@ and <span class="math notranslate nohighlight">\(E_{22} (r)\)</span>.</p>
 <img alt="Lennard jones potential" class="only-dark" src="../../_images/lennard-jones-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: The Lennard-Jones potential <span class="math notranslate nohighlight">\(E_{ij} (r)\)</span>, where
+<p>Figure: The Lennard-Jones potential <span class="math notranslate nohighlight">\(E_{ij} (r)\)</span>
+as a function of the inter-particle distance, where
 <span class="math notranslate nohighlight">\(i, j = 1 ~ \text{or} ~ 2\)</span>.</p>
 </div>
 </section>
@@ -553,11 +552,11 @@ asks LAMMPS to perform an energy minimization of the system.</p>
 <p>An energy minimization procedure consists in adjusting
 the coordinates of the atoms that are too close to each other until one of the stopping
 criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
-Here, there are four stopping criteria:</p>
+There are four stopping criteria:</p>
 <ul class="simple">
-<li><p>The change in energy between two iterations is less than 1.0e-4,</p></li>
-<li><p>The maximum force between two atoms in the system is lower than 1.0e-6,</p></li>
-<li><p>The maximum number of iterations is 1000,</p></li>
+<li><p>The change in energy between two iterations is less than 1.0e-4.</p></li>
+<li><p>The maximum force between two atoms in the system is lower than 1.0e-6.</p></li>
+<li><p>The maximum number of iterations is 1000.</p></li>
 <li><p>The maximum number of times the force and the energy have been evaluated is 10000.</p></li>
 </ul>
 </div>

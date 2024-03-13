@@ -21,17 +21,17 @@ Lennard-Jones fluid
 
 ..  container:: abstract
 
-    The objective of this tutorial is to set, launch, and analyze
-    a molecular dynamics simulation of a binary fluid using LAMMPS.
+    The objective of this tutorial is to perform
+    the simulation of a binary fluid using LAMMPS.
     
 ..  container:: abstract
 
     The system is a Lennard-Jones fluid made of neutral
     particles with two different diameters in a cubic box with periodic
-    boundary conditions. The temperature of the system is imposed
-    using a Langevin thermostat :cite:`schneider1978molecular`, and some
+    boundary conditions. The temperature of the system is maintained
+    using a Langevin thermostat :cite:`schneider1978molecular`, and
     basic quantities are extracted
-    from the system, such as the potential and kinetic energies. 
+    from the system, including the potential and kinetic energies. 
 
 ..  container:: abstract
 
@@ -89,8 +89,8 @@ System creation
     let us indicate to LAMMPS the most basic information
     about the simulation, such as:
 
-    - the conditions at the boundaries of the box (periodic, non-periodic, ...),
-    - the type of atoms (uncharged single dots, spheres with angular velocities, ...).
+    - the conditions at the boundaries of the box (e.g. periodic or non-periodic),
+    - the type of atoms (e.g. uncharged single dots or spheres with angular velocities).
 
     Enter the following lines in *input.lammps*:
 
@@ -141,8 +141,8 @@ System creation
 
     While we are keeping things as simple as possible in this tutorial,
     different *atom_style* will be used in the following tutorials.
-    These other *atom_style* will allow us to create atoms with
-    charges, chemical bonds, etc.
+    Notably, these other atom styles will allow us to create molecules,
+    i.e. atoms with partial charges and chemical bonds.
 
 ..  container:: justify
 
@@ -158,8 +158,8 @@ System creation
 
     where :math:`r` is the inter-particles distance,
     :math:`\epsilon_{ij}` the depth of potential well that sets the interaction strength, and
-    :math:`\sigma_{ij}` the distance parameter or particle effective size.
-    Here, the index *ij* refer to the particle types *i* and *j*.
+    :math:`\sigma_{ij}` the distance parameter, or particle effective size.
+    Here, the indexes *ij* refer to the particle types *i* and *j*.
 
 .. admonition:: About Lennard-Jones potential
     :class: info
@@ -282,11 +282,10 @@ System creation
 ..  container:: justify
 
     The two first commands, *mass (...)*, attribute a mass
-    equal to 1 (unitless) to both atoms of type 1 and 2,
-    respectively.alternatively, one could have written
+    equal to 1 (unitless) to both atoms of type 1 and 2.
+    Alternatively, one could have written
     these two commands into one single line: *mass * 1*,
-    where the star symbol
-    means *all* the atom types of the simulation. 
+    where the star symbol means *all* the atom types of the simulation. 
     
 ..  container:: justify
     
@@ -310,18 +309,17 @@ System creation
     :math:`\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}`. 
     In the present case, and even without specifying it explicitly, we thus have:
 
-    - :math:`\epsilon_{ij} = \sqrt{1.0 \times 0.5} = 0.707`, and 
-    - :math:`\sigma_{ij} = \sqrt{1.0 \times 3.0} = 1.732`.
+    - :math:`\epsilon_{12} = \sqrt{1.0 \times 0.5} = 0.707`, and 
+    - :math:`\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732`.
 
-    When necessary, cross parameters can be explicitly specifie
-    by adding the following 
-    line to the input file: *pair_coeff 1 2 0.707 1.732*. 
+    When necessary, cross parameters can be explicitly specified
+    by adding the following line to the input file: *pair_coeff 1 2 0.707 1.732*. 
 
     Note that the arithmetic rule, where 
     :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
     :math:`\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2`, 
     is more common than the geometric rule. However, neither the geometric nor the
-    arithmetic rule are based on rigorous arguments, so here
+    arithmetic rules are based on rigorous arguments, so here
     the geometric rule will do just fine. 
 
 ..  container:: justify
@@ -343,7 +341,8 @@ System creation
 
 ..  container:: figurelegend
 
-    Figure: The Lennard-Jones potential :math:`E_{ij} (r)`, where
+    Figure: The Lennard-Jones potential :math:`E_{ij} (r)`
+    as a function of the inter-particle distance, where
     :math:`i, j = 1 ~ \text{or} ~ 2`.
 
 Energy minimization
@@ -380,11 +379,11 @@ Energy minimization
     An energy minimization procedure consists in adjusting
     the coordinates of the atoms that are too close to each other until one of the stopping
     criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
-    Here, there are four stopping criteria:
+    There are four stopping criteria:
 
-    - The change in energy between two iterations is less than 1.0e-4,
-    - The maximum force between two atoms in the system is lower than 1.0e-6,
-    - The maximum number of iterations is 1000,
+    - The change in energy between two iterations is less than 1.0e-4.
+    - The maximum force between two atoms in the system is lower than 1.0e-6.
+    - The maximum number of iterations is 1000.
     - The maximum number of times the force and the energy have been evaluated is 10000.
 
 ..  container:: justify
