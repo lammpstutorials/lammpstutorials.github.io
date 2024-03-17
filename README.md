@@ -64,7 +64,7 @@ find more information on my [personal webpage](https://simongravelle.github.io/)
 ### License ###
 
 All the LAMMPS inputs/data/parameter files and Python scripts are released under the 
-GNU general public license v3.0.
+GNU general public license v3.0: feel free to adapt and re-publish them.  
 
 ### Acknowledgments ###
 
