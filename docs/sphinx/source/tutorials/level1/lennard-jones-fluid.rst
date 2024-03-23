@@ -74,9 +74,9 @@ My first input
 
     These five categories are not required in every
     input script, and should not necessarily be in that
-    exact order. For instance parts 3 and 4 could be inverted, or
+    exact order. For instance, parts 3 and 4 could be inverted, or
     part 4 could be omitted. Note however that LAMMPS reads input
-    file from top to bottom, therefore the *Initialization* and 
+    files from top to bottom, therefore the *Initialization* and 
     *System definition* categories must appear at the top of the
     input, and the *Run* category at the bottom.
 
@@ -124,7 +124,7 @@ System creation
 
     All the other quantities are normalized by a combination of :math:`\epsilon`, :math:`\sigma`,
     and :math:`m`. For instance, time is expressed in units of :math:`\sqrt{ \epsilon / m \sigma^2}`.
-    Find on details on the |LAMMPS_units|.
+    Find details on the |LAMMPS_units|.
     
 .. |LAMMPS_units| raw:: html
 
@@ -164,12 +164,14 @@ System creation
 .. admonition:: About Lennard-Jones potential
     :class: info
 
-    The Lennard-Jones potential offers a simplified representation that captures the fundamental
+    The Lennard-Jones potential offers a simplified representation
+    that captures the fundamental
     aspects of interactions among atoms. It depicts a scenario where two
     particles exhibit repulsion at extremely close distances, attraction at moderate
     distances, and no interaction at infinite separation. The repulsive part of the 
     Lennard-Jones potential (i.e. the term :math:`\propto r^{-12}`) is associated
-    with the Pauli exclusion principle. The attractive part (i.e. the term in :math:`\propto - r^{-6}`)
+    with the Pauli exclusion principle. The attractive part (i.e. the term
+    in :math:`\propto - r^{-6}`)
     is linked with the van der Waals forces.
 
 ..  container:: justify
@@ -203,7 +205,7 @@ System creation
 
 ..  container:: justify
 
-    In case there is a mistake in the input script, for example if
+    In case there is a mistake in the input script, for example, if
     *atom_stile* is written instead of *atom_style*, LAMMPS
     gives you an explicit warning:
 
@@ -312,7 +314,7 @@ System creation
     - :math:`\epsilon_{12} = \sqrt{1.0 \times 0.5} = 0.707`, and 
     - :math:`\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732`.
 
-    When necessary, cross parameters can be explicitly specified
+    When necessary, cross-parameters can be explicitly specified
     by adding the following line to the input file: *pair_coeff 1 2 0.707 1.732*. 
 
     Note that the arithmetic rule, where 
@@ -331,12 +333,12 @@ System creation
     and :math:`E_{22} (r)`.
 
 .. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-light.png
-    :alt: Lennard jones potential
+    :alt: Lennard Jones potential
     :class: only-light
     :name: fig-lennard-jones
 
 .. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-dark.png
-    :alt: Lennard jones potential
+    :alt: Lennard Jones potential
     :class: only-dark
 
 ..  container:: figurelegend
@@ -376,7 +378,7 @@ Energy minimization
 .. admonition:: About energy minimization
     :class: info
 
-    An energy minimization procedure consists in adjusting
+    An energy minimization procedure consists of adjusting
     the coordinates of the atoms that are too close to each other until one of the stopping
     criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
     There are four stopping criteria:
@@ -408,16 +410,16 @@ Energy minimization
 ..  container:: justify
 
     These lines give us information about
-    the progresses of the energy minimization. First, at the start
+    the progress of the energy minimization. First, at the start
     of the simulation (Step 0), the energy in the system is
     huge: 78840982 (unitless). This was expected because
     the atoms have been created at random positions within the
-    simulation box, and some of them are probably overlapping,
+    simulation box and some of them are probably overlapping,
     resulting in a large initial energy which is the consequence
     of the repulsive part of the Lennard-Jones interaction
     potential. As the energy minimization progresses, the energy
     rapidly decreases and reaches a negative value, indicating that the atoms have been
-    displaced at reasonable distances from each others.
+    displaced at reasonable distances from each other.
     
 ..  container:: justify
 
@@ -436,7 +438,7 @@ Molecular dynamics
 ..  container:: justify
 
     The system is now ready. Let us continue filling up the
-    input script and adding commands in order to perform an actual molecular dynamics
+    input script and adding commands to perform an actual molecular dynamics
     simulation that will start from the final state of the energy minimization.
 
 .. admonition:: Background Information -- What is molecular dynamics?
@@ -456,7 +458,7 @@ Molecular dynamics
     evolution of the positions and velocities of atoms and molecules over time. 
     
     At every step, the following operations usually occur when 
-    performing a MD simulation:
+    performing an MD simulation:
 
     - the forces between the atoms are calculated from the potential (here Lennard-Jones),
     - the acceleration of each atom is evaluated from the Newtonian equation,
@@ -504,11 +506,11 @@ Molecular dynamics
     
 ..  container:: justify
     
-    The second fix applies a Langevin thermostat to the atoms of group
+    The second fix applies a Langevin thermostat to the atoms of the group
     *all*, with a desired temperature of 1 and a *damping*
     parameter of 0.1. The number *1530917* is a seed, you can
     change it to perform statistically independent simulations.
-    Finally we choose the *timestep* and we ask LAMMPS to
+    Finally, we choose the *timestep* and we ask LAMMPS to
     run for 10000 steps. After running the simulation, you
     should see the following information in the terminal:
 
@@ -626,7 +628,7 @@ Control the initial atom positions
 
 ..  container:: justify
 
-    Let us create the atoms of type 1 and 2 in two separate
+    Let us create the atoms of types 1 and 2 in two separate
     regions, respectively, instead of creating them both randomly 
     within the entire space as we did previously. 
     
@@ -699,13 +701,13 @@ Control the initial atom positions
     the *write_data* command is placed after the *minimize*
     command. This *.data* file will be used later to restart
     the simulation from the final
-    state of the energy minimisation step.
+    state of the energy minimization step.
 
 ..  container:: justify
 
     Run the *input.min.lammps* script using LAMMPS. A new
     dump file named *dump.min.lammpstrj* will
-    appear in the folder, allowing you to visualize the atoms
+    appear in the folder, allowing you to visualize the atom's
     trajectories during minimization. In
     addition, a file named *minimized_coordinate.data* will be created. 
     
@@ -796,8 +798,8 @@ Restarting from a saved configuration
 
     By visualizing the previously generated dump.min.lammpstrj
     file, you may have noticed that some atoms have moved from
-    one region to the other during minimisation.
-    In order to start the simulation from a clean state, with
+    one region to the other during minimization.
+    To start the simulation from a clean slate, with
     only atoms of type 2 within the cylinder and atoms of type
     1 outside the cylinder, let us delete the misplaced atoms
     by adding the following commands to *input.md.lammps*:
@@ -901,7 +903,7 @@ Restarting from a saved configuration
     of type 1 and 2, i.e. the average number of atoms of type 2 in the vicinity 
     of the atoms of type 1. This coordination number will be used as
     an indicator of the degree of mixing of our binary mixture. 
-    Add the folloxing lines into *input.md.lammps*:
+    Add the following lines into *input.md.lammps*:
     
 ..  code-block:: lammps
 
@@ -915,7 +917,7 @@ Restarting from a saved configuration
     The *compute ave* is used to average the per atom
     coordination number that is calculated by the *coord/atom* compute.
     This averaging is necessary as *coord/atom* returns an array where each value corresponds 
-    to a certain couple of atom i-j. Such array can't be printed by *fix ave/time*. 
+    to a certain couple of atoms i-j. Such an array can't be printed by *fix ave/time*. 
     Finally, let us complete the script by adding the following lines 
     to *input.md.lammps*:
 
@@ -931,20 +933,20 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    There are a few differences with the previous simulation.
+    There are a few differences from the previous simulation.
     First, the *velocity create*
     command attributes an initial velocity to every atom.
     The initial velocity is chosen so that the average initial
     temperature is equal to 1 (unitless). The additional
     keywords ensure that no linear momentum (*mom yes*) and no angular
-    momentum (*rot yes*) are given to the system, and that the generated
+    momentum (*rot yes*) are given to the system and that the generated
     velocities are distributed as a Gaussian. Another improvement
-    is the *zero yes* keyword in the Langevin thermostat, that
+    is the *zero yes* keyword in the Langevin thermostat, which
     ensures that the total random force is equal to zero.
 
 ..  container:: justify
 
-    Run *input.md.lammps* using LAMMPS and vizualize the trajectory
+    Run *input.md.lammps* using LAMMPS and visualize the trajectory
     using VMD:
 
 .. figure:: ../figures/level1/lennard-jones-fluid/mixing-vmd-light.png
@@ -1047,7 +1049,7 @@ Create a demixed dense phase
 ..  container:: justify
 
     Starting from one of the *input* created in this tutorial,
-    fine tune the parameters such as particle numbers and interaction
+    fine-tune the parameters such as particle numbers and interaction
     to create a simulation with the following properties:
 
     - the density in particles must be high,
@@ -1071,7 +1073,7 @@ Create a demixed dense phase
     :class: info
 
     An easy way to create a dense phase is to allow the box dimensions 
-    to relax until the vacuum disapears. You can do that 
+    to relax until the vacuum disappears. You can do that 
     by replacing the *fix nve* by *fix nph*.
 
 From atoms to molecules
@@ -1080,7 +1082,7 @@ From atoms to molecules
 ..  container:: justify
 
     Add a bond between particles of *type 2* to create
-    dumbbell molecules instead of single paticles.
+    dumbbell molecules instead of single particles.
 
 .. figure:: ../figures/level1/lennard-jones-fluid/dumbell-dark.png
     :alt: Dumbbell Lennard-Jones molecules simulated using LAMMPS
@@ -1130,7 +1132,7 @@ From atoms to molecules
 
         Use a *molecule template* to easily insert as many atoms connected
         by bonds (i.e. molecules) as you want. A molecule 
-        template typically begins as follow:
+        template typically begins as follows:
 
     ..  code-block:: lammps
 
