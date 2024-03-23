@@ -48,25 +48,21 @@ The Matplotlib Pyplot functions for the figures are shared [here](https://github
 ### Template ###
 
 The template from the first page has been adapted from [HTML5 UP](https://html5up.net/).
-The other pages are using the [Sphinx generator](https://www.sphinx-doc.org/)
-with the [furo style](https://github.com/pradyunsg/furo).
+The other pages use the [Sphinx](https://www.sphinx-doc.org/) generator](https://www.sphinx-doc.org/) with the [furo style](https://github.com/pradyunsg/furo).
 
-### Contact me ###
-
-See the [contact page](https://lammpstutorials.github.io/sphinx/build/html/non-tutorials/contact-me.html). 
-You can report issues here on Github, or send me an [email](https://simongravelle.github.io/). Your feedback is always appreciated.
-
-### About me ###
+### About me & Contact ###
 
 I am a computer physicist in soft matter and fluids at interfaces. You can 
 find more information on my [personal webpage](https://simongravelle.github.io/).
 
-### License ###
+See the [contact page](https://lammpstutorials.github.io/sphinx/build/html/non-tutorials/contact-me.html). 
+You can report issues here on Github, or send me an [email](https://simongravelle.github.io/). Your feedback is always appreciated.
+
+### License and Acknowledgments ###
 
 All the LAMMPS inputs/data/parameter files and Python scripts are released under the 
 GNU general public license v3.0: feel free to adapt and re-publish them.  
 
-### Acknowledgments ###
 
 This project has received funding from the European
 Union's Horizon 2020 research and innovation programme
