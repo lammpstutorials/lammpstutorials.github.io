@@ -32,7 +32,7 @@ Nanosheared electrolyte
     combining a fluid and a solid in the same simulation.
     A major difference with :ref:`all-atoms-label` is that
     here a rigid four points water model named TIP4P is used :cite:`abascal2005general`.
-    TIP4P is one of the most common water model due to its high accuracy.
+    TIP4P is one of the most common water models due to its high accuracy.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
@@ -73,7 +73,7 @@ System generation
     including the *atom*, *bond*, and *angle* styles, as well as 
     interaction potential. Here *lj/cut/tip4p/long* imposes
     a Lennard Jones potential with a cut-off at :math:`12\,\text{Å}`
-    and a long range Coulomb potential. 
+    and a long-range Coulomb potential. 
 
 ..  container:: justify
 
@@ -82,7 +82,7 @@ System generation
     with two major differences; the use of *lj/cut/tip4p/long*
     and *pppm/tip4p*, instead of *lj/cut/coul/long* and pppm*.
     These two tip4p-specific commands allow us to 
-    model a four point water molecule without explicitly 
+    model a four-point water molecule without explicitly 
     defining the fourth massless atom *M*. The value of 
     :math:`0.1546\,\text{Å}` corresponds
     to the *O-M* distance and is 
@@ -97,9 +97,9 @@ System generation
 
     The *lj/cut/tip4p/long* pair style is similar to the conventional 
     Lennard Jones + Coulomb interaction, except that it is made specifically 
-    for four point water model (tip4p). The atom of the water model
+    for four-point water model (tip4p). The atoms of the water model
     will be type 1 (O) and 2 (H). All the other atoms of the simulations 
-    are treated *normally* with long range coulomb interaction.
+    are treated *normally* with long-range Coulomb interaction.
 
 ..  container:: justify
 
@@ -127,7 +127,7 @@ System generation
 
     The *region* command defines a geometric
     region of space. By choosing *xlo=-3* and *xhi=3*, and
-    because we have previously chosen a lattice with scale
+    because we have previously chosen a lattice with a scale
     factor of 4.04, the region box extends from -12.12 Å to 12.12 Å
     along the x direction.
 
@@ -161,7 +161,7 @@ System generation
 
 ..  container:: justify
 
-    Atoms will be placed at the positions of the previously
+    Atoms will be placed in the positions of the previously
     defined lattice, thus forming fcc solids.
 
 ..  container:: justify
@@ -170,7 +170,7 @@ System generation
     download the |download_TIP4P2005.txt|
     and place it within *systemcreation/*. The template contains all the
     necessary information concerning the water molecule, such as
-    atom positions, bonds, and angle.
+    atom positions, bonds, and angles.
 
 .. |download_TIP4P2005.txt| raw:: html
 
@@ -188,8 +188,8 @@ System generation
 
 ..  container:: justify
 
-    Withing the last four lines, a *region* named *rliquid* for depositing the
-    water molecules is created based on the last defined lattice, which is *fcc 4.04*. 
+    Within the last four lines, a *region* named *rliquid* for depositing the
+    water molecules are created based on the last defined lattice, which is *fcc 4.04*. 
 
 ..  container:: justify
 
@@ -237,9 +237,9 @@ System generation
 
     Before starting the simulation, we still need to define the parameters of the simulation: the mass
     of the 5 atom types (O, H, :math:`\text{Na}^+`, :math:`\text{Cl}^-`, and wall), the
-    pairwise interaction parameters (here the parameters for the
+    pairwise interaction parameters (here, the parameters for the
     Lennard-Jones potential), and the bond and angle parameters.
-    Copy the following line into input.lammps:
+    Copy the following line into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -283,7 +283,7 @@ System generation
 
     The parameters for water
     correspond to the TIP4P/2005 water model, for which only 
-    the oxygen interacts through Lennard-Jones potentiel, and the parameters
+    the oxygen interacts through Lennard-Jones potential, and the parameters
     for :math:`\text{Na}^+` and :math:`\text{Cl}^-` are
     from the CHARMM-27 force field :cite:`mackerell2000development`.
 
@@ -305,7 +305,7 @@ System generation
 
     By default, the value
     of :math:`\epsilon_\text{1-5} = 5.941\,\text{kcal/mol}` would
-    be extremely high (compare to the water-water
+    be extremely high (compared to the water-water
     energy :math:`\epsilon_\text{1-1} = 0.185199\,\text{kcal/mol}`),
     which would make the surface extremely hydrophilic.
     The walls were made less hydrophilic by reducing the 
@@ -316,7 +316,7 @@ System generation
     The *bond_coeff*, which is here used for the O-H bond of the water
     molecule, sets both the energy of the harmonic
     potential and the equilibrium distance in Ångstrom. The
-    value is *0* for the energy, because we are going to use a
+    value is *0* for the energy because we are going to use a
     rigid model for the water molecule. The shape of the
     molecule will be preserved later by the *shake* algorithm.
     Similarly, the angle coefficient here for the H-O-H angle
@@ -367,7 +367,7 @@ System generation
 
 ..  container:: justify
 
-    With *run 0*, the simulation will run for 0 step, which is
+    With *run 0*, the simulation will run for 0 steps, which is
     enough for creating the system and saving the final state.
 
 ..  container:: justify
@@ -398,7 +398,7 @@ System generation
 ..  container:: figurelegend
 
     Figure: Side view of the system. Periodic images are represented in darker
-    color. Water molecules are in red and white, :math:`\text{Na}^+`
+    colors. Water molecules are in red and white, :math:`\text{Na}^+`
     ions in purple, :math:`\text{Cl}^-` ions in lime, and wall atoms in
     gray. Note the absence of atomic defect at the cell boundaries.
     See the corresponding |youtube_video_nanosheared|.
@@ -421,11 +421,11 @@ Energy minimization
 
     It is clear from the way the system has been created that
     the atoms are not at equilibrium distances from each
-    others. Indeed, some of the ions added using the *create_atoms*
+    other. Indeed, some of the ions added using the *create_atoms*
     commands are too close to the water molecules.
     If we were to start a *normal* (i.e. with a timestep of about 1 fs)
     molecular dynamics simulation now, the atoms
-    would exert huge forces on each others, accelerate
+    would exert huge forces on each other, accelerate
     brutally, and the simulation would likely fail.
 
 .. admonition:: Dealing with overlapping atoms
@@ -550,7 +550,7 @@ Energy minimization
 ..  container:: justify
 
     When running the *input.lammps* file with LAMMPS, you should see that the
-    total energy of the system decreases during the first 
+    the total energy of the system decreases during the first 
     of the 3 steps, before re-increasing a little after the 
     temperature is increased from 1 to :math:`300\,\text{K}`.
 
@@ -570,8 +570,8 @@ Energy minimization
 ..  container:: justify
 
     If you look at the trajectory using VMD, you will see some
-    of the atoms, in particular the one that where initially in problematic
-    positions. 
+    of the atoms, in particular, the ones that were
+    initially in problematic positions. 
 
 System equilibration
 --------------------
@@ -672,13 +672,13 @@ System equilibration
 ..  container:: figurelegend
 
     Figure: Distance between the walls as a function of time.
-    After a few pico seconds, the distance between the two walls equilibrates near
+    After a few picoseconds, the distance between the two walls equilibrates near
     its final value. 
     
 ..  container:: justify
 
-    Note that it is generaly recommended to run longer equilibration.
-    Here for instance, the slowest
+    Note that it is generally recommended to run longer equilibration.
+    Here, for instance, the slowest
     process in the system is probably the ionic diffusion. Therefore the equilibration 
     should in principle be longer than the time
     the ions need to diffuse over the size of the pore
@@ -739,7 +739,7 @@ Imposed shearing
 
     The use of temperature *compute* with *temp/partial 0 1 1*
     is meant to exclude the *x* coordinate from the
-    thermalisation, which is important since a large velocity
+    thermalization, which is important since a large velocity
     will be imposed along *x*. 
     
 ..  container:: justify
@@ -758,7 +758,7 @@ Imposed shearing
 
     The *setforce* commands cancel the forces on *walltop* and
     *wallbot*, respectively. Therefore the atoms of the two groups do not
-    experience any force from the rest of the system. In absence of force
+    experience any force from the rest of the system. In the absence of force
     acting on those atoms, they will conserve their initial velocity.
 
 ..  container:: justify
@@ -856,9 +856,9 @@ Imposed shearing
 
 ..  container:: justify
 
-    The viscosity calculated at such high shear rate may
-    differ from the expected *bulk* value. In general, it is recommanded to use a lower
-    value for the shear rate. Note that for lower shear rate, the ratio noise-to-signal
+    The viscosity calculated at such a high shear rate may
+    differ from the expected *bulk* value. In general, it is recommended to use a lower
+    value for the shear rate. Note that for lower shear rates, the ratio of noise-to-signal
     is larger, and longer simulations are needed.
 
 ..  container:: justify
@@ -866,7 +866,8 @@ Imposed shearing
     Another important point is that the viscosity of a fluid next to a solid surface is
     typically larger than in bulk due to interaction with the
     walls. Therefore, one expects the present simulation to return 
-    a viscosity that is slightly larger than what would be measured in absence of wall.
+    a viscosity that is slightly larger than what would
+    be measured in the absence of a wall.
 
 .. include:: ../../non-tutorials/accessfile.rst
 
@@ -908,4 +909,4 @@ Induce a Poiseuille flow
 
 ..  container:: justify
 
-    An important step is to choose the proper value for the addidional force.
+    An important step is to choose the proper value for the additional force.

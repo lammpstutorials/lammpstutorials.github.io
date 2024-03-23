@@ -26,13 +26,13 @@ Polymer in water
 
 ..  container:: justify
 
-   An all-atom description is used for both PEG and water, and the long
+   An all-atom description is used for both PEG and water and the long
    range Coulomb interactions are solved using the PPPM solver.    
-   Once the PEG and water system is properly
+   Once the PEG and water system are properly
    equilibrated at the desired temperature and pressure,
    a constant stretching force is applied to both
    ends of the polymer, and the evolution of its length
-   is measured as a function of the time.
+   is measured as a function of time.
 
 ..  container:: justify
 
@@ -55,7 +55,7 @@ Preparing water and PEG separately
 
 ..  container:: justify
 
-    In this tutorial, the water is being prepared separately
+    In this tutorial, the water is prepared separately
     from the PEG molecule. The PEG and water will be merged later.
 
 The water
@@ -109,14 +109,14 @@ The water
 
     Finally, the *special_bonds* command cancels the
     Lennard-Jones interactions between the closest
-    atoms of a same molecule.
+    atoms of the same molecule.
 
 .. admonition:: About *special bonds*
     :class: info
 
     Usually, molecular dynamics force fields are parametrized assuming that
     the first neighbors within a molecule do not
-    interact directly though LJ or Coulomb potential. Here, since we
+    interact directly through LJ or Coulomb potential. Here, since we
     use *lj 0.0 0.0 0.5* and *coul 0.0 0.0 1.0*, the first and second
     neighbors in a molecule only interact through direct bond interactions.
     For the third neighbor (here third neighbor only concerns the PEG molecule, not the water),
@@ -135,7 +135,7 @@ The water
 
     The cutoff of :math:`12\,\text{Å}` applies to both LJ and Coulombic
     interactions, but in a different way. For LJ *cut*
-    interactions, atoms interact with each others only if they
+    interactions, atoms interact with each other only if they
     are separated by a distance smaller than the cutoff. For
     Coulombic *long*, interactions between atoms closer than
     the cutoff are computed directly, and interactions between

@@ -246,13 +246,13 @@
 hydrophilic polymer (PEG - PolyEthylene Glycol) in a reservoir of water.</p>
 </div>
 <div class="justify docutils container">
-<p>An all-atom description is used for both PEG and water, and the long
+<p>An all-atom description is used for both PEG and water and the long
 range Coulomb interactions are solved using the PPPM solver.
-Once the PEG and water system is properly
+Once the PEG and water system are properly
 equilibrated at the desired temperature and pressure,
 a constant stretching force is applied to both
 ends of the polymer, and the evolution of its length
-is measured as a function of the time.</p>
+is measured as a function of time.</p>
 </div>
 <div class="justify docutils container">
 <p>This tutorial was inspired by a <a href="https://doi.org/10.1021/acsnano.6b07071" target="_blank">publication</a> by Liese and coworkers, in which
@@ -274,7 +274,7 @@ See the <a class="reference internal" href="../../non-tutorials/contact-me.html#
 <section id="preparing-water-and-peg-separately">
 <h2>Preparing water and PEG separately<a class="headerlink" href="#preparing-water-and-peg-separately" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>In this tutorial, the water is being prepared separately
+<p>In this tutorial, the water is prepared separately
 from the PEG molecule. The PEG and water will be merged later.</p>
 </div>
 <section id="the-water">
@@ -314,13 +314,13 @@ gives the expression for the harmonic angular potential.</p>
 <div class="justify docutils container">
 <p>Finally, the <em>special_bonds</em> command cancels the
 Lennard-Jones interactions between the closest
-atoms of a same molecule.</p>
+atoms of the same molecule.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About <em>special bonds</em></p>
 <p>Usually, molecular dynamics force fields are parametrized assuming that
 the first neighbors within a molecule do not
-interact directly though LJ or Coulomb potential. Here, since we
+interact directly through LJ or Coulomb potential. Here, since we
 use <em>lj 0.0 0.0 0.5</em> and <em>coul 0.0 0.0 1.0</em>, the first and second
 neighbors in a molecule only interact through direct bond interactions.
 For the third neighbor (here third neighbor only concerns the PEG molecule, not the water),
@@ -337,7 +337,7 @@ the cutoff.</p>
 <p class="admonition-title">About cutoff in molecular dynamics</p>
 <p>The cutoff of <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span> applies to both LJ and Coulombic
 interactions, but in a different way. For LJ <em>cut</em>
-interactions, atoms interact with each others only if they
+interactions, atoms interact with each other only if they
 are separated by a distance smaller than the cutoff. For
 Coulombic <em>long</em>, interactions between atoms closer than
 the cutoff are computed directly, and interactions between

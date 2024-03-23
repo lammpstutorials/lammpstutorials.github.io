@@ -248,7 +248,7 @@ of a carbon nanotube (CNT) using LAMMPS.</p>
 <div class="abstract docutils container">
 <p>In this tutorial, a small carbon nanotube (CNT) is simulated
 within an empty box using LAMMPS. An external
-forcing is imposed to the CNT, and its deformation is measured with time.</p>
+forcing is imposed on the CNT, and its deformation is measured with time.</p>
 </div>
 <div class="abstract docutils container">
 <p>The difference between classical and reactive force fields
@@ -276,7 +276,7 @@ See the <a class="reference internal" href="../../non-tutorials/contact-me.html#
 <div class="justify docutils container">
 <p>With most classical molecular dynamics force fields, the chemical bonds
 between the atoms are set at the start of the simulation. Regardless of the
-forces applied on the atoms during the simulations, the bonds remain intact.
+forces applied to the atoms during the simulations, the bonds remain intact.
 The bonds between neighbor atoms typically consist of springs with
 given equilibrium distances <span class="math notranslate nohighlight">\(r_0\)</span> and a constant <span class="math notranslate nohighlight">\(k_b\)</span>:
 <span class="math notranslate nohighlight">\(U_b = k_b \left( r - r_0 \right)^2\)</span>.
@@ -295,7 +295,7 @@ and continue with the LAMMPS part of the tutorial.</p>
 <p class="admonition-title">Why use a preprocessing tool?</p>
 <p>When the system has a complex topology, like is the case of a CNT,
 it is better to use an external preprocessing tool to create it as it would be
-difficult (yet not impossible) to place the atoms at their correct position
+difficult (yet not impossible) to place the atoms in their correct position
 using only LAMMPS commands. Many preprocessing tools exist, see
 this <a href="https://www.lammps.org/prepost.html" target="_blank">non-exhaustive list</a> on the LAMMPS website.</p>
 </div>
@@ -321,7 +321,7 @@ molinfo top set c 80
 so that the box is much larger than the carbon nanotube.</p>
 </div>
 <div class="justify docutils container">
-<p>In order to generate the initial LAMMPS data file, let us use Topotool:
+<p>To generate the initial LAMMPS data file, let us use Topotool:
 to generate the LAMMPS data file, enter the following command
 in the VMD terminal:</p>
 </div>
@@ -364,7 +364,7 @@ like that:</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>cnt_molecular.data</em> file contains information
-about the positions of the carbons atoms, as well as the
+about the positions of the carbon atoms, as well as the
 identity of the atoms that are linked by <em>bonds</em>, <em>angles</em>, <em>dihedrals</em>,
 and <em>impropers</em> constraints.</p>
 </div>
@@ -404,9 +404,9 @@ do not really matter here, as the box boundaries were placed far from the CNT.</
 <div class="justify docutils container">
 <p>Just like in <a class="reference internal" href="lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a>,
 the pair style is <em>lj/cut</em> (i.e. a Lennard-Jones potential
-with a short range cutoff) with
+with a short-range cutoff) with
 parameter 14, which means that only the atoms closer than 14
-Ångstroms from each others interact through a Lennard-Jones
+Ångstroms from each other interact through a Lennard-Jones
 potential.</p>
 </div>
 <div class="justify docutils container">
@@ -429,13 +429,13 @@ bounded must be excluded from the LJ potential calculation.
 Here, this is done by the
 <em>special_bonds</em> command. The three numbers of the
 <em>special_bonds</em> command are weighting factors for the
-LJ interaction between atoms connected by bond
+LJ interaction between atoms connected by a bond
 (respectively directly bounded <span class="math notranslate nohighlight">\(C-C\)</span>, separated by two bonds <span class="math notranslate nohighlight">\(C-C-C\)</span>,
 and separated by three bonds <span class="math notranslate nohighlight">\(C-C-C-C\)</span>). For instance, the
 first weighting factor, with a
 value of 0, imposes that two atoms connected by a bond do
 not interact through a Lennard-Jones potential (therefore
-they only interact through the harmonic potential that bond the atoms
+they only interact through the harmonic potential that bonds the atoms
 of the graphene).</p>
 </div>
 <div class="justify docutils container">
@@ -459,9 +459,9 @@ well as the spring constant <span class="math notranslate nohighlight">\(k_b\)</
 potential imposed between two neighboring carbon atoms,
 where the potential is <span class="math notranslate nohighlight">\(U_b = k_b ( r - r_0)^2\)</span>. The
 <em>angle_coeff</em> gives the equilibrium angle <span class="math notranslate nohighlight">\(theta_0\)</span> and
-constant for the potential between three neighbors atoms :
+constant for the potential between three neighbor atoms :
 <span class="math notranslate nohighlight">\(U_\theta = k_\theta ( \theta - \theta_0)^2\)</span>. The <em>dihedral_coeff</em>
-and <em>improper_coeff</em> give the potential for the constraints
+and <em>improper_coeff</em> gives the potential for the constraints
 between 4 atoms.</p>
 </div>
 <div class="justify docutils container">
@@ -511,19 +511,19 @@ is located at the origin (0, 0, 0).</p>
 </div>
 <div class="justify docutils container">
 <p>Let us also change the box boundaries by adding the
-following line to <em>input.lammps</em>:</p>
+the following line to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">40</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">40</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">40</span><span class="w"> </span><span class="m">40</span>
 </pre></div>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Note</p>
-<p>Such cleaner and more symmetrical initial state can simplify
+<p>Such a cleaner and more symmetrical initial state can simplify
 future data analysis, but won’t make any difference to
 the molecular dynamics.</p>
 </div>
 <div class="justify docutils container">
-<p>A displacement will be imposed to the edges of the CNT. To do so, let us isolate the
+<p>A displacement will be imposed on the edges of the CNT. To do so, let us isolate the
 atoms from the two edges and place them into groups named <em>rtop</em>
 and <em>rbot</em>, respectively.
 Add the following lines to <em>input.lammps</em>:</p>
@@ -566,7 +566,7 @@ and <em>carbon_bot</em> groups can be represented with a different color.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: CNT with atoms from the <em>carbon_top</em>
-and the <em>carbon_bot</em> groups being represented with a different color.</p>
+and the <em>carbon_bot</em> groups are represented with a different color.</p>
 </div>
 <div class="justify docutils container">
 <p>When running a simulation, the number of atoms in each
@@ -581,7 +581,7 @@ corresponds to what is expected, just like here:</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, let us randomly delete some of the carbon atoms.
-In order to avoid deleting atoms that are too close from the edges,
+In order to avoid deleting atoms that are too close to the edges,
 let us define a new region name <em>rdel</em> that
 starts <span class="math notranslate nohighlight">\(2\,Å\)</span>
 from the CNT edges.</p>
@@ -599,10 +599,10 @@ deletes <span class="math notranslate nohighlight">\(2\,\%\)</span> of the atoms
 from the <em>rdel</em> group (i.e. about 10 atoms).</p>
 </div>
 <figure class="align-default">
-<img alt="CNT in graphene in vacuum image VMD with delete atoms" class="only-dark" src="../../_images/colored-edge-deleted-dark.png" />
+<img alt="CNT in graphene in vacuum image VMD with deleted atoms" class="only-dark" src="../../_images/colored-edge-deleted-dark.png" />
 </figure>
 <figure class="align-default">
-<img alt="CNT in graphene in vacuum image VMD with delete atoms" class="only-light" src="../../_images/colored-edge-deleted-light.png" />
+<img alt="CNT in graphene in vacuum image VMD with deleted atoms" class="only-light" src="../../_images/colored-edge-deleted-light.png" />
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: CNT with <em>10</em> randomly deleted atoms.</p>
@@ -639,7 +639,7 @@ a <em>Berendsen</em> thermostat is applied to the atoms
 of the group <em>carbon_mid</em> only <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id19" title="Herman JC Berendsen, JPM van Postma, Wilfred F Van Gunsteren, ARHJ DiNola, and Jan R Haak. Molecular dynamics with coupling to an external bath. The Journal of chemical physics, 81(8):3684–3690, 1984.">13</a>]</span>.
 The <em>fix_modify myber</em> ensures that the
 <em>fix Berendsen</em> uses the temperature of the group <em>carbon_mid</em> as an
-input, instead of the temperature of whole system. This is necessary
+input, instead of the temperature of the whole system. This is necessary
 to make sure that the frozen edges won’t bias the temperature. Note that the atoms
 of the edges do not need a thermostat because their motion will
 be restrained, see below.</p>
@@ -682,7 +682,7 @@ applied to them).</p>
 a run, but does not enforce the velocity during the entire simulation.
 When <em>velocity set</em> is used in combination with <em>setforce 0 0 0</em>,
 as is the case here, the atoms
-wont feel any force during the entire simulation. According to the Newton equation,
+won’t feel any force during the entire simulation. According to the Newton equation,
 no force means no acceleration, meaning that the initial velocity will persist
 during the entire simulation, thus producing a constant velocity motion.</p>
 </div>
@@ -737,11 +737,11 @@ to the required temperature before applying any deformation:</p>
 <p>With the <em>thermo_modify</em> command, we specify to LAMMPS that we
 want the temperature <span class="math notranslate nohighlight">\(T_\mathrm{mid}\)</span> to be printed in
 the terminal, not the temperature of the entire system
-(because of the frozen edges, the temperature of the entire
-system is not relevant).</p>
+(because of the frozen edges, the temperature of
+the entire system is not relevant).</p>
 </div>
 <div class="justify docutils container">
-<p>Let us impose a constant velocity deformation to the CNT by combining
+<p>Let us impose a constant velocity deformation on the CNT by combining
 the <em>velocity set</em> command with previously defined <em>fix setforce</em>.
 Add the following lines in the <em>input.lammps</em> file,
 right after the last <em>run 5000</em> command:</p>
@@ -762,13 +762,13 @@ right after the last <em>run 5000</em> command:</p>
 <img alt="length of the CNT with time - lammps molecular dynamics" class="only-light" src="../../_images/length-unbreakable-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Evolution of the lenght of the CNT with time.
+<p>Figure: Evolution of the length of the CNT with time.
 The CNT starts deforming at <span class="math notranslate nohighlight">\(t = 5\,\text{ps}\)</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>The energy, which can be accessed from the log file, shows a non-linear
 increase with time once the deformation starts,
-which is extected from the typical dependency of bond energy with
+which is expected from the typical dependency of bond energy with
 bond distance <span class="math notranslate nohighlight">\(U_b = k_b \left( r - r_0 \right)^2\)</span>.</p>
 </div>
 <figure class="align-default">
@@ -782,8 +782,8 @@ bond distance <span class="math notranslate nohighlight">\(U_b = k_b \left( r - 
 The CNT starts deforming at <span class="math notranslate nohighlight">\(t = 5\,\text{ps}\)</span>.</p>
 </div>
 <div class="justify docutils container">
-<p>As always, is it important to control that the simulation
-behaved as expected by opening the <em>dump.lammpstrj</em> file with VMD.</p>
+<p>As always, is it important to ensure that the simulation
+behaves as expected by opening the <em>dump.lammpstrj</em> file with VMD.</p>
 </div>
 <figure class="align-default">
 <img alt="CNT in graphene in vacuum image VMD before and after deformation" class="only-dark" src="../../_images/colored-edge-def-dark.png" />
@@ -799,7 +799,7 @@ behaved as expected by opening the <em>dump.lammpstrj</em> file with VMD.</p>
 <section id="breakable-bonds">
 <h2>Breakable bonds<a class="headerlink" href="#breakable-bonds" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>When using classical force field, as we just did, the bonds between atoms
+<p>When using a classical force field, as we just did, the bonds between atoms
 are non-breakable. Let us perform a similar simulation,
 but this time using a reactive force field instead, allowing for the bonds to break
 if the applied deformation is large enough.</p>
@@ -820,7 +820,7 @@ and create a new input file in it called <em>input.lammps</em>. Type into input.
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>A first difference with the previous part
+<p>The first difference with the previous part
 is the unit system, here <em>metal</em> instead of <em>real</em>, a choice
 that is imposed by the AIREBO force field. A second difference
 is the use of the <em>atom_style atomic</em> instead of <em>molecular</em>,
@@ -835,14 +835,14 @@ distances are in Ångstrom, and the energy is in eV.</p>
 <section id="adapt-the-topology-file">
 <h3>Adapt the topology file<a class="headerlink" href="#adapt-the-topology-file" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Since <em>bond</em>, <em>angle</em>, and <em>dihedral</em> do not need to be explicitely
-set when using AIREBO, some small changes needs to be made to the
+<p>Since <em>bond</em>, <em>angle</em>, and <em>dihedral</em> do not need to be explicitly
+set when using AIREBO, some small changes need to be made to the
 previously generated <em>.data</em> file.</p>
 </div>
 <div class="justify docutils container">
 <p>Duplicate the previous file <em>cnt_molecular.data</em>, name the copy <em>cnt_atom.data</em>,
 place it within <em>breakable-bonds/</em>. Then, remove all bond, angle, and dihedral
-information from <em>cnt_atom.data</em>. Also remove the second column of the
+information from <em>cnt_atom.data</em>. Also, remove the second column of the
 <em>Atoms</em> table, so that the <em>cnt_atom.data</em> looks like the following:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">700</span><span class="w"> </span><span class="n">atoms</span>
@@ -863,9 +863,9 @@ information from <em>cnt_atom.data</em>. Also remove the second column of the
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>In addition, remove the <em>Bonds</em> table that is places right after the
+<p>In addition, remove the <em>Bonds</em> table that is placed right after the
 <em>Atoms</em> table (near line 743), as well as the <em>Angles</em>, <em>Dihedrals</em>,
-and <em>Impropers</em> tables. The last lines of the file should look like that:</p>
+and <em>Impropers</em> tables. The last lines of the file should look like this:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
 <span class="m">697</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4.669892</span><span class="w"> </span><span class="o">-</span><span class="m">2.248901</span><span class="w"> </span><span class="m">45.824036</span><span class="w"> </span><span class="c"># CA CNT</span>
@@ -875,7 +875,7 @@ and <em>Impropers</em> tables. The last lines of the file should look like that:
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Alternatively, you can also download the file I did generate
+<p>Alternatively, you can also download the file I generate
 by clicking <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/breakable-bonds/cnt_atom.data" target="_blank">here</a>.</p>
 </div>
 </section>
@@ -892,13 +892,13 @@ pair coefficients by adding the following lines to <em>input.lammps</em></p>
 </div>
 <div class="justify docutils container">
 <p>Here, there is one single atom type. We impose this type
-to be carbon by using the the letter <em>C</em>.</p>
+to be carbon by using the letter <em>C</em>.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Setting AIREBO pair coefficients</p>
-<p>In case of multiple atom types, one has to adapt the <em>pair_coeff</em> command.
+<p>In the case of multiple atom types, one has to adapt the <em>pair_coeff</em> command.
 If there are 2 atom types, and both are carbon, it would read: <em>pair_coeff * * CH.airebo C C</em>.
-If atoms of type 1 are carbon, and atoms type 2 are hydrogen, then <em>pair_coeff * * CH.airebo C H</em>.</p>
+If atoms of type 1 are carbon and atoms of type 2 are hydrogen, then <em>pair_coeff * * CH.airebo C H</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>CH.airebo</em> file can be
@@ -940,7 +940,7 @@ The rest of the <em>input.lammps</em> is very similar to the previous one:</p>
 </div>
 <div class="justify docutils container">
 <p>Note that a large distance of 120 Ångstroms was used for the box size along
-the <em>z</em> axis, to allow for larger deformation. In additoin, the <em>change_box</em> command
+the <em>z</em> axis, to allow for larger deformation. In addition, the <em>change_box</em> command
 was placed before the <em>displace_atoms</em> to avoid issue with the
 CNT crossing the edge of the box.</p>
 </div>
@@ -951,7 +951,7 @@ CNT crossing the edge of the box.</p>
 <p>Here, let us impose a constant velocity deformation using the atoms
 of one edge, while maintaining the other edge fix. Do to so,
 one needs to cancel the forces (thus the acceleration) on
-the atoms of the edges using the <em>setforce</em> command, and set
+the atoms of the edges using the <em>setforce</em> command and set
 the value of the velocity along the <em>z</em> direction.</p>
 </div>
 <div class="justify docutils container">
@@ -980,12 +980,12 @@ Add the following lines to LAMMPS:</p>
 </div>
 <div class="justify docutils container">
 <p>Note the relatively small timestep of <span class="math notranslate nohighlight">\(0.0005\,\text{ps}\)</span>
-used. Reactive force field usually requires smaller timestep
+used. Reactive force field usually requires a smaller timestep
 than classical one.
 When running <em>input.lammps</em> with LAMMPS, you can see that the
 temperature deviates from the target temperature of <span class="math notranslate nohighlight">\(300\,\text{K}\)</span>
 at the start of the equilibration, but that
-after a few steps it reaches the target value:</p>
+after a few steps, it reaches the target value:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Step  Temp           E_pair         E_mol          TotEng         Press
 0     300           -5084.7276      0             -5058.3973     -1515.7017
@@ -1007,7 +1007,7 @@ after a few steps it reaches the target value:</p>
 <h3>Launch the deformation<a class="headerlink" href="#launch-the-deformation" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>After equilibration, let us set the velocity to 15 m/s and run for
-a longer duration that previously. Add the following lines into
+a longer duration than previously. Add the following lines into
 <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 0.15 A/ps = 15 m/s</span>
@@ -1016,13 +1016,13 @@ a longer duration that previously. Add the following lines into
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The CNT should break around the step 250000. If not,
+<p>The CNT should break around step 250000. If not,
 use a longer run.</p>
 </div>
 <div class="justify docutils container">
 <p>When looking at the <em>lammpstrj</em> file using VMD, you will see
 the bonds breaking. Use the <em>DynamicBonds</em>
-representation to properly vizualise the bond breaking.</p>
+representation to properly visualise the bond breaking.</p>
 </div>
 <figure class="align-default">
 <img alt="carbon nanotube with broken bonds after simulation with LAMMPS and AIREBO" class="only-dark" src="../../_images/deformed-dark.png" />
@@ -1041,7 +1041,7 @@ bonds between atoms in the LAMMPS simulation. Therefore the bonds seen
 in VMD when using the <em>DynamicBonds</em> representation can be misleading.</p>
 </div>
 <div class="justify docutils container">
-<p>Looking at the evolution of the energy again, one can see the energy increasing
+<p>Looking at the evolution of energy again, one can see that energy increasing
 with the deformation, before completely relaxing when the CNT finally breaks.</p>
 </div>
 <figure class="align-default">
@@ -1077,10 +1077,10 @@ see <a class="reference internal" href="../../non-tutorials/solutions.html#solut
 the two breakable and unbreakable CNTs:</p>
 </div>
 <figure class="align-default">
-<img alt="strain stain curve of the CNTs" class="only-dark" src="../../_images/stress-strain-curve-dark.png" />
+<img alt="strain strain curve of the CNTs" class="only-dark" src="../../_images/stress-strain-curve-dark.png" />
 </figure>
 <figure class="align-default">
-<img alt="strain stain curve of the CNTs" class="only-light" src="../../_images/stress-strain-curve-light.png" />
+<img alt="strain strain curve of the CNTs" class="only-light" src="../../_images/stress-strain-curve-light.png" />
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Strain-stain curves for the two CNTs, breakable and unbreakable.</p>
@@ -1092,7 +1092,7 @@ the two breakable and unbreakable CNTs:</p>
 <p>The flying ice cube effect is one of the most famous
 artifact of molecular simulations.
 Download this seemingly simple <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/input.lammps" target="_blank">input</a>, that was inspired by the
-first part of the tutorial, and simplified by removing some of it.
+the first part of the tutorial, and simplified by removing some of it.
 Run the input with this <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/cnt_molecular.data" target="_blank">data</a> file
 and this <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/parm.lammps" target="_blank">parameter</a> file.</p>
 </div>

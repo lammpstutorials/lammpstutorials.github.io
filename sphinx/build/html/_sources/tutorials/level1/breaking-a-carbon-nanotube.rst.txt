@@ -28,7 +28,7 @@ Pulling on a carbon nanotube
 
     In this tutorial, a small carbon nanotube (CNT) is simulated
     within an empty box using LAMMPS. An external 
-    forcing is imposed to the CNT, and its deformation is measured with time.
+    forcing is imposed on the CNT, and its deformation is measured with time.
 
 ..  container:: abstract
 
@@ -53,7 +53,7 @@ Unbreakable bonds
 
     With most classical molecular dynamics force fields, the chemical bonds
     between the atoms are set at the start of the simulation. Regardless of the 
-    forces applied on the atoms during the simulations, the bonds remain intact.
+    forces applied to the atoms during the simulations, the bonds remain intact.
     The bonds between neighbor atoms typically consist of springs with
     given equilibrium distances :math:`r_0` and a constant :math:`k_b`:
     :math:`U_b = k_b \left( r - r_0 \right)^2`.
@@ -79,7 +79,7 @@ Create topology with VMD
 
     When the system has a complex topology, like is the case of a CNT, 
     it is better to use an external preprocessing tool to create it as it would be
-    difficult (yet not impossible) to place the atoms at their correct position
+    difficult (yet not impossible) to place the atoms in their correct position
     using only LAMMPS commands. Many preprocessing tools exist, see
     this |prepross| on the LAMMPS website.
 
@@ -114,7 +114,7 @@ Create topology with VMD
 
 .. container:: justify
 
-    In order to generate the initial LAMMPS data file, let us use Topotool:
+    To generate the initial LAMMPS data file, let us use Topotool:
     to generate the LAMMPS data file, enter the following command
     in the VMD terminal:
 
@@ -167,7 +167,7 @@ Create topology with VMD
 .. container:: justify
 
     The *cnt_molecular.data* file contains information
-    about the positions of the carbons atoms, as well as the
+    about the positions of the carbon atoms, as well as the
     identity of the atoms that are linked by *bonds*, *angles*, *dihedrals*,
     and *impropers* constraints.
 
@@ -212,9 +212,9 @@ The LAMMPS input
 
     Just like in :ref:`lennard-jones-label`,
     the pair style is *lj/cut* (i.e. a Lennard-Jones potential 
-    with a short range cutoff) with
+    with a short-range cutoff) with
     parameter 14, which means that only the atoms closer than 14
-    Ångstroms from each others interact through a Lennard-Jones
+    Ångstroms from each other interact through a Lennard-Jones
     potential.
 
 .. container:: justify
@@ -244,13 +244,13 @@ The LAMMPS input
     Here, this is done by the
     *special_bonds* command. The three numbers of the
     *special_bonds* command are weighting factors for the
-    LJ interaction between atoms connected by bond
+    LJ interaction between atoms connected by a bond
     (respectively directly bounded :math:`C-C`, separated by two bonds :math:`C-C-C`,
     and separated by three bonds :math:`C-C-C-C`). For instance, the
     first weighting factor, with a
     value of 0, imposes that two atoms connected by a bond do
     not interact through a Lennard-Jones potential (therefore
-    they only interact through the harmonic potential that bond the atoms
+    they only interact through the harmonic potential that bonds the atoms
     of the graphene).
 
 .. container:: justify
@@ -277,9 +277,9 @@ The LAMMPS input
     potential imposed between two neighboring carbon atoms,
     where the potential is :math:`U_b = k_b ( r - r_0)^2`. The
     *angle_coeff* gives the equilibrium angle :math:`theta_0` and
-    constant for the potential between three neighbors atoms :
+    constant for the potential between three neighbor atoms :
     :math:`U_\theta = k_\theta ( \theta - \theta_0)^2`. The *dihedral_coeff*
-    and *improper_coeff* give the potential for the constraints
+    and *improper_coeff* gives the potential for the constraints
     between 4 atoms. 
     
 .. container:: justify
@@ -337,7 +337,7 @@ Prepare initial state
 .. container:: justify
 
     Let us also change the box boundaries by adding the 
-    following line to *input.lammps*:
+    the following line to *input.lammps*:
 
 .. code-block:: lammps
 
@@ -346,13 +346,13 @@ Prepare initial state
 .. admonition:: Note
     :class: info
 
-    Such cleaner and more symmetrical initial state can simplify
+    Such a cleaner and more symmetrical initial state can simplify
     future data analysis, but won't make any difference to 
     the molecular dynamics.
 
 .. container:: justify
 
-    A displacement will be imposed to the edges of the CNT. To do so, let us isolate the
+    A displacement will be imposed on the edges of the CNT. To do so, let us isolate the
     atoms from the two edges and place them into groups named *rtop*
     and *rbot*, respectively.
     Add the following lines to *input.lammps*:
@@ -403,7 +403,7 @@ Prepare initial state
 ..  container:: figurelegend
 
     Figure: CNT with atoms from the *carbon_top*
-    and the *carbon_bot* groups being represented with a different color.
+    and the *carbon_bot* groups are represented with a different color.
 
 .. container:: justify
 
@@ -421,7 +421,7 @@ Prepare initial state
 .. container:: justify
 
     Finally, let us randomly delete some of the carbon atoms.
-    In order to avoid deleting atoms that are too close from the edges,
+    In order to avoid deleting atoms that are too close to the edges,
     let us define a new region name *rdel* that
     starts :math:`2\,Å`
     from the CNT edges.
@@ -441,11 +441,11 @@ Prepare initial state
     from the *rdel* group (i.e. about 10 atoms).
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/colored-edge-deleted-dark.png
-    :alt: CNT in graphene in vacuum image VMD with delete atoms
+    :alt: CNT in graphene in vacuum image VMD with deleted atoms
     :class: only-dark
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/colored-edge-deleted-light.png
-    :alt: CNT in graphene in vacuum image VMD with delete atoms
+    :alt: CNT in graphene in vacuum image VMD with deleted atoms
     :class: only-light
 
 ..  container:: figurelegend
@@ -489,7 +489,7 @@ The molecular dynamics
     of the group *carbon_mid* only :cite:`berendsen1984molecular`.
     The *fix_modify myber* ensures that the
     *fix Berendsen* uses the temperature of the group *carbon_mid* as an
-    input, instead of the temperature of whole system. This is necessary
+    input, instead of the temperature of the whole system. This is necessary
     to make sure that the frozen edges won't bias the temperature. Note that the atoms
     of the edges do not need a thermostat because their motion will
     be restrained, see below.
@@ -538,7 +538,7 @@ The molecular dynamics
     a run, but does not enforce the velocity during the entire simulation. 
     When *velocity set* is used in combination with *setforce 0 0 0*, 
     as is the case here, the atoms
-    wont feel any force during the entire simulation. According to the Newton equation,
+    won't feel any force during the entire simulation. According to the Newton equation,
     no force means no acceleration, meaning that the initial velocity will persist
     during the entire simulation, thus producing a constant velocity motion.
 
@@ -603,12 +603,12 @@ Data extraction
     With the *thermo_modify* command, we specify to LAMMPS that we
     want the temperature :math:`T_\mathrm{mid}` to be printed in
     the terminal, not the temperature of the entire system
-    (because of the frozen edges, the temperature of the entire
-    system is not relevant).
+    (because of the frozen edges, the temperature of
+    the entire system is not relevant).
 
 .. container:: justify
 
-    Let us impose a constant velocity deformation to the CNT by combining
+    Let us impose a constant velocity deformation on the CNT by combining
     the *velocity set* command with previously defined *fix setforce*. 
     Add the following lines in the *input.lammps* file, 
     right after the last *run 5000* command:
@@ -634,14 +634,14 @@ Data extraction
 
 ..  container:: figurelegend
 
-    Figure: Evolution of the lenght of the CNT with time.
+    Figure: Evolution of the length of the CNT with time.
     The CNT starts deforming at :math:`t = 5\,\text{ps}`.
 
 .. container:: justify
 
     The energy, which can be accessed from the log file, shows a non-linear
     increase with time once the deformation starts,
-    which is extected from the typical dependency of bond energy with
+    which is expected from the typical dependency of bond energy with
     bond distance :math:`U_b = k_b \left( r - r_0 \right)^2`.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-unbreakable-dark.png
@@ -659,8 +659,8 @@ Data extraction
 
 .. container:: justify
 
-    As always, is it important to control that the simulation
-    behaved as expected by opening the *dump.lammpstrj* file with VMD.
+    As always, is it important to ensure that the simulation
+    behaves as expected by opening the *dump.lammpstrj* file with VMD.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/colored-edge-def-dark.png
     :alt: CNT in graphene in vacuum image VMD before and after deformation
@@ -683,7 +683,7 @@ Breakable bonds
 
 .. container:: justify
 
-    When using classical force field, as we just did, the bonds between atoms 
+    When using a classical force field, as we just did, the bonds between atoms 
     are non-breakable. Let us perform a similar simulation, 
     but this time using a reactive force field instead, allowing for the bonds to break
     if the applied deformation is large enough.
@@ -708,7 +708,7 @@ Input file initialization
 
 .. container:: justify
 
-    A first difference with the previous part
+    The first difference with the previous part
     is the unit system, here *metal* instead of *real*, a choice
     that is imposed by the AIREBO force field. A second difference
     is the use of the *atom_style atomic* instead of *molecular*,
@@ -725,15 +725,15 @@ Adapt the topology file
 
 .. container:: justify
 
-    Since *bond*, *angle*, and *dihedral* do not need to be explicitely
-    set when using AIREBO, some small changes needs to be made to the 
+    Since *bond*, *angle*, and *dihedral* do not need to be explicitly
+    set when using AIREBO, some small changes need to be made to the 
     previously generated *.data* file.
 
 .. container:: justify
 
     Duplicate the previous file *cnt_molecular.data*, name the copy *cnt_atom.data*,
     place it within *breakable-bonds/*. Then, remove all bond, angle, and dihedral 
-    information from *cnt_atom.data*. Also remove the second column of the 
+    information from *cnt_atom.data*. Also, remove the second column of the 
     *Atoms* table, so that the *cnt_atom.data* looks like the following: 
 
 .. code-block:: lammps
@@ -756,9 +756,9 @@ Adapt the topology file
 
 .. container:: justify
 
-    In addition, remove the *Bonds* table that is places right after the 
+    In addition, remove the *Bonds* table that is placed right after the 
     *Atoms* table (near line 743), as well as the *Angles*, *Dihedrals*, 
-    and *Impropers* tables. The last lines of the file should look like that:
+    and *Impropers* tables. The last lines of the file should look like this:
 
 .. code-block:: lammps
 
@@ -770,7 +770,7 @@ Adapt the topology file
 
 .. container:: justify
 
-    Alternatively, you can also download the file I did generate 
+    Alternatively, you can also download the file I generate 
     by clicking |download_CNT.data|.
 
 .. |download_CNT.data| raw:: html
@@ -794,14 +794,14 @@ Use of AIREBO potential
 .. container:: justify
 
     Here, there is one single atom type. We impose this type
-    to be carbon by using the the letter *C*.
+    to be carbon by using the letter *C*.
 
 .. admonition:: Setting AIREBO pair coefficients
     :class: info
 
-    In case of multiple atom types, one has to adapt the *pair_coeff* command. 
+    In the case of multiple atom types, one has to adapt the *pair_coeff* command. 
     If there are 2 atom types, and both are carbon, it would read: *pair_coeff * * CH.airebo C C*.
-    If atoms of type 1 are carbon, and atoms type 2 are hydrogen, then *pair_coeff * * CH.airebo C H*.        
+    If atoms of type 1 are carbon and atoms of type 2 are hydrogen, then *pair_coeff * * CH.airebo C H*.        
 
 .. container:: justify
 
@@ -850,7 +850,7 @@ Use of AIREBO potential
 .. container:: justify
 
     Note that a large distance of 120 Ångstroms was used for the box size along 
-    the *z* axis, to allow for larger deformation. In additoin, the *change_box* command
+    the *z* axis, to allow for larger deformation. In addition, the *change_box* command
     was placed before the *displace_atoms* to avoid issue with the 
     CNT crossing the edge of the box.
 
@@ -862,7 +862,7 @@ Start the simulation
     Here, let us impose a constant velocity deformation using the atoms
     of one edge, while maintaining the other edge fix. Do to so,
     one needs to cancel the forces (thus the acceleration) on
-    the atoms of the edges using the *setforce* command, and set
+    the atoms of the edges using the *setforce* command and set
     the value of the velocity along the *z* direction.
 
 .. container:: justify
@@ -894,12 +894,12 @@ Start the simulation
 .. container:: justify
 
     Note the relatively small timestep of :math:`0.0005\,\text{ps}`
-    used. Reactive force field usually requires smaller timestep
+    used. Reactive force field usually requires a smaller timestep
     than classical one.
     When running *input.lammps* with LAMMPS, you can see that the
     temperature deviates from the target temperature of :math:`300\,\text{K}`
     at the start of the equilibration, but that
-    after a few steps it reaches the target value:
+    after a few steps, it reaches the target value:
 
 .. code-block:: bw
 
@@ -923,7 +923,7 @@ Launch the deformation
 .. container:: justify
 
    After equilibration, let us set the velocity to 15 m/s and run for
-   a longer duration that previously. Add the following lines into
+   a longer duration than previously. Add the following lines into
    *input.lammps*:
 
 .. code-block:: lammps
@@ -934,14 +934,14 @@ Launch the deformation
 
 .. container:: justify
 
-   The CNT should break around the step 250000. If not, 
+   The CNT should break around step 250000. If not, 
    use a longer run. 
 
 .. container:: justify
 
    When looking at the *lammpstrj* file using VMD, you will see
    the bonds breaking. Use the *DynamicBonds*
-   representation to properly vizualise the bond breaking.
+   representation to properly visualise the bond breaking.
 
 .. |video_lammps_cnt| raw:: html
 
@@ -973,7 +973,7 @@ Launch the deformation
 
 .. container:: justify
 
-    Looking at the evolution of the energy again, one can see the energy increasing 
+    Looking at the evolution of energy again, one can see that energy increasing 
     with the deformation, before completely relaxing when the CNT finally breaks.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-breakable-dark.png
@@ -1009,11 +1009,11 @@ Plot the strain-stress curves
     the two breakable and unbreakable CNTs:
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/stress-strain-curve-dark.png
-    :alt: strain stain curve of the CNTs
+    :alt: strain strain curve of the CNTs
     :class: only-dark
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/stress-strain-curve-light.png
-    :alt: strain stain curve of the CNTs
+    :alt: strain strain curve of the CNTs
     :class: only-light
 
 .. container:: figurelegend
@@ -1028,7 +1028,7 @@ Solve the flying ice cube artifact
     The flying ice cube effect is one of the most famous
     artifact of molecular simulations.
     Download this seemingly simple |input_flying_cube|, that was inspired by the
-    first part of the tutorial, and simplified by removing some of it. 
+    the first part of the tutorial, and simplified by removing some of it. 
     Run the input with this |data_flying_cube| file
     and this |parm_flying_cube| file.
 

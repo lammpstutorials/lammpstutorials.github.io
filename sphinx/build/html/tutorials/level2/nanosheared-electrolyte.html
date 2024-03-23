@@ -252,7 +252,7 @@ density and velocity profiles, will be extracted.</p>
 combining a fluid and a solid in the same simulation.
 A major difference with <a class="reference internal" href="polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a> is that
 here a rigid four points water model named TIP4P is used <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id16" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: tip4p/2005. The Journal of chemical physics, 2005.">18</a>]</span>.
-TIP4P is one of the most common water model due to its high accuracy.</p>
+TIP4P is one of the most common water models due to its high accuracy.</p>
 </div>
 <div class="justify docutils container">
 <p>If you are completely new to LAMMPS, I recommend you to follow
@@ -293,7 +293,7 @@ lines into it:</p>
 including the <em>atom</em>, <em>bond</em>, and <em>angle</em> styles, as well as
 interaction potential. Here <em>lj/cut/tip4p/long</em> imposes
 a Lennard Jones potential with a cut-off at <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span>
-and a long range Coulomb potential.</p>
+and a long-range Coulomb potential.</p>
 </div>
 <div class="justify docutils container">
 <p>So far, the commands are relatively similar to the
@@ -301,7 +301,7 @@ previous tutorial (<a class="reference internal" href="polymer-in-water.html#all
 with two major differences; the use of <em>lj/cut/tip4p/long</em>
 and <em>pppm/tip4p</em>, instead of <em>lj/cut/coul/long</em> and pppm*.
 These two tip4p-specific commands allow us to
-model a four point water molecule without explicitly
+model a four-point water molecule without explicitly
 defining the fourth massless atom <em>M</em>. The value of
 <span class="math notranslate nohighlight">\(0.1546\,\text{Å}\)</span> corresponds
 to the <em>O-M</em> distance and is
@@ -311,9 +311,9 @@ given by the water model. Here, <a href="http://www.sklogwiki.org/SklogWiki/inde
 <p class="admonition-title">About lj/cut/tip4p/long pair style</p>
 <p>The <em>lj/cut/tip4p/long</em> pair style is similar to the conventional
 Lennard Jones + Coulomb interaction, except that it is made specifically
-for four point water model (tip4p). The atom of the water model
+for four-point water model (tip4p). The atoms of the water model
 will be type 1 (O) and 2 (H). All the other atoms of the simulations
-are treated <em>normally</em> with long range coulomb interaction.</p>
+are treated <em>normally</em> with long-range Coulomb interaction.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us create the box by adding the following lines to <em>input.lammps</em>:</p>
@@ -337,7 +337,7 @@ of the walls.</p>
 <div class="justify docutils container">
 <p>The <em>region</em> command defines a geometric
 region of space. By choosing <em>xlo=-3</em> and <em>xhi=3</em>, and
-because we have previously chosen a lattice with scale
+because we have previously chosen a lattice with a scale
 factor of 4.04, the region box extends from -12.12 Å to 12.12 Å
 along the x direction.</p>
 </div>
@@ -367,7 +367,7 @@ regions. Add the following lines to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Atoms will be placed at the positions of the previously
+<p>Atoms will be placed in the positions of the previously
 defined lattice, thus forming fcc solids.</p>
 </div>
 <div class="justify docutils container">
@@ -375,7 +375,7 @@ defined lattice, thus forming fcc solids.</p>
 download the <a href="../../../../../lammpstutorials-inputs/level2/nanosheared-electrolyte/systemcreation/RigidH2O.txt" target="_blank">molecule template</a>
 and place it within <em>systemcreation/</em>. The template contains all the
 necessary information concerning the water molecule, such as
-atom positions, bonds, and angle.</p>
+atom positions, bonds, and angles.</p>
 </div>
 <div class="justify docutils container">
 <p>Add the following lines to <em>input.lammps</em>:</p>
@@ -386,8 +386,8 @@ atom positions, bonds, and angle.</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Withing the last four lines, a <em>region</em> named <em>rliquid</em> for depositing the
-water molecules is created based on the last defined lattice, which is <em>fcc 4.04</em>.</p>
+<p>Within the last four lines, a <em>region</em> named <em>rliquid</em> for depositing the
+water molecules are created based on the last defined lattice, which is <em>fcc 4.04</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>molecule</em> command opens up the molecule template named
@@ -428,9 +428,9 @@ unless there are other charges in the system.</p>
 <div class="justify docutils container">
 <p>Before starting the simulation, we still need to define the parameters of the simulation: the mass
 of the 5 atom types (O, H, <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>, <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>, and wall), the
-pairwise interaction parameters (here the parameters for the
+pairwise interaction parameters (here, the parameters for the
 Lennard-Jones potential), and the bond and angle parameters.
-Copy the following line into input.lammps:</p>
+Copy the following line into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">GROUP.lammps</span>
@@ -469,7 +469,7 @@ particle-particle potential energy is 0.</p>
 <p class="admonition-title">About the parameters</p>
 <p>The parameters for water
 correspond to the TIP4P/2005 water model, for which only
-the oxygen interacts through Lennard-Jones potentiel, and the parameters
+the oxygen interacts through Lennard-Jones potential, and the parameters
 for <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span> are
 from the CHARMM-27 force field <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id21" title="Alexander D MacKerell Jr, Nilesh Banavali, and Nicolas Foloppe. Development and current status of the charmm force field for nucleic acids. Biopolymers: original Research on biomolecules, 56(4):257–265, 2000.">19</a>]</span>.</p>
 </div>
@@ -489,7 +489,7 @@ the default option is kept here.</p>
 <div class="justify docutils container">
 <p>By default, the value
 of <span class="math notranslate nohighlight">\(\epsilon_\text{1-5} = 5.941\,\text{kcal/mol}\)</span> would
-be extremely high (compare to the water-water
+be extremely high (compared to the water-water
 energy <span class="math notranslate nohighlight">\(\epsilon_\text{1-1} = 0.185199\,\text{kcal/mol}\)</span>),
 which would make the surface extremely hydrophilic.
 The walls were made less hydrophilic by reducing the
@@ -499,7 +499,7 @@ LJ energy of interaction <span class="math notranslate nohighlight">\(\epsilon_\
 <p>The <em>bond_coeff</em>, which is here used for the O-H bond of the water
 molecule, sets both the energy of the harmonic
 potential and the equilibrium distance in Ångstrom. The
-value is <em>0</em> for the energy, because we are going to use a
+value is <em>0</em> for the energy because we are going to use a
 rigid model for the water molecule. The shape of the
 molecule will be preserved later by the <em>shake</em> algorithm.
 Similarly, the angle coefficient here for the H-O-H angle
@@ -543,7 +543,7 @@ to delete a few of the water molecules:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>With <em>run 0</em>, the simulation will run for 0 step, which is
+<p>With <em>run 0</em>, the simulation will run for 0 steps, which is
 enough for creating the system and saving the final state.</p>
 </div>
 <div class="justify docutils container">
@@ -568,7 +568,7 @@ to visualize the system.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Side view of the system. Periodic images are represented in darker
-color. Water molecules are in red and white, <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>
+colors. Water molecules are in red and white, <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>
 ions in purple, <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span> ions in lime, and wall atoms in
 gray. Note the absence of atomic defect at the cell boundaries.
 See the corresponding <a href="https://youtu.be/SK3FkJt0TmM" target="_blank">video</a>.</p>
@@ -585,11 +585,11 @@ occur at the boundary.</p>
 <p class="admonition-title">Why is energy minimization necessary?</p>
 <p>It is clear from the way the system has been created that
 the atoms are not at equilibrium distances from each
-others. Indeed, some of the ions added using the <em>create_atoms</em>
+other. Indeed, some of the ions added using the <em>create_atoms</em>
 commands are too close to the water molecules.
 If we were to start a <em>normal</em> (i.e. with a timestep of about 1 fs)
 molecular dynamics simulation now, the atoms
-would exert huge forces on each others, accelerate
+would exert huge forces on each other, accelerate
 brutally, and the simulation would likely fail.</p>
 </div>
 <div class="info admonition">
@@ -698,7 +698,7 @@ atom positions.</p>
 </div>
 <div class="justify docutils container">
 <p>When running the <em>input.lammps</em> file with LAMMPS, you should see that the
-total energy of the system decreases during the first
+the total energy of the system decreases during the first
 of the 3 steps, before re-increasing a little after the
 temperature is increased from 1 to <span class="math notranslate nohighlight">\(300\,\text{K}\)</span>.</p>
 </div>
@@ -714,8 +714,8 @@ file using <em>Python</em> and <em>lammps_logfile</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you look at the trajectory using VMD, you will see some
-of the atoms, in particular the one that where initially in problematic
-positions.</p>
+of the atoms, in particular, the ones that were
+initially in problematic positions.</p>
 </div>
 </section>
 <section id="system-equilibration">
@@ -800,12 +800,12 @@ reduces until it reaches an equilibrium value.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Distance between the walls as a function of time.
-After a few pico seconds, the distance between the two walls equilibrates near
+After a few picoseconds, the distance between the two walls equilibrates near
 its final value.</p>
 </div>
 <div class="justify docutils container">
-<p>Note that it is generaly recommended to run longer equilibration.
-Here for instance, the slowest
+<p>Note that it is generally recommended to run longer equilibration.
+Here, for instance, the slowest
 process in the system is probably the ionic diffusion. Therefore the equilibration
 should in principle be longer than the time
 the ions need to diffuse over the size of the pore
@@ -861,7 +861,7 @@ is used by the thermostats.</p>
 <div class="justify docutils container">
 <p>The use of temperature <em>compute</em> with <em>temp/partial 0 1 1</em>
 is meant to exclude the <em>x</em> coordinate from the
-thermalisation, which is important since a large velocity
+thermalization, which is important since a large velocity
 will be imposed along <em>x</em>.</p>
 </div>
 <div class="justify docutils container">
@@ -877,7 +877,7 @@ by adding the following command to <em>input.lammps</em>:</p>
 <div class="justify docutils container">
 <p>The <em>setforce</em> commands cancel the forces on <em>walltop</em> and
 <em>wallbot</em>, respectively. Therefore the atoms of the two groups do not
-experience any force from the rest of the system. In absence of force
+experience any force from the rest of the system. In the absence of force
 acting on those atoms, they will conserve their initial velocity.</p>
 </div>
 <div class="justify docutils container">
@@ -958,16 +958,17 @@ gets an estimate for the shear viscosity for the confined
 fluid of <span class="math notranslate nohighlight">\(\eta = 6.6\,\text{mPa.s}\)</span></p>
 </div>
 <div class="justify docutils container">
-<p>The viscosity calculated at such high shear rate may
-differ from the expected <em>bulk</em> value. In general, it is recommanded to use a lower
-value for the shear rate. Note that for lower shear rate, the ratio noise-to-signal
+<p>The viscosity calculated at such a high shear rate may
+differ from the expected <em>bulk</em> value. In general, it is recommended to use a lower
+value for the shear rate. Note that for lower shear rates, the ratio of noise-to-signal
 is larger, and longer simulations are needed.</p>
 </div>
 <div class="justify docutils container">
 <p>Another important point is that the viscosity of a fluid next to a solid surface is
 typically larger than in bulk due to interaction with the
 walls. Therefore, one expects the present simulation to return
-a viscosity that is slightly larger than what would be measured in absence of wall.</p>
+a viscosity that is slightly larger than what would
+be measured in the absence of a wall.</p>
 </div>
 <div class="justify docutils container">
 <p>You can access the input scripts and data files that
@@ -1007,7 +1008,7 @@ where <span class="math notranslate nohighlight">\(f\)</span> is the applied for
 The line is the Poiseuille equation.</p>
 </div>
 <div class="justify docutils container">
-<p>An important step is to choose the proper value for the addidional force.</p>
+<p>An important step is to choose the proper value for the additional force.</p>
 </div>
 </section>
 </section>
