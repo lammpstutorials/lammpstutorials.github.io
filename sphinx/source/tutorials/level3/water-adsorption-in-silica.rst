@@ -110,16 +110,16 @@ Vashishta potential
     :class: info
 
     The |website_vashishta|
-    potential is a bond-angle energy based potential, it
+    potential is a bond-angle energy-based potential, it
     deduces the bonds between atoms from their relative
-    positions :cite:`vashishta1990interaction`. Therefore, there is no need to provide bond
-    and angle information as we do with classic force fields
+    positions :cite:`vashishta1990interaction`. Therefore, there is no need to
+    provide the bond and angle information as we do with classic force fields
     like GROMOS or AMBER. When used with LAMMPS, the *Vashishta*
-    potential requires the use of metal units system. 
-    Bond-angle energy based potentials
+    potential requires the use of the *metal* units system. 
+    Bond-angle energy-based potentials
     are more computationally heavy than classical force
     fields and require the use of a smaller timestep, but
-    they allow for the modelling of bond formation and
+    they allow for the modeling of bond formation and
     breaking, which is what we need here as we want to create
     a crack in the silica.
 
@@ -129,7 +129,7 @@ Vashishta potential
 
 ..  container:: justify
 
-    Let us then import the system made of 9 atoms, replicate it four times in all three
+    Let us then import the system made of 9 atoms, and replicate it four times in all three
     directions of space, thus creating a system with 576 atoms. Add the following lines
     to *input.lammps*:
 
@@ -153,7 +153,7 @@ Vashishta potential
 ..  container:: justify
 
     Let us add some commands to *input.lammps* to help us follow the evolution of the system,
-    such as its temperature, volume, and potential-energy:
+    such as its temperature, volume, and potential energy:
 
 ..  code-block:: lammps
 
@@ -239,7 +239,8 @@ Annealing procedure
 ..  container:: justify
 
     Let us check the evolution of the temperature from the *temperature.dat* file.
-    Apart from an initial spike (may be due to an initial bad configuration, probably harmless here),
+    Apart from an initial spike (which may be due to an initial
+    bad configuration, probably harmless here),
     the temperature follows well the desired annealing procedure.
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/temperature_evolution-dark.png
@@ -447,10 +448,10 @@ Adding water
     In order to add the water molecules to the silica, we are
     going to use the Monte Carlo method in the grand canonical
     ensemble (GCMC). In short, the system is put into contact
-    with a virtual reservoir of given chemical potential
+    with a virtual reservoir of a given chemical potential
     :math:`\mu`, and multiple attempts to insert water
     molecules at random positions are made. Attempts are
-    either accepted or rejected based on energy consideration.
+    either accepted or rejected based on energy considerations.
 
 Using hydrid potentials
 -----------------------
@@ -508,11 +509,11 @@ Using hydrid potentials
     range Coulomb interactions associated with *tip4p/long*.
     Finally, the style for the bonds and angles
     of the water molecules are defined, although they are not important
-    since its a rigid water model.
+    since it is a rigid water model.
 
 ..  container:: justify
 
-    Before going further, we also need to make a few change to our data file.
+    Before going further, we also need to make a few changes to our data file.
     Currently, *dilatedSiO.data* only includes two atom types, but
     we need four. Copy the previously generated *dilatedSiO.data*
     file within *Addingwater/*. Currently, *dilatedSiO.data* starts with:
@@ -569,7 +570,7 @@ Using hydrid potentials
 
 ..  container:: justify
 
-    Doing so, we anticipate that there will be 4 atoms types in
+    Doing so, we anticipate that there will be 4 atom types in
     the simulations, with O and H of H2O having indexes 3 and 4,
     respectively. There will also be 1 bond type and 1 angle
     type. The extra bond, extra angle, and extra special lines
@@ -598,7 +599,7 @@ Using hydrid potentials
     include some water molecules in the system on a 
     simple cubic lattice. Not adding a molecule before starting the
     GCMC steps usually lead to failure. Note that here,
-    most water molecules are overlapping with the silica. These 
+    most water molecules overlap with the silica. These 
     overlapping water molecules will be deleted before 
     starting the simulation. 
 
@@ -668,7 +669,7 @@ GCMC simulation
 ..  container:: justify
 
     To prepare for the GCMC simulation,
-    let us make a first equilibration step
+    let us make the first equilibration step
     by adding the following lines to *input.lammps*:
 
 ..  code-block:: lammps
@@ -689,7 +690,7 @@ GCMC simulation
     :class: info
 
     Two different thermostats are used for SiO and for H2O, respectively. Using 
-    separate thermostats is usually better when the system contains two separate
+    separate thermostats are usually better when the system contains two separate
     species, such as a solid and a
     liquid. It is particularly important to use two thermostats
     here because the number of water molecules will fluctuate with time.
@@ -746,7 +747,7 @@ GCMC simulation
 
     When you run the simulation, make sure that some water molecules 
     remain in the system after the *delete_atoms* command. You can control 
-    that either using the log file, or using the *numbermolecule.dat* data file.
+    that either using the log file or using the *numbermolecule.dat* data file.
 
 ..  container:: justify
 
@@ -759,7 +760,7 @@ GCMC simulation
 
 ..  container:: justify
 
-    You can also see that 258 molecules where immediately deleted,
+    You can also see that 258 molecules were immediately deleted,
     leaving 24 water molecules (the exact number you get may differ):
 
 ..  code-block:: bw
@@ -772,7 +773,7 @@ GCMC simulation
 
     After just a few GCMC steps,
     the number of molecules starts increasing with time.
-    Once the crack is fully filled with water molecules, the number of
+    Once the crack is filled with water molecules, the number of
     molecules reaches a plateau.
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/number_evolution-dark.png
@@ -815,7 +816,7 @@ GCMC simulation
 .. admonition:: Vizualising varying number of molecules
     :class: info
 
-    By default, VMD fails to properly render systems with varying number of atoms.
+    By default, VMD fails to properly render systems with varying numbers of atoms.
 
 .. include:: ../../non-tutorials/accessfile.rst
 
@@ -843,8 +844,8 @@ Mixture adsorption
 
 .. container:: justify
 
-    Where is is assumed that the atom of type 5 is oxygen of 
-    mass 15.9994, and atom of type 6 is carbon of mass 12.011.
+    Where it is assumed that the atom of type 5 is oxygen of 
+    mass 15.9994, and an atom of type 6 is the carbon of mass 12.011.
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/H2O-CO2-dark.png
     :alt: silica block adsorbed water and CO2
@@ -879,7 +880,7 @@ Adsorb water in ZIF-8 nanopores
 
 ..  container:: justify
     
-    Use the same protocole as the one implemented in this tutorial to add water
+    Use the same protocol as the one implemented in this tutorial to add water
     molecules to a Zif-8 nanoporous material. A snapshot of the system with a 
     few water molecules is shown on the right.
 
@@ -892,7 +893,7 @@ Adsorb water in ZIF-8 nanopores
     by bonds, angles, dihedrals, and impropers. It uses the
     same *pair_style* as water,
     so there is no need to use *hybrid pair_style*.
-    Your *input* file should start like that:
+    Your *input* file should start like this:
 
 ..  code-block:: lammps
 

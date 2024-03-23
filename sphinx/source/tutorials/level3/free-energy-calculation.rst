@@ -28,11 +28,11 @@ Free energy calculation
     
 ..  container:: justify
 
-    For the sake of simplicity and in order to reduce the computation time, the
-    barrier potential will be imposed artificially to the atoms.
+    For the sake of simplicity and to reduce the computation time, the
+    barrier potential will be imposed artificially on the atoms.
     The procedure is valid for more complex
     systems, and can be adapted to many other situations, for instance 
-    for measuring adsorption barrier near a wall, or for calculating translocation
+    for measuring the adsorption barrier near a wall, or for calculating translocation
     barrier through a membrane.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
@@ -73,10 +73,10 @@ Method 1: Free sampling
     :math:`p` the pressure,
     and :math:`p_0` the reference pressure.
     As an illustration, let us apply this method to an
-    extremely simple configuration that consists in a few
-    particles diffusing in a box in presence of a
-    position-dependent repealing force that makes the centre
-    of the box a relatively unfavourable area to explore.
+    extremely simple configuration that consists of a few
+    particles diffusing in a box in the presence of a position-dependent
+    repealing force that makes the center
+    of the box a relatively unfavorable area to explore.
 
 Basic LAMMPS parameters
 -----------------------
@@ -109,7 +109,7 @@ Basic LAMMPS parameters
 
 ..  container:: justify
 
-    The value of 3.822 for the cut off was chosen to 
+    The value of 3.822 for the cut-off was chosen to 
     create a WCA, purely repulsive, potential. It was calculated
     as :math:`2^{1/6} \times 3.405` where
     :math:`3.405 = \sigma`.
@@ -117,7 +117,7 @@ Basic LAMMPS parameters
 ..  container:: justify
 
     The system of unit '*real*, for which energy is in kcal/mol, distance in Ångstrom,
-    time in femtosecond, has been chosen for practical reason:
+    time in femtosecond has been chosen for practical reasons:
     the WHAM algorithm used in the second
     part of the tutorial automatically assumes the energy to
     be in kcal/mol. Atoms will interact through a
@@ -177,7 +177,7 @@ System creation and settings
 ..  container:: justify
 
     The potential and force along the :math:`x`
-    axis resemble:
+    axis resembles:
 
 .. figure:: ../figures/level3/free-energy-calculation/potential-light.png
    :alt: Imposed potential
@@ -189,7 +189,7 @@ System creation and settings
 
 ..  container:: figurelegend
 
-    Figure: a) Potential :math:`U (x)`. b) force :math:`F (x)` (bottom) imposed to the atoms.
+    Figure: Potential :math:`U (x)` (a) and force :math:`F (x)` (b) imposed to the atoms.
 
 **Energy minimization and equilibration**
 
@@ -294,11 +294,11 @@ Data analysis
     is long enough by looking at the *density_evolution.dat* file.
 
 .. figure:: ../figures/level3/free-energy-calculation/density_evolution-light.png
-   :alt: Number of particle in the central region as a function of time
+   :alt: Number of particles in the central region as a function of time
    :class: only-light
 
 .. figure:: ../figures/level3/free-energy-calculation/density_evolution-dark.png
-   :alt: Number of particle in the central region as a function of time
+   :alt: Number of particles in the central region as a function of time
    :class: only-dark
 
 ..  container:: figurelegend
@@ -307,7 +307,7 @@ Data analysis
    
 ..  container:: justify
 
-    Here, we can clearly see that the number of atoms in the
+    Here, we can see that the number of atoms in the
     central region, :math:`n_\mathrm{central}`, evolves near its
     equilibrium value (which is close to 0) after about :math:`0.1\,\text{ns}`.
 
@@ -347,7 +347,7 @@ Data analysis
 ..  container:: figurelegend
 
     Figure: Calculated potential :math:`-R T \ln(\rho/\rho_\mathrm{bulk})`
-    compared to imposed potential.
+    compared to the imposed potential.
     The calculated potential is in blue.
 
 ..  container:: justify
@@ -387,7 +387,7 @@ Method 2: Umbrella sampling
 
     Umbrella sampling is a biased molecular dynamics method,
     i.e. a method in which additional forces are added to the
-    atoms in order to make the unfavourable states more likely
+    atoms in order to make the unfavorable states more likely
     to occur :cite:`frenkel2023understanding`.
 
 ..  container:: justify
@@ -398,7 +398,7 @@ Method 2: Umbrella sampling
     
 ..  container:: justify
 
-    Here, let us force one of the atom to
+    Here, let us force one of the atoms to
     explore the central region of the box. To do so,
     let us add a potential :math:`V` to one
     of the particle, and force it to move along the axis :math:`x`.
@@ -412,7 +412,7 @@ LAMMPS input script
 
 ..  container:: justify
 
-    Create a new folder called *BiasedSampling/*, create a new input file 
+    Create a new folder called *BiasedSampling/*, and create a new input file 
     named *input.lammps* in it, and copy the following lines:
 
 ..  code-block:: lammps
@@ -466,7 +466,7 @@ LAMMPS input script
 ..  container:: justify
 
     Let us create a loop with 50 steps, and move progressively
-    the centre of the bias potential by increment of 0.1 nm.
+    the center of the bias potential by an increment of 0.1 nm.
     Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
@@ -491,15 +491,15 @@ LAMMPS input script
 ..  container:: justify
 
     The spring command serves to impose the
-    additional harmonic potential with spring constant :math:`k`.
+    additional harmonic potential with the spring constant :math:`k`.
     Note that the value of :math:`k` should be chosen with care,
-    if :math:`k` is too small, the particle wont follow the biasing potential
+    if :math:`k` is too small, the particle won't follow the biasing potential
     center, if :math:`k` is too large, there will be no overlapping between the 
     different windows. See the side note named *on the choice of k* below.
 
 ..  container:: justify
 
-    The centre of the harmonic potential :math:`x_\text{des}`
+    The center of the harmonic potential :math:`x_\text{des}`
     successively takes values from -25 to 25. For each value of
     :math:`x_\text{des}`, an equilibration step of 0.4 ns is
     performed, followed by a step of 2 ns during which the
@@ -534,7 +534,7 @@ WHAM algorithm
     The compilation creates an executable called *wham* that you can 
     copy in the *BiasedSampling/* folder. Alternatively, use 
     the |wham-version| I have downloaded, or try your luck with the version 
-    i did precompile; |wham-precompiled|.
+    I precompiled: |wham-precompiled|.
 
 .. |wham-version| raw:: html
 
@@ -584,8 +584,8 @@ WHAM algorithm
 
 ..  container:: justify
 
-    Here :math:`k` is in kcal/mol.
-    The generated file named *metadata.dat* looks like that:
+    Here, :math:`k` is in kcal/mol.
+    The generated file named *metadata.dat* looks like this:
 
 ..  code-block:: bash
 
@@ -612,9 +612,9 @@ WHAM algorithm
 
 ..  container:: justify
 
-    where -25 and 25 are the boundaries, 50 the number of bins,
+    where -25 and 25 are the boundaries, 50 is the number of bins,
     1e-8 the tolerance, and 119.8 the temperature. A file named
-    PMF.dat has been created, and contains the free energy
+    PMF.dat has been created and contains the free energy
     profile in Kcal/mol.
 
 **Results**
@@ -641,7 +641,7 @@ WHAM algorithm
 
     We can see that the agreement is quite good despite the very short calculation time
     and the very high value for the energy barrier. Obtaining the same 
-    results with Free Sampling would require to perform extremely long
+    results with Free Sampling would require performing extremely long
     and costly simulations.
 
 .. include:: ../../non-tutorials/accessfile.rst
@@ -674,13 +674,14 @@ Side note: on the choice of k
     
 ..  container:: justify
 
-    If :math:`k` is too small, the biasing potential is too weak to force the particle to explores the 
+    If :math:`k` is too small, the biasing potential is too weak to
+    force the particle to explore the 
     region of interest, making it impossible to reconstruct the PMF.
 
 ..  container:: justify
 
     If :math:`k` is too large, the biasing potential is too large 
-    compared to the potential one want to probe, which reduces the 
+    compared to the potential one wants to probe, which reduces the 
     sensitivity of the method.
 
 Going further with exercises
@@ -688,7 +689,7 @@ Going further with exercises
 
 .. include:: ../../non-tutorials/link-to-solutions.rst
 
-The binary fluid that wont mix
+The binary fluid that won't mix
 ------------------------------
 
 ..  container:: justify
@@ -716,7 +717,7 @@ The binary fluid that wont mix
 
     **2 - Measure the PMFs**
 
-    Using the same protocole as the one used in the tutorial
+    Using the same protocol as the one used in the tutorial
     (i.e. umbrella sampling with the wham algorithm),
     extract the PMF for each particle type.
 
@@ -739,13 +740,13 @@ Particles under convection
 
     Use a similar simulation as the one from the tutorial,
     with a repulsive potential in the center
-    of the box. Add an additional forcing to the particles
+    of the box. Add force to the particles
     and force them to flow in the :math:`x` direction.
 
 ..  container:: justify
 
-    Re-measure the potential in presence of the flow, and observe the difference
-    with the reference case in absence of flow.
+    Re-measure the potential in the presence of the flow, and observe the difference
+    with the reference case in the absence of flow.
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice-convection-light.png
     :alt: PMF in the presence of forcing
@@ -757,7 +758,7 @@ Particles under convection
 
 ..  container:: figurelegend
 
-    Figure: PMF calculated in the presence of a net forcing inducing
+    Figure: PMF calculated in the presence of a net force inducing
     the convection of the particles from left to right. 
 
 Surface adsorption of a molecule
@@ -815,7 +816,7 @@ Surface adsorption of a molecule
 
 ..  container:: justify
 
-    The PMF shows a mimina near the solid surface, which indicates a good
+    The PMF shows a minima near the solid surface, which indicates a good
     affinity between the wall and the molecule.
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice-ethanol-light.png
@@ -830,7 +831,7 @@ Surface adsorption of a molecule
 
     Figure: PMF for a single ethanol molecule next to a NaCl
     solid surface. The position of the wall is in :math:`x=0`.
-    The arrow highlight the difference between the energy of the 
+    The arrow highlights the difference between the energy of the 
     molecule when adsorbed to the solid surface, and
     the energy far from the surface. This difference corresponds to the
     free energy of adsorption.

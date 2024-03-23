@@ -245,11 +245,11 @@
 <p>The objective of this tutorial is to use a
 reactive force field (<em>ReaxFF</em> <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id23" title="Adri CT Van Duin, Siddharth Dasgupta, Francois Lorant, and William A Goddard. Reaxff: a reactive force field for hydrocarbons. The Journal of Physical Chemistry A, 105(41):9396–9409, 2001.">21</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id22" title="Chenyu Zou and Adri Van Duin. Investigation of complex iron surface catalytic chemistry using the reaxff reactive force field method. Jom, 64:1426–1437, 2012.">22</a>]</span>),
 and calculate the partial charges of a system undergoing
-deformation, as well as chemical bonds formation and breaking.</p>
+deformation, as well as chemical bond formation and breaking.</p>
 </div>
 <div class="justify docutils container">
 <p>The system simulated here is a block of silicon dioxide (SiO2), that is deformed
-until rupture. A particular attention is given to the evolution of the charges
+until rupture. Particular attention is given to the evolution of the charges
 of the atoms during the deformation of the structure, and
 the chemical reactions occurring due to the deformation
 are tracked.</p>
@@ -286,7 +286,7 @@ used for creating the initial topology is available
 by looking at the Atoms section that
 all silicon atoms have the same charge <span class="math notranslate nohighlight">\(q = 1.1\,\text{e}\)</span>,
 and all oxygen atoms the charge <span class="math notranslate nohighlight">\(q = -0.55\,\text{e}\)</span>.
-This is common with classical force field, and will change once
+This is common with classical force field and will change once
 <em>ReaxFF</em> is used. Let us keep that in mind for now.</p>
 </div>
 <div class="justify docutils container">
@@ -323,8 +323,8 @@ Now let us enter 3 crucial lines in the <em>input.lammps</em> file:</p>
 <div class="justify docutils container">
 <p>Here, the <em>ReaxFF pair_style</em> is used with no control file.
 The <em>safezone</em> and <em>mincap</em> keywords have been added
-to avoid memory allocation issue, which sometimes can trigger
-the segmentation faults and bondchk failed errors.</p>
+to avoid memory allocation issues, which sometimes can trigger
+the segmentation faults and <em>bondchk</em> failed errors.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>pair_coeff</em> uses
@@ -337,7 +337,7 @@ and the atoms of type 2 as oxygen (O).</p>
 <p>Finally, the <em>fix qeq/reaxff</em> is used to perform charge equilibration. The charge
 equilibration occurs at every step. The values 0.0 and 10.0
 are the low and the high cutoffs, respectively, and <span class="math notranslate nohighlight">\(1.0 \text{e} -6\)</span> is a
-tolerance. Finally, <em>maxiter</em> sets a upper limit to the number of attempt to
+tolerance. Finally, <em>maxiter</em> sets an upper limit to the number of attempts to
 equilibrate the charge.</p>
 </div>
 <div class="info admonition">
@@ -370,7 +370,7 @@ Add the following lines to the <em>input.lammps</em>:</p>
 <div class="justify docutils container">
 <p>Let us also use the <em>fix reaxff/species</em> to evaluate what
 species are present within the simulation. It will
-be useful later, when the system is deformed:</p>
+be useful later when the system is deformed:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myspec</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">reaxff</span><span class="o">/</span><span class="n">species</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">species.log</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
 </pre></div>
@@ -380,7 +380,7 @@ be useful later, when the system is deformed:</p>
 file named <em>species.log</em>.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us perform a very short run using anisotropic NPT command
+<p>Let us perform a very short run using the anisotropic NPT command
 and relax the density of the system.</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">3482028</span>
@@ -398,7 +398,7 @@ only one species is detected, called <em>Si192O384</em>, which is the entire sys
 </div>
 <div class="justify docutils container">
 <p>As the simulation progresses, you can see that the charges of the atoms are fluctuating
-since the charge of every individual atom is adjusting to its local environnement.</p>
+since the charge of every individual atom is adjusting to its local environment.</p>
 </div>
 <figure class="align-default">
 <img alt="Charge of silica during equilibration with reaxff and LAMMPS" class="only-light" src="../../_images/average-charge-light.png" />
@@ -415,7 +415,7 @@ atoms during equilibration, as given by the
 <p>One can see that the charges of the atoms are strongly fluctuating
 at the beginning of the simulation. This early fluctuation correlates
 with a rapid volume change of the box, during which
-the inter atomic distances are expected to quickly change.</p>
+the inter-atomic distances are expected to quickly change.</p>
 </div>
 <figure class="align-default">
 <img alt="volume of the system with reaxff and LAMMPS" class="only-light" src="../../_images/volume-light.png" />
@@ -427,7 +427,7 @@ the inter atomic distances are expected to quickly change.</p>
 <p>Figure: Volume of the system as a function of time.</p>
 </div>
 <div class="justify docutils container">
-<p>Since each atom has a charge that depends on its local environnement,
+<p>Since each atom has a charge that depends on its local environment,
 the charge values are expected to be different for every atom in the system. We can plot
 the charge distribution <span class="math notranslate nohighlight">\(P(q)\)</span>, using the charge values printed in
 the <em>.lammptrj</em> file.</p>
@@ -456,9 +456,9 @@ amorphous structure (here at the positions of the dandling oxygen groups).</p>
 <div class="figurelegend docutils container">
 <p>Figure: A slice of the amorphous silica, where atoms are colored by
 their charges. Dandling oxygen groups appear in greenish, bulk Si atoms
-with charge of about 1.8e appear in red/orange, bulk O atoms
-with charge of about -0.9e appear in blue.
-To color the atoms by their charge in VMD, use <em>Charge</em> as coloring method in the
+with a charge of about 1.8e appear in red/orange, and bulk O atoms
+with a charge of about -0.9e appear in blue.
+To color the atoms by their charge in VMD, use <em>Charge</em> as the coloring method in the
 representation windows, and then tune the <em>Color scale</em> in the <em>Color control windows</em>.</p>
 </div>
 </section>
@@ -537,7 +537,7 @@ Add the following line to <em>input.lammps</em>:</p>
 breaks down. After the structure breaks down, the charges equilibrate near new
 average values that differ from the starting averages. The difference between
 the initial and the final charges can be explained by
-presence of defects as well as a new solid/vacuum interfaces, and the fact that
+the presence of defects as well as new solid/vacuum interfaces, and the fact that
 surface atoms typically have different charges compared to bulk atoms.</p>
 </div>
 <figure class="align-default">
@@ -548,7 +548,7 @@ surface atoms typically have different charges compared to bulk atoms.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Average charge per atom of the silicon (a) and oxygen (b).
-The vertical dashed lines marks the beginning of the deformation.</p>
+The vertical dashed lines mark the beginning of the deformation.</p>
 </div>
 <div class="justify docutils container">
 <p>There is also a strong increase in temperature during the rupture of the
@@ -594,7 +594,7 @@ after deformation. The stars correspond to the charge distribution during deform
 </div>
 <div class="justify docutils container">
 <p>As expected, the final charge distribution slightly differs from the previously calculated.
-In my case, no new species was formed during the simulation,
+In my case, no new species were formed during the simulation,
 as can be seen from the <em>species.log</em> file:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c">#  Timestep    No_Moles    No_Specs   Si192O384</span>
@@ -623,7 +623,7 @@ deformation. If this is the case, the <em>species.log</em> file will look like:<
 system evolves with time.</p>
 </div>
 <div class="justify docutils container">
-<p>Next to <em>RelaxSilica/</em> and <em>Deform/</em>, create a folder, call it <em>Decorate/</em>.
+<p>Next to <em>RelaxSilica/</em> and <em>Deform/</em>, create a folder, and call it <em>Decorate/</em>.
 Then, let us modify the previously generated data file
 <em>silica-deformed.data</em> and make space for a third atom type.
 Copy <em>silica-deformed.data</em> from the <em>Deform/</em> folder,
@@ -664,13 +664,13 @@ the following lines into it:</p>
 <div class="justify docutils container">
 <p>Here, the <em>displace_atoms</em> command was used to
 move the center of the crack near the center of the box.
-This step is optional, but makes the visualizing
+This step is optional but makes the visualizing
 of the interface in VMD easier.
 A different value for the shift may be needed in your case,
 depending on the location of the crack.</p>
 </div>
 <div class="justify docutils container">
-<p>A difference with the previous input, is that
+<p>A difference with the previous input is that
 three atom types are specified in the
 <em>pair_coeff</em> command, <em>Si O H</em>, instead of two.</p>
 </div>
@@ -698,8 +698,8 @@ denominator of the <em>variable qH</em> in order to avoid dividing by 0
 at the beginning of the simulation.</p>
 </div>
 <div class="justify docutils container">
-<p>Finally, let us use create a loop with 10 steps,
-and create two hydrogens atom at random locations at every step:</p>
+<p>Finally, let us create a loop with 10 steps,
+and create two hydrogen atoms at random locations at every step:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">100</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
@@ -721,7 +721,7 @@ and create two hydrogens atom at random locations at every step:</p>
 </div>
 <div class="justify docutils container">
 <p>Here, a different <em>lammpstrj</em> file is created for each step of the
-loop in order to avoid creating dump files with varying number of atoms,
+loop in order to avoid creating dump files with varying numbers of atoms,
 which VMD can’t read.</p>
 </div>
 <div class="justify docutils container">
@@ -744,7 +744,7 @@ the <span class="math notranslate nohighlight">\(\text{SiO}_{2}\)</span> structu
 <img alt="Cracked silicon oxide after addition of hydrogen atoms" class="only-dark" src="../../_images/decorated-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Cracked silicon oxide after addition of hydrogen atoms.
+<p>Figure: Cracked silicon oxide after the addition of hydrogen atoms.
 Some hydroxyl groups can be seen at the interfaces.
 The atoms are colored by their charges.</p>
 </div>
@@ -773,7 +773,7 @@ reactions over time.</p>
 <img alt="Cracked silicon oxide after addition of water molecule" class="only-dark" src="../../_images/hydrated-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Cracked silicon oxide after addition of hydrogen atoms and water molecules.
+<p>Figure: Cracked silicon oxide after the addition of hydrogen atoms and water molecules.
 The atoms are colored by their charges.</p>
 </div>
 </section>

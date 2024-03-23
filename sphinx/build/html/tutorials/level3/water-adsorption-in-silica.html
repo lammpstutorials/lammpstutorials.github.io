@@ -318,21 +318,21 @@ and copy it within the <em>Potential/</em> folder.</p>
 <div class="info admonition">
 <p class="admonition-title">About the Vashishta potential</p>
 <p>The <a href="https://pubmed.ncbi.nlm.nih.gov/9993674/" target="_blank">Vashishta</a>
-potential is a bond-angle energy based potential, it
+potential is a bond-angle energy-based potential, it
 deduces the bonds between atoms from their relative
-positions <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id13" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for sio 2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">23</a>]</span>. Therefore, there is no need to provide bond
-and angle information as we do with classic force fields
+positions <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id13" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for sio 2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">23</a>]</span>. Therefore, there is no need to
+provide the bond and angle information as we do with classic force fields
 like GROMOS or AMBER. When used with LAMMPS, the <em>Vashishta</em>
-potential requires the use of metal units system.
-Bond-angle energy based potentials
+potential requires the use of the <em>metal</em> units system.
+Bond-angle energy-based potentials
 are more computationally heavy than classical force
 fields and require the use of a smaller timestep, but
-they allow for the modelling of bond formation and
+they allow for the modeling of bond formation and
 breaking, which is what we need here as we want to create
 a crack in the silica.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us then import the system made of 9 atoms, replicate it four times in all three
+<p>Let us then import the system made of 9 atoms, and replicate it four times in all three
 directions of space, thus creating a system with 576 atoms. Add the following lines
 to <em>input.lammps</em>:</p>
 </div>
@@ -352,7 +352,7 @@ atoms every 5000 steps:</p>
 </div>
 <div class="justify docutils container">
 <p>Let us add some commands to <em>input.lammps</em> to help us follow the evolution of the system,
-such as its temperature, volume, and potential-energy:</p>
+such as its temperature, volume, and potential energy:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">dmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 <span class="k">variable </span><span class="nv nv-Identifier">myvol</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">vol</span>
@@ -427,7 +427,8 @@ liquid or a gas, the isotropic barostat is usually the best choice.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us check the evolution of the temperature from the <em>temperature.dat</em> file.
-Apart from an initial spike (may be due to an initial bad configuration, probably harmless here),
+Apart from an initial spike (which may be due to an initial
+bad configuration, probably harmless here),
 the temperature follows well the desired annealing procedure.</p>
 </div>
 <figure class="align-default">
@@ -596,10 +597,10 @@ exercise from <a class="reference internal" href="reactive-silicon-dioxide.html#
 <p>In order to add the water molecules to the silica, we are
 going to use the Monte Carlo method in the grand canonical
 ensemble (GCMC). In short, the system is put into contact
-with a virtual reservoir of given chemical potential
+with a virtual reservoir of a given chemical potential
 <span class="math notranslate nohighlight">\(\mu\)</span>, and multiple attempts to insert water
 molecules at random positions are made. Attempts are
-either accepted or rejected based on energy consideration.</p>
+either accepted or rejected based on energy considerations.</p>
 </div>
 <section id="using-hydrid-potentials">
 <h3>Using hydrid potentials<a class="headerlink" href="#using-hydrid-potentials" title="Link to this heading">#</a></h3>
@@ -646,10 +647,10 @@ styles can be assigned to each pair of atom types.</p>
 range Coulomb interactions associated with <em>tip4p/long</em>.
 Finally, the style for the bonds and angles
 of the water molecules are defined, although they are not important
-since its a rigid water model.</p>
+since it is a rigid water model.</p>
 </div>
 <div class="justify docutils container">
-<p>Before going further, we also need to make a few change to our data file.
+<p>Before going further, we also need to make a few changes to our data file.
 Currently, <em>dilatedSiO.data</em> only includes two atom types, but
 we need four. Copy the previously generated <em>dilatedSiO.data</em>
 file within <em>Addingwater/</em>. Currently, <em>dilatedSiO.data</em> starts with:</p>
@@ -702,7 +703,7 @@ molecules. Modify the file so that it looks like the following
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Doing so, we anticipate that there will be 4 atoms types in
+<p>Doing so, we anticipate that there will be 4 atom types in
 the simulations, with O and H of H2O having indexes 3 and 4,
 respectively. There will also be 1 bond type and 1 angle
 type. The extra bond, extra angle, and extra special lines
@@ -728,7 +729,7 @@ from the txt file, the <em>create_atoms</em> command is used to
 include some water molecules in the system on a
 simple cubic lattice. Not adding a molecule before starting the
 GCMC steps usually lead to failure. Note that here,
-most water molecules are overlapping with the silica. These
+most water molecules overlap with the silica. These
 overlapping water molecules will be deleted before
 starting the simulation.</p>
 </div>
@@ -789,7 +790,7 @@ lines to <em>input.lammps</em>:</p>
 <h3>GCMC simulation<a class="headerlink" href="#gcmc-simulation" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>To prepare for the GCMC simulation,
-let us make a first equilibration step
+let us make the first equilibration step
 by adding the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute_modify </span><span class="nv nv-Identifier">thermo_temp</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
@@ -808,7 +809,7 @@ by adding the following lines to <em>input.lammps</em>:</p>
 <div class="info admonition">
 <p class="admonition-title">On thermostating groups instead of the entire system</p>
 <p>Two different thermostats are used for SiO and for H2O, respectively. Using
-separate thermostats is usually better when the system contains two separate
+separate thermostats are usually better when the system contains two separate
 species, such as a solid and a
 liquid. It is particularly important to use two thermostats
 here because the number of water molecules will fluctuate with time.</p>
@@ -859,7 +860,7 @@ extremely short duration of this simulation.</p>
 <div class="justify docutils container">
 <p>When you run the simulation, make sure that some water molecules
 remain in the system after the <em>delete_atoms</em> command. You can control
-that either using the log file, or using the <em>numbermolecule.dat</em> data file.</p>
+that either using the log file or using the <em>numbermolecule.dat</em> data file.</p>
 </div>
 <div class="justify docutils container">
 <p>You can see, by looking at the log file, that 280 molecules
@@ -869,7 +870,7 @@ were added by the <em>create_atoms</em> command (the exact number you get may di
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>You can also see that 258 molecules where immediately deleted,
+<p>You can also see that 258 molecules were immediately deleted,
 leaving 24 water molecules (the exact number you get may differ):</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Deleted 774 atoms, new total = 642
@@ -880,7 +881,7 @@ Deleted 258 angles, new total = 22
 <div class="justify docutils container">
 <p>After just a few GCMC steps,
 the number of molecules starts increasing with time.
-Once the crack is fully filled with water molecules, the number of
+Once the crack is filled with water molecules, the number of
 molecules reaches a plateau.</p>
 </div>
 <figure class="align-default">
@@ -914,7 +915,7 @@ duration was made possible by the use of a large pressure.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Vizualising varying number of molecules</p>
-<p>By default, VMD fails to properly render systems with varying number of atoms.</p>
+<p>By default, VMD fails to properly render systems with varying numbers of atoms.</p>
 </div>
 <div class="justify docutils container">
 <p>You can access the input scripts and data files that
@@ -944,8 +945,8 @@ Download the <a href="../../../../../lammpstutorials-inputs/level3/water-adsorpt
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Where is is assumed that the atom of type 5 is oxygen of
-mass 15.9994, and atom of type 6 is carbon of mass 12.011.</p>
+<p>Where it is assumed that the atom of type 5 is oxygen of
+mass 15.9994, and an atom of type 6 is the carbon of mass 12.011.</p>
 </div>
 <figure class="align-default">
 <img alt="silica block adsorbed water and CO2" class="only-dark" src="../../_images/H2O-CO2-dark.png" />
@@ -966,7 +967,7 @@ mass 15.9994, and atom of type 6 is carbon of mass 12.011.</p>
 <a class="only-light reference internal image-reference" href="../../_images/zif8-light.png"><img alt="zif-8 with water" class="only-light" src="../../_images/zif8-light.png" style="height: 250px;" /></a>
 </figure>
 <div class="justify docutils container">
-<p>Use the same protocole as the one implemented in this tutorial to add water
+<p>Use the same protocol as the one implemented in this tutorial to add water
 molecules to a Zif-8 nanoporous material. A snapshot of the system with a
 few water molecules is shown on the right.</p>
 </div>
@@ -978,7 +979,7 @@ of 7 atom types (C1, C2, C3, H2, H3, N, Zn), connected
 by bonds, angles, dihedrals, and impropers. It uses the
 same <em>pair_style</em> as water,
 so there is no need to use <em>hybrid pair_style</em>.
-Your <em>input</em> file should start like that:</p>
+Your <em>input</em> file should start like this:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>

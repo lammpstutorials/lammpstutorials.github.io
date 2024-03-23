@@ -344,7 +344,7 @@ the cutoff are computed directly, and interactions between
 atoms outside that cutoff are computed in the reciprocal space.</p>
 </div>
 <div class="justify docutils container">
-<p>Finally the kspace command defines the long-range solver for the (long)
+<p>Finally, the <em>kspace</em> command defines the long-range solver for the (long)
 Coulombic interactions. The <em>pppm</em> style refers to
 particle-particle particle-mesh.</p>
 </div>
@@ -379,7 +379,7 @@ Copy the following lines into <em>input.lammps</em>:</p>
 <p class="admonition-title">About extra per atom commands</p>
 <p>The <em>extra/x/per/atom</em> commands are here for
 memory allocation. These commands ensure that enough memory space is left for a
-certain number of attribute for each atom. We wont worry
+certain number of attributes for each atom. We won’t worry
 about those commands in this tutorial, just keep that in mind if one day you see the following
 error message <em>ERROR: Molecule topology/atom exceeds system topology/atom</em>.</p>
 </div>
@@ -419,7 +419,7 @@ Add the following lines into <em>input.lammps</em>:</p>
 placed exactly at the same position, as this would cause the simulation to
 crash. The <em>maxtry 50</em> asks LAMMPS to try at most
 50 times to insert the molecules, which is useful in case some
-insertion attempts are rejected due to overlap. In some case, depending on
+insertion attempts are rejected due to overlap. In some cases, depending on
 the system and on the values of <em>overlap</em>
 and <em>maxtry</em>, LAMMPS may not create the desired number of molecules.
 Always check the number of created atoms in the <em>log</em> file after
@@ -532,7 +532,7 @@ see the system quickly reaching its equilibrium volume and density.</p>
 <div class="figurelegend docutils container">
 <p>Figure: Water reservoir after equilibration and after
 the <em>replicate 3 1 1</em> command. Oxygen atoms are in red, and
-hydrogen atoms in white.</p>
+hydrogen atoms are in white.</p>
 </div>
 <div class="justify docutils container">
 <p>You can also open the <em>density.dat</em> file
@@ -607,8 +607,8 @@ to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>After the minimization, the high frequency dump command is
-cancelled, and a new dump command with lower frequency is
+<p>After the minimization, the high-frequency dump command is
+canceled, and a new dump command with a lower frequency is
 used (see below). We also reset the time to 0 with
 <em>reset_timestep</em> command:</p>
 </div>
@@ -619,7 +619,7 @@ used (see below). We also reset the time to 0 with
 <div class="justify docutils container">
 <p>The PEG is then equilibrated in the NVT ensemble (fix NVE +
 temperature control = NVT). No box relaxation is required as
-the PEG is in vacuum:</p>
+the PEG is in a vacuum:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
@@ -639,7 +639,7 @@ adding the following lines to <em>input.lammps</em>:</p>
 <div class="justify docutils container">
 <p>The <em>dump_modify</em> ensures that the coordinates are written
 in the already existing <em>dump.lammpstrj</em> file.
-Finally let us run the simulation for a very short time (10 ps)
+Finally, let us run the simulation for a very short time (10 ps)
 by adding the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
@@ -659,7 +659,7 @@ gently equilibrating until reaching a reasonable state.</p>
 <img alt="PEG in vacuum as simulated with LAMMPS" class="only-dark" src="../../_images/singlePEG-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: The PEG molecule in vacuum.
+<p>Figure: The PEG molecule in a vacuum.
 The carbon atoms are in gray, the oxygen atoms in red, and the hydrogen
 atoms in white. See the corresponding <a href="https://youtu.be/E3nV66ErMo8" target="_blank">video</a>.</p>
 </div>
@@ -753,9 +753,9 @@ to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here, the value of 2 Angstroms for the overlap cutoff was fixed arbitrarily,
+<p>Here, the value of 2 Angstroms for the overlap cutoff was fixed arbitrarily
 and can be chosen through trial and error. If the cutoff is too small, the
-simulation will crash. If the cutoff it too large, too many water molecules
+simulation will crash. If the cutoff is too large, too many water molecules
 will unnecessarily be deleted.</p>
 </div>
 <div class="justify docutils container">
@@ -799,7 +799,7 @@ data file:</p>
 <p>If you open the <em>dump.lammpstrj</em> file using VMD,
 or have a look at the evolution of the volume in <em>volume.dat</em>,
 you should see that the box dimension slightly evolves along <em>x</em>
-to accomodate the new configuration.</p>
+to accommodate the new configuration.</p>
 </div>
 <figure class="align-default">
 <img alt="PEG in water" class="only-light" src="../../_images/solvatedPEG_light.png" />
@@ -835,7 +835,7 @@ in the <em>input.lammps</em> file:</p>
 <div class="justify docutils container">
 <p>Note that <span class="math notranslate nohighlight">\(1\,\text{kcal/mol/Å}\)</span> corresponds
 to <span class="math notranslate nohighlight">\(67.2\,\text{pN}\)</span>.
-Then, copy the same lines as previouly,:</p>
+Then, copy the same lines as previously:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
@@ -848,8 +848,8 @@ Then, copy the same lines as previouly,:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Start the simulation from the equilibrated PEG and water
-system, and include again the parameter file by
+<p>Start the simulation from the equilibrated PEG-water
+system and include again the parameter file by
 adding the following lines to the <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">mergePEGH2O</span><span class="o">/</span><span class="n">mix.data</span>
@@ -906,7 +906,7 @@ by adding the following lines to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Finally, let us run the simulation for 30 ps without
+<p>Finally, let us simulate 30 ps without
 any external forcing:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">30000</span>
@@ -934,14 +934,13 @@ of the force.</p>
 <img alt="PEG molecule in water" class="only-light" src="../../_images/pulled_peg_light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: PEG molecule streched along the <em>x</em> direction in water.
+<p>Figure: PEG molecule stretched along the <em>x</em> direction in water.
 Water molecules are represented as a transparent continuum
 field for clarity. See the corresponding <a href="https://youtu.be/mjc6O6d9F-Y" target="_blank">video</a>.</p>
 </div>
 <div class="justify docutils container">
-<p>The evolution of the end-to-end
-distance over time shows the PEG adjusting
-to the external forcing:</p>
+<p>The evolution of the end-to-end distance over time
+shows the PEG adjusting to the external forcing:</p>
 </div>
 <figure class="align-default">
 <img alt="plot of the end-to-end distance versus time" class="only-dark" src="../../_images/distance-dark.png" />
@@ -991,7 +990,7 @@ oxygen atoms of the PEG molecule.</p>
 </div>
 <div class="justify docutils container">
 <p>Note the difference in the structure of the water before and after
-the PEG molecule is being stretched. This effect is described in
+the PEG molecule is stretched. This effect is described in
 the 2017 publication by Liese et al.</p>
 </div>
 </section>
@@ -1020,7 +1019,7 @@ parameters, <span class="math notranslate nohighlight">\(\epsilon = 0.15\,\text{
 <img alt="PEG in a NaCl solution" class="only-light" src="../../_images/salt-exercise-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: A PEG molecule in electrolyte, with <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> ions in
+<p>Figure: A PEG molecule in the electrolyte, with <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> ions in
 purple and <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span> ions in cyan.</p>
 </div>
 </section>
@@ -1032,8 +1031,8 @@ unstretched case. The deformation can be probed by extracting the typical
 intra-molecular parameters, such as the typical angles of the dihedrals.</p>
 </div>
 <div class="justify docutils container">
-<p>Extract the histograms of the anglar distribution of the PEG dihedrals
-in the absence and in the presence of stretching.</p>
+<p>Extract the histograms of the angular distribution of the PEG dihedrals
+in the absence and the presence of stretching.</p>
 </div>
 <figure class="align-default">
 <img alt="PEG in a NaCl solution" class="only-dark" src="../../_images/dihedral_angle-dark.png" />
@@ -1042,7 +1041,7 @@ in the absence and in the presence of stretching.</p>
 <img alt="PEG in a NaCl solution" class="only-light" src="../../_images/dihedral_angle-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Probability distribution for the dihedral angle <span class="math notranslate nohighlight">\(\phi\)</span>, for a streched
+<p>Figure: Probability distribution for the dihedral angle <span class="math notranslate nohighlight">\(\phi\)</span>, for a stretched
 and for an unstretched PEG molecule.</p>
 </div>
 </section>

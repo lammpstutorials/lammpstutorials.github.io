@@ -240,7 +240,7 @@
 <p>You can download the working <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/broken/input.lammps" target="_blank">input</a> I wrote.</p>
 </div>
 <div class="justify docutils container">
-<p>The trick to make the simulation starts without error
+<p>The trick to make the simulation start without error
 is to reduce the initial <em>timestep</em> value as well as
 the imposed <em>temperature</em>.</p>
 </div>
@@ -287,7 +287,7 @@ a given system.</p>
 I use a large number of particles: 8000 for each type.</p>
 </div>
 <div class="justify docutils container">
-<p>The key to create a demixing phase is to play with the Lennard-Jones
+<p>The key to creating a demixing phase is to play with the Lennard-Jones
 parameters:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5.0</span><span class="w"> </span><span class="m">1.0</span>
@@ -298,11 +298,11 @@ parameters:</p>
 <div class="justify docutils container">
 <p>First, notice that both particle types have the same <span class="math notranslate nohighlight">\(\sigma\)</span> value of 1.0
 so that both particles have the same diameter. Second, note the large energy parameter <span class="math notranslate nohighlight">\(\epsilon = 5.0\)</span>
-for self interaction (i.e.) interaction between particles of same type, and the low
+for self-interaction (i.e.) interaction between particles of the same type, and the low
 energy parameter <span class="math notranslate nohighlight">\(\epsilon = 0.05\)</span> for interaction between particles of different types.</p>
 </div>
 <div class="justify docutils container">
-<p>Finally, for adjusting the box volume and create a liquid looking phase, the
+<p>Finally, to adjust the box volume and create a liquid-looking phase, the
 pressure was imposed by replacing <em>fix nve</em> by <em>fix nph</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynph</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nph</span><span class="w"> </span><span class="n">iso</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span>
@@ -376,8 +376,8 @@ induced on the CNT by the pulling divided by the
 surface area of the CNT.</p>
 </div>
 <div class="justify docutils container">
-<p>On the side note, the surface area
-of a CNT is not a well defined quantity. Here, I choose to
+<p>On a side note, the surface area
+of a CNT is not a well-defined quantity. Here, I choose to
 define the area as the perimeter of the CNT multiplied by the
 effective width of the carbon atoms.</p>
 </div>
@@ -458,7 +458,7 @@ create the atoms of type 2 within the CNT:</p>
 </div>
 <div class="justify docutils container">
 <p>It is good practice to thermalize the CNT separately from the
-gas to avoid having large temperature difference between the two
+gas to avoid having a large temperature difference between the two
 type of atoms.</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">tcar</span><span class="w"> </span><span class="nv nv-Identifier">carbon_atoms</span><span class="w"> </span><span class="n">temp</span>
@@ -512,7 +512,7 @@ as done here using the <em>change_box</em> command.</p>
 <div class="justify docutils container">
 <p>I use the <em>compute rdf</em> command of LAMMPS
 to extract the RDF between atoms of type 8 (oxygen from water)
-and one of the oxygen type from the PEG (1).
+and one of the oxygen types from the PEG (1).
 The 10 first pico seconds are disregarded. Then, once the force
 is applied to the PEG, a second <em>fix ave/time</em> is used.</p>
 </div>
@@ -531,7 +531,7 @@ and <a href="../../../../lammpstutorials-inputs/level2/polymer-in-water/exercise
 </div>
 <div class="justify docutils container">
 <p>It is important to
-make space for the two salt atoms by modifying the data file as follow:</p>
+make space for the two salt atoms by modifying the data file as follows:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
 <span class="m">11</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
@@ -589,7 +589,7 @@ of the simulation.</p>
 <section id="induce-a-poiseuille-flow">
 <h3>Induce a Poiseuille flow<a class="headerlink" href="#induce-a-poiseuille-flow" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Here the <em>input</em> script written during the last part <em>Imposed shearing</em> of the
+<p>Here, the <em>input</em> script written during the last part <em>Imposed shearing</em> of the
 tutorial is adapted so that, instead of a shearing induced by the relative motion of the walls,
 the fluid motion is generated by an additional force applied to both water molecules and ions.</p>
 </div>
@@ -629,7 +629,7 @@ is discussed below.</p>
 <div class="justify docutils container">
 <p>One can have a look at the velocity profiles. The fluid shows the characteristic
 parabolic shape of Poiseuille flow in the case of a non-slip solid surface.
-To obtain smooth looking data, I ran the simulation for a total duration of <span class="math notranslate nohighlight">\(1\,\text{ns}\)</span>.
+To obtain smooth-looking data, I ran the simulation for a total duration of <span class="math notranslate nohighlight">\(1\,\text{ns}\)</span>.
 To lower the duration of the computation, don’t hesitate to
 use a shorter duration like <span class="math notranslate nohighlight">\(100\,\text{ps}\)</span>.</p>
 </div>
@@ -659,7 +659,7 @@ for <span class="math notranslate nohighlight">\(v\)</span> can be derived
 from the Stokes equation <span class="math notranslate nohighlight">\(\eta \nabla \textbf{v} = - \textbf{f} \rho\)</span>.
 A small correction <span class="math notranslate nohighlight">\(\alpha = 0.78\)</span> was necessary,
 since using bulk density and bulk viscosity is obviously
-no correct in such nanoconfined pore. More subtle corrections could be applied
+not correct in such nanoconfined pores. More subtle corrections could be applied
 by correcting both density and viscosity based on independent measurements, but this is
 beyond the scope of the present exercise.</p>
 </div>
@@ -668,7 +668,7 @@ beyond the scope of the present exercise.</p>
 </div>
 <div class="justify docutils container">
 <p>The first and most important technical difficulty of any
-out-of-equilibrium simulation is to choose the value of the forcing <span class="math notranslate nohighlight">\(f\)</span>.
+out-of-equilibrium simulation is to choose the value of the force <span class="math notranslate nohighlight">\(f\)</span>.
 If the forcing is too large, the system may not be in a linear response regime,
 meaning that the results are forcing-dependent (and likely quite meaningless). If
 the forcing is too small, the motion of the system will be difficult to measure
@@ -687,7 +687,7 @@ to the <em>input</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The results  show that as long as the force is lower
+<p>The results show that as long as the force is lower
 than about <span class="math notranslate nohighlight">\(0.04\,\text{kcal/mol/Å}\)</span>, there is reasonable linearity
 between force and fluid velocity.</p>
 </div>
@@ -699,7 +699,7 @@ between force and fluid velocity.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Ratio between the velocity of the center of mass <span class="math notranslate nohighlight">\(v_\text{cm}\)</span> of the fluid
-and the forcing <span class="math notranslate nohighlight">\(f\)</span> as a function of the forcing</p>
+and the force <span class="math notranslate nohighlight">\(f\)</span> as a function of the forcing</p>
 </div>
 </section>
 </section>
@@ -710,7 +710,7 @@ and the forcing <span class="math notranslate nohighlight">\(f\)</span> as a fun
 <div class="justify docutils container">
 <p>You can download the <a href="../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/MixtureH2OCO2/input.lammps" target="_blank">input</a> for the combine water and CO2
 adsorption.
-One of the first step is to create both type of molecules
+One of the first steps is to create both types of molecules
 before starting the GCMC:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O.mol</span>
@@ -761,7 +761,7 @@ with all the proper cross coefficients:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Finally, adsorption is made with two separates <em>fix gcmc</em> commands
+<p>Finally, adsorption is made with two separate <em>fix gcmc</em> commands
 placed in a loop:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">label </span><span class="sc">loop</span>
@@ -800,12 +800,12 @@ and <em>water.mol</em> files.</p>
 </div>
 <div class="justify docutils container">
 <p>Apart from the parameters and topology, the <em>input</em> is
-quite similar to the one developped in the case of the crack
+quite similar to the one developed in the case of the crack
 silica.</p>
 </div>
 <div class="justify docutils container">
-<p>You should observe an increase of the number of molecule with time.
-Run much longer simulation if you want to saturate the porous material
+<p>You should observe an increase in the number of molecules with time.
+Run a much longer simulation if you want to saturate the porous material
 with water.</p>
 </div>
 <figure class="align-default">
@@ -815,14 +815,14 @@ with water.</p>
 <img alt="Water molecule in Zif material with GCMC in LAMMPS" class="only-dark" src="../_images/number_evolution_zif-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Number of water molecule in Zif-8 during the first <span class="math notranslate nohighlight">\(10\,ps\)</span>.</p>
+<p>Figure: Number of water molecules in Zif-8 during the first <span class="math notranslate nohighlight">\(10\,ps\)</span>.</p>
 </div>
 </section>
 </section>
 <section id="free-energy-calculation">
 <h2>Free energy calculation<a class="headerlink" href="#free-energy-calculation" title="Link to this heading">#</a></h2>
-<section id="the-binary-fluid-that-wont-mix">
-<h3>The binary fluid that wont mix<a class="headerlink" href="#the-binary-fluid-that-wont-mix" title="Link to this heading">#</a></h3>
+<section id="the-binary-fluid-that-won-t-mix">
+<h3>The binary fluid that won’t mix<a class="headerlink" href="#the-binary-fluid-that-won-t-mix" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
 <p>You can download the <a href="../../../../lammpstutorials-inputs/level3/free-energy-calculation/Exercises/BinaryFluid/input.lammps" target="_blank">input</a> here.</p>
 </div>
@@ -852,7 +852,7 @@ and apply the two potentials <em>U1</em> and <em>U2</em> to each group, respecti
 </div>
 <div class="justify docutils container">
 <p>60 particles of each type are created, with both types having
-the exact same properties:</p>
+the same properties:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.95</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">${epsilon}</span><span class="w"> </span><span class="nv">${sigma}</span>
@@ -872,14 +872,14 @@ it impacts the final potential.</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>It is crutial to choose a forcing that is not <em>too large</em>, or the simulation may crash.
-A forcing that is <em>too weak</em> wont have any effect on the PMF.</p>
+<p>It is crucial to choose a forcing that is not <em>too large</em>, or the simulation may crash.
+A forcing that is <em>too weak</em> won’t have any effect on the PMF.</p>
 </div>
 <div class="justify docutils container">
 <p>One can see from the result that the measured potential
 is tilted, which is a consequence of the additional force that makes it easier for
-the particles to cross the potential in one of the direction. The barrer is also
-reduced compared to the case in absence of additional forcing.</p>
+the particles to cross the potential in one of the directions. The barrier is also
+reduced compared to the case in the absence of additional forcing.</p>
 </div>
 </section>
 <section id="surface-adsorption-of-a-molecule">
@@ -964,7 +964,7 @@ create a molecule template named <em>H2O.mol</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here, appart from creating water molecules everywere in the box, a few
+<p>Here, apart from creating water molecules everywhere in the box, a few
 additional hydrogen atoms are added randomly
 to the system to make the solution
 slightly acidic.</p>
@@ -1054,7 +1054,7 @@ slightly acidic.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#free-energy-calculation">Free energy calculation</a><ul>
-<li><a class="reference internal" href="#the-binary-fluid-that-wont-mix">The binary fluid that wont mix</a></li>
+<li><a class="reference internal" href="#the-binary-fluid-that-won-t-mix">The binary fluid that won’t mix</a></li>
 <li><a class="reference internal" href="#particles-under-convection">Particles under convection</a></li>
 <li><a class="reference internal" href="#surface-adsorption-of-a-molecule">Surface adsorption of a molecule</a></li>
 </ul>

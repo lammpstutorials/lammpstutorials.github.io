@@ -49,7 +49,7 @@ Ensemble
 .. container:: justify
 
     An ensemble refers to a specific thermodynamic state or a collection
-    of states that characterizes a system of particles. Different ensembles
+    of states that characterize a system of particles. Different ensembles
     represent systems with different degrees of separation from the surrounding
     environment, ranging from completely isolated systems (e.g. microcanonical ensemble)
     to open systems (e.g. grand canonical ensemble).
@@ -68,7 +68,7 @@ Ensemble
 .. container:: justify
 
     The temperature of the system is imposed by the *fix langevin*,
-    and the simulated system is effectively in the NVT ensemble
+    and the simulated system is effective in the NVT ensemble
     (constant number of particles (N), volume (V), and temperature (T)).
 
 Input script
@@ -121,14 +121,14 @@ Minimization
 
 .. container:: justify
 
-    Energy minimization are used to find a stable configuration for a given system.
+    Energy minimization is used to find a stable configuration for a given system.
 
 Neighbor list
 =============
 
 .. container:: justify
 
-    *Neighbor list* enumerates all pairs of atoms with separation smaller than the
+    *Neighbor list* enumerates all pairs of atoms with a separation smaller than the
     cutoff distance.
 
 NVE ensemble
@@ -139,7 +139,7 @@ NVE ensemble
     In the NVE ensemble, which is also called the microcanonical ensemble,
     the number of particles (N), the volume (V), and the total energy (E) of the
     system are kept constant. This ensemble is relevant for systems that are fully isolated
-    and experience no exchange of particles or heat the environment.
+    and experience no exchange of particles or heat in the environment.
 
 NVT ensemble
 ============

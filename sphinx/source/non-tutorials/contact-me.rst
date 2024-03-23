@@ -52,7 +52,7 @@ About me
 
     I have been using LAMMPS for research and education since 2012, see my |personal_page_simon_gravelle|.
     Follow me on |twitter_simon_gravelle|, where I post news about these tutorials
-    and about my research, or follow me on |github_simon_gravelle|, where I share more molecular simulation content.
+    and my research or follow me on |github_simon_gravelle|, where I share more molecular simulation content.
 
 .. |personal_page_simon_gravelle| raw:: html
 

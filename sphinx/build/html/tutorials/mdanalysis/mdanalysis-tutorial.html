@@ -247,8 +247,8 @@ know what we want to measure before starting the simulation.</p>
 <div class="justify docutils container">
 <p>In these short tutorials, several trajectories are
 imported into Python using MDAnalysis and different
-information are extracted. All the trajectories required for these
-tutorials are provided below, and were generated from one of the LAMMPS tutorial.</p>
+information is extracted. All the trajectories required for these
+tutorials are provided below and were generated from one of the LAMMPS tutorials.</p>
 </div>
 <div class="patreon admonition">
 <p class="admonition-title">Looking for support in molecular simulations?</p>
@@ -325,7 +325,7 @@ atoms in h2o: 3045
 <p>Atom groups are atom containers, from which
 information about the atoms can be read.
 For instance, one can loop over the 6 first atoms
-from the peg group, and extract their ids,
+from the peg group, and extract their IDs,
 types, masses, and charges:</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">peg</span><span class="p">[:</span><span class="mi">6</span><span class="p">]:</span>
@@ -360,7 +360,7 @@ and store its coordinates in each frame into a list:</p>
 </div>
 <div class="justify docutils container">
 <p>Here, the for loop runs over all the frames, and the x, y, and z coordinates
-of the atom named <em>atom1</em> is read. Here <em>ts.frame</em> is the id of the frame,
+of the atom named <em>atom1</em> are read. Here <em>ts.frame</em> is the id of the frame,
 it goes from 0 to 300, i.e. the total number of frames. The <em>position_vs_time</em> list
 contains 301 items, each item being the frame id, and the corresponding coordinates of <em>atom1</em>.</p>
 </div>
@@ -376,7 +376,7 @@ during the simulation.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Position of the <em>atom1</em> along time. The size of the disks
-is proportional to the frame id.</p>
+is proportional to the frame ID.</p>
 </div>
 <figure class="align-right">
 <a class="only-dark reference internal image-reference" href="../../_images/CNT_dark.webp"><img alt="carbon nanotube image in vacuum" class="only-dark" src="../../_images/CNT_dark.webp" style="height: 250px;" /></a>
@@ -399,7 +399,7 @@ file and the <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-ca
 <section id="id1">
 <h3>Create a Universe<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <div class="justify docutils container">
-<p>Open a new Jupyter notebook and
+<p>Open a new Jupyter Notebook and
 call it <em>measure_bond_evolution.ipynb</em>. First,
 let us import both <em>MDAnalysis</em>
 and <em>NumPy</em> by copying the following
@@ -431,10 +431,10 @@ of MDAnalysis using <em>guess_bonds=True</em>.</p>
 <div class="justify docutils container">
 <p>Note that the bond guesser of MDAnalysis will not update the list of bond
 over time, so we will need to use a few tricks to extract the evolution
-of the number of bond with time.</p>
+of the number of bonds with time.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us create a single atom group
+<p>Let us create a single-atom group
 named <em>cnt</em> and containing all the carbon atoms,
 i.e. all the atoms of type 1,
 by adding the following lines into <em>measure_bond_evolution.ipynb</em>.</p>
@@ -472,7 +472,7 @@ are considered as bonded by the bond guesser of MDAnalysis:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>MDAnalysis also offer the possibility to loop over all the frame of the trajectory using:</p>
+<p>MDAnalysis also offers the possibility to loop over all the frame of the trajectory using:</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span>
@@ -515,7 +515,7 @@ bonds over time, let us loop over the trajectory
 and manually extract the inter-atomic distance over time.</p>
 </div>
 <div class="justify docutils container">
-<p>To to so, for every step of the trajectory, let us
+<p>To do so, for every step of the trajectory, let us
 loop over the indexes of the atoms that were initially
 detected as bonded, and calculate the
 distance between the two atoms, which can be done using:</p>
@@ -545,8 +545,8 @@ the bond is broken:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Finally, let us store both mean length of bonds
-and total number of bond in lists.</p>
+<p>Finally, let us store both the mean length of the bonds
+and the total number of bonds in lists.</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lbond_vs_frame</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">nbond_vs_frame</span> <span class="o">=</span> <span class="p">[]</span>
