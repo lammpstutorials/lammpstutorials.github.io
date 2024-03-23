@@ -143,7 +143,7 @@ The water
 
 ..  container:: justify
 
-    Finally the kspace command defines the long-range solver for the (long)
+    Finally, the *kspace* command defines the long-range solver for the (long)
     Coulombic interactions. The *pppm* style refers to
     particle-particle particle-mesh.
 
@@ -186,7 +186,7 @@ The water
 
     The *extra/x/per/atom* commands are here for
     memory allocation. These commands ensure that enough memory space is left for a
-    certain number of attribute for each atom. We wont worry
+    certain number of attributes for each atom. We won't worry
     about those commands in this tutorial, just keep that in mind if one day you see the following
     error message *ERROR: Molecule topology/atom exceeds system topology/atom*.
 
@@ -237,7 +237,7 @@ The water
     placed exactly at the same position, as this would cause the simulation to
     crash. The *maxtry 50* asks LAMMPS to try at most
     50 times to insert the molecules, which is useful in case some
-    insertion attempts are rejected due to overlap. In some case, depending on
+    insertion attempts are rejected due to overlap. In some cases, depending on
     the system and on the values of *overlap*
     and *maxtry*, LAMMPS may not create the desired number of molecules.
     Always check the number of created atoms in the *log* file after
@@ -374,7 +374,7 @@ The water
 
     Figure: Water reservoir after equilibration and after 
     the *replicate 3 1 1* command. Oxygen atoms are in red, and 
-    hydrogen atoms in white.
+    hydrogen atoms are in white.
 
 ..  container:: justify
 
@@ -476,8 +476,8 @@ The PEG molecule
 
 ..  container:: justify
 
-    After the minimization, the high frequency dump command is
-    cancelled, and a new dump command with lower frequency is
+    After the minimization, the high-frequency dump command is
+    canceled, and a new dump command with a lower frequency is
     used (see below). We also reset the time to 0 with
     *reset_timestep* command:
 
@@ -490,7 +490,7 @@ The PEG molecule
 
     The PEG is then equilibrated in the NVT ensemble (fix NVE +
     temperature control = NVT). No box relaxation is required as
-    the PEG is in vacuum:
+    the PEG is in a vacuum:
 
 ..  code-block:: lammps
 
@@ -514,7 +514,7 @@ The PEG molecule
 
     The *dump_modify* ensures that the coordinates are written 
     in the already existing *dump.lammpstrj* file. 
-    Finally let us run the simulation for a very short time (10 ps)
+    Finally, let us run the simulation for a very short time (10 ps)
     by adding the following lines to *input.lammps*:
 
 ..  code-block:: lammps
@@ -539,7 +539,7 @@ The PEG molecule
 
 ..  container:: figurelegend
 
-    Figure: The PEG molecule in vacuum.
+    Figure: The PEG molecule in a vacuum.
     The carbon atoms are in gray, the oxygen atoms in red, and the hydrogen
     atoms in white. See the corresponding |peg_in_vacuum|.
 
@@ -645,9 +645,9 @@ Mixing the PEG with water
 
 ..  container:: justify
 
-    Here, the value of 2 Angstroms for the overlap cutoff was fixed arbitrarily,
+    Here, the value of 2 Angstroms for the overlap cutoff was fixed arbitrarily
     and can be chosen through trial and error. If the cutoff is too small, the 
-    simulation will crash. If the cutoff it too large, too many water molecules
+    simulation will crash. If the cutoff is too large, too many water molecules
     will unnecessarily be deleted.
 
 ..  container:: justify
@@ -700,7 +700,7 @@ Mixing the PEG with water
     If you open the *dump.lammpstrj* file using VMD, 
     or have a look at the evolution of the volume in *volume.dat*,
     you should see that the box dimension slightly evolves along *x*
-    to accomodate the new configuration.
+    to accommodate the new configuration.
 
 .. figure:: ../figures/level2/polymer-in-water/solvatedPEG_light.png
    :alt: PEG in water
@@ -743,7 +743,7 @@ Stretching the PEG molecule
 
     Note that :math:`1\,\text{kcal/mol/Å}` corresponds
     to :math:`67.2\,\text{pN}`.
-    Then, copy the same lines as previouly,:
+    Then, copy the same lines as previously:
 
 ..  code-block:: lammps
 
@@ -758,8 +758,8 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    Start the simulation from the equilibrated PEG and water
-    system, and include again the parameter file by
+    Start the simulation from the equilibrated PEG-water
+    system and include again the parameter file by
     adding the following lines to the *input.lammps*:
 
 ..  code-block:: lammps
@@ -826,7 +826,7 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    Finally, let us run the simulation for 30 ps without
+    Finally, let us simulate 30 ps without
     any external forcing:
 
 ..  code-block:: lammps
@@ -861,7 +861,7 @@ Stretching the PEG molecule
 
 .. container:: figurelegend
 
-    Figure: PEG molecule streched along the *x* direction in water.
+    Figure: PEG molecule stretched along the *x* direction in water.
     Water molecules are represented as a transparent continuum 
     field for clarity. See the corresponding |pulled_on_peg|.
 
@@ -871,9 +871,8 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    The evolution of the end-to-end
-    distance over time shows the PEG adjusting
-    to the external forcing:
+    The evolution of the end-to-end distance over time
+    shows the PEG adjusting to the external forcing:
 
 .. figure:: ../figures/level2/polymer-in-water/distance-dark.png
     :alt: plot of the end-to-end distance versus time
@@ -927,7 +926,7 @@ Extract the radial distribution function
 .. container:: justify
 
     Note the difference in the structure of the water before and after
-    the PEG molecule is being stretched. This effect is described in
+    the PEG molecule is stretched. This effect is described in
     the 2017 publication by Liese et al.
 
 Add salt to the system
@@ -961,7 +960,7 @@ Add salt to the system
 
 .. container:: figurelegend
 
-    Figure: A PEG molecule in electrolyte, with :math:`\text{Na}^+` ions in 
+    Figure: A PEG molecule in the electrolyte, with :math:`\text{Na}^+` ions in 
     purple and :math:`\text{Cl}^-` ions in cyan.
 
 Evaluate the deformation of the PEG
@@ -975,8 +974,8 @@ Evaluate the deformation of the PEG
 
 .. container:: justify
 
-    Extract the histograms of the anglar distribution of the PEG dihedrals
-    in the absence and in the presence of stretching.
+    Extract the histograms of the angular distribution of the PEG dihedrals
+    in the absence and the presence of stretching.
 
 .. figure:: ../figures/level2/polymer-in-water/dihedral_angle-dark.png
     :alt: PEG in a NaCl solution
@@ -988,6 +987,6 @@ Evaluate the deformation of the PEG
 
 .. container:: figurelegend
 
-    Figure: Probability distribution for the dihedral angle :math:`\phi`, for a streched
+    Figure: Probability distribution for the dihedral angle :math:`\phi`, for a stretched
     and for an unstretched PEG molecule. 
 

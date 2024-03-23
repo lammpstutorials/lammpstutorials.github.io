@@ -22,8 +22,8 @@ MDAnalysis short tutorials
 
     In these short tutorials, several trajectories are
     imported into Python using MDAnalysis and different
-    information are extracted. All the trajectories required for these
-    tutorials are provided below, and were generated from one of the LAMMPS tutorial.
+    information is extracted. All the trajectories required for these
+    tutorials are provided below and were generated from one of the LAMMPS tutorials.
 
 .. include:: ../../non-tutorials/needhelp.rst
 
@@ -125,7 +125,7 @@ Read topology information
     Atom groups are atom containers, from which 
     information about the atoms can be read.
     For instance, one can loop over the 6 first atoms
-    from the peg group, and extract their ids,
+    from the peg group, and extract their IDs,
     types, masses, and charges:
 
 .. code-block:: python
@@ -164,7 +164,7 @@ Extract temporal evolution
 .. container:: justify
 
     Here, the for loop runs over all the frames, and the x, y, and z coordinates
-    of the atom named *atom1* is read. Here *ts.frame* is the id of the frame,
+    of the atom named *atom1* are read. Here *ts.frame* is the id of the frame,
     it goes from 0 to 300, i.e. the total number of frames. The *position_vs_time* list
     contains 301 items, each item being the frame id, and the corresponding coordinates of *atom1*.
 
@@ -184,7 +184,7 @@ Extract temporal evolution
 .. container:: figurelegend
 
     Figure: Position of the *atom1* along time. The size of the disks
-    is proportional to the frame id.
+    is proportional to the frame ID.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/CNT_dark.webp
     :alt: carbon nanotube image in vacuum
@@ -223,7 +223,7 @@ Create a Universe
 
 .. container:: justify
 
-    Open a new Jupyter notebook and
+    Open a new Jupyter Notebook and
     call it *measure_bond_evolution.ipynb*. First,
     let us import both *MDAnalysis*
     and *NumPy* by copying the following
@@ -260,11 +260,11 @@ Create a Universe
 
     Note that the bond guesser of MDAnalysis will not update the list of bond
     over time, so we will need to use a few tricks to extract the evolution 
-    of the number of bond with time.
+    of the number of bonds with time.
 
 .. container:: justify
 
-    Let us create a single atom group
+    Let us create a single-atom group
     named *cnt* and containing all the carbon atoms,
     i.e. all the atoms of type 1,
     by adding the following lines into *measure_bond_evolution.ipynb*.
@@ -308,7 +308,7 @@ Some basics of MDAnalysis
 
 .. container:: justify
 
-    MDAnalysis also offer the possibility to loop over all the frame of the trajectory using:
+    MDAnalysis also offers the possibility to loop over all the frame of the trajectory using:
 
 .. code-block:: python
 
@@ -357,7 +357,7 @@ Counting the bonds
 
 .. container:: justify
 
-    To to so, for every step of the trajectory, let us
+    To do so, for every step of the trajectory, let us
     loop over the indexes of the atoms that were initially
     detected as bonded, and calculate the
     distance between the two atoms, which can be done using:
@@ -391,8 +391,8 @@ Counting the bonds
     
 .. container:: justify
 
-    Finally, let us store both mean length of bonds
-    and total number of bond in lists.  
+    Finally, let us store both the mean length of the bonds
+    and the total number of bonds in lists.  
 
 .. code-block:: python
 
