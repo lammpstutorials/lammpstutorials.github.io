@@ -49,7 +49,7 @@ The Matplotlib Pyplot functions for the figures are shared [here](https://github
 ### Template ###
 
 The template from the first page has been adapted from [HTML5 UP](https://html5up.net/).
-The other pages use the [Sphinx](https://www.sphinx-doc.org/) generator](https://www.sphinx-doc.org/) with the [furo style](https://github.com/pradyunsg/furo).
+The other pages use the [Sphinx](https://www.sphinx-doc.org/) generator with the [furo style](https://github.com/pradyunsg/furo).
 
 ### About me & Contact ###
 
