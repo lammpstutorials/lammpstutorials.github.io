@@ -6,16 +6,17 @@ in a separate [repository](https://github.com/lammpstutorials/lammpstutorials-in
 
 ## About LAMMPS tutorials
 
-LAMMPS tutorials is made of seven tutorials that are ordered by increasing difficulty.
+The LAMMPStutorials website is made of seven tutorials
+that are ordered by increasing difficulty.
 [Lennard-Jones fluid](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/lennard-jones-fluid.html)
 is meant for absolute LAMMPS and molecular dynamics beginners, and the complexity of the simulation is
 progressively increased for [Pulling on a carbon nanotube](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/breaking-a-carbon-nanotube.html), 
 [Polymer in water](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level2/polymer-in-water.html), 
 [Nanosheared electrolyte](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level2/nanosheared-electrolyte.html),
 and [Reactive silicon dioxide](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/reactive-silicon-dioxide.html). 
-Finally, [Water adsorption in silica](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/water-adsorption-in-silica.html),
-[Free energy calculation](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/free-energy-calculation.html), 
-are using some more advanced simulation methods that are commonly used when studying soft matter systems, respectively grand canonical Monte Carlo simulations and a free energy method named umbrella sampling.
+Finally,
+[Water adsorption in silica](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/water-adsorption-in-silica.html) and
+[Free energy [calculation](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level3/free-energy-calculation.html) use some more advanced simulation methods that are commonly used when studying soft matter systems, respectively grand canonical Monte Carlo simulations and a free energy method named umbrella sampling.
 
 <p float="left">
     <a href="https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/lennard-jones-fluid.html">
