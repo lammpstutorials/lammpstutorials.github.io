@@ -639,7 +639,7 @@ Using hydrid potentials
     Pair coefficients for lj/cut/tip4p/long are
     defined between O atoms, as well as between
     O(SiO)-O(H2O) and Si(SiO)-O(H2O). Therefore, the fluid-solid 
-    interactions will be set by Lennard Jones and Coulomb potentials. 
+    interactions will be set by Lennard-Jones and Coulomb potentials. 
     
 ..  container:: justify
 
@@ -772,7 +772,7 @@ GCMC simulation
 ..  container:: justify
 
     After just a few GCMC steps,
-    the number of molecules starts increasing with time.
+    the number of molecules starts increasing.
     Once the crack is filled with water molecules, the number of
     molecules reaches a plateau.
 
@@ -791,7 +791,7 @@ GCMC simulation
 
 ..  container:: justify
 
-    Note that the final number of molecules depends on the imposed pressure, 
+    The final number of molecules depends on the imposed pressure, 
     temperature, and on the interaction between water and silica (i.e. its hydrophilicity). 
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/solvated-dark.png
@@ -833,7 +833,8 @@ Mixture adsorption
     Adapt the existing script and insert both :math:`\text{CO}_2` molecules
     and water molecules within the silica crack using GCMC. 
     Download the |CO2-template|. The parameters for the
-    :math:`\text{CO}_2` molecule are the following:
+    :math:`\text{CO}_2`
+    molecule are the following:
 
 ..  code-block:: lammps
 
@@ -844,8 +845,8 @@ Mixture adsorption
 
 .. container:: justify
 
-    Where it is assumed that the atom of type 5 is oxygen of 
-    mass 15.9994, and an atom of type 6 is the carbon of mass 12.011.
+    The atom of type 5 is an oxygen of 
+    mass 15.9994, and the atom of type 6 is a carbon of mass 12.011.
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/H2O-CO2-dark.png
     :alt: silica block adsorbed water and CO2
@@ -912,7 +913,9 @@ Adsorb water in ZIF-8 nanopores
 
 ..  container:: justify
 
-    Note that, here, water occupies the atom types 1 and 2, instead of 3 and 4 in the case of SiO2.
+    An important note: here, water occupies the atom types 1 and 2,
+    instead of 3 and 4 in the case of SiO2 from the main section 
+    of the tutorial.
 
 .. |Zif-8-structure| raw:: html
 

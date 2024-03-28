@@ -765,7 +765,7 @@ parameters used for atoms of types 3 and 4.</p>
 <p>Pair coefficients for lj/cut/tip4p/long are
 defined between O atoms, as well as between
 O(SiO)-O(H2O) and Si(SiO)-O(H2O). Therefore, the fluid-solid
-interactions will be set by Lennard Jones and Coulomb potentials.</p>
+interactions will be set by Lennard-Jones and Coulomb potentials.</p>
 </div>
 <div class="justify docutils container">
 <p>The number of oxygen atoms from water molecules (i.e. the number of molecules)
@@ -880,7 +880,7 @@ Deleted 258 angles, new total = 22
 </div>
 <div class="justify docutils container">
 <p>After just a few GCMC steps,
-the number of molecules starts increasing with time.
+the number of molecules starts increasing.
 Once the crack is filled with water molecules, the number of
 molecules reaches a plateau.</p>
 </div>
@@ -895,7 +895,7 @@ molecules reaches a plateau.</p>
 marks the beginning of the GCMC step.</p>
 </div>
 <div class="justify docutils container">
-<p>Note that the final number of molecules depends on the imposed pressure,
+<p>The final number of molecules depends on the imposed pressure,
 temperature, and on the interaction between water and silica (i.e. its hydrophilicity).</p>
 </div>
 <figure class="align-default">
@@ -936,7 +936,8 @@ see <a class="reference internal" href="../../non-tutorials/solutions.html#solut
 <p>Adapt the existing script and insert both <span class="math notranslate nohighlight">\(\text{CO}_2\)</span> molecules
 and water molecules within the silica crack using GCMC.
 Download the <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/MixtureH2OCO2/CO2.mol" target="_blank">CO2 template</a>. The parameters for the
-<span class="math notranslate nohighlight">\(\text{CO}_2\)</span> molecule are the following:</p>
+<span class="math notranslate nohighlight">\(\text{CO}_2\)</span>
+molecule are the following:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0179</span><span class="w"> </span><span class="m">2.625854</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0106</span><span class="w"> </span><span class="m">2.8114421</span>
@@ -945,8 +946,8 @@ Download the <a href="../../../../../lammpstutorials-inputs/level3/water-adsorpt
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Where it is assumed that the atom of type 5 is oxygen of
-mass 15.9994, and an atom of type 6 is the carbon of mass 12.011.</p>
+<p>The atom of type 5 is an oxygen of
+mass 15.9994, and the atom of type 6 is a carbon of mass 12.011.</p>
 </div>
 <figure class="align-default">
 <img alt="silica block adsorbed water and CO2" class="only-dark" src="../../_images/H2O-CO2-dark.png" />
@@ -996,7 +997,9 @@ Your <em>input</em> file should start like this:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Note that, here, water occupies the atom types 1 and 2, instead of 3 and 4 in the case of SiO2.</p>
+<p>An important note: here, water occupies the atom types 1 and 2,
+instead of 3 and 4 in the case of SiO2 from the main section
+of the tutorial.</p>
 </div>
 </section>
 </section>
