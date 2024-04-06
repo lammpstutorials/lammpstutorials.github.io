@@ -1,7 +1,7 @@
 .. _mda-label:
 
-MDAnalysis short tutorials
-**************************
+MDAnalysis tutorials
+********************
 
 .. container:: hatnote
 

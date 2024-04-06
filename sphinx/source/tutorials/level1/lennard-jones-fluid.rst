@@ -550,7 +550,7 @@ Molecular dynamics
 ..  container:: figurelegend
 
     Figure: a) The potential energy (:math:`p_\text{e}`) rapidly decreases during
-    energy minimization (orange). Then, after the molecular dynamics starts,
+    energy minimization (orange). Then, after the molecular dynamics simulation starts,
     :math:`p_\text{e}` increases until it reaches a plateau value of about -0.25 (blue). 
     b) The kinetic energy (:math:`k_\text{e}`) is equal to zero during energy minimization,
     then increases during molecular dynamics until it reaches a plateau value of about 1.5.

@@ -8,6 +8,8 @@ colors = {
   "mylightgray": [0.1, 0.1, 0.1],
   "mygray": [0.5, 0.5, 0.5],
   "mydarkgray": [0.9, 0.9, 0.9],
+  "myblueANR": [0.224, 0.467, 0.878],
+  "myredANR": [0.867, 0.349, 0.384],
 }
 
 def mygradient(N, color1, color2, final_value=False):
