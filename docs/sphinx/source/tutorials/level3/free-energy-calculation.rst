@@ -690,15 +690,16 @@ Going further with exercises
 .. include:: ../../non-tutorials/link-to-solutions.rst
 
 The binary fluid that won't mix
-------------------------------
+-------------------------------
 
 ..  container:: justify
 
     **1 - Create the system**
 
     Create a molecular simulation with two species of respective types 1 and 2.
-    Apply different potentials :math:`U1` and :math:`U2` on particles of types 1 and 2, respectively,
-    so that particles of type 1 are excluded from the center of the box, while at the same time particles
+    Apply different potentials :math:`U1` and :math:`U2` on particles of
+    types 1 and 2, respectively, so that particles of type 1 are excluded
+    from the center of the box, while at the same time particles
     of type 2 are excluded from the rest of the box.
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice2-light.png
@@ -758,7 +759,7 @@ Particles under convection
 
 ..  container:: figurelegend
 
-    Figure: PMF calculated in the presence of a net force inducing
+    Figure: PMF calculated in the presence of a net force that is inducing
     the convection of the particles from left to right. 
 
 Surface adsorption of a molecule
@@ -816,7 +817,7 @@ Surface adsorption of a molecule
 
 ..  container:: justify
 
-    The PMF shows a minima near the solid surface, which indicates a good
+    The PMF shows a minimum near the solid surface, which indicates a good
     affinity between the wall and the molecule.
 
 .. figure:: ../figures/level3/free-energy-calculation/exercice-ethanol-light.png

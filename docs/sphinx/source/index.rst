@@ -33,11 +33,17 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
 
 .. toctree::
     :maxdepth: 2
+    :caption: Extra tools
+
+    tutorials/vmd/vmd-tutorial.rst
+    tutorials/mdanalysis/mdanalysis-tutorial.rst
+    tutorials/bash/bash-tutorial.rst
+
+.. toctree::
+    :maxdepth: 2
     :caption: Extra content
 
     non-tutorials/solutions.rst
-    tutorials/vmd/vmd-tutorial.rst
-    tutorials/mdanalysis/mdanalysis-tutorial.rst
     non-tutorials/glossary.rst
     non-tutorials/bibliography.rst
     miscellaneous/use-gromacs-instead.rst
