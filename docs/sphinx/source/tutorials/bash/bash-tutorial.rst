@@ -65,7 +65,7 @@ Launch multiple simulations
 
 .. container:: justify
 
-    Next to the downloaded *input.lammps*, create a new empty file called *launch.sh*,
+    Next to the downloaded *input.lammps*, create a new empty file called *launch_LAMMPS.sh*,
     and copy the following lines into it. 
 
 ..  code-block:: bash
@@ -112,7 +112,7 @@ Launch multiple simulations
 
 ..  code-block:: bash
 
-    bash launch.sh
+    bash launch_LAMMPS.sh
 
 .. container:: justify
 
@@ -120,6 +120,39 @@ Launch multiple simulations
 
 ..  code-block:: bash
 
-    chmod +x launch.sh
-    ./launch.sh
+    chmod +x launch_LAMMPS.sh
+    ./launch_LAMMPS.sh
 
+Random number
+-------------
+
+.. container:: justify
+
+    Some LAMMPS commands use seeds, such as the *create_atoms* command.
+    To generate statistically independent simulations, it is sometimes
+    useful to launch the same input several times using a different seed.
+    While LAMMPS does not offer the possibility to randomly generate new seed,
+    bash does. 
+
+.. container:: justify
+
+    Within *input.lammps*, add a new variable called *rdm*
+    to the second *create_atoms* command:
+
+..  code-block:: lammps
+
+
+    create_atoms 2 random ${nb2} ${rdm} simulation_box overlap 1 maxtry 500
+
+.. container:: justify
+
+    Then, within the bash script *launch_LAMMPS.sh*, modify the command line as follows:
+
+..  code-block:: bash
+
+    ${lmp} -in input.lammps -var nb2 ${i} -var rdm $RANDOM
+
+.. container:: justify
+
+    The *-var rdm $RANDOM* was added to pass a random number to
+    the LAMMPS input file. 
