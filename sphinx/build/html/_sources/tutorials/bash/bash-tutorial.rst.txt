@@ -131,7 +131,7 @@ Random number
     Some LAMMPS commands use seeds, such as the *create_atoms* command.
     To generate statistically independent simulations, it is sometimes
     useful to launch the same input several times using a different seed.
-    While LAMMPS does not offer the possibility to randomly generate new seed,
+    While LAMMPS does not offer the possibility to randomly generate new seeds,
     bash does. 
 
 .. container:: justify
