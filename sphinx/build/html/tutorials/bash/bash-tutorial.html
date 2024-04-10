@@ -286,7 +286,7 @@ are the use of a variable <em>nb2</em> to control the number of particles of typ
 the desired number of atoms will always be created.</p>
 </div>
 <div class="justify docutils container">
-<p>Next to the downloaded <em>input.lammps</em>, create a new empty file called <em>launch.sh</em>,
+<p>Next to the downloaded <em>input.lammps</em>, create a new empty file called <em>launch_LAMMPS.sh</em>,
 and copy the following lines into it.</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
@@ -325,16 +325,43 @@ is created and the resulting <em>lammpstrj</em> file is copied into it.</p>
 <p>Finally, execute the Bash script by typing the following command in a
 terminal:</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>launch.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>launch_LAMMPS.sh
 </pre></div>
 </div>
 <div class="justify docutils container">
 <p>Alternatively, make the Bash script executable first:</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>launch.sh
-./launch.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>launch_LAMMPS.sh
+./launch_LAMMPS.sh
 </pre></div>
 </div>
+<section id="random-number">
+<h3>Random number<a class="headerlink" href="#random-number" title="Link to this heading">#</a></h3>
+<div class="justify docutils container">
+<p>Some LAMMPS commands use seeds, such as the <em>create_atoms</em> command.
+To generate statistically independent simulations, it is sometimes
+useful to launch the same input several times using a different seed.
+While LAMMPS does not offer the possibility to randomly generate new seed,
+bash does.</p>
+</div>
+<div class="justify docutils container">
+<p>Within <em>input.lammps</em>, add a new variable called <em>rdm</em>
+to the second <em>create_atoms</em> command:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="nv">${nb2}</span><span class="w"> </span><span class="nv">${rdm}</span><span class="w"> </span><span class="n">simulation_box</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then, within the bash script <em>launch_LAMMPS.sh</em>, modify the command line as follows:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">lmp</span><span class="si">}</span><span class="w"> </span>-in<span class="w"> </span>input.lammps<span class="w"> </span>-var<span class="w"> </span>nb2<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>-var<span class="w"> </span>rdm<span class="w"> </span><span class="nv">$RANDOM</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The <em>-var rdm $RANDOM</em> was added to pass a random number to
+the LAMMPS input file.</p>
+</div>
+</section>
 </section>
 </section>
 
@@ -390,7 +417,10 @@ terminal:</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Bash tutorial</a><ul>
-<li><a class="reference internal" href="#launch-multiple-simulations">Launch multiple simulations</a></li>
+<li><a class="reference internal" href="#launch-multiple-simulations">Launch multiple simulations</a><ul>
+<li><a class="reference internal" href="#random-number">Random number</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
