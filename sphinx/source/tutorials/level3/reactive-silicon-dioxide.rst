@@ -371,7 +371,7 @@ Deform the structure
 
 ..  container:: justify
 
-    During the deformation, the charges progressively change until the structure
+    During the deformation, the charge values progressively evolve until the structure
     eventually breaks down. After the structure breaks down, the charges
     equilibrate near new average values that differ from the starting averages.
     The difference between the initial and the final charges can be explained by
@@ -447,9 +447,9 @@ Deform the structure
 
 ..  container:: justify
 
-    As expected, the final charge distribution slightly differs from the previously calculated.
-    In my case, no new species were formed during the simulation,
-    as can be seen from the *species.log* file:
+    As expected, the final charge distribution slightly differs from the
+    previously calculated. In my case, no new species were formed during the
+    simulation, as can be seen from the *species.log* file:
 
 ..  code-block:: lammps
 
@@ -477,8 +477,8 @@ Decorate the surface
 
 ..  container:: justify
 
-    Let us add hydrogen atoms to the cracked silica, and measure how the
-    system evolves with time. 
+    Let us add hydrogen atoms to the cracked silica, and measure how the system
+    evolves with time. 
 
 ..  container:: justify
 
@@ -525,24 +525,20 @@ Decorate the surface
 
 ..  container:: justify
 
-    Here, the *displace_atoms* command was used to
-    move the center of the crack near the center of the box.
-    This step is optional but makes the visualizing
-    of the interface in VMD easier.
-    A different value for the shift may be needed in your case,
-    depending on the location of the crack.
+    Here, the *displace_atoms* command was used to move the center of the crack
+    near the center of the box. This step is optional but makes the visualization
+    of the interface in VMD easier. A different value for the shift may be
+    needed in your case, depending on the location of the crack.
 
 ..  container:: justify
 
-    A difference with the previous input is that
-    three atom types are specified in the
-    *pair_coeff* command, *Si O H*, instead of two.
+    A difference with the previous input is that three atom types are specified
+    in the *pair_coeff* command, *Si O H*, instead of two.
 
 ..  container:: justify
 
-    Then, let us adapt some familiar commands
-    to measure the charges of all three types of atoms,
-    and output the charge values into log files:
+    Then, let us adapt some familiar commands to measure the charges of all
+    three types of atoms, and output the charge values into log files:
 
 ..  code-block:: lammps
 
@@ -560,14 +556,14 @@ Decorate the surface
 
 ..  container:: justify
 
-    Here, the :math:`+1\text{e}-10` was added to the 
-    denominator of the *variable qH* in order to avoid dividing by 0
-    at the beginning of the simulation.
+    Here, the :math:`+1\text{e}-10` was added to the denominator of the
+    *variable qH* in order to avoid dividing by 0 at the beginning of the
+    simulation.
 
 ..  container:: justify
 
-    Finally, let us create a loop with 10 steps,
-    and create two hydrogen atoms at random locations at every step: 
+    Finally, let us create a loop with 10 steps, and create two hydrogen atoms
+    at random locations at every step: 
 
 ..  code-block:: lammps
 
@@ -590,16 +586,15 @@ Decorate the surface
     
 ..  container:: justify
 
-    Here, a different *lammpstrj* file is created for each step of the
-    loop in order to avoid creating dump files with varying numbers of atoms,
-    which VMD can't read.
+    Here, a different *lammpstrj* file is created for each step of the loop to
+    avoid creating dump files with varying numbers of atoms, which VMD can't
+    read.
 
 ..  container:: justify
 
-    Once the simulation is over, it can be seen from the *species.log*
-    file that all the created hydrogen atoms reacted with 
-    the :math:`\text{SiO}_{2}` structure to form surface groups
-    (such as hydroxyl (-OH) groups).
+    Once the simulation is over, it can be seen from the *species.log* file that
+    all the created hydrogen atoms reacted with the :math:`\text{SiO}_{2}`
+    structure to form surface groups (such as hydroxyl (-OH) groups).
 
 ..  code-block:: lammps
 
@@ -619,9 +614,9 @@ Decorate the surface
 
 ..  container:: figurelegend
 
-    Figure: Cracked silicon oxide after the addition of hydrogen atoms. 
-    Some hydroxyl groups can be seen at the interfaces.
-    The atoms are colored by their charges.
+    Figure: Cracked silicon oxide after the addition of hydrogen atoms. Some
+    hydroxyl groups can be seen at the interfaces. The atoms are colored by
+    their charges.
 
 .. include:: ../../non-tutorials/accessfile.rst
 
@@ -630,40 +625,13 @@ Going further with exercises
 
 .. include:: ../../non-tutorials/link-to-solutions.rst
 
-..
-    Add O2 molecules
-    ----------------
-
-    ..  container:: justify
-
-        Add :math:`\text{O}_2` molecules to the previously
-        equilibrated structure. Equilibrate it again, and
-        extract the charge density profile along the :math:`x` axis. 
-
-    ..  container:: justify
-
-        Here, the :math:`\text{O}_2` molecule is simply made of 2 oxygen atoms that are not 
-        connected by any bond.
-
-    .. figure:: ../figures/level3/reactive-silicon-dioxide/O2_light.png
-        :alt: Silicon oxide with additional O2 molecules
-        :class: only-light
-
-    .. figure:: ../figures/level3/reactive-silicon-dioxide/O2_dark.png
-        :alt: Silicon oxide with additional O2 molecules
-        :class: only-dark
-
-    ..  container:: figurelegend
-
-        Figure: Deformed structure with some :math:`\text{O}_2` molecules
-
 Hydrate the structure
 ---------------------
 
 ..  container:: justify
 
-    Add water molecules to the current structure, and follow the
-    reactions over time.
+    Add water molecules to the current structure, and follow the reactions ove
+    time.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/hydrated-light.png
     :alt: Cracked silicon oxide after addition of water molecule
@@ -675,8 +643,8 @@ Hydrate the structure
 
 ..  container:: figurelegend
 
-    Figure: Cracked silicon oxide after the addition of hydrogen atoms and water molecules.
-    The atoms are colored by their charges.
+    Figure: Cracked silicon oxide after the addition of hydrogen atoms and water
+    molecules. The atoms are colored by their charges.
 
 A slightly acidic bulk solution
 -------------------------------
@@ -684,7 +652,8 @@ A slightly acidic bulk solution
 ..  container:: justify
 
     Create a bulk water system with a few hydronium ions (:math:`H_3O^+`
-    or :math:`H^+`) using *ReaxFF*.
+    or :math:`H^+`) using *ReaxFF*. The addition of hydronium ions will make the
+    system acidic.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/acidic-water-light.png
     :alt: Acidic bulk water with ReaxFF
