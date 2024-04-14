@@ -250,9 +250,9 @@ Prepare and relax
 ..  container:: justify
 
     Since each atom has a charge that depends on its local environment,
-    the charge values are expected to be different for every atom in the system. We can plot 
-    the charge distribution :math:`P(q)`, using the charge values printed in
-    the *.lammptrj* file. 
+    the charge values are expected to be different for every atom in the system.
+    We can plot the charge distribution :math:`P(q)`, using the charge values
+    printed in the *.lammptrj* file. 
     
 .. figure:: ../figures/level3/reactive-silicon-dioxide/distribution-charge-light.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
@@ -283,26 +283,26 @@ Prepare and relax
 
 ..  container:: figurelegend
 
-    Figure: A slice of the amorphous silica, where atoms are colored by
-    their charges. Dandling oxygen groups appear in greenish, bulk Si atoms
-    with a charge of about 1.8e appear in red/orange, and bulk O atoms
-    with a charge of about -0.9e appear in blue.
-    To color the atoms by their charge in VMD, use *Charge* as the coloring method in the 
-    representation windows, and then tune the *Color scale* in the *Color control windows*.
+    Figure: A slice of the amorphous silica, where atoms are colored by their
+    charges. Dandling oxygen groups appear in greenish, bulk Si atoms with a
+    charge of about 1.8e appear in red/orange, and bulk O atoms with a charge of
+    about :math:`-0.9\text{e}` appear in blue. To color the atoms by their
+    charge using VMD, use *Charge* as the coloring method in the representation
+    windows, and then tune the *Color scale* in the *Color control windows*.
 
 Deform the structure
 ====================
 
 ..  container:: justify
 
-    Let us apply a deformation to the structure in order to
-    force some :math:`\text{Si}-\text{O}` bonds to break and re-assemble. 
+    Let us apply a deformation to the structure to force some
+    :math:`\text{Si}-\text{O}` bonds to break and re-assemble. 
 
 ..  container:: justify
 
     Next to *RelaxSilica/*, create a folder, call it *Deform/* and create a
-    file named *input.lammps* in it. Copy the same lines
-    as previously in *input.lammps*:
+    file named *input.lammps* in it. Copy the same lines as previously in
+    *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -320,9 +320,8 @@ Deform the structure
 
 ..  container:: justify
 
-    The only differences with the previous *input.lammps* file
-    are the paths to the *.data* and *.ff*
-    files located within *RelaxSilica/*.
+    The only differences with the previous *input.lammps* file are the
+    paths to the *.data* and *.ff* files located within *RelaxSilica/*.
     Copy the following lines as well:
 
 ..  code-block:: lammps
@@ -341,7 +340,7 @@ Deform the structure
 ..  container:: justify
 
     Then, let us use *fix nvt* instead of *fix npt* to apply a
-    thermostat:
+    thermostat but no barostat:
 
 ..  code-block:: lammps
 
@@ -351,15 +350,14 @@ Deform the structure
 .. admonition:: Note
     :class: info
 
-    Here, no barostat is used because the box volume
-    will be imposed by the *fix deform*.
+    Here, no barostat is used because the box volume will be imposed by
+    the *fix deform*.
 
 ..  container:: justify
 
-    Let us run for 5000 steps without deformation,
-    then apply the *fix deform* for elongating
-    progressively the box along *x* during 25000 steps.
-    Add the following line to *input.lammps*:
+    Let us run for 5000 steps without deformation, then apply the *fix deform*
+    for elongating progressively the box along *x* during 25000 steps. Add the
+    following line to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -373,12 +371,12 @@ Deform the structure
 
 ..  container:: justify
 
-    During the deformation, the charges progressively change until the structure eventually
-    breaks down. After the structure breaks down, the charges equilibrate near new 
-    average values that differ from the starting averages. The difference between 
-    the initial and the final charges can be explained by
-    the presence of defects as well as new solid/vacuum interfaces, and the fact that
-    surface atoms typically have different charges compared to bulk atoms.
+    During the deformation, the charges progressively change until the structure
+    eventually breaks down. After the structure breaks down, the charges
+    equilibrate near new average values that differ from the starting averages.
+    The difference between the initial and the final charges can be explained by
+    the presence of defects as well as new solid/vacuum interfaces, and the fact
+    that surface atoms typically have different charges compared to bulk atoms.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-charge-light.png
     :alt: Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff
@@ -390,8 +388,8 @@ Deform the structure
 
 ..  container:: figurelegend
 
-    Figure: Average charge per atom of the silicon (a) and oxygen (b).
-    The vertical dashed lines mark the beginning of the deformation.
+    Figure: Average charge per atom of the silicon (a) and oxygen (b). The
+    vertical dashed lines mark the beginning of the deformation.
 
 ..  container:: justify
 
@@ -408,13 +406,13 @@ Deform the structure
 
 ..  container:: figurelegend
 
-    Figure: Temperature of the system over time.
+    Figure: Temperature of the silica system over time.
 
 ..  container:: justify
 
-    At the end of the deformation, one can visualize the broken material using VMD.
-    Notice the different charge values of the atoms located near the vacuum interfaces,
-    compared to the atoms located in the bulk of the material.
+    At the end of the deformation, one can visualize the broken material using
+    VMD. Notice the different charge values of the atoms located near the vacuum
+    interfaces, compared to the atoms located in the bulk of the material.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-light.png
     :alt: Deformed amorphous silica colored by charges using VMD

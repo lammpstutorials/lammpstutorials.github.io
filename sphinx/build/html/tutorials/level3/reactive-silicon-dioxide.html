@@ -432,9 +432,9 @@ the inter-atomic distances are expected to quickly change.</p>
 </div>
 <div class="justify docutils container">
 <p>Since each atom has a charge that depends on its local environment,
-the charge values are expected to be different for every atom in the system. We can plot
-the charge distribution <span class="math notranslate nohighlight">\(P(q)\)</span>, using the charge values printed in
-the <em>.lammptrj</em> file.</p>
+the charge values are expected to be different for every atom in the system.
+We can plot the charge distribution <span class="math notranslate nohighlight">\(P(q)\)</span>, using the charge values
+printed in the <em>.lammptrj</em> file.</p>
 </div>
 <figure class="align-default">
 <img alt="Distribution charge of silica and oxygen during equilibration with reaxff" class="only-light" src="../../_images/distribution-charge-light.png" />
@@ -458,24 +458,24 @@ amorphous structure (here at the positions of the dandling oxygen groups).</p>
 <img alt="Amorphous silica colored by charges using VMD" class="only-dark" src="../../_images/silicon-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: A slice of the amorphous silica, where atoms are colored by
-their charges. Dandling oxygen groups appear in greenish, bulk Si atoms
-with a charge of about 1.8e appear in red/orange, and bulk O atoms
-with a charge of about -0.9e appear in blue.
-To color the atoms by their charge in VMD, use <em>Charge</em> as the coloring method in the
-representation windows, and then tune the <em>Color scale</em> in the <em>Color control windows</em>.</p>
+<p>Figure: A slice of the amorphous silica, where atoms are colored by their
+charges. Dandling oxygen groups appear in greenish, bulk Si atoms with a
+charge of about 1.8e appear in red/orange, and bulk O atoms with a charge of
+about <span class="math notranslate nohighlight">\(-0.9\text{e}\)</span> appear in blue. To color the atoms by their
+charge using VMD, use <em>Charge</em> as the coloring method in the representation
+windows, and then tune the <em>Color scale</em> in the <em>Color control windows</em>.</p>
 </div>
 </section>
 <section id="deform-the-structure">
 <h2>Deform the structure<a class="headerlink" href="#deform-the-structure" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
-<p>Let us apply a deformation to the structure in order to
-force some <span class="math notranslate nohighlight">\(\text{Si}-\text{O}\)</span> bonds to break and re-assemble.</p>
+<p>Let us apply a deformation to the structure to force some
+<span class="math notranslate nohighlight">\(\text{Si}-\text{O}\)</span> bonds to break and re-assemble.</p>
 </div>
 <div class="justify docutils container">
 <p>Next to <em>RelaxSilica/</em>, create a folder, call it <em>Deform/</em> and create a
-file named <em>input.lammps</em> in it. Copy the same lines
-as previously in <em>input.lammps</em>:</p>
+file named <em>input.lammps</em> in it. Copy the same lines as previously in
+<em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
@@ -491,9 +491,8 @@ as previously in <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The only differences with the previous <em>input.lammps</em> file
-are the paths to the <em>.data</em> and <em>.ff</em>
-files located within <em>RelaxSilica/</em>.
+<p>The only differences with the previous <em>input.lammps</em> file are the
+paths to the <em>.data</em> and <em>.ff</em> files located within <em>RelaxSilica/</em>.
 Copy the following lines as well:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">grpSi</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
@@ -510,7 +509,7 @@ Copy the following lines as well:</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us use <em>fix nvt</em> instead of <em>fix npt</em> to apply a
-thermostat:</p>
+thermostat but no barostat:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">100</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
@@ -518,14 +517,13 @@ thermostat:</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Note</p>
-<p>Here, no barostat is used because the box volume
-will be imposed by the <em>fix deform</em>.</p>
+<p>Here, no barostat is used because the box volume will be imposed by
+the <em>fix deform</em>.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us run for 5000 steps without deformation,
-then apply the <em>fix deform</em> for elongating
-progressively the box along <em>x</em> during 25000 steps.
-Add the following line to <em>input.lammps</em>:</p>
+<p>Let us run for 5000 steps without deformation, then apply the <em>fix deform</em>
+for elongating progressively the box along <em>x</em> during 25000 steps. Add the
+following line to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">5000</span>
 
@@ -537,12 +535,12 @@ Add the following line to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>During the deformation, the charges progressively change until the structure eventually
-breaks down. After the structure breaks down, the charges equilibrate near new
-average values that differ from the starting averages. The difference between
-the initial and the final charges can be explained by
-the presence of defects as well as new solid/vacuum interfaces, and the fact that
-surface atoms typically have different charges compared to bulk atoms.</p>
+<p>During the deformation, the charges progressively change until the structure
+eventually breaks down. After the structure breaks down, the charges
+equilibrate near new average values that differ from the starting averages.
+The difference between the initial and the final charges can be explained by
+the presence of defects as well as new solid/vacuum interfaces, and the fact
+that surface atoms typically have different charges compared to bulk atoms.</p>
 </div>
 <figure class="align-default">
 <img alt="Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff" class="only-light" src="../../_images/deformed-charge-light.png" />
@@ -551,8 +549,8 @@ surface atoms typically have different charges compared to bulk atoms.</p>
 <img alt="Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff" class="only-dark" src="../../_images/deformed-charge-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Average charge per atom of the silicon (a) and oxygen (b).
-The vertical dashed lines mark the beginning of the deformation.</p>
+<p>Figure: Average charge per atom of the silicon (a) and oxygen (b). The
+vertical dashed lines mark the beginning of the deformation.</p>
 </div>
 <div class="justify docutils container">
 <p>There is also a strong increase in temperature during the rupture of the
@@ -565,12 +563,12 @@ material.</p>
 <img alt="temperature of silica during deformation of the silicon oxide with LAMMPS and reaxff" class="only-dark" src="../../_images/deformed-temperature-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Temperature of the system over time.</p>
+<p>Figure: Temperature of the silica system over time.</p>
 </div>
 <div class="justify docutils container">
-<p>At the end of the deformation, one can visualize the broken material using VMD.
-Notice the different charge values of the atoms located near the vacuum interfaces,
-compared to the atoms located in the bulk of the material.</p>
+<p>At the end of the deformation, one can visualize the broken material using
+VMD. Notice the different charge values of the atoms located near the vacuum
+interfaces, compared to the atoms located in the bulk of the material.</p>
 </div>
 <figure class="align-default">
 <img alt="Deformed amorphous silica colored by charges using VMD" class="only-light" src="../../_images/deformed-light1.png" />
