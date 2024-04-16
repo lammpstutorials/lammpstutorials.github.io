@@ -3,12 +3,9 @@
 copyright = 'All source code is available under the GNU General Public License v3.0'
 author = 'Simon Gravelle'
 
-extensions = ['sphinxcontrib.googleanalytics',
-              'sphinx_togglebutton',
+extensions = ['sphinx_togglebutton',
               'sphinx_favicon',
-              'sphinxcontrib.bibtex'] # 'rst2pdf.pdfbuilder'
-
-googleanalytics_id = 'G-W1WGEC5GQ8'
+              'sphinxcontrib.bibtex']
 
 templates_path = ['_templates']
 
@@ -35,10 +32,3 @@ html_show_sphinx = False
 html_short_title = "True"
 
 bibtex_bibfiles = ['journal-article.bib']
-
-#html_context = {
-#    "lammpstutorials.github.io ": True, # Integrate GitHub
-#    "github_user": "lammpstutorials", # Username
-#    "github_repo": "lammpstutorials.github.io ", # Repo name
-#    "github_version": "version2.0", # Version
-#}

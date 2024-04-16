@@ -3,16 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1WGEC5GQ8"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-W1WGEC5GQ8');
-    </script>
-        <link href="../../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Solutions to the exercises" href="../../non-tutorials/solutions.html" /><link rel="prev" title="MDAnalysis tutorials" href="../mdanalysis/mdanalysis-tutorial.html" />
+    <link href="../../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Solutions to the exercises" href="../../non-tutorials/solutions.html" /><link rel="prev" title="MDAnalysis tutorials" href="../mdanalysis/mdanalysis-tutorial.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>Bash tutorial - </title>
@@ -282,8 +273,14 @@ are the use of a variable <em>nb2</em> to control the number of particles of typ
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>In addition, the <em>overlap</em> and <em>maxtry</em> keywords were added to ensure that the
-the desired number of atoms will always be created.</p>
+<p>Normally, we would specify the value of <em>nb2</em> within <em>input.lammps</em> using
+something like <em>variable nb2 equal 10</em>, but here instead the value of
+<em>nb2</em> will be specified externally using <em>Bash</em>.</p>
+</div>
+<div class="justify docutils container">
+<p>Another change from <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a> is that the <em>overlap</em>
+and <em>maxtry</em> keywords were added to ensure that the desired number
+of atoms will always be created.</p>
 </div>
 <div class="justify docutils container">
 <p>Next to the downloaded <em>input.lammps</em>, create a new empty file called <em>launch_LAMMPS.sh</em>,
@@ -292,44 +289,67 @@ and copy the following lines into it.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nb">set</span><span class="w"> </span>-e
 
-<span class="nv">lmp</span><span class="o">=</span><span class="s2">&quot;/path-to-lammps/lmp&quot;</span>
-
-<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">81</span><span class="w"> </span><span class="m">729</span>
+<span class="k">for</span><span class="w"> </span>nb2<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">81</span><span class="w"> </span><span class="m">729</span>
 <span class="k">do</span>
-<span class="w">    </span><span class="si">${</span><span class="nv">lmp</span><span class="si">}</span><span class="w"> </span>-in<span class="w"> </span>input.lammps<span class="w"> </span>-var<span class="w"> </span>nb2<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span>
-<span class="w">    </span><span class="nv">folder</span><span class="o">=</span>nb<span class="si">${</span><span class="nv">i</span><span class="si">}</span>
-<span class="w">    </span>mkdir<span class="w"> </span><span class="si">${</span><span class="nv">folder</span><span class="si">}</span>
-<span class="w">    </span>cp<span class="w"> </span>dump.lammpstrj<span class="w"> </span><span class="si">${</span><span class="nv">folder</span><span class="si">}</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;nb2 = &#39;</span><span class="si">${</span><span class="nv">nb2</span><span class="si">}</span>
 <span class="k">done</span>
 </pre></div>
-</div>
-<div class="justify docutils container">
-<p>Replace <em>/path-to-lammps/lmp</em> by the proper path to your LAMMPS
-executable.</p>
 </div>
 <div class="justify docutils container">
 <p>The first line <em>#!/bin/bash</em> indicates that this is a Bash script,
 and <em>set -e</em> tells Bash to exit immediately in the case of an error.</p>
 </div>
 <div class="justify docutils container">
-<p>Within the for loop, the variable $i$
-takes on the values 1, 9, 81, and 729 successively.
-The command starting with “${lmp}” calls the LAMMPS input <em>input.lammps</em>,
-while also passing the value of <em>i</em> as a variable named <em>nb2</em>.</p>
-</div>
-<div class="justify docutils container">
-<p>Once the LAMMPS simulation is over, a folder named <em>nbi</em>, with i = 1, 9, 81, or 729
-is created and the resulting <em>lammpstrj</em> file is copied into it.</p>
-</div>
-<div class="justify docutils container">
-<p>Finally, execute the Bash script by typing the following command in a
-terminal:</p>
+<p>Then, within the for loop, the variable $nb2$ takes on the values 1, 9, 81,
+and 729 successively, and the <em>echo</em> command prints its value at each step.
+This Bash script can be executed by typing in a terminal:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>launch_LAMMPS.sh
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Alternatively, make the Bash script executable first:</p>
+<p>This should return:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">nb2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
+<span class="nv">nb2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">9</span>
+<span class="nv">nb2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">81</span>
+<span class="nv">nb2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">729</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Let us complete the script by calling LAMMPS at each step of the loop:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="nv">lmp</span><span class="o">=</span><span class="s2">&quot;/path-to-lammps/lmp&quot;</span>
+
+<span class="k">for</span><span class="w"> </span>nb2<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">81</span><span class="w"> </span><span class="m">729</span>
+<span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;nb2 = &#39;</span><span class="si">${</span><span class="nv">nb2</span><span class="si">}</span>
+<span class="w">    </span><span class="si">${</span><span class="nv">lmp</span><span class="si">}</span><span class="w"> </span>-in<span class="w"> </span>input.lammps<span class="w"> </span>-var<span class="w"> </span>nb2<span class="w"> </span><span class="si">${</span><span class="nv">nb2</span><span class="si">}</span>
+<span class="w">    </span><span class="nv">folder</span><span class="o">=</span>nb<span class="si">${</span><span class="nv">nb2</span><span class="si">}</span>
+<span class="w">    </span>mkdir<span class="w"> </span><span class="si">${</span><span class="nv">folder</span><span class="si">}</span>
+<span class="w">    </span>cp<span class="w"> </span>dump.lammpstrj<span class="w"> </span><span class="si">${</span><span class="nv">folder</span><span class="si">}</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Replace <em>/path-to-lammps/lmp</em> with the proper path to your LAMMPS
+executable.</p>
+</div>
+<div class="justify docutils container">
+<p>The command starting with “${lmp}” calls the LAMMPS input <em>input.lammps</em>,
+while also passing the value of <em>nb2</em> to the LAMMPS variable named <em>nb2</em>.</p>
+</div>
+<div class="justify docutils container">
+<p>Once the LAMMPS simulation is over, a folder named <em>nbi</em>, with i = 1, 9, 81,
+or 729 is created my the <em>mkdir</em> command, and the resulting <em>lammpstrj</em> file
+is copied into it by the <em>cp</em> command.</p>
+</div>
+<div class="justify docutils container">
+<p>An alternative way to launch <em>launch_LAMMPS.sh</em> is to make it executable
+first:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>launch_LAMMPS.sh
 ./launch_LAMMPS.sh
@@ -340,26 +360,26 @@ terminal:</p>
 <div class="justify docutils container">
 <p>Some LAMMPS commands use seeds, such as the <em>create_atoms</em> command.
 To generate statistically independent simulations, it is sometimes
-useful to launch the same input several times using a different seed.
-While LAMMPS does not offer the possibility to randomly generate new seeds,
-bash does.</p>
+useful to launch the same input several times using a different seed.</p>
 </div>
 <div class="justify docutils container">
-<p>Within <em>input.lammps</em>, add a new variable called <em>rdm</em>
-to the second <em>create_atoms</em> command:</p>
+<p>Within <em>input.lammps</em>, add a new variable called <em>rdm</em> to the second
+<em>create_atoms</em> command:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="nv">${nb2}</span><span class="w"> </span><span class="nv">${rdm}</span><span class="w"> </span><span class="n">simulation_box</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="nv">${nb2}</span><span class="w"> </span><span class="nv">${rdm2}</span><span class="w"> </span><span class="n">simulation_box</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Then, within the bash script <em>launch_LAMMPS.sh</em>, modify the command line as follows:</p>
+<p>Then, within the bash script <em>launch_LAMMPS.sh</em>, modify the command line as
+follows:</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">lmp</span><span class="si">}</span><span class="w"> </span>-in<span class="w"> </span>input.lammps<span class="w"> </span>-var<span class="w"> </span>nb2<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>-var<span class="w"> </span>rdm<span class="w"> </span><span class="nv">$RANDOM</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">lmp</span><span class="si">}</span><span class="w"> </span>-in<span class="w"> </span>input.lammps<span class="w"> </span>-var<span class="w"> </span>nb2<span class="w"> </span><span class="si">${</span><span class="nv">nb2</span><span class="si">}</span><span class="w"> </span>-var<span class="w"> </span>rdm2<span class="w"> </span><span class="nv">$RANDOM</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The <em>-var rdm $RANDOM</em> was added to pass a random number to
-the LAMMPS input file.</p>
+<p>The <em>-var rdm2 $RANDOM</em> was added to pass a random number to
+the LAMMPS input file. This way, every time the same input file will be used,
+a different configuration will be created by LAMMPS.</p>
 </div>
 </section>
 </section>
