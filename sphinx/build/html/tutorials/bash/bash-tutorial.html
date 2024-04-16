@@ -228,7 +228,7 @@
           <section id="bash-tutorial">
 <span id="bash-label"></span><h1>Bash tutorial<a class="headerlink" href="#bash-tutorial" title="Link to this heading">#</a></h1>
 <div class="hatnote docutils container">
-<p>Handle multiple simulations</p>
+<p>Efficiently handle multiple simulations</p>
 </div>
 <div class="justify docutils container">
 <p>Bash scripts can help launch multiple simulations and interact with
@@ -243,8 +243,6 @@ See the <a class="reference internal" href="../../non-tutorials/contact-me.html#
 <div class="version docutils container">
 <p>This tutorial is compatible with the 2Aug2023 LAMMPS version.</p>
 </div>
-<section id="launch-multiple-simulations">
-<h2>Launch multiple simulations<a class="headerlink" href="#launch-multiple-simulations" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>In this tutorial, a simple LAMMPS input script is launched
 multiple times using a Bash script. At each iteration,
@@ -257,11 +255,12 @@ the number of particles is increased.</p>
 <img alt="Image of the lammps LJ fluid" class="only-light" src="../../_images/banner-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Binary Lennard-Jones fluid with 1500 particles of type 1, and an increasing number of
-particles of type 2, from 1 (left) to 729 (right).</p>
+<p>Binary Lennard-Jones fluid with 1500 particles of type 1 (small spheres)
+and an increasing number of particles of type 2 (large spheres),
+from 1 (left) to 729 (right).</p>
 </div>
 <section id="files-preparation">
-<h3>Files preparation<a class="headerlink" href="#files-preparation" title="Link to this heading">#</a></h3>
+<h2>Files preparation<a class="headerlink" href="#files-preparation" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>To follow this tutorial, <a href="../../../../../lammpstutorials-inputs/bash/varying-number/input.lammps" target="_blank">download</a> this simple LAMMPS input file
 from <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a>.</p>
@@ -286,7 +285,7 @@ of atoms will always be created.</p>
 </div>
 </section>
 <section id="pass-a-variable-to-a-lammps-input">
-<h3>Pass a variable to a LAMMPS input<a class="headerlink" href="#pass-a-variable-to-a-lammps-input" title="Link to this heading">#</a></h3>
+<h2>Pass a variable to a LAMMPS input<a class="headerlink" href="#pass-a-variable-to-a-lammps-input" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>The value of nb2 can be specified externally by using <em>-var</em> keyword from the
 terminal:</p>
@@ -299,7 +298,7 @@ terminal:</p>
 </div>
 </section>
 <section id="make-a-loop">
-<h3>Make a loop<a class="headerlink" href="#make-a-loop" title="Link to this heading">#</a></h3>
+<h2>Make a loop<a class="headerlink" href="#make-a-loop" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>Let us use Bash to launch LAMMPS multiple times with different values of the
 variable <em>nb2</em>.</p>
@@ -376,7 +375,7 @@ first:</p>
 </div>
 </section>
 <section id="pass-a-random-number">
-<h3>Pass a random number<a class="headerlink" href="#pass-a-random-number" title="Link to this heading">#</a></h3>
+<h2>Pass a random number<a class="headerlink" href="#pass-a-random-number" title="Link to this heading">#</a></h2>
 <div class="justify docutils container">
 <p>Some LAMMPS commands use seeds, such as the <em>create_atoms</em> command.
 To generate statistically independent simulations, it is sometimes
@@ -401,7 +400,6 @@ follows:</p>
 the LAMMPS input file. This way, every time the same input file is used,
 a different configuration will be created by LAMMPS.</p>
 </div>
-</section>
 </section>
 </section>
 
@@ -457,13 +455,10 @@ a different configuration will be created by LAMMPS.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Bash tutorial</a><ul>
-<li><a class="reference internal" href="#launch-multiple-simulations">Launch multiple simulations</a><ul>
 <li><a class="reference internal" href="#files-preparation">Files preparation</a></li>
 <li><a class="reference internal" href="#pass-a-variable-to-a-lammps-input">Pass a variable to a LAMMPS input</a></li>
 <li><a class="reference internal" href="#make-a-loop">Make a loop</a></li>
 <li><a class="reference internal" href="#pass-a-random-number">Pass a random number</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>

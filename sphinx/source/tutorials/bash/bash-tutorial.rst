@@ -5,7 +5,7 @@ Bash tutorial
 
 .. container:: hatnote
 
-    Handle multiple simulations
+    Efficiently handle multiple simulations
 
 .. container:: justify
 
@@ -16,9 +16,6 @@ Bash tutorial
 .. include:: ../../non-tutorials/needhelp.rst
 
 .. include:: ../../non-tutorials/2Aug2023.rst
-
-Launch multiple simulations
-===========================
 
 .. container:: justify
 
@@ -36,8 +33,9 @@ Launch multiple simulations
 
 .. container:: figurelegend
 
-    Binary Lennard-Jones fluid with 1500 particles of type 1, and an increasing number of 
-    particles of type 2, from 1 (left) to 729 (right).
+    Binary Lennard-Jones fluid with 1500 particles of type 1 (small spheres)
+    and an increasing number of particles of type 2 (large spheres),
+    from 1 (left) to 729 (right).
 
 Files preparation
 -----------------
