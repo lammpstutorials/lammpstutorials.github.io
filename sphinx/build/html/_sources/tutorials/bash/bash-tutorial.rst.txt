@@ -39,10 +39,13 @@ Launch multiple simulations
     Binary Lennard-Jones fluid with 1500 particles of type 1, and an increasing number of 
     particles of type 2, from 1 (left) to 729 (right).
 
+Files preparation
+-----------------
+
 .. container:: justify
 
-    To follow this tutorial, |input_file|
-    this simple LAMMPS input file from :ref:`lennard-jones-label`.
+    To follow this tutorial, |input_file| this simple LAMMPS input file
+    from :ref:`lennard-jones-label`.
 
 .. |input_file| raw:: html
 
@@ -70,10 +73,34 @@ Launch multiple simulations
     and *maxtry* keywords were added to ensure that the desired number
     of atoms will always be created.
 
+Pass a variable to a LAMMPS input
+---------------------------------
+
 .. container:: justify
 
-    Next to the downloaded *input.lammps*, create a new empty file called *launch_LAMMPS.sh*,
-    and copy the following lines into it. 
+    The value of nb2 can be specified externally by using *-var* keyword from the 
+    terminal: 
+
+..  code-block:: bash
+
+    lmp -in input.lammps -var nb2 81
+
+.. container:: justify
+
+    Here, a value of 81 is given to the variable *nb2*. 
+
+Make a loop
+-----------
+
+.. container:: justify
+
+    Let us use Bash to launch LAMMPS multiple times with different values of the
+    variable *nb2*.
+
+.. container:: justify
+
+    Next to the downloaded *input.lammps*, create a new empty file called
+    *launch_LAMMPS.sh*, and copy the following lines into it. 
 
 ..  code-block:: bash
 
@@ -120,12 +147,10 @@ Launch multiple simulations
     #!/bin/bash
     set -e
 
-    lmp="/path-to-lammps/lmp"
-
     for nb2 in 1 9 81 729
     do
         echo 'nb2 = '${nb2}
-        ${lmp} -in input.lammps -var nb2 ${nb2}
+        lmp -in input.lammps -var nb2 ${nb2}
         folder=nb${nb2}
         mkdir ${folder}
         cp dump.lammpstrj ${folder}
@@ -133,12 +158,11 @@ Launch multiple simulations
 
 .. container:: justify
 
-    Replace */path-to-lammps/lmp* with the proper path to your LAMMPS
-    executable. 
+    As always, replace *lmp* with the proper path to your LAMMPS executable. 
 
 .. container:: justify
 
-    The command starting with "${lmp}" calls the LAMMPS input *input.lammps*,
+    The command starting with *lmp* calls the LAMMPS input *input.lammps*,
     while also passing the value of *nb2* to the LAMMPS variable named *nb2*.
 
 .. container:: justify
@@ -157,8 +181,8 @@ Launch multiple simulations
     chmod +x launch_LAMMPS.sh
     ./launch_LAMMPS.sh
 
-Random number
--------------
+Pass a random number
+--------------------
 
 .. container:: justify
 
@@ -187,5 +211,5 @@ Random number
 .. container:: justify
 
     The *-var rdm2 $RANDOM* was added to pass a random number to
-    the LAMMPS input file. This way, every time the same input file will be used,
+    the LAMMPS input file. This way, every time the same input file is used,
     a different configuration will be created by LAMMPS. 
