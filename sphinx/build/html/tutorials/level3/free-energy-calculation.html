@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="VMD tutorial" href="../vmd/vmd-tutorial.html" /><link rel="prev" title="Water adsorption in silica" href="water-adsorption-in-silica.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>Free energy calculation - </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
@@ -226,15 +226,17 @@
         </div>
         <article role="main">
           <section id="free-energy-calculation">
-<span id="umbrella-sampling-label"></span><h1>Free energy calculation<a class="headerlink" href="#free-energy-calculation" title="Link to this heading">#</a></h1>
+<span id="umbrella-sampling-label"></span><h1>Free energy calculation<a class="headerlink" href="#free-energy-calculation" title="Link to this heading">¶</a></h1>
 <div class="hatnote docutils container">
 <p>Sampling a free energy barrier</p>
 </div>
 <figure class="align-right">
-<a class="only-light reference internal image-reference" href="../../_images/avatar_light.webp"><img alt="Lennard Jones atoms simulated with LAMMPS" class="only-light" src="../../_images/avatar_light.webp" style="height: 250px;" /></a>
+<a class="only-light reference internal image-reference" href="../../_images/avatar_light.webp"><img alt="Lennard Jones atoms simulated with LAMMPS" class="only-light" src="../../_images/avatar_light.webp" style="height: 250px;" />
+</a>
 </figure>
 <figure class="align-right">
-<a class="only-dark reference internal image-reference" href="../../_images/avatar_dark.webp"><img alt="Lennard Jones atoms simulated with LAMMPS" class="only-dark" src="../../_images/avatar_dark.webp" style="height: 250px;" /></a>
+<a class="only-dark reference internal image-reference" href="../../_images/avatar_dark.webp"><img alt="Lennard Jones atoms simulated with LAMMPS" class="only-dark" src="../../_images/avatar_dark.webp" style="height: 250px;" />
+</a>
 </figure>
 <div class="justify docutils container">
 <p>The objective of this tutorial is to measure a free
@@ -272,7 +274,7 @@ the thermodynamics of a system, predicting reaction pathways, and
 determining the stability of different molecular configurations.</p>
 </div>
 <section id="method-1-free-sampling">
-<h2>Method 1: Free sampling<a class="headerlink" href="#method-1-free-sampling" title="Link to this heading">#</a></h2>
+<h2>Method 1: Free sampling<a class="headerlink" href="#method-1-free-sampling" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
 <p>The most direct way to calculate a free energy profile is to extract
 the partition function from a classic (unbiased) molecular
@@ -296,7 +298,7 @@ repealing force that makes the center
 of the box a relatively unfavorable area to explore.</p>
 </div>
 <section id="basic-lammps-parameters">
-<h3>Basic LAMMPS parameters<a class="headerlink" href="#basic-lammps-parameters" title="Link to this heading">#</a></h3>
+<h3>Basic LAMMPS parameters<a class="headerlink" href="#basic-lammps-parameters" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Create a folder named <em>FreeSampling/</em>, and create an input script
 named <em>input.lammps</em> in it. Copy the following lines into it:</p>
@@ -339,7 +341,7 @@ the cut-off using the <em>pair_modify</em>.</p>
 </div>
 </section>
 <section id="system-creation-and-settings">
-<h3>System creation and settings<a class="headerlink" href="#system-creation-and-settings" title="Link to this heading">#</a></h3>
+<h3>System creation and settings<a class="headerlink" href="#system-creation-and-settings" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Let us define the simulation block and randomly add atoms
 by adding the following lines to <em>input.lammps</em>:</p>
@@ -439,7 +441,7 @@ record the evolution of the number of atoms in the central
 </div>
 </section>
 <section id="run-and-data-acquisition">
-<h3>Run and data acquisition<a class="headerlink" href="#run-and-data-acquisition" title="Link to this heading">#</a></h3>
+<h3>Run and data acquisition<a class="headerlink" href="#run-and-data-acquisition" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Finally, let us record the density profile of the atoms
 along the <span class="math notranslate nohighlight">\(x\)</span> axis using the <em>ave/chunk</em> command. A
@@ -477,7 +479,7 @@ part of the box, due to the additional force <span class="math notranslate nohig
 </div>
 </section>
 <section id="data-analysis">
-<h3>Data analysis<a class="headerlink" href="#data-analysis" title="Link to this heading">#</a></h3>
+<h3>Data analysis<a class="headerlink" href="#data-analysis" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>First, let us make sure that the initial equilibration of <span class="math notranslate nohighlight">\(1\,\text{ns}\)</span>
 is long enough by looking at the <em>density_evolution.dat</em> file.</p>
@@ -533,7 +535,7 @@ despite some noise in the central part.</p>
 </div>
 </section>
 <section id="the-limits-of-free-sampling">
-<h3>The limits of free sampling<a class="headerlink" href="#the-limits-of-free-sampling" title="Link to this heading">#</a></h3>
+<h3>The limits of free sampling<a class="headerlink" href="#the-limits-of-free-sampling" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>If we increase the value of <span class="math notranslate nohighlight">\(U_0\)</span>, the average number of
 atoms in the central region will decrease, making it
@@ -555,7 +557,7 @@ to extract free energy profiles, see the next section.</p>
 </section>
 </section>
 <section id="method-2-umbrella-sampling">
-<h2>Method 2: Umbrella sampling<a class="headerlink" href="#method-2-umbrella-sampling" title="Link to this heading">#</a></h2>
+<h2>Method 2: Umbrella sampling<a class="headerlink" href="#method-2-umbrella-sampling" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
 <p>Umbrella sampling is a biased molecular dynamics method,
 i.e. a method in which additional forces are added to the
@@ -577,7 +579,7 @@ analysis method (WHAM), which allows to remove the effect of
 the bias and eventually deduce the unbiased free energy profile.</p>
 </div>
 <section id="lammps-input-script">
-<h3>LAMMPS input script<a class="headerlink" href="#lammps-input-script" title="Link to this heading">#</a></h3>
+<h3>LAMMPS input script<a class="headerlink" href="#lammps-input-script" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Create a new folder called <em>BiasedSampling/</em>, and create a new input file
 named <em>input.lammps</em> in it, and copy the following lines:</p>
@@ -669,7 +671,7 @@ can always increase the duration of the runs for better samplings.</p>
 </div>
 </section>
 <section id="wham-algorithm">
-<h3>WHAM algorithm<a class="headerlink" href="#wham-algorithm" title="Link to this heading">#</a></h3>
+<h3>WHAM algorithm<a class="headerlink" href="#wham-algorithm" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>In order to generate the free energy profile from the density distribution,
 let us use the WHAM algorithm <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id12" title="Alan Grossfield. An implementation of wham: the weighted histogram analysis method version 2.0. 10.">24</a>]</span>.</p>
@@ -778,7 +780,7 @@ This repository also contains the full solutions to the exercises.</p>
 </div>
 </section>
 <section id="side-note-on-the-choice-of-k">
-<h3>Side note: on the choice of k<a class="headerlink" href="#side-note-on-the-choice-of-k" title="Link to this heading">#</a></h3>
+<h3>Side note: on the choice of k<a class="headerlink" href="#side-note-on-the-choice-of-k" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>As already stated, one difficult part of umbrella sampling is to choose the value of <span class="math notranslate nohighlight">\(k\)</span>.
 Ideally, you want the biasing potential to be strong enough to force
@@ -811,13 +813,13 @@ sensitivity of the method.</p>
 </section>
 </section>
 <section id="going-further-with-exercises">
-<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">#</a></h2>
+<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
 <p>Each exercise comes with a proposed solution,
 see <a class="reference internal" href="../../non-tutorials/solutions.html#solutions-label"><span class="std std-ref">Solutions to the exercises</span></a>.</p>
 </div>
 <section id="the-binary-fluid-that-won-t-mix">
-<h3>The binary fluid that won’t mix<a class="headerlink" href="#the-binary-fluid-that-won-t-mix" title="Link to this heading">#</a></h3>
+<h3>The binary fluid that won’t mix<a class="headerlink" href="#the-binary-fluid-that-won-t-mix" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p><strong>1 - Create the system</strong></p>
 <p>Create a molecular simulation with two species of respective types 1 and 2.
@@ -852,7 +854,7 @@ extract the PMF for each particle type.</p>
 </div>
 </section>
 <section id="particles-under-convection">
-<h3>Particles under convection<a class="headerlink" href="#particles-under-convection" title="Link to this heading">#</a></h3>
+<h3>Particles under convection<a class="headerlink" href="#particles-under-convection" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Use a similar simulation as the one from the tutorial,
 with a repulsive potential in the center
@@ -875,7 +877,7 @@ the convection of the particles from left to right.</p>
 </div>
 </section>
 <section id="surface-adsorption-of-a-molecule">
-<h3>Surface adsorption of a molecule<a class="headerlink" href="#surface-adsorption-of-a-molecule" title="Link to this heading">#</a></h3>
+<h3>Surface adsorption of a molecule<a class="headerlink" href="#surface-adsorption-of-a-molecule" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Apply umbrella sampling to calculate the free energy profile
 of ethanol in the direction normal to a crystal solid surface
@@ -1021,7 +1023,7 @@ by choosing a small molecule like CO2.</p>
     </aside>
   </div>
 </div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script>let toggleHintShow = 'Click to show';</script>

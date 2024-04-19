@@ -281,8 +281,8 @@ The water
 ..  container:: justify
 
     The *reset_timestep* command is optional. It is used here 
-    because the *minimize* command is usually performed over an 
-    arbitrary number of steps.
+    because the *minimize* command is usually performed over an arbitrary
+    number of steps.
 
 ..  container:: justify
 
@@ -398,8 +398,8 @@ The water
 
 ..  container:: justify
 
-   If needed, you can |download_H2O.data|
-   the water reservoir I have equilibrated and continue with the tutorial.
+   If needed, you can |download_H2O.data| the water reservoir I have
+   equilibrated and use it to continue with the tutorial.
 
 .. |download_H2O.data| raw:: html
 
@@ -439,8 +439,7 @@ The PEG molecule
 
 ..  container:: justify
 
-   |download_init.data| the init.data file and
-   save it in the *singlePEG/* folder.
+   |download_init.data| the init.data file and save it in the *singlePEG/* folder.
    It contains the initial parameters of the PEG molecules
    (atoms, bonds, charges, etc.), and was downloaded from the |atb_repo|
    repository :cite:`malde2011automated, oostenbrink2004biomolecular`.
@@ -654,7 +653,7 @@ Mixing the PEG with water
 
     Finally, let us use the *fix NPT* to control the
     temperature, as well as the pressure by allowing the 
-    box size to be rescalled along the *x* axis:
+    box size to be rescaled along the *x* axis:
 
 ..  code-block:: lammps
 
@@ -826,8 +825,7 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    Finally, let us simulate 30 ps without
-    any external forcing:
+    Finally, let us simulate 30 picoseconds without any external forcing:
 
 ..  code-block:: lammps
 
@@ -835,7 +833,7 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    This first run serves a benchmark to quantify the changes
+    This first run serves as a benchmark to quantify the changes
     induced by the forcing. Then, let us apply a forcing on the 2 oxygen
     atoms using two *add_force* commands, and run for an extra 30 ps:
 
@@ -960,7 +958,7 @@ Add salt to the system
 
 .. container:: figurelegend
 
-    Figure: A PEG molecule in the electrolyte, with :math:`\text{Na}^+` ions in 
+    Figure: A PEG molecule in the electrolyte with :math:`\text{Na}^+` ions in 
     purple and :math:`\text{Cl}^-` ions in cyan.
 
 Evaluate the deformation of the PEG
