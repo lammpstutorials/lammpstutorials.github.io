@@ -221,7 +221,7 @@ Annealing procedure
 
     *Disclaimer --* I created this procedure by intuition and
     not from proper calibration, do not copy it without
-    making your own tests if you intend to publish your results.
+    making your tests if you intend to publish your results.
 
 .. admonition:: Anisotropic versus isotropic barostat
     :class: info
@@ -234,7 +234,7 @@ Annealing procedure
 
 ..  container:: justify
 
-    The simulation takes about 15-20 minutes on 4 cpu cores.
+    The simulation takes about 15-20 minutes on 4 CPU cores.
 
 ..  container:: justify
 
@@ -334,7 +334,7 @@ Cracking the silica
 ..  container:: justify
 
     Then, let us progressively increase the size of the
-    box in the z direction, thus forcing the silica to deform
+    box in the z-direction, thus forcing the silica to deform
     and eventually crack. To do
     so, let us make a loop using the jump command. At
     every step of the loop, the box dimension over x will
@@ -409,7 +409,7 @@ Cracking the silica
 
 ..  container:: justify
 
-    After the dilatation, a final equilibration step of 20
+    After the dilatation, a final equilibration step of duration 20
     picoseconds is performed. If you look at the *dump.lammpstrj* file
     using VMD, you can see the dilatation occurring step-by-step, and the
     atoms progressively adjusting to the box dimensions. 
@@ -436,7 +436,7 @@ Cracking the silica
     In ambient conditions, Some of the surface SiO2 atoms are chemically
     passivated by forming covalent bonds with hydrogen (H)
     atoms. For the sake of simplicity, we are not going to
-    add surface hydrogen atoms here. An example of procedure allowing
+    add surface hydrogen atoms here. An example of a procedure allowing
     for properly inserting hydrogen atoms is given as an 
     exercise from :ref:`reactive-silicon-dioxide-label`.
 
