@@ -166,7 +166,8 @@ Make a loop
 .. container:: justify
 
     Once the LAMMPS simulation is over, a folder named *nbi*, with i = 1, 9, 81,
-    or 729 is created my the *mkdir* command, and the resulting *lammpstrj* file
+    or 729 is created by the *mkdir* command, and
+    the resulting *lammpstrj* file
     is copied into it by the *cp* command.
 
 .. container:: justify
