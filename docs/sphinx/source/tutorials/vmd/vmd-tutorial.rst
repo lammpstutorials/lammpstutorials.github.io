@@ -39,9 +39,8 @@ Practical example
 
 .. container:: justify
 
-    To follow this tutorial, |dump_download|
-    this LAMMPS trajectory file, which corresponds to a
-    mixture of water and toluene.
+    To follow this tutorial, |dump_download| this LAMMPS trajectory file, which
+    corresponds to a mixture of water and toluene.
 
 .. |dump_download| raw:: html
 
@@ -49,13 +48,13 @@ Practical example
 
 .. container:: justify
 
-    The water molecules use *types* 1 and 2,
-    and the toluene molecules use *types* 3, 4, and  5.
+    The water molecules use *types* 1 and 2, and the toluene molecules use
+    *types* 3, 4, and 5.
 
 .. container:: justify
 
-    With Ubuntu/Linux, the *lammptrj* file can be opened with
-    VMD by typing in a terminal:
+    With Ubuntu/Linux, the *lammptrj* file can be opened with VMD by typing in a
+    terminal:
 
 ..  code-block:: bash
     
@@ -63,15 +62,13 @@ Practical example
 
 .. container:: justify
 
-    Otherwise, simply open VMD
-    and import the *dump.lammpstrj*
-    file manually using *File -> New molecule*.
+    Otherwise, simply open VMD and import the *dump.lammpstrj* file manually
+    using *File -> New molecule*.
 
 .. container:: justify
 
-    Go to *Display*, change
-    the view to *Orthographic*,
-    and unselect *Depth Cueing*.
+    Go to *Display*, change the view to *Orthographic*, and unselect
+    *Depth Cueing*.
 
 .. container:: justify
 
@@ -88,7 +85,8 @@ Practical example
 
 .. container:: figurelegend
 
-    Figure: Initial system in the absence of depth cueing and with orthographic view.
+    Figure: Initial system in the absence of depth cueing and with orthographic
+    view.
 
 The representation
 ------------------
