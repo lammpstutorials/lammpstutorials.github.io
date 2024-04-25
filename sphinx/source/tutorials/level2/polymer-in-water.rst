@@ -299,7 +299,8 @@ The water
     The *fix npt* allows us to impose both a temperature of :math:`300\,\text{K}`
     (with a damping constant of :math:`100\,\text{fs}`),
     and a pressure of 1 atmosphere (with a damping constant of :math:`1000\,\text{fs}`).
-    With the *iso* keyword, the three dimensions of the box will be re-scaled simultaneously.
+    With the *iso* keyword, the three dimensions of the box will be re-scaled
+    simultaneously.
 
 ..  container:: justify
 
@@ -328,9 +329,8 @@ The water
 .. admonition:: On calling variables in LAMMPS
     :class: info
 
-    Both dollar sign and underscore can be used to
-    call a previously defined variable. 
-    With the dollar sign, the initial value of the variable is returned,
+    Both dollar sign and underscore can be used to call a previously defined
+    variable. With the dollar sign, the initial value of the variable is returned,
     while with the underscore, the instantaneous value of the variable is returned. 
     To probe the temporal evolution of a variable with time,
     the underscore must be used.
@@ -352,9 +352,8 @@ The water
 
 ..  container:: justify
 
-    The *replicate* command is used to replicate the final cubic
-    box three times along 
-    the *x* direction, thus creating a rectangular box of water 
+    The *replicate* command is used to replicate the final cubic box three
+    times along the *x* direction, thus creating a rectangular box of water 
     just before the final state is written into *H2O.data*.
 
 ..  container:: justify
@@ -373,14 +372,13 @@ The water
 .. container:: figurelegend
 
     Figure: Water reservoir after equilibration and after 
-    the *replicate 3 1 1* command. Oxygen atoms are in red, and 
+    the *replicate 3 1 1* command. Oxygen atoms are in red, and
     hydrogen atoms are in white.
 
 ..  container:: justify
 
-   You can also open the *density.dat* file
-   to ensure that the system converged toward an equilibrated
-   liquid water system during the 50 ps of simulation.
+    You can also open the *density.dat* file to ensure that the system converged
+    toward an equilibrated liquid water system during the 50 ps of simulation.
 
 .. figure:: ../figures/level2/polymer-in-water/density_H2O-light.png
     :alt: Curves showing the equilibration of the water reservoir
@@ -454,10 +452,9 @@ The PEG molecule
 
 ..  container:: justify
 
-   Let us print the atom positions and thermodynamic
-   information very frequently (because we anticipate that the
-   energy minimization will be short). Add the following lines 
-   to *input.lammps*:
+   Let us print the atom positions and thermodynamic information very
+   frequently (because we anticipate that the energy minimization will be
+   short). Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -475,10 +472,9 @@ The PEG molecule
 
 ..  container:: justify
 
-    After the minimization, the high-frequency dump command is
-    canceled, and a new dump command with a lower frequency is
-    used (see below). We also reset the time to 0 with
-    *reset_timestep* command:
+    After the minimization, the high-frequency dump command is canceled, and a
+    new dump command with a lower frequency is used (see below). We also reset
+    the time to 0 with *reset_timestep* command:
 
 ..  code-block:: lammps
 
@@ -487,9 +483,8 @@ The PEG molecule
 
 ..  container:: justify
 
-    The PEG is then equilibrated in the NVT ensemble (fix NVE +
-    temperature control = NVT). No box relaxation is required as
-    the PEG is in a vacuum:
+    The PEG is then equilibrated in the NVT ensemble (fix NVE + temperature
+    control = NVT). No box relaxation is required as the PEG is in a vacuum:
 
 ..  code-block:: lammps
 
@@ -498,8 +493,8 @@ The PEG molecule
 
 ..  container:: justify
 
-    Let us print the temperature in a file by also 
-    adding the following lines to *input.lammps*:
+    Let us print the temperature in a file by also adding the following
+    lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -524,8 +519,7 @@ The PEG molecule
 
 ..  container:: justify
 
-    If you open the *dump.lammpstrj* file
-    using VMD, you can see the PEG molecule 
+    If you open the *dump.lammpstrj* file using VMD, you can see the PEG molecule 
     gently equilibrating until reaching a reasonable state.
 
 .. figure:: ../figures/level2/polymer-in-water/singlePEG-light.png
@@ -538,9 +532,9 @@ The PEG molecule
 
 ..  container:: figurelegend
 
-    Figure: The PEG molecule in a vacuum.
-    The carbon atoms are in gray, the oxygen atoms in red, and the hydrogen
-    atoms in white. See the corresponding |peg_in_vacuum|.
+    Figure: The PEG molecule in a vacuum. The carbon atoms are in gray,
+    the oxygen atoms in red, and the hydrogen atoms in white. See the
+    corresponding |peg_in_vacuum|.
 
 .. |peg_in_vacuum| raw:: html
 
@@ -560,9 +554,8 @@ Solvated PEG
 
 ..  container:: justify
 
-    Once both the water and the PEG are equilibrated separately, 
-    we can safely merge the two systems before performing the 
-    pull experiment on the polymer.
+    Once both the water and the PEG are equilibrated separately, we can safely
+    merge the two systems before performing the pull experiment on the polymer.
 
 Mixing the PEG with water
 -------------------------
@@ -634,9 +627,8 @@ Mixing the PEG with water
 
 ..  container:: justify
 
-    Water molecules that are overlapping with the PEG must be
-    deleted to avoid future crashing. Add the following line 
-    to *input.lammps*:
+    Water molecules that are overlapping with the PEG must be deleted to avoid
+    future crashing. Add the following line to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -651,9 +643,8 @@ Mixing the PEG with water
 
 ..  container:: justify
 
-    Finally, let us use the *fix NPT* to control the
-    temperature, as well as the pressure by allowing the 
-    box size to be rescaled along the *x* axis:
+    Finally, let us use the *fix NPT* to control the temperature, as well as
+    the pressure by allowing the box size to be rescaled along the *x* axis:
 
 ..  code-block:: lammps
 
@@ -662,8 +653,8 @@ Mixing the PEG with water
 
 ..  container:: justify
 
-    Once more, let us dump the atom positions and a few
-    information about the evolution of the simulation:
+    Once more, let us dump the atom positions and a few information about
+    the evolution of the simulation:
 
 ..  code-block:: lammps
 
@@ -686,8 +677,7 @@ Mixing the PEG with water
 ..  container:: justify
 
     Finally, let us perform a short equilibration and print the
-    final state in a data file. Add the following lines to the 
-    data file:
+    final state in a data file. Add the following lines to the data file:
 
 ..  code-block:: lammps
 
@@ -711,19 +701,18 @@ Mixing the PEG with water
 
 .. container:: figurelegend
 
-   Figure: A single PEG molecule in water. 
-   Water molecules are represented as a transparent continuum 
-   field for clarity.
+   Figure: A single PEG molecule in water. Water molecules are represented as
+   a transparent continuum field for clarity.
 
 Stretching the PEG molecule
 ---------------------------
 
 ..  container:: justify
 
-   Here, a constant forcing is applied to the two ends of the
-   PEG molecule until it stretches. Create a new folder next
-   to the 3 previously created folders, call it *pullonPEG/*
-   and create a new input file in it called *input.lammps*.
+   Here, a constant forcing is applied to the two ends of the PEG molecule
+   until it stretches. Create a new folder next to the 3 previously created
+   folders, call it *pullonPEG/* and create a new input file in it
+   called *input.lammps*.
 
 ..  container:: justify
 
@@ -757,9 +746,8 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    Start the simulation from the equilibrated PEG-water
-    system and include again the parameter file by
-    adding the following lines to the *input.lammps*:
+    Start the simulation from the equilibrated PEG-water system and include
+    again the parameter file by adding the following lines to the *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -768,13 +756,11 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    Then, let us create 4 atom groups: H2O and PEG (as
-    previously), as well as 2 groups containing only the 
-    2 oxygen atoms of types 6 and 7, respectively.
-    Atoms of types 6 and 7 correspond to the oxygen atoms located at the
-    ends of the PEG molecule, which we are going to use 
-    to pull on the PEG molecule. Add the following lines to
-    the *input.lammps*:
+    Then, let us create 4 atom groups: H2O and PEG (as previously), as well
+    as 2 groups containing only the 2 oxygen atoms of types 6 and 7,
+    respectively. Atoms of types 6 and 7 correspond to the oxygen atoms
+    located at the ends of the PEG molecule, which we are going to use to pull
+    on the PEG molecule. Add the following lines to the *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -793,8 +779,8 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    Let us use a simple thermostating for all atoms by adding the 
-    following lines to *input.lammps*:
+    Let us use a simple thermostating for all atoms by adding the following
+    lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -986,5 +972,5 @@ Evaluate the deformation of the PEG
 .. container:: figurelegend
 
     Figure: Probability distribution for the dihedral angle :math:`\phi`, for a stretched
-    and for an unstretched PEG molecule. 
+    and for an unstretched PEG molecule.
 
