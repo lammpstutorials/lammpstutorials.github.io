@@ -255,7 +255,10 @@ The LAMMPS input
 .. container:: justify
 
     We need to specify the parameters of both bonded and
-    non-bonded potentials. Create a new text file in the *unbreakable-bonds/*
+    non-bonded potentials. Here, the parameters are taken from the OPLS-AA
+    (Optimised Potentials for Liquid Simulations-All-Atom) force 
+    field :cite:`jorgensenDevelopmentTestingOPLS1996`.
+    Create a new text file in the *unbreakable-bonds/*
     folder and name it *parm.lammps*. Copy the following lines in it:
 
 .. code-block:: lammps
@@ -276,7 +279,7 @@ The LAMMPS input
 .. container:: justify
 
     The *bond_coeff* provides the equilibrium distance :math:`r_0= 1.4 \, \text{Å}` as
-    well as the spring constant :math:`k_b = 469 \text{kcal/mol/Å}^2` for the harmonic
+    well as the spring constant :math:`k_b = 469 \, \text{kcal/mol/Å}^2` for the harmonic
     potential imposed between two neighboring carbon atoms,
     where the potential is :math:`U_b = k_b ( r - r_0)^2`. The
     *angle_coeff* gives the equilibrium angle :math:`\theta_0` and
