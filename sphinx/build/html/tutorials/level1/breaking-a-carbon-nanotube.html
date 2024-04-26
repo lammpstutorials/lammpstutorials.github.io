@@ -411,7 +411,7 @@ potential.</p>
 different potentials used to restrain the relative positions of the
 atoms. For more details about the potentials used here, you can have a look
 at the LAMMPS website, see for example
-the page of the <a href="https://lammps.sandia.gov/doc/dihedral_opls.html" target="_blank">OPLS dihedral style</a> <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id18" title="William L Jorgensen and Julian Tirado-Rives. The opls [optimized potentials for liquid simulations] potential functions for proteins, energy minimizations for crystals of cyclic peptides and crambin. Journal of the American Chemical Society, 110(6):1657–1666, 1988.">12</a>]</span>.</p>
+the page of the <a href="https://lammps.sandia.gov/doc/dihedral_opls.html" target="_blank">OPLS dihedral style</a> <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id19" title="William L Jorgensen and Julian Tirado-Rives. The opls [optimized potentials for liquid simulations] potential functions for proteins, energy minimizations for crystals of cyclic peptides and crambin. Journal of the American Chemical Society, 110(6):1657–1666, 1988.">12</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>The last command, <em>read_data</em>, imports the <em>cnt_molecular.data</em> file
@@ -436,7 +436,10 @@ of the graphene).</p>
 </div>
 <div class="justify docutils container">
 <p>We need to specify the parameters of both bonded and
-non-bonded potentials. Create a new text file in the <em>unbreakable-bonds/</em>
+non-bonded potentials. Here, the parameters are taken from the OPLS-AA
+(Optimised Potentials for Liquid Simulations-All-Atom) force
+field <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id18" title="William L. Jorgensen, David S. Maxwell, and Julian Tirado-Rives. Development and Testing of the OPLS All-Atom Force Field on Conformational Energetics and Properties of Organic Liquids. Journal of the American Chemical Society, 118(45):11225–11236, 1996.">13</a>]</span>.
+Create a new text file in the <em>unbreakable-bonds/</em>
 folder and name it <em>parm.lammps</em>. Copy the following lines in it:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.066</span><span class="w"> </span><span class="m">3.4</span>
@@ -454,7 +457,7 @@ simulation; the carbon atom of type 1.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>bond_coeff</em> provides the equilibrium distance <span class="math notranslate nohighlight">\(r_0= 1.4 \, \text{Å}\)</span> as
-well as the spring constant <span class="math notranslate nohighlight">\(k_b = 469 \text{kcal/mol/Å}^2\)</span> for the harmonic
+well as the spring constant <span class="math notranslate nohighlight">\(k_b = 469 \, \text{kcal/mol/Å}^2\)</span> for the harmonic
 potential imposed between two neighboring carbon atoms,
 where the potential is <span class="math notranslate nohighlight">\(U_b = k_b ( r - r_0)^2\)</span>. The
 <em>angle_coeff</em> gives the equilibrium angle <span class="math notranslate nohighlight">\(\theta_0\)</span> and
@@ -635,7 +638,7 @@ nor rotational momentum, <em>rot yes</em>.</p>
 <p>The <em>fix nve</em> is applied to all atoms so that all
 atom positions are recalculated at every step, and
 a <em>Berendsen</em> thermostat is applied to the atoms
-of the group <em>carbon_mid</em> only <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id19" title="Herman JC Berendsen, JPM van Postma, Wilfred F Van Gunsteren, ARHJ DiNola, and Jan R Haak. Molecular dynamics with coupling to an external bath. The Journal of chemical physics, 81(8):3684–3690, 1984.">13</a>]</span>.
+of the group <em>carbon_mid</em> only <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id20" title="Herman JC Berendsen, JPM van Postma, Wilfred F Van Gunsteren, ARHJ DiNola, and Jan R Haak. Molecular dynamics with coupling to an external bath. The Journal of chemical physics, 81(8):3684–3690, 1984.">14</a>]</span>.
 The <em>fix_modify myber</em> ensures that the
 <em>fix Berendsen</em> uses the temperature of the group <em>carbon_mid</em> as an
 input, instead of the temperature of the whole system. This is necessary
