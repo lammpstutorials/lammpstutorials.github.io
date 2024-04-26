@@ -422,16 +422,15 @@ information about the box size, atoms positions, etc.</p>
 <p class="admonition-title">About interaction between neighbors atoms</p>
 <p>Atoms connected by a bond do not typically interact through
 Lennard-Jones interaction. Therefore, atoms that are
-bounded must be excluded from the LJ potential calculation.
+bounded must be excluded from the Lennard-Jones potential calculation.
 Here, this is done by the
 <em>special_bonds</em> command. The three numbers of the
 <em>special_bonds</em> command are weighting factors for the
-LJ interaction between atoms connected by a bond
+Lennard-Jones interaction between atoms connected by a bond
 (respectively directly bounded <span class="math notranslate nohighlight">\(C-C\)</span>, separated by two bonds <span class="math notranslate nohighlight">\(C-C-C\)</span>,
 and separated by three bonds <span class="math notranslate nohighlight">\(C-C-C-C\)</span>). For instance, the
-first weighting factor, with a
-value of 0, imposes that two atoms connected by a bond do
-not interact through a Lennard-Jones potential (therefore
+first weighting factor, with a value of 0, imposes that two atoms connected
+by a bond do not interact through a Lennard-Jones potential (therefore
 they only interact through the harmonic potential that bonds the atoms
 of the graphene).</p>
 </div>
@@ -440,7 +439,7 @@ of the graphene).</p>
 non-bonded potentials. Create a new text file in the <em>unbreakable-bonds/</em>
 folder and name it <em>parm.lammps</em>. Copy the following lines in it:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.066047</span><span class="w"> </span><span class="m">3.4</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.066</span><span class="w"> </span><span class="m">3.4</span>
 <span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">469</span><span class="w"> </span><span class="m">1.4</span>
 <span class="k">angle_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">63</span><span class="w"> </span><span class="m">120</span>
 <span class="k">dihedral_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">7.25</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
@@ -448,14 +447,17 @@ folder and name it <em>parm.lammps</em>. Copy the following lines in it:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The <em>pair_coeff</em> command sets the LJ parameters
-<span class="math notranslate nohighlight">\(\epsilon\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> for the only type of
-atom of the simulation: carbon atom of type 1. The
-<em>bond_coeff</em> provides the equilibrium distance <span class="math notranslate nohighlight">\(r_0\)</span> as
-well as the spring constant <span class="math notranslate nohighlight">\(k_b\)</span> for the harmonic
+<p>The <em>pair_coeff</em> command sets the parameters for the non-bonded Lennard-Jones
+interaction <span class="math notranslate nohighlight">\(\epsilon_{11} = 0.066 \, \text{kcal/mol}\)</span>
+and <span class="math notranslate nohighlight">\(\sigma_{11} = 3.4 \, \text{Å}\)</span> for the only type of atom of the
+simulation; the carbon atom of type 1.</p>
+</div>
+<div class="justify docutils container">
+<p>The <em>bond_coeff</em> provides the equilibrium distance <span class="math notranslate nohighlight">\(r_0= 1.4 \, \text{Å}\)</span> as
+well as the spring constant <span class="math notranslate nohighlight">\(k_b = 469 \text{kcal/mol/Å}^2\)</span> for the harmonic
 potential imposed between two neighboring carbon atoms,
 where the potential is <span class="math notranslate nohighlight">\(U_b = k_b ( r - r_0)^2\)</span>. The
-<em>angle_coeff</em> gives the equilibrium angle <span class="math notranslate nohighlight">\(theta_0\)</span> and
+<em>angle_coeff</em> gives the equilibrium angle <span class="math notranslate nohighlight">\(\theta_0\)</span> and
 constant for the potential between three neighbor atoms :
 <span class="math notranslate nohighlight">\(U_\theta = k_\theta ( \theta - \theta_0)^2\)</span>. The <em>dihedral_coeff</em>
 and <em>improper_coeff</em> gives the potential for the constraints

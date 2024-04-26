@@ -240,16 +240,15 @@ The LAMMPS input
         
     Atoms connected by a bond do not typically interact through
     Lennard-Jones interaction. Therefore, atoms that are
-    bounded must be excluded from the LJ potential calculation.  
+    bounded must be excluded from the Lennard-Jones potential calculation.  
     Here, this is done by the
     *special_bonds* command. The three numbers of the
     *special_bonds* command are weighting factors for the
-    LJ interaction between atoms connected by a bond
+    Lennard-Jones interaction between atoms connected by a bond
     (respectively directly bounded :math:`C-C`, separated by two bonds :math:`C-C-C`,
     and separated by three bonds :math:`C-C-C-C`). For instance, the
-    first weighting factor, with a
-    value of 0, imposes that two atoms connected by a bond do
-    not interact through a Lennard-Jones potential (therefore
+    first weighting factor, with a value of 0, imposes that two atoms connected
+    by a bond do not interact through a Lennard-Jones potential (therefore
     they only interact through the harmonic potential that bonds the atoms
     of the graphene).
 
@@ -261,7 +260,7 @@ The LAMMPS input
 
 .. code-block:: lammps
 
-    pair_coeff 1 1 0.066047 3.4
+    pair_coeff 1 1 0.066 3.4
     bond_coeff 1 469 1.4
     angle_coeff 1 63 120
     dihedral_coeff 1 0 7.25 0 0
@@ -269,14 +268,18 @@ The LAMMPS input
 
 .. container:: justify
 
-    The *pair_coeff* command sets the LJ parameters
-    :math:`\epsilon` and :math:`\sigma` for the only type of
-    atom of the simulation: carbon atom of type 1. The
-    *bond_coeff* provides the equilibrium distance :math:`r_0` as
-    well as the spring constant :math:`k_b` for the harmonic
+    The *pair_coeff* command sets the parameters for the non-bonded Lennard-Jones
+    interaction :math:`\epsilon_{11} = 0.066 \, \text{kcal/mol}`
+    and :math:`\sigma_{11} = 3.4 \, \text{Å}` for the only type of atom of the
+    simulation; the carbon atom of type 1. 
+    
+.. container:: justify
+
+    The *bond_coeff* provides the equilibrium distance :math:`r_0= 1.4 \, \text{Å}` as
+    well as the spring constant :math:`k_b = 469 \text{kcal/mol/Å}^2` for the harmonic
     potential imposed between two neighboring carbon atoms,
     where the potential is :math:`U_b = k_b ( r - r_0)^2`. The
-    *angle_coeff* gives the equilibrium angle :math:`theta_0` and
+    *angle_coeff* gives the equilibrium angle :math:`\theta_0` and
     constant for the potential between three neighbor atoms :
     :math:`U_\theta = k_\theta ( \theta - \theta_0)^2`. The *dihedral_coeff*
     and *improper_coeff* gives the potential for the constraints
