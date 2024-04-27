@@ -10,24 +10,23 @@ Before you start
     is meant for absolute LAMMPS and molecular dynamics
     beginners. The complexity of the molecular simulation
     is then progressively increased
-    for :ref:`carbon-nanotube-label`, 
+    for :ref:`carbon-nanotube-label`,
     :ref:`all-atoms-label`,
     :ref:`sheared-confined-label`,
     and :ref:`reactive-silicon-dioxide-label`.
     Finally, in :ref:`gcmc-silica-label` and
     :ref:`umbrella-sampling-label`,
     some more advanced simulation methods
-    are used, namely grand canonical Monte Carlo simulations and 
+    are used, namely grand canonical Monte Carlo simulations and
     a free energy method named umbrella sampling.
 
-Required softwares
-==================
+Required software
+=================
 
 ..  container:: justify
 
     The 2Aug2023 version of LAMMPS is required
     to follow the tutorials :cite:`thompson2022lammps`.
-    The other softwares listed here are optional.
 
 LAMMPS (2Aug2023)
 -------------------
@@ -96,7 +95,7 @@ Python (3.11.4)
 
 ..  container:: justify
 
-    In order to plot the results from the simulations,
+    To plot the results from the simulations,
     the version 3.5.2 of |Matplotlib Pyplot| is used
     in combination with |lammps_logfile|, a library allowing
     one to read the *log* file produced by LAMMPS :cite:`hunter2007Matplotlib, sveinsson2021logfile`.
@@ -114,7 +113,7 @@ Text editing software
 
 ..  container:: justify
 
-    In order to write and edit LAMMPS input files, a text editor is required.
+    To write and edit LAMMPS input files, a text editor is required.
     Any text editor will do, such as |gedit|,
     |vim|,
     or |vscode|.
@@ -141,6 +140,13 @@ Recommended reading
 
 ..  container:: justify
 
-    My favorite molecular simulation reading is
-    *Understanding molecular simulation* by Daan Frenkel and Berend
-    Smit :cite:`frenkel2023understanding`.
+    To better understand molecular dynamics simulations, I recommend the reading
+    of *Understanding molecular simulation* by Daan Frenkel and Berend
+    Smit :cite:`frenkel2023understanding`, as well as
+    *Computer simulation of liquids* by Michael Allen and Dominic Tildesley
+    :cite:`allen2017computer`. To understand the basic concepts 
+    of fluid and Soft Matter systems, I recommend reading *Basic concepts for
+    simple and complex liquids* by Jean-Louis Barrat and Jean-Pierre Hansen
+    :cite:`barrat2003basic`,
+    as well as *Theory of simple liquids: with applications to soft matter*
+    by Jean-Pierre Hansen and Ian Ranald McDonald :cite:`hansen2013theory`.
