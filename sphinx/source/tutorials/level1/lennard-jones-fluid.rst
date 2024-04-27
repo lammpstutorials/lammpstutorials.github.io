@@ -49,7 +49,7 @@ My first input
 
 ..  container:: justify
 
-    In order to run a simulation using LAMMPS, one needs to
+    To run a simulation using LAMMPS, one needs to
     write a series of commands in an input script. For clarity,
     this script will be divided into five categories which we are going to
     fill up one by one. 
