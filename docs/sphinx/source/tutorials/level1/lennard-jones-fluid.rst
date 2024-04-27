@@ -80,8 +80,8 @@ My first input
     *System definition* categories must appear at the top of the
     input, and the *Run* category at the bottom.
 
-System creation
----------------
+System initialization
+---------------------
 
 .. container:: justify
 
