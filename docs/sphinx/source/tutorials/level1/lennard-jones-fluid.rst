@@ -142,13 +142,19 @@ System initialization
     While we are keeping things as simple as possible in this tutorial,
     different *atom_style* will be used in the following tutorials.
     Notably, these other atom styles will allow us to create molecules,
-    i.e. atoms with partial charges and chemical bonds.
+    i.e. atoms with partial charges and chemical bonds. You can find the complete list
+    of implemented atom styles from the |atom_style page|.
+    
+.. |atom_style page| raw:: html
+
+    <a href="https://docs.lammps.org/atom_style.html" target="_blank">atom_style page</a>
 
 ..  container:: justify
 
     The fourth line, *pair_style lj/cut 2.5*, indicates that atoms
     will be interacting through a Lennard-Jones potential with
-    a cut-off equal to :math:`r_c = 2.5` (unitless):
+    a cut-off equal to :math:`r_c = 2.5` (unitless)
+    :cite:`wang2020lennard,fischer2023history`:
     
 .. math::
 
@@ -172,7 +178,7 @@ System initialization
     Lennard-Jones potential (i.e. the term :math:`\propto r^{-12}`) is associated
     with the Pauli exclusion principle. The attractive part (i.e. the term
     in :math:`\propto - r^{-6}`)
-    is linked with the van der Waals forces.
+    is linked with the London dispersion forces.
 
 ..  container:: justify
     
@@ -214,6 +220,9 @@ System initialization
     LAMMPS (2 Aug 2023 - Update 1)
     ERROR: Unknown command: atom_stile  atomic (src/input.cpp:232)
     Last command: atom_stile atomic
+
+System definition
+-----------------
 
 ..  container:: justify
 
@@ -268,6 +277,9 @@ System initialization
     the box with desired dimensions, then 1500 atoms, and then 100
     atoms.
 
+Simulation Settings
+-------------------
+
 ..  container:: justify
 
     Let us fill the *Simulation Settings* category section of
@@ -316,6 +328,8 @@ System initialization
 
     When necessary, cross-parameters can be explicitly specified
     by adding the following line to the input file: *pair_coeff 1 2 0.707 1.732*. 
+    This can be used for instance to increase the attraction between particles
+    of type 1 and 2, without affecting the interactions between particles of the same type.
 
     Note that the arithmetic rule, where 
     :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
@@ -345,7 +359,17 @@ System initialization
 
     Figure: The Lennard-Jones potential :math:`E_{ij} (r)`
     as a function of the inter-particle distance, where
-    :math:`i, j = 1 ~ \text{or} ~ 2`.
+    :math:`i, j = 1 ~ \text{or} ~ 2`. This figure was generated using Python
+    with Matplotlib Pyplot, and the notebook can be accessed |energy-pyplot.ipynb|.
+    The Pyplot parameters used for all figures can be accessed in a |pyplot-perso|.
+
+.. |energy-pyplot.ipynb| raw:: html
+
+   <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/blob/version2.0/docs/sphinx/source/tutorials/figures/level1/lennard-jones-fluid/energy-pyplot.ipynb" target="_blank">from Github</a>
+
+.. |pyplot-perso| raw:: html
+
+    <a href="https://github.com/simongravelle/pyplot-perso" target="_blank">dedicated repository</a>
 
 Energy minimization
 -------------------
@@ -380,7 +404,8 @@ Energy minimization
 
     An energy minimization procedure consists of adjusting
     the coordinates of the atoms that are too close to each other until one of the stopping
-    criteria is reached. By default, LAMMPS uses the conjugate gradient (CG) algorithm.
+    criteria is reached. By default, LAMMPS uses the conjugate
+    gradient (CG) algorithm :cite:`hestenes1952methods`.
     There are four stopping criteria:
 
     - The change in energy between two iterations is less than 1.0e-4.
@@ -438,7 +463,7 @@ Molecular dynamics
 ..  container:: justify
 
     The system is now ready. Let us continue filling up the
-    input script and adding commands to perform an actual molecular dynamics
+    input script and adding commands to perform a molecular dynamics
     simulation that will start from the final state of the energy minimization.
 
 .. admonition:: Background Information -- What is molecular dynamics?
@@ -694,7 +719,7 @@ Control the initial atom positions
 
 ..  container:: justify
 
-    The main novelty, with respect to the previous
+    The main novelty, compared to the previous
     input script, is the *write_data* command. This command
     is used to print the final state of the simulation in
     a file named *minimized_coordinate.data*. Note that 

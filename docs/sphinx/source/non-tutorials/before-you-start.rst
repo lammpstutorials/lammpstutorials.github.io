@@ -6,10 +6,9 @@ Before you start
 ..  container:: justify
 
     *LAMMPS tutorials* is made of seven tutorials that are
-    ordered by increasing difficulty. :ref:`lennard-jones-label`
-    is meant for absolute LAMMPS and molecular dynamics
-    beginners. The complexity of the molecular simulation
-    is then progressively increased
+    ordered by increasing difficulty. The first tutorial, :ref:`lennard-jones-label`,
+    is meant for LAMMPS absolute beginners. The complexity
+    of the simulations is then progressively increased
     for :ref:`carbon-nanotube-label`,
     :ref:`all-atoms-label`,
     :ref:`sheared-confined-label`,
@@ -64,8 +63,8 @@ LAMMPS (2Aug2023)
 
    <a href="https://docs.lammps.org/Errors_messages.html" target="_blank">error message</a>
 
-VMD (1.9.3)
------------
+VMD (optional)
+--------------
 
 ..  container:: justify
 
@@ -83,8 +82,8 @@ VMD (1.9.3)
 
    <a href="https://www.ovito.org" target="_blank">Ovito</a>
     
-Python (3.11.4)
----------------
+Python (optional)
+-----------------
 
 ..  container:: justify
 
