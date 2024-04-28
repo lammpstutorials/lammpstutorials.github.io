@@ -1032,7 +1032,7 @@ Solve the flying ice cube artifact
 .. container:: justify
 
     The flying ice cube effect is one of the most famous
-    artifact of molecular simulations.
+    artifact of molecular simulations :cite:`wong2016good`.
     Download this seemingly simple |input_flying_cube|, that was inspired by the
     the first part of the tutorial, and simplified by removing some of it. 
     Run the input with this |data_flying_cube| file
