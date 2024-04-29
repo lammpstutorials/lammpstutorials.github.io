@@ -331,7 +331,8 @@ Simulation Settings
     This can be used for instance to increase the attraction between particles
     of type 1 and 2, without affecting the interactions between particles of the same type.
 
-    Note that the arithmetic rule, where 
+    Note that the arithmetic rule, also known as 
+    Lorentz-Berthelot rule :cite:`lorentz1881ueber,berthelot1898melange`, where 
     :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
     :math:`\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2`, 
     is more common than the geometric rule. However, neither the geometric nor the
