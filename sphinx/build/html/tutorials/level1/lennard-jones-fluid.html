@@ -655,8 +655,19 @@ lines:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># PART B - MOLECULAR DYNAMICS</span>
 <span class="c"># 4) Visualization</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">50</span>
-
-<span class="c"># 5) Run</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Since LAMMPS reads the input from top to bottom, these lines will be
+executed after the energy minimization. There is no need to re-initialize
+or re-define the system. The <em>thermo</em> command is called a second time within
+the same input, so the previously entered value of 10 will be replaced by
+the value of 50 as soon as <em>PART B</em> starts.</p>
+</div>
+<div class="justify docutils container">
+<p>Then, let us add a second <em>Run</em> section:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 5) Run</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="m">1530917</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.005</span>
@@ -664,33 +675,29 @@ lines:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Since LAMMPS reads the input from top to
-bottom, these lines will be executed after the energy
-minimization. There is no need to re-initialize the system
-re-define it, or re-specify the settings. The <em>thermo</em> command
-is called a second time within the same input, so the previously
-entered value of <em>10</em> will be replaced by the value of <em>50</em>
-as soon as <em>PART B</em> starts.</p>
-</div>
-<div class="justify docutils container">
-<p>In the run section, the <em>fix nve</em> is used to update the
-positions and the velocities of the atoms in the group
-<em>all</em>. Therefore, <em>fix nve</em> contains the time integrator and is
-the most important command here.</p>
-</div>
-<div class="info admonition">
-<p class="admonition-title">What is a fix?</p>
-<p>In LAMMPS, a <em>fix</em> corresponds to an operation that is applied
-to the system.</p>
+<p>The <em>fix nve</em> is used to update the positions and the velocities of the
+atoms in the group <em>all</em> at every step. The group <em>all</em> is a default group
+that contains every atom.</p>
 </div>
 <div class="justify docutils container">
 <p>The second fix applies a Langevin thermostat to the atoms of the group
-<em>all</em>, with a desired temperature of 1 and a <em>damping</em>
-parameter of 0.1. The number <em>1530917</em> is a seed, you can
+<em>all</em>, with a desired initial temperature of 1.0 (unitless), and a final
+temperature of 1.0 as well <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id30" title="T Schneider and E Stoll. Molecular-dynamics study of a three-dimensional one-component model for distortive phase transitions. Physical Review B, 17(3):1302, 1978.">12</a>]</span>.
+A <em>damping</em> parameter of 0.1 is used. The <em>damping</em>
+parameter determines how rapidly the temperature is relaxed to its desired value.
+The number <em>1530917</em> is a seed, you can
 change it to perform statistically independent simulations.
-Finally, we choose the <em>timestep</em> and we ask LAMMPS to
-run for 10000 steps. After running the simulation, you
-should see the following information in the terminal:</p>
+Finally, we choose the value of the <em>timestep</em> and we ask LAMMPS to
+run for 10000 steps, corresponding to a total duration of 50 (unitless).</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">What is a fix?</p>
+<p>In LAMMPS, a <em>fix</em> is a command that performs specific tasks during a simulation,
+such as imposing constraints, applying forces, or modifying particle properties.
+Other LAMMPS-specific terms are defined in the <a class="reference internal" href="../../non-tutorials/glossary.html#glossary-label"><span class="std std-ref">LAMMPS Glossary</span></a>.</p>
+</div>
+<div class="justify docutils container">
+<p>After running the simulation, similar lines should appear in the terminal:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Step   Temp          PotEng         KinEng       TotEng        Press
 388    0             -0.95476642    0           -0.95476642   -0.000304834
@@ -1102,7 +1109,7 @@ This repository also contains the full solutions to the exercises.</p>
 <section id="going-further-with-exercises">
 <h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>Each exercise comes with a proposed solution,
+<p>Each  comes with a proposed solution,
 see <a class="reference internal" href="../../non-tutorials/solutions.html#solutions-label"><span class="std std-ref">Solutions to the exercises</span></a>.</p>
 </div>
 <section id="solve-lost-atoms-error">

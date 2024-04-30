@@ -1,4 +1,4 @@
 .. container:: justify
 
-    Each exercise comes with a proposed solution, 
+    Each  comes with a proposed solution, 
     see :ref:`solutions-label`.
