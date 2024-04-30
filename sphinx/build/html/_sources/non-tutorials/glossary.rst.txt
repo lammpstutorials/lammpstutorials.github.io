@@ -56,9 +56,11 @@ Ensemble
 
 .. container:: justify
 
-    Careful, it is not because an input file involves the *fix nve* that the system
-    is necessary in the NVE ensemble. For instance, in :ref:`lennard-jones-label`,
-    the following commands are used:
+    As an important side note, it is common for LAMMPS beginners to assume that
+    their system is in the NVE ensemble (or NVT, or NPT), simply because the
+    *fix nve* (or *fix nvt*, or *fix npt*) is used, but this is not necessarily
+    the case. For instance, in :ref:`lennard-jones-label`, the input
+    contains the following commands:
 
 ..  code-block:: lammps
 
@@ -67,9 +69,14 @@ Ensemble
 
 .. container:: justify
 
-    The temperature of the system is imposed by the *fix langevin*,
-    and the simulated system is effective in the NVT ensemble
-    (constant number of particles (N), volume (V), and temperature (T)).
+    Here, the *fix nve* is used to perform the time integration and update
+    the position and velocity of the atoms every timestep, and the
+    *fix langevin* applies the Langevin thermostat :cite:`schneider1978molecular`. 
+    Due to the Langevin thermostat, the system does exchange energy with
+    a background implicit solvent, and is therefore not in the NVE (microcanonical)
+    ensemble, but rather in the NVT (canonical) ensemble with a
+    constant number of particles (N), constant volume (V), and a 
+    temperature fluctuating around an equilibrium value (T).
 
 Input script
 ============
@@ -121,15 +128,24 @@ Minimization
 
 .. container:: justify
 
-    Energy minimization is used to find a stable configuration for a given system.
+    Energy minimization refers to the computational process of adjusting the
+    atomic positions within a given system to reduce the forces on the atoms
+    until they become negligible. Several minimization methods are implemented in LAMMPS,
+    including the conjugate gradient :cite:`hestenes1952methods`
+    and the steepest descent :cite:`cauchy1847methode`,
+    see the |min_style_2| page for an exhaustive list.
+
+.. |min_style_2| raw:: html
+
+    <a href="https://docs.lammps.org/min_style.html" target="_blank">min_style</a>
 
 Neighbor list
 =============
 
 .. container:: justify
 
-    *Neighbor list* enumerates all pairs of atoms with a separation smaller than the
-    cutoff distance.
+    *Neighbor list* enumerates all pairs of atoms with a separation smaller than
+    the cutoff distance.
 
 NVE ensemble
 ============

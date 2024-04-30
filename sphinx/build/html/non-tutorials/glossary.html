@@ -270,18 +270,25 @@ environment, ranging from completely isolated systems (e.g. microcanonical ensem
 to open systems (e.g. grand canonical ensemble).</p>
 </div>
 <div class="justify docutils container">
-<p>Careful, it is not because an input file involves the <em>fix nve</em> that the system
-is necessary in the NVE ensemble. For instance, in <a class="reference internal" href="../tutorials/level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a>,
-the following commands are used:</p>
+<p>As an important side note, it is common for LAMMPS beginners to assume that
+their system is in the NVE ensemble (or NVT, or NPT), simply because the
+<em>fix nve</em> (or <em>fix nvt</em>, or <em>fix npt</em>) is used, but this is not necessarily
+the case. For instance, in <a class="reference internal" href="../tutorials/level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a>, the input
+contains the following commands:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="m">1530917</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The temperature of the system is imposed by the <em>fix langevin</em>,
-and the simulated system is effective in the NVT ensemble
-(constant number of particles (N), volume (V), and temperature (T)).</p>
+<p>Here, the <em>fix nve</em> is used to perform the time integration and update
+the position and velocity of the atoms every timestep, and the
+<em>fix langevin</em> applies the Langevin thermostat <span id="id1">[<a class="reference internal" href="bibliography.html#id31" title="T Schneider and E Stoll. Molecular-dynamics study of a three-dimensional one-component model for distortive phase transitions. Physical Review B, 17(3):1302, 1978.">12</a>]</span>.
+Due to the Langevin thermostat, the system does exchange energy with
+a background implicit solvent, and is therefore not in the NVE (microcanonical)
+ensemble, but rather in the NVT (canonical) ensemble with a
+constant number of particles (N), constant volume (V), and a
+temperature fluctuating around an equilibrium value (T).</p>
 </div>
 </section>
 <section id="input-script">
@@ -327,14 +334,19 @@ designs the open-source molecular simulation software.</p>
 <section id="minimization">
 <h2>Minimization<a class="headerlink" href="#minimization" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>Energy minimization is used to find a stable configuration for a given system.</p>
+<p>Energy minimization refers to the computational process of adjusting the
+atomic positions within a given system to reduce the forces on the atoms
+until they become negligible. Several minimization methods are implemented in LAMMPS,
+including the conjugate gradient <span id="id2">[<a class="reference internal" href="bibliography.html#id6" title="Magnus Rudolph Hestenes, Eduard Stiefel, and others. Methods of conjugate gradients for solving linear systems. Volume 49. NBS Washington, DC, 1952.">17</a>]</span>
+and the steepest descent <span id="id3">[<a class="reference internal" href="bibliography.html#id18" title="Augustin Cauchy and others. Méthode générale pour la résolution des systemes d'équations simultanées. Comp. Rend. Sci. Paris, 25(1847):536–538, 1847.">35</a>]</span>,
+see the <a href="https://docs.lammps.org/min_style.html" target="_blank">min_style</a> page for an exhaustive list.</p>
 </div>
 </section>
 <section id="neighbor-list">
 <h2>Neighbor list<a class="headerlink" href="#neighbor-list" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p><em>Neighbor list</em> enumerates all pairs of atoms with a separation smaller than the
-cutoff distance.</p>
+<p><em>Neighbor list</em> enumerates all pairs of atoms with a separation smaller than
+the cutoff distance.</p>
 </div>
 </section>
 <section id="nve-ensemble">
