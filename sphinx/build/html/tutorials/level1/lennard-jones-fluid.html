@@ -533,7 +533,7 @@ and <span class="math notranslate nohighlight">\(E_{22} (r)\)</span>.</p>
 <p>Figure: The Lennard-Jones potential <span class="math notranslate nohighlight">\(E_{ij} (r)\)</span>
 as a function of the inter-particle distance, where
 <span class="math notranslate nohighlight">\(i, j = 1 ~ \text{or} ~ 2\)</span>. This figure was generated using Python
-with Matplotlib Pyplot, and the notebook can be accessed <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/blob/version2.0/docs/sphinx/source/tutorials/figures/level1/lennard-jones-fluid/energy-pyplot.ipynb" target="_blank">from Github</a>.
+with Matplotlib Pyplot, and the notebook can be accessed <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/blob/version2.0/docs/sphinx/source/tutorials/figures/level1/lennard-jones-fluid/lennard-jones-pyplot.ipynb" target="_blank">from Github</a>.
 The Pyplot parameters used for all figures can be accessed in a <a href="https://github.com/simongravelle/pyplot-perso" target="_blank">dedicated repository</a>.</p>
 </div>
 </section>
@@ -566,8 +566,9 @@ asks LAMMPS to perform an energy minimization of the system.</p>
 <p>An energy minimization procedure consists of adjusting
 the coordinates of the atoms that are too close to each other until one of the stopping
 criteria is reached. By default, LAMMPS uses the conjugate
-gradient (CG) algorithm <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id6" title="Magnus Rudolph Hestenes, Eduard Stiefel, and others. Methods of conjugate gradients for solving linear systems. Volume 49. NBS Washington, DC, 1952.">17</a>]</span>.
-There are four stopping criteria:</p>
+gradient (CG) algorithm <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id6" title="Magnus Rudolph Hestenes, Eduard Stiefel, and others. Methods of conjugate gradients for solving linear systems. Volume 49. NBS Washington, DC, 1952.">17</a>]</span> (see all the other
+implemented methods on the <a href="https://docs.lammps.org/min_style.html" target="_blank">min_style</a> page), which runs
+until one of the following criteria is reached:</p>
 <ul class="simple">
 <li><p>The change in energy between two iterations is less than 1.0e-4.</p></li>
 <li><p>The maximum force between two atoms in the system is lower than 1.0e-6.</p></li>
@@ -577,7 +578,7 @@ There are four stopping criteria:</p>
 </div>
 <div class="justify docutils container">
 <p>Now running the simulation, we can see how the thermodynamic
-variables evolve with time:</p>
+variables evolve as the simulation progresses:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Step  Temp  PotEng         KinEng    TotEng         Press
 0     0     78840982       0         78840982       7884122
@@ -605,6 +606,13 @@ potential. As the energy minimization progresses, the energy
 rapidly decreases and reaches a negative value, indicating that the atoms have been
 displaced at reasonable distances from each other.</p>
 </div>
+<div class="info admonition">
+<p class="admonition-title">On the temperature during energy minimization</p>
+<p>As a side note, during energy minimization both temperature and kinetic energy remain equal to
+their initial values of 0. This is expected as the conjugate gradient
+algorithm only affects the positions of the particles based on the
+forces between them, without affecting their velocities.</p>
+</div>
 <div class="justify docutils container">
 <p>Other useful information has been printed in the terminal, for
 example, LAMMPS tells us that the first of the four criteria
@@ -620,7 +628,8 @@ Stopping criterion = energy tolerance
 <div class="justify docutils container">
 <p>The system is now ready. Let us continue filling up the
 input script and adding commands to perform a molecular dynamics
-simulation that will start from the final state of the energy minimization.</p>
+simulation that will start from the final state of the previous energy
+minimization step.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Background Information – What is molecular dynamics?</p>

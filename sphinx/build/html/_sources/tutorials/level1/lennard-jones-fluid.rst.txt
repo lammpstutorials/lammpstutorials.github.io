@@ -361,12 +361,12 @@ Simulation Settings
     Figure: The Lennard-Jones potential :math:`E_{ij} (r)`
     as a function of the inter-particle distance, where
     :math:`i, j = 1 ~ \text{or} ~ 2`. This figure was generated using Python
-    with Matplotlib Pyplot, and the notebook can be accessed |energy-pyplot.ipynb|.
+    with Matplotlib Pyplot, and the notebook can be accessed |lennard-jones-pyplot.ipynb|.
     The Pyplot parameters used for all figures can be accessed in a |pyplot-perso|.
 
-.. |energy-pyplot.ipynb| raw:: html
+.. |lennard-jones-pyplot.ipynb| raw:: html
 
-   <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/blob/version2.0/docs/sphinx/source/tutorials/figures/level1/lennard-jones-fluid/energy-pyplot.ipynb" target="_blank">from Github</a>
+   <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/blob/version2.0/docs/sphinx/source/tutorials/figures/level1/lennard-jones-fluid/lennard-jones-pyplot.ipynb" target="_blank">from Github</a>
 
 .. |pyplot-perso| raw:: html
 
@@ -406,18 +406,23 @@ Energy minimization
     An energy minimization procedure consists of adjusting
     the coordinates of the atoms that are too close to each other until one of the stopping
     criteria is reached. By default, LAMMPS uses the conjugate
-    gradient (CG) algorithm :cite:`hestenes1952methods`.
-    There are four stopping criteria:
+    gradient (CG) algorithm :cite:`hestenes1952methods` (see all the other
+    implemented methods on the |min_style| page), which runs 
+    until one of the following criteria is reached:
 
     - The change in energy between two iterations is less than 1.0e-4.
     - The maximum force between two atoms in the system is lower than 1.0e-6.
     - The maximum number of iterations is 1000.
     - The maximum number of times the force and the energy have been evaluated is 10000.
 
+.. |min_style| raw:: html
+
+    <a href="https://docs.lammps.org/min_style.html" target="_blank">min_style</a>
+
 ..  container:: justify
 
     Now running the simulation, we can see how the thermodynamic
-    variables evolve with time:
+    variables evolve as the simulation progresses:
 
 ..  code-block:: bw
 
@@ -446,6 +451,14 @@ Energy minimization
     potential. As the energy minimization progresses, the energy
     rapidly decreases and reaches a negative value, indicating that the atoms have been
     displaced at reasonable distances from each other.
+
+.. admonition:: On the temperature during energy minimization
+    :class: info
+
+    As a side note, during energy minimization both temperature and kinetic energy remain equal to
+    their initial values of 0. This is expected as the conjugate gradient
+    algorithm only affects the positions of the particles based on the
+    forces between them, without affecting their velocities.
     
 ..  container:: justify
 
@@ -465,7 +478,8 @@ Molecular dynamics
 
     The system is now ready. Let us continue filling up the
     input script and adding commands to perform a molecular dynamics
-    simulation that will start from the final state of the energy minimization.
+    simulation that will start from the final state of the previous energy
+    minimization step.
 
 .. admonition:: Background Information -- What is molecular dynamics?
     :class: info
