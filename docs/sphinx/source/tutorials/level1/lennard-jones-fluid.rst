@@ -511,6 +511,20 @@ Molecular dynamics
     # 4) Visualization
     thermo 50
 
+..  container:: justify
+
+    Since LAMMPS reads the input from top to bottom, these lines will be
+    executed after the energy minimization. There is no need to re-initialize
+    or re-define the system. The *thermo* command is called a second time within
+    the same input, so the previously entered value of 10 will be replaced by
+    the value of 50 as soon as *PART B* starts.
+
+..  container:: justify
+
+    Then, let us add a second *Run* section:
+
+..  code-block:: lammps
+
     # 5) Run
     fix mynve all nve
     fix mylgv all langevin 1.0 1.0 0.1 1530917
@@ -519,36 +533,32 @@ Molecular dynamics
 
 ..  container:: justify
 
-    Since LAMMPS reads the input from top to
-    bottom, these lines will be executed after the energy
-    minimization. There is no need to re-initialize the system
-    re-define it, or re-specify the settings. The *thermo* command
-    is called a second time within the same input, so the previously
-    entered value of *10* will be replaced by the value of *50*
-    as soon as *PART B* starts.
+    The *fix nve* is used to update the positions and the velocities of the
+    atoms in the group *all* at every step. The group *all* is a default group
+    that contains every atom.
 
 ..  container:: justify
 
-    In the run section, the *fix nve* is used to update the
-    positions and the velocities of the atoms in the group
-    *all*. Therefore, *fix nve* contains the time integrator and is
-    the most important command here.
+    The second fix applies a Langevin thermostat to the atoms of the group
+    *all*, with a desired initial temperature of 1.0 (unitless), and a final
+    temperature of 1.0 as well :cite:`schneider1978molecular`.
+    A *damping* parameter of 0.1 is used. The *damping*
+    parameter determines how rapidly the temperature is relaxed to its desired value.
+    The number *1530917* is a seed, you can
+    change it to perform statistically independent simulations.
+    Finally, we choose the value of the *timestep* and we ask LAMMPS to
+    run for 10000 steps, corresponding to a total duration of 50 (unitless).
     
 .. admonition:: What is a fix?
     :class: info
     
-    In LAMMPS, a *fix* corresponds to an operation that is applied
-    to the system.
+    In LAMMPS, a *fix* is a command that performs specific tasks during a simulation,
+    such as imposing constraints, applying forces, or modifying particle properties.
+    Other LAMMPS-specific terms are defined in the :ref:`glossary-label`.
     
 ..  container:: justify
     
-    The second fix applies a Langevin thermostat to the atoms of the group
-    *all*, with a desired temperature of 1 and a *damping*
-    parameter of 0.1. The number *1530917* is a seed, you can
-    change it to perform statistically independent simulations.
-    Finally, we choose the *timestep* and we ask LAMMPS to
-    run for 10000 steps. After running the simulation, you
-    should see the following information in the terminal:
+    After running the simulation, similar lines should appear in the terminal:
 
 ..  code-block:: bw
 
