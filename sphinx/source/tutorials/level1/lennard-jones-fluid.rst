@@ -493,16 +493,12 @@ Molecular dynamics
 
     where :math:`\sum` is the sum over all the atoms other than :math:`i`, 
     :math:`\boldsymbol{F}_{ji}` the force between the atom pairs :math:`j-i`,
-    :math:`m_i` the mass of atom :math:`i`, and :math:`\boldsymbol{F}_i` its acceleration. 
-    The Newtonian equations are solved every timestep to predict the
-    evolution of the positions and velocities of atoms and molecules over time. 
-    
-    At every step, the following operations usually occur when 
-    performing an MD simulation:
-
-    - the forces between the atoms are calculated from the potential (here Lennard-Jones),
-    - the acceleration of each atom is evaluated from the Newtonian equation,
-    - the velocity and position of each atom are updated according to the calculated acceleration, typically using the Verlet algorithm, or similar.
+    :math:`m_i` the mass of atom :math:`i`, and :math:`\boldsymbol{a}_i` its acceleration. 
+    The Newtonian equations are solved at every step to predict the
+    evolution of the positions and velocities of atoms and molecules over
+    time. Then, the velocity and position of each atom are updated according to the
+    calculated acceleration, typically using the Verlet algorithm, or similar.
+    More information can be found in Refs. :cite:`allen2017computer,frenkel2023understanding`.
 
 ..  container:: justify
 
