@@ -607,14 +607,13 @@ Trajectory visualization
 ..  container:: justify
 
     The simulation is running well, but we would like to
-    visualize the trajectories of the atoms. To do so, we need
-    to dump the positions of the atoms in a file at a regular
-    interval.
+    visualize the trajectories of the atoms. To do so, we first need
+    to print the positions of the atoms in a file at a regular interval.
     
 ..  container:: justify
 
     Add the following command to the *input.lammps* file,
-    in the *visualization* section of PART B:
+    in the *Visualization* section of *PART B*:
 
 ..  code-block:: lammps
 
@@ -624,8 +623,7 @@ Trajectory visualization
 
     Run the *input.lammps* using LAMMPS again. A file named *dump.lammpstrj*
     must appear within *my-first-input/*. A *.lammpstrj* file can
-    be opened using VMD. With Ubuntu/Linux,
-    you can simply execute in the terminal:
+    be opened using VMD. With Ubuntu/Linux, you can simply execute in the terminal:
 
 ..  code-block:: bw
 
