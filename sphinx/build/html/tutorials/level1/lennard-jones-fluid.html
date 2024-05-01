@@ -789,13 +789,8 @@ from a previously saved configuration.</p>
 <section id="control-the-initial-atom-positions">
 <h3>Control the initial atom positions<a class="headerlink" href="#control-the-initial-atom-positions" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>Let us create the atoms of types 1 and 2 in two separate
-regions, respectively, instead of creating them both randomly
-within the entire space as we did previously.</p>
-</div>
-<div class="justify docutils container">
 <p>Create a new folder next to <em>my-first-input/</em>, and call
-it <em>improved-input/</em>. Then, create a new input
+it <em>improved-input/</em>. Then, create a new input file within <em>improved-input/</em>
 and call it <em>input.min.lammps</em>.</p>
 </div>
 <div class="justify docutils container">
@@ -811,9 +806,9 @@ into <em>input.min.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Let us create three separate regions: A cubic region
-for the simulation box and two additional regions
-for placing the atoms:</p>
+<p>To create the atoms of types 1 and 2 in two separate
+regions, let us create three separate regions: A cubic region
+for the simulation box and two additional regions for placing the atoms:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 2) System definition</span>
 <span class="k">region </span><span class="nv nv-Identifier">simulation_box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
@@ -847,27 +842,23 @@ as previously into <em>input.min.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The main novelty, compared to the previous
-input script, is the <em>write_data</em> command. This command
-is used to print the final state of the simulation in
-a file named <em>minimized_coordinate.data</em>. Note that
-the <em>write_data</em> command is placed after the <em>minimize</em>
-command. This <em>.data</em> file will be used later to restart
-the simulation from the final
-state of the energy minimization step.</p>
+<p>The main novelty, compared to the previous input script, is the <em>write_data</em>
+command. This command is used to print the final state of the simulation in
+a file named <em>minimized_coordinate.data</em>. Note that the <em>write_data</em> command
+is placed after the <em>minimize</em> command. This <em>.data</em> file will be used later
+to restart the simulation from the final state of the energy minimization step.</p>
 </div>
 <div class="justify docutils container">
-<p>Run the <em>input.min.lammps</em> script using LAMMPS. A new
-dump file named <em>dump.min.lammpstrj</em> will
-appear in the folder, allowing you to visualize the atom’s
-trajectories during minimization. In
+<p>Run the <em>input.min.lammps</em> script using LAMMPS. A new dump file named
+<em>dump.min.lammpstrj</em> will appear in the folder, allowing you to visualize
+the atom’s trajectories during minimization. In
 addition, a file named <em>minimized_coordinate.data</em> will be created.</p>
 </div>
 <div class="justify docutils container">
-<p>If you open <em>minimized_coordinate.data</em>, you will see that it
-contains all the information necessary to restart the
-simulation, such as the number of atoms and the size of
-the box. The <em>.data</em> file even contains the atoms <em>masses</em> and <em>pair_coeffs</em>:</p>
+<p>If you open <em>minimized_coordinate.data</em> with a text editor, you can see
+that it contains all the information necessary to restart the
+simulation, such as the number of atoms and the box size, the
+<em>masses</em>, the <em>pair_coeffs</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">1150</span><span class="w"> </span><span class="n">atoms</span>
 <span class="m">2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
@@ -890,7 +881,7 @@ the box. The <em>.data</em> file even contains the atoms <em>masses</em> and <em
 </div>
 <div class="justify docutils container">
 <p>The <em>minimized_coordinate.data</em> file also contains the final
-positions and velocities of all the atoms:</p>
+positions of the atoms:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
 <span class="n">Atoms</span><span class="w"> </span><span class="c"># atomic</span>
@@ -905,10 +896,10 @@ positions and velocities of all the atoms:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The columns of the <em>Atoms</em> section
+<p>The first five columns of the <em>Atoms</em> section
 correspond (from left to right) to the atom indexes (from 1
 to the total number of atoms, 1150), the atom types (1 or 2
-here), the atoms positions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>.
+here), and the atoms positions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>.
 The last three columns are image flags that keep track of which
 atoms crossed the periodic boundary.</p>
 </div>
@@ -938,7 +929,7 @@ can simply add the following command:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>By visualizing the previously generated dump.min.lammpstrj
+<p>By visualizing the previously generated <em>dump.min.lammpstrj</em>
 file, you may have noticed that some atoms have moved from
 one region to the other during minimization.
 To start the simulation from a clean slate, with
@@ -969,7 +960,7 @@ regions are not saved by the <em>write_data</em> command.</p>
 The next two <em>group</em> commands create atom groups based on their
 positions at the beginning of the simulation, i.e. when the commands
 are being read by LAMMPS.
-The last two <em>group</em> commands create atom groups based on intersection
+The last two <em>group</em> commands create atom groups based on the intersection
 between the previously defined groups.</p>
 </div>
 <div class="justify docutils container">

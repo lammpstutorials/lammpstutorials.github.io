@@ -669,17 +669,11 @@ Improving the script
 
 Control the initial atom positions
 ----------------------------------
-
-..  container:: justify
-
-    Let us create the atoms of types 1 and 2 in two separate
-    regions, respectively, instead of creating them both randomly 
-    within the entire space as we did previously. 
     
 ..  container:: justify
 
     Create a new folder next to *my-first-input/*, and call
-    it *improved-input/*. Then, create a new input 
+    it *improved-input/*. Then, create a new input file within *improved-input/*
     and call it *input.min.lammps*.
     
 ..  container:: justify
@@ -698,9 +692,9 @@ Control the initial atom positions
 
 ..  container:: justify
 
-    Let us create three separate regions: A cubic region
-    for the simulation box and two additional regions
-    for placing the atoms:
+    To create the atoms of types 1 and 2 in two separate
+    regions, let us create three separate regions: A cubic region
+    for the simulation box and two additional regions for placing the atoms:
 
 ..  code-block:: lammps
 
@@ -738,29 +732,25 @@ Control the initial atom positions
 
 ..  container:: justify
 
-    The main novelty, compared to the previous
-    input script, is the *write_data* command. This command
-    is used to print the final state of the simulation in
-    a file named *minimized_coordinate.data*. Note that 
-    the *write_data* command is placed after the *minimize*
-    command. This *.data* file will be used later to restart
-    the simulation from the final
-    state of the energy minimization step.
+    The main novelty, compared to the previous input script, is the *write_data*
+    command. This command is used to print the final state of the simulation in
+    a file named *minimized_coordinate.data*. Note that the *write_data* command
+    is placed after the *minimize* command. This *.data* file will be used later
+    to restart the simulation from the final state of the energy minimization step.
 
 ..  container:: justify
 
-    Run the *input.min.lammps* script using LAMMPS. A new
-    dump file named *dump.min.lammpstrj* will
-    appear in the folder, allowing you to visualize the atom's
-    trajectories during minimization. In
+    Run the *input.min.lammps* script using LAMMPS. A new dump file named
+    *dump.min.lammpstrj* will appear in the folder, allowing you to visualize
+    the atom's trajectories during minimization. In
     addition, a file named *minimized_coordinate.data* will be created. 
     
 ..  container:: justify
     
-    If you open *minimized_coordinate.data*, you will see that it
-    contains all the information necessary to restart the
-    simulation, such as the number of atoms and the size of
-    the box. The *.data* file even contains the atoms *masses* and *pair_coeffs*:
+    If you open *minimized_coordinate.data* with a text editor, you can see
+    that it contains all the information necessary to restart the
+    simulation, such as the number of atoms and the box size, the
+    *masses*, the *pair_coeffs*:
 
 ..  code-block:: lammps
 
@@ -785,7 +775,7 @@ Control the initial atom positions
 ..  container:: justify
 
     The *minimized_coordinate.data* file also contains the final
-    positions and velocities of all the atoms:
+    positions of the atoms:
 
 ..  code-block:: lammps
 
@@ -802,10 +792,10 @@ Control the initial atom positions
 
 ..  container:: justify
 
-    The columns of the *Atoms* section
+    The first five columns of the *Atoms* section
     correspond (from left to right) to the atom indexes (from 1
     to the total number of atoms, 1150), the atom types (1 or 2
-    here), the atoms positions :math:`x`, :math:`y`, :math:`z`.
+    here), and the atoms positions :math:`x`, :math:`y`, :math:`z`.
     The last three columns are image flags that keep track of which
     atoms crossed the periodic boundary.
 
@@ -840,7 +830,7 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    By visualizing the previously generated dump.min.lammpstrj
+    By visualizing the previously generated *dump.min.lammpstrj*
     file, you may have noticed that some atoms have moved from
     one region to the other during minimization.
     To start the simulation from a clean slate, with
@@ -874,7 +864,7 @@ Restarting from a saved configuration
     The next two *group* commands create atom groups based on their
     positions at the beginning of the simulation, i.e. when the commands
     are being read by LAMMPS.
-    The last two *group* commands create atom groups based on intersection
+    The last two *group* commands create atom groups based on the intersection
     between the previously defined groups.
     
 ..  container:: justify
