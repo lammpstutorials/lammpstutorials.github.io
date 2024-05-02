@@ -1108,7 +1108,7 @@ Create a demixed dense phase
 
     An easy way to create a dense phase is to allow the box dimensions 
     to relax until the vacuum disappears. You can do that 
-    by replacing the *fix nve* by *fix nph*.
+    by replacing the *fix nve* with *fix nph*.
 
 From atoms to molecules
 -----------------------
@@ -1183,7 +1183,7 @@ From atoms to molecules
     ..  container:: justify
 
         A bond section also needs to be added, see this
-        |molecule_template_lammps| for details on the formating of a
+        |molecule_template_lammps| for details on the formatting of a
         molecule template.
 
 .. |molecule_template_lammps| raw:: html

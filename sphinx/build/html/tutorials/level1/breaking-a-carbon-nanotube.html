@@ -398,7 +398,7 @@ it <em>input.lammps</em>. Copy the following lines in it:</p>
 <p>The chosen unit system is <em>real</em> (therefore distances are in Ångstrom, time in femtosecond),
 the <em>atom_style</em> is molecular (therefore atoms are dots that can be bonded with each other),
 and the boundary conditions are fixed. The boundary conditions
-do not really matter here, as the box boundaries were placed far from the CNT.</p>
+do not matter here, as the box boundaries were placed far from the CNT.</p>
 </div>
 <div class="justify docutils container">
 <p>Just like in <a class="reference internal" href="lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a>,
@@ -418,7 +418,7 @@ the page of the <a href="https://lammps.sandia.gov/doc/dihedral_opls.html" targe
 <div class="justify docutils container">
 <p>The last command, <em>read_data</em>, imports the <em>cnt_molecular.data</em> file
 previously generated with VMD, which contains the
-information about the box size, atoms positions, etc.</p>
+information about the box size, atom positions, etc.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About interaction between neighbors atoms</p>
@@ -573,10 +573,9 @@ and <em>carbon_bot</em> groups can be represented with a different color.</p>
 and the <em>carbon_bot</em> groups are represented with a different color.</p>
 </div>
 <div class="justify docutils container">
-<p>When running a simulation, the number of atoms in each
-group is printed in the terminal (and in the log.lammps
-file). Always make sure that the number of atoms in each group
-corresponds to what is expected, just like here:</p>
+<p>When running a simulation, the number of atoms in each group is printed in
+the terminal (and in the <em>log.lammps</em> file). Always make sure that the number
+of atoms in each group corresponds to what is expected, just like here:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">10</span><span class="w"> </span>atoms<span class="w"> </span><span class="k">in</span><span class="w"> </span>group<span class="w"> </span>carbon_top
 <span class="m">10</span><span class="w"> </span>atoms<span class="w"> </span><span class="k">in</span><span class="w"> </span>group<span class="w"> </span>carbon_bot
@@ -627,7 +626,7 @@ system. Add the following lines to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Re-setting the atoms ids is necessary before using the <em>velocity</em> command,
+<p>Re-setting the atom ids is necessary before using the <em>velocity</em> command,
 this is done by the <em>reset_atoms</em> command.</p>
 </div>
 <div class="justify docutils container">
@@ -651,10 +650,10 @@ be restrained, see below.</p>
 <div class="info admonition">
 <p class="admonition-title">Deal with semi-frozen system</p>
 <p>Always be careful when part of a system is frozen,
-as is the case here. When some atoms are frozen, the total
-temperature of the system is effectively lower
-than the applied temperature because the frozen atoms
-have no thermal motion (their temperature is therefore <span class="math notranslate nohighlight">\(0\,\text{K}\)</span>).</p>
+as is the case here. When some atoms are frozen, the total temperature
+of the system is effectively lower than the applied temperature
+because the frozen atoms have no thermal motion (their temperature
+is therefore <span class="math notranslate nohighlight">\(0\,\text{K}\)</span>).</p>
 </div>
 <div class="justify docutils container">
 <p>To restrain the motion of the atoms at the edges, let us add the
@@ -984,8 +983,8 @@ Add the following lines to LAMMPS:</p>
 </div>
 <div class="justify docutils container">
 <p>Note the relatively small timestep of <span class="math notranslate nohighlight">\(0.0005\,\text{ps}\)</span>
-used. Reactive force field usually requires a smaller timestep
-than classical one.
+used. A reactive force field usually requires a smaller timestep
+than a classical one.
 When running <em>input.lammps</em> with LAMMPS, you can see that the
 temperature deviates from the target temperature of <span class="math notranslate nohighlight">\(300\,\text{K}\)</span>
 at the start of the equilibration, but that
@@ -1026,7 +1025,7 @@ use a longer run.</p>
 <div class="justify docutils container">
 <p>When looking at the <em>lammpstrj</em> file using VMD, you will see
 the bonds breaking. Use the <em>DynamicBonds</em>
-representation to properly visualise the bond breaking.</p>
+representation to properly visualize the bond breaking.</p>
 </div>
 <figure class="align-default">
 <img alt="carbon nanotube with broken bonds after simulation with LAMMPS and AIREBO" class="only-dark" src="../../_images/deformed-dark.png" />
@@ -1093,10 +1092,10 @@ the two breakable and unbreakable CNTs:</p>
 <section id="solve-the-flying-ice-cube-artifact">
 <h3>Solve the flying ice cube artifact<a class="headerlink" href="#solve-the-flying-ice-cube-artifact" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>The flying ice cube effect is one of the most famous
-artifact of molecular simulations <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id7" title="Jirasak Wong-Ekkabut and Mikko Karttunen. The good, the bad and the user in soft matter simulations. Biochimica et Biophysica Acta (BBA)-Biomembranes, 1858(10):2529–2538, 2016.">23</a>]</span>.
-Download this seemingly simple <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/input.lammps" target="_blank">input</a>, that was inspired by the
-the first part of the tutorial, and simplified by removing some of it.
+<p>The flying ice cube effect is one of the most famous artifacts of
+molecular simulations <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id7" title="Jirasak Wong-Ekkabut and Mikko Karttunen. The good, the bad and the user in soft matter simulations. Biochimica et Biophysica Acta (BBA)-Biomembranes, 1858(10):2529–2538, 2016.">23</a>]</span>.
+Download this seemingly simple <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/input.lammps" target="_blank">input</a>, which is a simplified
+version of the input from the first part of the tutorial.
 Run the input with this <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/cnt_molecular.data" target="_blank">data</a> file
 and this <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/flying-ice-cube/parm.lammps" target="_blank">parameter</a> file.</p>
 </div>
