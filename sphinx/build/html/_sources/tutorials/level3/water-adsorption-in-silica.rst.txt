@@ -313,9 +313,10 @@ Cracking the silica
 
 ..  container:: justify
 
-    Let us dilate the block of silica to create a
-    crack. Create a new folder called *Cracking/* next to *SilicaBlock/*, and create a
-    new *input.lammps* file starting with familiar lines:
+    Let us dilate the block of silica until a
+    crack forms. Create a new folder called *Cracking/* next to *SilicaBlock/*,
+    as well as a new *input.lammps* file starting with familiar lines as
+    previously:
 
 ..  code-block:: lammps
 
@@ -334,27 +335,27 @@ Cracking the silica
 ..  container:: justify
 
     Then, let us progressively increase the size of the
-    box in the z-direction, thus forcing the silica to deform
+    box in the x direction, thus forcing the silica to deform
     and eventually crack. To do
-    so, let us make a loop using the jump command. At
+    so, a loop based on the jump command is used. At
     every step of the loop, the box dimension over x will
-    be multiplied by a factor 1.005. Here, we use a NVT
-    thermostat because we want to impose a deformation of the
-    volume.
+    be multiplied by a factor 1.005. The *fix nvt* is used
+    to control the temperature of the system, while the *change_box* command
+    imposes incremental deformations of the box.
 
 .. admonition:: On using barostat during deformation
     :class: info
 
     ..  container:: justify
 
-        Here, box deformations are applied in the x-direction, while the 
+        Here, box deformations are applied in the x direction, while the 
         y and z box dimensions are kept constants. 
 
     ..  container:: justify
 
-        Another possible choice would be to apply a barostat along the y and z 
-        direction, allowing the system more freedom to deform. In LAMMPS, this 
-        can be done by using :
+        Another possible choice is to apply a barostat along the y and z 
+        directions, allowing for the system to adjust to the stress. In LAMMPS, 
+        this can be done by using :
 
     .. code-block:: lammps
 
@@ -367,10 +368,6 @@ Cracking the silica
     .. code-block:: lammps
 
         fix nvt1 all nvt temp 300 300 0.1
-
-    ..  container:: justify
-
-        Here, the second option will be used.
 
 ..  container:: justify
     

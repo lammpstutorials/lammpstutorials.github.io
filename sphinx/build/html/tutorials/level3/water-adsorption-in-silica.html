@@ -484,9 +484,10 @@ scope of this tutorial.</p>
 <section id="cracking-the-silica">
 <h2>Cracking the silica<a class="headerlink" href="#cracking-the-silica" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>Let us dilate the block of silica to create a
-crack. Create a new folder called <em>Cracking/</em> next to <em>SilicaBlock/</em>, and create a
-new <em>input.lammps</em> file starting with familiar lines:</p>
+<p>Let us dilate the block of silica until a
+crack forms. Create a new folder called <em>Cracking/</em> next to <em>SilicaBlock/</em>,
+as well as a new <em>input.lammps</em> file starting with familiar lines as
+previously:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">metal</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
@@ -503,24 +504,24 @@ new <em>input.lammps</em> file starting with familiar lines:</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us progressively increase the size of the
-box in the z-direction, thus forcing the silica to deform
+box in the x direction, thus forcing the silica to deform
 and eventually crack. To do
-so, let us make a loop using the jump command. At
+so, a loop based on the jump command is used. At
 every step of the loop, the box dimension over x will
-be multiplied by a factor 1.005. Here, we use a NVT
-thermostat because we want to impose a deformation of the
-volume.</p>
+be multiplied by a factor 1.005. The <em>fix nvt</em> is used
+to control the temperature of the system, while the <em>change_box</em> command
+imposes incremental deformations of the box.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">On using barostat during deformation</p>
 <div class="justify docutils container">
-<p>Here, box deformations are applied in the x-direction, while the
+<p>Here, box deformations are applied in the x direction, while the
 y and z box dimensions are kept constants.</p>
 </div>
 <div class="justify docutils container">
-<p>Another possible choice would be to apply a barostat along the y and z
-direction, allowing the system more freedom to deform. In LAMMPS, this
-can be done by using :</p>
+<p>Another possible choice is to apply a barostat along the y and z
+directions, allowing for the system to adjust to the stress. In LAMMPS,
+this can be done by using :</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">npt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
 </pre></div>
@@ -530,9 +531,6 @@ can be done by using :</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
 </pre></div>
-</div>
-<div class="justify docutils container">
-<p>Here, the second option will be used.</p>
 </div>
 </div>
 <div class="justify docutils container">
