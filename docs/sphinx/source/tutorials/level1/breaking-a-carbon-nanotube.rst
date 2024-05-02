@@ -206,7 +206,7 @@ The LAMMPS input
     The chosen unit system is *real* (therefore distances are in Ångstrom, time in femtosecond),
     the *atom_style* is molecular (therefore atoms are dots that can be bonded with each other),
     and the boundary conditions are fixed. The boundary conditions
-    do not really matter here, as the box boundaries were placed far from the CNT. 
+    do not matter here, as the box boundaries were placed far from the CNT. 
 
 .. container:: justify
 
@@ -233,7 +233,7 @@ The LAMMPS input
 
     The last command, *read_data*, imports the *cnt_molecular.data* file
     previously generated with VMD, which contains the
-    information about the box size, atoms positions, etc.
+    information about the box size, atom positions, etc.
 
 .. admonition:: About interaction between neighbors atoms
     :class: info
@@ -413,10 +413,9 @@ Prepare initial state
 
 .. container:: justify
 
-    When running a simulation, the number of atoms in each
-    group is printed in the terminal (and in the log.lammps
-    file). Always make sure that the number of atoms in each group 
-    corresponds to what is expected, just like here:
+    When running a simulation, the number of atoms in each group is printed in
+    the terminal (and in the *log.lammps* file). Always make sure that the number
+    of atoms in each group corresponds to what is expected, just like here:
 
 .. code-block:: bash
 
@@ -477,7 +476,7 @@ The molecular dynamics
 
 .. container:: justify
 
-    Re-setting the atoms ids is necessary before using the *velocity* command,
+    Re-setting the atom ids is necessary before using the *velocity* command,
     this is done by the *reset_atoms* command.
 
 .. container:: justify
@@ -504,10 +503,10 @@ The molecular dynamics
     :class: info
 
     Always be careful when part of a system is frozen,
-    as is the case here. When some atoms are frozen, the total
-    temperature of the system is effectively lower
-    than the applied temperature because the frozen atoms 
-    have no thermal motion (their temperature is therefore :math:`0\,\text{K}`). 
+    as is the case here. When some atoms are frozen, the total temperature
+    of the system is effectively lower than the applied temperature
+    because the frozen atoms have no thermal motion (their temperature
+    is therefore :math:`0\,\text{K}`). 
 
 .. container:: justify
 
@@ -900,8 +899,8 @@ Start the simulation
 .. container:: justify
 
     Note the relatively small timestep of :math:`0.0005\,\text{ps}`
-    used. Reactive force field usually requires a smaller timestep
-    than classical one.
+    used. A reactive force field usually requires a smaller timestep
+    than a classical one.
     When running *input.lammps* with LAMMPS, you can see that the
     temperature deviates from the target temperature of :math:`300\,\text{K}`
     at the start of the equilibration, but that
@@ -947,7 +946,7 @@ Launch the deformation
 
    When looking at the *lammpstrj* file using VMD, you will see
    the bonds breaking. Use the *DynamicBonds*
-   representation to properly visualise the bond breaking.
+   representation to properly visualize the bond breaking.
 
 .. |video_lammps_cnt| raw:: html
 
@@ -1031,10 +1030,10 @@ Solve the flying ice cube artifact
 
 .. container:: justify
 
-    The flying ice cube effect is one of the most famous
-    artifact of molecular simulations :cite:`wong2016good`.
-    Download this seemingly simple |input_flying_cube|, that was inspired by the
-    the first part of the tutorial, and simplified by removing some of it. 
+    The flying ice cube effect is one of the most famous artifacts of
+    molecular simulations :cite:`wong2016good`.
+    Download this seemingly simple |input_flying_cube|, which is a simplified
+    version of the input from the first part of the tutorial.
     Run the input with this |data_flying_cube| file
     and this |parm_flying_cube| file.
 
