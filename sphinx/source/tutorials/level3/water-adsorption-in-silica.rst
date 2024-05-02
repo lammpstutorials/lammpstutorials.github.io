@@ -334,14 +334,35 @@ Cracking the silica
 
 ..  container:: justify
 
-    Then, let us progressively increase the size of the
+    Let us progressively increase the size of the
     box in the x direction, thus forcing the silica to deform
     and eventually crack. To do
     so, a loop based on the jump command is used. At
     every step of the loop, the box dimension over x will
-    be multiplied by a factor 1.005. The *fix nvt* is used
+    be multiplied by a factor 1.005. Add the following lines to
+    the *input.lammps*:
+
+.. code-block:: lammps
+
+    fix nvt1 all nvt temp 300 300 0.1
+    timestep 0.001
+    thermo 1000
+    variable var loop 45
+    label loop
+    change_box all x scale 1.005 remap
+    run 2000
+    next var
+    jump input.lammps loop
+    run 20000
+    write_data dilatedSiO.data
+
+..  container:: justify
+
+    The *fix nvt* is used
     to control the temperature of the system, while the *change_box* command
     imposes incremental deformations of the box.
+    Different scale factor than the present value of 1.005 (or different number of 
+    steps in the loop than the value of 45) can be used to generate different defects in the silica.
 
 .. admonition:: On using barostat during deformation
     :class: info
@@ -368,29 +389,6 @@ Cracking the silica
     .. code-block:: lammps
 
         fix nvt1 all nvt temp 300 300 0.1
-
-..  container:: justify
-    
-    Add the following lines to the *input.lammps*:
-
-.. code-block:: lammps
-
-    fix nvt1 all nvt temp 300 300 0.1
-    timestep 0.001
-    thermo 1000
-    variable var loop 45
-    label loop
-    change_box all x scale 1.005 remap
-    run 2000
-    next var
-    jump input.lammps loop
-    run 20000
-    write_data dilatedSiO.data
-
-..  container:: justify
-
-    You can use different scale factor (here 1.005) or different number of 
-    steps in the loop (here 45) if you want to generate different defects in the silica.
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/cracked-dark.png
     :alt: silica block with crack

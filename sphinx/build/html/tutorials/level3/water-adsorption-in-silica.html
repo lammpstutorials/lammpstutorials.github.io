@@ -503,14 +503,33 @@ previously:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Then, let us progressively increase the size of the
+<p>Let us progressively increase the size of the
 box in the x direction, thus forcing the silica to deform
 and eventually crack. To do
 so, a loop based on the jump command is used. At
 every step of the loop, the box dimension over x will
-be multiplied by a factor 1.005. The <em>fix nvt</em> is used
+be multiplied by a factor 1.005. Add the following lines to
+the <em>input.lammps</em>:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">variable </span><span class="nv nv-Identifier">var</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">45</span>
+<span class="k">label </span><span class="sc">loop</span>
+<span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="m">1.005</span><span class="w"> </span><span class="n">remap</span>
+<span class="k">run</span><span class="w"> </span><span class="m">2000</span>
+<span class="k">next </span><span class="nv nv-Identifier">var</span>
+<span class="k">jump </span><span class="sc">input.lammps</span><span class="w"> </span><span class="n">loop</span>
+<span class="k">run</span><span class="w"> </span><span class="m">20000</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">dilatedSiO.data</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>The <em>fix nvt</em> is used
 to control the temperature of the system, while the <em>change_box</em> command
-imposes incremental deformations of the box.</p>
+imposes incremental deformations of the box.
+Different scale factor than the present value of 1.005 (or different number of
+steps in the loop than the value of 45) can be used to generate different defects in the silica.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">On using barostat during deformation</p>
@@ -532,26 +551,6 @@ this can be done by using :</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
 </pre></div>
 </div>
-</div>
-<div class="justify docutils container">
-<p>Add the following lines to the <em>input.lammps</em>:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
-<span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
-<span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
-<span class="k">variable </span><span class="nv nv-Identifier">var</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">45</span>
-<span class="k">label </span><span class="sc">loop</span>
-<span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="m">1.005</span><span class="w"> </span><span class="n">remap</span>
-<span class="k">run</span><span class="w"> </span><span class="m">2000</span>
-<span class="k">next </span><span class="nv nv-Identifier">var</span>
-<span class="k">jump </span><span class="sc">input.lammps</span><span class="w"> </span><span class="n">loop</span>
-<span class="k">run</span><span class="w"> </span><span class="m">20000</span>
-<span class="k">write_data </span><span class="nv nv-Identifier">dilatedSiO.data</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>You can use different scale factor (here 1.005) or different number of
-steps in the loop (here 45) if you want to generate different defects in the silica.</p>
 </div>
 <figure class="align-default">
 <img alt="silica block with crack" class="only-dark" src="../../_images/cracked-dark.png" />
