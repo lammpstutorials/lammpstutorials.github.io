@@ -1067,7 +1067,7 @@ Solve Lost atoms error
     The goal of this exercise is to fix the *Lost atoms* error without 
     using any other command than the ones already present. You can 
     only play with the values of the parameters and/or replicate every
-    command at many times as needed.
+    command as many times as needed.
 
 ..  admonition:: Note
     :class: info
@@ -1091,11 +1091,11 @@ Create a demixed dense phase
     - particles of type 1 and 2 must demix. 
 
 .. figure:: ../figures/level1/lennard-jones-fluid/demixing-light.png
-    :alt: VMD/LAMMPS exercice molecular dynamics simulation: demixing lennard jones fluids
+    :alt: VMD/LAMMPS exercise molecular dynamics simulation: demixing lennard jones fluids
     :class: only-light
 
 .. figure:: ../figures/level1/lennard-jones-fluid/demixing-dark.png
-    :alt: VMD/LAMMPS exercice molecular dynamics simulation: demixing lennard jones fluids
+    :alt: VMD/LAMMPS exercise molecular dynamics simulation: demixing lennard jones fluids
     :class: only-dark
 
 .. container:: figurelegend
@@ -1182,4 +1182,10 @@ From atoms to molecules
 
     ..  container:: justify
 
-        A bond section also needs to be added.
+        A bond section also needs to be added, see this
+        |molecule_template_lammps| for details on the formating of a
+        molecule template.
+
+.. |molecule_template_lammps| raw:: html
+
+    <a href="https://docs.lammps.org/molecule.html" target="_blank">page</a>
