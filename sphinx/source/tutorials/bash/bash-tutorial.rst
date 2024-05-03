@@ -10,8 +10,8 @@ Bash tutorial
 .. container:: justify
 
     Bash scripts can help launch multiple simulations and interact with
-    LAMMPS input script, which is useful to efficiently explore a parameter
-    space.
+    LAMMPS input scripts. This can be useful for instance to efficiently
+    explore a parameter space.
 
 .. include:: ../../non-tutorials/needhelp.rst
 
@@ -47,7 +47,7 @@ Files preparation
 
 .. |input_file| raw:: html
 
-   <a href="../../../../../lammpstutorials-inputs/bash/varying-number/input.lammps" target="_blank">download</a>
+   <a href="../../../../../lammpstutorials-inputs/bash/input.lammps" target="_blank">download</a>
 
 .. container:: justify
 
@@ -76,8 +76,8 @@ Pass a variable to a LAMMPS input
 
 .. container:: justify
 
-    The value of nb2 can be specified externally by using *-var* keyword from the 
-    terminal: 
+    The value of nb2 can be specified externally by using *-var* keyword. In the
+    terminal, call LAMMPS using: 
 
 ..  code-block:: bash
 
@@ -85,7 +85,16 @@ Pass a variable to a LAMMPS input
 
 .. container:: justify
 
-    Here, a value of 81 is given to the variable *nb2*. 
+    Here, *lmp* refers to the compiled LAMMPS version and a value of 81 is
+    given to the variable *nb2*. Looking at the log file generated during the
+    simulation, it should be clear that 81 particles of type 2 were created
+    in addition to the 1500 particles of type 1:
+
+..  code-block:: bash
+
+    Created 1500 atoms
+    (...)
+    Created 81 atoms
 
 Make a loop
 -----------

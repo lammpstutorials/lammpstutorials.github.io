@@ -234,8 +234,8 @@
 </div>
 <div class="justify docutils container">
 <p>Bash scripts can help launch multiple simulations and interact with
-LAMMPS input script, which is useful to efficiently explore a parameter
-space.</p>
+LAMMPS input scripts. This can be useful for instance to efficiently
+explore a parameter space.</p>
 </div>
 <div class="patreon admonition">
 <p class="admonition-title">Looking for support in molecular simulations?</p>
@@ -264,7 +264,7 @@ from 1 (left) to 729 (right).</p>
 <section id="files-preparation">
 <h2>Files preparation<a class="headerlink" href="#files-preparation" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>To follow this tutorial, <a href="../../../../../lammpstutorials-inputs/bash/varying-number/input.lammps" target="_blank">download</a> this simple LAMMPS input file
+<p>To follow this tutorial, <a href="../../../../../lammpstutorials-inputs/bash/input.lammps" target="_blank">download</a> this simple LAMMPS input file
 from <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a>.</p>
 </div>
 <div class="justify docutils container">
@@ -289,14 +289,22 @@ of atoms will always be created.</p>
 <section id="pass-a-variable-to-a-lammps-input">
 <h2>Pass a variable to a LAMMPS input<a class="headerlink" href="#pass-a-variable-to-a-lammps-input" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>The value of nb2 can be specified externally by using <em>-var</em> keyword from the
-terminal:</p>
+<p>The value of nb2 can be specified externally by using <em>-var</em> keyword. In the
+terminal, call LAMMPS using:</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lmp<span class="w"> </span>-in<span class="w"> </span>input.lammps<span class="w"> </span>-var<span class="w"> </span>nb2<span class="w"> </span><span class="m">81</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here, a value of 81 is given to the variable <em>nb2</em>.</p>
+<p>Here, <em>lmp</em> refers to the compiled LAMMPS version and a value of 81 is
+given to the variable <em>nb2</em>. Looking at the log file generated during the
+simulation, it should be clear that 81 particles of type 2 were created
+in addition to the 1500 particles of type 1:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Created<span class="w"> </span><span class="m">1500</span><span class="w"> </span>atoms
+<span class="o">(</span>...<span class="o">)</span>
+Created<span class="w"> </span><span class="m">81</span><span class="w"> </span>atoms
+</pre></div>
 </div>
 </section>
 <section id="make-a-loop">

@@ -339,7 +339,7 @@ Cracking the silica
     and eventually crack. To do
     so, a loop based on the jump command is used. At
     every step of the loop, the box dimension over x will
-    be multiplied by a factor 1.005. Add the following lines to
+    be multiplied by a scaling factor 1.005. Add the following lines to
     the *input.lammps*:
 
 .. code-block:: lammps
@@ -361,8 +361,8 @@ Cracking the silica
     The *fix nvt* is used
     to control the temperature of the system, while the *change_box* command
     imposes incremental deformations of the box.
-    Different scale factor than the present value of 1.005 (or different number of 
-    steps in the loop than the value of 45) can be used to generate different defects in the silica.
+    Different scaling factors or/and different numbers of 
+    steps can be used to generate different defects in the silica.
 
 .. admonition:: On using barostat during deformation
     :class: info
