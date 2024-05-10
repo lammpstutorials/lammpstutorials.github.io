@@ -181,10 +181,9 @@ From atoms to molecules
 
 .. container:: justify
 
-    You can download the |input_polymer_solution| and
-    |mol_polymer_solution| I wrote to make the short polymer. 
-    Note that some additional angular potentials are used to give its
-    rigidity to the polymer.
+    For the polymer, the angular potential must be defined to give its
+    rigidity to the polymer. You can download the |input_polymer_solution| and
+    |mol_polymer_solution|.
     
 .. |input_polymer_solution| raw:: html
 
