@@ -11,17 +11,14 @@ Fix a broken input
 
 .. container:: justify
 
-    You can download the working |input_broken_solution| I wrote.
+    A possibility to make the simulation start without error
+    is to reduce the initial *timestep* value as well as
+    the imposed *temperature*. You can download the
+    working |input_broken_solution| I wrote. These are the main commands:
 
 .. |input_broken_solution| raw:: html
 
     <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/broken/input.lammps" target="_blank">input</a>
-
-.. container:: justify
-
-    The trick to make the simulation start without error
-    is to reduce the initial *timestep* value as well as
-    the imposed *temperature*.
 
 ..  code-block:: lammps
 
@@ -30,22 +27,22 @@ Fix a broken input
 
 .. container:: justify
 
-    Note that in order to make sure that the temperature of the particles
+    Note that to make sure that the temperature of the particles
     quickly reaches a reasonable value, the *damping* parameter
-    of the *fix Langevin* was also reduced.
+    of the *fix Langevin* was also reduced to 0.001 (in time units) instead
+    of the 0.1 used in the rest of the tutorial.
 
 .. container:: justify
 
-    With these commands, you should see that after the first
-    *run* finishes, the energy of the system 
-    has reduced. Thus, a second *run*
+    After the first *run* finishes, the energy of the system 
+    should be significantly reduced. Therefore, a second consecutive *run*
     with the original *timestep* and *Langevin* parameters
-    can start without issue. 
+    can start without triggering the *Lost atoms* error. 
 
 .. container:: justify
 
-    In some cases, more than two consecutive *runs* can
-    be an appropriate solution:
+    In some cases, more than two consecutive *runs* with progressively
+    increasing timestep is necessary:
 
 ..  code-block:: lammps
 
@@ -62,7 +59,7 @@ Fix a broken input
 .. container:: justify
 
     An alternative solution was proposed by Joni Suopanki from the University
-    of Oulu in Finland. His proposed solution consists of making the LJ potential
+    of Oulu in Finland. His solution consists of making the LJ potential
     softer by using small values for :math:`\sigma_{11}`, as least during the
     very first steps of the simulation:  
 
