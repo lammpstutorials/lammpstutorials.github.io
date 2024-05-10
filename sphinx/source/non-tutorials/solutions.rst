@@ -124,7 +124,7 @@ From atoms to molecules
 
 .. container:: justify
 
-    You can download the |input_dumbbell_solution| I wrote to make 
+    You can download an example of |input_dumbbell_solution| for simulating
     dumbell molecules. 
     
 .. |input_dumbbell_solution| raw:: html
