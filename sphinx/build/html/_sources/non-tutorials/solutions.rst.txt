@@ -78,11 +78,15 @@ Create a demixed dense phase
 .. container:: justify
 
     You can download the |input_demixed_solution| I wrote. Note that 
-    I use a large number of particles: 8000 for each type. 
+    I use large numbers of particles: 8000 for each type. 
+
+.. |input_demixed_solution| raw:: html
+
+    <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/demixion/input.lammps" target="_blank">input</a>
 
 .. container:: justify
 
-    The key to creating a demixing phase is to play with the Lennard-Jones 
+    The key to creating a demixing phase is to find the appropriate Lennard-Jones 
     parameters:
 
 ..  code-block:: lammps
@@ -93,15 +97,17 @@ Create a demixed dense phase
 
 .. container:: justify
 
-    First, notice that both particle types have the same :math:`\sigma` value of 1.0
-    so that both particles have the same diameter. Second, note the large energy parameter :math:`\epsilon = 5.0`
-    for self-interaction (i.e.) interaction between particles of the same type, and the low 
-    energy parameter :math:`\epsilon = 0.05` for interaction between particles of different types.
+    Here, both particle types have the same :math:`\sigma` value of 1.0
+    so that both particles have the same diameter. There is a large energy
+    parameter :math:`\epsilon_{11} = \epsilon_{22} = 5.0` for self-interaction (i.e. interaction 
+    between particles of the same type), and a low 
+    energy parameter :math:`\epsilon_{12} = 0.05` for interaction between particles
+    of different types.
 
 .. container:: justify
 
-    Finally, to adjust the box volume and create a liquid-looking phase, the 
-    pressure was imposed by replacing *fix nve* by *fix nph*:
+    Finally, to easily adjust the system density and create a liquid-looking
+    phase, the pressure was imposed by replacing *fix nve* by *fix nph*:
 
 ..  code-block:: lammps
 
@@ -110,11 +116,8 @@ Create a demixed dense phase
 .. container:: justify
 
     With *fix nph* and a pressure of 1, LAMMPS adjusts the box dimensions until the 
-    pressure is close to 1. Here, reaching a pressure of 1 requires reducing the initial box dimensions.
-
-.. |input_demixed_solution| raw:: html
-
-    <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/demixion/input.lammps" target="_blank">input</a>
+    pressure is close to 1. Here, reaching a pressure of 1 requires reducing
+    the initial box dimensions.
 
 From atoms to molecules
 -----------------------
@@ -130,8 +133,9 @@ From atoms to molecules
 
 .. container:: justify
 
-    The first important change is to choose
-    an *atom_style* that allows for the atoms to be connected by bonds.
+    The first important change to make to the inputs from the
+    tutorial is the *atom_style*: an *atom_style* that allows for the atoms
+    to be connected by bonds is needed.
     It is also necessary to specify the *bond_style*,
     i.e. the type of potential (here harmonic) that will keep the atoms
     together:
@@ -152,8 +156,8 @@ From atoms to molecules
 
 .. container:: justify
 
-    Then, import the *molecule template*, and use the template
-    when creating the atoms:
+    Then, one just needs to import the *molecule template*, and use the template
+    when creating the atoms as follows:
 
 ..  code-block:: lammps
 
