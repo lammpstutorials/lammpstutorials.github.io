@@ -334,8 +334,18 @@ be an appropriate solution:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Use trial and error to determine the best approach for
-a given system.</p>
+<p>An alternative solution was proposed by Joni Suopanki from the University
+of Oulu in Finland. His proposed solution consists of making the LJ potential
+softer by using small values for <span class="math notranslate nohighlight">\(\sigma_{11}\)</span>, as least during the
+very first steps of the simulation:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">0.5</span>
+<span class="k">run</span><span class="w"> </span><span class="m">1</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">0.75</span>
+<span class="k">run</span><span class="w"> </span><span class="m">1</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+</pre></div>
 </div>
 </section>
 <section id="create-a-demixed-dense-phase">

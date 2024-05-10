@@ -61,8 +61,19 @@ Fix a broken input
 
 .. container:: justify
 
-    Use trial and error to determine the best approach for
-    a given system.
+    An alternative solution was proposed by Joni Suopanki from the University
+    of Oulu in Finland. His proposed solution consists of making the LJ potential
+    softer by using small values for :math:`\sigma_{11}`, as least during the
+    very first steps of the simulation:  
+
+..  code-block:: lammps
+
+    pair_coeff 1 1 1.0 0.5 
+    run 1
+    pair_coeff 1 1 1.0 0.75
+    run 1
+    pair_coeff 1 1 1.0 1.0
+    run 10000
 
 Create a demixed dense phase
 ----------------------------
