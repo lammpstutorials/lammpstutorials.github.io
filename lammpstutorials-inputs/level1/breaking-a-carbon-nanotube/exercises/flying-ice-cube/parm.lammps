@@ -21,31 +21,9 @@
 # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠈⠉⠛⠛⠓⠚⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀
 # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⣿⣿⣿⣿⡿⠟⠋⠀
 
-variable T equal 300
-
-units real
-atom_style molecular
-boundary f f f
-pair_style lj/cut 14
-
-bond_style harmonic
-angle_style harmonic
-dihedral_style opls
-improper_style harmonic
-
-special_bonds lj 0.0 0.0 0.5
-
-read_data cnt_molecular.data
-include parm.lammps
-
-group carbon_atoms type 1
-
-fix mynve all nve
-fix myber all temp/berendsen ${T} ${T} 100
-fix myrct all recenter 0 0 0
-
-thermo 1000
-dump mydmp all atom 1000 dump.lammpstrj
-
-timestep 1.0
-run 10000
+# OPLS-AA 10.1021/ja9621760
+pair_coeff 1 1 0.066 3.4
+bond_coeff 1 469 1.4
+angle_coeff 1 63 120
+dihedral_coeff 1 0 7.25 0 0
+improper_coeff 1 5 180
