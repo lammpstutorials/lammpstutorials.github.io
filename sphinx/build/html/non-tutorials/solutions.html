@@ -295,32 +295,30 @@
 <section id="fix-a-broken-input">
 <h3>Fix a broken input<a class="headerlink" href="#fix-a-broken-input" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>You can download the working <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/broken/input.lammps" target="_blank">input</a> I wrote.</p>
-</div>
-<div class="justify docutils container">
-<p>The trick to make the simulation start without error
+<p>A possibility to make the simulation start without error
 is to reduce the initial <em>timestep</em> value as well as
-the imposed <em>temperature</em>.</p>
+the imposed <em>temperature</em>. You can download the
+working <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/broken/input.lammps" target="_blank">input</a> I wrote. These are the main commands:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">1530917</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.0001</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Note that in order to make sure that the temperature of the particles
+<p>Note that to make sure that the temperature of the particles
 quickly reaches a reasonable value, the <em>damping</em> parameter
-of the <em>fix Langevin</em> was also reduced.</p>
+of the <em>fix Langevin</em> was also reduced to 0.001 (in time units) instead
+of the 0.1 used in the rest of the tutorial.</p>
 </div>
 <div class="justify docutils container">
-<p>With these commands, you should see that after the first
-<em>run</em> finishes, the energy of the system
-has reduced. Thus, a second <em>run</em>
+<p>After the first <em>run</em> finishes, the energy of the system
+should be significantly reduced. Therefore, a second consecutive <em>run</em>
 with the original <em>timestep</em> and <em>Langevin</em> parameters
-can start without issue.</p>
+can start without triggering the <em>Lost atoms</em> error.</p>
 </div>
 <div class="justify docutils container">
-<p>In some cases, more than two consecutive <em>runs</em> can
-be an appropriate solution:</p>
+<p>In some cases, more than two consecutive <em>runs</em> with progressively
+increasing timestep is necessary:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">0.0001</span><span class="w"> </span><span class="m">0.0001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">1530917</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.0001</span>
@@ -335,7 +333,7 @@ be an appropriate solution:</p>
 </div>
 <div class="justify docutils container">
 <p>An alternative solution was proposed by Joni Suopanki from the University
-of Oulu in Finland. His proposed solution consists of making the LJ potential
+of Oulu in Finland. His solution consists of making the LJ potential
 softer by using small values for <span class="math notranslate nohighlight">\(\sigma_{11}\)</span>, as least during the
 very first steps of the simulation:</p>
 </div>
