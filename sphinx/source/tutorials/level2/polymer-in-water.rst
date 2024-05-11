@@ -782,7 +782,7 @@ Extract the radial distribution function
 
     Note the difference in the structure of the water before and after
     the PEG molecule is stretched. This effect is described in
-    the 2017 publication by Liese et al.
+    the 2017 publication by Liese et al. :cite:`liese2017hydration`.
 
 Add salt to the system
 ----------------------
