@@ -31,11 +31,14 @@ kspace_style pppm 1e-5
 special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 
 read_data ../pureH2O/H2O.data &
-    extra/bond/per/atom 2 &
-    extra/angle/per/atom 5 &
-    extra/dihedral/per/atom 9
-read_data ../singlePEG/PEG.data add append shift 25 0 0
+    extra/bond/per/atom 3 &
+    extra/angle/per/atom 6 &
+    extra/dihedral/per/atom 10 &
+    extra/special/per/atom 14
 include ../PARM.lammps
+
+molecule pegmol PEG-GROMOS.mol
+create_atoms 0 single 0 0 0 mol pegmol 454756
 
 group H2O type 8 9
 group PEG type 1 2 3 4 5 6 7

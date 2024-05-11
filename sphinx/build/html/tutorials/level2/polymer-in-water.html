@@ -294,11 +294,11 @@
 <p>Solvating and stretching a small polymer molecule</p>
 </div>
 <figure class="align-right">
-<a class="only-dark reference internal image-reference" href="../../_images/PEG-dark.webp"><img alt="Movie of a peg molecule in water as simulated with LAMMPS" class="only-dark" src="../../_images/PEG-dark.webp" style="height: 250px;" />
+<a class="only-dark reference internal image-reference" href="../../_images/PEG-dark.webp"><img alt="Movie of a peg polymer molecule in water as simulated with LAMMPS" class="only-dark" src="../../_images/PEG-dark.webp" style="height: 250px;" />
 </a>
 </figure>
 <figure class="align-right">
-<a class="only-light reference internal image-reference" href="../../_images/PEG-light.webp"><img alt="Movie of a peg molecule in water as simulated with LAMMPS" class="only-light" src="../../_images/PEG-light.webp" style="height: 250px;" />
+<a class="only-light reference internal image-reference" href="../../_images/PEG-light.webp"><img alt="Movie of a peg polymer molecule in water as simulated with LAMMPS" class="only-light" src="../../_images/PEG-light.webp" style="height: 250px;" />
 </a>
 </figure>
 <div class="justify docutils container">
@@ -306,18 +306,20 @@
 hydrophilic polymer (PEG - PolyEthylene Glycol) in a reservoir of water.</p>
 </div>
 <div class="justify docutils container">
-<p>An all-atom description is used for both PEG and water and the long
-range Coulomb interactions are solved using the PPPM solver <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id11" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">24</a>]</span>.
-Once the PEG and water system are properly
-equilibrated at the desired temperature and pressure,
-a constant stretching force is applied to both
-ends of the polymer, and the evolution of its length
+<p>An all-atom description is used for both PEG (GROMOS 54A7 force
+field <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id17" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F Van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">24</a>]</span>) and water
+(SPC flexible model <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id21" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">25</a>]</span>) and the long
+range Coulomb interactions are solved using the PPPM solver <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id11" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">26</a>]</span>.
+Once the water reservoir is properly
+equilibrated at the desired temperature and pressure, the polymer molecule
+is added and a constant stretching force is applied to both
+ends of the polymer. The evolution of the polymer length
 is measured as a function of time.</p>
 </div>
 <div class="justify docutils container">
 <p>This tutorial was inspired by a <a href="https://doi.org/10.1021/acsnano.6b07071" target="_blank">publication</a> by Liese and coworkers, in which
 molecular dynamics simulations are
-compared with force spectroscopy experiments <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id27" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">25</a>]</span>.</p>
+compared with force spectroscopy experiments <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id29" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">27</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you are completely new to LAMMPS, I recommend that
@@ -331,20 +333,18 @@ See the <a class="reference internal" href="../../non-tutorials/contact-me.html#
 <div class="version docutils container">
 <p>This tutorial is compatible with the 2Aug2023 LAMMPS version.</p>
 </div>
-<section id="preparing-water-and-peg-separately">
-<h2>Preparing water and PEG separately<a class="headerlink" href="#preparing-water-and-peg-separately" title="Link to this heading">¶</a></h2>
+<section id="preparing-the-water-reservoir">
+<h2>Preparing the water reservoir<a class="headerlink" href="#preparing-the-water-reservoir" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>In this tutorial, the water is prepared separately
-from the PEG molecule. The PEG and water will be merged later.
-The SPC/Fw model for water is used <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id19" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">26</a>]</span>, which is a flexible
-variant of the rigid SPC model <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id18" title="Herman JC Berendsen, James PM Postma, Wilfred F van Gunsteren, and Jan Hermans. Interaction models for water in relation to protein hydration. In Intermolecular forces: proceedings of the fourteenth Jerusalem symposium on quantum chemistry and biochemistry held in jerusalem, israel, april 13–16, 1981, 331–342. Springer, 1981.">27</a>]</span>.</p>
-</div>
-<section id="the-water">
-<h3>The water<a class="headerlink" href="#the-water" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
-<p>As a first step, a rectangular box of water is created and
+<p>In this tutorial, the water reservoir is first prepared in the absence of
+polymer. A rectangular box of water is created and
 equilibrated at ambient temperature and ambient pressure.
-Create a folder named <em>pureH2O/</em>. Inside this folder, create
+The SPC/Fw water model is used <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id21" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">25</a>]</span>, which is
+a flexible variant of the rigid SPC (simple point charge)
+model <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id20" title="Herman JC Berendsen, James PM Postma, Wilfred F van Gunsteren, and Jan Hermans. Interaction models for water in relation to protein hydration. In Intermolecular forces: proceedings of the fourteenth Jerusalem symposium on quantum chemistry and biochemistry held in jerusalem, israel, april 13–16, 1981, 331–342. Springer, 1981.">28</a>]</span>.</p>
+</div>
+<div class="justify docutils container">
+<p>Create a folder named <em>pureH2O/</em>. Inside this folder, create
 an empty text file named <em>input.lammps</em>. Copy the following
 lines in it:</p>
 </div>
@@ -363,7 +363,7 @@ lines in it:</p>
 mole, distances in Ångstroms, time in femtoseconds, energies
 in Kcal/mole. With the <em>atom_style full</em>, each atom is a dot
 with a mass and a charge that can be
-linked by bonds, angles, dihedrals and impropers. The <em>bond_style</em>,
+linked by bonds, angles, dihedrals and/or impropers. The <em>bond_style</em>,
 <em>angle_style</em>, and <em>dihedral_style</em> commands define the
 potentials for the bonds, angles, and dihedrals used in the simulation,
 here <em>harmonic</em>.</p>
@@ -385,9 +385,9 @@ the first neighbors within a molecule do not
 interact directly through LJ or Coulomb potential. Here, since we
 use <em>lj 0.0 0.0 0.5</em> and <em>coul 0.0 0.0 1.0</em>, the first and second
 neighbors in a molecule only interact through direct bond interactions.
-For the third neighbor (here third neighbor only concerns the PEG molecule, not the water),
-only half of the LJ interaction will be taken into account, and the full Coulomb interaction
-will be used.</p>
+For the third neighbor (here third neighbor only concerns the PEG molecule,
+not the water), only half of the LJ interaction will be taken into account,
+and the full Coulomb interaction will be used.</p>
 </div>
 <div class="justify docutils container">
 <p>With the <em>pair_style</em> named <em>lj/cut/coul/long</em>, atoms
@@ -418,23 +418,24 @@ between particles into the sum of short-range
 interactions, which are computed by direct
 particle-particle summation, and long-range interactions,
 which are calculated by solving Poisson’s equation using
-periodic boundary conditions (PBCs) <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id11" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">24</a>]</span>.</p>
+periodic boundary conditions (PBCs) <span id="id7">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id11" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">26</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
-<p>Then, let us create a 3D simulation box of dimensions <span class="math notranslate nohighlight">\(3 \times 3 \times 3 \; \text{nm}^3\)</span>,
+<p>Then, let us create a 3D simulation box of dimensions <span class="math notranslate nohighlight">\(9 \times 3 \times 3 \; \text{nm}^3\)</span>,
 and make space for 9 atom types (2 for
-the water molecule, and 7 for the PEG molecule), 6 bond types, 15
-angle types, and 3 dihedral types.
+the water molecule, and 7 for the polymer molecule), 7 bond types, 8
+angle types, and 4 dihedral types.
 Copy the following lines into <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">45</span><span class="w"> </span><span class="m">45</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span>
 <span class="k">create_box </span><span class="nv nv-Identifier">9</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">dihedral</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span>
+<span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">dihedral</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">extra</span><span class="o">/</span><span class="n">dihedral</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">14</span>
 </pre></div>
 </div>
 <div class="info admonition">
@@ -442,8 +443,9 @@ Copy the following lines into <em>input.lammps</em>:</p>
 <p>The <em>extra/x/per/atom</em> commands are here for
 memory allocation. These commands ensure that enough memory space is left for a
 certain number of attributes for each atom. We won’t worry
-about those commands in this tutorial, just keep that in mind if one day you see the following
-error message <em>ERROR: Molecule topology/atom exceeds system topology/atom</em>.</p>
+about those commands in this tutorial, just keep that in mind if one day
+you see the following error
+message <em>ERROR: Molecule topology/atom exceeds system topology/atom</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us create a <em>PARM.lammps</em> file containing all the
@@ -459,21 +461,21 @@ next to the <em>pureH2O/</em> folder.</p>
 </div>
 <div class="justify docutils container">
 <p>Within <em>PARM.lammps</em>, the <em>mass</em> and <em>pair_coeff</em> of atoms
-of type 8 and 9 are for water, while
-those of atoms type 1 to 7 are for the PEG
-molecule. Similarly, the <em>bond_coeff 6</em> and
-<em>angle_coeff 15</em> are for water, while all
-the other parameters are for the PEG.</p>
+of types 8 and 9 are for water and the
+atoms of types 1 to 7 are for the polymer
+molecule. Similarly, the <em>bond_coeff 7</em> and
+<em>angle_coeff 8</em> are for water, while all
+the other parameters are for the polymer.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us create water molecules. To do so, let us
 define what a water molecule is using a molecule <em>template</em> called
-<em>H2O-SPCFw.mol</em>, and then randomly create 350 molecules.
+<em>H2O-SPCFw.mol</em>, and then randomly create 1050 molecules.
 Add the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O</span><span class="o">-</span><span class="n">SPCFw.mol</span>
-<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">350</span><span class="w"> </span><span class="m">45615</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">    </span><span class="n">h2omol</span><span class="w"> </span><span class="m">14756</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">1050</span><span class="w"> </span><span class="m">87910</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">h2omol</span><span class="w"> </span><span class="m">454756</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -482,7 +484,7 @@ placed exactly in the same position, as this would cause the simulation to
 crash. The <em>maxtry 50</em> asks LAMMPS to try at most
 50 times to insert the molecules, which is useful in case some
 insertion attempts are rejected due to overlap. In some cases, depending on
-the system and on the values of <em>overlap</em>
+the system and the values of <em>overlap</em>
 and <em>maxtry</em>, LAMMPS may not create the desired number of molecules.
 Always check the number of created atoms in the <em>log</em> file after
 starting the simulation:</p>
@@ -503,10 +505,11 @@ information of a water molecule, such as the number of atoms,
 the id of the atoms that are connected by bonds, by angles, etc.</p>
 </div>
 <div class="justify docutils container">
-<p>Then, let us organize the atoms of type 8 and 9 of the water molecules in a group named
-<em>H2O</em>, and then perform a small energy minimization. The energy minimization
-is mandatory here given the small <em>overlap</em> value of 1 Ångstrom chosen in the <em>create_atoms</em>
-command. Add the following lines to <em>input.lammps</em>:</p>
+<p>Then, let us organize the atoms of types 8 and 9 of the water molecules
+in a group named <em>H2O</em> and perform a small energy minimization. The
+energy minimization is mandatory here given the small <em>overlap</em> value
+of 1 Ångstrom chosen in the <em>create_atoms</em> command. Add the following lines
+to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">9</span>
 <span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
@@ -564,21 +567,17 @@ the underscore must be used.</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, let us set the timestep to 1.0 fs,
-and run the simulation for 50 ps by adding the
+and run the simulation for 20 ps by adding the
 following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">run</span><span class="w"> </span><span class="m">50000</span>
-
-<span class="k">replicate</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">run</span><span class="w"> </span><span class="m">20000</span>
 
 <span class="k">write_data </span><span class="nv nv-Identifier">H2O.data</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The <em>replicate</em> command is used to replicate the final cubic box three
-times along the <em>x</em> direction, thus creating a rectangular box of water
-just before the final state is written into <em>H2O.data</em>.</p>
+<p>The final state is written into <em>H2O.data</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you open the <em>dump.lammpstrj</em> file using VMD, you should
@@ -591,13 +590,12 @@ see the system quickly reaching its equilibrium volume and density.</p>
 <img alt="Curves showing the equilibration of the water reservoir" class="only-dark" src="../../_images/water-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Water reservoir after equilibration and after
-the <em>replicate 3 1 1</em> command. Oxygen atoms are in red, and
+<p>Figure: Water reservoir after equilibration. Oxygen atoms are in red, and
 hydrogen atoms are in white.</p>
 </div>
 <div class="justify docutils container">
 <p>You can also open the <em>density.dat</em> file to ensure that the system converged
-toward an equilibrated liquid water system during the 50 ps of simulation.</p>
+toward an equilibrated liquid water system during the 20 ps of simulation.</p>
 </div>
 <figure class="align-default">
 <img alt="Curves showing the equilibration of the water reservoir" class="only-light" src="../../_images/density_H2O-light.png" />
@@ -615,97 +613,22 @@ a plateau after <span class="math notranslate nohighlight">\(\approx 10\,\text{p
 equilibrated and use it to continue with the tutorial.</p>
 </div>
 </section>
-<section id="the-peg-molecule">
-<h3>The PEG molecule<a class="headerlink" href="#the-peg-molecule" title="Link to this heading">¶</a></h3>
+<section id="solvating-the-peg-in-water">
+<h2>Solvating the PEG in water<a class="headerlink" href="#solvating-the-peg-in-water" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>Now that the water box is ready, let us prepare the PEG
-molecule in an empty box. Create a second folder next to <em>pureH2O/</em>, call it
-<em>singlePEG/</em>, and create a new blank file called <em>input.lammps</em>
-in it. Copy the same first lines as previously:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
-<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
-<span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
-<span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
-<span class="k">dihedral_style</span><span class="w"> </span><span class="n">harmonic</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">12</span>
-<span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="w"> </span><span class="m">1e-5</span>
-<span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">coul</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">dihedral</span><span class="w"> </span><span class="n">yes</span>
-</pre></div>
+<p>Once the water reservoir is equilibrated, we can safely
+include the PEG polymer in the water before performing the pull experiment
+on the polymer.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us read the original positions for the atoms of the PEG molecule, as
-well as the same parameter file as previously, by adding the following
-lines to <em>input.lammps</em>:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">init.data</span>
-<span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
-</pre></div>
+<p>The PEG molecule topology was downloaded from the <a href="https://atb.uq.edu.au/" target="_blank">ATB</a>
+repository <span id="id8">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id39" title="Alpeshkumar K Malde, Le Zuo, Matthew Breeze, Martin Stroet, David Poger, Pramod C Nair, Chris Oostenbrink, and Alan E Mark. An automated force field topology builder (ATB) and repository: version 1.0. Journal of chemical theory and computation, 7(12):4026–4037, 2011.">29</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id40" title="Chris Oostenbrink, Alessandra Villa, Alan E Mark, and Wilfred F Van Gunsteren. A biomolecular force field based on the free enthalpy of hydration and solvation: the GROMOS force-field parameter sets 53A5 and 53A6. Journal of computational chemistry, 25(13):1656–1676, 2004.">30</a>]</span>.
+It has a formula <span class="math notranslate nohighlight">\(\text{C}_{28}\text{H}_{58}\text{O}_{15}\)</span>,
+and the parameters are taken from
+the GROMOS 54A7 force field <span id="id9">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id17" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F Van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">24</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
-<p><a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/singlePEG/init.data" target="_blank">Download</a> the init.data file and save it in the
-<em>singlePEG/</em> folder. It contains the initial parameters of the PEG molecules
-(atoms, bonds, charges, etc.), and was downloaded from the <a href="https://atb.uq.edu.au/" target="_blank">ATB</a>
-repository <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id37" title="Alpeshkumar K Malde, Le Zuo, Matthew Breeze, Martin Stroet, David Poger, Pramod C Nair, Chris Oostenbrink, and Alan E Mark. An automated force field topology builder (ATB) and repository: version 1.0. Journal of chemical theory and computation, 7(12):4026–4037, 2011.">28</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id38" title="Chris Oostenbrink, Alessandra Villa, Alan E Mark, and Wilfred F Van Gunsteren. A biomolecular force field based on the free enthalpy of hydration and solvation: the GROMOS force-field parameter sets 53A5 and 53A6. Journal of computational chemistry, 25(13):1656–1676, 2004.">29</a>]</span>.</p>
-</div>
-<div class="justify docutils container">
-<p>Let us print the atom positions and thermodynamic information very
-frequently (because we anticipate that the energy minimization will be
-short). Add the following lines to <em>input.lammps</em>:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
-<span class="k">thermo</span><span class="w"> </span><span class="m">1</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Next, let us perform a minimization of energy. Add the following line
-to <em>input.lammps</em>:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>After the minimization, the high-frequency dump command is canceled, and a
-new dump command with a lower frequency is used (see below). We also reset
-the time to 0 with <em>reset_timestep</em> command:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">undump </span><span class="nv nv-Identifier">mydmp</span>
-<span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>The PEG is then equilibrated in the NVT ensemble (fix NVE + temperature
-control = NVT). No box relaxation is required as the PEG is in a vacuum:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Let us print the temperature in a file by also adding the following
-lines to <em>input.lammps</em>:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
-<span class="k">dump_modify </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="n">append</span><span class="w"> </span><span class="n">yes</span>
-<span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
-<span class="k">variable </span><span class="nv nv-Identifier">mytemp</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">temp</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_mytemp</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">temperature.dat</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>The <em>dump_modify</em> ensures that the coordinates are written
-in the already existing <em>dump.lammpstrj</em> file.
-Finally, let us run the simulation for a very short time (10 ps)
-by adding the following lines to <em>input.lammps</em>:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
-<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
-<span class="k">write_data </span><span class="nv nv-Identifier">PEG.data</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>If you open the <em>dump.lammpstrj</em> file using VMD, you can see the PEG molecule
-gently equilibrating until reaching a reasonable state.</p>
+<p>The PEG molecule</p>
 </div>
 <figure class="align-default">
 <img alt="PEG in vacuum as simulated with LAMMPS" class="only-light" src="../../_images/singlePEG-light.png" />
@@ -715,42 +638,10 @@ gently equilibrating until reaching a reasonable state.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: The PEG molecule in a vacuum. The carbon atoms are in gray,
-the oxygen atoms in red, and the hydrogen atoms in white. See the
-corresponding <a href="https://youtu.be/E3nV66ErMo8" target="_blank">video</a>.</p>
+the oxygen atoms in red, and the hydrogen atoms in white.</p>
 </div>
 <div class="justify docutils container">
-<p>Alternatively, you can <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/singlePEG/PEG.data" target="_blank">download</a>
-the PEG molecule I have equilibrated and continue with the tutorial.</p>
-</div>
-</section>
-</section>
-<section id="solvated-peg">
-<h2>Solvated PEG<a class="headerlink" href="#solvated-peg" title="Link to this heading">¶</a></h2>
-<div class="justify docutils container">
-<p>Once both the water and the PEG are equilibrated separately, we can safely
-merge the two systems before performing the pull experiment on the polymer.</p>
-</div>
-<section id="mixing-the-peg-with-water">
-<h3>Mixing the PEG with water<a class="headerlink" href="#mixing-the-peg-with-water" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
-<p>To merge the two systems, let us:</p>
-<ul class="simple">
-<li><ol class="arabic simple">
-<li><p>import both previously generated data files (PEG.data and H2O.data) into the same simulation,</p></li>
-</ol>
-</li>
-<li><ol class="arabic simple" start="2">
-<li><p>delete the water molecules that are overlapping with the PEG molecule, and</p></li>
-</ol>
-</li>
-<li><ol class="arabic simple" start="3">
-<li><p>re-equilibrate the new system.</p></li>
-</ol>
-</li>
-</ul>
-</div>
-<div class="justify docutils container">
-<p>Create a third folder alongside <em>pureH2O/</em> and <em>singlePEG/</em>,
+<p>Create a second folder alongside <em>pureH2O/</em>
 and call it <em>mergePEGH2O/</em>. Create a new blank file in it,
 called <em>input.lammps</em>. Within <em>input.lammps</em>, copy the same first lines as
 previously:</p>
@@ -766,29 +657,25 @@ previously:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Then, import the two previously generated data files <em>H2O.data</em>
-and <em>PEG.data</em>, as well as the <em>PARM.lammps</em> file
-by adding that to <em>input.lammps</em>:</p>
+<p>Then, import the previously generated data file <em>H2O.data</em>
+as well as the <em>PARM.lammps</em> file:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">pureH2O</span><span class="o">/</span><span class="n">H2O.data</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="n">extra</span><span class="o">/</span><span class="n">dihedral</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">9</span>
-<span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">singlePEG</span><span class="o">/</span><span class="n">PEG.data</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">append</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="w">    </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">extra</span><span class="o">/</span><span class="n">dihedral</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">14</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>When using the <em>read_data</em> command more than once, one needs
-to use the <em>add append</em> keyword. When doing so, the
-simulation box is initialized by the first <em>read_data</em> only, and the
-second <em>read_data</em> only imports additional atoms.</p>
+<p>Let us create a molecule called <em>pegmol</em> from the molecule <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/mergePEGH2O/PEG-GROMOS.mol" target="_blank">template</a>
+for the PEG molecule, and let us create a single molecule in the middle of
+the box:</p>
 </div>
-<div class="justify docutils container">
-<p>The <em>extra/x/per/atom</em> commands are again here for memory allocation.
-The <em>shift 25 0 0</em> that is applied to the polymer is there
-to recenter the polymer in the rectangular box by shifting its position
-by 25 Ångstroms along the <em>x</em> axis.</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">pegmol</span><span class="w"> </span><span class="n">PEG</span><span class="o">-</span><span class="n">GROMOS.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">pegmol</span><span class="w"> </span><span class="m">454756</span>
+</pre></div>
 </div>
 <div class="justify docutils container">
 <p>Let us create 2 groups to differentiate the PEG from the H2O,
@@ -812,7 +699,7 @@ simulation will crash. If the cutoff is too large, too many water molecules
 will unnecessarily be deleted.</p>
 </div>
 <div class="justify docutils container">
-<p>Finally, let us use the <em>fix NPT</em> to control the temperature, as well as
+<p>Finally, let us use the <em>fix npt</em> to control the temperature, as well as
 the pressure by allowing the box size to be rescaled along the <em>x</em> axis:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1000</span>
@@ -842,7 +729,7 @@ and volume:</p>
 <p>Finally, let us perform a short equilibration and print the
 final state in a data file. Add the following lines to the data file:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">30000</span>
 <span class="k">write_data </span><span class="nv nv-Identifier">mix.data</span>
 </pre></div>
 </div>
@@ -864,7 +751,7 @@ a transparent continuum field for clarity.</p>
 </div>
 </section>
 <section id="stretching-the-peg-molecule">
-<h3>Stretching the PEG molecule<a class="headerlink" href="#stretching-the-peg-molecule" title="Link to this heading">¶</a></h3>
+<h2>Stretching the PEG molecule<a class="headerlink" href="#stretching-the-peg-molecule" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
 <p>Here, a constant forcing is applied to the two ends of the PEG molecule
 until it stretches. Create a new folder next to the 3 previously created
@@ -1008,7 +895,6 @@ are used in these tutorials from <a href="https://github.com/lammpstutorials/lam
 This repository also contains the full solutions to the exercises.</p>
 </div>
 </section>
-</section>
 <section id="going-further-with-exercises">
 <h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
@@ -1146,16 +1032,9 @@ and for an unstretched PEG molecule.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Polymer in water</a><ul>
-<li><a class="reference internal" href="#preparing-water-and-peg-separately">Preparing water and PEG separately</a><ul>
-<li><a class="reference internal" href="#the-water">The water</a></li>
-<li><a class="reference internal" href="#the-peg-molecule">The PEG molecule</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#solvated-peg">Solvated PEG</a><ul>
-<li><a class="reference internal" href="#mixing-the-peg-with-water">Mixing the PEG with water</a></li>
+<li><a class="reference internal" href="#preparing-the-water-reservoir">Preparing the water reservoir</a></li>
+<li><a class="reference internal" href="#solvating-the-peg-in-water">Solvating the PEG in water</a></li>
 <li><a class="reference internal" href="#stretching-the-peg-molecule">Stretching the PEG molecule</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
 <li><a class="reference internal" href="#extract-the-radial-distribution-function">Extract the radial distribution function</a></li>
 <li><a class="reference internal" href="#add-salt-to-the-system">Add salt to the system</a></li>

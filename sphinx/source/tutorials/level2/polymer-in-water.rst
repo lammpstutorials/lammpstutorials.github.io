@@ -5,40 +5,42 @@ Polymer in water
 
 .. container:: hatnote
 
-   Solvating and stretching a small polymer molecule
+    Solvating and stretching a small polymer molecule
 
 .. figure:: ../figures/level2/polymer-in-water/PEG-dark.webp
-    :alt: Movie of a peg molecule in water as simulated with LAMMPS
+    :alt: Movie of a peg polymer molecule in water as simulated with LAMMPS
     :height: 250
     :align: right
     :class: only-dark
 
 .. figure:: ../figures/level2/polymer-in-water/PEG-light.webp
-    :alt: Movie of a peg molecule in water as simulated with LAMMPS
+    :alt: Movie of a peg polymer molecule in water as simulated with LAMMPS
     :height: 250
     :align: right
     :class: only-light
 
 ..  container:: justify
 
-   The goal of this tutorial is to use LAMMPS and solvate a small
-   hydrophilic polymer (PEG - PolyEthylene Glycol) in a reservoir of water. 
+    The goal of this tutorial is to use LAMMPS and solvate a small
+    hydrophilic polymer (PEG - PolyEthylene Glycol) in a reservoir of water. 
 
 ..  container:: justify
 
-   An all-atom description is used for both PEG and water and the long
-   range Coulomb interactions are solved using the PPPM solver :cite:`luty1996calculating`.    
-   Once the PEG and water system are properly
-   equilibrated at the desired temperature and pressure,
-   a constant stretching force is applied to both
-   ends of the polymer, and the evolution of its length
-   is measured as a function of time.
+    An all-atom description is used for both PEG (GROMOS 54A7 force
+    field :cite:`schmid2011definition`) and water
+    (SPC flexible model :cite:`wu2006flexible`) and the long
+    range Coulomb interactions are solved using the PPPM solver :cite:`luty1996calculating`.    
+    Once the water reservoir is properly
+    equilibrated at the desired temperature and pressure, the polymer molecule
+    is added and a constant stretching force is applied to both
+    ends of the polymer. The evolution of the polymer length
+    is measured as a function of time.
 
 ..  container:: justify
 
-   This tutorial was inspired by a |Liese2017| by Liese and coworkers, in which
-   molecular dynamics simulations are
-   compared with force spectroscopy experiments :cite:`liese2017hydration`.
+    This tutorial was inspired by a |Liese2017| by Liese and coworkers, in which
+    molecular dynamics simulations are
+    compared with force spectroscopy experiments :cite:`liese2017hydration`.
 
 .. |Liese2017| raw:: html
 
@@ -50,23 +52,20 @@ Polymer in water
 
 .. include:: ../../non-tutorials/2Aug2023.rst
 
-Preparing water and PEG separately
-==================================
+Preparing the water reservoir
+=============================
 
 ..  container:: justify
 
-    In this tutorial, the water is prepared separately
-    from the PEG molecule. The PEG and water will be merged later.
-    The SPC/Fw model for water is used :cite:`wu2006flexible`, which is a flexible
-    variant of the rigid SPC model :cite:`berendsen1981interaction`.
-
-The water
----------
-
-..  container:: justify
-
-    As a first step, a rectangular box of water is created and
+    In this tutorial, the water reservoir is first prepared in the absence of
+    polymer. A rectangular box of water is created and
     equilibrated at ambient temperature and ambient pressure.
+    The SPC/Fw water model is used :cite:`wu2006flexible`, which is
+    a flexible variant of the rigid SPC (simple point charge)
+    model :cite:`berendsen1981interaction`.
+
+..  container:: justify
+
     Create a folder named *pureH2O/*. Inside this folder, create
     an empty text file named *input.lammps*. Copy the following
     lines in it:
@@ -88,7 +87,7 @@ The water
     mole, distances in Ångstroms, time in femtoseconds, energies
     in Kcal/mole. With the *atom_style full*, each atom is a dot
     with a mass and a charge that can be
-    linked by bonds, angles, dihedrals and impropers. The *bond_style*,
+    linked by bonds, angles, dihedrals and/or impropers. The *bond_style*,
     *angle_style*, and *dihedral_style* commands define the
     potentials for the bonds, angles, and dihedrals used in the simulation,
     here *harmonic*.
@@ -121,9 +120,9 @@ The water
     interact directly through LJ or Coulomb potential. Here, since we
     use *lj 0.0 0.0 0.5* and *coul 0.0 0.0 1.0*, the first and second
     neighbors in a molecule only interact through direct bond interactions.
-    For the third neighbor (here third neighbor only concerns the PEG molecule, not the water),
-    only half of the LJ interaction will be taken into account, and the full Coulomb interaction
-    will be used.   
+    For the third neighbor (here third neighbor only concerns the PEG molecule,
+    not the water), only half of the LJ interaction will be taken into account,
+    and the full Coulomb interaction will be used.   
 
 ..  container:: justify
 
@@ -166,22 +165,23 @@ The water
 
 ..  container:: justify
 
-    Then, let us create a 3D simulation box of dimensions :math:`3 \times 3 \times 3 \; \text{nm}^3`,
+    Then, let us create a 3D simulation box of dimensions :math:`9 \times 3 \times 3 \; \text{nm}^3`,
     and make space for 9 atom types (2 for
-    the water molecule, and 7 for the PEG molecule), 6 bond types, 15
-    angle types, and 3 dihedral types.
+    the water molecule, and 7 for the polymer molecule), 7 bond types, 8
+    angle types, and 4 dihedral types.
     Copy the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
-    region box block -15 15 -15 15 -15 15
+    region box block -45 45 -15 15 -15 15
     create_box 9 box &
-    bond/types 6 &
-    angle/types 15 &
-    dihedral/types 3 &
-    extra/bond/per/atom 2 &
-    extra/angle/per/atom 1 &
-    extra/special/per/atom 2
+    bond/types 7 &
+    angle/types 8 &
+    dihedral/types 4 &
+    extra/bond/per/atom 3 &
+    extra/angle/per/atom 6 &
+    extra/dihedral/per/atom 10 &
+    extra/special/per/atom 14
 
 .. admonition:: About extra per atom commands
     :class: info
@@ -189,8 +189,9 @@ The water
     The *extra/x/per/atom* commands are here for
     memory allocation. These commands ensure that enough memory space is left for a
     certain number of attributes for each atom. We won't worry
-    about those commands in this tutorial, just keep that in mind if one day you see the following
-    error message *ERROR: Molecule topology/atom exceeds system topology/atom*.
+    about those commands in this tutorial, just keep that in mind if one day
+    you see the following error
+    message *ERROR: Molecule topology/atom exceeds system topology/atom*.
 
 ..  container:: justify
 
@@ -214,24 +215,24 @@ The water
 ..  container:: justify
 
     Within *PARM.lammps*, the *mass* and *pair_coeff* of atoms
-    of type 8 and 9 are for water, while 
-    those of atoms type 1 to 7 are for the PEG
-    molecule. Similarly, the *bond_coeff 6* and 
-    *angle_coeff 15* are for water, while all
-    the other parameters are for the PEG.
+    of types 8 and 9 are for water and the 
+    atoms of types 1 to 7 are for the polymer
+    molecule. Similarly, the *bond_coeff 7* and 
+    *angle_coeff 8* are for water, while all
+    the other parameters are for the polymer.
 
 ..  container:: justify
 
     Let us create water molecules. To do so, let us
     define what a water molecule is using a molecule *template* called
-    *H2O-SPCFw.mol*, and then randomly create 350 molecules.
+    *H2O-SPCFw.mol*, and then randomly create 1050 molecules.
     Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
     molecule h2omol H2O-SPCFw.mol
-    create_atoms 0 random 350 45615 NULL mol &
-        h2omol 14756 overlap 1 maxtry 50
+    create_atoms 0 random 1050 87910 NULL mol &
+        h2omol 454756 overlap 1.0 maxtry 50
 
 ..  container:: justify
 
@@ -240,7 +241,7 @@ The water
     crash. The *maxtry 50* asks LAMMPS to try at most
     50 times to insert the molecules, which is useful in case some
     insertion attempts are rejected due to overlap. In some cases, depending on
-    the system and on the values of *overlap*
+    the system and the values of *overlap*
     and *maxtry*, LAMMPS may not create the desired number of molecules.
     Always check the number of created atoms in the *log* file after
     starting the simulation:
@@ -269,10 +270,11 @@ The water
 
 ..  container:: justify
 
-    Then, let us organize the atoms of type 8 and 9 of the water molecules in a group named
-    *H2O*, and then perform a small energy minimization. The energy minimization
-    is mandatory here given the small *overlap* value of 1 Ångstrom chosen in the *create_atoms*
-    command. Add the following lines to *input.lammps*:
+    Then, let us organize the atoms of types 8 and 9 of the water molecules
+    in a group named *H2O* and perform a small energy minimization. The
+    energy minimization is mandatory here given the small *overlap* value
+    of 1 Ångstrom chosen in the *create_atoms* command. Add the following lines
+    to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -313,15 +315,15 @@ The water
 
 ..  code-block:: lammps
 
-   dump mydmp all atom 1000 dump.lammpstrj
-   variable mytemp equal temp
-   variable myvol equal vol
-   fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
-   fix myat2 all ave/time 10 10 100 v_myvol file volume.dat
-   variable myoxy equal count(H2O)/3
-   variable mydensity equal ${myoxy}/v_myvol
-   fix myat3 all ave/time 10 10 100 v_mydensity file density.dat
-   thermo 1000
+    dump mydmp all atom 1000 dump.lammpstrj
+    variable mytemp equal temp
+    variable myvol equal vol
+    fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
+    fix myat2 all ave/time 10 10 100 v_myvol file volume.dat
+    variable myoxy equal count(H2O)/3
+    variable mydensity equal ${myoxy}/v_myvol
+    fix myat3 all ave/time 10 10 100 v_mydensity file density.dat
+    thermo 1000
 
 ..  container:: justify
 
@@ -340,28 +342,24 @@ The water
 ..  container:: justify
 
     Finally, let us set the timestep to 1.0 fs,
-    and run the simulation for 50 ps by adding the
+    and run the simulation for 20 ps by adding the
     following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
     timestep 1.0
-    run 50000
-
-    replicate 3 1 1
+    run 20000
 
     write_data H2O.data
 
 ..  container:: justify
 
-    The *replicate* command is used to replicate the final cubic box three
-    times along the *x* direction, thus creating a rectangular box of water 
-    just before the final state is written into *H2O.data*.
+    The final state is written into *H2O.data*.
 
 ..  container:: justify
 
-   If you open the *dump.lammpstrj* file using VMD, you should
-   see the system quickly reaching its equilibrium volume and density.
+    If you open the *dump.lammpstrj* file using VMD, you should
+    see the system quickly reaching its equilibrium volume and density.
 
 .. figure:: ../figures/level2/polymer-in-water/water-light.png
     :alt: Curves showing the equilibration of the water reservoir
@@ -373,14 +371,13 @@ The water
 
 .. container:: figurelegend
 
-    Figure: Water reservoir after equilibration and after 
-    the *replicate 3 1 1* command. Oxygen atoms are in red, and
+    Figure: Water reservoir after equilibration. Oxygen atoms are in red, and
     hydrogen atoms are in white.
 
 ..  container:: justify
 
     You can also open the *density.dat* file to ensure that the system converged
-    toward an equilibrated liquid water system during the 50 ps of simulation.
+    toward an equilibrated liquid water system during the 20 ps of simulation.
 
 .. figure:: ../figures/level2/polymer-in-water/density_H2O-light.png
     :alt: Curves showing the equilibration of the water reservoir
@@ -398,55 +395,29 @@ The water
 
 ..  container:: justify
 
-   If needed, you can |download_H2O.data| the water reservoir I have
-   equilibrated and use it to continue with the tutorial.
+    If needed, you can |download_H2O.data| the water reservoir I have
+    equilibrated and use it to continue with the tutorial.
 
 .. |download_H2O.data| raw:: html
 
-   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a>
+    <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a>
 
-The PEG molecule
-----------------
-
-..  container:: justify
-
-    Now that the water box is ready, let us prepare the PEG
-    molecule in an empty box. Create a second folder next to *pureH2O/*, call it
-    *singlePEG/*, and create a new blank file called *input.lammps*
-    in it. Copy the same first lines as previously:
-
-..  code-block:: lammps
-
-    units real
-    atom_style full
-    bond_style harmonic
-    angle_style harmonic
-    dihedral_style harmonic
-    pair_style lj/cut/coul/long 12
-    kspace_style pppm 1e-5
-    special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
+Solvating the PEG in water
+==========================
 
 ..  container:: justify
 
-    Let us read the original positions for the atoms of the PEG molecule, as
-    well as the same parameter file as previously, by adding the following 
-    lines to *input.lammps*:
-
-..  code-block:: lammps
-
-    read_data init.data
-    include ../PARM.lammps
+    Once the water reservoir is equilibrated, we can safely
+    include the PEG polymer in the water before performing the pull experiment
+    on the polymer.
 
 ..  container:: justify
 
-   |download_init.data| the init.data file and save it in the
-   *singlePEG/* folder. It contains the initial parameters of the PEG molecules
-   (atoms, bonds, charges, etc.), and was downloaded from the |atb_repo|
-   repository :cite:`malde2011automated, oostenbrink2004biomolecular`.
-
-.. |download_init.data| raw:: html
-
-   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/singlePEG/init.data" target="_blank">Download</a>
+    The PEG molecule topology was downloaded from the |atb_repo|
+    repository :cite:`malde2011automated, oostenbrink2004biomolecular`.
+    It has a formula :math:`\text{C}_{28}\text{H}_{58}\text{O}_{15}`,
+    and the parameters are taken from
+    the GROMOS 54A7 force field :cite:`schmid2011definition`.
 
 .. |atb_repo| raw:: html
 
@@ -454,76 +425,7 @@ The PEG molecule
 
 ..  container:: justify
 
-   Let us print the atom positions and thermodynamic information very
-   frequently (because we anticipate that the energy minimization will be
-   short). Add the following lines to *input.lammps*:
-
-..  code-block:: lammps
-
-    dump mydmp all atom 10 dump.lammpstrj
-    thermo 1
-
-..  container:: justify
-
-    Next, let us perform a minimization of energy. Add the following line
-    to *input.lammps*:
-
-..  code-block:: lammps
-
-    minimize 1.0e-4 1.0e-6 100 1000
-
-..  container:: justify
-
-    After the minimization, the high-frequency dump command is canceled, and a
-    new dump command with a lower frequency is used (see below). We also reset
-    the time to 0 with *reset_timestep* command:
-
-..  code-block:: lammps
-
-    undump mydmp
-    reset_timestep 0
-
-..  container:: justify
-
-    The PEG is then equilibrated in the NVT ensemble (fix NVE + temperature
-    control = NVT). No box relaxation is required as the PEG is in a vacuum:
-
-..  code-block:: lammps
-
-    fix mynve all nve
-    fix myber all temp/berendsen 300 300 100
-
-..  container:: justify
-
-    Let us print the temperature in a file by also adding the following
-    lines to *input.lammps*:
-
-..  code-block:: lammps
-
-    dump mydmp all atom 1000 dump.lammpstrj
-    dump_modify mydmp append yes
-    thermo 1000
-    variable mytemp equal temp
-    fix myat1 all ave/time 10 10 100 v_mytemp file temperature.dat
-
-..  container:: justify
-
-    The *dump_modify* ensures that the coordinates are written 
-    in the already existing *dump.lammpstrj* file. 
-    Finally, let us run the simulation for a very short time (10 ps)
-    by adding the following lines to *input.lammps*:
-
-..  code-block:: lammps
-
-    timestep 1.0
-    run 10000
-    write_data PEG.data
-
-..  container:: justify
-
-    If you open the *dump.lammpstrj* file using VMD, you can see the PEG molecule 
-    gently equilibrating until reaching a reasonable state.
-
+   The PEG molecule 
 .. figure:: ../figures/level2/polymer-in-water/singlePEG-light.png
     :alt: PEG in vacuum as simulated with LAMMPS
     :class: only-light
@@ -535,44 +437,11 @@ The PEG molecule
 ..  container:: figurelegend
 
     Figure: The PEG molecule in a vacuum. The carbon atoms are in gray,
-    the oxygen atoms in red, and the hydrogen atoms in white. See the
-    corresponding |peg_in_vacuum|.
-
-.. |peg_in_vacuum| raw:: html
-
-    <a href="https://youtu.be/E3nV66ErMo8" target="_blank">video</a>
-    
-..  container:: justify
-
-   Alternatively, you can |download_PEG.data|
-   the PEG molecule I have equilibrated and continue with the tutorial.
-
-.. |download_PEG.data| raw:: html
-
-   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/singlePEG/PEG.data" target="_blank">download</a>
-
-Solvated PEG
-============
+    the oxygen atoms in red, and the hydrogen atoms in white.
 
 ..  container:: justify
 
-    Once both the water and the PEG are equilibrated separately, we can safely
-    merge the two systems before performing the pull experiment on the polymer.
-
-Mixing the PEG with water
--------------------------
-
-..  container:: justify
-
-    To merge the two systems, let us:
-
-    - (1) import both previously generated data files (PEG.data and H2O.data) into the same simulation,
-    - (2) delete the water molecules that are overlapping with the PEG molecule, and 
-    - (3) re-equilibrate the new system. 
-
-..  container:: justify
-
-    Create a third folder alongside *pureH2O/* and *singlePEG/*,
+    Create a second folder alongside *pureH2O/*
     and call it *mergePEGH2O/*. Create a new blank file in it,
     called *input.lammps*. Within *input.lammps*, copy the same first lines as
     previously:
@@ -590,32 +459,32 @@ Mixing the PEG with water
 
 ..  container:: justify
 
-    Then, import the two previously generated data files *H2O.data*
-    and *PEG.data*, as well as the *PARM.lammps* file
-    by adding that to *input.lammps*:
+    Then, import the previously generated data file *H2O.data*
+    as well as the *PARM.lammps* file:
 
 ..  code-block:: lammps
 
     read_data ../pureH2O/H2O.data &
-    extra/bond/per/atom 2 &
-    extra/angle/per/atom 5 &
-    extra/dihedral/per/atom 9
-    read_data ../singlePEG/PEG.data add append shift 25 0 0
+        extra/bond/per/atom 3 &
+        extra/angle/per/atom 6 &
+        extra/dihedral/per/atom 10 &
+        extra/special/per/atom 14
     include ../PARM.lammps
 
 ..  container:: justify
 
-    When using the *read_data* command more than once, one needs
-    to use the *add append* keyword. When doing so, the
-    simulation box is initialized by the first *read_data* only, and the 
-    second *read_data* only imports additional atoms.
+    Let us create a molecule called *pegmol* from the molecule |download_PEG|
+    for the PEG molecule, and let us create a single molecule in the middle of
+    the box:
 
-..  container:: justify
+..  code-block:: lammps
 
-    The *extra/x/per/atom* commands are again here for memory allocation.
-    The *shift 25 0 0* that is applied to the polymer is there
-    to recenter the polymer in the rectangular box by shifting its position 
-    by 25 Ångstroms along the *x* axis.
+    molecule pegmol PEG-GROMOS.mol
+    create_atoms 0 single 0 0 0 mol pegmol 454756
+
+.. |download_PEG| raw:: html
+
+   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/mergePEGH2O/PEG-GROMOS.mol" target="_blank">template</a>
 
 ..  container:: justify
 
@@ -645,7 +514,7 @@ Mixing the PEG with water
 
 ..  container:: justify
 
-    Finally, let us use the *fix NPT* to control the temperature, as well as
+    Finally, let us use the *fix npt* to control the temperature, as well as
     the pressure by allowing the box size to be rescaled along the *x* axis:
 
 ..  code-block:: lammps
@@ -683,7 +552,7 @@ Mixing the PEG with water
 
 ..  code-block:: lammps
 
-    run 10000
+    run 30000
     write_data mix.data
 
 ..  container:: justify
@@ -707,7 +576,7 @@ Mixing the PEG with water
    a transparent continuum field for clarity.
 
 Stretching the PEG molecule
----------------------------
+===========================
 
 ..  container:: justify
 

@@ -30,19 +30,20 @@ pair_style lj/cut/coul/long 12
 kspace_style pppm 1e-5
 special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes
 
-region box block -15 15 -15 15 -15 15
+region box block -45 45 -15 15 -15 15
 create_box 9 box &
-bond/types 6 &
-angle/types 15 &
-dihedral/types 3 &
-extra/bond/per/atom 2 &
-extra/angle/per/atom 1 &
-extra/special/per/atom 2
+bond/types 7 &
+angle/types 8 &
+dihedral/types 4 &
+extra/bond/per/atom 3 &
+extra/angle/per/atom 6 &
+extra/dihedral/per/atom 10 &
+extra/special/per/atom 14
 
 include ../PARM.lammps
 
 molecule h2omol H2O-SPCFw.mol
-create_atoms 0 random 350 456415 NULL mol h2omol 454756 overlap 1.0 maxtry 50
+create_atoms 0 random 1050 87910 NULL mol h2omol 454756 overlap 1.0 maxtry 50
 group H2O type 8 9
 minimize 1.0e-4 1.0e-6 100 1000
 reset_timestep 0
@@ -60,8 +61,6 @@ fix myat3 all ave/time 10 10 100 v_mydensity file density.dat
 
 timestep 1.0
 thermo 1000
-run 50000
-
-replicate 3 1 1
+run 20000
 
 write_data H2O.data
