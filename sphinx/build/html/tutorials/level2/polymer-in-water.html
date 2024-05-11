@@ -307,7 +307,7 @@ hydrophilic polymer (PEG - PolyEthylene Glycol) in a reservoir of water.</p>
 </div>
 <div class="justify docutils container">
 <p>An all-atom description is used for both PEG and water and the long
-range Coulomb interactions are solved using the PPPM solver.
+range Coulomb interactions are solved using the PPPM solver <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id11" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">24</a>]</span>.
 Once the PEG and water system are properly
 equilibrated at the desired temperature and pressure,
 a constant stretching force is applied to both
@@ -317,7 +317,7 @@ is measured as a function of time.</p>
 <div class="justify docutils container">
 <p>This tutorial was inspired by a <a href="https://doi.org/10.1021/acsnano.6b07071" target="_blank">publication</a> by Liese and coworkers, in which
 molecular dynamics simulations are
-compared with force spectroscopy experiments <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id25" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">24</a>]</span>.</p>
+compared with force spectroscopy experiments <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id27" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">25</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you are completely new to LAMMPS, I recommend that
@@ -335,7 +335,9 @@ See the <a class="reference internal" href="../../non-tutorials/contact-me.html#
 <h2>Preparing water and PEG separately<a class="headerlink" href="#preparing-water-and-peg-separately" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
 <p>In this tutorial, the water is prepared separately
-from the PEG molecule. The PEG and water will be merged later.</p>
+from the PEG molecule. The PEG and water will be merged later.
+The SPC/Fw model for water is used <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id19" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">26</a>]</span>, which is a flexible
+variant of the rigid SPC model <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id18" title="Herman JC Berendsen, James PM Postma, Wilfred F van Gunsteren, and Jan Hermans. Interaction models for water in relation to protein hydration. In Intermolecular forces: proceedings of the fourteenth Jerusalem symposium on quantum chemistry and biochemistry held in jerusalem, israel, april 13–16, 1981, 331–342. Springer, 1981.">27</a>]</span>.</p>
 </div>
 <section id="the-water">
 <h3>The water<a class="headerlink" href="#the-water" title="Link to this heading">¶</a></h3>
@@ -416,13 +418,13 @@ between particles into the sum of short-range
 interactions, which are computed by direct
 particle-particle summation, and long-range interactions,
 which are calculated by solving Poisson’s equation using
-periodic boundary conditions (PBCs) <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id11" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">25</a>]</span>.</p>
+periodic boundary conditions (PBCs) <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id11" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">24</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us create a 3D simulation box of dimensions <span class="math notranslate nohighlight">\(3 \times 3 \times 3 \; \text{nm}^3\)</span>,
 and make space for 9 atom types (2 for
 the water molecule, and 7 for the PEG molecule), 6 bond types, 15
-angle types, and 3 dihedrals types.
+angle types, and 3 dihedral types.
 Copy the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span>
@@ -466,17 +468,17 @@ the other parameters are for the PEG.</p>
 <div class="justify docutils container">
 <p>Let us create water molecules. To do so, let us
 define what a water molecule is using a molecule <em>template</em> called
-<em>FlexibleH2O.txt</em>, and then randomly create 350 molecules.
+<em>H2O-SPCFw.mol</em>, and then randomly create 350 molecules.
 Add the following lines into <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">FlexibleH2O.txt</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O</span><span class="o">-</span><span class="n">SPCFw.mol</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">350</span><span class="w"> </span><span class="m">45615</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="w">    </span><span class="n">h2omol</span><span class="w"> </span><span class="m">14756</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
 <p>The <em>overlap 1</em> option of the <em>create_atoms</em> command ensures that no atoms are
-placed exactly at the same position, as this would cause the simulation to
+placed exactly in the same position, as this would cause the simulation to
 crash. The <em>maxtry 50</em> asks LAMMPS to try at most
 50 times to insert the molecules, which is useful in case some
 insertion attempts are rejected due to overlap. In some cases, depending on
@@ -493,8 +495,8 @@ starting the simulation:</p>
 appears in the <em>log</em> file.</p>
 </div>
 <div class="justify docutils container">
-<p>The molecule template named <em>FlexibleH2O.txt</em>
-can be <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/FlexibleH2O.txt" target="_blank">downloaded</a>
+<p>The molecule template named <em>H2O-SPCFw.mol</em>
+can be <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/H2O-SPCFw.mol" target="_blank">downloaded</a>
 and saved in the <em>pureH2O/</em> folder.
 This template contains the necessary structural
 information of a water molecule, such as the number of atoms,
@@ -503,7 +505,7 @@ the id of the atoms that are connected by bonds, by angles, etc.</p>
 <div class="justify docutils container">
 <p>Then, let us organize the atoms of type 8 and 9 of the water molecules in a group named
 <em>H2O</em>, and then perform a small energy minimization. The energy minimization
-is mandatory here given the small <em>overlap</em> value of 1 Angstrom chosen in the <em>create_atoms</em>
+is mandatory here given the small <em>overlap</em> value of 1 Ångstrom chosen in the <em>create_atoms</em>
 command. Add the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">9</span>
@@ -606,7 +608,7 @@ toward an equilibrated liquid water system during the 50 ps of simulation.</p>
 <div class="figurelegend docutils container">
 <p>Figure: Evolution of the density of water with time. The
 density <span class="math notranslate nohighlight">\(\rho\)</span> reaches
-a plateau after <span class="math notranslate nohighlight">\(\approx 30\,\text{ps}\)</span>.</p>
+a plateau after <span class="math notranslate nohighlight">\(\approx 10\,\text{ps}\)</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>If needed, you can <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a> the water reservoir I have
@@ -644,7 +646,7 @@ lines to <em>input.lammps</em>:</p>
 <p><a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/singlePEG/init.data" target="_blank">Download</a> the init.data file and save it in the
 <em>singlePEG/</em> folder. It contains the initial parameters of the PEG molecules
 (atoms, bonds, charges, etc.), and was downloaded from the <a href="https://atb.uq.edu.au/" target="_blank">ATB</a>
-repository <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id35" title="Alpeshkumar K Malde, Le Zuo, Matthew Breeze, Martin Stroet, David Poger, Pramod C Nair, Chris Oostenbrink, and Alan E Mark. An automated force field topology builder (ATB) and repository: version 1.0. Journal of chemical theory and computation, 7(12):4026–4037, 2011.">26</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id36" title="Chris Oostenbrink, Alessandra Villa, Alan E Mark, and Wilfred F Van Gunsteren. A biomolecular force field based on the free enthalpy of hydration and solvation: the GROMOS force-field parameter sets 53A5 and 53A6. Journal of computational chemistry, 25(13):1656–1676, 2004.">27</a>]</span>.</p>
+repository <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id37" title="Alpeshkumar K Malde, Le Zuo, Matthew Breeze, Martin Stroet, David Poger, Pramod C Nair, Chris Oostenbrink, and Alan E Mark. An automated force field topology builder (ATB) and repository: version 1.0. Journal of chemical theory and computation, 7(12):4026–4037, 2011.">28</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id38" title="Chris Oostenbrink, Alessandra Villa, Alan E Mark, and Wilfred F Van Gunsteren. A biomolecular force field based on the free enthalpy of hydration and solvation: the GROMOS force-field parameter sets 53A5 and 53A6. Journal of computational chemistry, 25(13):1656–1676, 2004.">29</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us print the atom positions and thermodynamic information very
@@ -786,7 +788,7 @@ second <em>read_data</em> only imports additional atoms.</p>
 <p>The <em>extra/x/per/atom</em> commands are again here for memory allocation.
 The <em>shift 25 0 0</em> that is applied to the polymer is there
 to recenter the polymer in the rectangular box by shifting its position
-by 25 Angstroms along the <em>x</em> axis.</p>
+by 25 Ångstroms along the <em>x</em> axis.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us create 2 groups to differentiate the PEG from the H2O,
@@ -804,7 +806,7 @@ future crashing. Add the following line to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here, the value of 2 Angstroms for the overlap cutoff was fixed arbitrarily
+<p>Here, the value of 2 Ångstroms for the overlap cutoff was fixed arbitrarily
 and can be chosen through trial and error. If the cutoff is too small, the
 simulation will crash. If the cutoff is too large, too many water molecules
 will unnecessarily be deleted.</p>
@@ -818,8 +820,8 @@ the pressure by allowing the box size to be rescaled along the <em>x</em> axis:<
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Once more, let us dump the atom positions and a few information about
-the evolution of the simulation:</p>
+<p>Once more, let us dump the atom positions as well as the system temperature
+and volume:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">100</span>

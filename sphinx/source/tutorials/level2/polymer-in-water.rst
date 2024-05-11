@@ -27,7 +27,7 @@ Polymer in water
 ..  container:: justify
 
    An all-atom description is used for both PEG and water and the long
-   range Coulomb interactions are solved using the PPPM solver.    
+   range Coulomb interactions are solved using the PPPM solver :cite:`luty1996calculating`.    
    Once the PEG and water system are properly
    equilibrated at the desired temperature and pressure,
    a constant stretching force is applied to both
@@ -57,6 +57,8 @@ Preparing water and PEG separately
 
     In this tutorial, the water is prepared separately
     from the PEG molecule. The PEG and water will be merged later.
+    The SPC/Fw model for water is used :cite:`wu2006flexible`, which is a flexible
+    variant of the rigid SPC model :cite:`berendsen1981interaction`.
 
 The water
 ---------
@@ -167,7 +169,7 @@ The water
     Then, let us create a 3D simulation box of dimensions :math:`3 \times 3 \times 3 \; \text{nm}^3`,
     and make space for 9 atom types (2 for
     the water molecule, and 7 for the PEG molecule), 6 bond types, 15
-    angle types, and 3 dihedrals types.
+    angle types, and 3 dihedral types.
     Copy the following lines into *input.lammps*:
 
 ..  code-block:: lammps
@@ -222,19 +224,19 @@ The water
 
     Let us create water molecules. To do so, let us
     define what a water molecule is using a molecule *template* called
-    *FlexibleH2O.txt*, and then randomly create 350 molecules.
+    *H2O-SPCFw.mol*, and then randomly create 350 molecules.
     Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
-    molecule h2omol FlexibleH2O.txt
+    molecule h2omol H2O-SPCFw.mol
     create_atoms 0 random 350 45615 NULL mol &
         h2omol 14756 overlap 1 maxtry 50
 
 ..  container:: justify
 
     The *overlap 1* option of the *create_atoms* command ensures that no atoms are
-    placed exactly at the same position, as this would cause the simulation to
+    placed exactly in the same position, as this would cause the simulation to
     crash. The *maxtry 50* asks LAMMPS to try at most
     50 times to insert the molecules, which is useful in case some
     insertion attempts are rejected due to overlap. In some cases, depending on
@@ -254,22 +256,22 @@ The water
 
 ..  container:: justify
 
-    The molecule template named *FlexibleH2O.txt*
-    can be |download_FlexibleH2O.txt|
+    The molecule template named *H2O-SPCFw.mol*
+    can be |download_FlexibleH2O|
     and saved in the *pureH2O/* folder.
     This template contains the necessary structural
     information of a water molecule, such as the number of atoms, 
     the id of the atoms that are connected by bonds, by angles, etc.
 
-.. |download_FlexibleH2O.txt| raw:: html
+.. |download_FlexibleH2O| raw:: html
 
-   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/FlexibleH2O.txt" target="_blank">downloaded</a>
+   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/H2O-SPCFw.mol" target="_blank">downloaded</a>
 
 ..  container:: justify
 
     Then, let us organize the atoms of type 8 and 9 of the water molecules in a group named
     *H2O*, and then perform a small energy minimization. The energy minimization
-    is mandatory here given the small *overlap* value of 1 Angstrom chosen in the *create_atoms*
+    is mandatory here given the small *overlap* value of 1 Ångstrom chosen in the *create_atoms*
     command. Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
@@ -392,7 +394,7 @@ The water
 
     Figure: Evolution of the density of water with time. The
     density :math:`\rho` reaches
-    a plateau after :math:`\approx 30\,\text{ps}`.
+    a plateau after :math:`\approx 10\,\text{ps}`.
 
 ..  container:: justify
 
@@ -613,7 +615,7 @@ Mixing the PEG with water
     The *extra/x/per/atom* commands are again here for memory allocation.
     The *shift 25 0 0* that is applied to the polymer is there
     to recenter the polymer in the rectangular box by shifting its position 
-    by 25 Angstroms along the *x* axis.
+    by 25 Ångstroms along the *x* axis.
 
 ..  container:: justify
 
@@ -636,7 +638,7 @@ Mixing the PEG with water
 
 ..  container:: justify
 
-    Here, the value of 2 Angstroms for the overlap cutoff was fixed arbitrarily
+    Here, the value of 2 Ångstroms for the overlap cutoff was fixed arbitrarily
     and can be chosen through trial and error. If the cutoff is too small, the 
     simulation will crash. If the cutoff is too large, too many water molecules
     will unnecessarily be deleted.
@@ -653,8 +655,8 @@ Mixing the PEG with water
 
 ..  container:: justify
 
-    Once more, let us dump the atom positions and a few information about
-    the evolution of the simulation:
+    Once more, let us dump the atom positions as well as the system temperature
+    and volume:
 
 ..  code-block:: lammps
 
@@ -973,4 +975,3 @@ Evaluate the deformation of the PEG
 
     Figure: Probability distribution for the dihedral angle :math:`\phi`, for a stretched
     and for an unstretched PEG molecule.
-
