@@ -291,7 +291,9 @@ Preparing the water reservoir
 ..  container:: justify
 
     Let us use the *fix npt* to
-    control both the temperature and the pressure of the system,
+    control the temperature of the molecules with a Nosé-Hoover thermostat and
+    the pressure of the system with a Nosé-Hoover barostat 
+    :cite:`nose1984unified, hoover1985canonical, martyna1994constant`,
     by adding the following line to *input.lammps*:
 
 ..  code-block:: lammps
@@ -642,16 +644,17 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    Let us add the *dump* command again to print the atom positions:
+    Add the following *dump* command to the input to print the atom positions
+    every 1000 steps:
 
 ..  code-block:: lammps
 
-   dump mydmp all atom 1000 dump.lammpstrj
+    dump mydmp all atom 1000 dump.lammpstrj
 
 ..  container:: justify
 
-    Let us use a simple thermostating for all atoms by adding the following
-    lines to *input.lammps*:
+    Let us use a single Nosé-Hoover thermostat applied to all the atoms by
+    adding the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
