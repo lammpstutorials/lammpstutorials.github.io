@@ -425,9 +425,6 @@ Solvating the PEG in water
 
    <a href="https://atb.uq.edu.au/" target="_blank">ATB</a>
 
-..  container:: justify
-
-   The PEG molecule 
 .. figure:: ../figures/level2/polymer-in-water/singlePEG-light.png
     :alt: PEG in vacuum as simulated with LAMMPS
     :class: only-light
@@ -438,14 +435,14 @@ Solvating the PEG in water
 
 ..  container:: figurelegend
 
-    Figure: The PEG molecule in a vacuum. The carbon atoms are in gray,
+    Figure: The PEG molecule in vacuum. The carbon atoms are in gray,
     the oxygen atoms in red, and the hydrogen atoms in white.
 
 ..  container:: justify
 
     Create a second folder alongside *pureH2O/*
     and call it *mergePEGH2O/*. Create a new blank file in it,
-    called *input.lammps*. Within *input.lammps*, copy the same first lines as
+    call it *input.lammps*. Within *input.lammps*, copy the same first lines as
     previously:
 
 ..  code-block:: lammps
@@ -583,8 +580,8 @@ Stretching the PEG molecule
 ..  container:: justify
 
    Here, a constant forcing is applied to the two ends of the PEG molecule
-   until it stretches. Create a new folder next to the 3 previously created
-   folders, call it *pullonPEG/* and create a new input file in it
+   until it stretches. Create a new folder next to the previously created
+   folders, call it *pullonPEG/*, and create a new input file in it
    called *input.lammps*.
 
 ..  container:: justify
@@ -802,11 +799,13 @@ Add salt to the system
     of your choice. :math:`\text{Na}^+` ions are 
     characterised by their mass :math:`m = 22.98\,\text{g/mol}`,
     their charge :math:`q = +1\,e`, and Lennard-Jones
-    parameters, :math:`\epsilon = 0.0469\,\text{kcal/mol}, \sigma = 0.243\,\text{nm}`,
+    parameters, :math:`\epsilon = 0.0469\,\text{kcal/mol}`
+    and `\sigma = 0.243\,\text{nm}`,
     and :math:`\text{Cl}^-` ions by their
     mass :math:`m = 35.453\,\text{g/mol}`,
     charge :math:`q = -1\,e` and Lennard-Jones
-    parameters, :math:`\epsilon = 0.15\,\text{kcal/mol}, \sigma = 0.4045\,\text{nm}`.
+    parameters, :math:`\epsilon = 0.15\,\text{kcal/mol}`,
+    and `\sigma = 0.4045\,\text{nm}`.
 
 .. figure:: ../figures/level2/polymer-in-water/salt-exercise-dark.png
     :alt: PEG in a NaCl solution
