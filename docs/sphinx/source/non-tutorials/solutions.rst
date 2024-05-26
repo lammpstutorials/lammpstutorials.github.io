@@ -1116,12 +1116,16 @@ A slightly acidic bulk solution
 
 .. container:: justify
 
-    See the input |input_reax_water_2|, and
-    create a molecule template named *H2O.mol*: 
+    Download the input |input_reax_water_2| as well as the |reaxCHOFe_ff_ex|
+    file. In addition, create a molecule template named *H2O.mol*: 
 
 .. |input_reax_water_2| raw:: html
 
     <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/BulkWater/input.lammps" target="_blank">here</a>
+
+.. |reaxCHOFe_ff_ex| raw:: html
+
+    <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/BulkWater/reaxCHOFe.ff" target="_blank">reaxff force field</a>
 
 .. code-block:: lammps
 
@@ -1147,7 +1151,23 @@ A slightly acidic bulk solution
 
 .. container:: justify
 
-    Here, apart from creating water molecules everywhere in the box, a few 
-    additional hydrogen atoms are added randomly
-    to the system to make the solution
-    slightly acidic.
+    Within *input.lammps*, water molecules are created first:
+
+.. code-block:: lammps
+
+    molecule h2omol H2O.mol
+    create_atoms 0 box mol h2omol 45585
+
+.. container:: justify
+
+    Then, a few hydrogen atoms (:math:`H^+`) are added randomly to the system
+    to make the solution slightly acidic:
+
+.. code-block:: lammps
+
+    create_atoms 2 random 1 305672 NULL overlap 0.5 maxtry 200
+
+.. container:: justify
+
+    As the simulation progresses, some :math:`H_3O^+` ions will form thank to
+    the reactive force field.
