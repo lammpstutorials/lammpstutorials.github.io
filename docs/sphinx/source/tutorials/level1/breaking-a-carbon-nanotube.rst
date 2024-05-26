@@ -114,7 +114,7 @@ Create topology with VMD
 
 .. container:: justify
 
-    To generate the initial LAMMPS data file, let us use Topotool:
+    To generate the initial LAMMPS data file, let us use *Topotools*:
     to generate the LAMMPS data file, enter the following command
     in the VMD terminal:
 
@@ -130,10 +130,10 @@ Create topology with VMD
 .. admonition:: About TopoTools
     :class: info
 
-    Topotools deduces the location of bonds, angles,
+    *Topotools* deduces the location of bonds, angles,
     dihedrals, and impropers from the respective positions of the atoms,
     and generates a *.data* file that can be read by LAMMPS :cite:`kohlmeyer2017topotools`.
-    More details about Topotool can be found on the
+    More details about *Topotools* can be found on the
     personal page of |Axel_webpage|.
 
 .. |Axel_webpage| raw:: html
