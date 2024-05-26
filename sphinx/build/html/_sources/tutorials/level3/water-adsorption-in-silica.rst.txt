@@ -428,12 +428,12 @@ Cracking the silica
 .. admonition:: Passivated silica
     :class: info
 
-    In ambient conditions, Some of the surface SiO2 atoms are chemically
+    In ambient conditions, some of the surface SiO2 atoms are chemically
     passivated by forming covalent bonds with hydrogen (H)
     atoms. For the sake of simplicity, we are not going to
     add surface hydrogen atoms here. An example of a procedure allowing
-    for properly inserting hydrogen atoms is given as an 
-    exercise from :ref:`reactive-silicon-dioxide-label`.
+    for properly inserting hydrogen atoms is used
+    in :ref:`reactive-silicon-dioxide-label`.
 
 Adding water
 ============
@@ -445,8 +445,9 @@ Adding water
     ensemble (GCMC). In short, the system is put into contact
     with a virtual reservoir of a given chemical potential
     :math:`\mu`, and multiple attempts to insert water
-    molecules at random positions are made. Attempts are
-    either accepted or rejected based on energy considerations.
+    molecules at random positions are made. Each attempt is
+    either accepted or rejected based on energy considerations. Find more details
+    in classical textbooks :cite:`frenkel2023understanding`.
 
 Using hydrid potentials
 -----------------------
