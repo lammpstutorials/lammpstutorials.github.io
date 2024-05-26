@@ -963,8 +963,7 @@ reduced compared to the case in the absence of additional forcing.</p>
 <section id="hydrate-the-structure">
 <h3>Hydrate the structure<a class="headerlink" href="#hydrate-the-structure" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>See the input <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/Hydrate/input.lammps" target="_blank">here</a>, and
-create a molecule template named <em>H2O.mol</em>:</p>
+<p>Create a molecule template named <em>H2O.mol</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">3</span><span class="w"> </span><span class="n">atoms</span>
 
@@ -988,14 +987,20 @@ create a molecule template named <em>H2O.mol</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Add molecules to the system using:</p>
+<p>Then, download the proposed input <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/Hydrate/input.lammps" target="_blank">here</a>.</p>
+</div>
+<div class="justify docutils container">
+<p>As seen in the <em>input.lammps</em> file, the molecules are added to the system
+using the <em>create_atoms</em> command:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O.mol</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">805672</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.6</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">45585</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>One can see that some water molecules have reacted during the simulation:</p>
+<p>Some water molecules are reacting with the silica structure during the
+simulation, leading to the formation of <span class="math notranslate nohighlight">\(-OH\)</span> group at the solid
+surface:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c">#  Timestep No_Moles No_Specs Si192O384H20 OH2</span>
 <span class="w">   </span><span class="m">5</span><span class="w">        </span><span class="m">21</span><span class="w">       </span><span class="m">2</span><span class="w">        </span><span class="m">1</span><span class="w">            </span><span class="m">20</span>

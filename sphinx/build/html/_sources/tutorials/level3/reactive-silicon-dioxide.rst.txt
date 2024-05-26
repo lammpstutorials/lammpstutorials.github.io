@@ -630,7 +630,7 @@ Hydrate the structure
 
 ..  container:: justify
 
-    Add water molecules to the current structure, and follow the reactions ove
+    Add water molecules to the current structure, and follow the reactions over
     time.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/hydrated-light.png
@@ -643,7 +643,7 @@ Hydrate the structure
 
 ..  container:: figurelegend
 
-    Figure: Cracked silicon oxide after the addition of hydrogen atoms and water
+    Figure: Cracked silicon oxide after the addition of water
     molecules. The atoms are colored by their charges.
 
 A slightly acidic bulk solution
@@ -665,4 +665,5 @@ A slightly acidic bulk solution
 
 ..  container:: figurelegend
 
-    Figure: Slightly acidic bulk water simulated with *ReaxFF*.
+    Figure: Slightly acidic bulk water simulated with *ReaxFF*. The atoms are
+    colored by their charges.

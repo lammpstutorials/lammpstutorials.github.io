@@ -1061,12 +1061,7 @@ Hydrate the structure
 
 .. container:: justify
 
-    See the input |input_reax_water|, and
-    create a molecule template named *H2O.mol*: 
-
-.. |input_reax_water| raw:: html
-
-    <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/Hydrate/input.lammps" target="_blank">here</a>
+    Create a molecule template named *H2O.mol*: 
 
 .. code-block:: lammps
 
@@ -1092,7 +1087,16 @@ Hydrate the structure
 
 .. container:: justify
 
-    Add molecules to the system using:
+    Then, download the proposed input |input_reax_water|.
+
+.. |input_reax_water| raw:: html
+
+    <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/Hydrate/input.lammps" target="_blank">here</a>
+
+.. container:: justify
+
+    As seen in the *input.lammps* file, the molecules are added to the system
+    using the *create_atoms* command:
 
 .. code-block:: lammps
 
@@ -1101,7 +1105,9 @@ Hydrate the structure
 
 .. container:: justify
 
-    One can see that some water molecules have reacted during the simulation:
+    Some water molecules are reacting with the silica structure during the
+    simulation, leading to the formation of :math:`-OH` group at the solid
+    surface:
 
 .. code-block:: lammps
 
