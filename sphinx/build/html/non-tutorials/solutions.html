@@ -1008,8 +1008,8 @@ create a molecule template named <em>H2O.mol</em>:</p>
 <section id="a-slightly-acidic-bulk-solution">
 <h3>A slightly acidic bulk solution<a class="headerlink" href="#a-slightly-acidic-bulk-solution" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>See the input <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/BulkWater/input.lammps" target="_blank">here</a>, and
-create a molecule template named <em>H2O.mol</em>:</p>
+<p>Download the input <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/BulkWater/input.lammps" target="_blank">here</a> as well as the <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/BulkWater/reaxCHOFe.ff" target="_blank">reaxff force field</a>
+file. In addition, create a molecule template named <em>H2O.mol</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">3</span><span class="w"> </span><span class="n">atoms</span>
 
@@ -1033,10 +1033,22 @@ create a molecule template named <em>H2O.mol</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here, apart from creating water molecules everywhere in the box, a few
-additional hydrogen atoms are added randomly
-to the system to make the solution
-slightly acidic.</p>
+<p>Within <em>input.lammps</em>, water molecules are created first:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">45585</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>Then, a few hydrogen atoms (<span class="math notranslate nohighlight">\(H^+\)</span>) are added randomly to the system
+to make the solution slightly acidic:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">305672</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">200</span>
+</pre></div>
+</div>
+<div class="justify docutils container">
+<p>As the simulation progresses, some <span class="math notranslate nohighlight">\(H_3O^+\)</span> ions will form thank to
+the reactive force field.</p>
 </div>
 </section>
 </section>
