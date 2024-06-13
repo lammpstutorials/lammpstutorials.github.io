@@ -1105,7 +1105,7 @@ Hydrate the structure
 
 .. container:: justify
 
-    Some water molecules are reacting with the silica structure during the
+    Some water molecules react with the silica structure during the
     simulation, leading to the formation of :math:`-OH` group at the solid
     surface:
 
@@ -1122,7 +1122,8 @@ A slightly acidic bulk solution
 
 .. container:: justify
 
-    Download the input |input_reax_water_2| as well as the |reaxCHOFe_ff_ex|
+    Download the input |input_reax_water_2| as
+    well as the |reaxCHOFe_ff_ex|
     file. In addition, create a molecule template named *H2O.mol*: 
 
 .. |input_reax_water_2| raw:: html
@@ -1175,5 +1176,5 @@ A slightly acidic bulk solution
 
 .. container:: justify
 
-    As the simulation progresses, some :math:`H_3O^+` ions will form thank to
+    As the simulation progresses, some :math:`H_3O^+` ions will form thanks to
     the reactive force field.
