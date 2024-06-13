@@ -472,7 +472,8 @@ Solvating the PEG in water
 
 ..  container:: justify
 
-    Let us create a molecule called *pegmol* from the molecule |download_PEG|
+    Let us create a molecule called *pegmol* from
+    the molecule |download_PEG|
     for the PEG molecule, and let us create a single molecule in the middle of
     the box:
 
