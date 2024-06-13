@@ -801,12 +801,12 @@ Add salt to the system
     characterised by their mass :math:`m = 22.98\,\text{g/mol}`,
     their charge :math:`q = +1\,e`, and Lennard-Jones
     parameters, :math:`\epsilon = 0.0469\,\text{kcal/mol}`
-    and `\sigma = 0.243\,\text{nm}`,
+    and :math:`\sigma = 0.243\,\text{nm}`,
     and :math:`\text{Cl}^-` ions by their
     mass :math:`m = 35.453\,\text{g/mol}`,
     charge :math:`q = -1\,e` and Lennard-Jones
     parameters, :math:`\epsilon = 0.15\,\text{kcal/mol}`,
-    and `\sigma = 0.4045\,\text{nm}`.
+    and :math:`\sigma = 0.4045\,\text{nm}`.
 
 .. figure:: ../figures/level2/polymer-in-water/salt-exercise-dark.png
     :alt: PEG in a NaCl solution
