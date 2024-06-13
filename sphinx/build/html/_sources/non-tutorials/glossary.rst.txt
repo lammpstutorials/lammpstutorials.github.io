@@ -137,7 +137,7 @@ Minimization
 
 .. |min_style_2| raw:: html
 
-    <a href="https://docs.lammps.org/min_style.html" target="_blank">min_style</a>
+    <a href="https://docs.lammps.org/min_style.html" target="_blank">min style</a>
 
 Neighbor list
 =============
