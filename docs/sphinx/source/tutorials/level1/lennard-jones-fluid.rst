@@ -546,9 +546,10 @@ Molecular dynamics
     parameter determines how rapidly the temperature is relaxed to its desired value.
     The number *1530917* is a seed, you can
     change it to perform statistically independent simulations.
-    Finally, we choose the value of the *timestep* and we ask LAMMPS to
-    run for 10000 steps, corresponding to a total duration of 50 (unitless).
-    
+    Finally, the last two lines set the value of the *timestep* and the
+    number of steps for the *run*, respectively, corresponding to a total duration
+    of 50 (unitless).
+
 .. admonition:: What is a fix?
     :class: info
     
