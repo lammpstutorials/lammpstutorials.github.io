@@ -143,11 +143,11 @@ System initialization
     different *atom_style* will be used in the following tutorials.
     Notably, these other atom styles will allow us to create molecules,
     i.e. atoms with partial charges and chemical bonds. You can find the complete list
-    of implemented atom styles from the |atom_style page|.
+    of implemented atom styles from the |atom style page|.
     
-.. |atom_style page| raw:: html
+.. |atom style page| raw:: html
 
-    <a href="https://docs.lammps.org/atom_style.html" target="_blank">atom_style page</a>
+    <a href="https://docs.lammps.org/atom_style.html" target="_blank">atom style page</a>
 
 ..  container:: justify
 
