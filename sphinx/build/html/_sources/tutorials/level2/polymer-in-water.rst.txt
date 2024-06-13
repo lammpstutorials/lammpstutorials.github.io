@@ -476,14 +476,14 @@ Solvating the PEG in water
     for the PEG molecule, and let us create a single molecule in the middle of
     the box:
 
+.. |download_PEG| raw:: html
+
+   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/mergePEGH2O/PEG-GROMOS.mol" target="_blank">template</a>
+
 ..  code-block:: lammps
 
     molecule pegmol PEG-GROMOS.mol
     create_atoms 0 single 0 0 0 mol pegmol 454756
-
-.. |download_PEG| raw:: html
-
-   <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/mergePEGH2O/PEG-GROMOS.mol" target="_blank">template</a>
 
 ..  container:: justify
 
