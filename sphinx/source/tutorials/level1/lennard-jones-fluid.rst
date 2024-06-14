@@ -821,8 +821,9 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    Now, instead of creating a new region and adding atoms to it, we
-    can simply add the following command:
+    Here, instead of creating a new region and adding atoms to it, we can simply
+    import the previously saved configuration by adding the following command
+    to input.md.lammps:
 
 ..  code-block:: lammps
 
