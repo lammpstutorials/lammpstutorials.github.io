@@ -982,7 +982,7 @@ Restarting from a saved configuration
 ..  container:: justify
 
     Run *input.md.lammps* using LAMMPS and visualize the trajectory
-    using VMD:
+    using VMD.
 
 .. figure:: ../figures/level1/lennard-jones-fluid/mixing-vmd-light.png
     :alt: LAMMPS VMD tutorial molecular dynamics simulation
@@ -994,7 +994,7 @@ Restarting from a saved configuration
 
 .. container:: figurelegend
 
-    Figure: Evolution of the atom populations during mixing.
+    Figure: Evolution of the system during mixing.
 
 ..  container:: justify
 
