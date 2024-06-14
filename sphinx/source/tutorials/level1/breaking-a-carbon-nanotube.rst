@@ -342,8 +342,7 @@ Prepare initial state
 
 .. container:: justify
 
-    Let us also change the box boundaries by adding the 
-    the following line to *input.lammps*:
+    Let us also change the box boundaries by adding the following line to *input.lammps*:
 
 .. code-block:: lammps
 
