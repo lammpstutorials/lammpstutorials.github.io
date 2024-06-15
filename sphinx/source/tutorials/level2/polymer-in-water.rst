@@ -28,7 +28,7 @@ Polymer in water
 
     An all-atom description is used for both PEG (GROMOS 54A7 force
     field :cite:`schmid2011definition`) and water
-    (SPC flexible model :cite:`wu2006flexible`) and the long
+    (SPC/Fw model :cite:`wu2006flexible`) and the long
     range Coulomb interactions are solved using the PPPM solver :cite:`luty1996calculating`.    
     Once the water reservoir is properly
     equilibrated at the desired temperature and pressure, the polymer molecule
@@ -146,7 +146,7 @@ Preparing the water reservoir
 
     Finally, the *kspace* command defines the long-range solver for the (long)
     Coulombic interactions. The *pppm* style refers to
-    particle-particle particle-mesh.
+    particle-particle particle-mesh :cite:`luty1996calculating`.
 
 .. admonition:: About PPPM
     :class: info
