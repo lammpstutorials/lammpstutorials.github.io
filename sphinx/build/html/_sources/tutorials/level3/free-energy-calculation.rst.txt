@@ -32,8 +32,8 @@ Free energy calculation
     barrier potential will be imposed artificially on the atoms.
     The procedure is valid for more complex
     systems, and can be adapted to many other situations, for instance 
-    for measuring the adsorption barrier near a wall, or for calculating translocation
-    barrier through a membrane.
+    for measuring the adsorption barrier near an interface, or for calculating
+    translocation barrier through a membrane.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
@@ -116,8 +116,8 @@ Basic LAMMPS parameters
 
 ..  container:: justify
 
-    The system of unit '*real*, for which energy is in kcal/mol, distance in Ångstrom,
-    time in femtosecond has been chosen for practical reasons:
+    The system of unit *real*, for which energy is in kcal/mol, distance in Ångstrom,
+    or time in femtosecond, has been chosen for practical reasons:
     the WHAM algorithm used in the second
     part of the tutorial automatically assumes the energy to
     be in kcal/mol. Atoms will interact through a
@@ -146,10 +146,9 @@ System creation and settings
 
 ..  container:: justify
 
-    Here, I am using the argon's values of the
-    Lennard-Jones parameters :math:`\sigma` and
-    :math:`\epsilon`, as well as
-    the mass :math:`m = 39.95` grams/mole. 
+    Here, the values for Lennard-Jones parameters :math:`\sigma` and
+    :math:`\epsilon` as well as the mass :math:`m = 39.95` grams/mole were
+    taken from argon.
     
 ..  container:: justify
 
@@ -282,7 +281,7 @@ Run and data acquisition
 
 ..  container:: figurelegend
 
-    Figure: Notice that the density of atoms is lower in the central
+    Figure: Snapshot of the system. Notice that the density of atoms is lower in the central
     part of the box, due to the additional force :math:`F (x)`.
 
 Data analysis
@@ -391,7 +390,6 @@ Method 2: Umbrella sampling
     to occur :cite:`frenkel2023understanding`.
 
 ..  container:: justify
-
 
     Several simulations (or windows) will be performed with different parameters
     for the imposed biasing.
