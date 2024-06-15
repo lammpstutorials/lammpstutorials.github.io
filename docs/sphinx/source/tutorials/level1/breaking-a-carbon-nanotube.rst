@@ -944,7 +944,7 @@ Launch the deformation
 .. container:: justify
 
    When looking at the *lammpstrj* file using VMD, you will see
-   the bonds breaking. Use the *DynamicBonds*
+   the bonds breaking. From VMD, use the *DynamicBonds*
    representation to properly visualize the bond breaking.
 
 .. |video_lammps_cnt| raw:: html
@@ -977,7 +977,7 @@ Launch the deformation
 
 .. container:: justify
 
-    Looking at the evolution of energy again, one can see that energy increasing 
+    Looking at the evolution of energy again, one can see that the energy is increasing 
     with the deformation, before completely relaxing when the CNT finally breaks.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-breakable-dark.png
