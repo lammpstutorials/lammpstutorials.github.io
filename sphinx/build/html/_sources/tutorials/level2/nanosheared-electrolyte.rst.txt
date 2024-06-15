@@ -221,7 +221,7 @@ System generation
 ..  container:: justify
 
     Each *create_atoms* command will add 15 ions at random positions
-    within the 'rliquid' region, ensuring that there is no *overlap* with existing
+    within the *rliquid* region, ensuring that there is no *overlap* with existing
     molecules. Feel free to increase or decrease the salt
     concentration by changing the number of desired ions. To keep the system charge neutral,
     always insert the same number of 
@@ -549,7 +549,7 @@ Energy minimization
 
 ..  container:: justify
 
-    When running the *input.lammps* file with LAMMPS, you should see that the
+    When running the *input.lammps* file with LAMMPS, you should see that
     the total energy of the system decreases during the first 
     of the 3 steps, before re-increasing a little after the 
     temperature is increased from 1 to :math:`300\,\text{K}`.
@@ -848,7 +848,7 @@ Imposed shearing
     is approximatively :math:`\dot{\gamma} = 16 \cdot 10^9\,\text{s}^{-1}`,
     and using a surface area of :math:`A = 6 \cdot 10^{-18}\,\text{m}^2`, one
     gets an estimate for the shear viscosity for the confined
-    fluid of :math:`\eta = 6.6\,\text{mPa.s}`
+    fluid of :math:`\eta = 6.6\,\text{mPa.s}`.
 
 .. |reference_gravelle2021| raw:: html
 
