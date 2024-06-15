@@ -417,9 +417,8 @@ Cracking the silica
     
 ..  container:: justify
 
-    Alternatively, you
-    can download the final state directly by clicking
-    |download_silica_dilated|. The final system with the crack resembles:
+    Alternatively, you can download the final state directly by clicking
+    |download_silica_dilated|.
 
 .. |download_silica_dilated| raw:: html
 
