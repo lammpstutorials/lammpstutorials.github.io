@@ -22,18 +22,13 @@ Before you start
 Required software
 =================
 
-..  container:: justify
-
-    The 2Aug2023 version of LAMMPS is required
-    to follow the tutorials :cite:`thompson2022lammps`.
-
 LAMMPS (2Aug2023)
 -------------------
 
 ..  container:: justify
 
-    Download and install the 2Aug2023 version of LAMMPS by following the
-    instructions of the |LAMMPS website installation|.
+    Download and install LAMMPS version 2Aug2023 by following the
+    instructions of the |LAMMPS website installation| :cite:`thompson2022lammps`.
     Depending on your operative system (i.e. Linux, macOS, or Windows),
     the procedure may differ.
 
@@ -68,9 +63,8 @@ VMD (optional)
 
 ..  container:: justify
 
-    In order to visualize the simulation, the version
-    1.9.3 of |VMD| will be used :cite:`humphrey1996vmd`.
-    Some basic instructions for VMD are given here in the
+    In order to visualize the simulation, 1.9.3 of |VMD| version 1.9.3 will
+    be used :cite:`humphrey1996vmd`. Some basic instructions for VMD are given here in the
     :ref:`vmd-label`. If you prefer, feel free to use an alternative visualization
     software like |Ovito|.
     
@@ -88,14 +82,14 @@ Python (optional)
 ..  container:: justify
 
     To perform post-mortem analysis of the data during the :ref:`mda-label`,
-    the version 2.6.1 of MDAnalysis is used
-    together with the version 3.11.4
-    of Python :cite:`van1995python, michaud2011mdanalysis, gowers2016mdanalysis`.
+    MDAnalysis version 2.6.1 is used
+    together with Python version 3.11.4
+    :cite:`van1995python, michaud2011mdanalysis, gowers2016mdanalysis`.
 
 ..  container:: justify
 
     To plot the results from the simulations,
-    the version 3.5.2 of |Matplotlib Pyplot| is used
+    |Matplotlib Pyplot| version 3.5.2 is used
     in combination with |lammps_logfile|, a library allowing
     one to read the *log* file produced by LAMMPS :cite:`hunter2007Matplotlib, sveinsson2021logfile`.
 
@@ -113,8 +107,7 @@ Text editing software
 ..  container:: justify
 
     To write and edit LAMMPS input files, a text editor is required.
-    Any text editor will do, such as |gedit|,
-    |vim|,
+    Any text editor will do, such as |gedit|, |vim|,
     or |vscode|.
     
 .. |gedit| raw:: html
