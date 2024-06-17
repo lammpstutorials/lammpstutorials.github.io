@@ -308,10 +308,10 @@ the simulation of a binary fluid using LAMMPS.</p>
 <div class="abstract docutils container">
 <p>The system is a Lennard-Jones fluid made of neutral
 particles with two different diameters in a cubic box with periodic
-boundary conditions. The temperature of the system is maintained
-using a Langevin thermostat <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id38" title="T Schneider and E Stoll. Molecular-dynamics study of a three-dimensional one-component model for distortive phase transitions. Physical Review B, 17(3):1302, 1978.">12</a>]</span>, and
-basic quantities are extracted
-from the system, including the potential and kinetic energies.</p>
+boundary conditions. In this tutorial, the temperature of the system is
+maintained using a Langevin thermostat <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id38" title="T Schneider and E Stoll. Molecular-dynamics study of a three-dimensional one-component model for distortive phase transitions. Physical Review B, 17(3):1302, 1978.">12</a>]</span>, and
+basic quantities are extracted from the system, including the potential and
+kinetic energies.</p>
 </div>
 <div class="abstract docutils container">
 <p>This tutorial illustrates several key ingredients of
@@ -329,10 +329,10 @@ and trajectory visualization.</p>
 <section id="my-first-input">
 <h2>My first input<a class="headerlink" href="#my-first-input" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>To run a simulation using LAMMPS, one needs to
-write a series of commands in an input script. For clarity,
-this script will be divided into five categories which we are going to
-fill up one by one.</p>
+<p>To run a simulation using LAMMPS, one needs to  write a series of commands
+in an input script. For clarity, the input scripts written for this first
+tutorial will be divided into five categories which we are going to fill up
+one by one.</p>
 </div>
 <div class="justify docutils container">
 <p>Create a folder, call it <em>my-first-input/</em>, and then create a blank
@@ -780,7 +780,12 @@ requested value and stabilize itself near <span class="math notranslate nohighli
 <p>From what has been printed in the <em>log</em> file, one can
 plot the potential energy (<span class="math notranslate nohighlight">\(p_\text{e}\)</span>)
 and the kinetic energy (<span class="math notranslate nohighlight">\(k_\text{e}\)</span>) of
-the system over time (see the figure below).</p>
+the system over time. The potential energy, <span class="math notranslate nohighlight">\(p_\text{e}\)</span>, rapidly
+decreases during energy minimization. Then, after the molecular dynamics
+simulation starts, <span class="math notranslate nohighlight">\(p_\text{e}\)</span> increases until it reaches a plateau
+value of about -0.25. The kinetic energy, <span class="math notranslate nohighlight">\(k_\text{e}\)</span>, is equal to
+zero during energy minimization and then increases during molecular
+dynamics until it reaches a plateau value of about 1.5.</p>
 </div>
 <figure class="align-default">
 <img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-light" src="../../_images/energy-light.png" />
@@ -789,11 +794,9 @@ the system over time (see the figure below).</p>
 <img alt="Result tutorial molecular dynamics simulation: Energy plot over time" class="only-dark" src="../../_images/energy-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: a) The potential energy (<span class="math notranslate nohighlight">\(p_\text{e}\)</span>) rapidly decreases during
-energy minimization (orange). Then, after the molecular dynamics simulation starts,
-<span class="math notranslate nohighlight">\(p_\text{e}\)</span> increases until it reaches a plateau value of about -0.25 (blue).
-b) The kinetic energy (<span class="math notranslate nohighlight">\(k_\text{e}\)</span>) is equal to zero during energy minimization,
-then increases during molecular dynamics until it reaches a plateau value of about 1.5.</p>
+<p>Figure: a) Potential energy (<span class="math notranslate nohighlight">\(p_\text{e}\)</span>) of the binary mixture as a function
+of the time <span class="math notranslate nohighlight">\(t\)</span>.
+b) Kinetic energy (<span class="math notranslate nohighlight">\(k_\text{e}\)</span>) as a function of <span class="math notranslate nohighlight">\(t\)</span>.</p>
 </div>
 </section>
 <section id="trajectory-visualization">

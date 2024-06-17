@@ -28,10 +28,10 @@ Lennard-Jones fluid
 
     The system is a Lennard-Jones fluid made of neutral
     particles with two different diameters in a cubic box with periodic
-    boundary conditions. The temperature of the system is maintained
-    using a Langevin thermostat :cite:`schneider1978molecular`, and
-    basic quantities are extracted
-    from the system, including the potential and kinetic energies. 
+    boundary conditions. In this tutorial, the temperature of the system is
+    maintained using a Langevin thermostat :cite:`schneider1978molecular`, and
+    basic quantities are extracted from the system, including the potential and
+    kinetic energies. 
 
 ..  container:: abstract
 
@@ -49,10 +49,10 @@ My first input
 
 ..  container:: justify
 
-    To run a simulation using LAMMPS, one needs to
-    write a series of commands in an input script. For clarity,
-    this script will be divided into five categories which we are going to
-    fill up one by one. 
+    To run a simulation using LAMMPS, one needs to  write a series of commands
+    in an input script. For clarity, the input scripts written for this first
+    tutorial will be divided into five categories which we are going to fill up
+    one by one. 
     
 ..  container:: justify
 
@@ -584,7 +584,12 @@ Molecular dynamics
     From what has been printed in the *log* file, one can
     plot the potential energy (:math:`p_\text{e}`)
     and the kinetic energy (:math:`k_\text{e}`) of
-    the system over time (see the figure below).
+    the system over time. The potential energy, :math:`p_\text{e}`, rapidly
+    decreases during energy minimization. Then, after the molecular dynamics
+    simulation starts, :math:`p_\text{e}` increases until it reaches a plateau
+    value of about -0.25. The kinetic energy, :math:`k_\text{e}`, is equal to
+    zero during energy minimization and then increases during molecular
+    dynamics until it reaches a plateau value of about 1.5.
 
 .. figure:: ../figures/level1/lennard-jones-fluid/energy-light.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
@@ -596,11 +601,9 @@ Molecular dynamics
 
 ..  container:: figurelegend
 
-    Figure: a) The potential energy (:math:`p_\text{e}`) rapidly decreases during
-    energy minimization (orange). Then, after the molecular dynamics simulation starts,
-    :math:`p_\text{e}` increases until it reaches a plateau value of about -0.25 (blue). 
-    b) The kinetic energy (:math:`k_\text{e}`) is equal to zero during energy minimization,
-    then increases during molecular dynamics until it reaches a plateau value of about 1.5.
+    Figure: a) Potential energy (:math:`p_\text{e}`) of the binary mixture as a function
+    of the time :math:`t`.
+    b) Kinetic energy (:math:`k_\text{e}`) as a function of :math:`t`.
 
 Trajectory visualization
 ------------------------
