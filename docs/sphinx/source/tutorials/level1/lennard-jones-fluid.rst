@@ -450,7 +450,7 @@ Energy minimization
     of the repulsive part of the Lennard-Jones interaction
     potential. As the energy minimization progresses, the energy
     rapidly decreases and reaches a negative value, indicating that the atoms have been
-    displaced at reasonable distances from each other.
+    displaced at reasonable distances from each others.
 
 .. admonition:: On the temperature during energy minimization
     :class: info
