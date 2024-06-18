@@ -8,13 +8,13 @@ Lennard-Jones fluid
    The very basics of LAMMPS through a simple example
 
 .. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-fluid-avatar-dark.webp
-    :alt: binary lennard jones fluid simulated with LAMMPS
+    :alt: The binary mixture simulated during Tutorial 1. The atoms of type 1 are represented as small green spheres and the atoms of type 2 as large blue spheres.
     :height: 250
     :align: right
     :class: only-dark
 
 .. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-fluid-avatar-light.webp
-    :alt: binary lennard jones fluid simulated with LAMMPS
+    :alt: The binary mixture simulated during Tutorial 1. The atoms of type 1 are represented as small green spheres and the atoms of type 2 as large blue spheres.
     :height: 250
     :align: right
     :class: only-light
@@ -26,9 +26,9 @@ Lennard-Jones fluid
     
 ..  container:: abstract
 
-    The system is a Lennard-Jones fluid made of neutral
-    particles with two different diameters in a cubic box with periodic
-    boundary conditions. In this tutorial, the temperature of the system is
+    The system is a Lennard-Jones fluid composed of neutral particles with two
+    different diameters, contained within a cubic box with periodic boundary conditions 
+    In this tutorial, the temperature of the system is
     maintained using a Langevin thermostat :cite:`schneider1978molecular`, and
     basic quantities are extracted from the system, including the potential and
     kinetic energies. 
@@ -49,7 +49,7 @@ My first input
 
 ..  container:: justify
 
-    To run a simulation using LAMMPS, one needs to  write a series of commands
+    To run a simulation using LAMMPS, one needs to write a series of commands
     in an input script. For clarity, the input scripts written for this first
     tutorial will be divided into five categories which we are going to fill up
     one by one. 
@@ -58,8 +58,8 @@ My first input
 
     Create a folder, call it *my-first-input/*, and then create a blank
     text file in it called *input.lammps*. Copy the following lines
-    in *input.lammps*, where a line starting with a brace (#)
-    is a comment that is ignored by LAMMPS:
+    in *input.lammps*, where a line starting with a hash symbol (#)
+    is a comment ignored by LAMMPS:
 
 .. code-block:: lammps
 
@@ -106,7 +106,7 @@ System initialization
 ..  container:: justify
 
     The first line, *units lj*, indicates that we want to
-    use the system of unit called *LJ*, for Lennard-Jones, for
+    use the unit system called *LJ* (Lennard-Jones), in
     which all quantities are unitless. 
     
 .. admonition:: About Lennard-Jones (LJ) units
@@ -163,8 +163,8 @@ System initialization
 ..  container:: justify
 
     where :math:`r` is the inter-particles distance,
-    :math:`\epsilon_{ij}` the depth of potential well that sets the interaction strength, and
-    :math:`\sigma_{ij}` the distance parameter, or particle effective size.
+    :math:`\epsilon_{ij}` is the depth of potential well that sets the interaction strength, and
+    :math:`\sigma_{ij}` is the distance parameter or particle effective size.
     Here, the indexes *ij* refer to the particle types *i* and *j*.
 
 .. admonition:: About Lennard-Jones potential
@@ -192,7 +192,7 @@ System initialization
     At this point, the *input.lammps* is a 
     LAMMPS input script that does nothing.
     You can run it using LAMMPS to verify that the *input* contains
-    no mistake by running the following command in the terminal
+    no mistake by typing the following command in the terminal
     from the *my-first-input/*  folder:
 
 ..  code-block:: bw
@@ -397,8 +397,8 @@ Energy minimization
     The *thermo_style custom* requires LAMMPS to print 
     the system temperature (*temp*), potential energy (*pe*),
     kinetic energy (*ke*), total energy (*etotal*),
-    and pressure (*press*). Finally, the *minimize* line
-    asks LAMMPS to perform an energy minimization of the system.
+    and pressure (*press*). Finally, the *minimize* command
+    instructs LAMMPS to perform an energy minimization of the system.
 
 .. admonition:: About energy minimization
     :class: info
@@ -450,7 +450,7 @@ Energy minimization
     of the repulsive part of the Lennard-Jones interaction
     potential. As the energy minimization progresses, the energy
     rapidly decreases and reaches a negative value, indicating that the atoms have been
-    displaced at reasonable distances from each others.
+    displaced at reasonable distances from each other.
 
 .. admonition:: On the temperature during energy minimization
     :class: info
@@ -476,10 +476,8 @@ Molecular dynamics
 
 ..  container:: justify
 
-    The system is now ready. Let us continue filling up the
-    input script and adding commands to perform a molecular dynamics
-    simulation that will start from the final state of the previous energy
-    minimization step.
+    The system is now ready. Let us continue by completing the input script and adding commands to perform a molecular
+    dynamics simulation, starting from the final state of the previous energy minimization step.
 
 .. admonition:: Background Information -- What is molecular dynamics?
     :class: info
@@ -925,7 +923,7 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    The 2 *variables* are used to count
+    The two *variables* are used to count
     the number of atoms of a specific group in the *region_cylinder_in* region. 
 
 ..  container:: justify
