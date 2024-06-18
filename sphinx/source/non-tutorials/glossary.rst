@@ -162,7 +162,7 @@ NVT ensemble
 
 .. container:: justify
 
-    In the NPT ensemble, which is also called the canonical ensemble,
+    In the NVT ensemble, which is also called the canonical ensemble,
     the number of particles (N), volume (V), and temperature (T) of the
     system are kept constant. This ensemble is relevant for systems in thermal
     contact with the environment.
