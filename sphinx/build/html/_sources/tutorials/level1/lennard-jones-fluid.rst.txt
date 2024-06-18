@@ -742,17 +742,23 @@ Control the initial atom positions
 
 ..  container:: justify
 
-    Run the *input.min.lammps* script using LAMMPS. A new dump file named
-    *dump.min.lammpstrj* will appear in the folder, allowing you to visualize
-    the atom's trajectories during minimization. In
-    addition, a file named *minimized_coordinate.data* will be created. 
+    Run the *input.min.lammps* script using LAMMPS.
+
+..  container:: justify
+
+    As soon as the simulation starts, a new dump file named
+    *dump.min.lammpstrj* must appear in the folder.
+    This *.lammpstrj* can be used to visualize the
+    atom's trajectories during minimization using VMD.
+    At the end of the simulation, a file named
+    *minimized_coordinate.data* is created by LAMMPS.
     
 ..  container:: justify
-    
-    If you open *minimized_coordinate.data* with a text editor, you can see
-    that it contains all the information necessary to restart the
-    simulation, such as the number of atoms and the box size, the
-    *masses*, the *pair_coeffs*:
+
+    If you open *minimized_coordinate.data* with a text editor,
+    you can see that it contains all the information necessary to
+    restart the simulation, such as the number of atoms, the box
+    size, the *masses*, and the *pair_coeffs*:
 
 ..  code-block:: lammps
 
@@ -863,7 +869,8 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    The first two *group* commands create atom groups based on their types.
+    The first two *group* commands are used to create groups containing
+    all the atoms of type 1 and all the atoms of type 2, respectively.
     The next two *group* commands create atom groups based on their
     positions at the beginning of the simulation, i.e. when the commands
     are being read by LAMMPS.
@@ -873,9 +880,8 @@ Restarting from a saved configuration
 ..  container:: justify
 
     Finally, the two *delete_atoms* commands delete the
-    atoms of type 1 that are located within the cylinder, as
-    well as the atoms of type 2 that are located outside the
-    cylinder, respectively. 
+    atoms of type 1 that are located within the cylinder and the atoms of
+    type 2 that are located outside the cylinder, respectively. 
     
 ..  container:: justify
 
@@ -936,11 +942,12 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    Let us also extract the coordination number per atom between atoms 
-    of type 1 and 2, i.e. the average number of atoms of type 2 in the vicinity 
-    of the atoms of type 1. This coordination number will be used as
-    an indicator of the degree of mixing of our binary mixture. 
-    Add the following lines into *input.md.lammps*:
+    In addition to counting the atoms in each region, let us also extract the
+    coordination number per atom between atoms of types 1 and 2. The
+    coordination number is a measure of the average number of type 2 atoms
+    in the vicinity of type 1 atoms, serving as a good indicator of
+    the degree of mixing in a binary mixture. Add the following lines into
+    *input.md.lammps*:
     
 ..  code-block:: lammps
 
@@ -979,7 +986,7 @@ Restarting from a saved configuration
     momentum (*rot yes*) are given to the system and that the generated
     velocities are distributed as a Gaussian. Another improvement
     is the *zero yes* keyword in the Langevin thermostat, which
-    ensures that the total random force is equal to zero.
+    ensures that the total random force applied to the atoms is equal to zero.
 
 ..  container:: justify
 
@@ -996,7 +1003,10 @@ Restarting from a saved configuration
 
 .. container:: figurelegend
 
-    Figure: Evolution of the system during mixing.
+    Figure: Evolution of the system during mixing. The three snapshots show
+    respectively the system at :math:`t=0` (left panel),
+    :math:`t=75` (middle panel),
+    and :math:`t=1500` (right panel).
 
 ..  container:: justify
 
@@ -1015,7 +1025,8 @@ Restarting from a saved configuration
 .. container:: figurelegend
 
     Figure: Evolution of the number of atoms within the *region_cylinder_in* region
-    as a function of time (a), and evolution of the coordination number (b). 
+    as a function of time (a), and evolution of the coordination number
+    between atoms of types 1 and 2 (b). 
 
 .. include:: ../../non-tutorials/accessfile.rst
 

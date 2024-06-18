@@ -308,15 +308,15 @@ of a carbon nanotube (CNT) using LAMMPS.</p>
 <div class="abstract docutils container">
 <p>In this tutorial, a small carbon nanotube (CNT) is simulated
 within an empty box using LAMMPS. An external
-forcing is imposed on the CNT, and its deformation is measured with time.</p>
+force is imposed on the CNT, and its deformation is measured over time.</p>
 </div>
 <div class="abstract docutils container">
-<p>The difference between classical and reactive force fields
-is illustrated in this tutorial. With a classical force field, the bonds
-between atoms are unbreakable. With the reactive
-force field (named AIREBO <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="Steven J Stuart, Alan B Tutein, and Judith A Harrison. A reactive potential for hydrocarbons with intermolecular interactions. The Journal of chemical physics, 112(14):6472–6486, 2000.">18</a>]</span>),
-the breaking of the chemical bonds is possible when
-the imposed deformation is strong enough.</p>
+<p>To illustrate the difference between classical and reactive force fields,
+this tutorial is divided into two parts. Within the first part, a classical
+force field is used and the bonds between the atoms of the CNT are
+unbreakable. Within the second part, a reactive force field
+(named AIREBO <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="Steven J Stuart, Alan B Tutein, and Judith A Harrison. A reactive potential for hydrocarbons with intermolecular interactions. The Journal of chemical physics, 112(14):6472–6486, 2000.">18</a>]</span>) is used, allowing for the breaking
+of chemical bonds when the CNT undergoes strong deformation.</p>
 </div>
 <div class="justify docutils container">
 <p>If you are completely new to LAMMPS, I recommend that
@@ -484,8 +484,7 @@ information about the box size, atom positions, etc.</p>
 <p>Atoms connected by a bond do not typically interact through
 Lennard-Jones interaction. Therefore, atoms that are
 bounded must be excluded from the Lennard-Jones potential calculation.
-Here, this is done by the
-<em>special_bonds</em> command. The three numbers of the
+Here, this is done by the <em>special_bonds</em> command. The three numbers of the
 <em>special_bonds</em> command are weighting factors for the
 Lennard-Jones interaction between atoms connected by a bond
 (respectively directly bounded <span class="math notranslate nohighlight">\(C-C\)</span>, separated by two bonds <span class="math notranslate nohighlight">\(C-C-C\)</span>,
@@ -535,8 +534,8 @@ simulation by adding the following line to the <em>input.lammps</em> file:</p>
 </pre></div>
 </div>
 </section>
-<section id="prepare-initial-state">
-<h3>Prepare initial state<a class="headerlink" href="#prepare-initial-state" title="Link to this heading">¶</a></h3>
+<section id="prepare-the-initial-state">
+<h3>Prepare the initial state<a class="headerlink" href="#prepare-the-initial-state" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Before starting the molecular dynamics simulation,
 let us make sure that we start from a clean initial state
@@ -601,14 +600,17 @@ Add the following lines to <em>input.lammps</em>:</p>
 <p>The variable <span class="math notranslate nohighlight">\(z_\mathrm{max}\)</span> corresponds to
 the coordinate of the last atoms along <span class="math notranslate nohighlight">\(z\)</span> minus 0.5
 Ångstroms, and <span class="math notranslate nohighlight">\(z_\mathrm{min}\)</span> to the coordinate of
-the first atoms along <span class="math notranslate nohighlight">\(z\)</span> plus 0.5 Ångstroms. Then, 3
-regions are defined, and correspond respectively to: <span class="math notranslate nohighlight">\(z &lt; z_\mathrm{min}\)</span>, (bottom)
-<span class="math notranslate nohighlight">\(z_\mathrm{min} &gt; z &gt; z_\mathrm{max}\)</span> (middle), and
-<span class="math notranslate nohighlight">\(z &gt; z_\mathrm{max}\)</span> (top).</p>
+the first atoms along <span class="math notranslate nohighlight">\(z\)</span> plus 0.5 Ångstroms. Then, three
+regions are defined, and correspond respectively to: <span class="math notranslate nohighlight">\(z &lt; z_\mathrm{min}\)</span>,
+(<em>rbot</em>, for region bottom)
+<span class="math notranslate nohighlight">\(z_\mathrm{min} &gt; z &gt; z_\mathrm{max}\)</span>
+(<em>rmid</em>, for region middle), and
+<span class="math notranslate nohighlight">\(z &gt; z_\mathrm{max}\)</span>
+(<em>rtop</em>, for region top).</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, let us define 3 groups of atoms
-corresponding to the atoms located in each of the 3 regions,
+corresponding to the atoms located in each of the three regions,
 respectively, by adding to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtop</span>
@@ -641,7 +643,8 @@ of atoms in each group corresponds to what is expected, just like here:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Finally, let us randomly delete some of the carbon atoms.
+<p>Finally, to start from a less ideal state and create a system with some defects,
+let us randomly delete some of the carbon atoms.
 In order to avoid deleting atoms that are too close to the edges,
 let us define a new region name <em>rdel</em> that
 starts <span class="math notranslate nohighlight">\(2\,Å\)</span>
@@ -814,7 +817,9 @@ right after the last <em>run 5000</em> command:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The chosen velocity for the deformation is <span class="math notranslate nohighlight">\(100\,\text{m/s}\)</span>.</p>
+<p>The chosen velocity for the deformation is <span class="math notranslate nohighlight">\(100\,\text{m/s}\)</span>.
+The length <span class="math notranslate nohighlight">\(L\)</span> of the CNT increase linearly over
+time for <span class="math notranslate nohighlight">\(t &gt; 5\,\text{ps}\)</span>, as expected from the imposed constant velocity.</p>
 </div>
 <figure class="align-default">
 <img alt="length of the CNT with time - lammps molecular dynamics" class="only-dark" src="../../_images/length-unbreakable-dark.png" />
@@ -823,7 +828,7 @@ right after the last <em>run 5000</em> command:</p>
 <img alt="length of the CNT with time - lammps molecular dynamics" class="only-light" src="../../_images/length-unbreakable-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Evolution of the length of the CNT with time.
+<p>Figure: Evolution of the length <span class="math notranslate nohighlight">\(L\)</span> of the CNT with time.
 The CNT starts deforming at <span class="math notranslate nohighlight">\(t = 5\,\text{ps}\)</span>.</p>
 </div>
 <div class="justify docutils container">
@@ -860,9 +865,9 @@ behaves as expected by opening the <em>dump.lammpstrj</em> file with VMD.</p>
 <section id="breakable-bonds">
 <h2>Breakable bonds<a class="headerlink" href="#breakable-bonds" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>When using a classical force field, as we just did, the bonds between atoms
-are non-breakable. Let us perform a similar simulation,
-but this time using a reactive force field instead, allowing for the bonds to break
+<p>When using a classical force field, as we just did, the bonds between the atoms
+are non-breakable. Let us perform a similar simulation and deform a small CNT again,
+but this time using a reactive force field that allows for the bonds to break
 if the applied deformation is large enough.</p>
 </div>
 <section id="input-file-initialization">
@@ -1280,7 +1285,7 @@ along <em>xy</em>.</p>
 <li><a class="reference internal" href="#unbreakable-bonds">Unbreakable bonds</a><ul>
 <li><a class="reference internal" href="#create-topology-with-vmd">Create topology with VMD</a></li>
 <li><a class="reference internal" href="#the-lammps-input">The LAMMPS input</a></li>
-<li><a class="reference internal" href="#prepare-initial-state">Prepare initial state</a></li>
+<li><a class="reference internal" href="#prepare-the-initial-state">Prepare the initial state</a></li>
 <li><a class="reference internal" href="#the-molecular-dynamics">The molecular dynamics</a></li>
 <li><a class="reference internal" href="#data-extraction">Data extraction</a></li>
 </ul>
