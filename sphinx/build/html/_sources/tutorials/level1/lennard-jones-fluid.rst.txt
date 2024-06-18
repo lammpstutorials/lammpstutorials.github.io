@@ -162,7 +162,7 @@ System initialization
 
 ..  container:: justify
 
-    where :math:`r` is the inter-particles distance,
+    where :math:`r` is the inter-particle distance,
     :math:`\epsilon_{ij}` is the depth of potential well that sets the interaction strength, and
     :math:`\sigma_{ij}` is the distance parameter or particle effective size.
     Here, the indexes *ij* refer to the particle types *i* and *j*.
