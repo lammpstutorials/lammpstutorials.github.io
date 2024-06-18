@@ -29,7 +29,7 @@ LAMMPS (2Aug2023)
 
     Download and install LAMMPS version 2Aug2023 by following the
     instructions of the |LAMMPS website installation| :cite:`thompson2022lammps`.
-    Depending on your operative system (i.e. Linux, macOS, or Windows),
+    Depending on your operating system (i.e. Linux, macOS, or Windows),
     the procedure may differ.
 
 .. |LAMMPS website installation| raw:: html
