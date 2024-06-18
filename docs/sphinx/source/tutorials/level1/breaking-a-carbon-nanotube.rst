@@ -28,16 +28,16 @@ Pulling on a carbon nanotube
 
     In this tutorial, a small carbon nanotube (CNT) is simulated
     within an empty box using LAMMPS. An external 
-    forcing is imposed on the CNT, and its deformation is measured with time.
+    force is imposed on the CNT, and its deformation is measured over time.
 
 ..  container:: abstract
 
-    The difference between classical and reactive force fields
-    is illustrated in this tutorial. With a classical force field, the bonds
-    between atoms are unbreakable. With the reactive
-    force field (named AIREBO :cite:`stuart2000reactive`),
-    the breaking of the chemical bonds is possible when
-    the imposed deformation is strong enough.
+    To illustrate the difference between classical and reactive force fields,
+    this tutorial is divided into two parts. Within the first part, a classical
+    force field is used and the bonds between the atoms of the CNT are
+    unbreakable. Within the second part, a reactive force field
+    (named AIREBO :cite:`stuart2000reactive`) is used, allowing for the breaking
+    of chemical bonds when the CNT undergoes strong deformation.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
@@ -240,8 +240,7 @@ The LAMMPS input
     Atoms connected by a bond do not typically interact through
     Lennard-Jones interaction. Therefore, atoms that are
     bounded must be excluded from the Lennard-Jones potential calculation.  
-    Here, this is done by the
-    *special_bonds* command. The three numbers of the
+    Here, this is done by the *special_bonds* command. The three numbers of the
     *special_bonds* command are weighting factors for the
     Lennard-Jones interaction between atoms connected by a bond
     (respectively directly bounded :math:`C-C`, separated by two bonds :math:`C-C-C`,
@@ -296,8 +295,8 @@ The LAMMPS input
 
     include parm.lammps
 
-Prepare initial state
----------------------
+Prepare the initial state
+-------------------------
 
 .. container:: justify
 
@@ -374,15 +373,18 @@ Prepare initial state
     The variable :math:`z_\mathrm{max}` corresponds to
     the coordinate of the last atoms along :math:`z` minus 0.5
     Ångstroms, and :math:`z_\mathrm{min}` to the coordinate of
-    the first atoms along :math:`z` plus 0.5 Ångstroms. Then, 3
-    regions are defined, and correspond respectively to: :math:`z < z_\mathrm{min}`, (bottom)
-    :math:`z_\mathrm{min} > z > z_\mathrm{max}` (middle), and  
-    :math:`z > z_\mathrm{max}` (top).
+    the first atoms along :math:`z` plus 0.5 Ångstroms. Then, three
+    regions are defined, and correspond respectively to: :math:`z < z_\mathrm{min}`,
+    (*rbot*, for region bottom)
+    :math:`z_\mathrm{min} > z > z_\mathrm{max}`
+    (*rmid*, for region middle), and  
+    :math:`z > z_\mathrm{max}`
+    (*rtop*, for region top).
 
 .. container:: justify
 
     Finally, let us define 3 groups of atoms
-    corresponding to the atoms located in each of the 3 regions,
+    corresponding to the atoms located in each of the three regions,
     respectively, by adding to *input.lammps*:
 
 .. code-block:: lammps
@@ -423,7 +425,8 @@ Prepare initial state
 
 .. container:: justify
 
-    Finally, let us randomly delete some of the carbon atoms.
+    Finally, to start from a less ideal state and create a system with some defects, 
+    let us randomly delete some of the carbon atoms.
     In order to avoid deleting atoms that are too close to the edges,
     let us define a new region name *rdel* that
     starts :math:`2\,Å`
@@ -626,6 +629,8 @@ Data extraction
 .. container:: justify
 
     The chosen velocity for the deformation is :math:`100\,\text{m/s}`.
+    The length :math:`L` of the CNT increase linearly over
+    time for :math:`t > 5\,\text{ps}`, as expected from the imposed constant velocity.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/length-unbreakable-dark.png
     :alt: length of the CNT with time - lammps molecular dynamics
@@ -637,7 +642,7 @@ Data extraction
 
 ..  container:: figurelegend
 
-    Figure: Evolution of the length of the CNT with time.
+    Figure: Evolution of the length :math:`L` of the CNT with time.
     The CNT starts deforming at :math:`t = 5\,\text{ps}`.
 
 .. container:: justify
@@ -686,9 +691,9 @@ Breakable bonds
 
 .. container:: justify
 
-    When using a classical force field, as we just did, the bonds between atoms 
-    are non-breakable. Let us perform a similar simulation, 
-    but this time using a reactive force field instead, allowing for the bonds to break
+    When using a classical force field, as we just did, the bonds between the atoms 
+    are non-breakable. Let us perform a similar simulation and deform a small CNT again,
+    but this time using a reactive force field that allows for the bonds to break
     if the applied deformation is large enough.
 
 Input file initialization
