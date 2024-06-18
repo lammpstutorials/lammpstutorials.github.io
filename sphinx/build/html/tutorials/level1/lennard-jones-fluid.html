@@ -294,11 +294,11 @@
 <p>The very basics of LAMMPS through a simple example</p>
 </div>
 <figure class="align-right">
-<a class="only-dark reference internal image-reference" href="../../_images/lennard-jones-fluid-avatar-dark.webp"><img alt="binary lennard jones fluid simulated with LAMMPS" class="only-dark" src="../../_images/lennard-jones-fluid-avatar-dark.webp" style="height: 250px;" />
+<a class="only-dark reference internal image-reference" href="../../_images/lennard-jones-fluid-avatar-dark.webp"><img alt="The binary mixture simulated during Tutorial 1. The atoms of type 1 are represented as small green spheres and the atoms of type 2 as large blue spheres." class="only-dark" src="../../_images/lennard-jones-fluid-avatar-dark.webp" style="height: 250px;" />
 </a>
 </figure>
 <figure class="align-right">
-<a class="only-light reference internal image-reference" href="../../_images/lennard-jones-fluid-avatar-light.webp"><img alt="binary lennard jones fluid simulated with LAMMPS" class="only-light" src="../../_images/lennard-jones-fluid-avatar-light.webp" style="height: 250px;" />
+<a class="only-light reference internal image-reference" href="../../_images/lennard-jones-fluid-avatar-light.webp"><img alt="The binary mixture simulated during Tutorial 1. The atoms of type 1 are represented as small green spheres and the atoms of type 2 as large blue spheres." class="only-light" src="../../_images/lennard-jones-fluid-avatar-light.webp" style="height: 250px;" />
 </a>
 </figure>
 <div class="abstract docutils container">
@@ -306,9 +306,9 @@
 the simulation of a binary fluid using LAMMPS.</p>
 </div>
 <div class="abstract docutils container">
-<p>The system is a Lennard-Jones fluid made of neutral
-particles with two different diameters in a cubic box with periodic
-boundary conditions. In this tutorial, the temperature of the system is
+<p>The system is a Lennard-Jones fluid composed of neutral particles with two
+different diameters, contained within a cubic box with periodic boundary conditions
+In this tutorial, the temperature of the system is
 maintained using a Langevin thermostat <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id38" title="T Schneider and E Stoll. Molecular-dynamics study of a three-dimensional one-component model for distortive phase transitions. Physical Review B, 17(3):1302, 1978.">12</a>]</span>, and
 basic quantities are extracted from the system, including the potential and
 kinetic energies.</p>
@@ -329,7 +329,7 @@ and trajectory visualization.</p>
 <section id="my-first-input">
 <h2>My first input<a class="headerlink" href="#my-first-input" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>To run a simulation using LAMMPS, one needs to  write a series of commands
+<p>To run a simulation using LAMMPS, one needs to write a series of commands
 in an input script. For clarity, the input scripts written for this first
 tutorial will be divided into five categories which we are going to fill up
 one by one.</p>
@@ -337,8 +337,8 @@ one by one.</p>
 <div class="justify docutils container">
 <p>Create a folder, call it <em>my-first-input/</em>, and then create a blank
 text file in it called <em>input.lammps</em>. Copy the following lines
-in <em>input.lammps</em>, where a line starting with a brace (#)
-is a comment that is ignored by LAMMPS:</p>
+in <em>input.lammps</em>, where a line starting with a hash symbol (#)
+is a comment ignored by LAMMPS:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># PART A - ENERGY MINIMIZATION</span>
 <span class="c"># 1) Initialization</span>
@@ -379,7 +379,7 @@ about the simulation, such as:</p>
 </div>
 <div class="justify docutils container">
 <p>The first line, <em>units lj</em>, indicates that we want to
-use the system of unit called <em>LJ</em>, for Lennard-Jones, for
+use the unit system called <em>LJ</em> (Lennard-Jones), in
 which all quantities are unitless.</p>
 </div>
 <div class="info admonition">
@@ -423,8 +423,8 @@ a cut-off equal to <span class="math notranslate nohighlight">\(r_c = 2.5\)</spa
 </div>
 <div class="justify docutils container">
 <p>where <span class="math notranslate nohighlight">\(r\)</span> is the inter-particles distance,
-<span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> the depth of potential well that sets the interaction strength, and
-<span class="math notranslate nohighlight">\(\sigma_{ij}\)</span> the distance parameter, or particle effective size.
+<span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> is the depth of potential well that sets the interaction strength, and
+<span class="math notranslate nohighlight">\(\sigma_{ij}\)</span> is the distance parameter or particle effective size.
 Here, the indexes <em>ij</em> refer to the particle types <em>i</em> and <em>j</em>.</p>
 </div>
 <div class="info admonition">
@@ -449,7 +449,7 @@ respectively).</p>
 <p>At this point, the <em>input.lammps</em> is a
 LAMMPS input script that does nothing.
 You can run it using LAMMPS to verify that the <em>input</em> contains
-no mistake by running the following command in the terminal
+no mistake by typing the following command in the terminal
 from the <em>my-first-input/</em>  folder:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>lmp -in input.lammps
@@ -618,8 +618,8 @@ terminal every given number of steps, here 10 steps.
 The <em>thermo_style custom</em> requires LAMMPS to print
 the system temperature (<em>temp</em>), potential energy (<em>pe</em>),
 kinetic energy (<em>ke</em>), total energy (<em>etotal</em>),
-and pressure (<em>press</em>). Finally, the <em>minimize</em> line
-asks LAMMPS to perform an energy minimization of the system.</p>
+and pressure (<em>press</em>). Finally, the <em>minimize</em> command
+instructs LAMMPS to perform an energy minimization of the system.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About energy minimization</p>
@@ -664,7 +664,7 @@ resulting in a large initial energy which is the consequence
 of the repulsive part of the Lennard-Jones interaction
 potential. As the energy minimization progresses, the energy
 rapidly decreases and reaches a negative value, indicating that the atoms have been
-displaced at reasonable distances from each others.</p>
+displaced at reasonable distances from each other.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">On the temperature during energy minimization</p>
@@ -686,10 +686,8 @@ Stopping criterion = energy tolerance
 <section id="molecular-dynamics">
 <h3>Molecular dynamics<a class="headerlink" href="#molecular-dynamics" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>The system is now ready. Let us continue filling up the
-input script and adding commands to perform a molecular dynamics
-simulation that will start from the final state of the previous energy
-minimization step.</p>
+<p>The system is now ready. Let us continue by completing the input script and adding commands to perform a molecular
+dynamics simulation, starting from the final state of the previous energy minimization step.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Background Information – What is molecular dynamics?</p>
@@ -1073,7 +1071,7 @@ adding the following commands to <em>input.md.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The 2 <em>variables</em> are used to count
+<p>The two <em>variables</em> are used to count
 the number of atoms of a specific group in the <em>region_cylinder_in</em> region.</p>
 </div>
 <div class="justify docutils container">

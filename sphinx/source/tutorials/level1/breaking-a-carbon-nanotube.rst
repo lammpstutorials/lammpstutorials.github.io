@@ -33,9 +33,8 @@ Pulling on a carbon nanotube
 ..  container:: abstract
 
     The difference between classical and reactive force fields
-    is illustrated through this tutorial.
-    With a classical force field, the bonds between atoms
-    are unbreakable. With the reactive
+    is illustrated in this tutorial. With a classical force field, the bonds
+    between atoms are unbreakable. With the reactive
     force field (named AIREBO :cite:`stuart2000reactive`),
     the breaking of the chemical bonds is possible when
     the imposed deformation is strong enough.
