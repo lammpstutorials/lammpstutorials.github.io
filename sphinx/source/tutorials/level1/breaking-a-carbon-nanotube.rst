@@ -374,7 +374,7 @@ Prepare the initial state
     the coordinate of the last atoms along :math:`z` minus 0.5
     Ångstroms, and :math:`z_\mathrm{min}` to the coordinate of
     the first atoms along :math:`z` plus 0.5 Ångstroms. Then, three
-    regions are defined, and correspond respectively to: :math:`z < z_\mathrm{min}`,
+    regions are defined and correspond respectively to: :math:`z < z_\mathrm{min}`,
     (*rbot*, for region bottom)
     :math:`z_\mathrm{min} > z > z_\mathrm{max}`
     (*rmid*, for region middle), and  
@@ -408,8 +408,8 @@ Prepare the initial state
 
 ..  container:: figurelegend
 
-    Figure: CNT with atoms from the *carbon_top*
-    and the *carbon_bot* groups are represented with a different color.
+    Figure: CNT with the atoms from the *carbon_mid* group in pink,
+    and the atoms from the *carbon_top* and the *carbon_bot* groups in white.
 
 .. container:: justify
 
@@ -456,7 +456,8 @@ Prepare the initial state
 
 ..  container:: figurelegend
 
-    Figure: CNT with *10* randomly deleted atoms. 
+    Figure: CNT with 10 randomly deleted atoms. The 10 deleted atoms were chosen randomly
+    from the central part of the CNT.
 
 The molecular dynamics
 ----------------------
