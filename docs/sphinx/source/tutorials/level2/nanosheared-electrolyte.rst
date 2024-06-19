@@ -292,7 +292,7 @@ System generation
     As already seen in previous tutorials, 
     and with the important exception of *pair_coeff 1 5*,
     only pairwise interaction between atoms of
-    identical types were assigned. By default, LAMMPS calculates
+    identical types was assigned. By default, LAMMPS calculates
     the pair coefficients for the interactions between atoms
     of different types (i and j) by using geometrical
     average: :math:`\epsilon_{ij} = (\epsilon_{ii} + \epsilon_{jj})/2`, 

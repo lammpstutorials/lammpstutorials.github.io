@@ -180,7 +180,7 @@ The LAMMPS input
 .. container:: justify
 
    Create a new text file within *unbreakable-bonds/* and name
-   it *input.lammps*. Copy the following lines in it:
+   it *input.lammps*. Copy the following lines into it:
 
 .. code-block:: lammps
 
@@ -202,7 +202,7 @@ The LAMMPS input
 
 .. container:: justify
 
-    The chosen unit system is *real* (therefore distances are in Ångstrom, time in femtosecond),
+    The chosen unit system is *real* (therefore distances are in Ångstrom and time in femtosecond),
     the *atom_style* is molecular (therefore atoms are dots that can be bonded with each other),
     and the boundary conditions are fixed. The boundary conditions
     do not matter here, as the box boundaries were placed far from the CNT. 
@@ -231,7 +231,7 @@ The LAMMPS input
 .. container:: justify
 
     The last command, *read_data*, imports the *cnt_molecular.data* file
-    previously generated with VMD, which contains the
+    previously generated with VMD, which contains
     information about the box size, atom positions, etc.
 
 .. admonition:: About interaction between neighbors atoms
@@ -257,7 +257,7 @@ The LAMMPS input
     (Optimised Potentials for Liquid Simulations-All-Atom) force 
     field :cite:`jorgensenDevelopmentTestingOPLS1996`.
     Create a new text file in the *unbreakable-bonds/*
-    folder and name it *parm.lammps*. Copy the following lines in it:
+    folder and name it *parm.lammps*. Copy the following lines into it:
 
 .. code-block:: lammps
 
@@ -335,7 +335,7 @@ Prepare the initial state
     are used to measure
     the current position of the group *carbon_atoms*
     along all 3 directions, respectively. Then, the *displace_atoms* 
-    command move the group *carbon_atoms*, ensuring that its center of mass 
+    command moves the group *carbon_atoms*, ensuring that its center of mass 
     is located at the origin (0, 0, 0).
 
 .. container:: justify
@@ -427,7 +427,7 @@ Prepare the initial state
 
     Finally, to start from a less ideal state and create a system with some defects, 
     let us randomly delete some of the carbon atoms.
-    In order to avoid deleting atoms that are too close to the edges,
+    To avoid deleting atoms that are too close to the edges,
     let us define a new region name *rdel* that
     starts :math:`2\,Å`
     from the CNT edges.
