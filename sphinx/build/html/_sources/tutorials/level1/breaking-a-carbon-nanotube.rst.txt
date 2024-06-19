@@ -720,7 +720,7 @@ Input file initialization
     is the unit system, here *metal* instead of *real*, a choice
     that is imposed by the AIREBO force field. A second difference
     is the use of the *atom_style atomic* instead of *molecular*,
-    single no explicit bond information is required with AIREBO.
+    since no explicit bond information is required with AIREBO.
 
 .. admonition:: About metal units
     :class: info
@@ -740,7 +740,7 @@ Adapt the topology file
 .. container:: justify
 
     Duplicate the previous file *cnt_molecular.data*, name the copy *cnt_atom.data*,
-    place it within *breakable-bonds/*. Then, remove all bond, angle, and dihedral 
+    and place it within *breakable-bonds/*. Then, remove all bond, angle, and dihedral 
     information from *cnt_atom.data*. Also, remove the second column of the 
     *Atoms* table, so that the *cnt_atom.data* looks like the following: 
 
