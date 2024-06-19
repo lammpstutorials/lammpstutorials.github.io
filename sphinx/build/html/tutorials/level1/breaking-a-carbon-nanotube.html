@@ -434,7 +434,7 @@ and <em>impropers</em> constraints.</p>
 <h3>The LAMMPS input<a class="headerlink" href="#the-lammps-input" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Create a new text file within <em>unbreakable-bonds/</em> and name
-it <em>input.lammps</em>. Copy the following lines in it:</p>
+it <em>input.lammps</em>. Copy the following lines into it:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">T</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">300</span>
 
@@ -454,7 +454,7 @@ it <em>input.lammps</em>. Copy the following lines in it:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The chosen unit system is <em>real</em> (therefore distances are in Ångstrom, time in femtosecond),
+<p>The chosen unit system is <em>real</em> (therefore distances are in Ångstrom and time in femtosecond),
 the <em>atom_style</em> is molecular (therefore atoms are dots that can be bonded with each other),
 and the boundary conditions are fixed. The boundary conditions
 do not matter here, as the box boundaries were placed far from the CNT.</p>
@@ -476,7 +476,7 @@ the page of the <a href="https://lammps.sandia.gov/doc/dihedral_opls.html" targe
 </div>
 <div class="justify docutils container">
 <p>The last command, <em>read_data</em>, imports the <em>cnt_molecular.data</em> file
-previously generated with VMD, which contains the
+previously generated with VMD, which contains
 information about the box size, atom positions, etc.</p>
 </div>
 <div class="info admonition">
@@ -500,7 +500,7 @@ non-bonded potentials. Here, the parameters are taken from the OPLS-AA
 (Optimised Potentials for Liquid Simulations-All-Atom) force
 field <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id35" title="William L. Jorgensen, David S. Maxwell, and Julian Tirado-Rives. Development and Testing of the OPLS All-Atom Force Field on Conformational Energetics and Properties of Organic Liquids. Journal of the American Chemical Society, 118(45):11225–11236, 1996.">21</a>]</span>.
 Create a new text file in the <em>unbreakable-bonds/</em>
-folder and name it <em>parm.lammps</em>. Copy the following lines in it:</p>
+folder and name it <em>parm.lammps</em>. Copy the following lines into it:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.066</span><span class="w"> </span><span class="m">3.4</span>
 <span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">469</span><span class="w"> </span><span class="m">1.4</span>
@@ -568,7 +568,7 @@ The 3 variables, <em>carbon_xcm</em>, <em>carbon_ycm</em>, and <em>carbon_zcm</e
 are used to measure
 the current position of the group <em>carbon_atoms</em>
 along all 3 directions, respectively. Then, the <em>displace_atoms</em>
-command move the group <em>carbon_atoms</em>, ensuring that its center of mass
+command moves the group <em>carbon_atoms</em>, ensuring that its center of mass
 is located at the origin (0, 0, 0).</p>
 </div>
 <div class="justify docutils container">
@@ -645,7 +645,7 @@ of atoms in each group corresponds to what is expected, just like here:</p>
 <div class="justify docutils container">
 <p>Finally, to start from a less ideal state and create a system with some defects,
 let us randomly delete some of the carbon atoms.
-In order to avoid deleting atoms that are too close to the edges,
+To avoid deleting atoms that are too close to the edges,
 let us define a new region name <em>rdel</em> that
 starts <span class="math notranslate nohighlight">\(2\,Å\)</span>
 from the CNT edges.</p>

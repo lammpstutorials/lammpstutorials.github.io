@@ -89,7 +89,7 @@ Prepare and relax
 ..  container:: justify
 
     Create an input file called *input.lammps* in *RelaxSilica/*,
-    and copy the following lines in it: 
+    and copy the following lines into it: 
 
 ..  code-block:: lammps
 

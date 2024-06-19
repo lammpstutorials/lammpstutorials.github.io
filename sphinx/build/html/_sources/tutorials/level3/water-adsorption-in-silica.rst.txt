@@ -80,7 +80,7 @@ Vashishta potential
 ..  container:: justify
 
     Create a new input file named *input.lammps* in the *SilicaBlock/* folder, and copy
-    the following lines in it:
+    the following lines into it:
 
 .. |download_SiO.data| raw:: html
 

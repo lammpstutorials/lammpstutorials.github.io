@@ -68,7 +68,7 @@ Preparing the water reservoir
 
     Create a folder named *pureH2O/*. Inside this folder, create
     an empty text file named *input.lammps*. Copy the following
-    lines in it:
+    lines into it:
 
 ..  code-block:: lammps
 
