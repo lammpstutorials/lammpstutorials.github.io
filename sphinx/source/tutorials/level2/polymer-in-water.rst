@@ -536,6 +536,15 @@ Solvating the PEG in water
 
 ..  container:: justify
 
+    Let us also print the total enthalpy:
+
+..  code-block:: lammps
+
+    variable myenthalpy equal enthalpy
+    fix myat3 all ave/time 10 10 100 v_myenthalpy file enthalpy.dat
+
+..  container:: justify
+
     Finally, let us perform a short equilibration and print the
     final state in a data file. Add the following lines into the data file:
 
@@ -546,10 +555,13 @@ Solvating the PEG in water
 
 ..  container:: justify
 
-    If you open the *dump.lammpstrj* file using VMD, 
+    If you open the *dump.lammpstrj* file using VMD
     or have a look at the evolution of the volume in *volume.dat*,
-    you should see that the box dimension slightly evolves along *x*
-    to accommodate the new configuration.
+    you should see that the box dimensions slightly evolve along *x*
+    to accommodate the new configuration. In addition, the temperature remains
+    close to the target value of :math:`300~\text{K}` throughout the entire simulation,
+    and the enthalpy is almost constant, suggesting that the system was close
+    to equilibrium from the start.
 
 .. figure:: ../figures/level2/polymer-in-water/solvatedPEG_light.png
    :alt: PEG in water
@@ -569,19 +581,15 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-   Here, a constant forcing is applied to the two ends of the PEG molecule
-   until it stretches. Create a new folder next to the previously created
-   folders, call it *pullonPEG/*, and create a new input file in it
-   called *input.lammps*.
+    Here, a constant forcing is applied to the two ends of the PEG molecule
+    until it stretches. Create a new folder next to the previously created
+    folders, call it *pullonPEG/*, and create a new input file in it
+    called *input.lammps*.
 
 ..  container:: justify
 
-   First, let us create a variable *f0* corresponding to the magnitude
-   of the force we are going to apply. The force magnitude is
-   chosen to be large enough to overcome the thermal
-   agitation and the entropic contribution from both water
-   and PEG molecules (it was chosen by trial and error). Copy
-   in the *input.lammps* file:
+    First, let us create a variable *f0* corresponding to the magnitude
+    of the force we are going to apply:
 
 ..  code-block:: lammps
 
@@ -589,9 +597,10 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    Note that :math:`1\,\text{kcal/mol/Å}` corresponds
-    to :math:`67.2\,\text{pN}`.
-    Then, copy the same lines as previously:
+    The force magnitude of :math:`1\,\text{kcal/mol/Å}` corresponds
+    to :math:`67.2\,\text{pN}` and was chosen to be large enough to overcome
+    the thermal agitation and the entropic contribution from both water and PEG
+    molecules (it was chosen by trial and error). Then, copy the same lines as previously:
 
 ..  code-block:: lammps
 
@@ -652,7 +661,8 @@ Stretching the PEG molecule
 
     Let us also print the end-to-end distance of the PEG,
     here defined as the distance between the groups *topull1*
-    and *topull2*, as well as the temperature of the system 
+    and *topull2*, as well as the temperature of the system and the gyration
+    radius of the molecule :cite:`fixmanRadiusGyrationPolymer1962a`
     by adding the following lines into *input.lammps*:
 
 ..  code-block:: lammps
@@ -668,6 +678,8 @@ Stretching the PEG molecule
     variable delta_r equal sqrt((v_x1-v_x2)^2+(v_y1-v_y2)^2+(v_z1-v_z2)^2)
     fix myat2 all ave/time 10 10 100 v_delta_r &
         file output-end-to-end-distance.dat
+    compute rgyr PEG gyration
+    fix myat3 all ave/time 10 10 100 c_rgyr file gyration-radius.dat
     thermo 1000
 
 ..  container:: justify
@@ -680,7 +692,7 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    This first run serves as a benchmark to quantify the changes
+    This first run will serve as a benchmark to later quantify the changes
     induced by the forcing. Then, let us apply a forcing on the 2 oxygen
     atoms using two *add_force* commands, and run for an extra 30 ps:
 
@@ -692,9 +704,9 @@ Stretching the PEG molecule
 
 ..  container:: justify
 
-    If you open the *dump.lammpstrj* file using *VMD*, you should
-    see that the PEG molecule eventually aligns in the direction
-    of the force.
+    Run the *input.lammps* file using LAMMPS. If you open the *dump.lammpstrj*
+    file using *VMD*, you should see that the PEG molecule eventually aligns
+    in the direction of the force.
 
 .. figure:: ../figures/level2/polymer-in-water/pulled_peg_dark.png
     :alt: PEG molecule in water
