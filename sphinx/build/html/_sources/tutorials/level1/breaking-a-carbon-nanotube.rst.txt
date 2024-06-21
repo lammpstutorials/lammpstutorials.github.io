@@ -478,7 +478,7 @@ The molecular dynamics
 
 .. container:: justify
 
-    Re-setting the atom ids is necessary before using the *velocity* command,
+    Re-setting the atom IDs is necessary before using the *velocity* command,
     this is done by the *reset_atoms* command.
 
 .. container:: justify
@@ -542,7 +542,7 @@ The molecular dynamics
     :class: info
 
     The *velocity set* commands impose the velocity of a group of atoms at the start of 
-    a run, but does not enforce the velocity during the entire simulation. 
+    a run but do not enforce the velocity during the entire simulation. 
     When *velocity set* is used in combination with *setforce 0 0 0*, 
     as is the case here, the atoms
     won't feel any force during the entire simulation. According to the Newton equation,
