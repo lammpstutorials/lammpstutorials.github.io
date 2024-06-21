@@ -166,7 +166,7 @@ Prepare and relax
 
     Let us also print the charge in the *.log* file by using *thermo_style*,
     and create a *.lammpstrj* file for visualization.
-    Add the following lines to the *input.lammps*:
+    Add the following lines into the *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -357,7 +357,7 @@ Deform the structure
 
     Let us run for 5000 steps without deformation, then apply the *fix deform*
     for elongating progressively the box along *x* during 25000 steps. Add the
-    following line to *input.lammps*:
+    following line into *input.lammps*:
 
 ..  code-block:: lammps
 

@@ -327,7 +327,7 @@ Simulation Settings
     - :math:`\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732`.
 
     When necessary, cross-parameters can be explicitly specified
-    by adding the following line to the input file: *pair_coeff 1 2 0.707 1.732*. 
+    by adding the following line into the input file: *pair_coeff 1 2 0.707 1.732*. 
     This can be used for instance to increase the attraction between particles
     of type 1 and 2, without affecting the interactions between particles of the same type.
 
@@ -378,7 +378,7 @@ Energy minimization
 ..  container:: justify
 
     The system is now fully parametrized. Let us fill the two last remaining sections
-    by adding the following lines to *input.lammps*:
+    by adding the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -902,7 +902,7 @@ Restarting from a saved configuration
 
 ..  container:: justify
 
-    Add the following lines to *input.md.lammps*.
+    Add the following lines into *input.md.lammps*.
     Note the absence of *Simulation settings* section,
     because the settings are taken from the *.data* file.
 
