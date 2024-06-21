@@ -59,8 +59,6 @@ variable z1 equal xcm(topull1,z)
 variable z2 equal xcm(topull2,z)
 variable delta_r equal sqrt((v_x1-v_x2)^2+(v_y1-v_y2)^2+(v_z1-v_z2)^2)
 fix myat2 all ave/time 10 10 100 v_delta_r file end-to-end-distance.dat
-compute rgyr PEG gyration
-fix myat3 all ave/time 10 10 100 c_rgyr file gyration-radius.dat
 thermo 1000
 
 compute bond_H2O H2O bond/local dist # engpot
