@@ -741,8 +741,9 @@ Stretching the PEG molecule
 
 .. container:: figurelegend
 
-    Figure: Evolution of the end-to-end distance of the PEG molecule
-    with time. The forcing starts at :math:`t = 30` ps.
+    Figure: a) Evolution of the end-to-end distance of the PEG molecule
+    with time. The forcing starts at :math:`t = 30` ps. b) Evolution of the
+    gyration radius :math:`R_\text{gyr}` of the PEG molecule. 
 
 ..  container:: justify
 
