@@ -426,11 +426,10 @@ Prepare the initial state
 .. container:: justify
 
     Finally, to start from a less ideal state and create a system with some defects, 
-    let us randomly delete some of the carbon atoms.
+    let us randomly delete a small fraction of the carbon atoms.
     To avoid deleting atoms that are too close to the edges,
     let us define a new region name *rdel* that
-    starts :math:`2\,Å`
-    from the CNT edges.
+    starts :math:`2\,Å` from the CNT edges.
 
 .. code-block:: lammps
 
@@ -442,8 +441,7 @@ Prepare the initial state
 
 .. container:: justify
 
-    The *delete_atoms* command randomly
-    deletes :math:`2\,\%` of the atoms
+    The *delete_atoms* command randomly deletes :math:`2\,\%` of the atoms
     from the *rdel* group (i.e. about 10 atoms).
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/colored-edge-deleted-dark.png
