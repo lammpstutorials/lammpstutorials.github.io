@@ -920,11 +920,11 @@ Restarting from a saved configuration
 
 ..  code-block:: lammps
 
-    variable number_type1_in equal count(group_type_1,region_cylinder_in)
-    variable number_type2_in equal count(group_type_2,region_cylinder_in)
-    fix myat1 all ave/time 10 200 2000 v_number_type1_in &
+    variable n_type1_in equal count(group_type_1,region_cylinder_in)
+    variable n_type2_in equal count(group_type_2,region_cylinder_in)
+    fix myat1 all ave/time 10 200 2000 v_n_type1_in &
         file output-population1vstime.dat
-    fix myat2 all ave/time 10 200 2000 v_number_type2_in &
+    fix myat2 all ave/time 10 200 2000 v_n_type2_in &
         file output-population2vstime.dat
 
 ..  container:: justify

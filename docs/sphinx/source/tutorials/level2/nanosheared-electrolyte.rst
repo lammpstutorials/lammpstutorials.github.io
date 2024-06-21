@@ -200,7 +200,7 @@ System generation
 
     Molecules are created on the *fcc 4.04* lattice
     by the *create_atoms* command. The
-    first parameter is '0', meaning that the atom ids from the
+    first parameter is '0', meaning that the atom IDs from the
     *RigidH2O.txt* file will be used.
     The number *482793* is a seed that is
     required by LAMMPS, it can be any positive integer.
