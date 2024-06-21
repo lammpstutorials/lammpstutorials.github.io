@@ -458,7 +458,7 @@ LAMMPS input script
     So far, this code resembles the one of Method 1,
     except for the additional particle of type 2. This
     particle is identical to the particles of type 1 (same
-    mass and Lennard-Jones parameters), but will be exposed to the
+    mass and Lennard-Jones parameters) but will be exposed to the
     biasing potential.
 
 ..  container:: justify
