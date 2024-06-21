@@ -1008,18 +1008,15 @@ The rest of the <em>input.lammps</em> is very similar to the previous one:</p>
 <div class="justify docutils container">
 <p>Note that a large distance of 120 Ångstroms was used for the box size along
 the <em>z</em> axis, to allow for larger deformation. In addition, the <em>change_box</em> command
-was placed before the <em>displace_atoms</em> to avoid issue with the
-CNT crossing the edge of the box.</p>
+was placed before the <em>displace_atoms</em> to avoid having the CNT crossing the edge of the box.</p>
 </div>
 </section>
 <section id="start-the-simulation">
 <h3>Start the simulation<a class="headerlink" href="#start-the-simulation" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>Here, let us impose a constant velocity deformation using the atoms
-of one edge, while maintaining the other edge fix. Do to so,
-one needs to cancel the forces (thus the acceleration) on
-the atoms of the edges using the <em>setforce</em> command and set
-the value of the velocity along the <em>z</em> direction.</p>
+<p>Here, let us impose a constant velocity deformation using the atoms of one
+edge while maintaining the other edge fixed (note that for the unbreakable
+CNT, the motion was imposed on the 2 edges).</p>
 </div>
 <div class="justify docutils container">
 <p>First, as an equilibration step, let us set the velocity to 0
@@ -1087,9 +1084,9 @@ a longer duration than previously. Add the following lines into
 use a longer run.</p>
 </div>
 <div class="justify docutils container">
-<p>When looking at the <em>lammpstrj</em> file using VMD, you will see
-the bonds breaking. From VMD, use the <em>DynamicBonds</em>
-representation to properly visualize the bond breaking.</p>
+<p>By opening the <em>lammpstrj</em> file using VMD, it is possible to observe the
+bonds breaking at approximately two-thirds of the simulation. If the bonds
+do not break, use a longer run.</p>
 </div>
 <figure class="align-default">
 <img alt="carbon nanotube with broken bonds after simulation with LAMMPS and AIREBO" class="only-dark" src="../../_images/deformed-dark.png" />
@@ -1109,7 +1106,9 @@ in VMD when using the <em>DynamicBonds</em> representation can be misleading.</p
 </div>
 <div class="justify docutils container">
 <p>Looking at the evolution of energy again, one can see that the energy is increasing
-with the deformation, before completely relaxing when the CNT finally breaks.</p>
+with the deformation. When bonds break, the energy relaxes abruptly, as can be seen
+near $t=110~text{ps}$ and again near $t=130~text{ps}$ when plotting the
+evolution of the total energy with time.</p>
 </div>
 <figure class="align-default">
 <img alt="energy of the CNT with time - lammps molecular dynamics" class="only-dark" src="../../_images/energy-breakable-dark.png" />

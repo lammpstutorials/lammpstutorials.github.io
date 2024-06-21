@@ -860,19 +860,16 @@ Use of AIREBO potential
 
     Note that a large distance of 120 Ångstroms was used for the box size along 
     the *z* axis, to allow for larger deformation. In addition, the *change_box* command
-    was placed before the *displace_atoms* to avoid issue with the 
-    CNT crossing the edge of the box.
+    was placed before the *displace_atoms* to avoid having the CNT crossing the edge of the box.
 
 Start the simulation
 --------------------
 
 .. container:: justify
 
-    Here, let us impose a constant velocity deformation using the atoms
-    of one edge, while maintaining the other edge fix. Do to so,
-    one needs to cancel the forces (thus the acceleration) on
-    the atoms of the edges using the *setforce* command and set
-    the value of the velocity along the *z* direction.
+    Here, let us impose a constant velocity deformation using the atoms of one
+    edge while maintaining the other edge fixed (note that for the unbreakable
+    CNT, the motion was imposed on the 2 edges).
 
 .. container:: justify
 
@@ -948,9 +945,9 @@ Launch the deformation
 
 .. container:: justify
 
-   When looking at the *lammpstrj* file using VMD, you will see
-   the bonds breaking. From VMD, use the *DynamicBonds*
-   representation to properly visualize the bond breaking.
+    By opening the *lammpstrj* file using VMD, it is possible to observe the
+    bonds breaking at approximately two-thirds of the simulation. If the bonds
+    do not break, use a longer run.
 
 .. |video_lammps_cnt| raw:: html
 
@@ -983,7 +980,9 @@ Launch the deformation
 .. container:: justify
 
     Looking at the evolution of energy again, one can see that the energy is increasing 
-    with the deformation, before completely relaxing when the CNT finally breaks.
+    with the deformation. When bonds break, the energy relaxes abruptly, as can be seen
+    near $t=110~\text{ps}$ and again near $t=130~\text{ps}$ when plotting the
+    evolution of the total energy with time.
 
 .. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-breakable-dark.png
     :alt: energy of the CNT with time - lammps molecular dynamics
