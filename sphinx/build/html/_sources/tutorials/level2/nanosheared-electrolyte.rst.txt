@@ -71,21 +71,18 @@ System generation
 
     These lines are used to define the most basic parameters,
     including the *atom*, *bond*, and *angle* styles, as well as 
-    interaction potential. Here *lj/cut/tip4p/long* imposes
+    interaction potential. Here, *lj/cut/tip4p/long* imposes
     a Lennard Jones potential with a cut-off at :math:`12\,\text{Å}`
     and a long-range Coulomb potential. 
 
 ..  container:: justify
 
-    So far, the commands are relatively similar to the 
-    previous tutorial (:ref:`all-atoms-label`),
-    with two major differences; the use of *lj/cut/tip4p/long*
-    and *pppm/tip4p*, instead of *lj/cut/coul/long* and pppm*.
-    These two tip4p-specific commands allow us to 
-    model a four-point water molecule without explicitly 
-    defining the fourth massless atom *M*. The value of 
-    :math:`0.1546\,\text{Å}` corresponds
-    to the *O-M* distance and is 
+    So far, the commands are relatively similar to the previous tutorial
+    (:ref:`all-atoms-label`), with two major differences; the use
+    of *lj/cut/tip4p/long* and *pppm/tip4p*, instead of *lj/cut/coul/long* and *pppm*.
+    These two tip4p-specific commands allow us to model a four-point water
+    molecule without explicitly defining the fourth massless atom *M*. The value of 
+    :math:`0.1546\,\text{Å}` corresponds to the *O-M* distance and is 
     given by the water model. Here, |TIP4P-2005| is used :cite:`abascal2005general`.
 
 .. |TIP4P-2005| raw:: html
