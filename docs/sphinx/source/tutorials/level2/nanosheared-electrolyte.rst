@@ -21,17 +21,17 @@ Nanosheared electrolyte
 
 ..  container:: justify
 
-    The objective of this tutorial is to
-    simulate an electrolyte nanoconfined and sheared by two walls.
-    Some properties of the sheared fluid, such as its
-    density and velocity profiles, will be extracted. 
+    The objective of this tutorial is to simulate an electrolyte nanoconfined
+    and sheared by two walls. The density and velocity profiles of the fluid in
+    the direction normal to the walls are extracted to highlight the effect of
+    confining a fluid on its local properties. 
 
 ..  container:: justify
 
     This tutorial illustrates some key aspects of
     combining a fluid and a solid in the same simulation.
-    A major difference with :ref:`all-atoms-label` is that
-    here a rigid four points water model named TIP4P is used :cite:`abascal2005general`.
+    A major difference from :ref:`all-atoms-label` is that
+    here a rigid four-points water model named TIP4P is used :cite:`abascal2005general`.
     TIP4P is one of the most common water models due to its high accuracy.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
@@ -45,8 +45,8 @@ System preparation
 
 ..  container:: justify
 
-    The fluid and walls must first be generated, and then
-    equilibrated at reasonable temperature and pressure.
+    The fluid and walls must first be generated and then equilibrated at a
+    reasonable temperature and pressure.
 
 System generation
 -----------------
