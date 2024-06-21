@@ -418,7 +418,7 @@ Energy minimization
 
     It is clear from the way the system has been created that
     the atoms are not at equilibrium distances from each
-    other. Indeed, some of the ions added using the *create_atoms*
+    other. Indeed, some ions added using the *create_atoms*
     commands are too close to the water molecules.
     If we were to start a *normal* (i.e. with a timestep of about 1 fs)
     molecular dynamics simulation now, the atoms
@@ -566,9 +566,8 @@ Energy minimization
 
 ..  container:: justify
 
-    If you look at the trajectory using VMD, you will see some
-    of the atoms, in particular, the ones that were
-    initially in problematic positions. 
+    If you look at the trajectory using VMD, you will see that some of the atoms
+    are moving, particularly those that were initially in problematic positions. 
 
 System equilibration
 --------------------
