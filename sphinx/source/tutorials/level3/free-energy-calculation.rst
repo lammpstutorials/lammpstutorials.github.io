@@ -132,7 +132,7 @@ System creation and settings
 ..  container:: justify
 
     Let us define the simulation block and randomly add atoms
-    by adding the following lines to *input.lammps*:
+    by adding the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -197,7 +197,7 @@ System creation and settings
     Let us apply energy minimization to the system,
     and then impose the force :math:`F(x)` to all of
     the atoms in the simulation using the *addforce* command.
-    Add the following lines to *input.lammps*:
+    Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 

@@ -103,7 +103,7 @@ System generation
 
 ..  container:: justify
 
-    Let us create the box by adding the following lines to *input.lammps*:
+    Let us create the box by adding the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -150,7 +150,7 @@ System generation
     sub-regions corresponding respectively to the two solid
     walls, and create a larger region from the union of the two
     regions. Then, let us create atoms of type 5 (the wall) within the two
-    regions. Add the following lines to *input.lammps*:
+    regions. Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -178,7 +178,7 @@ System generation
 
 ..  container:: justify
 
-    Add the following lines to *input.lammps*:
+    Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -347,7 +347,7 @@ System generation
 ..  container:: justify
 
     To avoid high density and pressure,
-    let us add the following lines to *input.lammps*
+    let us add the following lines into *input.lammps*
     to delete a few of the water molecules:
 
 ..  code-block:: lammps
@@ -356,7 +356,7 @@ System generation
 
 ..  container:: justify
 
-    Finally, add the following lines to *input.lammps*:
+    Finally, add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -505,7 +505,7 @@ Energy minimization
 ..  container:: justify
 
     Let us also print the atom positions in a *.lammpstrj* file by
-    adding the following line to *input.lammps*:
+    adding the following line into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -622,7 +622,7 @@ System equilibration
 
 ..  container:: justify
 
-    Then, add the following lines to *input.lammps* for
+    Then, add the following lines into *input.lammps* for
     the trajectory visualization and output:
 
 ..  code-block:: lammps
@@ -772,7 +772,7 @@ Imposed shearing
     Finally, let us dump the atom positions, extract the
     velocity profiles using several *ave/chunk* commands, extract the
     force applied on the walls, and then run for :math:`200\,\text{ps}`
-    Add the following lines to *input.lammps*:
+    Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 

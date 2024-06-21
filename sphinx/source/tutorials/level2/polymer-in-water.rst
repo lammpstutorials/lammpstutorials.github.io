@@ -21,20 +21,18 @@ Polymer in water
 
 ..  container:: justify
 
-    The goal of this tutorial is to use LAMMPS and solvate a small
+    The goal of this tutorial is to use LAMMPS to solvate a small
     hydrophilic polymer (PEG - PolyEthylene Glycol) in a reservoir of water. 
 
 ..  container:: justify
 
-    An all-atom description is used for both PEG (GROMOS 54A7 force
-    field :cite:`schmid2011definition`) and water
-    (SPC/Fw model :cite:`wu2006flexible`) and the long
-    range Coulomb interactions are solved using the PPPM solver :cite:`luty1996calculating`.    
-    Once the water reservoir is properly
-    equilibrated at the desired temperature and pressure, the polymer molecule
-    is added and a constant stretching force is applied to both
-    ends of the polymer. The evolution of the polymer length
-    is measured as a function of time.
+    Once the water reservoir is properly equilibrated at the desired temperature
+    and pressure, the polymer molecule is added and a constant stretching force
+    is applied to both ends of the polymer. The evolution of the polymer length
+    is measured as a function of time. The GROMOS 54A7 force field 
+    :cite:`schmid2011definition` is used for the PEG, the SPC/Fw
+    model :cite:`wu2006flexible` is used for the water, and the long-range
+    Coulomb interactions are solved using the PPPM solver :cite:`luty1996calculating`.
 
 ..  container:: justify
 
@@ -58,7 +56,7 @@ Preparing the water reservoir
 ..  container:: justify
 
     In this tutorial, the water reservoir is first prepared in the absence of
-    polymer. A rectangular box of water is created and
+    the polymer. A rectangular box of water is created and
     equilibrated at ambient temperature and ambient pressure.
     The SPC/Fw water model is used :cite:`wu2006flexible`, which is
     a flexible variant of the rigid SPC (simple point charge)
@@ -84,10 +82,10 @@ Preparing the water reservoir
 ..  container:: justify
 
     With the unit style *real*, masses are in grams per
-    mole, distances in Ångstroms, time in femtoseconds, energies
+    mole, distances in Ångstroms, time in femtoseconds, and energies
     in Kcal/mole. With the *atom_style full*, each atom is a dot
     with a mass and a charge that can be
-    linked by bonds, angles, dihedrals and/or impropers. The *bond_style*,
+    linked by bonds, angles, dihedrals, and/or impropers. The *bond_style*,
     *angle_style*, and *dihedral_style* commands define the
     potentials for the bonds, angles, and dihedrals used in the simulation,
     here *harmonic*.
@@ -108,9 +106,9 @@ Preparing the water reservoir
 
 ..  container:: justify
 
-    Finally, the *special_bonds* command cancels the
-    Lennard-Jones interactions between the closest
-    atoms of the same molecule.
+    Finally, the *special_bonds* command, which was already seen in
+    the previous tutorial, :ref:`carbon-nanotube-label`, sets the LJ and Coulomb
+    weighting factors for the interaction between neighboring atoms.
 
 .. admonition:: About *special bonds*
     :class: info
@@ -128,24 +126,24 @@ Preparing the water reservoir
 
     With the *pair_style* named *lj/cut/coul/long*, atoms
     interact through both a Lennard-Jones (LJ) potential and
-    Coulombic interactions. The value of :math:`12\,\text{Å}` is 
+    Coulomb interactions. The value of :math:`12\,\text{Å}` is 
     the cutoff.
 
 .. admonition:: About cutoff in molecular dynamics
     :class: info
 
-    The cutoff of :math:`12\,\text{Å}` applies to both LJ and Coulombic
+    The cutoff of :math:`12\,\text{Å}` applies to both LJ and Coulomb
     interactions, but in a different way. For LJ *cut*
     interactions, atoms interact with each other only if they
     are separated by a distance smaller than the cutoff. For
-    Coulombic *long*, interactions between atoms closer than
+    Coulomb *long*, interactions between atoms closer than
     the cutoff are computed directly, and interactions between
     atoms outside that cutoff are computed in the reciprocal space.
 
 ..  container:: justify
 
-    Finally, the *kspace* command defines the long-range solver for the (long)
-    Coulombic interactions. The *pppm* style refers to
+    Finally, the *kspace* command defines the long-range solver for the
+    Coulomb interactions. The *pppm* style refers to
     particle-particle particle-mesh :cite:`luty1996calculating`.
 
 .. admonition:: About PPPM
@@ -167,8 +165,10 @@ Preparing the water reservoir
 
     Then, let us create a 3D simulation box of dimensions :math:`9 \times 3 \times 3 \; \text{nm}^3`,
     and make space for 9 atom types (2 for
-    the water molecule, and 7 for the polymer molecule), 7 bond types, 8
-    angle types, and 4 dihedral types.
+    the water + 7 for the polymer), 7 bond types (1 for
+    the water + 6 for the polymer), 8
+    angle types (1 for the water + 7 for the polymer), and 4 dihedral types
+    (for the polymer only).
     Copy the following lines into *input.lammps*:
 
 ..  code-block:: lammps
@@ -224,8 +224,8 @@ Preparing the water reservoir
 ..  container:: justify
 
     Let us create water molecules. To do so, let us
-    define what a water molecule is using a molecule *template* called
-    *H2O-SPCFw.mol*, and then randomly create 1050 molecules.
+    import a molecule template called
+    *H2O-SPCFw.mol* and then let us randomly create 1050 molecules.
     Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
@@ -248,7 +248,7 @@ Preparing the water reservoir
 
 ..  code-block:: bw
 
-    Created 1050 atoms
+    Created 3150 atoms
 
 ..  container:: justify
 
@@ -261,8 +261,8 @@ Preparing the water reservoir
     can be |download_FlexibleH2O|
     and saved in the *pureH2O/* folder.
     This template contains the necessary structural
-    information of a water molecule, such as the number of atoms, 
-    the id of the atoms that are connected by bonds, by angles, etc.
+    information of a water molecule, such as the number of atoms, or the IDs
+    of the atoms that are connected by bonds, angles, etc.
 
 .. |download_FlexibleH2O| raw:: html
 
@@ -284,9 +284,10 @@ Preparing the water reservoir
 
 ..  container:: justify
 
-    The *reset_timestep* command is optional. It is used here 
-    because the *minimize* command is usually performed over an arbitrary
-    number of steps.
+    In general, resetting the step of the simulation to 0 using the
+    *reset_timestep* command is optional. It is used here because the number
+    of iterations performed by the *minimize* command is usually not a round
+    number (since the minimization stops when one of four criteria is reached).
 
 ..  container:: justify
 
@@ -294,7 +295,7 @@ Preparing the water reservoir
     control the temperature of the molecules with a Nosé-Hoover thermostat and
     the pressure of the system with a Nosé-Hoover barostat 
     :cite:`nose1984unified, hoover1985canonical, martyna1994constant`,
-    by adding the following line to *input.lammps*:
+    by adding the following line into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -345,7 +346,7 @@ Preparing the water reservoir
 
     Finally, let us set the timestep to 1.0 fs,
     and run the simulation for 20 ps by adding the
-    following lines to *input.lammps*:
+    following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -409,9 +410,8 @@ Solvating the PEG in water
 
 ..  container:: justify
 
-    Once the water reservoir is equilibrated, we can safely
-    include the PEG polymer in the water before performing the pull experiment
-    on the polymer.
+    Now that the water reservoir is equilibrated, we can safely
+    include the PEG polymer in the water.
 
 ..  container:: justify
 
@@ -472,10 +472,8 @@ Solvating the PEG in water
 
 ..  container:: justify
 
-    Let us create a molecule called *pegmol* from
-    the molecule |download_PEG|
-    for the PEG molecule, and let us create a single molecule in the middle of
-    the box:
+    Download the molecule |download_PEG| for the PEG molecule, and then
+    create a single molecule in the middle of the box:
 
 .. |download_PEG| raw:: html
 
@@ -489,7 +487,7 @@ Solvating the PEG in water
 ..  container:: justify
 
     Let us create 2 groups to differentiate the PEG from the H2O,
-    by adding the following lines to *input.lammps*:
+    by adding the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -499,7 +497,7 @@ Solvating the PEG in water
 ..  container:: justify
 
     Water molecules that are overlapping with the PEG must be deleted to avoid
-    future crashing. Add the following line to *input.lammps*:
+    future crashing. Add the following line into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -538,17 +536,8 @@ Solvating the PEG in water
 
 ..  container:: justify
 
-    Let us also print the total enthalpy:
-
-..  code-block:: lammps
-
-    variable myenthalpy equal enthalpy
-    fix myat3 all ave/time 10 10 100 v_myenthalpy file enthalpy.dat
-
-..  container:: justify
-
     Finally, let us perform a short equilibration and print the
-    final state in a data file. Add the following lines to the data file:
+    final state in a data file. Add the following lines into the data file:
 
 ..  code-block:: lammps
 
@@ -618,7 +607,7 @@ Stretching the PEG molecule
 ..  container:: justify
 
     Start the simulation from the equilibrated PEG-water system and include
-    again the parameter file by adding the following lines to the *input.lammps*:
+    again the parameter file by adding the following lines into the *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -631,7 +620,7 @@ Stretching the PEG molecule
     as 2 groups containing only the 2 oxygen atoms of types 6 and 7,
     respectively. Atoms of types 6 and 7 correspond to the oxygen atoms
     located at the ends of the PEG molecule, which we are going to use to pull
-    on the PEG molecule. Add the following lines to the *input.lammps*:
+    on the PEG molecule. Add the following lines into the *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -652,7 +641,7 @@ Stretching the PEG molecule
 ..  container:: justify
 
     Let us use a single Nosé-Hoover thermostat applied to all the atoms by
-    adding the following lines to *input.lammps*:
+    adding the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -664,7 +653,7 @@ Stretching the PEG molecule
     Let us also print the end-to-end distance of the PEG,
     here defined as the distance between the groups *topull1*
     and *topull2*, as well as the temperature of the system 
-    by adding the following lines to *input.lammps*:
+    by adding the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 

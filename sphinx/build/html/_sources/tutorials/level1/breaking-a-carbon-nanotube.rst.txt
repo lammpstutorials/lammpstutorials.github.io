@@ -289,7 +289,7 @@ The LAMMPS input
 .. container:: justify
     
     The file *parm.lammps* is included in the
-    simulation by adding the following line to the *input.lammps* file:
+    simulation by adding the following line into the *input.lammps* file:
 
 .. code-block:: lammps
 
@@ -340,7 +340,7 @@ Prepare the initial state
 
 .. container:: justify
 
-    Let us also change the box boundaries by adding the following line to *input.lammps*:
+    Let us also change the box boundaries by adding the following line into *input.lammps*:
 
 .. code-block:: lammps
 
@@ -358,7 +358,7 @@ Prepare the initial state
     A displacement will be imposed on the edges of the CNT. To do so, let us isolate the
     atoms from the two edges and place them into groups named *rtop*
     and *rbot*, respectively.
-    Add the following lines to *input.lammps*:
+    Add the following lines into *input.lammps*:
 
 .. code-block:: lammps
 
@@ -465,7 +465,7 @@ The molecular dynamics
 .. container:: justify
 
    Let us specify the thermalization and the dynamics of the
-   system. Add the following lines to *input.lammps*:
+   system. Add the following lines into *input.lammps*:
 
 .. code-block:: lammps
 
@@ -792,7 +792,7 @@ Use of AIREBO potential
 .. container:: justify
 
     Then, let us import the LAMMPS data file, and set the
-    pair coefficients by adding the following lines to *input.lammps*
+    pair coefficients by adding the following lines into *input.lammps*
 
 .. code-block:: lammps
 
@@ -875,7 +875,7 @@ Start the simulation
 
     First, as an equilibration step, let us set the velocity to 0
     for the atoms of both edges. Let us fully constrain the edges.
-    Add the following lines to LAMMPS:
+    Add the following lines into LAMMPS:
 
 .. code-block:: lammps
 

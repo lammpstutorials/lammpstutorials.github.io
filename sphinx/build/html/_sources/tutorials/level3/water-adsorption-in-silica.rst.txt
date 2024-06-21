@@ -339,7 +339,7 @@ Cracking the silica
     and eventually crack. To do
     so, a loop based on the jump command is used. At
     every step of the loop, the box dimension over x will
-    be multiplied by a scaling factor 1.005. Add the following lines to
+    be multiplied by a scaling factor 1.005. Add the following lines into
     the *input.lammps*:
 
 .. code-block:: lammps
@@ -651,7 +651,7 @@ Using hydrid potentials
 
     Let us delete the overlapping water molecules, and print the
     positions of the remaining atoms in a *.lammpstrj* file by adding the following
-    lines to *input.lammps*:
+    lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -665,7 +665,7 @@ GCMC simulation
 
     To prepare for the GCMC simulation,
     let us make the first equilibration step
-    by adding the following lines to *input.lammps*:
+    by adding the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 

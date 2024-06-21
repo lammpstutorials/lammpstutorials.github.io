@@ -302,19 +302,17 @@
 </a>
 </figure>
 <div class="justify docutils container">
-<p>The goal of this tutorial is to use LAMMPS and solvate a small
+<p>The goal of this tutorial is to use LAMMPS to solvate a small
 hydrophilic polymer (PEG - PolyEthylene Glycol) in a reservoir of water.</p>
 </div>
 <div class="justify docutils container">
-<p>An all-atom description is used for both PEG (GROMOS 54A7 force
-field <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id20" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F Van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">24</a>]</span>) and water
-(SPC/Fw model <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id24" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">25</a>]</span>) and the long
-range Coulomb interactions are solved using the PPPM solver <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id14" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">26</a>]</span>.
-Once the water reservoir is properly
-equilibrated at the desired temperature and pressure, the polymer molecule
-is added and a constant stretching force is applied to both
-ends of the polymer. The evolution of the polymer length
-is measured as a function of time.</p>
+<p>Once the water reservoir is properly equilibrated at the desired temperature
+and pressure, the polymer molecule is added and a constant stretching force
+is applied to both ends of the polymer. The evolution of the polymer length
+is measured as a function of time. The GROMOS 54A7 force field
+<span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id20" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F Van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">24</a>]</span> is used for the PEG, the SPC/Fw
+model <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id24" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">25</a>]</span> is used for the water, and the long-range
+Coulomb interactions are solved using the PPPM solver <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id14" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">26</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>This tutorial was inspired by a <a href="https://doi.org/10.1021/acsnano.6b07071" target="_blank">publication</a> by Liese and coworkers, in which
@@ -336,7 +334,7 @@ you follow this tutorial on a simple <a class="reference internal" href="../leve
 <h2>Preparing the water reservoir<a class="headerlink" href="#preparing-the-water-reservoir" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
 <p>In this tutorial, the water reservoir is first prepared in the absence of
-polymer. A rectangular box of water is created and
+the polymer. A rectangular box of water is created and
 equilibrated at ambient temperature and ambient pressure.
 The SPC/Fw water model is used <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id24" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">25</a>]</span>, which is
 a flexible variant of the rigid SPC (simple point charge)
@@ -359,10 +357,10 @@ lines into it:</p>
 </div>
 <div class="justify docutils container">
 <p>With the unit style <em>real</em>, masses are in grams per
-mole, distances in Ångstroms, time in femtoseconds, energies
+mole, distances in Ångstroms, time in femtoseconds, and energies
 in Kcal/mole. With the <em>atom_style full</em>, each atom is a dot
 with a mass and a charge that can be
-linked by bonds, angles, dihedrals and/or impropers. The <em>bond_style</em>,
+linked by bonds, angles, dihedrals, and/or impropers. The <em>bond_style</em>,
 <em>angle_style</em>, and <em>dihedral_style</em> commands define the
 potentials for the bonds, angles, and dihedrals used in the simulation,
 here <em>harmonic</em>.</p>
@@ -373,9 +371,9 @@ potential used by LAMMPS. For instance, this <a href="https://docs.lammps.org/an
 gives the expression for the harmonic angular potential.</p>
 </div>
 <div class="justify docutils container">
-<p>Finally, the <em>special_bonds</em> command cancels the
-Lennard-Jones interactions between the closest
-atoms of the same molecule.</p>
+<p>Finally, the <em>special_bonds</em> command, which was already seen in
+the previous tutorial, <a class="reference internal" href="../level1/breaking-a-carbon-nanotube.html#carbon-nanotube-label"><span class="std std-ref">Pulling on a carbon nanotube</span></a>, sets the LJ and Coulomb
+weighting factors for the interaction between neighboring atoms.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About <em>special bonds</em></p>
@@ -391,22 +389,22 @@ and the full Coulomb interaction will be used.</p>
 <div class="justify docutils container">
 <p>With the <em>pair_style</em> named <em>lj/cut/coul/long</em>, atoms
 interact through both a Lennard-Jones (LJ) potential and
-Coulombic interactions. The value of <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span> is
+Coulomb interactions. The value of <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span> is
 the cutoff.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About cutoff in molecular dynamics</p>
-<p>The cutoff of <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span> applies to both LJ and Coulombic
+<p>The cutoff of <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span> applies to both LJ and Coulomb
 interactions, but in a different way. For LJ <em>cut</em>
 interactions, atoms interact with each other only if they
 are separated by a distance smaller than the cutoff. For
-Coulombic <em>long</em>, interactions between atoms closer than
+Coulomb <em>long</em>, interactions between atoms closer than
 the cutoff are computed directly, and interactions between
 atoms outside that cutoff are computed in the reciprocal space.</p>
 </div>
 <div class="justify docutils container">
-<p>Finally, the <em>kspace</em> command defines the long-range solver for the (long)
-Coulombic interactions. The <em>pppm</em> style refers to
+<p>Finally, the <em>kspace</em> command defines the long-range solver for the
+Coulomb interactions. The <em>pppm</em> style refers to
 particle-particle particle-mesh <span id="id7">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id14" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">26</a>]</span>.</p>
 </div>
 <div class="info admonition">
@@ -422,8 +420,10 @@ periodic boundary conditions (PBCs) <span id="id8">[<a class="reference internal
 <div class="justify docutils container">
 <p>Then, let us create a 3D simulation box of dimensions <span class="math notranslate nohighlight">\(9 \times 3 \times 3 \; \text{nm}^3\)</span>,
 and make space for 9 atom types (2 for
-the water molecule, and 7 for the polymer molecule), 7 bond types, 8
-angle types, and 4 dihedral types.
+the water + 7 for the polymer), 7 bond types (1 for
+the water + 6 for the polymer), 8
+angle types (1 for the water + 7 for the polymer), and 4 dihedral types
+(for the polymer only).
 Copy the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">45</span><span class="w"> </span><span class="m">45</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span>
@@ -468,8 +468,8 @@ the other parameters are for the polymer.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us create water molecules. To do so, let us
-define what a water molecule is using a molecule <em>template</em> called
-<em>H2O-SPCFw.mol</em>, and then randomly create 1050 molecules.
+import a molecule template called
+<em>H2O-SPCFw.mol</em> and then let us randomly create 1050 molecules.
 Add the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O</span><span class="o">-</span><span class="n">SPCFw.mol</span>
@@ -488,7 +488,7 @@ and <em>maxtry</em>, LAMMPS may not create the desired number of molecules.
 Always check the number of created atoms in the <em>log</em> file after
 starting the simulation:</p>
 </div>
-<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Created 1050 atoms
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Created 3150 atoms
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -500,8 +500,8 @@ appears in the <em>log</em> file.</p>
 can be <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/H2O-SPCFw.mol" target="_blank">downloaded</a>
 and saved in the <em>pureH2O/</em> folder.
 This template contains the necessary structural
-information of a water molecule, such as the number of atoms,
-the id of the atoms that are connected by bonds, by angles, etc.</p>
+information of a water molecule, such as the number of atoms, or the IDs
+of the atoms that are connected by bonds, angles, etc.</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us organize the atoms of types 8 and 9 of the water molecules
@@ -516,16 +516,17 @@ to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The <em>reset_timestep</em> command is optional. It is used here
-because the <em>minimize</em> command is usually performed over an arbitrary
-number of steps.</p>
+<p>In general, resetting the step of the simulation to 0 using the
+<em>reset_timestep</em> command is optional. It is used here because the number
+of iterations performed by the <em>minimize</em> command is usually not a round
+number (since the minimization stops when one of four criteria is reached).</p>
 </div>
 <div class="justify docutils container">
 <p>Let us use the <em>fix npt</em> to
 control the temperature of the molecules with a Nosé-Hoover thermostat and
 the pressure of the system with a Nosé-Hoover barostat
 <span id="id9">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id6" title="Shuichi Nosé. A unified formulation of the constant temperature molecular dynamics methods. The Journal of chemical physics, 81(1):511–519, 1984.">29</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id5" title="William G Hoover. Canonical dynamics: equilibrium phase-space distributions. Physical review A, 31(3):1695, 1985.">30</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id4" title="Glenn J Martyna, Douglas J Tobias, and Michael L Klein. Constant pressure molecular dynamics algorithms. The Journal of chemical physics, 101(5):4177–4189, 1994.">31</a>]</span>,
-by adding the following line to <em>input.lammps</em>:</p>
+by adding the following line into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">iso</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1000</span>
 </pre></div>
@@ -569,7 +570,7 @@ the underscore must be used.</p>
 <div class="justify docutils container">
 <p>Finally, let us set the timestep to 1.0 fs,
 and run the simulation for 20 ps by adding the
-following lines to <em>input.lammps</em>:</p>
+following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
 <span class="k">run</span><span class="w"> </span><span class="m">20000</span>
@@ -617,9 +618,8 @@ equilibrated and use it to continue with the tutorial.</p>
 <section id="solvating-the-peg-in-water">
 <h2>Solvating the PEG in water<a class="headerlink" href="#solvating-the-peg-in-water" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>Once the water reservoir is equilibrated, we can safely
-include the PEG polymer in the water before performing the pull experiment
-on the polymer.</p>
+<p>Now that the water reservoir is equilibrated, we can safely
+include the PEG polymer in the water.</p>
 </div>
 <div class="justify docutils container">
 <p>The PEG molecule topology was downloaded from the <a href="https://atb.uq.edu.au/" target="_blank">ATB</a>
@@ -667,10 +667,8 @@ as well as the <em>PARM.lammps</em> file:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Let us create a molecule called <em>pegmol</em> from
-the molecule <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/mergePEGH2O/PEG-GROMOS.mol" target="_blank">template</a>
-for the PEG molecule, and let us create a single molecule in the middle of
-the box:</p>
+<p>Download the molecule <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/mergePEGH2O/PEG-GROMOS.mol" target="_blank">template</a> for the PEG molecule, and then
+create a single molecule in the middle of the box:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">pegmol</span><span class="w"> </span><span class="n">PEG</span><span class="o">-</span><span class="n">GROMOS.mol</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">pegmol</span><span class="w"> </span><span class="m">454756</span>
@@ -678,7 +676,7 @@ the box:</p>
 </div>
 <div class="justify docutils container">
 <p>Let us create 2 groups to differentiate the PEG from the H2O,
-by adding the following lines to <em>input.lammps</em>:</p>
+by adding the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">9</span>
 <span class="k">group </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span>
@@ -686,7 +684,7 @@ by adding the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="justify docutils container">
 <p>Water molecules that are overlapping with the PEG must be deleted to avoid
-future crashing. Add the following line to <em>input.lammps</em>:</p>
+future crashing. Add the following line into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">PEG</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
 </pre></div>
@@ -718,15 +716,8 @@ and volume:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Let us also print the total enthalpy:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">myenthalpy</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">enthalpy</span>
-<span class="k">fix </span><span class="nv nv-Identifier">myat3</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_myenthalpy</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">enthalpy.dat</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
 <p>Finally, let us perform a short equilibration and print the
-final state in a data file. Add the following lines to the data file:</p>
+final state in a data file. Add the following lines into the data file:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">30000</span>
 <span class="k">write_data </span><span class="nv nv-Identifier">mix.data</span>
@@ -785,7 +776,7 @@ Then, copy the same lines as previously:</p>
 </div>
 <div class="justify docutils container">
 <p>Start the simulation from the equilibrated PEG-water system and include
-again the parameter file by adding the following lines to the <em>input.lammps</em>:</p>
+again the parameter file by adding the following lines into the <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">mergePEGH2O</span><span class="o">/</span><span class="n">mix.data</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
@@ -796,7 +787,7 @@ again the parameter file by adding the following lines to the <em>input.lammps</
 as 2 groups containing only the 2 oxygen atoms of types 6 and 7,
 respectively. Atoms of types 6 and 7 correspond to the oxygen atoms
 located at the ends of the PEG molecule, which we are going to use to pull
-on the PEG molecule. Add the following lines to the <em>input.lammps</em>:</p>
+on the PEG molecule. Add the following lines into the <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">9</span>
 <span class="k">group </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span>
@@ -813,7 +804,7 @@ every 1000 steps:</p>
 </div>
 <div class="justify docutils container">
 <p>Let us use a single Nosé-Hoover thermostat applied to all the atoms by
-adding the following lines to <em>input.lammps</em>:</p>
+adding the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
@@ -823,7 +814,7 @@ adding the following lines to <em>input.lammps</em>:</p>
 <p>Let us also print the end-to-end distance of the PEG,
 here defined as the distance between the groups <em>topull1</em>
 and <em>topull2</em>, as well as the temperature of the system
-by adding the following lines to <em>input.lammps</em>:</p>
+by adding the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">mytemp</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">v_mytemp</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">output</span><span class="o">-</span><span class="n">temperature.dat</span>

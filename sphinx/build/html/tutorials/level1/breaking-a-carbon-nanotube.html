@@ -528,7 +528,7 @@ between 4 atoms.</p>
 </div>
 <div class="justify docutils container">
 <p>The file <em>parm.lammps</em> is included in the
-simulation by adding the following line to the <em>input.lammps</em> file:</p>
+simulation by adding the following line into the <em>input.lammps</em> file:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">include</span><span class="w"> </span><span class="n">parm.lammps</span>
 </pre></div>
@@ -572,7 +572,7 @@ command moves the group <em>carbon_atoms</em>, ensuring that its center of mass
 is located at the origin (0, 0, 0).</p>
 </div>
 <div class="justify docutils container">
-<p>Let us also change the box boundaries by adding the following line to <em>input.lammps</em>:</p>
+<p>Let us also change the box boundaries by adding the following line into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">40</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">40</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="o">-</span><span class="m">40</span><span class="w"> </span><span class="m">40</span>
 </pre></div>
@@ -587,7 +587,7 @@ the molecular dynamics.</p>
 <p>A displacement will be imposed on the edges of the CNT. To do so, let us isolate the
 atoms from the two edges and place them into groups named <em>rtop</em>
 and <em>rbot</em>, respectively.
-Add the following lines to <em>input.lammps</em>:</p>
+Add the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">zmax</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(carbon_atoms,zmax)</span><span class="o">-</span><span class="m">0.5</span>
 <span class="k">variable </span><span class="nv nv-Identifier">zmin</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(carbon_atoms,zmin)</span><span class="o">+</span><span class="m">0.5</span>
@@ -677,7 +677,7 @@ from the central part of the CNT.</p>
 <h3>The molecular dynamics<a class="headerlink" href="#the-molecular-dynamics" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Let us specify the thermalization and the dynamics of the
-system. Add the following lines to <em>input.lammps</em>:</p>
+system. Add the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">reset_atoms</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">velocity </span><span class="nv nv-Identifier">carbon_mid</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">48455</span><span class="w"> </span><span class="n">mom</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span>
@@ -950,7 +950,7 @@ by clicking <a href="../../../../../lammpstutorials-inputs/level1/breaking-a-car
 <h3>Use of AIREBO potential<a class="headerlink" href="#use-of-airebo-potential" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Then, let us import the LAMMPS data file, and set the
-pair coefficients by adding the following lines to <em>input.lammps</em></p>
+pair coefficients by adding the following lines into <em>input.lammps</em></p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># System definition</span>
 <span class="k">read_data</span><span class="w"> </span><span class="n">cnt_atom.data</span>
@@ -1021,7 +1021,7 @@ CNT, the motion was imposed on the 2 edges).</p>
 <div class="justify docutils container">
 <p>First, as an equilibration step, let us set the velocity to 0
 for the atoms of both edges. Let us fully constrain the edges.
-Add the following lines to LAMMPS:</p>
+Add the following lines into LAMMPS:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">carbon_bot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">carbon_top</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
