@@ -55,8 +55,7 @@ System generation
 
     Create a new folder called *systemcreation/*.
     Within *systemcreation/*, open a blank file
-    called *input.lammps*, and copy the following
-    lines into it:
+    called *input.lammps*, and copy the following lines into it:
 
 ..  code-block:: lammps
 
@@ -77,13 +76,15 @@ System generation
 
 ..  container:: justify
 
-    So far, the commands are relatively similar to the previous tutorial
-    (:ref:`all-atoms-label`), with two major differences; the use
-    of *lj/cut/tip4p/long* and *pppm/tip4p*, instead of *lj/cut/coul/long* and *pppm*.
-    These two tip4p-specific commands allow us to model a four-point water
+    So far, the commands are relatively similar to those in the previous tutorial,
+    :ref:`all-atoms-label`,
+    with two major differences: the use of *lj/cut/tip4p/long*
+    instead of *lj/cut/coul/long*,
+    and *pppm/tip4p*
+    instead of *pppm*. These two tip4p-specific commands allow us to model a four-point water
     molecule without explicitly defining the fourth massless atom *M*. The value of 
     :math:`0.1546\,\text{Å}` corresponds to the *O-M* distance and is 
-    given by the water model. Here, |TIP4P-2005| is used :cite:`abascal2005general`.
+    imposed by the water model. Here, |TIP4P-2005| is used :cite:`abascal2005general`.
 
 .. |TIP4P-2005| raw:: html
 
@@ -93,14 +94,14 @@ System generation
     :class: info
 
     The *lj/cut/tip4p/long* pair style is similar to the conventional 
-    Lennard Jones + Coulomb interaction, except that it is made specifically 
+    Lennard Jones and Coulomb interactions, except that it is specifically designed
     for four-point water model (tip4p). The atoms of the water model
-    will be type 1 (O) and 2 (H). All the other atoms of the simulations 
+    will be type 1 (O) and 2 (H). All the other atoms in the simulation 
     are treated *normally* with long-range Coulomb interaction.
 
 ..  container:: justify
 
-    Let us create the box by adding the following lines into *input.lammps*:
+    Let us create the box by adding the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -147,7 +148,7 @@ System generation
     sub-regions corresponding respectively to the two solid
     walls, and create a larger region from the union of the two
     regions. Then, let us create atoms of type 5 (the wall) within the two
-    regions. Add the following lines into *input.lammps*:
+    regions. Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -175,7 +176,7 @@ System generation
 
 ..  container:: justify
 
-    Add the following lines into *input.lammps*:
+    Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -185,7 +186,7 @@ System generation
 
 ..  container:: justify
 
-    Within the last four lines, a *region* named *rliquid* for depositing the
+    Within the last three lines, a *region* named *rliquid* for depositing the
     water molecules are created based on the last defined lattice, which is *fcc 4.04*. 
 
 ..  container:: justify
@@ -344,7 +345,7 @@ System generation
 ..  container:: justify
 
     To avoid high density and pressure,
-    let us add the following lines into *input.lammps*
+    let us add the following lines to *input.lammps*
     to delete a few of the water molecules:
 
 ..  code-block:: lammps
@@ -353,7 +354,7 @@ System generation
 
 ..  container:: justify
 
-    Finally, add the following lines into *input.lammps*:
+    Finally, add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -512,7 +513,7 @@ Energy minimization
 ..  container:: justify
 
     Finally, let us run for 4000 steps. Add the 
-    following lines into *input.lammps*:
+    following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -581,7 +582,7 @@ System equilibration
 
     Create a new folder called *equilibration/* next to 
     the previously created folders, and create a new
-    *input.lammps* file in it. Add the following lines into *input.lammps*:
+    *input.lammps* file in it. Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -618,7 +619,7 @@ System equilibration
 
 ..  container:: justify
 
-    Then, add the following lines into *input.lammps* for
+    Then, add the following lines to *input.lammps* for
     the trajectory visualization and output:
 
 ..  code-block:: lammps
@@ -768,7 +769,7 @@ Imposed shearing
     Finally, let us dump the atom positions, extract the
     velocity profiles using several *ave/chunk* commands, extract the
     force applied on the walls, and then run for :math:`200\,\text{ps}`
-    Add the following lines into *input.lammps*:
+    Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
