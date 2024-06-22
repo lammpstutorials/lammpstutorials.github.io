@@ -311,7 +311,7 @@ confining a fluid on its local properties.</p>
 <p>This tutorial illustrates some key aspects of
 combining a fluid and a solid in the same simulation.
 A major difference from <a class="reference internal" href="polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a> is that
-here a rigid four-points water model named TIP4P is used <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>.
+here a rigid four-points water model named TIP4P is used <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id36" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>.
 TIP4P is one of the most common water models due to its high accuracy.</p>
 </div>
 <div class="justify docutils container">
@@ -362,7 +362,7 @@ and <em>pppm/tip4p</em>
 instead of <em>pppm</em>. These two tip4p-specific commands allow us to model a four-point water
 molecule without explicitly defining the fourth massless atom <em>M</em>. The value of
 <span class="math notranslate nohighlight">\(0.1546\,\text{Å}\)</span> corresponds to the <em>O-M</em> distance and is
-imposed by the water model. Here, <a href="http://www.sklogwiki.org/SklogWiki/index.php/TIP4P/2005_model_of_water" target="_blank">TIP4P-2005</a> is used <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>.</p>
+imposed by the water model. Here, <a href="http://www.sklogwiki.org/SklogWiki/index.php/TIP4P/2005_model_of_water" target="_blank">TIP4P-2005</a> is used <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id36" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About lj/cut/tip4p/long pair style</p>
@@ -443,17 +443,17 @@ atom positions, bonds, and angles.</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Within the last three lines, a <em>region</em> named <em>rliquid</em> for depositing the
-water molecules are created based on the last defined lattice, which is <em>fcc 4.04</em>.</p>
+<p>Within the last three lines, a <em>region</em> named <em>rliquid</em> is created based on the last defined lattice, <em>fcc 4.04</em>.
+<em>rliquid</em> will be used for depositing the water molecules.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>molecule</em> command opens up the molecule template named
 <em>RigidH2O.txt</em>, and names the associated molecule <em>h2omol</em>.</p>
 </div>
 <div class="justify docutils container">
-<p>Molecules are created on the <em>fcc 4.04</em> lattice
+<p>The new molecules are placed on the <em>fcc 4.04</em> lattice
 by the <em>create_atoms</em> command. The
-first parameter is ‘0’, meaning that the atom IDs from the
+first parameter is 0, meaning that the atom IDs from the
 <em>RigidH2O.txt</em> file will be used.
 The number <em>482793</em> is a seed that is
 required by LAMMPS, it can be any positive integer.</p>
@@ -494,8 +494,8 @@ Copy the following line into <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Create a new text file, call it <em>PARM.lammps</em>, and copy it
-next to the <em>systemcreation/</em> folder. Copy the following lines
+<p>Create a new text file called <em>PARM.lammps</em> next to
+the <em>systemcreation/</em> folder. Copy the following lines
 into PARM.lammps:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">15.9994</span><span class="w"> </span><span class="c"># water</span>
@@ -510,10 +510,6 @@ into PARM.lammps:</p>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0.1500</span><span class="w"> </span><span class="m">4.04470</span><span class="w"> </span><span class="c"># ion</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">11.697</span><span class="w"> </span><span class="m">2.574</span><span class="w"> </span><span class="c"># wall</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">0.4</span><span class="w"> </span><span class="m">2.86645</span><span class="w"> </span><span class="c"># water-wall</span>
-
-<span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.9572</span><span class="w"> </span><span class="c"># water</span>
-
-<span class="k">angle_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104.52</span><span class="w"> </span><span class="c"># water</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -528,40 +524,37 @@ particle-particle potential energy is 0.</p>
 correspond to the TIP4P/2005 water model, for which only
 the oxygen interacts through Lennard-Jones potential, and the parameters
 for <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span> are
-from the CHARMM-27 force field <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id40" title="Alexander D MacKerell Jr, Nilesh Banavali, and Nicolas Foloppe. Development and current status of the CHARMM force field for nucleic acids. Biopolymers: original Research on biomolecules, 56(4):257–265, 2000.">36</a>]</span>.</p>
+from the CHARMM-27 force field <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id42" title="Alexander D MacKerell Jr, Nilesh Banavali, and Nicolas Foloppe. Development and current status of the CHARMM force field for nucleic acids. Biopolymers: original Research on biomolecules, 56(4):257–265, 2000.">36</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
-<p>As already seen in previous tutorials,
-and with the important exception of <em>pair_coeff 1 5</em>,
-only pairwise interaction between atoms of
-identical types was assigned. By default, LAMMPS calculates
-the pair coefficients for the interactions between atoms
-of different types (i and j) by using geometrical
-average: <span class="math notranslate nohighlight">\(\epsilon_{ij} = (\epsilon_{ii} + \epsilon_{jj})/2\)</span>,
-<span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_{ii} + \sigma_{jj})/2.\)</span>
-Other rules for cross coefficients can be set with the
-<em>pair_modify</em> command, but for the sake of simplicity,
-the default option is kept here.</p>
+<p>As already seen in previous tutorials and with the important exception of
+<em>pair_coeff 1 5</em>, only pairwise interactions between atoms of identical
+types was assigned. By default, LAMMPS calculates the pair coefficients for
+the interactions between atoms of different types (i and j) by using geometrical average:
+<span class="math notranslate nohighlight">\(\epsilon_{ij} = (\epsilon_{ii} + \epsilon_{jj})/2\)</span>,
+<span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_{ii} + \sigma_{jj})/2.\)</span>.
+If the default value of <span class="math notranslate nohighlight">\(5.941\,\text{kcal/mol}\)</span>
+was kept for <span class="math notranslate nohighlight">\(\epsilon_\text{1-5}\)</span>, the solid walls would be extremely
+hydrophilic, causing the water molecule to form dense layers. As a comparison,
+the water-water energy <span class="math notranslate nohighlight">\(\epsilon_\text{1-1}\)</span> is only
+<span class="math notranslate nohighlight">\(0.185199\,\text{kcal/mol}\)</span>. Therefore, the walls were made less
+hydrophilic by reducing the value of <span class="math notranslate nohighlight">\(\epsilon_\text{1-5}\)</span>. Copy the
+following lines into PARM.lammps as well:</p>
+</div>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.9572</span><span class="w"> </span><span class="c"># water</span>
+
+<span class="k">angle_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104.52</span><span class="w"> </span><span class="c"># water</span>
+</pre></div>
 </div>
 <div class="justify docutils container">
-<p>By default, the value
-of <span class="math notranslate nohighlight">\(\epsilon_\text{1-5} = 5.941\,\text{kcal/mol}\)</span> would
-be extremely high (compared to the water-water
-energy <span class="math notranslate nohighlight">\(\epsilon_\text{1-1} = 0.185199\,\text{kcal/mol}\)</span>),
-which would make the surface extremely hydrophilic.
-The walls were made less hydrophilic by reducing the
-LJ energy of interaction <span class="math notranslate nohighlight">\(\epsilon_\text{1-5}\)</span>.</p>
-</div>
-<div class="justify docutils container">
-<p>The <em>bond_coeff</em>, which is here used for the O-H bond of the water
-molecule, sets both the energy of the harmonic
-potential and the equilibrium distance in Ångstrom. The
-value is <em>0</em> for the energy because we are going to use a
-rigid model for the water molecule. The shape of the
-molecule will be preserved later by the <em>shake</em> algorithm.
-Similarly, the angle coefficient here for the H-O-H angle
-of the water molecule sets the energy of the harmonic
-potential (also 0) and the equilibrium angle is in degree.</p>
+<p>The <em>bond_coeff</em> command, used here for the O-H bond of the water molecule, sets both
+the spring constant of the harmonic potential and the equilibrium distance
+of <span class="math notranslate nohighlight">\(0.9572~\text{Å}\)</span>. The constant can be 0 for a rigid water molecule,
+because the shape of the molecule will be preserved by the SHAKE algorithm
+(see below) <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id4" title="Jean-Paul Ryckaert, Giovanni Ciccotti, and Herman JC Berendsen. Numerical integration of the cartesian equations of motion of a system with constraints: molecular dynamics of n-alkanes. Journal of computational physics, 23(3):327–341, 1977.">37</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id5" title="Hans C Andersen. Rattle: a “velocity” version of the shake algorithm for molecular dynamics calculations. Journal of computational Physics, 52(1):24–34, 1983.">38</a>]</span>.
+Similarly, the angle coefficient for the H-O-H angle of the water
+molecule sets the force constant of the angular harmonic potential to 0 and
+the equilibrium angle to <span class="math notranslate nohighlight">\(104.52^\circ\)</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us also create another file called <em>GROUP.lammps</em> next
@@ -712,7 +705,7 @@ each timestep. Here, only the fluid molecules and ions will move.</p>
 <div class="justify docutils container">
 <p>The <em>fix temp/berendsen</em> rescales the
 velocities of the atoms to force the temperature of the system
-to reach the desired value of 1 K, and the shake algorithm
+to reach the desired value of 1 K, and the SHAKE algorithm
 is used in order to maintain the shape of the water molecules.</p>
 </div>
 <div class="justify docutils container">
@@ -1007,7 +1000,7 @@ according to <a href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/Phy
 <span class="math notranslate nohighlight">\(\eta = \tau / \dot{\gamma}\)</span> where <span class="math notranslate nohighlight">\(\tau\)</span>
 is the stress applied by the fluid on the shearing wall, and
 <span class="math notranslate nohighlight">\(\dot{\gamma}\)</span> the shear rate (which is imposed
-here) <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id32" title="Simon Gravelle, Catherine Kamal, and Lorenzo Botto. Violations of Jeffery's theory in the dynamics of nanographene in shear flow. Physical Review Fluids, 6(3):034303, 2021.">37</a>]</span>. Here the shear rate
+here) <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="Simon Gravelle, Catherine Kamal, and Lorenzo Botto. Violations of Jeffery's theory in the dynamics of nanographene in shear flow. Physical Review Fluids, 6(3):034303, 2021.">39</a>]</span>. Here the shear rate
 is approximatively <span class="math notranslate nohighlight">\(\dot{\gamma} = 16 \cdot 10^9\,\text{s}^{-1}\)</span>,
 and using a surface area of <span class="math notranslate nohighlight">\(A = 6 \cdot 10^{-18}\,\text{m}^2\)</span>, one
 gets an estimate for the shear viscosity for the confined

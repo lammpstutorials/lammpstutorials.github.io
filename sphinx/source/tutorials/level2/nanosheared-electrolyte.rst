@@ -186,8 +186,8 @@ System generation
 
 ..  container:: justify
 
-    Within the last three lines, a *region* named *rliquid* for depositing the
-    water molecules are created based on the last defined lattice, which is *fcc 4.04*. 
+    Within the last three lines, a *region* named *rliquid* is created based on the last defined lattice, *fcc 4.04*.
+    *rliquid* will be used for depositing the water molecules.
 
 ..  container:: justify
 
@@ -196,9 +196,9 @@ System generation
 
 ..  container:: justify
 
-    Molecules are created on the *fcc 4.04* lattice
+    The new molecules are placed on the *fcc 4.04* lattice
     by the *create_atoms* command. The
-    first parameter is '0', meaning that the atom IDs from the
+    first parameter is 0, meaning that the atom IDs from the
     *RigidH2O.txt* file will be used.
     The number *482793* is a seed that is
     required by LAMMPS, it can be any positive integer.
@@ -246,8 +246,8 @@ System generation
 
 ..  container:: justify
 
-    Create a new text file, call it *PARM.lammps*, and copy it
-    next to the *systemcreation/* folder. Copy the following lines
+    Create a new text file called *PARM.lammps* next to
+    the *systemcreation/* folder. Copy the following lines
     into PARM.lammps:
 
 ..  code-block:: lammps
@@ -264,10 +264,6 @@ System generation
     pair_coeff 4 4 0.1500 4.04470 # ion
     pair_coeff 5 5 11.697 2.574 # wall
     pair_coeff 1 5 0.4 2.86645 # water-wall
-
-    bond_coeff 1 0 0.9572 # water
-
-    angle_coeff 1 0 104.52 # water
 
 ..  container:: justify
     
@@ -287,39 +283,36 @@ System generation
 
 ..  container:: justify
 
-    As already seen in previous tutorials, 
-    and with the important exception of *pair_coeff 1 5*,
-    only pairwise interaction between atoms of
-    identical types was assigned. By default, LAMMPS calculates
-    the pair coefficients for the interactions between atoms
-    of different types (i and j) by using geometrical
-    average: :math:`\epsilon_{ij} = (\epsilon_{ii} + \epsilon_{jj})/2`, 
-    :math:`\sigma_{ij} = (\sigma_{ii} + \sigma_{jj})/2.`
-    Other rules for cross coefficients can be set with the
-    *pair_modify* command, but for the sake of simplicity,
-    the default option is kept here.
+    As already seen in previous tutorials and with the important exception of 
+    *pair_coeff 1 5*, only pairwise interactions between atoms of identical
+    types was assigned. By default, LAMMPS calculates the pair coefficients for
+    the interactions between atoms of different types (i and j) by using geometrical average: 
+    :math:`\epsilon_{ij} = (\epsilon_{ii} + \epsilon_{jj})/2`, 
+    :math:`\sigma_{ij} = (\sigma_{ii} + \sigma_{jj})/2.`.
+    If the default value of :math:`5.941\,\text{kcal/mol}`
+    was kept for :math:`\epsilon_\text{1-5}`, the solid walls would be extremely
+    hydrophilic, causing the water molecule to form dense layers. As a comparison,
+    the water-water energy :math:`\epsilon_\text{1-1}` is only
+    :math:`0.185199\,\text{kcal/mol}`. Therefore, the walls were made less
+    hydrophilic by reducing the value of :math:`\epsilon_\text{1-5}`. Copy the
+    following lines into PARM.lammps as well:
 
-.. container:: justify
+..  code-block:: lammps
 
-    By default, the value
-    of :math:`\epsilon_\text{1-5} = 5.941\,\text{kcal/mol}` would
-    be extremely high (compared to the water-water
-    energy :math:`\epsilon_\text{1-1} = 0.185199\,\text{kcal/mol}`),
-    which would make the surface extremely hydrophilic.
-    The walls were made less hydrophilic by reducing the 
-    LJ energy of interaction :math:`\epsilon_\text{1-5}`.
+    bond_coeff 1 0 0.9572 # water
+
+    angle_coeff 1 0 104.52 # water
 
 ..  container:: justify
 
-    The *bond_coeff*, which is here used for the O-H bond of the water
-    molecule, sets both the energy of the harmonic
-    potential and the equilibrium distance in Ångstrom. The
-    value is *0* for the energy because we are going to use a
-    rigid model for the water molecule. The shape of the
-    molecule will be preserved later by the *shake* algorithm.
-    Similarly, the angle coefficient here for the H-O-H angle
-    of the water molecule sets the energy of the harmonic
-    potential (also 0) and the equilibrium angle is in degree.
+    The *bond_coeff* command, used here for the O-H bond of the water molecule, sets both
+    the spring constant of the harmonic potential and the equilibrium distance
+    of :math:`0.9572~\text{Å}`. The constant can be 0 for a rigid water molecule,
+    because the shape of the molecule will be preserved by the SHAKE algorithm
+    (see below) :cite:`ryckaert1977numerical, andersen1983rattle`.
+    Similarly, the angle coefficient for the H-O-H angle of the water
+    molecule sets the force constant of the angular harmonic potential to 0 and
+    the equilibrium angle to :math:`104.52^\circ`.
 
 ..  container:: justify
 
@@ -497,7 +490,7 @@ Energy minimization
 
     The *fix temp/berendsen* rescales the
     velocities of the atoms to force the temperature of the system
-    to reach the desired value of 1 K, and the shake algorithm
+    to reach the desired value of 1 K, and the SHAKE algorithm
     is used in order to maintain the shape of the water molecules.
 
 ..  container:: justify

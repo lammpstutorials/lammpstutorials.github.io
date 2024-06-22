@@ -643,7 +643,7 @@ Using hydrid potentials
     
 ..  container:: justify
 
-    The shake algorithm is used to
+    The SHAKE algorithm is used to
     maintain the shape of the water molecules over time. Some of
     these features have been seen in previous tutorials.
 
