@@ -336,8 +336,7 @@ reasonable temperature and pressure.</p>
 <div class="justify docutils container">
 <p>Create a new folder called <em>systemcreation/</em>.
 Within <em>systemcreation/</em>, open a blank file
-called <em>input.lammps</em>, and copy the following
-lines into it:</p>
+called <em>input.lammps</em>, and copy the following lines into it:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
@@ -355,24 +354,26 @@ a Lennard Jones potential with a cut-off at <span class="math notranslate nohigh
 and a long-range Coulomb potential.</p>
 </div>
 <div class="justify docutils container">
-<p>So far, the commands are relatively similar to the previous tutorial
-(<a class="reference internal" href="polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a>), with two major differences; the use
-of <em>lj/cut/tip4p/long</em> and <em>pppm/tip4p</em>, instead of <em>lj/cut/coul/long</em> and <em>pppm</em>.
-These two tip4p-specific commands allow us to model a four-point water
+<p>So far, the commands are relatively similar to those in the previous tutorial,
+<a class="reference internal" href="polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a>,
+with two major differences: the use of <em>lj/cut/tip4p/long</em>
+instead of <em>lj/cut/coul/long</em>,
+and <em>pppm/tip4p</em>
+instead of <em>pppm</em>. These two tip4p-specific commands allow us to model a four-point water
 molecule without explicitly defining the fourth massless atom <em>M</em>. The value of
 <span class="math notranslate nohighlight">\(0.1546\,\text{Å}\)</span> corresponds to the <em>O-M</em> distance and is
-given by the water model. Here, <a href="http://www.sklogwiki.org/SklogWiki/index.php/TIP4P/2005_model_of_water" target="_blank">TIP4P-2005</a> is used <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>.</p>
+imposed by the water model. Here, <a href="http://www.sklogwiki.org/SklogWiki/index.php/TIP4P/2005_model_of_water" target="_blank">TIP4P-2005</a> is used <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About lj/cut/tip4p/long pair style</p>
 <p>The <em>lj/cut/tip4p/long</em> pair style is similar to the conventional
-Lennard Jones + Coulomb interaction, except that it is made specifically
+Lennard Jones and Coulomb interactions, except that it is specifically designed
 for four-point water model (tip4p). The atoms of the water model
-will be type 1 (O) and 2 (H). All the other atoms of the simulations
+will be type 1 (O) and 2 (H). All the other atoms in the simulation
 are treated <em>normally</em> with long-range Coulomb interaction.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us create the box by adding the following lines into <em>input.lammps</em>:</p>
+<p>Let us create the box by adding the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">lattice</span><span class="w"> </span><span class="n">fcc</span><span class="w"> </span><span class="m">4.04</span>
 <span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">7</span><span class="w"> </span><span class="m">7</span>
@@ -414,7 +415,7 @@ three last lines are for memory allocation.</p>
 sub-regions corresponding respectively to the two solid
 walls, and create a larger region from the union of the two
 regions. Then, let us create atoms of type 5 (the wall) within the two
-regions. Add the following lines into <em>input.lammps</em>:</p>
+regions. Add the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rbotwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">3</span>
 <span class="k">region </span><span class="nv nv-Identifier">rtopwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
@@ -434,7 +435,7 @@ necessary information concerning the water molecule, such as
 atom positions, bonds, and angles.</p>
 </div>
 <div class="justify docutils container">
-<p>Add the following lines into <em>input.lammps</em>:</p>
+<p>Add the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="o">-</span><span class="m">2</span><span class="w"> </span><span class="m">2</span>
 <span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">RigidH2O.txt</span>
@@ -442,7 +443,7 @@ atom positions, bonds, and angles.</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Within the last four lines, a <em>region</em> named <em>rliquid</em> for depositing the
+<p>Within the last three lines, a <em>region</em> named <em>rliquid</em> for depositing the
 water molecules are created based on the last defined lattice, which is <em>fcc 4.04</em>.</p>
 </div>
 <div class="justify docutils container">
@@ -583,14 +584,14 @@ to <em>PARM.lammps</em>, and copy the following lines into it:</p>
 </div>
 <div class="justify docutils container">
 <p>To avoid high density and pressure,
-let us add the following lines into <em>input.lammps</em>
+let us add the following lines to <em>input.lammps</em>
 to delete a few of the water molecules:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="n">fraction</span><span class="w"> </span><span class="m">0.15</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">482793</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Finally, add the following lines into <em>input.lammps</em>:</p>
+<p>Finally, add the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">0</span>
 
@@ -724,7 +725,7 @@ adding the following line into <em>input.lammps</em>:</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, let us run for 4000 steps. Add the
-following lines into <em>input.lammps</em>:</p>
+following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">4000</span>
 </pre></div>
@@ -782,7 +783,7 @@ fluid and piston relax at ambient temperature.</p>
 <div class="justify docutils container">
 <p>Create a new folder called <em>equilibration/</em> next to
 the previously created folders, and create a new
-<em>input.lammps</em> file in it. Add the following lines into <em>input.lammps</em>:</p>
+<em>input.lammps</em> file in it. Add the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
@@ -814,7 +815,7 @@ keep the system in the center of the box, which makes the
 visualization easier.</p>
 </div>
 <div class="justify docutils container">
-<p>Then, add the following lines into <em>input.lammps</em> for
+<p>Then, add the following lines to <em>input.lammps</em> for
 the trajectory visualization and output:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
@@ -944,7 +945,7 @@ and <em>walltop</em>, respectively.</p>
 <p>Finally, let us dump the atom positions, extract the
 velocity profiles using several <em>ave/chunk</em> commands, extract the
 force applied on the walls, and then run for <span class="math notranslate nohighlight">\(200\,\text{ps}\)</span>
-Add the following lines into <em>input.lammps</em>:</p>
+Add the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">500</span>
