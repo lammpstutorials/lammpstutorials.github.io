@@ -857,7 +857,7 @@ Imposed shearing
 
     Another important point to keep in mind is that the viscosity of a fluid
     next to a solid surface is typically larger than in bulk due to interaction with the
-    walls. Therefore, one expects the present simulation to return 
+    walls :cite:`wolde-kidanInterplayInterfacialViscosity2021`. Therefore, one expects the present simulation to return 
     a viscosity that is slightly larger than what would
     be measured in the absence of a wall.
 
