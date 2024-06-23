@@ -576,9 +576,10 @@ to <em>PARM.lammps</em>, and copy the following lines into it:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>To avoid high density and pressure,
-let us add the following lines to <em>input.lammps</em>
-to delete a few of the water molecules:</p>
+<p>As it is now, the fluid density within the two walls is too high.
+To avoid high density and pressure, let us add the following lines
+to <em>input.lammps</em> to delete about <span class="math notranslate nohighlight">\(15~\%\)</span>
+of the water molecules:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="n">fraction</span><span class="w"> </span><span class="m">0.15</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">482793</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
 </pre></div>
@@ -656,7 +657,9 @@ extremely common. If it occurs, you can either</p>
 in more energetically favorable positions before starting the simulation.
 Let us call this step <em>energy minimization</em>, although it is not
 a conventional <em>minimization</em> as done for instance
-in tutorial <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a>.</p>
+in tutorial <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a>. Instead, a molecular dynamics simulation
+will be performed here, with some techniques employed to prevent the system
+from exploding due to overlapping atoms.</p>
 </div>
 <div class="justify docutils container">
 <p>To perform this energy minimization, let us
@@ -679,7 +682,7 @@ in <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The only difference with the previous input is that, instead
+<p>The only difference from the previous input is that instead
 of creating a new box and new atoms, we open the
 previously created file <em>system.data</em> located in <em>systemcreation/</em>.
 The file <em>system.data</em> contains the definition of the simulation box
@@ -687,7 +690,7 @@ and the positions of the atoms.</p>
 </div>
 <div class="justify docutils container">
 <p>Now, let us create a first simulation step using a relatively small
-timestep (<span class="math notranslate nohighlight">\(0.5\,\text{fs}\)</span>), as well as a low temperature
+timestep (<span class="math notranslate nohighlight">\(0.5\,\text{fs}\)</span>) and a low temperature
 of <span class="math notranslate nohighlight">\(T = 1\,\text{K}\)</span>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">nve</span><span class="o">/</span><span class="n">limit</span><span class="w"> </span><span class="m">0.1</span>
@@ -697,20 +700,23 @@ of <span class="math notranslate nohighlight">\(T = 1\,\text{K}\)</span>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Just like <em>fix nve</em>, the fix <em>nve/limit</em> performs constant NVE integration to
-update positions and velocities of the atoms at each
-timestep, but also limits the maximum distance atoms can travel at
-each timestep. Here, only the fluid molecules and ions will move.</p>
+<p>Just like <em>fix nve</em>, the <em>fix nve/limit</em> command performs constant NVE integration to
+update the positions and velocities of the atoms at each
+timestep. The difference is that <em>fix nve/limit</em> also limits the maximum
+distance atoms can travel at each timestep. The chosen maximum distance in
+<span class="math notranslate nohighlight">\(0.1~\text{Å}\)</span>. Because the <em>fix nve/limit</em> is applied to the group <em>fluid</em>,
+only the water molecules and ions will move.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>fix temp/berendsen</em> rescales the
 velocities of the atoms to force the temperature of the system
-to reach the desired value of 1 K, and the SHAKE algorithm
+to reach the desired value of <span class="math notranslate nohighlight">\(1~\text{K}\)</span>, and the SHAKE algorithm
 is used in order to maintain the shape of the water molecules.</p>
 </div>
 <div class="justify docutils container">
-<p>Let us also print the atom positions in a <em>.lammpstrj</em> file by
-adding the following line into <em>input.lammps</em>:</p>
+<p>Let us also print the atom positions in a <em>.lammpstrj</em> file
+and control the printing of thermodynamic outputs by
+adding the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">200</span>
@@ -725,7 +731,7 @@ following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="justify docutils container">
 <p>In order to better equilibrate the system, let us perform
-two additional steps with a larger timestep and a larger
+two additional steps with a larger timestep and a higher
 imposed temperature:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
@@ -742,7 +748,7 @@ imposed temperature:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>For the last of the 3 steps, fix <em>nve</em> is used instead of
+<p>For the last of the three steps, fix <em>nve</em> is used instead of
 <em>nve/limit</em>, which will allow for a better relaxation of the
 atom positions.</p>
 </div>
@@ -759,8 +765,9 @@ temperature is increased from 1 to <span class="math notranslate nohighlight">\(
 <img alt="Energy minimisation of the confined water and salt" class="only-dark" src="../../_images/minimization-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Energy as a function of time extracted from the log
-file using <em>Python</em> and <em>lammps_logfile</em>.</p>
+<p>Figure: Total energy of the system <span class="math notranslate nohighlight">\(E_\text{tot}\)</span> as a function of
+time <span class="math notranslate nohighlight">\(t\)</span> extracted from the log
+file using <em>Python</em> and <em>lammps_logfile</em>. The vertical dashed lines demarcate the three consecutive steps.</p>
 </div>
 <div class="justify docutils container">
 <p>If you look at the trajectory using VMD, you will see that some of the atoms
@@ -770,7 +777,7 @@ are moving, particularly those that were initially in problematic positions.</p>
 <section id="system-equilibration">
 <h3>System equilibration<a class="headerlink" href="#system-equilibration" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>Now, let us equilibrate further the entire system by letting both
+<p>Let us equilibrate further the entire system by letting both
 fluid and piston relax at ambient temperature.</p>
 </div>
 <div class="justify docutils container">
@@ -790,12 +797,8 @@ the previously created folders, and create a new
 
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">PARM.lammps</span>
 <span class="k">include</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">GROUP.lammps</span>
-</pre></div>
-</div>
-<div class="justify docutils container">
-<p>Finally, let us complete the <em>input.lammps</em> file:</p>
-</div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="m">1</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
@@ -838,7 +841,7 @@ and <em>wallbotz</em>, i.e. the distance between the two walls.</p>
 </div>
 <div class="justify docutils container">
 <p>As seen from the data printed by <em>fix myat1</em>,
-the distance <span class="math notranslate nohighlight">\(\delta_z\)</span> between the two walls
+the distance between the two walls
 reduces until it reaches an equilibrium value.</p>
 </div>
 <figure class="align-default">
@@ -855,17 +858,17 @@ its final value.</p>
 <div class="justify docutils container">
 <p>Note that it is generally recommended to run longer equilibration.
 Here, for instance, the slowest
-process in the system is probably the ionic diffusion. Therefore the equilibration
+process in the system is probably the ionic diffusion. Therefore, the equilibration
 should in principle be longer than the time
 the ions need to diffuse over the size of the pore
-(<span class="math notranslate nohighlight">\(\approx 1.2\,\text{nm}\)</span>), i.e. of the order of half a nanosecond.</p>
+(<span class="math notranslate nohighlight">\(\approx 1.2\,\text{nm}\)</span>), i.e. on the order of half a nanosecond.</p>
 </div>
 </section>
 </section>
 <section id="imposed-shearing">
 <h2>Imposed shearing<a class="headerlink" href="#imposed-shearing" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>From the equilibrated configuration, let us impose a laterial
+<p>From the equilibrated configuration, let us impose a lateral
 motion to the two walls and shear the electrolyte.
 In a new folder called <em>shearing/</em>,
 create a new <em>input.lammps</em> file that starts like the previous ones:</p>
@@ -901,10 +904,10 @@ and then deal with the dynamics of the system.</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>One difference here is that two thermostats are used,
+<p>One difference with the previous input is that, here, two thermostats are used,
 one for the fluid (<em>myber1</em>) and one
 for the solid (<em>myber2</em>). The use of <em>fix_modify</em> together
-with <em>compute</em> ensures that the right temperature value
+with <em>compute temp</em> ensures that the right temperature value
 is used by the thermostats.</p>
 </div>
 <div class="justify docutils container">
@@ -915,7 +918,7 @@ will be imposed along <em>x</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us impose the velocity of the two walls
-by adding the following command to <em>input.lammps</em>:</p>
+by adding the following commands to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">walltop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">wallbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
@@ -963,12 +966,13 @@ Add the following lines to <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here, a binning of <span class="math notranslate nohighlight">\(1\,\text{Å}\)</span> is used. For smoother
-profiles, you can reduce its value.</p>
+<p>Here, a binning of <span class="math notranslate nohighlight">\(1\,\text{Å}\)</span> is used for the density profiles
+generated by the <em>ave/chunk</em> commands. For smoother profiles, you can
+reduce its value.</p>
 </div>
 <div class="justify docutils container">
 <p>The averaged velocity profile of the fluid
-can be plotted. As expected here, the velocity
+can be plotted. As expected for such Couette flow geometry, the velocity
 of the fluid is found to increase linearly along <span class="math notranslate nohighlight">\(z\)</span>.</p>
 </div>
 <figure class="align-default">
@@ -994,13 +998,13 @@ along the <em>z</em> axis.</p>
 </div>
 <div class="justify docutils container">
 <p>From the force applied by the fluid on the solid, one can
-extract the stress within the fluid, which allows one to
-measure its viscosity <span class="math notranslate nohighlight">\(\dot{\eta}\)</span>
+extract the stress within the fluid, which allows for the measurement of
+its viscosity <span class="math notranslate nohighlight">\(\dot{\eta}\)</span>
 according to <a href="https://pure.tudelft.nl/ws/portalfiles/portal/89280267/PhysRevFluids.6.034303.pdf" target="_blank">gravelle2021</a>:
 <span class="math notranslate nohighlight">\(\eta = \tau / \dot{\gamma}\)</span> where <span class="math notranslate nohighlight">\(\tau\)</span>
 is the stress applied by the fluid on the shearing wall, and
 <span class="math notranslate nohighlight">\(\dot{\gamma}\)</span> the shear rate (which is imposed
-here) <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="Simon Gravelle, Catherine Kamal, and Lorenzo Botto. Violations of Jeffery's theory in the dynamics of nanographene in shear flow. Physical Review Fluids, 6(3):034303, 2021.">39</a>]</span>. Here the shear rate
+here) <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="Simon Gravelle, Catherine Kamal, and Lorenzo Botto. Violations of Jeffery's theory in the dynamics of nanographene in shear flow. Physical Review Fluids, 6(3):034303, 2021.">39</a>]</span>. Here, the shear rate
 is approximatively <span class="math notranslate nohighlight">\(\dot{\gamma} = 16 \cdot 10^9\,\text{s}^{-1}\)</span>,
 and using a surface area of <span class="math notranslate nohighlight">\(A = 6 \cdot 10^{-18}\,\text{m}^2\)</span>, one
 gets an estimate for the shear viscosity for the confined
@@ -1013,8 +1017,8 @@ value for the shear rate. Note that for lower shear rates, the ratio of noise-to
 is larger, and longer simulations are needed.</p>
 </div>
 <div class="justify docutils container">
-<p>Another important point is that the viscosity of a fluid next to a solid surface is
-typically larger than in bulk due to interaction with the
+<p>Another important point to keep in mind is that the viscosity of a fluid
+next to a solid surface is typically larger than in bulk due to interaction with the
 walls. Therefore, one expects the present simulation to return
 a viscosity that is slightly larger than what would
 be measured in the absence of a wall.</p>
