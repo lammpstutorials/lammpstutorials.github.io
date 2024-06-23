@@ -48,6 +48,16 @@ Generation of the silica block
     Let us first generate a block of amorphous silica (SiO2). To do
     so, we are going to replicate a building block containing 3
     Si and 6 O atoms. 
+
+.. admonition:: Not interested in the annealing procedure ?
+    :class: info
+
+    You can skip this part by downloading the final silica structure
+    |download_silica_block| and continue with the tutorial.
+
+.. |download_silica_block| raw:: html
+
+   <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
     
 ..  container:: justify
 
@@ -285,13 +295,7 @@ Generation of the silica block
 ..  container:: justify
 
     After running the simulation, the final LAMMPS topology file named
-    *amorphousSiO.data* will be located in *SilicaBlock/*. Alternatively, if you are only interested in the
-    next steps of this tutorial, you can download it by clicking
-    |download_silica_block|.
-
-.. |download_silica_block| raw:: html
-
-   <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
+    *amorphousSiO.data* will be located in *SilicaBlock/*.
 
 .. admonition:: Tip for research project
     :class: info
@@ -399,9 +403,9 @@ Cracking the silica
 
 ..  container:: justify
 
-    After the dilatation, a final equilibration step of duration 20
+    After the expansion, a final equilibration step of duration 20
     picoseconds is performed. If you look at the *dump.lammpstrj* file
-    using VMD, you can see the dilatation occurring step-by-step, and the
+    using VMD, you can see the expansion occurring step-by-step, and the
     atoms progressively adjusting to the box dimensions. 
     
 ..  container:: justify
@@ -776,8 +780,8 @@ GCMC simulation
 
 ..  container:: figurelegend
 
-    Figure: Number of molecules as a function of time. The dashed vertical line
-    marks the beginning of the GCMC step.
+    Figure: Number of molecules in the system as a function of the time :math:`t`.
+    The dashed vertical line marks the beginning of the GCMC step.
 
 ..  container:: justify
 
