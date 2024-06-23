@@ -23,15 +23,15 @@ Water adsorption in silica
 
     The objective of this tutorial is to combine molecular
     dynamics and grand canonical Monte Carlo simulations to
-    compute the adsorption of water molecules in a cracked silica material.
+    compute the adsorption of water molecules in cracked silica material.
 
 ..  container:: justify
 
     This tutorial illustrates the use of the grand canonical
     ensemble in molecular simulation, an open ensemble in which
-    the number of atoms within the simulation box is not constant.
+    the number of atoms or molecules within the simulation box is not constant.
     When using the grand canonical ensemble, it is possible to impose
-    the chemical potential (or pressure, or fugacity) of a given fluid
+    the chemical potential (or pressure) of a given fluid
     in a nanoporous structure.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
@@ -73,9 +73,6 @@ Generation of the silica block
     Then, several steps are used to progressively cool down the system until it solidifies and forms 
     amorphous silica. Depending on the material, different cooling velocities can sometimes
     lead to different crystal structures or different degrees of defect.
-
-Vashishta potential
--------------------
 
 ..  container:: justify
 
@@ -169,9 +166,6 @@ Vashishta potential
     v_myvol v_mylx v_myly v_mylz file dimensions.dat
     fix myat3 all ave/time 10 100 1000 v_mypot file potential-energy.dat
     thermo 1000
-
-Annealing procedure
--------------------
 
 ..  container:: justify
 
@@ -335,10 +329,10 @@ Cracking the silica
 ..  container:: justify
 
     Let us progressively increase the size of the
-    box in the x direction, thus forcing the silica to deform
+    box in the :math:`x` direction, thus forcing the silica to deform
     and eventually crack. To do
     so, a loop based on the jump command is used. At
-    every step of the loop, the box dimension over x will
+    every step of the loop, the box dimension over :math:`x` will
     be multiplied by a scaling factor 1.005. Add the following lines into
     the *input.lammps*:
 
@@ -400,7 +394,8 @@ Cracking the silica
 
 ..  container:: figurelegend
 
-    Figure: Block of silica after deformation, with some visible holes.
+    Figure: Block of silica after deformation with Si atom in yellow and O
+    atoms in red. Some holes are visible
 
 ..  container:: justify
 
@@ -590,7 +585,7 @@ Using hydrid potentials
 ..  container:: justify
 
     After reading the data file and defining the h2omol molecule
-    from the txt file, the *create_atoms* command is used to
+    from the *.txt* file, the *create_atoms* command is used to
     include some water molecules in the system on a 
     simple cubic lattice. Not adding a molecule before starting the
     GCMC steps usually lead to failure. Note that here,

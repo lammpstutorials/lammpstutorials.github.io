@@ -304,14 +304,14 @@
 <div class="justify docutils container">
 <p>The objective of this tutorial is to combine molecular
 dynamics and grand canonical Monte Carlo simulations to
-compute the adsorption of water molecules in a cracked silica material.</p>
+compute the adsorption of water molecules in cracked silica material.</p>
 </div>
 <div class="justify docutils container">
 <p>This tutorial illustrates the use of the grand canonical
 ensemble in molecular simulation, an open ensemble in which
-the number of atoms within the simulation box is not constant.
+the number of atoms or molecules within the simulation box is not constant.
 When using the grand canonical ensemble, it is possible to impose
-the chemical potential (or pressure, or fugacity) of a given fluid
+the chemical potential (or pressure) of a given fluid
 in a nanoporous structure.</p>
 </div>
 <div class="justify docutils container">
@@ -354,8 +354,6 @@ Then, several steps are used to progressively cool down the system until it soli
 amorphous silica. Depending on the material, different cooling velocities can sometimes
 lead to different crystal structures or different degrees of defect.</p>
 </div>
-<section id="vashishta-potential">
-<h3>Vashishta potential<a class="headerlink" href="#vashishta-potential" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Create a new input file named <em>input.lammps</em> in the <em>SilicaBlock/</em> folder, and copy
 the following lines into it:</p>
@@ -379,7 +377,7 @@ and copy it within the <em>Potential/</em> folder.</p>
 <p>The <a href="https://pubmed.ncbi.nlm.nih.gov/9993674/" target="_blank">Vashishta</a>
 potential is a bond-angle energy-based potential, it
 deduces the bonds between atoms from their relative
-positions <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">43</a>]</span>. Therefore, there is no need to
+positions <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id36" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">43</a>]</span>. Therefore, there is no need to
 provide the bond and angle information as we do with classic force fields
 like GROMOS or AMBER. When used with LAMMPS, the <em>Vashishta</em>
 potential requires the use of the <em>metal</em> units system.
@@ -427,9 +425,6 @@ such as its temperature, volume, and potential energy:</p>
 <span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
 </pre></div>
 </div>
-</section>
-<section id="annealing-procedure">
-<h3>Annealing procedure<a class="headerlink" href="#annealing-procedure" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Finally, let us create the last part of our script. The
 annealing procedure is made of four consecutive runs.
@@ -540,7 +535,6 @@ can both be compared to experimental values. This is beyond the
 scope of this tutorial.</p>
 </div>
 </section>
-</section>
 <section id="cracking-the-silica">
 <h2>Cracking the silica<a class="headerlink" href="#cracking-the-silica" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
@@ -564,10 +558,10 @@ previously:</p>
 </div>
 <div class="justify docutils container">
 <p>Let us progressively increase the size of the
-box in the x direction, thus forcing the silica to deform
+box in the <span class="math notranslate nohighlight">\(x\)</span> direction, thus forcing the silica to deform
 and eventually crack. To do
 so, a loop based on the jump command is used. At
-every step of the loop, the box dimension over x will
+every step of the loop, the box dimension over <span class="math notranslate nohighlight">\(x\)</span> will
 be multiplied by a scaling factor 1.005. Add the following lines into
 the <em>input.lammps</em>:</p>
 </div>
@@ -619,7 +613,8 @@ this can be done by using :</p>
 <img alt="silica block with crack" class="only-light" src="../../_images/cracked-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Block of silica after deformation, with some visible holes.</p>
+<p>Figure: Block of silica after deformation with Si atom in yellow and O
+atoms in red. Some holes are visible</p>
 </div>
 <div class="justify docutils container">
 <p>After the dilatation, a final equilibration step of duration 20
@@ -656,7 +651,7 @@ with a virtual reservoir of a given chemical potential
 <span class="math notranslate nohighlight">\(\mu\)</span>, and multiple attempts to insert water
 molecules at random positions are made. Each attempt is
 either accepted or rejected based on energy considerations. Find more details
-in classical textbooks <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id31" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>]</span>.</p>
+in classical textbooks <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id33" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>]</span>.</p>
 </div>
 <section id="using-hydrid-potentials">
 <h3>Using hydrid potentials<a class="headerlink" href="#using-hydrid-potentials" title="Link to this heading">¶</a></h3>
@@ -686,7 +681,7 @@ following lines into it:</p>
 used in this tutorial. From now on, the system will combine water and silica,
 and therefore two force fields are combined: Vashishta for
 SiO, and lj/cut/tip4p/long for TIP4P water model (here
-the TIP4P/2005 model is used <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id37" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>).
+the TIP4P/2005 model is used <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id39" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>).
 Combining the two force fields is done using the <em>hybrid/overlay</em> pair style.</p>
 </div>
 <div class="info admonition">
@@ -781,7 +776,7 @@ are here for memory allocation.</p>
 </div>
 <div class="justify docutils container">
 <p>After reading the data file and defining the h2omol molecule
-from the txt file, the <em>create_atoms</em> command is used to
+from the <em>.txt</em> file, the <em>create_atoms</em> command is used to
 include some water molecules in the system on a
 simple cubic lattice. Not adding a molecule before starting the
 GCMC steps usually lead to failure. Note that here,
@@ -1115,11 +1110,7 @@ of the tutorial.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Water adsorption in silica</a><ul>
-<li><a class="reference internal" href="#generation-of-the-silica-block">Generation of the silica block</a><ul>
-<li><a class="reference internal" href="#vashishta-potential">Vashishta potential</a></li>
-<li><a class="reference internal" href="#annealing-procedure">Annealing procedure</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#generation-of-the-silica-block">Generation of the silica block</a></li>
 <li><a class="reference internal" href="#cracking-the-silica">Cracking the silica</a></li>
 <li><a class="reference internal" href="#adding-water">Adding water</a><ul>
 <li><a class="reference internal" href="#using-hydrid-potentials">Using hydrid potentials</a></li>
