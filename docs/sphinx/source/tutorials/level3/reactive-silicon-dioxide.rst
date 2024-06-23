@@ -22,17 +22,17 @@ Reactive silicon dioxide
 ..  container:: justify
 
     The objective of this tutorial is to use a 
-    reactive force field (ReaxFF :cite:`van2001reaxff, zou2012investigation`),
-    and calculate the partial charges of a system undergoing
+    reactive force field (ReaxFF :cite:`van2001reaxff, zou2012investigation`)
+    to calculate the partial charges of a system undergoing
     deformation, as well as chemical bond formation and breaking.  
 
 ..  container:: justify
 
-    The system simulated here is a block of silicon dioxide (SiO2), that is deformed 
-    until rupture. Particular attention is given to the evolution of the charges
-    of the atoms during the deformation of the structure, and 
+    The system simulated here is a block of silicon dioxide (:math:`\text{SiO}_2`) that is deformed 
+    until rupture. Particular attention is given to the evolution of the atomic charges
+    during the deformation of the structure, and 
     the chemical reactions occurring due to the deformation
-    are tracked.
+    are tracked over time.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
@@ -57,7 +57,8 @@ Prepare and relax
     :class: info
 
     The system was created by temperature annealing using another force field 
-    named |download_SiO.1990.vashishta|. In case you are
+    named |download_SiO.1990.vashishta|
+    :cite:`vashishta1990interaction`. In case you are
     interested in the input creation, the files
     used for creating the initial topology is available
     |lammps_input_creating|.
@@ -72,19 +73,18 @@ Prepare and relax
 
 ..  container:: justify
 
-    If you open the *silica.data* file, you can see 
-    by looking at the Atoms section that
+    If you open the *silica.data* file, you will see in the Atoms section that
     all silicon atoms have the same charge :math:`q = 1.1\,\text{e}`,
     and all oxygen atoms the charge :math:`q = -0.55\,\text{e}`.
     This is common with classical force fields and will change once
-    ReaxFF is used. Let us keep that in mind for now.
+    ReaxFF is used.
 
 ..  container:: justify
 
-    The first step we need to perform here is to relax
+    The first action we need to perform here is to relax
     the structure with ReaxFF, which we are gonna do using molecular
     dynamics. To make sure that the system equilibrates
-    nicely, let us track some changes over time.
+    nicely, let us track some parameters over time.
 
 ..  container:: justify
 
@@ -107,7 +107,7 @@ Prepare and relax
     in the previous tutorials. Some basic parameters are
     defined (*units*, *atom_style* and *masses*), and 
     the *.data* file is imported by the *read_data* command.
-    Now let us enter 3 crucial lines in the *input.lammps* file:
+    Now, let us copy three crucial lines into the *input.lammps* file:
 
 ..  code-block:: lammps
 
@@ -117,7 +117,7 @@ Prepare and relax
 
 ..  container:: justify
 
-    Here, the *ReaxFF pair_style* is used with no control file.
+    Here, the *pair_style reaxff* is used with no control file.
     The *safezone* and *mincap* keywords have been added
     to avoid memory allocation issues, which sometimes can trigger
     the segmentation faults and *bondchk* failed errors.
@@ -125,15 +125,15 @@ Prepare and relax
 ..  container:: justify
 
     The *pair_coeff* uses
-    the |reaxCHOFe| file which is assumed
-    to be saved within *RelaxSilica/*.
-    For consistency, the atoms of type 1 are set as silicon (Si),
+    the |reaxCHOFe| file, which must be downloaded and saved within 
+    *RelaxSilica/*. For consistency with the masses and the *silica.data* file,
+    the atoms of type 1 are set as silicon (Si),
     and the atoms of type 2 as oxygen (O).
 
 ..  container:: justify
 
-    Finally, the *fix qeq/reaxff* is used to perform charge equilibration. The charge
-    equilibration occurs at every step. The values 0.0 and 10.0
+    Finally, the *fix qeq/reaxff* is used to perform charge equilibration :cite:`rappe1991charge`.
+    The charge equilibration occurs at every step. The values 0.0 and 10.0
     are the low and the high cutoffs, respectively, and :math:`1.0 \text{e} -6` is a
     tolerance. Finally, *maxiter* sets an upper limit to the number of attempts to
     equilibrate the charge. 
@@ -177,8 +177,8 @@ Prepare and relax
 ..  container:: justify
 
     Let us also use the *fix reaxff/species* to evaluate what
-    species are present within the simulation. It will
-    be useful later when the system is deformed:
+    species are present within the simulation. It will be useful later when
+    the system is deformed and some bonds are broken:
 
 ..  code-block:: lammps
 
@@ -206,13 +206,14 @@ Prepare and relax
 
 ..  container:: justify
 
-    Run the *input.lammps* file using LAMMPS. As can be seen from *species.log*,
-    only one species is detected, called *Si192O384*, which is the entire system.
+    Run the *input.lammps* file using LAMMPS. As seen from *species.log*,
+    only one species is detected, called *Si192O384*, representing the entire system.
 
 ..  container:: justify
 
-    As the simulation progresses, you can see that the charges of the atoms are fluctuating
-    since the charge of every individual atom is adjusting to its local environment.
+    As the simulation progresses, you can see that the charges of the atoms are
+    fluctuating since the charge of every individual atom is adjusting to its
+    local environment in real time.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/average-charge-light.png
     :alt: Charge of silica during equilibration with reaxff and LAMMPS
@@ -230,7 +231,7 @@ Prepare and relax
 
 ..  container:: justify
 
-    One can see that the charges of the atoms are strongly fluctuating
+    Additionally, the average charge of the atoms is strongly fluctuating
     at the beginning of the simulation. This early fluctuation correlates
     with a rapid volume change of the box, during which
     the inter-atomic distances are expected to quickly change.
@@ -271,7 +272,7 @@ Prepare and relax
 
     Using VMD and coloring the atoms by their charges, one can see that 
     the atoms with the extreme-most charges are located at defects in the 
-    amorphous structure (here at the positions of the dandling oxygen groups).
+    amorphous structure (here at the positions of the dangling oxygen groups).
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/silicon-light.png
     :alt: Amorphous silica colored by charges using VMD
@@ -284,9 +285,9 @@ Prepare and relax
 ..  container:: figurelegend
 
     Figure: A slice of the amorphous silica, where atoms are colored by their
-    charges. Dandling oxygen groups appear in greenish, bulk Si atoms with a
-    charge of about 1.8e appear in red/orange, and bulk O atoms with a charge of
-    about :math:`-0.9\text{e}` appear in blue. To color the atoms by their
+    charges. Dangling oxygen groups appear in greenish, bulk Si atoms with a
+    charge of about :math:`1.8~\text{e}` appear in red/orange, and bulk O atoms with a charge of
+    about :math:`-0.9~\text{e}` appear in blue. To color the atoms by their
     charge using VMD, use *Charge* as the coloring method in the representation
     windows, and then tune the *Color scale* in the *Color control windows*.
 
@@ -296,7 +297,7 @@ Deform the structure
 ..  container:: justify
 
     Let us apply a deformation to the structure to force some
-    :math:`\text{Si}-\text{O}` bonds to break and re-assemble. 
+    :math:`\text{Si}-\text{O}` bonds to break (and eventually re-assemble). 
 
 ..  container:: justify
 
@@ -357,7 +358,7 @@ Deform the structure
 
     Let us run for 5000 steps without deformation, then apply the *fix deform*
     for elongating progressively the box along *x* during 25000 steps. Add the
-    following line into *input.lammps*:
+    following line to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -371,7 +372,7 @@ Deform the structure
 
 ..  container:: justify
 
-    During the deformation, the charge values progressively evolve until the structure
+    Run the *input.lammps* file using LAMMPS. During the deformation, the charge values progressively evolve until the structure
     eventually breaks down. After the structure breaks down, the charges
     equilibrate near new average values that differ from the starting averages.
     The difference between the initial and the final charges can be explained by
@@ -388,8 +389,11 @@ Deform the structure
 
 ..  container:: figurelegend
 
-    Figure: Average charge per atom of the silicon (a) and oxygen (b). The
-    vertical dashed lines mark the beginning of the deformation.
+    Figure: Evolution of the average charge per atom of the silicon :math:`q_\text{Si}`
+    (a) and oxygen :math:`q_\text{O}`
+    (b) over time :math:`t`. The
+    vertical dashed lines mark the beginning of the deformation, and the horizontal
+    dashed lines denote the initial values for the average charge.
 
 ..  container:: justify
 
@@ -406,7 +410,9 @@ Deform the structure
 
 ..  container:: figurelegend
 
-    Figure: Temperature of the silica system over time.
+    Figure: Evolution of the temperature :math:`T` of the silica system over time 
+    :math:`t`. The material ruptures
+    near :math:`t = 10~\text{ps}`.
 
 ..  container:: justify
 
@@ -425,7 +431,9 @@ Deform the structure
 ..  container:: figurelegend
 
     Figure: Amorphous silicon oxide after deformation. The atoms are colored by
-    their charges.
+    their charges. Dangling oxygen groups appear in greenish, bulk Si atoms with
+    a charge of about :math:`1.8~\text{e}` appear in red/orange, and bulk O atoms with a charge
+    of about :math:`-0.9~\text{e}`` appear in blue.
 
 ..  container:: justify
 
@@ -477,8 +485,10 @@ Decorate the surface
 
 ..  container:: justify
 
-    Let us add hydrogen atoms to the cracked silica, and measure how the system
-    evolves with time. 
+    In ambient conditions, some of the surface :math:`\text{SiO}_2` atoms are chemically
+    passivated by forming covalent bonds with hydrogen (H) atoms :math:`sulpizi2012silica`.
+    Let us add hydrogen atoms randomly to the cracked silica and observe how
+    the system evolves over time. 
 
 ..  container:: justify
 
@@ -616,7 +626,9 @@ Decorate the surface
 
     Figure: Cracked silicon oxide after the addition of hydrogen atoms. Some
     hydroxyl groups can be seen at the interfaces. The atoms are colored by
-    their charges.
+    their charges. Bulk Si atoms
+    with a charge of about :math:`1.8~\text{e}` appear in red/orange,
+    and bulk O atoms with a charge of about :math:`-0.9 ~ \text{e}` appear in blue.
 
 .. include:: ../../non-tutorials/accessfile.rst
 
