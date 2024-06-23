@@ -23,17 +23,17 @@ Free energy calculation
 
     The objective of this tutorial is to measure a free
     energy profile of particles across a barrier potential
-    using two methods; free sampling
+    using two methods: free sampling
     and umbrella sampling :cite:`frenkel2023understanding`.
     
 ..  container:: justify
 
-    For the sake of simplicity and to reduce the computation time, the
-    barrier potential will be imposed artificially on the atoms.
-    The procedure is valid for more complex
-    systems, and can be adapted to many other situations, for instance 
-    for measuring the adsorption barrier near an interface, or for calculating
-    translocation barrier through a membrane.
+    For simplicity and to reduce computation time, the barrier potential will
+    be imposed on the atoms with an additional force, mimicking the presence of
+    a repulsive area in the middle of the simulation box without the need to
+    simulate extra atoms. The procedure is valid for more complex systems and
+    can be adapted to many other situations, such as measuring the adsorption
+    barrier near an interface, or for calculating translocation barrier through a membrane.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
@@ -57,7 +57,7 @@ Method 1: Free sampling
 ..  container:: justify
 
     The most direct way to calculate a free energy profile is to extract
-    the partition function from a classic (unbiased) molecular
+    the partition function from a classic (i.e., unbiased) molecular
     dynamics simulation, and then to estimate the Gibbs free
     energy using 
     
@@ -75,7 +75,7 @@ Method 1: Free sampling
     As an illustration, let us apply this method to an
     extremely simple configuration that consists of a few
     particles diffusing in a box in the presence of a position-dependent
-    repealing force that makes the center
+    repelling force that makes the center
     of the box a relatively unfavorable area to explore.
 
 Basic LAMMPS parameters
