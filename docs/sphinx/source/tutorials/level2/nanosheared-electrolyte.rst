@@ -337,9 +337,10 @@ System generation
 
 ..  container:: justify
 
-    To avoid high density and pressure,
-    let us add the following lines to *input.lammps*
-    to delete a few of the water molecules:
+    As it is now, the fluid density within the two walls is too high.
+    To avoid high density and pressure, let us add the following lines
+    to *input.lammps* to delete about :math:`15~\%`
+    of the water molecules:
 
 ..  code-block:: lammps
 
@@ -434,7 +435,9 @@ Energy minimization
     in more energetically favorable positions before starting the simulation.
     Let us call this step *energy minimization*, although it is not 
     a conventional *minimization* as done for instance
-    in tutorial :ref:`lennard-jones-label`.
+    in tutorial :ref:`lennard-jones-label`. Instead, a molecular dynamics simulation
+    will be performed here, with some techniques employed to prevent the system
+    from exploding due to overlapping atoms.
 
 ..  container:: justify
 
@@ -460,7 +463,7 @@ Energy minimization
 
 ..  container:: justify
 
-    The only difference with the previous input is that, instead
+    The only difference from the previous input is that instead
     of creating a new box and new atoms, we open the
     previously created file *system.data* located in *systemcreation/*.
     The file *system.data* contains the definition of the simulation box
@@ -469,7 +472,7 @@ Energy minimization
 ..  container:: justify
 
     Now, let us create a first simulation step using a relatively small 
-    timestep (:math:`0.5\,\text{fs}`), as well as a low temperature
+    timestep (:math:`0.5\,\text{fs}`) and a low temperature
     of :math:`T = 1\,\text{K}`:
 
 ..  code-block:: lammps
@@ -481,22 +484,25 @@ Energy minimization
 
 ..  container:: justify
 
-    Just like *fix nve*, the fix *nve/limit* performs constant NVE integration to
-    update positions and velocities of the atoms at each
-    timestep, but also limits the maximum distance atoms can travel at
-    each timestep. Here, only the fluid molecules and ions will move.
+    Just like *fix nve*, the *fix nve/limit* command performs constant NVE integration to
+    update the positions and velocities of the atoms at each
+    timestep. The difference is that *fix nve/limit* also limits the maximum
+    distance atoms can travel at each timestep. The chosen maximum distance in
+    :math:`0.1~\text{Å}`. Because the *fix nve/limit* is applied to the group *fluid*,
+    only the water molecules and ions will move.
 
 ..  container:: justify
 
     The *fix temp/berendsen* rescales the
     velocities of the atoms to force the temperature of the system
-    to reach the desired value of 1 K, and the SHAKE algorithm
+    to reach the desired value of :math:`1~\text{K}`, and the SHAKE algorithm
     is used in order to maintain the shape of the water molecules.
 
 ..  container:: justify
 
-    Let us also print the atom positions in a *.lammpstrj* file by
-    adding the following line into *input.lammps*:
+    Let us also print the atom positions in a *.lammpstrj* file 
+    and control the printing of thermodynamic outputs by
+    adding the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -515,7 +521,7 @@ Energy minimization
 ..  container:: justify
 
     In order to better equilibrate the system, let us perform 
-    two additional steps with a larger timestep and a larger
+    two additional steps with a larger timestep and a higher
     imposed temperature:
 
 ..  code-block:: lammps
@@ -534,7 +540,7 @@ Energy minimization
 
 ..  container:: justify
 
-    For the last of the 3 steps, fix *nve* is used instead of 
+    For the last of the three steps, fix *nve* is used instead of 
     *nve/limit*, which will allow for a better relaxation of the 
     atom positions.
 
@@ -555,8 +561,9 @@ Energy minimization
 
 ..  container:: figurelegend
 
-    Figure: Energy as a function of time extracted from the log
-    file using *Python* and *lammps_logfile*.
+    Figure: Total energy of the system :math:`E_\text{tot}` as a function of
+    time :math:`t` extracted from the log
+    file using *Python* and *lammps_logfile*. The vertical dashed lines demarcate the three consecutive steps.
 
 ..  container:: justify
 
@@ -568,7 +575,7 @@ System equilibration
 
 ..  container:: justify
 
-    Now, let us equilibrate further the entire system by letting both
+    Let us equilibrate further the entire system by letting both
     fluid and piston relax at ambient temperature.
 
 ..  container:: justify
@@ -591,12 +598,6 @@ System equilibration
 
     include ../PARM.lammps
     include ../GROUP.lammps
-
-..  container:: justify
-
-    Finally, let us complete the *input.lammps* file:
-
-..  code-block:: lammps
 
     fix mynve all nve
     fix myber all temp/berendsen 300 300 100
@@ -648,7 +649,7 @@ System equilibration
 ..  container:: justify
 
     As seen from the data printed by *fix myat1*,
-    the distance :math:`\delta_z` between the two walls
+    the distance between the two walls
     reduces until it reaches an equilibrium value.
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/equilibration-light.png
@@ -669,17 +670,17 @@ System equilibration
 
     Note that it is generally recommended to run longer equilibration.
     Here, for instance, the slowest
-    process in the system is probably the ionic diffusion. Therefore the equilibration 
+    process in the system is probably the ionic diffusion. Therefore, the equilibration 
     should in principle be longer than the time
     the ions need to diffuse over the size of the pore
-    (:math:`\approx 1.2\,\text{nm}`), i.e. of the order of half a nanosecond.
+    (:math:`\approx 1.2\,\text{nm}`), i.e. on the order of half a nanosecond.
 
 Imposed shearing
 ================
 
 ..  container:: justify
 
-    From the equilibrated configuration, let us impose a laterial
+    From the equilibrated configuration, let us impose a lateral
     motion to the two walls and shear the electrolyte.
     In a new folder called *shearing/*,
     create a new *input.lammps* file that starts like the previous ones:
@@ -719,10 +720,10 @@ Imposed shearing
 
 ..  container:: justify
 
-    One difference here is that two thermostats are used,
+    One difference with the previous input is that, here, two thermostats are used,
     one for the fluid (*myber1*) and one
     for the solid (*myber2*). The use of *fix_modify* together
-    with *compute* ensures that the right temperature value
+    with *compute temp* ensures that the right temperature value
     is used by the thermostats.
 
 ..  container:: justify
@@ -735,14 +736,14 @@ Imposed shearing
 ..  container:: justify
 
     Then, let us impose the velocity of the two walls 
-    by adding the following command to *input.lammps*:
+    by adding the following commands to *input.lammps*:
 
 ..  code-block:: lammps
 
-        fix mysf1 walltop setforce 0 NULL NULL
-        fix mysf2 wallbot setforce 0 NULL NULL
-        velocity wallbot set -2e-4 NULL NULL
-        velocity walltop set 2e-4 NULL NULL
+    fix mysf1 walltop setforce 0 NULL NULL
+    fix mysf2 wallbot setforce 0 NULL NULL
+    velocity wallbot set -2e-4 NULL NULL
+    velocity walltop set 2e-4 NULL NULL
         
 ..  container:: justify
 
@@ -789,13 +790,14 @@ Imposed shearing
 
 ..  container:: justify
 
-    Here, a binning of :math:`1\,\text{Å}` is used. For smoother
-    profiles, you can reduce its value.
+    Here, a binning of :math:`1\,\text{Å}` is used for the density profiles
+    generated by the *ave/chunk* commands. For smoother profiles, you can
+    reduce its value.
 
 ..  container:: justify
 
     The averaged velocity profile of the fluid 
-    can be plotted. As expected here, the velocity
+    can be plotted. As expected for such Couette flow geometry, the velocity
     of the fluid is found to increase linearly along :math:`z`.
 
 .. figure:: ../figures/level2/nanosheared-electrolyte/shearing-light.png
@@ -828,13 +830,13 @@ Imposed shearing
 ..  container:: justify
 
     From the force applied by the fluid on the solid, one can
-    extract the stress within the fluid, which allows one to
-    measure its viscosity :math:`\dot{\eta}` 
+    extract the stress within the fluid, which allows for the measurement of
+    its viscosity :math:`\dot{\eta}` 
     according to |reference_gravelle2021|:
     :math:`\eta = \tau / \dot{\gamma}` where :math:`\tau`
     is the stress applied by the fluid on the shearing wall, and
     :math:`\dot{\gamma}` the shear rate (which is imposed
-    here) :cite:`gravelle2021violations`. Here the shear rate
+    here) :cite:`gravelle2021violations`. Here, the shear rate
     is approximatively :math:`\dot{\gamma} = 16 \cdot 10^9\,\text{s}^{-1}`,
     and using a surface area of :math:`A = 6 \cdot 10^{-18}\,\text{m}^2`, one
     gets an estimate for the shear viscosity for the confined
@@ -853,8 +855,8 @@ Imposed shearing
 
 ..  container:: justify
 
-    Another important point is that the viscosity of a fluid next to a solid surface is
-    typically larger than in bulk due to interaction with the
+    Another important point to keep in mind is that the viscosity of a fluid
+    next to a solid surface is typically larger than in bulk due to interaction with the
     walls. Therefore, one expects the present simulation to return 
     a viscosity that is slightly larger than what would
     be measured in the absence of a wall.
