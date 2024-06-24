@@ -91,8 +91,8 @@ Basic LAMMPS parameters
     variable sigma equal 3.405 # Angstrom
     variable epsilon equal 0.238 # Kcal/mol
     variable U0 equal 1.5*${epsilon} # Kcal/mol
-    variable dlt equal 1.0 # Angstrom
-    variable x0 equal 10.0  # Angstrom
+    variable dlt equal 0.5 # Angstrom
+    variable x0 equal 5.0 # Angstrom
 
     units real
     atom_style atomic
@@ -330,7 +330,7 @@ Data analysis
 ..  container:: figurelegend
 
     Figure: Fluid density :math:`\rho` along the :math:`x` direction in the presence
-    of a repulsive potential with :math:`U_0 = 1.5 \epsilon`. The reference density is :math:`\rho_\text{bulk} = 0.0033~\text{A^{-3}}`.
+    of a repulsive potential with :math:`U_0 = 1.5 \epsilon`. The reference density is :math:`\rho_\text{bulk} = 0.0033~\text{Å}^{-3}`.
 
 ..  container:: justify
 
