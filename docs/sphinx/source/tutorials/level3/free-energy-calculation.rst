@@ -105,7 +105,11 @@ Basic LAMMPS parameters
     Here, we start by defining variables for the Lennard-Jones
     interaction :math:`\sigma` and :math:`\epsilon` and for
     the repulsive potential :math:`U (x)`: :math:`U_0`, :math:`\delta`, and :math:`x_0`, 
-    see the analytical expression below.
+    see the analytical expression below. With :math:`U_0 = 1.5 \epsilon = 0.36\,\text{kcal/mol}`,
+    :math:`U_0` is of the same order as the thermal energy :math:`k_\text{B} T = 0.24,\text{kcal/mol}`,
+    where :math:`k_\text{B} = 2\,\text{kcal/mol/K}` is the Boltzmann constant
+    and :math:`T = 119.8\,\text{K}` (see below). In this case, particles are expected
+    to regulary overcome the energy barrier thanks to the thermal agitation.
 
 ..  container:: justify
 
@@ -325,9 +329,8 @@ Data analysis
 
 ..  container:: figurelegend
 
-    Figure: Averaged density profiles for the :math:`8\,\text{ns}` run. 
-    The value for the reference density :math:`\rho_\text{bulk} = 0.0033`
-    was estimated from the raw density profiles.
+    Figure: Fluid density :math:`\rho` along the :math:`x` direction in the presence
+    of a repulsive potential with :math:`U_0 = 1.5 \epsilon`. The reference density is :math:`\rho_\text{bulk} = 0.0033~\text{A^{-3}}`.
 
 ..  container:: justify
 
@@ -345,7 +348,7 @@ Data analysis
 ..  container:: figurelegend
 
     Figure: Calculated potential :math:`-R T \ln(\rho/\rho_\mathrm{bulk})`
-    compared to the imposed potential.
+    compared to the imposed potential with :math:`U_0 = 1.5 \epsilon`.
     The calculated potential is in blue.
 
 ..  container:: justify
@@ -359,12 +362,13 @@ The limits of free sampling
 
 ..  container:: justify
 
-    If we increase the value of :math:`U_0`, the average number of atoms in the
-    central region will decrease, making it difficult to obtain a good resolution
-    for the free energy profile. For instance, when running the same simulation
-    using :math:`U_0 = 10 \epsilon`, not a single atom explores the central part
-    of the simulation box during the 8 ns of simulation. In that case, using an
-    enhanced sampling method is preferred; see the next section.
+    If we increase the value of :math:`U_0`, the average number of atoms in the central
+    region will decrease, making it difficult to obtain a good resolution for the
+    free energy profile. For instance, when we run the same simulation using
+    :math:`U_0 = 10 \epsilon`, which corresponds to a situation
+    where :math:`U_0 \approx 10 k_\text{B} T`, not a single atom explores the central
+    part of the simulation box during the 8 ns of simulation. In this case, using
+    an enhanced sampling method is preferred; see the next section.
 
 .. figure:: ../figures/level3/free-energy-calculation/density_profile_large_potential-light.png
    :alt: Averaged density profile with large potential
@@ -373,6 +377,11 @@ The limits of free sampling
 .. figure:: ../figures/level3/free-energy-calculation/density_profile_large_potential-dark.png
    :alt: Averaged density profile  large potential
    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Fluid density :math:`\rho` along the :math:`x` direction in the presence
+    of a repulsive potential with :math:`U_0 = 10 \epsilon`. 
 
 ..  container:: justify
 
@@ -623,7 +632,7 @@ WHAM algorithm
 ..  container:: figurelegend
 
     Figure: Calculated potential using umbrella sampling compared to
-    the imposed potential. The calculated potential is in blue.
+    the imposed potential with :math:`U_0 = 10 \epsilon`. The calculated potential is in blue.
 
 ..  container:: justify
 
