@@ -385,7 +385,8 @@ Method 2: Umbrella sampling
 ..  container:: justify
 
     Umbrella sampling is a biased molecular dynamics method in which additional forces are added to a chosen atom to
-    force it to explore the entire space, including the more unfavorable areas of the system :cite:`frenkel2023understanding`.
+    force it to explore the entire space, including the more unfavorable areas of
+    the system :cite:`kastner2011umbrella, allen2017computer, frenkel2023understanding`.
 
 ..  container:: justify
 
@@ -401,7 +402,7 @@ LAMMPS input script
 ..  container:: justify
 
     Create a new folder called *BiasedSampling/*, and create a new input file 
-    named *input.lammps* in it, and copy the following lines:
+    named *input.lammps* in it. Copy the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -445,17 +446,16 @@ LAMMPS input script
 
 ..  container:: justify
 
-    So far, this code resembles the one of Method 1,
-    except for the additional particle of type 2. This
-    particle is identical to the particles of type 1 (same
-    mass and Lennard-Jones parameters) but will be exposed to the
-    biasing potential.
+    So far, this code resembles that of Method 1,
+    except for the additional particle of type 2. Particles of type 1 and 2 
+    are identical, having the same mass and Lennard-Jones parameters. However,
+    the particle of type 2 will additionally be exposed to the biasing potential :math:`V`.
 
 ..  container:: justify
 
     Let us create a loop with 50 steps, and move progressively
     the center of the bias potential by an increment of 0.1 nm.
-    Add the following lines into *input.lammps*:
+    Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -500,8 +500,8 @@ WHAM algorithm
 
 ..  container:: justify
 
-    In order to generate the free energy profile from the density distribution,
-    let us use the WHAM algorithm :cite:`grossfieldimplementation`. 
+    To generate the free energy profile from the density distribution,
+    let us use the WHAM algorithm as implemented by Alan Grossfield :cite:`grossfieldimplementation`. 
     
 ..  container:: justify
 
