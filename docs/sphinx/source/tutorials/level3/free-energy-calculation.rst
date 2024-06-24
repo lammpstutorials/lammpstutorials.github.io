@@ -24,7 +24,7 @@ Free energy calculation
     The objective of this tutorial is to measure a free
     energy profile of particles across a barrier potential
     using two methods: free sampling
-    and umbrella sampling :cite:`frenkel2023understanding`.
+    and umbrella sampling :cite:`kastner2011umbrella, allen2017computer, frenkel2023understanding`.
     
 ..  container:: justify
 
@@ -33,7 +33,8 @@ Free energy calculation
     a repulsive area in the middle of the simulation box without the need to
     simulate extra atoms. The procedure is valid for more complex systems and
     can be adapted to many other situations, such as measuring the adsorption
-    barrier near an interface, or for calculating translocation barrier through a membrane.
+    barrier near an interface, or for calculating a translocation
+    barrier through a membrane :cite:`wilson1997adsorption, makarov2009computer, gravelle2021adsorption`.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
@@ -58,7 +59,7 @@ Method 1: Free sampling
 
     The most direct way to calculate a free energy profile is to extract
     the partition function from a classic (i.e., unbiased) molecular
-    dynamics simulation, and then to estimate the Gibbs free
+    dynamics simulation, and then estimate the Gibbs free
     energy using 
     
 .. math::
@@ -68,15 +69,14 @@ Method 1: Free sampling
 ..  container:: justify
 
     where :math:`\Delta G` is the free energy difference,
-    :math:`R` the gas constant,
-    :math:`T` the temperature, 
-    :math:`p` the pressure,
-    and :math:`p_0` the reference pressure.
+    :math:`R` is the gas constant,
+    :math:`T` is the temperature, 
+    :math:`p` is the pressure,
+    and :math:`p_0` is a reference pressure.
     As an illustration, let us apply this method to an
     extremely simple configuration that consists of a few
-    particles diffusing in a box in the presence of a position-dependent
-    repelling force that makes the center
-    of the box a relatively unfavorable area to explore.
+    particles diffusing in a box in the presence of a position-dependent repelling
+    force that makes the center of the box a relatively unfavorable area to explore.
 
 Basic LAMMPS parameters
 -----------------------
@@ -145,19 +145,17 @@ System creation and settings
     neigh_modify every 1 delay 4 check yes
 
 ..  container:: justify
-
-    Here, the values for Lennard-Jones parameters :math:`\sigma` and
-    :math:`\epsilon` as well as the mass :math:`m = 39.95` grams/mole were
-    taken from argon.
     
+    The values for the Lennard-Jones parameters (:math:`\sigma`
+    and :math:`\epsilon`) and
+    the mass (:math:`m = 39.95`) are typical of argon. 
+
 ..  container:: justify
 
-    In the previous subsection, the
-    variables :math:`U_0`,
-    :math:`\delta`, and
-    :math:`x_0` were defined. They are used to create
-    the repulsive potential restricting the atoms to
-    explore the center of the box: 
+    The variables :math:`U_0`,
+    :math:`\delta`,
+    and :math:`x_0` defined in the previous subsection are used here to create
+    the repulsive potential, restricting the atoms from exploring the center of the box:
 
 .. math::
 
@@ -167,7 +165,7 @@ System creation and settings
 
     From the derivative of the
     potential with respect to :math:`x`, we obtain the expression
-    for the force that will be imposed to the atoms:
+    for the force that will be imposed on the atoms:
 
 .. math::
 
@@ -188,7 +186,7 @@ System creation and settings
 
 ..  container:: figurelegend
 
-    Figure: Potential :math:`U (x)` (a) and force :math:`F (x)` (b) imposed to the atoms.
+    Figure: Potential :math:`U (x)` (a) and force :math:`F (x)` (b) imposed to the atoms as a function of the coordinate :math:`x`.
 
 **Energy minimization and equilibration**
 
@@ -197,7 +195,7 @@ System creation and settings
     Let us apply energy minimization to the system,
     and then impose the force :math:`F(x)` to all of
     the atoms in the simulation using the *addforce* command.
-    Add the following lines into *input.lammps*:
+    Add the following lines to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -223,7 +221,7 @@ System creation and settings
     
 ..  container:: justify
     
-    To make sure that :math:`1\,\text{ns}` is long enough, let us
+    To make sure that :math:`1\,\text{ns}` is long enough, we will
     record the evolution of the number of atoms in the central
     (energetically unfavorable) region called *mymes*:
 
@@ -246,8 +244,8 @@ Run and data acquisition
 ..  container:: justify
 
     Finally, let us record the density profile of the atoms
-    along the :math:`x` axis using the *ave/chunk* command. A
-    total of 10 density profiles will be printed. The step count is
+    along the :math:`x` axis using the *ave/chunk* command. 
+    A total of 10 density profiles will be printed. The step count is
     reset to 0 to synchronize with the output times of
     *fix density/number*, and the *fix myat* is canceled (it has to be
     canceled before a reset time):
@@ -259,7 +257,8 @@ Run and data acquisition
 
     compute cc1 all chunk/atom bin/1d x 0.0 1.0
     fix myac all ave/chunk 10 400000 4000000 &
-        cc1 density/number file density_profile_8ns.dat
+        cc1 density/number &
+        file density_profile.dat
     dump mydmp all atom 200000 dump.lammpstrj
 
     thermo 100000
@@ -289,8 +288,8 @@ Data analysis
 
 ..  container:: justify
 
-    First, let us make sure that the initial equilibration of :math:`1\,\text{ns}`
-    is long enough by looking at the *density_evolution.dat* file.
+    First, let us ensure that the initial equilibration of :math:`1\,\text{ns}`
+    is long enough by examining the *density_evolution.dat* file.
 
 .. figure:: ../figures/level3/free-energy-calculation/density_evolution-light.png
    :alt: Number of particles in the central region as a function of time
@@ -312,7 +311,7 @@ Data analysis
 
 ..  container:: justify
 
-    One can also have a look at the density profile, which shows that the density in the
+    One can also look at the density profile, which shows that the density in the
     center of the box is about two orders of magnitude lower than inside
     the reservoir.
 
@@ -352,19 +351,20 @@ Data analysis
 ..  container:: justify
 
     The agreement with the expected energy profile is reasonable,
-    despite some noise in the central part. 
+    despite some noise in the central part (where fewer data points are
+    available due to the repulsive potential).
 
 The limits of free sampling
 ---------------------------
 
 ..  container:: justify
 
-    If we increase the value of :math:`U_0`, the average number of
-    atoms in the central region will decrease, making it
-    difficult to obtain a good resolution for the free energy
-    profile. For instance, using :math:`U_0 = 10 \epsilon`,
-    not a single atom crosses the central part of the simulation,
-    despite the 8 ns of simulation.
+    If we increase the value of :math:`U_0`, the average number of atoms in the
+    central region will decrease, making it difficult to obtain a good resolution
+    for the free energy profile. For instance, when running the same simulation
+    using :math:`U_0 = 10 \epsilon`, not a single atom explores the central part
+    of the simulation box during the 8 ns of simulation. In that case, using an
+    enhanced sampling method is preferred; see the next section.
 
 .. figure:: ../figures/level3/free-energy-calculation/density_profile_large_potential-light.png
    :alt: Averaged density profile with large potential
@@ -384,26 +384,16 @@ Method 2: Umbrella sampling
 
 ..  container:: justify
 
-    Umbrella sampling is a biased molecular dynamics method,
-    i.e. a method in which additional forces are added to the
-    atoms in order to make the unfavorable states more likely
-    to occur :cite:`frenkel2023understanding`.
+    Umbrella sampling is a biased molecular dynamics method in which additional forces are added to a chosen atom to
+    force it to explore the entire space, including the more unfavorable areas of the system :cite:`frenkel2023understanding`.
 
 ..  container:: justify
 
-    Several simulations (or windows) will be performed with different parameters
-    for the imposed biasing.
-    
-..  container:: justify
-
-    Here, let us force one of the atoms to
-    explore the central region of the box. To do so,
-    let us add a potential :math:`V` to one
-    of the particle, and force it to move along the axis :math:`x`.
-    The chosen path is called the axis of reaction. The results 
-    will be analyzed using the weighted histogram
-    analysis method (WHAM), which allows to remove the effect of
-    the bias and eventually deduce the unbiased free energy profile.
+    To encourage one of the atoms to explore the central region of the box, we apply a potential :math:`V` and force it to move
+    along the :math:`x`-axis. The chosen path is called the axis of reaction. Several simulations (or windows) will be conducted
+    with varying parameters for the applied biasing. The results will be analyzed using the weighted histogram analysis
+    method (WHAM) :cite:`kumar1992weighted`, which allows for the removal of the biasing effect and ultimately deduces
+    the unbiased free energy profile.
 
 LAMMPS input script
 -------------------

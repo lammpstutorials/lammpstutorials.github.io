@@ -356,8 +356,7 @@ Cracking the silica
 
 ..  container:: justify
 
-    The *fix nvt* is used
-    to control the temperature of the system, while the *change_box* command
+    The *fix nvt* is used to control the temperature of the system, while the *change_box* command
     imposes incremental deformations of the box.
     Different scaling factors or/and different numbers of 
     steps can be used to generate different defects in the silica.
@@ -403,7 +402,7 @@ Cracking the silica
 
 ..  container:: justify
 
-    After the expansion, a final equilibration step of duration 20
+    After the expansion, a final equilibration step of a duration of 20
     picoseconds is performed. If you look at the *dump.lammpstrj* file
     using VMD, you can see the expansion occurring step-by-step, and the
     atoms progressively adjusting to the box dimensions. 
@@ -683,10 +682,9 @@ GCMC simulation
 .. admonition:: On thermostating groups instead of the entire system
     :class: info
 
-    Two different thermostats are used for SiO and for H2O, respectively. Using 
-    separate thermostats are usually better when the system contains two separate
-    species, such as a solid and a
-    liquid. It is particularly important to use two thermostats
+    Two different thermostats are used for SiO and H2O, respectively. Using 
+    separate thermostats is usually better when the system contains two separate
+    species, such as a solid and a liquid. It is particularly important to use two thermostats
     here because the number of water molecules will fluctuate with time.
     
 ..  container:: justify
