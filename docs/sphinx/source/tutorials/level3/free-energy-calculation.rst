@@ -107,14 +107,14 @@ Basic LAMMPS parameters
     the repulsive potential :math:`U (x)`: :math:`U_0`, :math:`\delta`, and :math:`x_0`, 
     see the analytical expression below. With :math:`U_0 = 1.5 \epsilon = 0.36\,\text{kcal/mol}`,
     :math:`U_0` is of the same order as the thermal energy :math:`k_\text{B} T = 0.24,\text{kcal/mol}`,
-    where :math:`k_\text{B} = 2\,\text{kcal/mol/K}` is the Boltzmann constant
+    where :math:`k_\text{B} = 0.002\,\text{kcal/mol/K}` is the Boltzmann constant
     and :math:`T = 119.8\,\text{K}` (see below). In this case, particles are expected
-    to regulary overcome the energy barrier thanks to the thermal agitation.
+    to regularly overcome the energy barrier thanks to the thermal agitation.
 
 ..  container:: justify
 
     The value of 3.822 for the cut-off was chosen to 
-    create a WCA, purely repulsive, potential. It was calculated
+    create a WCA, purely repulsive, potential :cite:`weeks1971role`. It was calculated
     as :math:`2^{1/6} \times 3.405` where
     :math:`3.405 = \sigma`.
 
@@ -142,7 +142,7 @@ System creation and settings
 
     region myreg block -25 25 -5 5 -25 25
     create_box 1 myreg
-    create_atoms 1 random 60 341341 myreg overlap 1.0 maxtry 50
+    create_atoms 1 random 60 341341 myreg overlap 1.5 maxtry 50
 
     mass * 39.95
     pair_coeff * * ${epsilon} ${sigma}
@@ -431,12 +431,15 @@ LAMMPS input script
     region myreg block -25 25 -5 5 -25 25
     create_box 2 myreg
     create_atoms 2 single 0 0 0
-    create_atoms 1 random 5 341341 myreg overlap 1.0 maxtry 50
+    create_atoms 1 random 59 341341 myreg overlap 1.5 maxtry 50
 
     mass * 39.948
     pair_coeff * * ${epsilon} ${sigma}
     neigh_modify every 1 delay 4 check yes
     group topull type 2
+
+    minimize 1e-4 1e-6 100 1000
+    reset_timestep 0
 
     variable U atom ${U0}*atan((x+${x0})/${dlt}) &
         -${U0}*atan((x-${x0})/${dlt})
