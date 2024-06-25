@@ -729,9 +729,9 @@ GCMC simulation
     taking into account the internal degrees of freedom. Running
     this simulation, you should see the number of molecules
     increasing progressively. When using the pressure argument,
-    LAMMPS ignores the value of the chemical potential [here :math:`\mu = -0.5\,\text{eV}`
-    which corresponds roughly to ambient conditions (i.e. :math:`\text{RH} \approx 50\,\%`).]
-    The large pressure value of 10000 bars was chosen to ensure that 
+    LAMMPS ignores the value of the chemical potential [here :math:`\mu = -0.5\,\text{eV}`,
+    which corresponds roughly to ambient conditions (i.e. :math:`\text{RH} \approx 50\,\%`)
+    :cite:`gravelle2020multi`.] The large pressure value of 10000 bars was chosen to ensure that 
     some successful insertions of molecules would occur during the 
     extremely short duration of this simulation.
 
