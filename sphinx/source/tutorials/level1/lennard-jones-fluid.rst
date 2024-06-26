@@ -366,7 +366,7 @@ Simulation Settings
 
 .. |lennard-jones-pyplot.ipynb| raw:: html
 
-   <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/blob/version2.0/docs/sphinx/source/tutorials/figures/level1/lennard-jones-fluid/lennard-jones-pyplot.ipynb" target="_blank">from Github</a>
+   <a href="https://github.com/lammpstutorials/lammpstutorials.github.io/blob/2Aug2023/docs/sphinx/source/tutorials/figures/level1/lennard-jones-fluid/lennard-jones-pyplot.ipynb" target="_blank">from Github</a>
 
 .. |pyplot-perso| raw:: html
 
