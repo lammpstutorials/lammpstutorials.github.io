@@ -305,7 +305,7 @@
 <p>The objective of this tutorial is to measure a free
 energy profile of particles across a barrier potential
 using two methods: free sampling
-and umbrella sampling <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id33" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>]</span>.</p>
+and umbrella sampling <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id40" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id26" title="Michael P Allen and Dominic J Tildesley. Computer simulation of liquids. Oxford university press, 2017.">9</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id10" title="Johannes Kästner. Umbrella sampling. Wiley Interdisciplinary Reviews: Computational Molecular Science, 1(6):932–942, 2011.">46</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>For simplicity and to reduce computation time, the barrier potential will
@@ -313,7 +313,8 @@ be imposed on the atoms with an additional force, mimicking the presence of
 a repulsive area in the middle of the simulation box without the need to
 simulate extra atoms. The procedure is valid for more complex systems and
 can be adapted to many other situations, such as measuring the adsorption
-barrier near an interface, or for calculating translocation barrier through a membrane.</p>
+barrier near an interface, or for calculating a translocation
+barrier through a membrane <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id9" title="Michael A Wilson and Andrew Pohorille. Adsorption and solvation of ethanol at the water liquid- vapor interface: a molecular dynamics study. The Journal of Physical Chemistry B, 101(16):3130–3135, 1997.">47</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id7" title="Dmitrii E Makarov. Computer simulations and theory of protein translocation. Accounts of chemical research, 42(2):281–289, 2009.">48</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id8" title="Simon Gravelle and Lorenzo Botto. Adsorption of single and multiple graphene-oxide nanoparticles at a water–vapor interface. Langmuir, 37(45):13322–13330, 2021.">49</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you are completely new to LAMMPS, I recommend that
@@ -340,7 +341,7 @@ determining the stability of different molecular configurations.</p>
 <div class="justify docutils container">
 <p>The most direct way to calculate a free energy profile is to extract
 the partition function from a classic (i.e., unbiased) molecular
-dynamics simulation, and then to estimate the Gibbs free
+dynamics simulation, and then estimate the Gibbs free
 energy using</p>
 </div>
 <div class="math-wrapper docutils container">
@@ -349,15 +350,14 @@ energy using</p>
 </div>
 <div class="justify docutils container">
 <p>where <span class="math notranslate nohighlight">\(\Delta G\)</span> is the free energy difference,
-<span class="math notranslate nohighlight">\(R\)</span> the gas constant,
-<span class="math notranslate nohighlight">\(T\)</span> the temperature,
-<span class="math notranslate nohighlight">\(p\)</span> the pressure,
-and <span class="math notranslate nohighlight">\(p_0\)</span> the reference pressure.
+<span class="math notranslate nohighlight">\(R\)</span> is the gas constant,
+<span class="math notranslate nohighlight">\(T\)</span> is the temperature,
+<span class="math notranslate nohighlight">\(p\)</span> is the pressure,
+and <span class="math notranslate nohighlight">\(p_0\)</span> is a reference pressure.
 As an illustration, let us apply this method to an
 extremely simple configuration that consists of a few
-particles diffusing in a box in the presence of a position-dependent
-repelling force that makes the center
-of the box a relatively unfavorable area to explore.</p>
+particles diffusing in a box in the presence of a position-dependent repelling
+force that makes the center of the box a relatively unfavorable area to explore.</p>
 </div>
 <section id="basic-lammps-parameters">
 <h3>Basic LAMMPS parameters<a class="headerlink" href="#basic-lammps-parameters" title="Link to this heading">¶</a></h3>
@@ -368,8 +368,8 @@ named <em>input.lammps</em> in it. Copy the following lines into it:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">sigma</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">3.405</span><span class="w"> </span><span class="c"># Angstrom</span>
 <span class="k">variable </span><span class="nv nv-Identifier">epsilon</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.238</span><span class="w"> </span><span class="c"># Kcal/mol</span>
 <span class="k">variable </span><span class="nv nv-Identifier">U0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">1.5</span><span class="o">*</span><span class="nv">${epsilon}</span><span class="w"> </span><span class="c"># Kcal/mol</span>
-<span class="k">variable </span><span class="nv nv-Identifier">dlt</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="c"># Angstrom</span>
-<span class="k">variable </span><span class="nv nv-Identifier">x0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">10.0</span><span class="w">  </span><span class="c"># Angstrom</span>
+<span class="k">variable </span><span class="nv nv-Identifier">dlt</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="c"># Angstrom</span>
+<span class="k">variable </span><span class="nv nv-Identifier">x0</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5.0</span><span class="w"> </span><span class="c"># Angstrom</span>
 
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">atomic</span>
@@ -382,11 +382,15 @@ named <em>input.lammps</em> in it. Copy the following lines into it:</p>
 <p>Here, we start by defining variables for the Lennard-Jones
 interaction <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\epsilon\)</span> and for
 the repulsive potential <span class="math notranslate nohighlight">\(U (x)\)</span>: <span class="math notranslate nohighlight">\(U_0\)</span>, <span class="math notranslate nohighlight">\(\delta\)</span>, and <span class="math notranslate nohighlight">\(x_0\)</span>,
-see the analytical expression below.</p>
+see the analytical expression below. With <span class="math notranslate nohighlight">\(U_0 = 1.5 \epsilon = 0.36\,\text{kcal/mol}\)</span>,
+<span class="math notranslate nohighlight">\(U_0\)</span> is of the same order as the thermal energy <span class="math notranslate nohighlight">\(k_\text{B} T = 0.24,\text{kcal/mol}\)</span>,
+where <span class="math notranslate nohighlight">\(k_\text{B} = 0.002\,\text{kcal/mol/K}\)</span> is the Boltzmann constant
+and <span class="math notranslate nohighlight">\(T = 119.8\,\text{K}\)</span> (see below). In this case, particles are expected
+to regularly overcome the energy barrier thanks to the thermal agitation.</p>
 </div>
 <div class="justify docutils container">
 <p>The value of 3.822 for the cut-off was chosen to
-create a WCA, purely repulsive, potential. It was calculated
+create a WCA, purely repulsive, potential <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id5" title="John D Weeks, David Chandler, and Hans C Andersen. Role of repulsive forces in determining the equilibrium structure of simple liquids. The Journal of chemical physics, 54(12):5237–5247, 1971.">50</a>]</span>. It was calculated
 as <span class="math notranslate nohighlight">\(2^{1/6} \times 3.405\)</span> where
 <span class="math notranslate nohighlight">\(3.405 = \sigma\)</span>.</p>
 </div>
@@ -410,7 +414,7 @@ by adding the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">myreg</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span>
 <span class="k">create_box </span><span class="nv nv-Identifier">1</span><span class="w"> </span><span class="nv nv-Identifier">myreg</span>
-<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">myreg</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">myreg</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.5</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 
 <span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.95</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">${epsilon}</span><span class="w"> </span><span class="nv">${sigma}</span>
@@ -418,17 +422,15 @@ by adding the following lines into <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Here, the values for Lennard-Jones parameters <span class="math notranslate nohighlight">\(\sigma\)</span> and
-<span class="math notranslate nohighlight">\(\epsilon\)</span> as well as the mass <span class="math notranslate nohighlight">\(m = 39.95\)</span> grams/mole were
-taken from argon.</p>
+<p>The values for the Lennard-Jones parameters (<span class="math notranslate nohighlight">\(\sigma\)</span>
+and <span class="math notranslate nohighlight">\(\epsilon\)</span>) and
+the mass (<span class="math notranslate nohighlight">\(m = 39.95\)</span>) are typical of argon.</p>
 </div>
 <div class="justify docutils container">
-<p>In the previous subsection, the
-variables <span class="math notranslate nohighlight">\(U_0\)</span>,
-<span class="math notranslate nohighlight">\(\delta\)</span>, and
-<span class="math notranslate nohighlight">\(x_0\)</span> were defined. They are used to create
-the repulsive potential restricting the atoms to
-explore the center of the box:</p>
+<p>The variables <span class="math notranslate nohighlight">\(U_0\)</span>,
+<span class="math notranslate nohighlight">\(\delta\)</span>,
+and <span class="math notranslate nohighlight">\(x_0\)</span> defined in the previous subsection are used here to create
+the repulsive potential, restricting the atoms from exploring the center of the box:</p>
 </div>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -437,7 +439,7 @@ explore the center of the box:</p>
 <div class="justify docutils container">
 <p>From the derivative of the
 potential with respect to <span class="math notranslate nohighlight">\(x\)</span>, we obtain the expression
-for the force that will be imposed to the atoms:</p>
+for the force that will be imposed on the atoms:</p>
 </div>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -454,14 +456,14 @@ axis resembles:</p>
 <img alt="Averaged density profile" class="only-dark" src="../../_images/potential-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Potential <span class="math notranslate nohighlight">\(U (x)\)</span> (a) and force <span class="math notranslate nohighlight">\(F (x)\)</span> (b) imposed to the atoms.</p>
+<p>Figure: Potential <span class="math notranslate nohighlight">\(U (x)\)</span> (a) and force <span class="math notranslate nohighlight">\(F (x)\)</span> (b) imposed to the atoms as a function of the coordinate <span class="math notranslate nohighlight">\(x\)</span>.</p>
 </div>
 <p><strong>Energy minimization and equilibration</strong></p>
 <div class="justify docutils container">
 <p>Let us apply energy minimization to the system,
 and then impose the force <span class="math notranslate nohighlight">\(F(x)\)</span> to all of
 the atoms in the simulation using the <em>addforce</em> command.
-Add the following lines into <em>input.lammps</em>:</p>
+Add the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">minimize</span><span class="w"> </span><span class="m">1e-4</span><span class="w"> </span><span class="m">1e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
 <span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
@@ -484,7 +486,7 @@ using a timestep of <span class="math notranslate nohighlight">\(2\,\text{fs}\)<
 (i.e. a total duration of <span class="math notranslate nohighlight">\(1\,\text{ns}\)</span>).</p>
 </div>
 <div class="justify docutils container">
-<p>To make sure that <span class="math notranslate nohighlight">\(1\,\text{ns}\)</span> is long enough, let us
+<p>To make sure that <span class="math notranslate nohighlight">\(1\,\text{ns}\)</span> is long enough, we will
 record the evolution of the number of atoms in the central
 (energetically unfavorable) region called <em>mymes</em>:</p>
 </div>
@@ -505,8 +507,8 @@ record the evolution of the number of atoms in the central
 <h3>Run and data acquisition<a class="headerlink" href="#run-and-data-acquisition" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Finally, let us record the density profile of the atoms
-along the <span class="math notranslate nohighlight">\(x\)</span> axis using the <em>ave/chunk</em> command. A
-total of 10 density profiles will be printed. The step count is
+along the <span class="math notranslate nohighlight">\(x\)</span> axis using the <em>ave/chunk</em> command.
+A total of 10 density profiles will be printed. The step count is
 reset to 0 to synchronize with the output times of
 <em>fix density/number</em>, and the <em>fix myat</em> is canceled (it has to be
 canceled before a reset time):</p>
@@ -516,7 +518,8 @@ canceled before a reset time):</p>
 
 <span class="k">compute </span><span class="nv nv-Identifier">cc1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myac</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">400000</span><span class="w"> </span><span class="m">4000000</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">    </span><span class="n">cc1</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">number</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">density_profile_8ns.dat</span>
+<span class="w">    </span><span class="n">cc1</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">number</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">file</span><span class="w"> </span><span class="n">density_profile.dat</span>
 <span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 
 <span class="k">thermo</span><span class="w"> </span><span class="m">100000</span>
@@ -542,8 +545,8 @@ part of the box, due to the additional force <span class="math notranslate nohig
 <section id="data-analysis">
 <h3>Data analysis<a class="headerlink" href="#data-analysis" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>First, let us make sure that the initial equilibration of <span class="math notranslate nohighlight">\(1\,\text{ns}\)</span>
-is long enough by looking at the <em>density_evolution.dat</em> file.</p>
+<p>First, let us ensure that the initial equilibration of <span class="math notranslate nohighlight">\(1\,\text{ns}\)</span>
+is long enough by examining the <em>density_evolution.dat</em> file.</p>
 </div>
 <figure class="align-default">
 <img alt="Number of particles in the central region as a function of time" class="only-light" src="../../_images/density_evolution-light.png" />
@@ -560,7 +563,7 @@ central region, <span class="math notranslate nohighlight">\(n_\mathrm{central}\
 equilibrium value (which is close to 0) after about <span class="math notranslate nohighlight">\(0.1\,\text{ns}\)</span>.</p>
 </div>
 <div class="justify docutils container">
-<p>One can also have a look at the density profile, which shows that the density in the
+<p>One can also look at the density profile, which shows that the density in the
 center of the box is about two orders of magnitude lower than inside
 the reservoir.</p>
 </div>
@@ -571,9 +574,8 @@ the reservoir.</p>
 <img alt="Averaged density profile" class="only-dark" src="../../_images/density_profile-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Averaged density profiles for the <span class="math notranslate nohighlight">\(8\,\text{ns}\)</span> run.
-The value for the reference density <span class="math notranslate nohighlight">\(\rho_\text{bulk} = 0.0033\)</span>
-was estimated from the raw density profiles.</p>
+<p>Figure: Fluid density <span class="math notranslate nohighlight">\(\rho\)</span> along the <span class="math notranslate nohighlight">\(x\)</span> direction in the presence
+of a repulsive potential with <span class="math notranslate nohighlight">\(U_0 = 1.5 \epsilon\)</span>. The reference density is <span class="math notranslate nohighlight">\(\rho_\text{bulk} = 0.0033~\text{Å}^{-3}\)</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us plot <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_\mathrm{bulk})\)</span> and compare it
@@ -587,23 +589,25 @@ with the imposed (reference) potential <span class="math notranslate nohighlight
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Calculated potential <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_\mathrm{bulk})\)</span>
-compared to the imposed potential.
+compared to the imposed potential with <span class="math notranslate nohighlight">\(U_0 = 1.5 \epsilon\)</span>.
 The calculated potential is in blue.</p>
 </div>
 <div class="justify docutils container">
 <p>The agreement with the expected energy profile is reasonable,
-despite some noise in the central part.</p>
+despite some noise in the central part (where fewer data points are
+available due to the repulsive potential).</p>
 </div>
 </section>
 <section id="the-limits-of-free-sampling">
 <h3>The limits of free sampling<a class="headerlink" href="#the-limits-of-free-sampling" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>If we increase the value of <span class="math notranslate nohighlight">\(U_0\)</span>, the average number of
-atoms in the central region will decrease, making it
-difficult to obtain a good resolution for the free energy
-profile. For instance, using <span class="math notranslate nohighlight">\(U_0 = 10 \epsilon\)</span>,
-not a single atom crosses the central part of the simulation,
-despite the 8 ns of simulation.</p>
+<p>If we increase the value of <span class="math notranslate nohighlight">\(U_0\)</span>, the average number of atoms in the central
+region will decrease, making it difficult to obtain a good resolution for the
+free energy profile. For instance, when we run the same simulation using
+<span class="math notranslate nohighlight">\(U_0 = 10 \epsilon\)</span>, which corresponds to a situation
+where <span class="math notranslate nohighlight">\(U_0 \approx 10 k_\text{B} T\)</span>, not a single atom explores the central
+part of the simulation box during the 8 ns of simulation. In this case, using
+an enhanced sampling method is preferred; see the next section.</p>
 </div>
 <figure class="align-default">
 <img alt="Averaged density profile with large potential" class="only-light" src="../../_images/density_profile_large_potential-light.png" />
@@ -611,6 +615,10 @@ despite the 8 ns of simulation.</p>
 <figure class="align-default">
 <img alt="Averaged density profile  large potential" class="only-dark" src="../../_images/density_profile_large_potential-dark.png" />
 </figure>
+<div class="figurelegend docutils container">
+<p>Figure: Fluid density <span class="math notranslate nohighlight">\(\rho\)</span> along the <span class="math notranslate nohighlight">\(x\)</span> direction in the presence
+of a repulsive potential with <span class="math notranslate nohighlight">\(U_0 = 10 \epsilon\)</span>.</p>
+</div>
 <div class="justify docutils container">
 <p>In that case, it is better to use the umbrella sampling method
 to extract free energy profiles, see the next section.</p>
@@ -620,30 +628,22 @@ to extract free energy profiles, see the next section.</p>
 <section id="method-2-umbrella-sampling">
 <h2>Method 2: Umbrella sampling<a class="headerlink" href="#method-2-umbrella-sampling" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>Umbrella sampling is a biased molecular dynamics method,
-i.e. a method in which additional forces are added to the
-atoms in order to make the unfavorable states more likely
-to occur <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id33" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>]</span>.</p>
+<p>Umbrella sampling is a biased molecular dynamics method in which additional forces are added to a chosen atom to
+force it to explore the entire space, including the more unfavorable areas of
+the system <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id40" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id26" title="Michael P Allen and Dominic J Tildesley. Computer simulation of liquids. Oxford university press, 2017.">9</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id10" title="Johannes Kästner. Umbrella sampling. Wiley Interdisciplinary Reviews: Computational Molecular Science, 1(6):932–942, 2011.">46</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
-<p>Several simulations (or windows) will be performed with different parameters
-for the imposed biasing.</p>
-</div>
-<div class="justify docutils container">
-<p>Here, let us force one of the atoms to
-explore the central region of the box. To do so,
-let us add a potential <span class="math notranslate nohighlight">\(V\)</span> to one
-of the particle, and force it to move along the axis <span class="math notranslate nohighlight">\(x\)</span>.
-The chosen path is called the axis of reaction. The results
-will be analyzed using the weighted histogram
-analysis method (WHAM), which allows to remove the effect of
-the bias and eventually deduce the unbiased free energy profile.</p>
+<p>To encourage one of the atoms to explore the central region of the box, we apply a potential <span class="math notranslate nohighlight">\(V\)</span> and force it to move
+along the <span class="math notranslate nohighlight">\(x\)</span>-axis. The chosen path is called the axis of reaction. Several simulations (or windows) will be conducted
+with varying parameters for the applied biasing. The results will be analyzed using the weighted histogram analysis
+method (WHAM) <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id6" title="Shankar Kumar, John M Rosenberg, Djamal Bouzida, Robert H Swendsen, and Peter A Kollman. The weighted histogram analysis method for free-energy calculations on biomolecules. i. the method. Journal of computational chemistry, 13(8):1011–1021, 1992.">51</a>]</span>, which allows for the removal of the biasing effect and ultimately deduces
+the unbiased free energy profile.</p>
 </div>
 <section id="lammps-input-script">
 <h3>LAMMPS input script<a class="headerlink" href="#lammps-input-script" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>Create a new folder called <em>BiasedSampling/</em>, and create a new input file
-named <em>input.lammps</em> in it, and copy the following lines:</p>
+named <em>input.lammps</em> in it. Copy the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">sigma</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">3.405</span><span class="w"> </span><span class="c"># Angstrom</span>
 <span class="k">variable </span><span class="nv nv-Identifier">epsilon</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.238</span><span class="w"> </span><span class="c"># Kcal/mol</span>
@@ -661,12 +661,15 @@ named <em>input.lammps</em> in it, and copy the following lines:</p>
 <span class="k">region </span><span class="nv nv-Identifier">myreg</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">-</span><span class="m">25</span><span class="w"> </span><span class="m">25</span>
 <span class="k">create_box </span><span class="nv nv-Identifier">2</span><span class="w"> </span><span class="nv nv-Identifier">myreg</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">myreg</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">59</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">myreg</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.5</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 
 <span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.948</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">${epsilon}</span><span class="w"> </span><span class="nv">${sigma}</span>
 <span class="k">neigh_modify</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">group </span><span class="nv nv-Identifier">topull</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">2</span>
+
+<span class="k">minimize</span><span class="w"> </span><span class="m">1e-4</span><span class="w"> </span><span class="m">1e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 
 <span class="k">variable </span><span class="nv nv-Identifier">U</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="w">    </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
@@ -685,16 +688,15 @@ named <em>input.lammps</em> in it, and copy the following lines:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>So far, this code resembles the one of Method 1,
-except for the additional particle of type 2. This
-particle is identical to the particles of type 1 (same
-mass and Lennard-Jones parameters) but will be exposed to the
-biasing potential.</p>
+<p>So far, this code resembles that of Method 1,
+except for the additional particle of type 2. Particles of type 1 and 2
+are identical, having the same mass and Lennard-Jones parameters. However,
+the particle of type 2 will additionally be exposed to the biasing potential <span class="math notranslate nohighlight">\(V\)</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>Let us create a loop with 50 steps, and move progressively
 the center of the bias potential by an increment of 0.1 nm.
-Add the following lines into <em>input.lammps</em>:</p>
+Add the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">a</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">50</span>
 <span class="k">label </span><span class="sc">loop</span>
@@ -734,8 +736,8 @@ can always increase the duration of the runs for better samplings.</p>
 <section id="wham-algorithm">
 <h3>WHAM algorithm<a class="headerlink" href="#wham-algorithm" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>In order to generate the free energy profile from the density distribution,
-let us use the WHAM algorithm <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id35" title="Alan Grossfield. An implementation of WHAM: the weighted histogram analysis method version 2.0.10.">45</a>]</span>.</p>
+<p>To generate the free energy profile from the density distribution,
+let us use the WHAM algorithm as implemented by Alan Grossfield <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id42" title="Alan Grossfield. An implementation of WHAM: the weighted histogram analysis method version 2.0.10.">52</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>You can download it from <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a> website, and compile it using:</p>
@@ -826,7 +828,7 @@ which shows that the agreement is excellent.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Calculated potential using umbrella sampling compared to
-the imposed potential. The calculated potential is in blue.</p>
+the imposed potential with <span class="math notranslate nohighlight">\(U_0 = 10 \epsilon\)</span>. The calculated potential is in blue.</p>
 </div>
 <div class="justify docutils container">
 <p>We can see that the agreement is quite good despite the very short calculation time

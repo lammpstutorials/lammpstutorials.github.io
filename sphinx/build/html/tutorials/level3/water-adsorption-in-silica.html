@@ -382,7 +382,7 @@ and copy it within the <em>Potential/</em> folder.</p>
 <p>The <a href="https://pubmed.ncbi.nlm.nih.gov/9993674/" target="_blank">Vashishta</a>
 potential is a bond-angle energy-based potential, it
 deduces the bonds between atoms from their relative
-positions <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id36" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">43</a>]</span>. Therefore, there is no need to
+positions <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id43" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">43</a>]</span>. Therefore, there is no need to
 provide the bond and angle information as we do with classic force fields
 like GROMOS or AMBER. When used with LAMMPS, the <em>Vashishta</em>
 potential requires the use of the <em>metal</em> units system.
@@ -582,8 +582,7 @@ the <em>input.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The <em>fix nvt</em> is used
-to control the temperature of the system, while the <em>change_box</em> command
+<p>The <em>fix nvt</em> is used to control the temperature of the system, while the <em>change_box</em> command
 imposes incremental deformations of the box.
 Different scaling factors or/and different numbers of
 steps can be used to generate different defects in the silica.</p>
@@ -620,7 +619,7 @@ this can be done by using :</p>
 atoms in red. Some holes are visible</p>
 </div>
 <div class="justify docutils container">
-<p>After the expansion, a final equilibration step of duration 20
+<p>After the expansion, a final equilibration step of a duration of 20
 picoseconds is performed. If you look at the <em>dump.lammpstrj</em> file
 using VMD, you can see the expansion occurring step-by-step, and the
 atoms progressively adjusting to the box dimensions.</p>
@@ -654,7 +653,7 @@ with a virtual reservoir of a given chemical potential
 <span class="math notranslate nohighlight">\(\mu\)</span>, and multiple attempts to insert water
 molecules at random positions are made. Each attempt is
 either accepted or rejected based on energy considerations. Find more details
-in classical textbooks <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id33" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>]</span>.</p>
+in classical textbooks <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id40" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>]</span>.</p>
 </div>
 <section id="using-hydrid-potentials">
 <h3>Using hydrid potentials<a class="headerlink" href="#using-hydrid-potentials" title="Link to this heading">¶</a></h3>
@@ -684,7 +683,7 @@ following lines into it:</p>
 used in this tutorial. From now on, the system will combine water and silica,
 and therefore two force fields are combined: Vashishta for
 SiO, and lj/cut/tip4p/long for TIP4P water model (here
-the TIP4P/2005 model is used <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id39" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>).
+the TIP4P/2005 model is used <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id46" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>).
 Combining the two force fields is done using the <em>hybrid/overlay</em> pair style.</p>
 </div>
 <div class="info admonition">
@@ -862,10 +861,9 @@ by adding the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">On thermostating groups instead of the entire system</p>
-<p>Two different thermostats are used for SiO and for H2O, respectively. Using
-separate thermostats are usually better when the system contains two separate
-species, such as a solid and a
-liquid. It is particularly important to use two thermostats
+<p>Two different thermostats are used for SiO and H2O, respectively. Using
+separate thermostats is usually better when the system contains two separate
+species, such as a solid and a liquid. It is particularly important to use two thermostats
 here because the number of water molecules will fluctuate with time.</p>
 </div>
 <div class="justify docutils container">
@@ -905,9 +903,9 @@ made for the temperature of the inserted water molecules by
 taking into account the internal degrees of freedom. Running
 this simulation, you should see the number of molecules
 increasing progressively. When using the pressure argument,
-LAMMPS ignores the value of the chemical potential [here <span class="math notranslate nohighlight">\(\mu = -0.5\,\text{eV}\)</span>
-which corresponds roughly to ambient conditions (i.e. <span class="math notranslate nohighlight">\(\text{RH} \approx 50\,\%\)</span>).]
-The large pressure value of 10000 bars was chosen to ensure that
+LAMMPS ignores the value of the chemical potential [here <span class="math notranslate nohighlight">\(\mu = -0.5\,\text{eV}\)</span>,
+which corresponds roughly to ambient conditions (i.e. <span class="math notranslate nohighlight">\(\text{RH} \approx 50\,\%\)</span>)
+<span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id4" title="Simon Gravelle and Jacques Dumais. A multi-scale model for fluid transport through a bio-inspired passive valve. The Journal of Chemical Physics, 2020.">45</a>]</span>.] The large pressure value of 10000 bars was chosen to ensure that
 some successful insertions of molecules would occur during the
 extremely short duration of this simulation.</p>
 </div>

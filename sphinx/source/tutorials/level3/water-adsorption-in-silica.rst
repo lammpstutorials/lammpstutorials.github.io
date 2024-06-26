@@ -356,8 +356,7 @@ Cracking the silica
 
 ..  container:: justify
 
-    The *fix nvt* is used
-    to control the temperature of the system, while the *change_box* command
+    The *fix nvt* is used to control the temperature of the system, while the *change_box* command
     imposes incremental deformations of the box.
     Different scaling factors or/and different numbers of 
     steps can be used to generate different defects in the silica.
@@ -403,7 +402,7 @@ Cracking the silica
 
 ..  container:: justify
 
-    After the expansion, a final equilibration step of duration 20
+    After the expansion, a final equilibration step of a duration of 20
     picoseconds is performed. If you look at the *dump.lammpstrj* file
     using VMD, you can see the expansion occurring step-by-step, and the
     atoms progressively adjusting to the box dimensions. 
@@ -683,10 +682,9 @@ GCMC simulation
 .. admonition:: On thermostating groups instead of the entire system
     :class: info
 
-    Two different thermostats are used for SiO and for H2O, respectively. Using 
-    separate thermostats are usually better when the system contains two separate
-    species, such as a solid and a
-    liquid. It is particularly important to use two thermostats
+    Two different thermostats are used for SiO and H2O, respectively. Using 
+    separate thermostats is usually better when the system contains two separate
+    species, such as a solid and a liquid. It is particularly important to use two thermostats
     here because the number of water molecules will fluctuate with time.
     
 ..  container:: justify
@@ -731,9 +729,9 @@ GCMC simulation
     taking into account the internal degrees of freedom. Running
     this simulation, you should see the number of molecules
     increasing progressively. When using the pressure argument,
-    LAMMPS ignores the value of the chemical potential [here :math:`\mu = -0.5\,\text{eV}`
-    which corresponds roughly to ambient conditions (i.e. :math:`\text{RH} \approx 50\,\%`).]
-    The large pressure value of 10000 bars was chosen to ensure that 
+    LAMMPS ignores the value of the chemical potential [here :math:`\mu = -0.5\,\text{eV}`,
+    which corresponds roughly to ambient conditions (i.e. :math:`\text{RH} \approx 50\,\%`)
+    :cite:`gravelle2020multi`.] The large pressure value of 10000 bars was chosen to ensure that 
     some successful insertions of molecules would occur during the 
     extremely short duration of this simulation.
 
