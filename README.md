@@ -1,13 +1,11 @@
 # LAMMPS tutorials
 
 This is the repository of the [LAMMPS tutorials](https://lammpstutorials.github.io/)
-webpage. All the LAMMPS input scripts and data files can be found
-in a separate repository named [lammpstutorials-inputs](https://github.com/lammpstutorials/lammpstutorials-inputs).
+webpage. All the LAMMPS input scripts and data files can be found in a separate repository named [lammpstutorials-inputs](https://github.com/lammpstutorials/lammpstutorials-inputs).
 
 ## About LAMMPS tutorials
 
-The LAMMPStutorials website is made of seven tutorials
-that are ordered by increasing difficulty.
+The LAMMPStutorials website is made of seven tutorials that are ordered by increasing difficulty.
 [Lennard-Jones fluid](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/lennard-jones-fluid.html)
 is meant for absolute LAMMPS and molecular dynamics beginners, and the complexity of the simulation is
 progressively increased for [Pulling on a carbon nanotube](https://lammpstutorials.github.io/sphinx/build/html/tutorials/level1/breaking-a-carbon-nanotube.html), 
