@@ -338,12 +338,14 @@ reasonable temperature and pressure.</p>
 Within <em>systemcreation/</em>, open a blank file
 called <em>input.lammps</em>, and copy the following lines into it:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">f</span>
+<span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
+<span class="k">kspace_modify</span><span class="w"> </span><span class="n">slab</span><span class="w"> </span><span class="m">3.0</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -364,6 +366,13 @@ molecule without explicitly defining the fourth massless atom <em>M</em>. The va
 <span class="math notranslate nohighlight">\(0.1546\,\text{Å}\)</span> corresponds to the <em>O-M</em> distance and is
 imposed by the water model. Here, <a href="http://www.sklogwiki.org/SklogWiki/index.php/TIP4P/2005_model_of_water" target="_blank">TIP4P-2005</a> is used <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id46" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>.</p>
 </div>
+<div class="justify docutils container">
+<p>Another novelty, here, is the use of <em>kspace_modify slab 3.0</em> that is combined
+with the non-periodic boundaries along the <em>z</em> coordinate: <em>boundary p p f</em>.
+With the <em>slab</em> option, the system is treated as periodical along <em>z</em>, but with an
+empty volume inserted between the periodic images of the slab, and the interactions
+along <em>z</em> effectively turned off.</p>
+</div>
 <div class="info admonition">
 <p class="admonition-title">About lj/cut/tip4p/long pair style</p>
 <p>The <em>lj/cut/tip4p/long</em> pair style is similar to the conventional
@@ -376,7 +385,7 @@ are treated <em>normally</em> with long-range Coulomb interaction.</p>
 <p>Let us create the box by adding the following lines to <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">lattice</span><span class="w"> </span><span class="n">fcc</span><span class="w"> </span><span class="m">4.04</span>
-<span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">7</span><span class="w"> </span><span class="m">7</span>
+<span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="m">5</span>
 <span class="k">create_box </span><span class="nv nv-Identifier">5</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
@@ -589,7 +598,7 @@ of the water molecules:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">0</span>
 
-<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span><span class="w"> </span><span class="n">nocoeff</span>
 <span class="k">write_dump </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
 </div>
@@ -601,7 +610,8 @@ enough for creating the system and saving the final state.</p>
 <p>The <em>write_data</em> creates a file named <em>system.data</em>
 containing all the information required to restart the
 simulation from the final configuration generated by this
-input file.</p>
+input file. With the <em>nocoeff</em> option, the parameters from the force field
+are not written in the <em>.data</em> file.</p>
 </div>
 <div class="justify docutils container">
 <p>The <em>write_dump</em> command prints the final
@@ -674,6 +684,7 @@ in <em>input.lammps</em>:</p>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
+<span class="k">kspace_modify</span><span class="w"> </span><span class="n">slab</span><span class="w"> </span><span class="m">3.0</span>
 
 <span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">systemcreation</span><span class="o">/</span><span class="n">system.data</span>
 
@@ -744,7 +755,7 @@ imposed temperature:</p>
 
 <span class="k">run</span><span class="w"> </span><span class="m">4000</span>
 
-<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span><span class="w"> </span><span class="n">nocoeff</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -785,13 +796,14 @@ fluid and piston relax at ambient temperature.</p>
 the previously created folders, and create a new
 <em>input.lammps</em> file in it. Add the following lines to <em>input.lammps</em>:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">f</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
+<span class="k">kspace_modify</span><span class="w"> </span><span class="n">slab</span><span class="w"> </span><span class="m">3.0</span>
 
 <span class="k">read_data</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">minimization</span><span class="o">/</span><span class="n">system.data</span>
 
@@ -833,7 +845,7 @@ and <em>wallbotz</em>, i.e. the distance between the two walls.</p>
 <p>Finally, let us add the <em>run</em> command:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">30000</span>
-<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span><span class="w"> </span><span class="n">nocoeff</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -873,13 +885,14 @@ motion to the two walls and shear the electrolyte.
 In a new folder called <em>shearing/</em>,
 create a new <em>input.lammps</em> file that starts like the previous ones:</p>
 </div>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">f</span>
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-4</span>
+<span class="k">kspace_modify</span><span class="w"> </span><span class="n">slab</span><span class="w"> </span><span class="m">3.0</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
@@ -962,7 +975,7 @@ Add the following lines to <em>input.lammps</em>:</p>
 
 <span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
 <span class="k">run</span><span class="w"> </span><span class="m">200000</span>
-<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">system.data</span><span class="w"> </span><span class="n">nocoeff</span>
 </pre></div>
 </div>
 <div class="justify docutils container">
