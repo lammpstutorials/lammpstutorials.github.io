@@ -40,7 +40,7 @@ boundary p p p
 region myreg block -25 25 -5 5 -25 25
 create_box 2 myreg
 create_atoms 2 single 0 0 0
-create_atoms 1 random 5 341341 myreg overlap 1.0 maxtry 50
+create_atoms 1 random 59 341341 myreg overlap 1.5 maxtry 50
 
 # settings
 mass * 39.948
@@ -49,6 +49,9 @@ neigh_modify every 1 delay 4 check yes
 group topull type 2
 
 # run
+minimize 1e-4 1e-6 100 1000
+reset_timestep 0
+
 variable U atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
 variable F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
 fix myadf all addforce v_F 0.0 0.0 energy v_U

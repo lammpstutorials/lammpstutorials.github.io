@@ -350,7 +350,7 @@ lines into it:</p>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">dihedral_style</span><span class="w"> </span><span class="n">harmonic</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">12</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">10</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="w"> </span><span class="m">1e-5</span>
 <span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">coul</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">yes</span>
 </pre></div>
@@ -389,12 +389,12 @@ and the full Coulomb interaction will be used.</p>
 <div class="justify docutils container">
 <p>With the <em>pair_style</em> named <em>lj/cut/coul/long</em>, atoms
 interact through both a Lennard-Jones (LJ) potential and
-Coulomb interactions. The value of <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span> is
+Coulomb interactions. The value of <span class="math notranslate nohighlight">\(10\,\text{Å}\)</span> is
 the cutoff.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About cutoff in molecular dynamics</p>
-<p>The cutoff of <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span> applies to both LJ and Coulomb
+<p>The cutoff of <span class="math notranslate nohighlight">\(10\,\text{Å}\)</span> applies to both LJ and Coulomb
 interactions, but in a different way. For LJ <em>cut</em>
 interactions, atoms interact with each other only if they
 are separated by a distance smaller than the cutoff. For
@@ -596,8 +596,8 @@ see the system quickly reaching its equilibrium volume and density.</p>
 hydrogen atoms are in white.</p>
 </div>
 <div class="justify docutils container">
-<p>You can also open the <em>density.dat</em> file to ensure that the system converged
-toward an equilibrated liquid water system during the 20 ps of simulation.</p>
+<p>Open the <em>density.dat</em> file to ensure that the system converged
+toward a (reasonably) well-equilibrated liquid water system during the 20 ps of simulation.</p>
 </div>
 <figure class="align-default">
 <img alt="Curves showing the equilibration of the water reservoir" class="only-light" src="../../_images/density_H2O-light.png" />
@@ -609,6 +609,12 @@ toward an equilibrated liquid water system during the 20 ps of simulation.</p>
 <p>Figure: Evolution of the density of water with time. The
 density <span class="math notranslate nohighlight">\(\rho\)</span> reaches
 a plateau after <span class="math notranslate nohighlight">\(\approx 10\,\text{ps}\)</span>.</p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">Insufficient simulation duration</p>
+<p>A duration of <span class="math notranslate nohighlight">\(20~\text{ps}\)</span> is not sufficient to reach the actual equilibrium density.
+Increase this duration to at least <span class="math notranslate nohighlight">\(500~\text{ps}\)</span> to obtain a density value that
+is comparable with the values given in Ref. <span id="id10">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id37" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">25</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>If needed, you can <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a> the water reservoir I have
@@ -623,10 +629,10 @@ include the PEG polymer in the water.</p>
 </div>
 <div class="justify docutils container">
 <p>The PEG molecule topology was downloaded from the <a href="https://atb.uq.edu.au/" target="_blank">ATB</a>
-repository <span id="id10">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id55" title="Alpeshkumar K Malde, Le Zuo, Matthew Breeze, Martin Stroet, David Poger, Pramod C Nair, Chris Oostenbrink, and Alan E Mark. An automated force field topology builder (ATB) and repository: version 1.0. Journal of chemical theory and computation, 7(12):4026–4037, 2011.">32</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id56" title="Chris Oostenbrink, Alessandra Villa, Alan E Mark, and Wilfred F Van Gunsteren. A biomolecular force field based on the free enthalpy of hydration and solvation: the GROMOS force-field parameter sets 53A5 and 53A6. Journal of computational chemistry, 25(13):1656–1676, 2004.">33</a>]</span>.
+repository <span id="id11">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id55" title="Alpeshkumar K Malde, Le Zuo, Matthew Breeze, Martin Stroet, David Poger, Pramod C Nair, Chris Oostenbrink, and Alan E Mark. An automated force field topology builder (ATB) and repository: version 1.0. Journal of chemical theory and computation, 7(12):4026–4037, 2011.">32</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id56" title="Chris Oostenbrink, Alessandra Villa, Alan E Mark, and Wilfred F Van Gunsteren. A biomolecular force field based on the free enthalpy of hydration and solvation: the GROMOS force-field parameter sets 53A5 and 53A6. Journal of computational chemistry, 25(13):1656–1676, 2004.">33</a>]</span>.
 It has a formula <span class="math notranslate nohighlight">\(\text{C}_{28}\text{H}_{58}\text{O}_{15}\)</span>,
 and the parameters are taken from
-the GROMOS 54A7 force field <span id="id11">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id33" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F Van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">24</a>]</span>.</p>
+the GROMOS 54A7 force field <span id="id12">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id33" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F Van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">24</a>]</span>.</p>
 </div>
 <figure class="align-default">
 <img alt="PEG in vacuum as simulated with LAMMPS" class="only-light" src="../../_images/singlePEG-light.png" />
@@ -649,7 +655,7 @@ previously:</p>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">dihedral_style</span><span class="w"> </span><span class="n">harmonic</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">12</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">10</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="w"> </span><span class="m">1e-5</span>
 <span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">coul</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">dihedral</span><span class="w"> </span><span class="n">yes</span>
 </pre></div>
@@ -776,7 +782,7 @@ molecules (it was chosen by trial and error). Then, copy the same lines as previ
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">dihedral_style</span><span class="w"> </span><span class="n">harmonic</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">12</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">10</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="w"> </span><span class="m">1e-5</span>
 <span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">coul</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">dihedral</span><span class="w"> </span><span class="n">yes</span>
 </pre></div>
@@ -821,7 +827,7 @@ adding the following lines into <em>input.lammps</em>:</p>
 <p>Let us also print the end-to-end distance of the PEG,
 here defined as the distance between the groups <em>topull1</em>
 and <em>topull2</em>, as well as the temperature of the system and the gyration
-radius of the molecule <span id="id12">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id16" title="Marshall Fixman. Radius of Gyration of Polymer Chains. The Journal of Chemical Physics, 36(2):306–310, 1962. doi:10.1063/1.1732501.">34</a>]</span>
+radius of the molecule <span id="id13">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id16" title="Marshall Fixman. Radius of Gyration of Polymer Chains. The Journal of Chemical Physics, 36(2):306–310, 1962. doi:10.1063/1.1732501.">34</a>]</span>
 by adding the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">mytemp</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">temp</span>
@@ -925,7 +931,7 @@ oxygen atoms of the PEG molecule.</p>
 <div class="justify docutils container">
 <p>Note the difference in the structure of the water before and after
 the PEG molecule is stretched. This effect is described in
-the 2017 publication by Liese et al. <span id="id13">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id45" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">27</a>]</span>.</p>
+the 2017 publication by Liese et al. <span id="id14">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id45" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">27</a>]</span>.</p>
 </div>
 </section>
 <section id="add-salt-to-the-system">
