@@ -75,7 +75,7 @@ Preparing the water reservoir
     bond_style harmonic
     angle_style harmonic
     dihedral_style harmonic
-    pair_style lj/cut/coul/long 12
+    pair_style lj/cut/coul/long 10
     kspace_style pppm 1e-5
     special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes
 
@@ -126,13 +126,13 @@ Preparing the water reservoir
 
     With the *pair_style* named *lj/cut/coul/long*, atoms
     interact through both a Lennard-Jones (LJ) potential and
-    Coulomb interactions. The value of :math:`12\,\text{Å}` is 
+    Coulomb interactions. The value of :math:`10\,\text{Å}` is 
     the cutoff.
 
 .. admonition:: About cutoff in molecular dynamics
     :class: info
 
-    The cutoff of :math:`12\,\text{Å}` applies to both LJ and Coulomb
+    The cutoff of :math:`10\,\text{Å}` applies to both LJ and Coulomb
     interactions, but in a different way. For LJ *cut*
     interactions, atoms interact with each other only if they
     are separated by a distance smaller than the cutoff. For
@@ -379,8 +379,8 @@ Preparing the water reservoir
 
 ..  container:: justify
 
-    You can also open the *density.dat* file to ensure that the system converged
-    toward an equilibrated liquid water system during the 20 ps of simulation.
+    Open the *density.dat* file to ensure that the system converged
+    toward a (reasonably) well-equilibrated liquid water system during the 20 ps of simulation.
 
 .. figure:: ../figures/level2/polymer-in-water/density_H2O-light.png
     :alt: Curves showing the equilibration of the water reservoir
@@ -395,6 +395,13 @@ Preparing the water reservoir
     Figure: Evolution of the density of water with time. The
     density :math:`\rho` reaches
     a plateau after :math:`\approx 10\,\text{ps}`.
+
+.. admonition:: Insufficient simulation duration
+    :class: info
+
+    A duration of :math:`20~\text{ps}` is not sufficient to reach the actual equilibrium density.
+    Increase this duration to at least :math:`500~\text{ps}` to obtain a density value that
+    is comparable with the values given in Ref. :cite:`wu2006flexible`.
 
 ..  container:: justify
 
@@ -452,7 +459,7 @@ Solvating the PEG in water
     bond_style harmonic
     angle_style harmonic
     dihedral_style harmonic
-    pair_style lj/cut/coul/long 12
+    pair_style lj/cut/coul/long 10
     kspace_style pppm 1e-5
     special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 
@@ -609,7 +616,7 @@ Stretching the PEG molecule
     bond_style harmonic
     angle_style harmonic
     dihedral_style harmonic
-    pair_style lj/cut/coul/long 12
+    pair_style lj/cut/coul/long 10
     kspace_style pppm 1e-5
     special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes dihedral yes
 
