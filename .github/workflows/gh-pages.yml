@@ -3,7 +3,7 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - main
+      - 2Aug2023
 jobs:
   deploy:
     runs-on: ubuntu-20.04
@@ -41,7 +41,7 @@ jobs:
           cp source/gromacs_replace.html build/html/miscellaneous/use-gromacs-instead.html
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/2Aug2023' }}
         with:
           context: .
           github_token: ${{ secrets.GITHUB_TOKEN }}
