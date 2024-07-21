@@ -46,8 +46,10 @@ pair_coeff 2 2 0.5 3.0
 
 # 4) Visualization
 thermo 10
-thermo_style custom step temp pe ke etotal press
-dump mydmp all atom 10 dump.min.lammpstrj
+thermo_style custom step etotal press
+dump mydmp1 all atom 10 dump.min.lammpstrj
+dump mydmp2 all image 10 dump.min.*.jpg type type shiny 0.1 box no 0.01 view 0 0 zoom 1.8
+dump_modify mydmp2 acolor 1 darkturquoise acolor 2 darkblue adiam 1 1 adiam 2 3 backcolor white
 
 # 5) Run
 minimize 1.0e-4 1.0e-6 1000 10000

@@ -46,7 +46,13 @@ delete_atoms group group_type_2_out
 # 4) Visualization
 thermo 1000
 thermo_style custom step temp pe ke etotal press
-dump mydmp all atom 1000 dump.md.lammpstrj
+dump mydmp1 all atom 10 dump.min.lammpstrj
+dump mydmp2 all image 100 dump.md.*.jpg &
+    type type shiny 0.1 box no 0.01 &
+    view 0 0 zoom 1.8
+dump_modify mydmp2 acolor 1 darkturquoise &
+    acolor 2 darkblue adiam 1 1 adiam 2 3 & 
+    backcolor white
 
 variable number_type1_in equal count(group_type_1,region_cylinder_in)
 variable number_type2_in equal count(group_type_2,region_cylinder_in)

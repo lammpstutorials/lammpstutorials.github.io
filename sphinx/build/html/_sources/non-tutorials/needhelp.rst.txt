@@ -1,8 +1,9 @@
-.. admonition:: You can support this webpage and access a dedicated discord channel
+.. admonition:: Struggling with your molecular simulations project?
     :class: patreon
 
-    See the :ref:`contact-label` page. 
+    Get guidance for your LAMMPS simulations. :ref:`contact-label` for
+    personalized |advice| and solutions to enhance your project.
 
-.. |assistance| raw:: html
+.. |advice| raw:: html
 
-   <a href="https://www.patreon.com/molecularsimulations" target="_blank">assistance</a>
+   <a href="https://www.patreon.com/molecularsimulations" target="_blank">advice</a>

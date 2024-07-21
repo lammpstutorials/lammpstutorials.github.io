@@ -21,15 +21,17 @@
 # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠈⠉⠛⠛⠓⠚⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀
 # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⣿⣿⣿⣿⡿⠟⠋⠀
 
+boundary p p f
 units real
 atom_style full
 bond_style harmonic
 angle_style harmonic
 pair_style lj/cut/tip4p/long 1 2 1 1 0.1546 12.0
 kspace_style pppm/tip4p 1.0e-4
+kspace_modify slab 3.0
 
 lattice fcc 4.04
-region box block -3 3 -3 3 -7 7
+region box block -3 3 -3 3 -5 5
 create_box 5 box &
            bond/types 1 &
            angle/types 1 &
@@ -59,5 +61,4 @@ delete_atoms random fraction 0.15 yes H2O NULL 482793 mol yes
 run 0
 
 write_data system.data nocoeff
-#write_dump all atom dump.lammpstrj
 write_dump all custom dump.lammpstrj id type xu yu zu

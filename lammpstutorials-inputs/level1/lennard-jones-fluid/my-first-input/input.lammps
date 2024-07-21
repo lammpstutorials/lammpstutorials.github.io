@@ -44,16 +44,18 @@ pair_coeff 2 2 0.5 3.0
 
 # 4) Visualization
 thermo 10
-thermo_style custom step temp pe ke etotal press
+thermo_style custom step etotal press
 
 # 5) Run
-minimize 1.0e-4 1.0e-6 1000 10000
+minimize 1.0e-6 1.0e-6 1000 10000
 
 # PART B - MOLECULAR DYNAMICS
-
 # 4) Visualization
-dump mydmp all atom 100 dump.lammpstrj
+dump mydmp1 all atom 100 dump.lammpstrj
+dump mydmp2 all image 100 dump.*.jpg type type shiny 0.1 box no 0.01 view 0 0 zoom 1.8
+dump_modify mydmp2 acolor 1 darkturquoise acolor 2 darkblue adiam 1 1 adiam 2 3 backcolor white
 thermo 50
+thermo_style custom step temp etotal pe ke press
 
 # 5) Run
 fix mynve all nve
