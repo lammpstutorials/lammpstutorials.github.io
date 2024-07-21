@@ -1,17 +1,10 @@
 .. _contact-label:
 
-Contact me
+Contact us
 **********
 
-..  container:: justify
-
-    Feel free to contact me by `email`_ and
-    ask me any LAMMPS-related questions.
-
-.. _email: simon.gravelle@live.fr
-
-Support the project
-===================
+Struggling with your simulation project?
+========================================
 
 .. figure:: figures/contact-me/patreon.png
     :height: 100
@@ -21,8 +14,20 @@ Support the project
 
 ..  container:: justify
 
-   You can support this webpage on |patreon| and access to a dedicated
-   Discord channel. You can also donate on |tipeee|.
+   Connect with experts and get your questions answered directly in our 
+   |patreon-discord| Discord channel.
+
+.. |patreon-discord| raw:: html
+
+   <a href="https://www.patreon.com/molecularsimulations" target="_blank">"Molecular Simulations"</a>
+
+Support the LAMMPS tutorials initiative
+=======================================
+
+..  container:: justify
+
+   You can support this webpage through |patreon| or |tipeee|. As a supporter,
+   you will receive personalized support and assistance with your projects.
 
 .. |patreon| raw:: html
 
@@ -30,16 +35,26 @@ Support the project
 
 .. |tipeee| raw:: html
 
-   <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">tipeee</a>
+   <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">Tipeee</a>
 
-About me
-========
+Follow us
+=========
 
 ..  container:: justify
 
-    I have been using LAMMPS for research and education since 2012, see my |personal_page_simon_gravelle|.
-    Follow me on |twitter_simon_gravelle|, where I post news about these tutorials
-    and my research or follow me on |github_simon_gravelle|, where I share more molecular simulation content.
+   - |github_lammps_tutorials| community account
+   - |twitter_lammps_tutorials| community account
+   - Creator's |personal_page_simon_gravelle|
+   - |twitter_simon_gravelle| personal account
+   - |github_simon_gravelle| personal account
+
+.. |github_lammps_tutorials| raw:: html
+
+   <a href="https://github.com/lammpstutorials" target="_blank">GitHub</a>
+
+.. |twitter_lammps_tutorials| raw:: html
+
+   <a href="https://x.com/lammpstutorials" target="_blank">Twitter</a>
 
 .. |personal_page_simon_gravelle| raw:: html
 
@@ -47,8 +62,8 @@ About me
 
 .. |twitter_simon_gravelle| raw:: html
 
-   <a href="https://twitter.com/GravelleSimon" target="_blank">twitter</a>
+   <a href="https://twitter.com/GravelleSimon" target="_blank">Twitter</a>
 
 .. |github_simon_gravelle| raw:: html
 
-   <a href="https://github.com/simongravelle" target="_blank">github</a>
+   <a href="https://github.com/simongravelle" target="_blank">GitHub</a>

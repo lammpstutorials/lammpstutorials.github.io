@@ -2,7 +2,7 @@
     :class: patreon
 
     Get guidance for your LAMMPS simulations. :ref:`contact-label` for
-    personalized |advice| and solutions to enhance your project.
+    personalized |advice| for your project.
 
 .. |advice| raw:: html
 
