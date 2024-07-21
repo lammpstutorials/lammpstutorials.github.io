@@ -21,8 +21,8 @@ Support the project
 
 ..  container:: justify
 
-    You can support this webpage on |patreon| and get access to a dedicated
-    Discord channel for 1 euro per month or by donating on |tipeee|.
+   You can support this webpage on |patreon| and access to a dedicated
+   Discord channel. You can also donate on |tipeee|.
 
 .. |patreon| raw:: html
 
