@@ -45,7 +45,8 @@ class PltTools():
                  fontsize = 'default',
                  tickwidth1 = 2.5,
                  tickwidth2 = 2,
-                 legend = True,
+                 legend = False,
+                 handlelength_legend = 0.86, 
                  ncol_legend = 1,
                  locator_x = 'auto',
                  locator_y = 'auto',
@@ -94,6 +95,7 @@ class PltTools():
         self.tickwidth1 = tickwidth1
         self.tickwidth2 = tickwidth2
         self.legend = legend
+        self.handlelength_legend = handlelength_legend
         self.ncol_legend = ncol_legend
         self.locator_x = locator_x
         self.locator_y = locator_y
@@ -128,12 +130,13 @@ class PltTools():
     def reset_parameters(self):
         """Some parameters value need to be forgotten."""
         self.open_symbols = False
-        self.data_label = False
+        self.data_label = None
         self.marker = None
         self.type = "plot"
         self.markersize = 12
         self.data_linewidth = 4
         self.data_color = None
+        self.legend = False
 
     def prepare_figure(self, **args):
 
@@ -146,7 +149,7 @@ class PltTools():
             else:
                 plt.style.use('default')
         # set the figure size
-        self.gs = gridspec.GridSpec(2, 2)
+        self.gs = gridspec.GridSpec(self.n_line, self.n_colone)
         fig = plt.figure(figsize=self.fig_size)
         # choose the font
         if self.tex_font:
@@ -206,13 +209,13 @@ class PltTools():
             data_color = colorserie1[self.cpt_colors]
         elif isinstance(self.data_color, int):
             data_color = colorserie1[self.data_color]
+        elif len(self.data_color) == 3:
+            data_color = self.data_color
         elif self.data_color == "autogray":
             if self.dark_mode:
                  data_color = np.array([0.9, 0.9, 0.9])
             else:
                 data_color = np.array([0.1, 0.1, 0.1])
-        else:
-            data_color = self.data_color
 
         # In case of open symbol choice
         if self.open_symbols:
@@ -223,16 +226,25 @@ class PltTools():
             self.markerfacecolor = data_color
             
         #assert self.x is not None
-        self.ax[-1].plot(self.x,
-                    self.y,
-                    self.marker,
-                    color = data_color,
-                    markersize = self.markersize,
-                    linewidth = self.data_linewidth,
-                    label = self.data_label,
-                    markeredgewidth = self.markeredgewidth,
-                    markeredgecolor = data_color,
-                    markerfacecolor = self.markerfacecolor)
+        if (self.type == "plot") | (self.type == "semilogy") | (self.type == "semilogx") | (self.type == "loglog"):
+            self.ax[-1].plot(self.x,
+                        self.y,
+                        self.marker,
+                        color = data_color,
+                        markersize = self.markersize,
+                        linewidth = self.data_linewidth,
+                        label = self.data_label,
+                        markeredgewidth = self.markeredgewidth,
+                        markeredgecolor = data_color,
+                        markerfacecolor = self.markerfacecolor)
+        elif self.type == "fill":
+            self.ax[-1].fill_between(self.x,
+                        self.y,
+                        self.marker,
+                        color = data_color,
+                        linewidth = self.data_linewidth,
+                        label = self.data_label,
+                        facecolor = np.array([data_color[0], data_color[1], data_color[2], 0.5]))
         self.cpt_colors += 1
 
         # Convert the axis to log        
@@ -384,7 +396,8 @@ class PltTools():
                 self.ax[-1].legend(frameon=False, fontsize=self.fontsize,
                                    labelcolor=self.axis_color, loc='best',
                                    handletextpad=0.5, ncol=self.ncol_legend,
-                                   handlelength = 0.86, borderpad = 0.3, 
+                                   handlelength = self.handlelength_legend,
+                                   borderpad = 0.3, 
                                    labelspacing=0.3)
                     
         # color the axis if requested
@@ -431,6 +444,23 @@ class PltTools():
         self.fig.tight_layout()
         if self.transparency is False:
             plt.style.use('default')
+            # need to reset the font after default is invoked
+            if self.tex_font:
+                if self.use_serif:
+                    # Serif latex font
+                    plt.rcParams.update({
+                        "text.usetex": True,
+                        "font.family": "serif",
+                        "font.serif": ["Palatino"],
+                    }) 
+                else:
+                    # Non-serif latex font
+                    plt.rcParams.update({
+                        "text.usetex": True,
+                        "font.family": "sans-serif",
+                        "font.serif": ["Open Sans"],
+                        "text.latex.preamble" : r"\usepackage{cmbright}"
+                    })
         if self.dark_mode:
             plt.savefig(saving_path + self.filename + "-dm.png",
                         bbox_inches = 'tight', pad_inches = 0.062,
