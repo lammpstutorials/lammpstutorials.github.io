@@ -1014,11 +1014,11 @@ Restarting from a saved configuration
     of atoms in each region from the generated data files, as
     well as the evolution of the coordination number due to mixing:
 
-.. figure:: ../figures/level1/lennard-jones-fluid/mixing-light.png
+.. figure:: ../figures/level1/lennard-jones-fluid/mixing.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-light
 
-.. figure:: ../figures/level1/lennard-jones-fluid/mixing-dark.png
+.. figure:: ../figures/level1/lennard-jones-fluid/mixing-dm.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-dark
 
