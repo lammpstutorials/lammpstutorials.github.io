@@ -347,12 +347,12 @@ Simulation Settings
     :math:`E_{12} (r)`,
     and :math:`E_{22} (r)`.
 
-.. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-light.png
+.. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones.png
     :alt: Lennard Jones potential
     :class: only-light
     :name: fig-lennard-jones
 
-.. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-dark.png
+.. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-dm.png
     :alt: Lennard Jones potential
     :class: only-dark
 
