@@ -589,11 +589,11 @@ Molecular dynamics
     zero during energy minimization and then increases during molecular
     dynamics until it reaches a plateau value of about 1.5.
 
-.. figure:: ../figures/level1/lennard-jones-fluid/energy-light.png
+.. figure:: ../figures/level1/lennard-jones-fluid/energy.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-light
 
-.. figure:: ../figures/level1/lennard-jones-fluid/energy-dark.png
+.. figure:: ../figures/level1/lennard-jones-fluid/energy-dm.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-dark
 
