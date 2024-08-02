@@ -651,11 +651,11 @@ Data extraction
     which is expected from the typical dependency of bond energy with
     bond distance :math:`U_b = k_b \left( r - r_0 \right)^2`.
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-unbreakable-dark.png
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-unbreakable-dm.png
     :alt: energy of the CNT with time - lammps molecular dynamics
     :class: only-dark
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-unbreakable-light.png
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-unbreakable.png
     :alt: energy of the CNT with time - lammps molecular dynamics
     :class: only-light
 
