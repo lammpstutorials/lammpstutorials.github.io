@@ -631,13 +631,13 @@ Data extraction
     The length :math:`L` of the CNT increase linearly over
     time for :math:`t > 5\,\text{ps}`, as expected from the imposed constant velocity.
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/length-unbreakable-dark.png
-    :alt: length of the CNT with time - lammps molecular dynamics
-    :class: only-dark
-
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/length-unbreakable-light.png
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/length-unbreakable.png
     :alt: length of the CNT with time - lammps molecular dynamics
     :class: only-light
+
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/length-unbreakable-dm.png
+    :alt: length of the CNT with time - lammps molecular dynamics
+    :class: only-dark
 
 ..  container:: figurelegend
 
