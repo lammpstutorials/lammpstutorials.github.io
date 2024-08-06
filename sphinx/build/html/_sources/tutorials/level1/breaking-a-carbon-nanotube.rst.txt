@@ -211,9 +211,8 @@ The LAMMPS input
 
     Just like in :ref:`lennard-jones-label`,
     the pair style is *lj/cut* (i.e. a Lennard-Jones potential 
-    with a short-range cutoff) with
-    parameter 14, which means that only the atoms closer than 14
-    Ångstroms from each other interact through a Lennard-Jones
+    with a short-range cutoff) with parameter 14, which means that only the atoms
+    closer than 14 Ångstroms from each other interact through a Lennard-Jones
     potential.
 
 .. container:: justify
@@ -288,8 +287,8 @@ The LAMMPS input
     
 .. container:: justify
     
-    The file *parm.lammps* is included in the
-    simulation by adding the following line into the *input.lammps* file:
+    The file *parm.lammps* is included in the simulation by adding the
+    following line into the *input.lammps* file:
 
 .. code-block:: lammps
 
@@ -300,12 +299,10 @@ Prepare the initial state
 
 .. container:: justify
 
-    Before starting the molecular dynamics simulation,
-    let us make sure that we start from a clean initial state
-    by recentering the CNT at the origin (0, 0, 0). In addition, 
-    let us make sure that the box boundaries 
-    are symmetric with respect to (0, 0, 0), which is not initially the case,
-    as seen in *cnt_molecular.data*:
+    Before starting the molecular dynamics simulation, let us make sure that we
+    start from a clean initial state by recentering the CNT at the origin (0, 0, 0).
+    In addition, let us make sure that the box boundaries are symmetric with
+    respect to (0, 0, 0), which is not initially the case, as seen in *cnt_molecular.data*:
 
 .. code-block:: lammps
 
@@ -332,9 +329,8 @@ Prepare the initial state
     The first command includes all the atoms of type 1
     (i.e. all the atoms here) in a group named *carbon_atoms*. 
     The 3 variables, *carbon_xcm*, *carbon_ycm*, and *carbon_zcm* 
-    are used to measure
-    the current position of the group *carbon_atoms*
-    along all 3 directions, respectively. Then, the *displace_atoms* 
+    are used to measure the current position of the group *carbon_atoms* along
+    all 3 directions, respectively. Then, the *displace_atoms* 
     command moves the group *carbon_atoms*, ensuring that its center of mass 
     is located at the origin (0, 0, 0).
 
@@ -357,8 +353,7 @@ Prepare the initial state
 
     A displacement will be imposed on the edges of the CNT. To do so, let us isolate the
     atoms from the two edges and place them into groups named *rtop*
-    and *rbot*, respectively.
-    Add the following lines into *input.lammps*:
+    and *rbot*, respectively. Add the following lines into *input.lammps*:
 
 .. code-block:: lammps
 
@@ -488,12 +483,10 @@ The molecular dynamics
 
 .. container:: justify
 
-    The *fix nve* is applied to all atoms so that all
-    atom positions are recalculated at every step, and
-    a *Berendsen* thermostat is applied to the atoms
-    of the group *carbon_mid* only :cite:`berendsen1984molecular`.
-    The *fix_modify myber* ensures that the
-    *fix Berendsen* uses the temperature of the group *carbon_mid* as an
+    The *fix nve* is applied to all atoms so that all atom positions are
+    recalculated at every step, and a *Berendsen* thermostat is applied to the atoms
+    of the group *carbon_mid* only :cite:`berendsen1984molecular`. The *fix_modify myber*
+    ensures that the *fix Berendsen* uses the temperature of the group *carbon_mid* as an
     input, instead of the temperature of the whole system. This is necessary
     to make sure that the frozen edges won't bias the temperature. Note that the atoms
     of the edges do not need a thermostat because their motion will
@@ -897,9 +890,8 @@ Start the simulation
 
 .. container:: justify
 
-    Note the relatively small timestep of :math:`0.0005\,\text{ps}`
-    used. A reactive force field usually requires a smaller timestep
-    than a classical one.
+    Note the relatively small timestep of :math:`0.0005\,\text{ps}` used. A
+    reactive force field usually requires a smaller timestep than a classical one.
     When running *input.lammps* with LAMMPS, you can see that the
     temperature deviates from the target temperature of :math:`300\,\text{K}`
     at the start of the equilibration, but that

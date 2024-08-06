@@ -450,9 +450,8 @@ do not matter here, as the box boundaries were placed far from the CNT.</p>
 <div class="justify docutils container">
 <p>Just like in <a class="reference internal" href="lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a>,
 the pair style is <em>lj/cut</em> (i.e. a Lennard-Jones potential
-with a short-range cutoff) with
-parameter 14, which means that only the atoms closer than 14
-Ångstroms from each other interact through a Lennard-Jones
+with a short-range cutoff) with parameter 14, which means that only the atoms
+closer than 14 Ångstroms from each other interact through a Lennard-Jones
 potential.</p>
 </div>
 <div class="justify docutils container">
@@ -515,8 +514,8 @@ and <em>improper_coeff</em> gives the potential for the constraints
 between 4 atoms.</p>
 </div>
 <div class="justify docutils container">
-<p>The file <em>parm.lammps</em> is included in the
-simulation by adding the following line into the <em>input.lammps</em> file:</p>
+<p>The file <em>parm.lammps</em> is included in the simulation by adding the
+following line into the <em>input.lammps</em> file:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">include</span><span class="w"> </span><span class="n">parm.lammps</span>
 </pre></div>
@@ -525,12 +524,10 @@ simulation by adding the following line into the <em>input.lammps</em> file:</p>
 <section id="prepare-the-initial-state">
 <h3>Prepare the initial state<a class="headerlink" href="#prepare-the-initial-state" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>Before starting the molecular dynamics simulation,
-let us make sure that we start from a clean initial state
-by recentering the CNT at the origin (0, 0, 0). In addition,
-let us make sure that the box boundaries
-are symmetric with respect to (0, 0, 0), which is not initially the case,
-as seen in <em>cnt_molecular.data</em>:</p>
+<p>Before starting the molecular dynamics simulation, let us make sure that we
+start from a clean initial state by recentering the CNT at the origin (0, 0, 0).
+In addition, let us make sure that the box boundaries are symmetric with
+respect to (0, 0, 0), which is not initially the case, as seen in <em>cnt_molecular.data</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="m">40.000000</span><span class="w"> </span><span class="m">40.000000</span><span class="w">  </span><span class="n">xlo</span><span class="w"> </span><span class="n">xhi</span>
 <span class="o">-</span><span class="m">40.000000</span><span class="w"> </span><span class="m">40.000000</span><span class="w">  </span><span class="n">ylo</span><span class="w"> </span><span class="n">yhi</span>
@@ -553,9 +550,8 @@ to <em>input.lammps</em>:</p>
 <p>The first command includes all the atoms of type 1
 (i.e. all the atoms here) in a group named <em>carbon_atoms</em>.
 The 3 variables, <em>carbon_xcm</em>, <em>carbon_ycm</em>, and <em>carbon_zcm</em>
-are used to measure
-the current position of the group <em>carbon_atoms</em>
-along all 3 directions, respectively. Then, the <em>displace_atoms</em>
+are used to measure the current position of the group <em>carbon_atoms</em> along
+all 3 directions, respectively. Then, the <em>displace_atoms</em>
 command moves the group <em>carbon_atoms</em>, ensuring that its center of mass
 is located at the origin (0, 0, 0).</p>
 </div>
@@ -574,8 +570,7 @@ the molecular dynamics.</p>
 <div class="justify docutils container">
 <p>A displacement will be imposed on the edges of the CNT. To do so, let us isolate the
 atoms from the two edges and place them into groups named <em>rtop</em>
-and <em>rbot</em>, respectively.
-Add the following lines into <em>input.lammps</em>:</p>
+and <em>rbot</em>, respectively. Add the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">zmax</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(carbon_atoms,zmax)</span><span class="o">-</span><span class="m">0.5</span>
 <span class="k">variable </span><span class="nv nv-Identifier">zmin</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">bound</span><span class="nv">(carbon_atoms,zmin)</span><span class="o">+</span><span class="m">0.5</span>
@@ -684,12 +679,10 @@ of 300 K for these atoms with no overall translational momentum, <em>mom yes</em
 nor rotational momentum, <em>rot yes</em>.</p>
 </div>
 <div class="justify docutils container">
-<p>The <em>fix nve</em> is applied to all atoms so that all
-atom positions are recalculated at every step, and
-a <em>Berendsen</em> thermostat is applied to the atoms
-of the group <em>carbon_mid</em> only <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id50" title="Herman JC Berendsen, JPM Postma, Wilfred F van Gunsteren, ARHJ DiNola, and Jan R Haak. Molecular dynamics with coupling to an external bath. The Journal of chemical physics, 81(8):3684–3690, 1984.">22</a>]</span>.
-The <em>fix_modify myber</em> ensures that the
-<em>fix Berendsen</em> uses the temperature of the group <em>carbon_mid</em> as an
+<p>The <em>fix nve</em> is applied to all atoms so that all atom positions are
+recalculated at every step, and a <em>Berendsen</em> thermostat is applied to the atoms
+of the group <em>carbon_mid</em> only <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id50" title="Herman JC Berendsen, JPM Postma, Wilfred F van Gunsteren, ARHJ DiNola, and Jan R Haak. Molecular dynamics with coupling to an external bath. The Journal of chemical physics, 81(8):3684–3690, 1984.">22</a>]</span>. The <em>fix_modify myber</em>
+ensures that the <em>fix Berendsen</em> uses the temperature of the group <em>carbon_mid</em> as an
 input, instead of the temperature of the whole system. This is necessary
 to make sure that the frozen edges won’t bias the temperature. Note that the atoms
 of the edges do not need a thermostat because their motion will
@@ -1029,9 +1022,8 @@ Add the following lines into LAMMPS:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>Note the relatively small timestep of <span class="math notranslate nohighlight">\(0.0005\,\text{ps}\)</span>
-used. A reactive force field usually requires a smaller timestep
-than a classical one.
+<p>Note the relatively small timestep of <span class="math notranslate nohighlight">\(0.0005\,\text{ps}\)</span> used. A
+reactive force field usually requires a smaller timestep than a classical one.
 When running <em>input.lammps</em> with LAMMPS, you can see that the
 temperature deviates from the target temperature of <span class="math notranslate nohighlight">\(300\,\text{K}\)</span>
 at the start of the equilibration, but that
