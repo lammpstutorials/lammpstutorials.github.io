@@ -26,7 +26,7 @@ atom_style full
 bond_style harmonic
 angle_style harmonic
 dihedral_style harmonic
-pair_style lj/cut/coul/long 12
+pair_style lj/cut/coul/long 10
 kspace_style pppm 1e-5
 special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes
 
@@ -43,12 +43,12 @@ extra/special/per/atom 14
 include ../PARM.lammps
 
 molecule h2omol H2O-SPCFw.mol
-create_atoms 0 random 1050 87910 NULL mol h2omol 454756 overlap 1.0 maxtry 50
+create_atoms 0 random 2050 160477 NULL mol h2omol 254756 overlap 1.0 maxtry 50
 group H2O type 8 9
 minimize 1.0e-4 1.0e-6 100 1000
 reset_timestep 0
 
-fix mynpt all npt temp 300 300 100 iso 1 1 1000
+fix mynpt all npt temp 300 300 100 iso 1 1 1000 drag 0.5
 
 dump mydmp all atom 1000 dump.lammpstrj
 variable mytemp equal temp

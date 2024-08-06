@@ -68,11 +68,11 @@ velocity carbon_top set 0 0 0
 
 variable L equal xcm(carbon_top,z)-xcm(carbon_bot,z)
 fix at1 all ave/time 10 10 100 v_L file cnt_length.dat
-fix at2 all ave/time 10 10 100 f_mysf1[1] f_mysf2[1] file edge_force.dat
+fix at2 all ave/time 10 10 100 f_mysf1[3] f_mysf2[3] file edge_force.dat
 dump mydmp all atom 1000 dump.lammpstrj
 
 thermo 1000
-thermo_modify temp Tmid
+thermo_modify temp Tmid line yaml
 
 timestep 0.0005
 run 5000

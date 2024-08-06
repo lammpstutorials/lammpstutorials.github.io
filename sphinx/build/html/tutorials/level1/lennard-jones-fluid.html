@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Pulling on a carbon nanotube" href="breaking-a-carbon-nanotube.html" /><link rel="prev" title="Contact us" href="../../non-tutorials/contact-me.html" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.07.18 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
         <title>Lennard-Jones fluid - </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=613ab9ff" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e83c5310" />
@@ -289,22 +289,20 @@
 </a>
 </figure>
 <div class="abstract docutils container">
-<p>The objective of this tutorial is to perform
-the simulation of a binary fluid using LAMMPS.</p>
+<p>The objective of this tutorial is to perform the simulation of a binary
+fluid using LAMMPS.</p>
 </div>
 <div class="abstract docutils container">
 <p>The system is a Lennard-Jones fluid composed of neutral particles with two
 different diameters, contained within a cubic box with periodic boundary conditions
-In this tutorial, the temperature of the system is
-maintained using a Langevin thermostat <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id51" title="T Schneider and E Stoll. Molecular-dynamics study of a three-dimensional one-component model for distortive phase transitions. Physical Review B, 17(3):1302, 1978.">12</a>]</span>, and
-basic quantities are extracted from the system, including the potential and
-kinetic energies.</p>
+In this tutorial, the temperature of the system is maintained using a Langevin
+thermostat <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id51" title="T Schneider and E Stoll. Molecular-dynamics study of a three-dimensional one-component model for distortive phase transitions. Physical Review B, 17(3):1302, 1978.">12</a>]</span>, and basic quantities are extracted
+from the system, including the potential and kinetic energies.</p>
 </div>
 <div class="abstract docutils container">
-<p>This tutorial illustrates several key ingredients of
-molecular dynamics simulations, such as system initialization,
-energy minimization, integration of the equations of motion,
-and trajectory visualization.</p>
+<p>This tutorial illustrates several key ingredients of molecular dynamics
+simulations, such as system initialization, energy minimization, integration
+of the equations of motion, and trajectory visualization.</p>
 </div>
 <div class="patreon admonition">
 <p class="admonition-title">Struggling with your molecular simulations project?</p>
@@ -337,13 +335,12 @@ is a comment ignored by LAMMPS:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>These five categories are not required in every
-input script, and should not necessarily be in that
-exact order. For instance, parts 3 and 4 could be inverted, or
-part 4 could be omitted. Note however that LAMMPS reads input
-files from top to bottom, therefore the <em>Initialization</em> and
-<em>System definition</em> categories must appear at the top of the
-input, and the <em>Run</em> category at the bottom.</p>
+<p>These five categories are not required in every input script, and should not
+necessarily be in that exact order. For instance, parts 3 and 4 could be
+inverted, or part 4 could be omitted. Note however that LAMMPS reads input
+files from top to bottom, therefore the <em>Initialization</em> and  <em>System definition</em>
+categories must appear at the top of the input, and the <em>Run</em> category at
+the bottom.</p>
 </div>
 <section id="system-initialization">
 <h3>System initialization<a class="headerlink" href="#system-initialization" title="Link to this heading">¶</a></h3>
@@ -366,20 +363,19 @@ about the simulation, such as:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The first line, <em>units lj</em>, indicates that we want to
-use the unit system called <em>LJ</em> (Lennard-Jones), in
-which all quantities are unitless.</p>
+<p>The first line, <em>units lj</em>, indicates that we want to use the unit system
+called <em>LJ</em> (Lennard-Jones), in which all quantities are unitless.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About Lennard-Jones (LJ) units</p>
-<p>Lennard-Jones (LJ) units are a dimensionless system of units.
-LJ units are often used in molecular simulations
-and theoretical calculations. When using LJ units:</p>
+<p>Lennard-Jones (LJ) units are a dimensionless system of units. LJ units are
+often used in molecular simulations and theoretical calculations. When using
+LJ units:</p>
 <ul class="simple">
-<li><p>energies are expressed in units of <span class="math notranslate nohighlight">\(\epsilon\)</span>, where <span class="math notranslate nohighlight">\(\epsilon\)</span> is the
-depth of the potential of the LJ interaction,</p></li>
-<li><p>distances are expressed in units of <span class="math notranslate nohighlight">\(\sigma\)</span>, where <span class="math notranslate nohighlight">\(\sigma\)</span> is the distance
-at which the particle-particle potential energy is zero,</p></li>
+<li><p>energies are expressed in units of <span class="math notranslate nohighlight">\(\epsilon\)</span>, where <span class="math notranslate nohighlight">\(\epsilon\)</span>
+is the depth of the potential of the LJ interaction,</p></li>
+<li><p>distances are expressed in units of <span class="math notranslate nohighlight">\(\sigma\)</span>, where <span class="math notranslate nohighlight">\(\sigma\)</span> is
+the distance at which the particle-particle potential energy is zero,</p></li>
 <li><p>masses are expressed in units of the atomic mass <span class="math notranslate nohighlight">\(m\)</span>.</p></li>
 </ul>
 <p>All the other quantities are normalized by a combination of <span class="math notranslate nohighlight">\(\epsilon\)</span>, <span class="math notranslate nohighlight">\(\sigma\)</span>,
@@ -407,7 +403,8 @@ a cut-off equal to <span class="math notranslate nohighlight">\(r_c = 2.5\)</spa
 </div>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[E_{ij} (r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12} - \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], ~ \text{for} ~ r &lt; r_c,\]</div>
+\[E_{ij} (r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12}
+- \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], ~ \text{for} ~ r &lt; r_c,\]</div>
 </div>
 <div class="justify docutils container">
 <p>where <span class="math notranslate nohighlight">\(r\)</span> is the inter-particle distance,
@@ -417,25 +414,21 @@ Here, the indexes <em>ij</em> refer to the particle types <em>i</em> and <em>j</
 </div>
 <div class="info admonition">
 <p class="admonition-title">About Lennard-Jones potential</p>
-<p>The Lennard-Jones potential offers a simplified representation
-that captures the fundamental
-aspects of interactions among atoms. It depicts a scenario where two
+<p>The Lennard-Jones potential offers a simplified representation that captures
+the fundamental aspects of interactions among atoms. It depicts a scenario where two
 particles exhibit repulsion at extremely close distances, attraction at moderate
 distances, and no interaction at infinite separation. The repulsive part of the
 Lennard-Jones potential (i.e. the term <span class="math notranslate nohighlight">\(\propto r^{-12}\)</span>) is associated
 with the Pauli exclusion principle. The attractive part (i.e. the term
-in <span class="math notranslate nohighlight">\(\propto - r^{-6}\)</span>)
-is linked with the London dispersion forces.</p>
+in <span class="math notranslate nohighlight">\(\propto - r^{-6}\)</span>) is linked with the London dispersion forces.</p>
 </div>
 <div class="justify docutils container">
-<p>The last line, <em>boundary p p p</em>, indicates that the
-periodic boundary conditions will be used along all three
-directions of space (the 3 <em>p</em> stand for <em>x</em>, <em>y</em>, and <em>z</em>,
-respectively).</p>
+<p>The last line, <em>boundary p p p</em>, indicates that the periodic boundary
+conditions will be used along all three directions of space (the 3 <em>p</em> stand
+for <em>x</em>, <em>y</em>, and <em>z</em>, respectively).</p>
 </div>
 <div class="justify docutils container">
-<p>At this point, the <em>input.lammps</em> is a
-LAMMPS input script that does nothing.
+<p>At this point, the <em>input.lammps</em> is a LAMMPS input script that does nothing.
 You can run it using LAMMPS to verify that the <em>input</em> contains
 no mistake by typing the following command in the terminal
 from the <em>my-first-input/</em>  folder:</p>
@@ -491,8 +484,7 @@ initial conditions for the simulation. The fourth line
 creates 100 atoms of type 2.</p>
 </div>
 <div class="justify docutils container">
-<p>If you run LAMMPS, you should see the following information in the
-terminal:</p>
+<p>If you run LAMMPS, you should see the following information in the terminal:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>(...)
 Created orthogonal box = (-20 -20 -20) to (20 20 20)
@@ -533,8 +525,8 @@ where the star symbol means <em>all</em> the atom types of the simulation.</p>
 <div class="justify docutils container">
 <p>The third line, <em>pair_coeff 1 1 1.0 1.0</em>, sets the Lennard-Jones
 coefficients for the interactions between atoms of type 1,
-respectively the energy parameter
-<span class="math notranslate nohighlight">\(\epsilon_{11} = 1.0\)</span> and the distance parameter <span class="math notranslate nohighlight">\(\sigma_{11} = 1.0\)</span>.</p>
+respectively the energy parameter <span class="math notranslate nohighlight">\(\epsilon_{11} = 1.0\)</span> and the distance
+parameter <span class="math notranslate nohighlight">\(\sigma_{11} = 1.0\)</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>Similarly, the last line sets the Lennard-Jones coefficients for
@@ -544,10 +536,9 @@ and <span class="math notranslate nohighlight">\(\sigma_{22} = 3.0\)</span>.</p>
 <div class="info admonition">
 <p class="admonition-title">About cross parameters</p>
 <p>By default, LAMMPS calculates the cross coefficients between the different atom types
-using geometric average:
-<span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\)</span>,
-<span class="math notranslate nohighlight">\(\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}\)</span>.
-In the present case, and even without specifying it explicitly, we thus have:</p>
+using geometric average: <span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\)</span>,
+<span class="math notranslate nohighlight">\(\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}\)</span>. In the present case,
+and even without specifying it explicitly, we thus have:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\epsilon_{12} = \sqrt{1.0 \times 0.5} = 0.707\)</span>, and</p></li>
 <li><p><span class="math notranslate nohighlight">\(\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732\)</span>.</p></li>
@@ -559,10 +550,9 @@ of type 1 and 2, without affecting the interactions between particles of the sam
 <p>Note that the arithmetic rule, also known as
 Lorentz-Berthelot rule <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id11" title="Hendrik Antoon Lorentz. Ueber die anwendung des satzes vom virial in der kinetischen theorie der gase. Annalen der physik, 248(1):127–136, 1881.">15</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id20" title="Daniel Berthelot. Sur le mélange des gaz. Compt. Rendus, 126(3):15, 1898.">16</a>]</span>, where
 <span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\)</span>,
-<span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2\)</span>,
-is more common than the geometric rule. However, neither the geometric nor the
-arithmetic rules are based on rigorous arguments, so here
-the geometric rule will do just fine.</p>
+<span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_{ii}+\sigma_{jj})/2\)</span>, is more common than the
+geometric rule. However, neither the geometric nor the arithmetic rules are
+based on rigorous arguments, so here the geometric rule will do just fine.</p>
 </div>
 <div class="justify docutils container">
 <p>Due to the chosen Lennard-Jones parameters, the two types of particles
@@ -611,8 +601,8 @@ instructs LAMMPS to perform an energy minimization of the system.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About energy minimization</p>
-<p>An energy minimization procedure consists of adjusting
-the coordinates of the atoms that are too close to each other until one of the stopping
+<p>An energy minimization procedure consists of adjusting the coordinates of
+the atoms that are too close to each other until one of the stopping
 criteria is reached. By default, LAMMPS uses the conjugate
 gradient (CG) algorithm <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id22" title="Magnus Rudolph Hestenes, Eduard Stiefel, and others. Methods of conjugate gradients for solving linear systems. Volume 49. NBS Washington, DC, 1952.">17</a>]</span> (see all the other
 implemented methods on the <a href="https://docs.lammps.org/min_style.html" target="_blank">min style</a> page), which runs
@@ -662,9 +652,8 @@ algorithm only affects the positions of the particles based on the
 forces between them, without affecting their velocities.</p>
 </div>
 <div class="justify docutils container">
-<p>Other useful information has been printed in the terminal, for
-example, LAMMPS tells us that the first of the four criteria
-to be satisfied was the energy:</p>
+<p>Other useful information has been printed in the terminal, for example, LAMMPS
+tells us that the first of the four criteria to be satisfied was the energy:</p>
 </div>
 <div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Minimization stats:
 Stopping criterion = energy tolerance
@@ -674,8 +663,9 @@ Stopping criterion = energy tolerance
 <section id="molecular-dynamics">
 <h3>Molecular dynamics<a class="headerlink" href="#molecular-dynamics" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>The system is now ready. Let us continue by completing the input script and adding commands to perform a molecular
-dynamics simulation, starting from the final state of the previous energy minimization step.</p>
+<p>The system is now ready. Let us continue by completing the input script and
+adding commands to perform a molecular dynamics simulation, starting from the
+final state of the previous energy minimization step.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Background Information – What is molecular dynamics?</p>
@@ -728,14 +718,12 @@ that contains every atom.</p>
 <div class="justify docutils container">
 <p>The second fix applies a Langevin thermostat to the atoms of the group
 <em>all</em>, with a desired initial temperature of 1.0 (unitless), and a final
-temperature of 1.0 as well <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id51" title="T Schneider and E Stoll. Molecular-dynamics study of a three-dimensional one-component model for distortive phase transitions. Physical Review B, 17(3):1302, 1978.">12</a>]</span>.
-A <em>damping</em> parameter of 0.1 is used. The <em>damping</em>
-parameter determines how rapidly the temperature is relaxed to its desired value.
-The number <em>1530917</em> is a seed, you can
-change it to perform statistically independent simulations.
-Finally, the last two lines set the value of the <em>timestep</em> and the
-number of steps for the <em>run</em>, respectively, corresponding to a total duration
-of 50 (unitless).</p>
+temperature of 1.0 as well <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id51" title="T Schneider and E Stoll. Molecular-dynamics study of a three-dimensional one-component model for distortive phase transitions. Physical Review B, 17(3):1302, 1978.">12</a>]</span>. A <em>damping</em> parameter
+of 0.1 is used. The <em>damping</em> parameter determines how rapidly the temperature
+is relaxed to its desired value. The number <em>1530917</em> is a seed, you can
+change it to perform statistically independent simulations. Finally, the last
+two lines set the value of the <em>timestep</em> and the number of steps for the <em>run</em>,
+respectively, corresponding to a total duration of 50 (unitless).</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">What is a fix?</p>
@@ -758,14 +746,12 @@ Other LAMMPS-specific terms are defined in the <a class="reference internal" hre
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The second column shows that the temperature <em>Temp</em>
-starts from 0, but rapidly reaches the
-requested value and stabilize itself near <span class="math notranslate nohighlight">\(T=1\)</span>.</p>
+<p>The second column shows that the temperature <em>Temp</em> starts from 0, but rapidly
+reaches the requested value and stabilize itself near <span class="math notranslate nohighlight">\(T=1\)</span>.</p>
 </div>
 <div class="justify docutils container">
-<p>From what has been printed in the <em>log</em> file, one can
-plot the potential energy (<span class="math notranslate nohighlight">\(p_\text{e}\)</span>)
-and the kinetic energy (<span class="math notranslate nohighlight">\(k_\text{e}\)</span>) of
+<p>From what has been printed in the <em>log</em> file, one can plot the potential
+energy (<span class="math notranslate nohighlight">\(p_\text{e}\)</span>) and the kinetic energy (<span class="math notranslate nohighlight">\(k_\text{e}\)</span>) of
 the system over time. The potential energy, <span class="math notranslate nohighlight">\(p_\text{e}\)</span>, rapidly
 decreases during energy minimization. Then, after the molecular dynamics
 simulation starts, <span class="math notranslate nohighlight">\(p_\text{e}\)</span> increases until it reaches a plateau
@@ -781,8 +767,7 @@ dynamics until it reaches a plateau value of about 1.5.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: a) Potential energy (<span class="math notranslate nohighlight">\(p_\text{e}\)</span>) of the binary mixture as a function
-of the time <span class="math notranslate nohighlight">\(t\)</span>.
-b) Kinetic energy (<span class="math notranslate nohighlight">\(k_\text{e}\)</span>) as a function of <span class="math notranslate nohighlight">\(t\)</span>.</p>
+of the time <span class="math notranslate nohighlight">\(t\)</span>. b) Kinetic energy (<span class="math notranslate nohighlight">\(k_\text{e}\)</span>) as a function of <span class="math notranslate nohighlight">\(t\)</span>.</p>
 </div>
 </section>
 <section id="trajectory-visualization">
@@ -793,8 +778,8 @@ visualize the trajectories of the atoms. To do so, we first need
 to print the positions of the atoms in a file at a regular interval.</p>
 </div>
 <div class="justify docutils container">
-<p>Add the following command to the <em>input.lammps</em> file,
-in the <em>Visualization</em> section of <em>PART B</em>:</p>
+<p>Add the following command to the <em>input.lammps</em> file, in the <em>Visualization</em>
+section of <em>PART B</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">dump.lammpstrj</span>
 </pre></div>
@@ -812,9 +797,8 @@ be opened using VMD. With Ubuntu/Linux, you can simply execute in the terminal:<
 file manually using <em>File -&gt; New molecule</em>.</p>
 </div>
 <div class="justify docutils container">
-<p>By default, you should see a cloud
-of lines, but you can improve the representation (see this <a class="reference internal" href="../vmd/vmd-tutorial.html#vmd-label"><span class="std std-ref">VMD tutorial</span></a>
-for basic instructions).</p>
+<p>By default, you should see a cloud of lines, but you can improve the
+representation (see this <a class="reference internal" href="../vmd/vmd-tutorial.html#vmd-label"><span class="std std-ref">VMD tutorial</span></a> for basic instructions).</p>
 </div>
 <figure class="align-default">
 <img alt="binary fluid simulated by LAMMPS and visualized with VMD" class="only-light" src="../../_images/first-input-light.png" />
@@ -831,17 +815,16 @@ types of atoms represented as spheres. See the corresponding <a href="https://yo
 <section id="improving-the-script">
 <h2>Improving the script<a class="headerlink" href="#improving-the-script" title="Link to this heading">¶</a></h2>
 <div class="justify docutils container">
-<p>Let us improve the input script and perform slightly more
-advanced operations, such as imposing a specific initial
-positions to the atoms, and restarting the simulation
+<p>Let us improve the input script and perform slightly more advanced operations,
+such as imposing a specific initial positions to the atoms, and restarting the simulation
 from a previously saved configuration.</p>
 </div>
 <section id="control-the-initial-atom-positions">
 <h3>Control the initial atom positions<a class="headerlink" href="#control-the-initial-atom-positions" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>Create a new folder next to <em>my-first-input/</em>, and call
-it <em>improved-input/</em>. Then, create a new input file within <em>improved-input/</em>
-and call it <em>input.min.lammps</em>.</p>
+<p>Create a new folder next to <em>my-first-input/</em>, and call it <em>improved-input/</em>.
+Then, create a new input file within <em>improved-input/</em> and call it
+<em>input.min.lammps</em>.</p>
 </div>
 <div class="justify docutils container">
 <p>Similarly to what has been done previously, copy the following lines
@@ -856,9 +839,9 @@ into <em>input.min.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>To create the atoms of types 1 and 2 in two separate
-regions, let us create three separate regions: A cubic region
-for the simulation box and two additional regions for placing the atoms:</p>
+<p>To create the atoms of types 1 and 2 in two separate regions, let us create
+three separate regions: A cubic region for the simulation box and two
+additional regions for placing the atoms:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 2) System definition</span>
 <span class="k">region </span><span class="nv nv-Identifier">simulation_box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">-</span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
@@ -902,18 +885,15 @@ to restart the simulation from the final state of the energy minimization step.<
 <p>Run the <em>input.min.lammps</em> script using LAMMPS.</p>
 </div>
 <div class="justify docutils container">
-<p>As soon as the simulation starts, a new dump file named
-<em>dump.min.lammpstrj</em> must appear in the folder.
-This <em>.lammpstrj</em> can be used to visualize the
-atom’s trajectories during minimization using VMD.
-At the end of the simulation, a file named
-<em>minimized_coordinate.data</em> is created by LAMMPS.</p>
+<p>As soon as the simulation starts, a new dump file named <em>dump.min.lammpstrj</em>
+must appear in the folder. This <em>.lammpstrj</em> can be used to visualize the
+atom’s trajectories during minimization using VMD. At the end of the simulation,
+a file named <em>minimized_coordinate.data</em> is created by LAMMPS.</p>
 </div>
 <div class="justify docutils container">
-<p>If you open <em>minimized_coordinate.data</em> with a text editor,
-you can see that it contains all the information necessary to
-restart the simulation, such as the number of atoms, the box
-size, the <em>masses</em>, and the <em>pair_coeffs</em>:</p>
+<p>If you open <em>minimized_coordinate.data</em> with a text editor, you can see that
+it contains all the information necessary to restart the simulation, such as
+the number of atoms, the box size, the <em>masses</em>, and the <em>pair_coeffs</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">1150</span><span class="w"> </span><span class="n">atoms</span>
 <span class="m">2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
@@ -951,21 +931,19 @@ positions of the atoms:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The first five columns of the <em>Atoms</em> section
-correspond (from left to right) to the atom indexes (from 1
-to the total number of atoms, 1150), the atom types (1 or 2
-here), and the atoms positions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>.
-The last three columns are image flags that keep track of which
-atoms crossed the periodic boundary.</p>
+<p>The first five columns of the <em>Atoms</em> section correspond (from left to right)
+to the atom indexes (from 1 to the total number of atoms, 1150), the atom types (1 or 2
+here), and the atoms positions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>. The last
+three columns are image flags that keep track of which atoms crossed the
+periodic boundary.</p>
 </div>
 </section>
 <section id="restarting-from-a-saved-configuration">
 <h3>Restarting from a saved configuration<a class="headerlink" href="#restarting-from-a-saved-configuration" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>Let us create a new input file and start a
-molecular dynamics simulation directly from the previously
-saved configuration. Within <em>improved-input/</em>, create a new file
-named <em>input.md.lammps</em> and copy the same lines as previously:</p>
+<p>Let us create a new input file and start a molecular dynamics simulation
+directly from the previously saved configuration. Within <em>improved-input/</em>,
+create a new file named <em>input.md.lammps</em> and copy the same lines as previously:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 1) Initialization</span>
 <span class="k">units</span><span class="w"> </span><span class="n">lj</span>
@@ -986,12 +964,11 @@ to input.md.lammps:</p>
 </div>
 <div class="justify docutils container">
 <p>By visualizing the previously generated <em>dump.min.lammpstrj</em>
-file, you may have noticed that some atoms have moved from
-one region to the other during minimization.
-To start the simulation from a clean slate, with
-only atoms of type 2 within the cylinder and atoms of type
-1 outside the cylinder, let us delete the misplaced atoms
-by adding the following commands to <em>input.md.lammps</em>:</p>
+file, you may have noticed that some atoms have moved from one region to
+the other during minimization. To start the simulation from a clean slate, with
+only atoms of type 2 within the cylinder and atoms of type 1 outside the
+cylinder, let us delete the misplaced atoms by adding the following commands
+to <em>input.md.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">minimized_coordinate.data</span>
 <span class="k">region </span><span class="nv nv-Identifier">region_cylinder_in</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">in</span>
@@ -1016,9 +993,8 @@ regions are not saved by the <em>write_data</em> command.</p>
 all the atoms of type 1 and all the atoms of type 2, respectively.
 The next two <em>group</em> commands create atom groups based on their
 positions at the beginning of the simulation, i.e. when the commands
-are being read by LAMMPS.
-The last two <em>group</em> commands create atom groups based on the intersection
-between the previously defined groups.</p>
+are being read by LAMMPS. The last two <em>group</em> commands create atom groups
+based on the intersection between the previously defined groups.</p>
 </div>
 <div class="justify docutils container">
 <p>Finally, the two <em>delete_atoms</em> commands delete the
@@ -1064,15 +1040,14 @@ adding the following commands to <em>input.md.lammps</em>:</p>
 </pre></div>
 </div>
 <div class="justify docutils container">
-<p>The two <em>variables</em> are used to count
-the number of atoms of a specific group in the <em>region_cylinder_in</em> region.</p>
+<p>The two <em>variables</em> are used to count the number of atoms of a specific
+group in the <em>region_cylinder_in</em> region.</p>
 </div>
 <div class="justify docutils container">
-<p>The two <em>fix ave/time</em>
-are calling the previously defined variables and are printing
-their values into text files.
-By using <em>10 200 2000</em>, variables are evaluated every 10 steps,
-averaged 200 times, and printed in the <em>.dat</em> files every 2000 steps.</p>
+<p>The two <em>fix ave/time</em> are calling the previously defined variables and are
+printing their values into text files. By using <em>10 200 2000</em>, variables are
+evaluated every 10 steps, averaged 200 times, and printed in the <em>.dat</em> files
+every 2000 steps.</p>
 </div>
 <div class="justify docutils container">
 <p>In addition to counting the atoms in each region, let us also extract the
@@ -1107,9 +1082,8 @@ to <em>input.md.lammps</em>:</p>
 </div>
 <div class="justify docutils container">
 <p>There are a few differences from the previous simulation.
-First, the <em>velocity create</em>
-command attributes an initial velocity to every atom.
-The initial velocity is chosen so that the average initial
+First, the <em>velocity create</em> command attributes an initial velocity to every
+atom. The initial velocity is chosen so that the average initial
 temperature is equal to 1 (unitless). The additional
 keywords ensure that no linear momentum (<em>mom yes</em>) and no angular
 momentum (<em>rot yes</em>) are given to the system and that the generated
@@ -1130,8 +1104,7 @@ using VMD.</p>
 <div class="figurelegend docutils container">
 <p>Figure: Evolution of the system during mixing. The three snapshots show
 respectively the system at <span class="math notranslate nohighlight">\(t=0\)</span> (left panel),
-<span class="math notranslate nohighlight">\(t=75\)</span> (middle panel),
-and <span class="math notranslate nohighlight">\(t=1500\)</span> (right panel).</p>
+<span class="math notranslate nohighlight">\(t=75\)</span> (middle panel), and <span class="math notranslate nohighlight">\(t=1500\)</span> (right panel).</p>
 </div>
 <div class="justify docutils container">
 <p>After running <em>input.md.lammps</em> using LAMMPS, you can observe the number
@@ -1206,18 +1179,17 @@ command as many times as needed.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Note</p>
-<p>This script is failing because particles are created
-randomly in space, some of them are likely overlapping,
-and no energy minimization is performed prior
+<p>This script is failing because particles are created randomly in space, some
+of them are likely overlapping, and no energy minimization is performed prior
 to start the molecular dynamics simulation.</p>
 </div>
 </section>
 <section id="create-a-demixed-dense-phase">
 <h3>Create a demixed dense phase<a class="headerlink" href="#create-a-demixed-dense-phase" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>Starting from one of the <em>input</em> created in this tutorial,
-fine-tune the parameters such as particle numbers and interaction
-to create a simulation with the following properties:</p>
+<p>Starting from one of the <em>input</em> created in this tutorial, fine-tune the
+parameters such as particle numbers and interaction to create a simulation
+with the following properties:</p>
 <ul class="simple">
 <li><p>the density in particles must be high,</p></li>
 <li><p>both particles of type 1 and 2 must have the same size,</p></li>
@@ -1236,16 +1208,15 @@ and type 2 progressively demixing and forming large demixed areas.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Hint</p>
-<p>An easy way to create a dense phase is to allow the box dimensions
-to relax until the vacuum disappears. You can do that
-by replacing the <em>fix nve</em> with <em>fix nph</em>.</p>
+<p>An easy way to create a dense phase is to allow the box dimensions to relax
+until the vacuum disappears. You can do that by replacing the <em>fix nve</em> with <em>fix nph</em>.</p>
 </div>
 </section>
 <section id="from-atoms-to-molecules">
 <h3>From atoms to molecules<a class="headerlink" href="#from-atoms-to-molecules" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
-<p>Add a bond between particles of <em>type 2</em> to create
-dumbbell molecules instead of single particles.</p>
+<p>Add a bond between particles of <em>type 2</em> to create dumbbell molecules instead
+of single particles.</p>
 </div>
 <figure class="align-default">
 <img alt="Dumbbell Lennard-Jones molecules simulated using LAMMPS" class="only-dark" src="../../_images/dumbell-dark.png" />
@@ -1254,9 +1225,8 @@ dumbbell molecules instead of single particles.</p>
 <img alt="Dumbbell Lennard-Jones molecules simulated using LAMMPS" class="only-light" src="../../_images/dumbell-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: Dumbbell molecules made of 2 large spheres
-mixed with smaller particles (small spheres).
-See the corresponding <a href="https://youtu.be/R_oHonOQi68" target="_blank">video</a>.</p>
+<p>Figure: Dumbbell molecules made of 2 large spheres mixed with smaller
+particles (small spheres). See the corresponding <a href="https://youtu.be/R_oHonOQi68" target="_blank">video</a>.</p>
 </div>
 <div class="justify docutils container">
 <p>Similarly to the dumbbell molecules, create a small polymer,
@@ -1269,16 +1239,15 @@ i.e. a long chain of particles linked by bonds and angles.</p>
 <img alt="Polymer Lennard-Jones molecules simulated using LAMMPS" class="only-light" src="../../_images/polymer-light.png" />
 </figure>
 <div class="figurelegend docutils container">
-<p>Figure: A single small polymer molecule made of
-9 large spheres mixed with smaller particles.
-See the corresponding <a href="https://youtu.be/LfqcfP3ZQcY" target="_blank">video</a>.</p>
+<p>Figure: A single small polymer molecule made of 9 large spheres mixed with
+smaller particles. See the corresponding <a href="https://youtu.be/LfqcfP3ZQcY" target="_blank">video</a>.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">Hints</p>
 <div class="justify docutils container">
 <p>Use a <em>molecule template</em> to easily insert as many atoms connected
-by bonds (i.e. molecules) as you want. A molecule
-template typically begins as follows:</p>
+by bonds (i.e. molecules) as you want. A molecule template typically
+begins as follows:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">2</span><span class="w"> </span><span class="n">atoms</span>
 <span class="m">1</span><span class="w"> </span><span class="n">bonds</span>

@@ -3,13 +3,13 @@
 My own Python class for making [Pyplot](https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html) figures compatible with Latex documents. These functions are used for several of my personal projects, including [LAMMPS tutorials](https://lammpstutorials.github.io) and 
 [NMRforMD](https://nmrformd.readthedocs.io).
 
-## Exemples
+## Examples
 
 ### Simple bi-panel figure
 
-![illustration](exemples/bi-panel.png#gh-light-mode-only)
+![illustration](examples/bi-panel.png#gh-light-mode-only)
 
-![illustration](exemples/bi-panel-dm.png#gh-dark-mode-only)
+![illustration](examples/bi-panel-dm.png#gh-dark-mode-only)
 
 The Python code to generate the figure:
 
@@ -45,7 +45,7 @@ The Python code to generate the figure:
     myplt.save_figure(filename = "bi-panel", saving_path = 'examples/', show = False)
 ```
 
-See also the [exemples](exemples/exemples.ipynb) notebook.
+See also the [examples](examples/examplesmv.ipynb) notebook.
 
 ## Light mode vs dark mode
 

@@ -9,12 +9,12 @@ The files include:
 - the detailed solutions to the exercises,
 - Python scripts for generating structures and analyzing data.
 
-### Main repository ###
+### Main repository
 
 Find [here](https://github.com/lammpstutorials/lammpstutorials.github.io)
 the main repository for LAMMPS tutorial.
 
-### About me & Contact ###
+### About me & Contact
 
 I am a computer physicist in soft matter and fluids at interfaces. You can 
 find more information on my [personal webpage](https://simongravelle.github.io/).
@@ -22,7 +22,7 @@ find more information on my [personal webpage](https://simongravelle.github.io/)
 See the [contact page](https://lammpstutorials.github.io/sphinx/build/html/non-tutorials/contact-me.html). 
 You can report issues here on Github, or send me an [email](https://simongravelle.github.io/). Your feedback is always appreciated.
 
-### License & Acknowledgments ###
+### License & Acknowledgments
 
 All the LAMMPS inputs/data/parameter files and Python scripts are released under the 
 GNU general public license v3.0.

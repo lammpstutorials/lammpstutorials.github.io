@@ -7,7 +7,7 @@ import matplotlib.transforms as mtransforms
 from matplotlib.ticker import AutoMinorLocator
 
 sys.path.append("colors/")
-from colorseries import colorserie1, gray_for_dm, gray_for_lm
+from plttools_colorseries import colorserie1, gray_for_dm, gray_for_lm
 
 class PltTools():
     """
