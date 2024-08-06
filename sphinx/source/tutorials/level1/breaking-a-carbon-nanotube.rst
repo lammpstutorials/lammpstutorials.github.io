@@ -979,14 +979,13 @@ Launch the deformation
 
     Looking at the evolution of energy again, one can see that the energy is increasing 
     with the deformation. When bonds break, the energy relaxes abruptly, as can be seen
-    near $t=110~\text{ps}$ and again near $t=130~\text{ps}$ when plotting the
-    evolution of the total energy with time.
+    near $t=210~\text{ps}$ when plotting the evolution of the total energy with time.
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-breakable-dark.png
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-breakable-dm.png
     :alt: energy of the CNT with time - lammps molecular dynamics
     :class: only-dark
 
-.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-breakable-light.png
+.. figure:: ../figures/level1/breaking-a-carbon-nanotube/energy-breakable.png
     :alt: energy of the CNT with time - lammps molecular dynamics
     :class: only-light
 
