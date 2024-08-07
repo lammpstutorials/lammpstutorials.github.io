@@ -247,11 +247,11 @@ Generation of the silica block
     bad configuration, probably harmless here),
     the temperature follows well the desired annealing procedure.
 
-.. figure:: ../figures/level3/water-adsorption-in-silica/temperature_evolution-dark.png
+.. figure:: ../figures/level3/water-adsorption-in-silica/temperature_evolution-dm.png
     :alt: silica temperature during annealing, from melt to solid
     :class: only-dark
 
-.. figure:: ../figures/level3/water-adsorption-in-silica/temperature_evolution-light.png
+.. figure:: ../figures/level3/water-adsorption-in-silica/temperature_evolution.png
     :alt: silica temperature during annealing, from melt to solid
     :class: only-light
 
@@ -266,11 +266,11 @@ Generation of the silica block
     stage of the simulation, and then anisotropically by plotting the evolution of the
     box dimensions over time.
 
-.. figure:: ../figures/level3/water-adsorption-in-silica/dimensions_evolution-dark.png
+.. figure:: ../figures/level3/water-adsorption-in-silica/dimensions_evolution-dm.png
     :alt: box dimensions during annealing, from melt to solid
     :class: only-dark
 
-.. figure:: ../figures/level3/water-adsorption-in-silica/dimensions_evolution-light.png
+.. figure:: ../figures/level3/water-adsorption-in-silica/dimensions_evolution.png
     :alt: box dimensions during annealing, from melt to solid
     :class: only-light
 
@@ -768,11 +768,11 @@ GCMC simulation
     Once the crack is filled with water molecules, the number of
     molecules reaches a plateau.
 
-.. figure:: ../figures/level3/water-adsorption-in-silica/number_evolution-dark.png
+.. figure:: ../figures/level3/water-adsorption-in-silica/number_evolution-dm.png
     :alt: number of water molecules added by the LAMMPS gcmc
     :class: only-dark
 
-.. figure:: ../figures/level3/water-adsorption-in-silica/number_evolution-light.png
+.. figure:: ../figures/level3/water-adsorption-in-silica/number_evolution.png
     :alt: number of water molecules added by the LAMMPS gcmc
     :class: only-light
 
