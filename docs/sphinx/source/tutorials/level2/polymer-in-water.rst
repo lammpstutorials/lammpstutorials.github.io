@@ -382,11 +382,11 @@ Preparing the water reservoir
     Open the *density.dat* file to ensure that the system converged
     toward a (reasonably) well-equilibrated liquid water system during the 20 ps of simulation.
 
-.. figure:: ../figures/level2/polymer-in-water/density_H2O-light.png
+.. figure:: ../figures/level2/polymer-in-water/density_H2O.png
     :alt: Curves showing the equilibration of the water reservoir
     :class: only-light
 
-.. figure:: ../figures/level2/polymer-in-water/density_H2O-dark.png
+.. figure:: ../figures/level2/polymer-in-water/density_H2O-dm.png
     :alt: Curves showing the equilibration of the water reservoir
     :class: only-dark
 
@@ -738,11 +738,11 @@ Stretching the PEG molecule
     The evolution of the end-to-end distance over time
     shows the PEG adjusting to the external forcing:
 
-.. figure:: ../figures/level2/polymer-in-water/distance-dark.png
+.. figure:: ../figures/level2/polymer-in-water/distance-dm.png
     :alt: plot of the end-to-end distance versus time
     :class: only-dark
 
-.. figure:: ../figures/level2/polymer-in-water/distance-light.png
+.. figure:: ../figures/level2/polymer-in-water/distance.png
     :alt: plot of the end-to-end distance versus time
     :class: only-light
 
