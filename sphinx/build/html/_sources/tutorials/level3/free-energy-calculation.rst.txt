@@ -180,11 +180,11 @@ System creation and settings
     The potential and force along the :math:`x`
     axis resembles:
 
-.. figure:: ../figures/level3/free-energy-calculation/potential-light.png
+.. figure:: ../figures/level3/free-energy-calculation/potential.png
    :alt: Imposed potential
    :class: only-light
 
-.. figure:: ../figures/level3/free-energy-calculation/potential-dark.png
+.. figure:: ../figures/level3/free-energy-calculation/potential-dm.png
    :alt: Averaged density profile
    :class: only-dark
 
@@ -295,11 +295,11 @@ Data analysis
     First, let us ensure that the initial equilibration of :math:`1\,\text{ns}`
     is long enough by examining the *density_evolution.dat* file.
 
-.. figure:: ../figures/level3/free-energy-calculation/density_evolution-light.png
+.. figure:: ../figures/level3/free-energy-calculation/density_evolution.png
    :alt: Number of particles in the central region as a function of time
    :class: only-light
 
-.. figure:: ../figures/level3/free-energy-calculation/density_evolution-dark.png
+.. figure:: ../figures/level3/free-energy-calculation/density_evolution-dm.png
    :alt: Number of particles in the central region as a function of time
    :class: only-dark
 
@@ -319,11 +319,11 @@ Data analysis
     center of the box is about two orders of magnitude lower than inside
     the reservoir.
 
-.. figure:: ../figures/level3/free-energy-calculation/density_profile-light.png
+.. figure:: ../figures/level3/free-energy-calculation/density_profile.png
    :alt: Averaged density profile
    :class: only-light
 
-.. figure:: ../figures/level3/free-energy-calculation/density_profile-dark.png
+.. figure:: ../figures/level3/free-energy-calculation/density_profile-dm.png
    :alt: Averaged density profile
    :class: only-dark
 
@@ -624,11 +624,11 @@ WHAM algorithm
     Again, one can compare the result of the PMF with the imposed potential :math:`U`,
     which shows that the agreement is excellent.
 
-.. figure:: ../figures/level3/free-energy-calculation/freeenergy-light.png
+.. figure:: ../figures/level3/free-energy-calculation/freeenergy.png
     :alt: Result of the umbrella sampling
     :class: only-light
 
-.. figure:: ../figures/level3/free-energy-calculation/freeenergy-dark.png
+.. figure:: ../figures/level3/free-energy-calculation/freeenergy-dm.png
     :alt: Result of the umbrella sampling
     :class: only-dark
 
