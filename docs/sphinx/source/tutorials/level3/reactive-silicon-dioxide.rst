@@ -215,11 +215,11 @@ Prepare and relax
     fluctuating since the charge of every individual atom is adjusting to its
     local environment in real time.
 
-.. figure:: ../figures/level3/reactive-silicon-dioxide/average-charge-light.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/average-charge.png
     :alt: Charge of silica during equilibration with reaxff and LAMMPS
     :class: only-light
 
-.. figure:: ../figures/level3/reactive-silicon-dioxide/average-charge-dark.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/average-charge-dm.png
     :alt: Charge of silica during equilibration with reaxff and LAMMPS
     :class: only-dark
 
@@ -236,11 +236,11 @@ Prepare and relax
     with a rapid volume change of the box, during which
     the inter-atomic distances are expected to quickly change.
 
-.. figure:: ../figures/level3/reactive-silicon-dioxide/volume-light.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/volume.png
     :alt: volume of the system with reaxff and LAMMPS
     :class: only-light
 
-.. figure:: ../figures/level3/reactive-silicon-dioxide/volume-dark.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/volume-dm.png
     :alt: volume of the system with reaxff and LAMMPS
     :class: only-dark
 
@@ -255,11 +255,11 @@ Prepare and relax
     We can plot the charge distribution :math:`P(q)`, using the charge values
     printed in the *.lammptrj* file. 
     
-.. figure:: ../figures/level3/reactive-silicon-dioxide/distribution-charge-light.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/distribution-charge.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
     :class: only-light
 
-.. figure:: ../figures/level3/reactive-silicon-dioxide/distribution-charge-dark.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/distribution-charge-dm.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
     :class: only-dark
 
@@ -379,11 +379,11 @@ Deform the structure
     the presence of defects as well as new solid/vacuum interfaces, and the fact
     that surface atoms typically have different charges compared to bulk atoms.
 
-.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-charge-light.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-charge.png
     :alt: Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff
     :class: only-light
 
-.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-charge-dark.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-charge-dm.png
     :alt: Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff
     :class: only-dark
 
@@ -400,11 +400,11 @@ Deform the structure
     There is also a strong increase in temperature during the rupture of the
     material.
 
-.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-temperature-light.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-temperature.png
     :alt: temperature of silica during deformation of the silicon oxide with LAMMPS and reaxff
     :class: only-light
 
-.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-temperature-dark.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-temperature-dm.png
     :alt: temperature of silica during deformation of the silicon oxide with LAMMPS and reaxff
     :class: only-dark
 
@@ -440,11 +440,11 @@ Deform the structure
     One can have a look at the charge distribution after deformation,
     as well as during the deformation.
 
-.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-distribution-charge-light.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-distribution-charge.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
     :class: only-light
 
-.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-distribution-charge-dark.png
+.. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-distribution-charge-dm.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
     :class: only-dark
 
