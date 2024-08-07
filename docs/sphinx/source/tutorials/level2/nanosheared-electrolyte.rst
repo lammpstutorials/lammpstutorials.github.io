@@ -563,11 +563,11 @@ Energy minimization
     of the 3 steps, before re-increasing a little after the 
     temperature is increased from 1 to :math:`300\,\text{K}`.
 
-.. figure:: ../figures/level2/nanosheared-electrolyte/minimization-light.png
+.. figure:: ../figures/level2/nanosheared-electrolyte/minimization.png
     :alt: Energy minimisation of the confined water and salt
     :class: only-light
 
-.. figure:: ../figures/level2/nanosheared-electrolyte/minimization-dark.png
+.. figure:: ../figures/level2/nanosheared-electrolyte/minimization-dm.png
     :alt: Energy minimisation of the confined water and salt
     :class: only-dark
 
@@ -665,11 +665,11 @@ System equilibration
     the distance between the two walls
     reduces until it reaches an equilibrium value.
 
-.. figure:: ../figures/level2/nanosheared-electrolyte/equilibration-light.png
+.. figure:: ../figures/level2/nanosheared-electrolyte/equilibration.png
     :alt: Plot showing the distance between the walls as a function of time.
     :class: only-light
 
-.. figure:: ../figures/level2/nanosheared-electrolyte/equilibration-dark.png
+.. figure:: ../figures/level2/nanosheared-electrolyte/equilibration-dm.png
     :alt: Plot showing the distance between the walls as a function of time.
     :class: only-dark
 
@@ -814,11 +814,11 @@ Imposed shearing
     can be plotted. As expected for such Couette flow geometry, the velocity
     of the fluid is found to increase linearly along :math:`z`.
 
-.. figure:: ../figures/level2/nanosheared-electrolyte/shearing-light.png
+.. figure:: ../figures/level2/nanosheared-electrolyte/shearing.png
     :alt: Velocity of the nanosheared fluid
     :class: only-light
 
-.. figure:: ../figures/level2/nanosheared-electrolyte/shearing-dark.png
+.. figure:: ../figures/level2/nanosheared-electrolyte/shearing-dm.png
     :alt: Velocity of the nanosheared fluid
     :class: only-dark
 
@@ -828,11 +828,11 @@ Imposed shearing
     along the *z* axis. The line is a linear fit assuming that 
     the pore size is :math:`h = 1.8\,\text{nm}`.
 
-.. figure:: ../figures/level2/nanosheared-electrolyte/density-light.png
+.. figure:: ../figures/level2/nanosheared-electrolyte/density.png
     :alt: density of the nanosheared fluid
     :class: only-light
 
-.. figure:: ../figures/level2/nanosheared-electrolyte/density-dark.png
+.. figure:: ../figures/level2/nanosheared-electrolyte/density-dm.png
     :alt: density of the nanosheared fluid
     :class: only-dark
 
