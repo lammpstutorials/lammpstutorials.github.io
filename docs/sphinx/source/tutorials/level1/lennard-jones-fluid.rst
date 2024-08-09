@@ -21,24 +21,18 @@ Lennard-Jones fluid
     :align: right
     :class: only-light
 
-..  container:: abstract
+The objective of this tutorial is to perform the simulation of a binary
+fluid using LAMMPS.
 
-    The objective of this tutorial is to perform the simulation of a binary
-    fluid using LAMMPS.
-    
-..  container:: abstract
+The system is a Lennard-Jones fluid composed of neutral particles with two
+different diameters, contained within a cubic box with periodic boundary conditions 
+In this tutorial, the temperature of the system is maintained using a Langevin
+thermostat :cite:`schneider1978molecular`, and basic quantities are extracted
+from the system, including the potential and kinetic energies. 
 
-    The system is a Lennard-Jones fluid composed of neutral particles with two
-    different diameters, contained within a cubic box with periodic boundary conditions 
-    In this tutorial, the temperature of the system is maintained using a Langevin
-    thermostat :cite:`schneider1978molecular`, and basic quantities are extracted
-    from the system, including the potential and kinetic energies. 
-
-..  container:: abstract
-
-    This tutorial illustrates several key ingredients of molecular dynamics
-    simulations, such as system initialization, energy minimization, integration
-    of the equations of motion, and trajectory visualization.
+This tutorial illustrates several key ingredients of molecular dynamics
+simulations, such as system initialization, energy minimization, integration
+of the equations of motion, and trajectory visualization.
 
 .. include:: ../../non-tutorials/needhelp.rst
 .. include:: ../../non-tutorials/2Aug2023.rst
