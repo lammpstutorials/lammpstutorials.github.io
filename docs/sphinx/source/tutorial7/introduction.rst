@@ -1,10 +1,10 @@
-.. figure:: figures/avatar_light.webp
+.. figure:: avatars/avatar_light.webp
     :height: 250
     :alt: Lennard Jones atoms simulated with LAMMPS
     :class: only-light
     :align: right
 
-.. figure:: figures/avatar_dark.webp
+.. figure:: avatars/avatar_dark.webp
     :height: 250
     :alt: Lennard Jones atoms simulated with LAMMPS
     :class: only-dark

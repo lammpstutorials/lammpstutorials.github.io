@@ -1,10 +1,10 @@
-.. figure:: figures/nanoconfined-electrolyte-dark.png
+.. figure:: avatars/nanoconfined-electrolyte-dark.png
     :height: 250
     :alt: Electrolyte nano-confined in a slit pore
     :class: only-dark
     :align: right
 
-.. figure:: figures/nanoconfined-electrolyte-light.png
+.. figure:: avatars/nanoconfined-electrolyte-light.png
     :height: 250
     :alt: Electrolyte nano-confined in a slit pore
     :class: only-light

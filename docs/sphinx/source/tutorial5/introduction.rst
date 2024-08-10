@@ -1,10 +1,10 @@
-.. figure:: figures/SiO_gif_light.webp
+.. figure:: avatars/SiO_gif_light.webp
     :height: 250
     :alt: Figure showing silicon dioxide structure with colored charges as simulated with lammps and reaxff
     :class: only-light
     :align: right
 
-.. figure:: figures/SiO_gif_dark.webp
+.. figure:: avatars/SiO_gif_dark.webp
     :height: 250
     :alt: Figure showing silicon dioxide structure with colored charges as simulated with lammps and reaxff
     :class: only-dark

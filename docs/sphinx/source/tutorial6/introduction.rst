@@ -1,10 +1,10 @@
-.. figure:: figures/avatar-dark.webp
+.. figure:: avatars/avatar-dark.webp
     :height: 250
     :alt: Water molecules adsorbed in silica SiO2 porous inorganic material
     :class: only-dark
     :align: right
 
-.. figure:: figures/avatar-light.webp
+.. figure:: avatars/avatar-light.webp
     :height: 250
     :alt: Water molecules adsorbed in silica SiO2 porous inorganic material
     :class: only-light

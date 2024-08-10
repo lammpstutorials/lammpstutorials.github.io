@@ -1,10 +1,10 @@
-.. figure:: figures/PEG-dark.webp
+.. figure:: avatars/PEG-dark.webp
     :alt: Movie of a peg polymer molecule in water as simulated with LAMMPS
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: figures/PEG-light.webp
+.. figure:: avatars/PEG-light.webp
     :alt: Movie of a peg polymer molecule in water as simulated with LAMMPS
     :height: 250
     :align: right

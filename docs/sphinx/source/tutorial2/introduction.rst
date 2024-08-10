@@ -1,10 +1,10 @@
-.. figure:: figures/CNT_dark.webp
+.. figure:: avatars/CNT_dark.webp
     :alt: carbon nanotube image in vacuum
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: figures/CNT_light.webp
+.. figure:: avatars/CNT_light.webp
     :alt: carbon nanotube image in vacuum
     :height: 250
     :align: right
