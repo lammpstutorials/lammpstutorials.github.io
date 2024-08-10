@@ -19,20 +19,16 @@ Water adsorption in silica
     :class: only-light
     :align: right
 
-..  container:: justify
+The objective of this tutorial is to combine molecular
+dynamics and grand canonical Monte Carlo simulations to
+compute the adsorption of water molecules in cracked silica material.
 
-    The objective of this tutorial is to combine molecular
-    dynamics and grand canonical Monte Carlo simulations to
-    compute the adsorption of water molecules in cracked silica material.
-
-..  container:: justify
-
-    This tutorial illustrates the use of the grand canonical
-    ensemble in molecular simulation, an open ensemble in which
-    the number of atoms or molecules within the simulation box is not constant.
-    When using the grand canonical ensemble, it is possible to impose
-    the chemical potential (or pressure) of a given fluid
-    in a nanoporous structure.
+This tutorial illustrates the use of the grand canonical
+ensemble in molecular simulation, an open ensemble in which
+the number of atoms or molecules within the simulation box is not constant.
+When using the grand canonical ensemble, it is possible to impose
+the chemical potential (or pressure) of a given fluid
+in a nanoporous structure.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
@@ -43,11 +39,9 @@ Water adsorption in silica
 Generation of the silica block
 ==============================
 
-..  container:: justify
-
-    Let us first generate a block of amorphous silica (SiO2). To do
-    so, we are going to replicate a building block containing 3
-    Si and 6 O atoms. 
+Let us first generate a block of amorphous silica (SiO2). To do
+so, we are going to replicate a building block containing 3
+Si and 6 O atoms. 
 
 .. admonition:: Not interested in the annealing procedure ?
     :class: info
@@ -58,22 +52,18 @@ Generation of the silica block
 .. |download_silica_block| raw:: html
 
    <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/SilicaBlock/amorphousSiO.data" target="_blank">here</a>
-    
-..  container:: justify
 
-    Create two folders side by side, and name them respectively *Potential/*
-    and *SilicaBlock/*.
+Create two folders side by side, and name them respectively *Potential/*
+and *SilicaBlock/*.
 
-..  container:: justify
-
-    An initial data file for the SiO atoms can be
-    downloaded by clicking |download_SiO.data|.
-    Save it in *SilicaBlock/*. This data file
-    contains the coordinates of the 9 atoms, their masses, and
-    their charges. The *.data* file can be directly read by LAMMPS using the
-    *read_data* command. Let us replicate these atoms using
-    LAMMPS, and apply an annealing procedure to obtain a block
-    of amorphous silica.
+An initial data file for the SiO atoms can be
+downloaded by clicking |download_SiO.data|.
+Save it in *SilicaBlock/*. This data file
+contains the coordinates of the 9 atoms, their masses, and
+their charges. The *.data* file can be directly read by LAMMPS using the
+*read_data* command. Let us replicate these atoms using
+LAMMPS, and apply an annealing procedure to obtain a block
+of amorphous silica.
 
 .. admonition:: About annealing procedure
     :class: info
@@ -84,10 +74,8 @@ Generation of the silica block
     amorphous silica. Depending on the material, different cooling velocities can sometimes
     lead to different crystal structures or different degrees of defect.
 
-..  container:: justify
-
-    Create a new input file named *input.lammps* in the *SilicaBlock/* folder, and copy
-    the following lines into it:
+Create a new input file named *input.lammps* in the *SilicaBlock/* folder, and copy
+the following lines into it:
 
 .. |download_SiO.data| raw:: html
 
@@ -102,12 +90,9 @@ Generation of the silica block
     neighbor 1.0 bin
     neigh_modify delay 1
 
-..  container:: justify
-
-    The main difference with some of the previous tutorials is the use of 
-    the *Vashishta* pair style. Download the *Vashishta* potential by
-    clicking |download_vashishta|,
-    and copy it within the *Potential/* folder.
+The main difference with some of the previous tutorials is the use of 
+the *Vashishta* pair style. Download the *Vashishta* potential by
+clicking |download_vashishta|, and copy it within the *Potential/* folder.
 
 .. |download_vashishta| raw:: html
 
@@ -134,33 +119,27 @@ Generation of the silica block
 
    <a href="https://pubmed.ncbi.nlm.nih.gov/9993674/" target="_blank">Vashishta</a>
 
-..  container:: justify
-
-    Let us then import the system made of 9 atoms, and replicate it four times in all three
-    directions of space, thus creating a system with 576 atoms. Add the following lines
-    to *input.lammps*:
+Let us then import the system made of 9 atoms, and replicate it four times in all three
+directions of space, thus creating a system with 576 atoms. Add the following lines
+to *input.lammps*:
 
 ..  code-block:: lammps
 
     read_data SiO.data
     replicate 4 4 4
 
-..  container:: justify
-
-    Then, let us specify the pair coefficients by indicating
-    that the first atom type is *Si*, and
-    the second is *O*. Let us also
-    add a dump command for printing out the positions of the
-    atoms every 5000 steps:
+Then, let us specify the pair coefficients by indicating
+that the first atom type is *Si*, and
+the second is *O*. Let us also
+add a dump command for printing out the positions of the
+atoms every 5000 steps:
 
 ..  code-block:: lammps
 
     pair_coeff * * ../Potential/SiO.1990.vashishta Si O
 
-..  container:: justify
-
-    Let us add some commands to *input.lammps* to help us follow the evolution of the system,
-    such as its temperature, volume, and potential energy:
+Let us add some commands to *input.lammps* to help us follow the evolution of the system,
+such as its temperature, volume, and potential energy:
 
 ..  code-block:: lammps
 
@@ -177,13 +156,11 @@ Generation of the silica block
     fix myat3 all ave/time 10 100 1000 v_mypot file potential-energy.dat
     thermo 1000
 
-..  container:: justify
-
-    Finally, let us create the last part of our script. The
-    annealing procedure is made of four consecutive runs.
-    First, a :math:`50\,\text{ps}`
-    phase at :math:`T = 6000\,\text{K}`
-    and isotropic pressure coupling with desired pressure :math:`p = 100\,\text{atm}`:
+Finally, let us create the last part of our script. The
+annealing procedure is made of four consecutive runs.
+First, a :math:`50\,\text{ps}`
+phase at :math:`T = 6000\,\text{K}`
+and isotropic pressure coupling with desired pressure :math:`p = 100\,\text{atm}`:
 
 ..  code-block:: lammps
 
@@ -192,25 +169,21 @@ Generation of the silica block
     timestep 0.001
     run 50000
 
-..  container:: justify
-
-    Then, a second phase during which the system is cooled down
-    from :math:`T = 6000\,\text{K}`
-    to :math:`T = 4000\,\text{K}`.
-    An anisotropic pressure coupling is used, allowing all three
-    dimensions of the box to evolve independently from one another:
+Then, a second phase during which the system is cooled down
+from :math:`T = 6000\,\text{K}`
+to :math:`T = 4000\,\text{K}`.
+An anisotropic pressure coupling is used, allowing all three
+dimensions of the box to evolve independently from one another:
 
 ..  code-block:: lammps
 
     fix npt1 all npt temp 6000 4000 0.1 aniso 100 100 1
     run 50000
-
-..  container:: justify
     
-    Then, let us cool down the system
-    further while also reducing the pressure, then perform a
-    small equilibration step at the final desired condition, :math:`T = 300\,\text{K}`
-    and :math:`p = 1\,\text{atm}`.
+Then, let us cool down the system
+further while also reducing the pressure, then perform a
+small equilibration step at the final desired condition, :math:`T = 300\,\text{K}`
+and :math:`p = 1\,\text{atm}`.
 
 ..  code-block:: lammps
 
@@ -221,11 +194,9 @@ Generation of the silica block
 
     write_data amorphousSiO.data
 
-..  container:: justify
-
-    *Disclaimer --* I created this procedure by intuition and
-    not from proper calibration, do not copy it without
-    making your tests if you intend to publish your results.
+*Disclaimer --* I created this procedure by intuition and
+not from proper calibration, do not copy it without
+making your tests if you intend to publish your results.
 
 .. admonition:: Anisotropic versus isotropic barostat
     :class: info
@@ -236,16 +207,12 @@ Generation of the silica block
     anisotropic barostat is usually a better choice for a solid phase. For a
     liquid or a gas, the isotropic barostat is usually the best choice.
 
-..  container:: justify
+The simulation takes about 15-20 minutes on 4 CPU cores.
 
-    The simulation takes about 15-20 minutes on 4 CPU cores.
-
-..  container:: justify
-
-    Let us check the evolution of the temperature from the *temperature.dat* file.
-    Apart from an initial spike (which may be due to an initial
-    bad configuration, probably harmless here),
-    the temperature follows well the desired annealing procedure.
+Let us check the evolution of the temperature from the *temperature.dat* file.
+Apart from an initial spike (which may be due to an initial
+bad configuration, probably harmless here),
+the temperature follows well the desired annealing procedure.
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/temperature_evolution-dm.png
     :alt: silica temperature during annealing, from melt to solid
@@ -260,11 +227,9 @@ Generation of the silica block
     Figure: Temperature of the system during annealing. The vertical dashed lines
     mark the transition between the different phases of the simulations.
 
-..  container:: justify
-
-    Let us also make sure that the box was indeed deformed isotropically during the first 
-    stage of the simulation, and then anisotropically by plotting the evolution of the
-    box dimensions over time.
+Let us also make sure that the box was indeed deformed isotropically during the first 
+stage of the simulation, and then anisotropically by plotting the evolution of the
+box dimensions over time.
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/dimensions_evolution-dm.png
     :alt: box dimensions during annealing, from melt to solid
@@ -292,10 +257,8 @@ Generation of the silica block
     Figure: Snapshot of the final amorphous silica (SiO2) with Si atom in yellow and
     O atoms in red.
 
-..  container:: justify
-
-    After running the simulation, the final LAMMPS topology file named
-    *amorphousSiO.data* will be located in *SilicaBlock/*.
+After running the simulation, the final LAMMPS topology file named
+*amorphousSiO.data* will be located in *SilicaBlock/*.
 
 .. admonition:: Tip for research project
     :class: info
@@ -309,12 +272,10 @@ Generation of the silica block
 Cracking the silica
 ===================
 
-..  container:: justify
-
-    Let us dilate the block of silica until a
-    crack forms. Create a new folder called *Cracking/* next to *SilicaBlock/*,
-    as well as a new *input.lammps* file starting with familiar lines as
-    previously:
+Let us dilate the block of silica until a
+crack forms. Create a new folder called *Cracking/* next to *SilicaBlock/*,
+as well as a new *input.lammps* file starting with familiar lines as
+previously:
 
 ..  code-block:: lammps
 
@@ -330,15 +291,13 @@ Cracking the silica
     pair_coeff * * ../Potential/SiO.1990.vashishta Si O
     dump dmp all atom 1000 dump.lammpstrj
 
-..  container:: justify
-
-    Let us progressively increase the size of the
-    box in the :math:`x` direction, thus forcing the silica to deform
-    and eventually crack. To do
-    so, a loop based on the jump command is used. At
-    every step of the loop, the box dimension over :math:`x` will
-    be multiplied by a scaling factor 1.005. Add the following lines into
-    the *input.lammps*:
+Let us progressively increase the size of the
+box in the :math:`x` direction, thus forcing the silica to deform
+and eventually crack. To do
+so, a loop based on the jump command is used. At
+every step of the loop, the box dimension over :math:`x` will
+be multiplied by a scaling factor 1.005. Add the following lines into
+the *input.lammps*:
 
 .. code-block:: lammps
 
@@ -354,34 +313,26 @@ Cracking the silica
     run 20000
     write_data dilatedSiO.data
 
-..  container:: justify
-
-    The *fix nvt* is used to control the temperature of the system, while the *change_box* command
-    imposes incremental deformations of the box.
-    Different scaling factors or/and different numbers of 
-    steps can be used to generate different defects in the silica.
+The *fix nvt* is used to control the temperature of the system, while the
+*change_box* command imposes incremental deformations of the box.
+Different scaling factors or/and different numbers of 
+steps can be used to generate different defects in the silica.
 
 .. admonition:: On using barostat during deformation
     :class: info
 
-    ..  container:: justify
+    Here, box deformations are applied in the x direction, while the 
+    y and z box dimensions are kept constants. 
 
-        Here, box deformations are applied in the x direction, while the 
-        y and z box dimensions are kept constants. 
-
-    ..  container:: justify
-
-        Another possible choice is to apply a barostat along the y and z 
-        directions, allowing for the system to adjust to the stress. In LAMMPS, 
-        this can be done by using :
+    Another possible choice is to apply a barostat along the y and z 
+    directions, allowing for the system to adjust to the stress. In LAMMPS, 
+    this can be done by using :
 
     .. code-block:: lammps
 
         fix npt1 all npt temp 300 300 0.1 y 1 1 1 z 1 1 1
 
-    ..  container:: justify
-
-        instead of:
+    instead of:
 
     .. code-block:: lammps
 
@@ -400,23 +351,17 @@ Cracking the silica
     Figure: Block of silica after deformation with Si atom in yellow and O
     atoms in red. Some holes are visible
 
-..  container:: justify
+After the expansion, a final equilibration step of a duration of 20
+picoseconds is performed. If you look at the *dump.lammpstrj* file
+using VMD, you can see the expansion occurring step-by-step, and the
+atoms progressively adjusting to the box dimensions. 
 
-    After the expansion, a final equilibration step of a duration of 20
-    picoseconds is performed. If you look at the *dump.lammpstrj* file
-    using VMD, you can see the expansion occurring step-by-step, and the
-    atoms progressively adjusting to the box dimensions. 
+At first, the deformations
+are reversible (elastic regime). At some point, bonds
+start breaking and dislocations appear (plastic regime). 
     
-..  container:: justify
-
-    At first, the deformations
-    are reversible (elastic regime). At some point, bonds
-    start breaking and dislocations appear (plastic regime). 
-    
-..  container:: justify
-
-    Alternatively, you can download the final state directly by clicking
-    |download_silica_dilated|.
+Alternatively, you can download the final state directly by clicking
+|download_silica_dilated|.
 
 .. |download_silica_dilated| raw:: html
 
@@ -435,35 +380,29 @@ Cracking the silica
 Adding water
 ============
 
-..  container:: justify
-
-    In order to add the water molecules to the silica, we are
-    going to use the Monte Carlo method in the grand canonical
-    ensemble (GCMC). In short, the system is put into contact
-    with a virtual reservoir of a given chemical potential
-    :math:`\mu`, and multiple attempts to insert water
-    molecules at random positions are made. Each attempt is
-    either accepted or rejected based on energy considerations. Find more details
-    in classical textbooks :cite:`frenkel2023understanding`.
+In order to add the water molecules to the silica, we are
+going to use the Monte Carlo method in the grand canonical
+ensemble (GCMC). In short, the system is put into contact
+with a virtual reservoir of a given chemical potential
+:math:`\mu`, and multiple attempts to insert water
+molecules at random positions are made. Each attempt is
+either accepted or rejected based on energy considerations. Find more details
+in classical textbooks :cite:`frenkel2023understanding`.
 
 Using hydrid potentials
 -----------------------
 
-..  container:: justify
-
-    Create a new folder called *Addingwater/*. Download and save the
-    |download_TIP4P2005| file for the
-    water molecule within *Addingwater/*.
+Create a new folder called *Addingwater/*. Download and save the
+|download_TIP4P2005| file for the
+water molecule within *Addingwater/*.
 
 .. |download_TIP4P2005| raw:: html
 
    <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/AddingWater/H2O.mol" target="_blank">template</a>
 
-..  container:: justify
-
-    Create a new input file called *input.lammps*
-    within *Addingwater/*, and copy the
-    following lines into it:
+Create a new input file called *input.lammps*
+within *Addingwater/*, and copy the
+following lines into it:
 
 ..  code-block:: lammps
 
@@ -477,14 +416,12 @@ Using hydrid potentials
     bond_style harmonic
     angle_style harmonic
 
-..  container:: justify
-
-    There are several differences with the previous input files
-    used in this tutorial. From now on, the system will combine water and silica,
-    and therefore two force fields are combined: Vashishta for
-    SiO, and lj/cut/tip4p/long for TIP4P water model (here 
-    the TIP4P/2005 model is used :cite:`abascal2005general`).
-    Combining the two force fields is done using the *hybrid/overlay* pair style.
+There are several differences with the previous input files
+used in this tutorial. From now on, the system will combine water and silica,
+and therefore two force fields are combined: Vashishta for
+SiO, and lj/cut/tip4p/long for TIP4P water model (here 
+the TIP4P/2005 model is used :cite:`abascal2005general`).
+Combining the two force fields is done using the *hybrid/overlay* pair style.
 
 .. admonition:: About hybrid and hybrid/overlay pair style
     :class: info
@@ -496,20 +433,16 @@ Using hydrid potentials
     With the hybrid/overlay and hybrid/scaled styles, one or more pair
     styles can be assigned to each pair of atom types.
 
-..  container:: justify
+The *kspace* solver is used to calculate the long
+range Coulomb interactions associated with *tip4p/long*.
+Finally, the style for the bonds and angles
+of the water molecules are defined, although they are not important
+since it is a rigid water model.
 
-    The *kspace* solver is used to calculate the long
-    range Coulomb interactions associated with *tip4p/long*.
-    Finally, the style for the bonds and angles
-    of the water molecules are defined, although they are not important
-    since it is a rigid water model.
-
-..  container:: justify
-
-    Before going further, we also need to make a few changes to our data file.
-    Currently, *dilatedSiO.data* only includes two atom types, but
-    we need four. Copy the previously generated *dilatedSiO.data*
-    file within *Addingwater/*. Currently, *dilatedSiO.data* starts with:
+Before going further, we also need to make a few changes to our data file.
+Currently, *dilatedSiO.data* only includes two atom types, but
+we need four. Copy the previously generated *dilatedSiO.data*
+file within *Addingwater/*. Currently, *dilatedSiO.data* starts with:
 
 ..  code-block:: lammps
 
@@ -529,11 +462,9 @@ Using hydrid potentials
 
     (...)
 
-..  container:: justify
-
-    Make the following changes to allow for the addition of water
-    molecules. Modify the file so that it looks like the following 
-    (with 4 atom types, 1 bond type, 1 angle type, and four masses):
+Make the following changes to allow for the addition of water
+molecules. Modify the file so that it looks like the following 
+(with 4 atom types, 1 bond type, 1 angle type, and four masses):
 
 ..  code-block:: lammps
 
@@ -561,18 +492,14 @@ Using hydrid potentials
 
     (...)
 
-..  container:: justify
+Doing so, we anticipate that there will be 4 atom types in
+the simulations, with O and H of H2O having indexes 3 and 4,
+respectively. There will also be 1 bond type and 1 angle
+type. The extra bond, extra angle, and extra special lines
+are here for memory allocation. 
 
-    Doing so, we anticipate that there will be 4 atom types in
-    the simulations, with O and H of H2O having indexes 3 and 4,
-    respectively. There will also be 1 bond type and 1 angle
-    type. The extra bond, extra angle, and extra special lines
-    are here for memory allocation. 
-
-..  container:: justify
-
-    We can continue to fill in the
-    *input.lammps* file, by adding the system definition:
+We can continue to fill in the
+*input.lammps* file, by adding the system definition:
 
 ..  code-block:: lammps
 
@@ -585,20 +512,16 @@ Using hydrid potentials
     group SiO type 1 2
     group H2O type 3 4
 
-..  container:: justify
+After reading the data file and defining the h2omol molecule
+from the *.txt* file, the *create_atoms* command is used to
+include some water molecules in the system on a 
+simple cubic lattice. Not adding a molecule before starting the
+GCMC steps usually lead to failure. Note that here,
+most water molecules overlap with the silica. These 
+overlapping water molecules will be deleted before 
+starting the simulation. 
 
-    After reading the data file and defining the h2omol molecule
-    from the *.txt* file, the *create_atoms* command is used to
-    include some water molecules in the system on a 
-    simple cubic lattice. Not adding a molecule before starting the
-    GCMC steps usually lead to failure. Note that here,
-    most water molecules overlap with the silica. These 
-    overlapping water molecules will be deleted before 
-    starting the simulation. 
-
-..  container:: justify
-
-    Then, add the following settings to *input.lammps*:
+Then, add the following settings to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -620,36 +543,26 @@ Using hydrid potentials
 
     fix shak H2O shake 1.0e-4 200 0 b 1 a 1 mol h2omol
 
-..  container:: justify
+The force field Vashishta applies only to Si (type 1)
+and O of SiO2 (type 2),
+and not to the O and H of H2O, thanks to the NULL
+parameters used for atoms of types 3 and 4. 
 
-    The force field Vashishta applies only to Si (type 1)
-    and O of SiO2 (type 2),
-    and not to the O and H of H2O, thanks to the NULL
-    parameters used for atoms of types 3 and 4. 
-    
-..  container:: justify
+Pair coefficients for lj/cut/tip4p/long are
+defined between O atoms, as well as between
+O(SiO)-O(H2O) and Si(SiO)-O(H2O). Therefore, the fluid-solid 
+interactions will be set by Lennard-Jones and Coulomb potentials. 
 
-    Pair coefficients for lj/cut/tip4p/long are
-    defined between O atoms, as well as between
-    O(SiO)-O(H2O) and Si(SiO)-O(H2O). Therefore, the fluid-solid 
-    interactions will be set by Lennard-Jones and Coulomb potentials. 
-    
-..  container:: justify
+The number of oxygen atoms from water molecules (i.e. the number of molecules)
+will be printed in the file *numbermolecule.dat*.
 
-    The number of oxygen atoms from water molecules (i.e. the number of molecules)
-    will be printed in the file *numbermolecule.dat*.
-    
-..  container:: justify
+The SHAKE algorithm is used to
+maintain the shape of the water molecules over time. Some of
+these features have been seen in previous tutorials.
 
-    The SHAKE algorithm is used to
-    maintain the shape of the water molecules over time. Some of
-    these features have been seen in previous tutorials.
-
-..  container:: justify
-
-    Let us delete the overlapping water molecules, and print the
-    positions of the remaining atoms in a *.lammpstrj* file by adding the following
-    lines into *input.lammps*:
+Let us delete the overlapping water molecules, and print the
+positions of the remaining atoms in a *.lammpstrj* file by adding the following
+lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -659,11 +572,9 @@ Using hydrid potentials
 GCMC simulation
 ---------------
 
-..  container:: justify
-
-    To prepare for the GCMC simulation,
-    let us make the first equilibration step
-    by adding the following lines into *input.lammps*:
+To prepare for the GCMC simulation,
+let us make the first equilibration step
+by adding the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -686,17 +597,13 @@ GCMC simulation
     separate thermostats is usually better when the system contains two separate
     species, such as a solid and a liquid. It is particularly important to use two thermostats
     here because the number of water molecules will fluctuate with time.
-    
-..  container:: justify
 
-    The *compute_modify* with 
-    *dynamic yes* for water is used to specify that the
-    number of molecules is not constant.
+The *compute_modify* with 
+*dynamic yes* for water is used to specify that the
+number of molecules is not constant.
 
-..  container:: justify
-
-    Finally, let us use the *fix gcmc* and perform the grand
-    canonical Monte Carlo steps. Add the following lines into *input.lammps*:
+Finally, let us use the *fix gcmc* and perform the grand
+canonical Monte Carlo steps. Add the following lines into *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -722,38 +629,30 @@ GCMC simulation
     region extends outside simulation box*
     which seems to occur with the 2Aug2023 LAMMPS version.
 
-..  container:: justify
+The *tfac_insert* option ensures that the correct estimate is
+made for the temperature of the inserted water molecules by
+taking into account the internal degrees of freedom. Running
+this simulation, you should see the number of molecules
+increasing progressively. When using the pressure argument,
+LAMMPS ignores the value of the chemical potential [here :math:`\mu = -0.5\,\text{eV}`,
+which corresponds roughly to ambient conditions (i.e. :math:`\text{RH} \approx 50\,\%`)
+:cite:`gravelle2020multi`.] The large pressure value of 10000 bars was chosen to ensure that 
+some successful insertions of molecules would occur during the 
+extremely short duration of this simulation.
 
-    The *tfac_insert* option ensures that the correct estimate is
-    made for the temperature of the inserted water molecules by
-    taking into account the internal degrees of freedom. Running
-    this simulation, you should see the number of molecules
-    increasing progressively. When using the pressure argument,
-    LAMMPS ignores the value of the chemical potential [here :math:`\mu = -0.5\,\text{eV}`,
-    which corresponds roughly to ambient conditions (i.e. :math:`\text{RH} \approx 50\,\%`)
-    :cite:`gravelle2020multi`.] The large pressure value of 10000 bars was chosen to ensure that 
-    some successful insertions of molecules would occur during the 
-    extremely short duration of this simulation.
+When you run the simulation, make sure that some water molecules 
+remain in the system after the *delete_atoms* command. You can control 
+that either using the log file or using the *numbermolecule.dat* data file.
 
-..  container:: justify
-
-    When you run the simulation, make sure that some water molecules 
-    remain in the system after the *delete_atoms* command. You can control 
-    that either using the log file or using the *numbermolecule.dat* data file.
-
-..  container:: justify
-
-    You can see, by looking at the log file, that 280 molecules
-    were added by the *create_atoms* command (the exact number you get may differ):
+You can see, by looking at the log file, that 280 molecules
+were added by the *create_atoms* command (the exact number you get may differ):
 
 ..  code-block:: bw
 
     Created 840 atoms
 
-..  container:: justify
-
-    You can also see that 258 molecules were immediately deleted,
-    leaving 24 water molecules (the exact number you get may differ):
+You can also see that 258 molecules were immediately deleted,
+leaving 24 water molecules (the exact number you get may differ):
 
 ..  code-block:: bw
 
@@ -761,12 +660,9 @@ GCMC simulation
     Deleted 516 bonds, new total = 44
     Deleted 258 angles, new total = 22
 
-..  container:: justify
-
-    After just a few GCMC steps,
-    the number of molecules starts increasing.
-    Once the crack is filled with water molecules, the number of
-    molecules reaches a plateau.
+After just a few GCMC steps, the number of molecules starts increasing.
+Once the crack is filled with water molecules, the number of
+molecules reaches a plateau.
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/number_evolution-dm.png
     :alt: number of water molecules added by the LAMMPS gcmc
@@ -781,10 +677,8 @@ GCMC simulation
     Figure: Number of molecules in the system as a function of the time :math:`t`.
     The dashed vertical line marks the beginning of the GCMC step.
 
-..  container:: justify
-
-    The final number of molecules depends on the imposed pressure, 
-    temperature, and on the interaction between water and silica (i.e. its hydrophilicity). 
+The final number of molecules depends on the imposed pressure, 
+temperature, and on the interaction between water and silica (i.e. its hydrophilicity). 
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/solvated-dark.png
     :alt: silica block with water and crack
@@ -799,11 +693,9 @@ GCMC simulation
     Figure: Snapshot of the silica system after the adsorption of the water molecules,
     with the oxygen of the water molecules represented in cyan.
 
-..  container:: justify
-
-    Note that GCMC simulations of such dense phases are usually slow to converge due to the
-    very low probability of successfully inserting a molecule. Here, the short simulation 
-    duration was made possible by the use of a large pressure.
+Note that GCMC simulations of such dense phases are usually slow to converge due to the
+very low probability of successfully inserting a molecule. Here, the short simulation 
+duration was made possible by the use of a large pressure.
 
 .. admonition:: Vizualising varying number of molecules
     :class: info
@@ -820,13 +712,11 @@ Going further with exercises
 Mixture adsorption
 ------------------
 
-.. container:: justify
-
-    Adapt the existing script and insert both :math:`\text{CO}_2` molecules
-    and water molecules within the silica crack using GCMC. 
-    Download the |CO2-template|. The parameters for the
-    :math:`\text{CO}_2`
-    molecule are the following:
+Adapt the existing script and insert both :math:`\text{CO}_2` molecules
+and water molecules within the silica crack using GCMC. 
+Download the |CO2-template|. The parameters for the
+:math:`\text{CO}_2`
+molecule are the following:
 
 ..  code-block:: lammps
 
@@ -835,10 +725,8 @@ Mixture adsorption
     bond_coeff 2 46.121 1.17
     angle_coeff 2 2.0918 180
 
-.. container:: justify
-
-    The atom of type 5 is an oxygen of 
-    mass 15.9994, and the atom of type 6 is a carbon of mass 12.011.
+The atom of type 5 is an oxygen of 
+mass 15.9994, and the atom of type 6 is a carbon of mass 12.011.
 
 .. figure:: ../figures/level3/water-adsorption-in-silica/H2O-CO2-dark.png
     :alt: silica block adsorbed water and CO2
@@ -871,22 +759,18 @@ Adsorb water in ZIF-8 nanopores
     :height: 250
     :align: right
 
-..  container:: justify
-    
-    Use the same protocol as the one implemented in this tutorial to add water
-    molecules to a Zif-8 nanoporous material. A snapshot of the system with a 
-    few water molecules is shown on the right.
+Use the same protocol as the one implemented in this tutorial to add water
+molecules to a Zif-8 nanoporous material. A snapshot of the system with a 
+few water molecules is shown on the right.
 
-..  container:: justify
-
-    Download the initial Zif-8 |Zif-8-structure|,
-    the |Zif-8-parameters| file, and this
-    new |water-template|. The ZIF-8 structure is made
-    of 7 atom types (C1, C2, C3, H2, H3, N, Zn), connected
-    by bonds, angles, dihedrals, and impropers. It uses the
-    same *pair_style* as water,
-    so there is no need to use *hybrid pair_style*.
-    Your *input* file should start like this:
+Download the initial Zif-8 |Zif-8-structure|,
+the |Zif-8-parameters| file, and this
+new |water-template|. The ZIF-8 structure is made
+of 7 atom types (C1, C2, C3, H2, H3, N, Zn), connected
+by bonds, angles, dihedrals, and impropers. It uses the
+same *pair_style* as water,
+so there is no need to use *hybrid pair_style*.
+Your *input* file should start like this:
 
 ..  code-block:: lammps
 
@@ -903,11 +787,9 @@ Adsorb water in ZIF-8 nanopores
 
     special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 0.833
 
-..  container:: justify
-
-    An important note: here, water occupies the atom types 1 and 2,
-    instead of 3 and 4 in the case of SiO2 from the main section 
-    of the tutorial.
+An important note: here, water occupies the atom types 1 and 2,
+instead of 3 and 4 in the case of SiO2 from the main section 
+of the tutorial.
 
 .. |Zif-8-structure| raw:: html
 

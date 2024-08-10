@@ -19,20 +19,16 @@ Reactive silicon dioxide
     :class: only-dark
     :align: right
 
-..  container:: justify
+The objective of this tutorial is to use a 
+reactive force field (ReaxFF :cite:`van2001reaxff, zou2012investigation`)
+to calculate the partial charges of a system undergoing
+deformation, as well as chemical bond formation and breaking.  
 
-    The objective of this tutorial is to use a 
-    reactive force field (ReaxFF :cite:`van2001reaxff, zou2012investigation`)
-    to calculate the partial charges of a system undergoing
-    deformation, as well as chemical bond formation and breaking.  
-
-..  container:: justify
-
-    The system simulated here is a block of silicon dioxide (:math:`\text{SiO}_2`) that is deformed 
-    until rupture. Particular attention is given to the evolution of the atomic charges
-    during the deformation of the structure, and 
-    the chemical reactions occurring due to the deformation
-    are tracked over time.
+The system simulated here is a block of silicon dioxide (:math:`\text{SiO}_2`) that is deformed 
+until rupture. Particular attention is given to the evolution of the atomic charges
+during the deformation of the structure, and 
+the chemical reactions occurring due to the deformation
+are tracked over time.
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
@@ -43,11 +39,8 @@ Reactive silicon dioxide
 Prepare and relax
 =================
 
-..  container:: justify
-
-    Create a folder, name it *RelaxSilica/*,
-    and |download_silica_data| the initial topology of a small
-    amorphous silica structure.
+Create a folder, name it *RelaxSilica/*, and |download_silica_data| the initial
+topology of a small amorphous silica structure.
 
 .. |download_silica_data| raw:: html
 
@@ -71,25 +64,19 @@ Prepare and relax
 
    <a href="../../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/CreateSilica/input.lammps" target="_blank">here</a>
 
-..  container:: justify
+If you open the *silica.data* file, you will see in the Atoms section that
+all silicon atoms have the same charge :math:`q = 1.1\,\text{e}`,
+and all oxygen atoms the charge :math:`q = -0.55\,\text{e}`.
+This is common with classical force fields and will change once
+ReaxFF is used.
 
-    If you open the *silica.data* file, you will see in the Atoms section that
-    all silicon atoms have the same charge :math:`q = 1.1\,\text{e}`,
-    and all oxygen atoms the charge :math:`q = -0.55\,\text{e}`.
-    This is common with classical force fields and will change once
-    ReaxFF is used.
+The first action we need to perform here is to relax
+the structure with ReaxFF, which we are gonna do using molecular
+dynamics. To make sure that the system equilibrates
+nicely, let us track some parameters over time.
 
-..  container:: justify
-
-    The first action we need to perform here is to relax
-    the structure with ReaxFF, which we are gonna do using molecular
-    dynamics. To make sure that the system equilibrates
-    nicely, let us track some parameters over time.
-
-..  container:: justify
-
-    Create an input file called *input.lammps* in *RelaxSilica/*,
-    and copy the following lines into it: 
+Create an input file called *input.lammps* in *RelaxSilica/*,
+and copy the following lines into it: 
 
 ..  code-block:: lammps
 
@@ -101,13 +88,11 @@ Prepare and relax
     mass 1 28.0855 # Si
     mass 2 15.999 # O
 
-..  container:: justify
-
-    So far, the input is very similar to what was seen
-    in the previous tutorials. Some basic parameters are
-    defined (*units*, *atom_style* and *masses*), and 
-    the *.data* file is imported by the *read_data* command.
-    Now, let us copy three crucial lines into the *input.lammps* file:
+So far, the input is very similar to what was seen
+in the previous tutorials. Some basic parameters are
+defined (*units*, *atom_style* and *masses*), and 
+the *.data* file is imported by the *read_data* command.
+Now, let us copy three crucial lines into the *input.lammps* file:
 
 ..  code-block:: lammps
 
@@ -115,28 +100,22 @@ Prepare and relax
     pair_coeff * * reaxCHOFe.ff Si O
     fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
-..  container:: justify
+Here, the *pair_style reaxff* is used with no control file.
+The *safezone* and *mincap* keywords have been added
+to avoid memory allocation issues, which sometimes can trigger
+the segmentation faults and *bondchk* failed errors.
 
-    Here, the *pair_style reaxff* is used with no control file.
-    The *safezone* and *mincap* keywords have been added
-    to avoid memory allocation issues, which sometimes can trigger
-    the segmentation faults and *bondchk* failed errors.
+The *pair_coeff* uses
+the |reaxCHOFe| file, which must be downloaded and saved within 
+*RelaxSilica/*. For consistency with the masses and the *silica.data* file,
+the atoms of type 1 are set as silicon (Si),
+and the atoms of type 2 as oxygen (O).
 
-..  container:: justify
-
-    The *pair_coeff* uses
-    the |reaxCHOFe| file, which must be downloaded and saved within 
-    *RelaxSilica/*. For consistency with the masses and the *silica.data* file,
-    the atoms of type 1 are set as silicon (Si),
-    and the atoms of type 2 as oxygen (O).
-
-..  container:: justify
-
-    Finally, the *fix qeq/reaxff* is used to perform charge equilibration :cite:`rappe1991charge`.
-    The charge equilibration occurs at every step. The values 0.0 and 10.0
-    are the low and the high cutoffs, respectively, and :math:`1.0 \text{e} -6` is a
-    tolerance. Finally, *maxiter* sets an upper limit to the number of attempts to
-    equilibrate the charge. 
+Finally, the *fix qeq/reaxff* is used to perform charge equilibration :cite:`rappe1991charge`.
+The charge equilibration occurs at every step. The values 0.0 and 10.0
+are the low and the high cutoffs, respectively, and :math:`1.0 \text{e} -6` is a
+tolerance. Finally, *maxiter* sets an upper limit to the number of attempts to
+equilibrate the charge. 
 
 .. admonition:: Note
     :class: info
@@ -150,10 +129,8 @@ Prepare and relax
 
    <a href="../../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/RelaxSilica/reaxCHOFe.ff" target="_blank">reaxCHOFe.ff</a>
 
-..  container:: justify
-
-    Then, let us add some commands to the *input.lammps* file 
-    to measure the evolution of the charges during the simulation:
+Then, let us add some commands to the *input.lammps* file 
+to measure the evolution of the charges during the simulation:
 
 ..  code-block:: lammps
 
@@ -161,12 +138,10 @@ Prepare and relax
     group grpO type 2
     variable qSi equal charge(grpSi)/count(grpSi)
     variable qO equal charge(grpO)/count(grpO)
-    
-..  container:: justify
 
-    Let us also print the charge in the *.log* file by using *thermo_style*,
-    and create a *.lammpstrj* file for visualization.
-    Add the following lines into the *input.lammps*:
+Let us also print the charge in the *.log* file by using *thermo_style*,
+and create a *.lammpstrj* file for visualization.
+Add the following lines into the *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -174,25 +149,19 @@ Prepare and relax
     thermo_style custom step temp etotal press vol v_qSi v_qO
     dump dmp all custom 100 dump.lammpstrj id type q x y z
 
-..  container:: justify
-
-    Let us also use the *fix reaxff/species* to evaluate what
-    species are present within the simulation. It will be useful later when
-    the system is deformed and some bonds are broken:
+Let us also use the *fix reaxff/species* to evaluate what
+species are present within the simulation. It will be useful later when
+the system is deformed and some bonds are broken:
 
 ..  code-block:: lammps
 
     fix myspec all reaxff/species 5 1 5 species.log element Si O
 
-..  container:: justify
+Here, the information will be printed every 5 steps in a
+file named *species.log*.
 
-    Here, the information will be printed every 5 steps in a
-    file named *species.log*.
-
-..  container:: justify
-
-    Let us perform a very short run using the anisotropic NPT command
-    and relax the density of the system. 
+Let us perform a very short run using the anisotropic NPT command
+and relax the density of the system. 
 
 ..  code-block:: lammps
 
@@ -204,16 +173,12 @@ Prepare and relax
 
     write_data silica-relaxed.data
 
-..  container:: justify
+Run the *input.lammps* file using LAMMPS. As seen from *species.log*,
+only one species is detected, called *Si192O384*, representing the entire system.
 
-    Run the *input.lammps* file using LAMMPS. As seen from *species.log*,
-    only one species is detected, called *Si192O384*, representing the entire system.
-
-..  container:: justify
-
-    As the simulation progresses, you can see that the charges of the atoms are
-    fluctuating since the charge of every individual atom is adjusting to its
-    local environment in real time.
+As the simulation progresses, you can see that the charges of the atoms are
+fluctuating since the charge of every individual atom is adjusting to its
+local environment in real time.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/average-charge.png
     :alt: Charge of silica during equilibration with reaxff and LAMMPS
@@ -229,12 +194,10 @@ Prepare and relax
     atoms during equilibration, as given by the
     *v_qSi* and *v_qO* variables.
 
-..  container:: justify
-
-    Additionally, the average charge of the atoms is strongly fluctuating
-    at the beginning of the simulation. This early fluctuation correlates
-    with a rapid volume change of the box, during which
-    the inter-atomic distances are expected to quickly change.
+Additionally, the average charge of the atoms is strongly fluctuating
+at the beginning of the simulation. This early fluctuation correlates
+with a rapid volume change of the box, during which
+the inter-atomic distances are expected to quickly change.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/volume.png
     :alt: volume of the system with reaxff and LAMMPS
@@ -248,12 +211,10 @@ Prepare and relax
 
     Figure: Volume of the system as a function of time.
 
-..  container:: justify
-
-    Since each atom has a charge that depends on its local environment,
-    the charge values are expected to be different for every atom in the system.
-    We can plot the charge distribution :math:`P(q)`, using the charge values
-    printed in the *.lammptrj* file. 
+Since each atom has a charge that depends on its local environment,
+the charge values are expected to be different for every atom in the system.
+We can plot the charge distribution :math:`P(q)`, using the charge values
+printed in the *.lammptrj* file. 
     
 .. figure:: ../figures/level3/reactive-silicon-dioxide/distribution-charge.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
@@ -268,11 +229,9 @@ Prepare and relax
     Figure: Probability distribution of charge of silicon (positive, blue)
     and oxygen (negative, orange) atoms during equilibration.
 
-..  container:: justify
-
-    Using VMD and coloring the atoms by their charges, one can see that 
-    the atoms with the extreme-most charges are located at defects in the 
-    amorphous structure (here at the positions of the dangling oxygen groups).
+Using VMD and coloring the atoms by their charges, one can see that 
+the atoms with the extreme-most charges are located at defects in the 
+amorphous structure (here at the positions of the dangling oxygen groups).
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/silicon-light.png
     :alt: Amorphous silica colored by charges using VMD
@@ -294,16 +253,12 @@ Prepare and relax
 Deform the structure
 ====================
 
-..  container:: justify
+Let us apply a deformation to the structure to force some
+:math:`\text{Si}-\text{O}` bonds to break (and eventually re-assemble). 
 
-    Let us apply a deformation to the structure to force some
-    :math:`\text{Si}-\text{O}` bonds to break (and eventually re-assemble). 
-
-..  container:: justify
-
-    Next to *RelaxSilica/*, create a folder, call it *Deform/* and create a
-    file named *input.lammps* in it. Copy the same lines as previously in
-    *input.lammps*:
+Next to *RelaxSilica/*, create a folder, call it *Deform/* and create a
+file named *input.lammps* in it. Copy the same lines as previously in
+*input.lammps*:
 
 ..  code-block:: lammps
 
@@ -319,11 +274,9 @@ Deform the structure
     pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O
     fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
-..  container:: justify
-
-    The only differences with the previous *input.lammps* file are the
-    paths to the *.data* and *.ff* files located within *RelaxSilica/*.
-    Copy the following lines as well:
+The only differences with the previous *input.lammps* file are the
+paths to the *.data* and *.ff* files located within *RelaxSilica/*.
+Copy the following lines as well:
 
 ..  code-block:: lammps
 
@@ -338,10 +291,8 @@ Deform the structure
 
     fix myspec all reaxff/species 5 1 5 species.log element Si O
 
-..  container:: justify
-
-    Then, let us use *fix nvt* instead of *fix npt* to apply a
-    thermostat but no barostat:
+Then, let us use *fix nvt* instead of *fix npt* to apply a
+thermostat but no barostat:
 
 ..  code-block:: lammps
 
@@ -354,11 +305,9 @@ Deform the structure
     Here, no barostat is used because the box volume will be imposed by
     the *fix deform*.
 
-..  container:: justify
-
-    Let us run for 5000 steps without deformation, then apply the *fix deform*
-    for elongating progressively the box along *x* during 25000 steps. Add the
-    following line to *input.lammps*:
+Let us run for 5000 steps without deformation, then apply the *fix deform*
+for elongating progressively the box along *x* during 25000 steps. Add the
+following line to *input.lammps*:
 
 ..  code-block:: lammps
 
@@ -370,14 +319,12 @@ Deform the structure
 
     write_data silica-deformed.data
 
-..  container:: justify
-
-    Run the *input.lammps* file using LAMMPS. During the deformation, the charge values progressively evolve until the structure
-    eventually breaks down. After the structure breaks down, the charges
-    equilibrate near new average values that differ from the starting averages.
-    The difference between the initial and the final charges can be explained by
-    the presence of defects as well as new solid/vacuum interfaces, and the fact
-    that surface atoms typically have different charges compared to bulk atoms.
+Run the *input.lammps* file using LAMMPS. During the deformation, the charge values
+progressively evolve until the structure eventually breaks down. After the structure
+breaks down, the charges equilibrate near new average values that differ from
+the starting averages. The difference between the initial and the final charges can
+be explained by the presence of defects as well as new solid/vacuum interfaces, and
+the fact that surface atoms typically have different charges compared to bulk atoms.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-charge.png
     :alt: Charge of silica during deformation of the silicon oxide with LAMMPS and reaxff
@@ -395,10 +342,8 @@ Deform the structure
     vertical dashed lines mark the beginning of the deformation, and the horizontal
     dashed lines denote the initial values for the average charge.
 
-..  container:: justify
-
-    There is also a strong increase in temperature during the rupture of the
-    material.
+There is also a strong increase in temperature during the rupture of the
+material.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-temperature.png
     :alt: temperature of silica during deformation of the silicon oxide with LAMMPS and reaxff
@@ -414,11 +359,9 @@ Deform the structure
     :math:`t`. The material ruptures
     near :math:`t = 10~\text{ps}`.
 
-..  container:: justify
-
-    At the end of the deformation, one can visualize the broken material using
-    VMD. Notice the different charge values of the atoms located near the vacuum
-    interfaces, compared to the atoms located in the bulk of the material.
+At the end of the deformation, one can visualize the broken material using
+VMD. Notice the different charge values of the atoms located near the vacuum
+interfaces, compared to the atoms located in the bulk of the material.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-light.png
     :alt: Deformed amorphous silica colored by charges using VMD
@@ -435,10 +378,8 @@ Deform the structure
     a charge of about :math:`1.8~\text{e}` appear in red/orange, and bulk O atoms with a charge
     of about :math:`-0.9~\text{e}`` appear in blue.
 
-..  container:: justify
-
-    One can have a look at the charge distribution after deformation,
-    as well as during the deformation.
+One can have a look at the charge distribution after deformation,
+as well as during the deformation.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/deformed-distribution-charge.png
     :alt: Distribution charge of silica and oxygen during equilibration with reaxff
@@ -453,11 +394,9 @@ Deform the structure
     Figure: Distribution of charge of silicon (positive, blue) and oxygen (negative, orange)
     after deformation. The stars correspond to the charge distribution during deformation. 
 
-..  container:: justify
-
-    As expected, the final charge distribution slightly differs from the
-    previously calculated. In my case, no new species were formed during the
-    simulation, as can be seen from the *species.log* file:
+As expected, the final charge distribution slightly differs from the
+previously calculated. In my case, no new species were formed during the
+simulation, as can be seen from the *species.log* file:
 
 ..  code-block:: lammps
 
@@ -467,10 +406,8 @@ Deform the structure
     #  Timestep    No_Moles    No_Specs   Si192O384
         30000           1           1           1
 
-..  container:: justify
-
-    Sometimes, :math:`\text{O}_2` molecules are formed during the
-    deformation. If this is the case, the *species.log* file will look like:
+Sometimes, :math:`\text{O}_2` molecules are formed during the
+deformation. If this is the case, the *species.log* file will look like:
 
 ..  code-block:: lammps
 
@@ -483,20 +420,16 @@ Deform the structure
 Decorate the surface
 ====================
 
-..  container:: justify
+In ambient conditions, some of the surface :math:`\text{SiO}_2` atoms are chemically
+passivated by forming covalent bonds with hydrogen (H) atoms :math:`sulpizi2012silica`.
+Let us add hydrogen atoms randomly to the cracked silica and observe how
+the system evolves over time. 
 
-    In ambient conditions, some of the surface :math:`\text{SiO}_2` atoms are chemically
-    passivated by forming covalent bonds with hydrogen (H) atoms :math:`sulpizi2012silica`.
-    Let us add hydrogen atoms randomly to the cracked silica and observe how
-    the system evolves over time. 
-
-..  container:: justify
-
-    Next to *RelaxSilica/* and *Deform/*, create a folder, and call it *Decorate/*.
-    Then, let us modify the previously generated data file
-    *silica-deformed.data* and make space for a third atom type.
-    Copy *silica-deformed.data* from the *Deform/* folder,
-    and modify the first lines as follow:
+Next to *RelaxSilica/* and *Deform/*, create a folder, and call it *Decorate/*.
+Then, let us modify the previously generated data file
+*silica-deformed.data* and make space for a third atom type.
+Copy *silica-deformed.data* from the *Deform/* folder,
+and modify the first lines as follow:
 
 ..  code-block:: lammps
 
@@ -515,11 +448,9 @@ Decorate the surface
 
     (...)
 
-..  container:: justify
-
-    Create a file named *input.lammps* 
-    into the *Decorate/* folder, and copy
-    the following lines into it:
+Create a file named *input.lammps* 
+into the *Decorate/* folder, and copy
+the following lines into it:
 
 ..  code-block:: lammps
 
@@ -533,22 +464,16 @@ Decorate the surface
     pair_coeff * * ../RelaxSilica/reaxCHOFe.ff Si O H
     fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
-..  container:: justify
+Here, the *displace_atoms* command was used to move the center of the crack
+near the center of the box. This step is optional but makes the visualization
+of the interface in VMD easier. A different value for the shift may be
+needed in your case, depending on the location of the crack.
 
-    Here, the *displace_atoms* command was used to move the center of the crack
-    near the center of the box. This step is optional but makes the visualization
-    of the interface in VMD easier. A different value for the shift may be
-    needed in your case, depending on the location of the crack.
+A difference with the previous input is that three atom types are specified
+in the *pair_coeff* command, *Si O H*, instead of two.
 
-..  container:: justify
-
-    A difference with the previous input is that three atom types are specified
-    in the *pair_coeff* command, *Si O H*, instead of two.
-
-..  container:: justify
-
-    Then, let us adapt some familiar commands to measure the charges of all
-    three types of atoms, and output the charge values into log files:
+Then, let us adapt some familiar commands to measure the charges of all
+three types of atoms, and output the charge values into log files:
 
 ..  code-block:: lammps
 
@@ -564,16 +489,12 @@ Decorate the surface
         v_qSi v_qO v_qH
     fix myspec all reaxff/species 5 1 5 species.log element Si O H
 
-..  container:: justify
+Here, the :math:`+1\text{e}-10` was added to the denominator of the
+*variable qH* in order to avoid dividing by 0 at the beginning of the
+simulation.
 
-    Here, the :math:`+1\text{e}-10` was added to the denominator of the
-    *variable qH* in order to avoid dividing by 0 at the beginning of the
-    simulation.
-
-..  container:: justify
-
-    Finally, let us create a loop with 10 steps, and create two hydrogen atoms
-    at random locations at every step: 
+Finally, let us create a loop with 10 steps, and create two hydrogen atoms
+at random locations at every step: 
 
 ..  code-block:: lammps
 
@@ -593,18 +514,14 @@ Decorate the surface
     jump SELF loop
 
     write_data decorated.data
-    
-..  container:: justify
 
-    Here, a different *lammpstrj* file is created for each step of the loop to
-    avoid creating dump files with varying numbers of atoms, which VMD can't
-    read.
+Here, a different *lammpstrj* file is created for each step of the loop to
+avoid creating dump files with varying numbers of atoms, which VMD can't
+read.
 
-..  container:: justify
-
-    Once the simulation is over, it can be seen from the *species.log* file that
-    all the created hydrogen atoms reacted with the :math:`\text{SiO}_{2}`
-    structure to form surface groups (such as hydroxyl (-OH) groups).
+Once the simulation is over, it can be seen from the *species.log* file that
+all the created hydrogen atoms reacted with the :math:`\text{SiO}_{2}`
+structure to form surface groups (such as hydroxyl (-OH) groups).
 
 ..  code-block:: lammps
 
@@ -640,10 +557,8 @@ Going further with exercises
 Hydrate the structure
 ---------------------
 
-..  container:: justify
-
-    Add water molecules to the current structure, and follow the reactions over
-    time.
+Add water molecules to the current structure, and follow the reactions over
+time.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/hydrated-light.png
     :alt: Cracked silicon oxide after addition of water molecule
@@ -661,11 +576,9 @@ Hydrate the structure
 A slightly acidic bulk solution
 -------------------------------
 
-..  container:: justify
-
-    Create a bulk water system with a few hydronium ions (:math:`H_3O^+`
-    or :math:`H^+`) using ReaxFF. The addition of hydronium ions will make the
-    system acidic.
+Create a bulk water system with a few hydronium ions (:math:`H_3O^+`
+or :math:`H^+`) using ReaxFF. The addition of hydronium ions will make the
+system acidic.
 
 .. figure:: ../figures/level3/reactive-silicon-dioxide/acidic-water-light.png
     :alt: Acidic bulk water with ReaxFF
