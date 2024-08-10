@@ -11,25 +11,15 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
 
 .. toctree::
     :maxdepth: 2
-    :caption: Level 1
+    :caption: Tutorials
 
-    tutorials/level1/lennard-jones-fluid.rst
-    tutorials/level1/breaking-a-carbon-nanotube.rst
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Level 2
-
-    tutorials/level2/polymer-in-water.rst
-    tutorials/level2/nanosheared-electrolyte.rst
-   
-.. toctree::
-    :maxdepth: 2
-    :caption: Level 3
-
-    tutorials/level3/reactive-silicon-dioxide.rst
-    tutorials/level3/water-adsorption-in-silica.rst
-    tutorials/level3/free-energy-calculation.rst
+    tutorial1/lennard-jones-fluid.rst
+    tutorial2/breaking-a-carbon-nanotube.rst
+    tutorial3/polymer-in-water.rst
+    tutorial4/nanosheared-electrolyte.rst
+    tutorial5/reactive-silicon-dioxide.rst
+    tutorial6/water-adsorption-in-silica.rst
+    tutorial7/free-energy-calculation.rst
 
 .. toctree::
     :maxdepth: 2

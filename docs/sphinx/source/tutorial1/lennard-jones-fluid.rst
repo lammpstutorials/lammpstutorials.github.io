@@ -7,14 +7,14 @@ Lennard-Jones fluid
 
    The very basics of LAMMPS through a simple example
 
-.. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-fluid-avatar-dark.webp
+.. figure:: figures/lennard-jones-fluid-avatar-dark.webp
     :alt: The binary mixture simulated during Tutorial 1. The atoms of type 1 are
           represented as small green spheres and the atoms of type 2 as large blue spheres.
     :height: 250
     :align: right
     :class: only-dark
 
-.. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-fluid-avatar-light.webp
+.. figure:: figures/lennard-jones-fluid-avatar-light.webp
     :alt: The binary mixture simulated during Tutorial 1. The atoms of type 1 are
           represented as small green spheres and the atoms of type 2 as large blue spheres.
     :height: 250
@@ -286,12 +286,12 @@ are given different effective diameters, as can be seen by plotting
 :math:`E_{12} (r)`,
 and :math:`E_{22} (r)`.
 
-.. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones.png
+.. figure:: figures/lennard-jones.png
     :alt: Lennard Jones potential
     :class: only-light
     :name: fig-lennard-jones
 
-.. figure:: ../figures/level1/lennard-jones-fluid/lennard-jones-dm.png
+.. figure:: figures/lennard-jones-dm.png
     :alt: Lennard Jones potential
     :class: only-dark
 
@@ -496,11 +496,11 @@ value of about -0.25. The kinetic energy, :math:`k_\text{e}`, is equal to
 zero during energy minimization and then increases during molecular
 dynamics until it reaches a plateau value of about 1.5.
 
-.. figure:: ../figures/level1/lennard-jones-fluid/energy.png
+.. figure:: figures/energy.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-light
 
-.. figure:: ../figures/level1/lennard-jones-fluid/energy-dm.png
+.. figure:: figures/energy-dm.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-dark
 
@@ -537,11 +537,11 @@ file manually using *File -> New molecule*.
 By default, you should see a cloud of lines, but you can improve the
 representation (see this :ref:`vmd-label` for basic instructions).
 
-.. figure:: ../figures/level1/lennard-jones-fluid/first-input-light.png
+.. figure:: figures/first-input-light.png
     :alt: binary fluid simulated by LAMMPS and visualized with VMD
     :class: only-light
 
-.. figure:: ../figures/level1/lennard-jones-fluid/first-input-dark.png
+.. figure:: figures/first-input-dark.png
     :alt: binary fluid simulated by LAMMPS and visualized with VMD
     :class: only-dark
 
@@ -826,11 +826,11 @@ ensures that the total random force applied to the atoms is equal to zero.
 Run *input.md.lammps* using LAMMPS and visualize the trajectory
 using VMD.
 
-.. figure:: ../figures/level1/lennard-jones-fluid/mixing-vmd-light.png
+.. figure:: figures/mixing-vmd-light.png
     :alt: LAMMPS VMD tutorial molecular dynamics simulation
     :class: only-light
 
-.. figure:: ../figures/level1/lennard-jones-fluid/mixing-vmd-dark.png
+.. figure:: figures/mixing-vmd-dark.png
     :alt: LAMMPS VMD tutorial molecular dynamics simulation
     :class: only-dark
 
@@ -844,11 +844,11 @@ After running *input.md.lammps* using LAMMPS, you can observe the number
 of atoms in each region from the generated data files, as
 well as the evolution of the coordination number due to mixing:
 
-.. figure:: ../figures/level1/lennard-jones-fluid/mixing.png
+.. figure:: figures/mixing.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-light
 
-.. figure:: ../figures/level1/lennard-jones-fluid/mixing-dm.png
+.. figure:: figures/mixing-dm.png
     :alt: Result tutorial molecular dynamics simulation: Energy plot over time
     :class: only-dark
 
@@ -925,12 +925,12 @@ with the following properties:
 - both particles of type 1 and 2 must have the same size,
 - particles of type 1 and 2 must demix. 
 
-.. figure:: ../figures/level1/lennard-jones-fluid/demixing-light.png
+.. figure:: figures/demixing-light.png
     :alt: VMD/LAMMPS exercise molecular dynamics simulation: demixing lennard
           jones fluids
     :class: only-light
 
-.. figure:: ../figures/level1/lennard-jones-fluid/demixing-dark.png
+.. figure:: figures/demixing-dark.png
     :alt: VMD/LAMMPS exercise molecular dynamics simulation: demixing lennard
           jones fluids
     :class: only-dark
@@ -952,11 +952,11 @@ From atoms to molecules
 Add a bond between particles of *type 2* to create dumbbell molecules instead
 of single particles.
 
-.. figure:: ../figures/level1/lennard-jones-fluid/dumbell-dark.png
+.. figure:: figures/dumbell-dark.png
     :alt: Dumbbell Lennard-Jones molecules simulated using LAMMPS
     :class: only-dark
 
-.. figure:: ../figures/level1/lennard-jones-fluid/dumbell-light.png
+.. figure:: figures/dumbell-light.png
     :alt: Dumbbell Lennard-Jones molecules simulated using LAMMPS
     :class: only-light 
 
@@ -972,11 +972,11 @@ of single particles.
 Similarly to the dumbbell molecules, create a small polymer,
 i.e. a long chain of particles linked by bonds and angles.
 
-.. figure:: ../figures/level1/lennard-jones-fluid/polymer-dark.png
+.. figure:: figures/polymer-dark.png
     :alt: Polymer Lennard-Jones molecules simulated using LAMMPS
     :class: only-dark
 
-.. figure:: ../figures/level1/lennard-jones-fluid/polymer-light.png
+.. figure:: figures/polymer-light.png
     :alt: Polymer Lennard-Jones molecules simulated using LAMMPS
     :class: only-light 
 
