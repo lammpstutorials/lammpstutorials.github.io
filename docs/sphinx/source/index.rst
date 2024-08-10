@@ -28,7 +28,6 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     non-tutorials/solutions.rst
     non-tutorials/glossary.rst
     non-tutorials/bibliography.rst
-    miscellaneous/use-gromacs-instead.rst
 
 Indices and tables
 ==================
