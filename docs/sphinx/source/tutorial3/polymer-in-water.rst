@@ -8,9 +8,9 @@ Polymer in water
     Solvating and stretching a small polymer molecule
 
 .. include:: introduction.rst
-.. include:: ../../non-tutorials/recommand-lj.rst
+.. include:: ../shared/recommend-tutorial1.rst
 .. include:: ../../non-tutorials/needhelp.rst
-.. include:: ../../non-tutorials/2Aug2023.rst
+.. include:: ../shared/version-LAMMPS.rst
 .. include:: tutorial.rst
 .. include:: ../../non-tutorials/accessfile.rst
 .. include:: exercises.rst
