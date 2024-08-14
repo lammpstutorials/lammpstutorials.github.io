@@ -11,5 +11,5 @@ Lennard-Jones fluid
 .. include:: ../../non-tutorials/needhelp.rst
 .. include:: ../shared/version-LAMMPS.rst
 .. include:: tutorial.rst
-.. include:: ../../non-tutorials/accessfile.rst
+.. include:: ../shared/access-the-files.rst
 .. include:: exercises.rst
