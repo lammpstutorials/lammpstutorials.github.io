@@ -10,7 +10,7 @@ Water adsorption in silica
 .. include:: introduction.rst
 .. include:: ../shared/recommend-tutorial1.rst
 .. include:: ../../non-tutorials/needhelp.rst
-.. include:: ../shared/version-LAMMPS.rst
+.. include:: ../shared/versionLAMMPS.rst
 .. include:: tutorial.rst
 .. include:: ../shared/access-the-files.rst
 .. include:: exercises.rst
