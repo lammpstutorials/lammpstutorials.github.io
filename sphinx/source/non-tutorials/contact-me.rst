@@ -1,6 +1,6 @@
 .. _contact-label:
 
-Contact us
+Contact me
 **********
 
 Struggling with your simulation project?
@@ -14,7 +14,7 @@ Struggling with your simulation project?
 
 ..  container:: justify
 
-   Connect with experts and get your questions answered directly in our 
+   Get your questions answered in a dedicated
    |patreon-discord| Discord channel.
 
 .. |patreon-discord| raw:: html
@@ -37,7 +37,7 @@ Support the LAMMPS tutorials initiative
 
    <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">Tipeee</a>
 
-Follow us
+Follow me
 =========
 
 ..  container:: justify
