@@ -1,7 +1,7 @@
 # Configuration file for the Sphinx documentation builder.
 
 copyright = 'All source code is available under the GNU General Public License v3.0'
-author = 'Simon Gravelle'
+author = 'See the AUTHORS.rst'
 
 extensions = ['sphinx_togglebutton',
               'sphinx_favicon',
