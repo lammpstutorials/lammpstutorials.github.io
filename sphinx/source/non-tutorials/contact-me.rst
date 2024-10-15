@@ -3,35 +3,40 @@
 Contact me
 **********
 
-Struggling with your simulation project?
-========================================
+Feel free to send me an |simon-gravelle| if you have LAMMPS-related questions.
 
-.. figure:: figures/contact-me/patreon.png
+.. |simon-gravelle| raw:: html
+
+   <a href="https://simongravelle.github.io/" target="_blank">email</a>
+
+..
+    Struggling with your simulation project?
+    ========================================
+
+    .. figure:: figures/contact-me/patreon.png
     :height: 100
     :alt: Simon gravelle patreon for LAMMPS and GROMACS material
     :align: right
     :target: https://www.patreon.com/molecularsimulations
 
-..  container:: justify
+..
+    ..  container:: justify
 
    Get your questions answered in a dedicated
    |patreon-discord| Discord channel.
 
-.. |patreon-discord| raw:: html
-
-   <a href="https://www.patreon.com/molecularsimulations" target="_blank">"Molecular Simulations"</a>
 
 Support the LAMMPS tutorials initiative
 =======================================
 
 ..  container:: justify
 
-   You can support this webpage through |patreon| or |tipeee|. As a supporter,
-   you will receive personalized support and assistance with your projects.
+    You can support this webpage through |patreon| or |tipeee|. As a supporter,
+    you will gain access a dedicated Discord channel
 
 .. |patreon| raw:: html
 
-   <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a>
+    <a href="https://www.patreon.com/molecularsimulations" target="_blank">Patreon</a>
 
 .. |tipeee| raw:: html
 
