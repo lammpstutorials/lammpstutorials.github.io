@@ -1,10 +1,5 @@
-..
-    .. admonition:: Struggling with molecular simulations ?
-        :class: patreon
 
-        :ref:`contact-label` and receive personalized |advice| for your LAMMPS project.
+.. admonition:: Looking for help or have feedback for us?
+    :class: patreon
 
-..
-    .. |advice| raw:: html
-        
-    <a href="https://www.patreon.com/molecularsimulations" target="_blank">advice and guidance</a>
+    Visit the :ref:`contact-label` page to get in touch with us.

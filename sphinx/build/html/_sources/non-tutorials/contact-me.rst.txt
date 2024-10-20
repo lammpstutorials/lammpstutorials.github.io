@@ -1,30 +1,31 @@
 .. _contact-label:
 
-Contact me
-**********
+Looking for help?
+*****************
 
-Feel free to send me an |simon-gravelle| if you have LAMMPS-related questions.
+If you're struggling with your simulations, here are a few options to consider:
+
+- Send me an email (find my address |simon-gravelle|). Please note that I receive
+  numerous queries, and while I do my best to answer all of them, I prioritize
+  requests where you introduce yourself and ask a clear, concise question.
+
+- Join my |Discord| server, where you can ask questions and engage with me and other users.
+
+- Try your luck on the official |MatSci| forum for LAMMPS. Please note that
+  the main purpose of the forum is to report LAMMPS bugs to developers, rather
+  than to seek advice on research questions.
 
 .. |simon-gravelle| raw:: html
 
-   <a href="https://simongravelle.github.io/" target="_blank">email</a>
+   <a href="https://simongravelle.github.io/" target="_blank">here</a>
 
-..
-    Struggling with your simulation project?
-    ========================================
+.. |Discord| raw:: html
 
-    .. figure:: figures/contact-me/patreon.png
-    :height: 100
-    :alt: Simon gravelle patreon for LAMMPS and GROMACS material
-    :align: right
-    :target: https://www.patreon.com/molecularsimulations
+   <a href="https://discord.gg/etyAD9JuCq" target="_blank">Discord</a>
 
-..
-    ..  container:: justify
+.. |MatSci| raw:: html
 
-   Get your questions answered in a dedicated
-   |patreon-discord| Discord channel.
-
+   <a href="https://matsci.org/c/lammps/40" target="_blank">MatSci</a>
 
 Support the LAMMPS tutorials initiative
 =======================================
@@ -32,7 +33,7 @@ Support the LAMMPS tutorials initiative
 ..  container:: justify
 
     You can support this webpage through |patreon| or |tipeee|. As a supporter,
-    you will gain access a dedicated Discord channel
+    you will access dedicated support channels on |Discord|.
 
 .. |patreon| raw:: html
 
@@ -42,7 +43,7 @@ Support the LAMMPS tutorials initiative
 
    <a href="https://en.tipeee.com/lammps-tutorials" target="_blank">Tipeee</a>
 
-Follow me
+Follow us
 =========
 
 ..  container:: justify
