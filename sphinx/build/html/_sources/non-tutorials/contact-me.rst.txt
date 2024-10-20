@@ -27,6 +27,16 @@ If you're struggling with your simulations, here are a few options to consider:
 
    <a href="https://matsci.org/c/lammps/40" target="_blank">MatSci</a>
 
+You have feedback for us?
+*************************
+
+If you have feedback, you can raise an issue on |GitHub|, especially if you've
+noticed any inconsistencies, errors, or typos.
+
+.. |GitHub| raw:: html
+
+    <a href="https://github.com/lammpstutorials/lammpstutorials.github.io" target="_blank">GitHub</a>
+
 Support the LAMMPS tutorials initiative
 =======================================
 
