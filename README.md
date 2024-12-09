@@ -1,9 +1,12 @@
 # LAMMPS tutorials
 
 This is the repository of the [LAMMPS tutorials](https://lammpstutorials.github.io/)
-webpage. All the LAMMPS input scripts and data files can be found in a separate repository named [lammpstutorials-inputs](https://github.com/lammpstutorials/lammpstutorials-inputs).
+webpage. All the LAMMPS input scripts and data files can be found in a
+separate repository named [lammpstutorials-inputs](https://github.com/lammpstutorials/lammpstutorials-inputs).
 
 The tutorials are compatible with the 2Aug2023 stable release of LAMMPS.
+
+An article is currently is preparation and is [visible here](https://github.com/lammpstutorials/lammpstutorials-article).
 
 ## About LAMMPS tutorials
 
