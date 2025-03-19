@@ -10,6 +10,7 @@ Lennard-Jones fluid
 .. include:: introduction.rst
 .. include:: ../../non-tutorials/needhelp.rst
 .. include:: ../shared/versionLAMMPS.rst
+.. include:: ../shared/cite.rst
 .. include:: tutorial.rst
 .. include:: ../shared/access-the-files.rst
 .. include:: exercises.rst
