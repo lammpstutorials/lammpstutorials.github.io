@@ -7,7 +7,7 @@
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
         <title>Reactive silicon dioxide - </title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -290,7 +290,7 @@
 </figure>
 <div class="justify docutils container">
 <p>The objective of this tutorial is to use a
-reactive force field (ReaxFF <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id54" title="Adri CT van Duin, Siddharth Dasgupta, Francois Lorant, and William A Goddard. ReaxFF: a reactive force field for hydrocarbons. The Journal of Physical Chemistry A, 105(41):9396–9409, 2001.">41</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id53" title="Chenyu Zou and Adri van Duin. Investigation of complex iron surface catalytic chemistry using the ReaxFF reactive force field method. Jom, 64:1426–1437, 2012.">42</a>]</span>)
+reactive force field (ReaxFF <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id55" title="Adri CT van Duin, Siddharth Dasgupta, Francois Lorant, and William A Goddard. ReaxFF: a reactive force field for hydrocarbons. The Journal of Physical Chemistry A, 105(41):9396–9409, 2001.">42</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id54" title="Chenyu Zou and Adri van Duin. Investigation of complex iron surface catalytic chemistry using the ReaxFF reactive force field method. Jom, 64:1426–1437, 2012.">43</a>]</span>)
 to calculate the partial charges of a system undergoing
 deformation, as well as chemical bond formation and breaking.</p>
 </div>
@@ -305,10 +305,10 @@ are tracked over time.</p>
 <p>If you are completely new to LAMMPS, I recommend that
 you follow this tutorial on a simple <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a> first.</p>
 </div>
-<div class="patreon admonition">
-<p class="admonition-title">Looking for help or have feedback for us?</p>
-<p>Visit the <a class="reference internal" href="../../non-tutorials/contact-me.html#contact-label"><span class="std std-ref">Looking for help?</span></a> page to get in touch with us.</p>
-</div>
+<p>If you find these tutorials useful for your research or simulations, you can
+cite: A Set of Tutorials for the LAMMPS Simulation Package” by Simon Gravelle,
+Jacob R. Gissinger, and Axel Kohlmeyer (2025) <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id3" title="Simon Gravelle, Jacob R. Gissinger, and Axel Kohlmeyer. A set of tutorials for the lammps simulation package. arXiv preprint, 2025. Submitted on 18 Mar 2025. arXiv:2503.14020, doi:10.48550/arXiv.2503.14020.">13</a>]</span>. You
+can access the full paper on <a href="https://doi.org/10.48550/arXiv.2503.14020" target="_blank">arXiv</a>.</p>
 <div class="version docutils container">
 <p>This tutorial is compatible with the 2Aug2023 LAMMPS version.</p>
 </div>
@@ -323,7 +323,7 @@ amorphous silica structure.</p>
 <p class="admonition-title">About the initial structure</p>
 <p>The system was created by temperature annealing using another force field
 named <a href="../../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/CreateSilica/SiO.1990.vashishta" target="_blank">vashishta</a>
-<span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id43" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">43</a>]</span>. In case you are
+<span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id44" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">44</a>]</span>. In case you are
 interested in the input creation, the files
 used for creating the initial topology is available
 <a href="../../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/CreateSilica/input.lammps" target="_blank">here</a>.</p>
@@ -380,7 +380,7 @@ the atoms of type 1 are set as silicon (Si),
 and the atoms of type 2 as oxygen (O).</p>
 </div>
 <div class="justify docutils container">
-<p>Finally, the <em>fix qeq/reaxff</em> is used to perform charge equilibration <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id12" title="Anthony K Rappe and William A Goddard III. Charge equilibration for molecular dynamics simulations. The Journal of Physical Chemistry, 95(8):3358–3363, 1991.">44</a>]</span>.
+<p>Finally, the <em>fix qeq/reaxff</em> is used to perform charge equilibration <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id13" title="Anthony K Rappe and William A Goddard III. Charge equilibration for molecular dynamics simulations. The Journal of Physical Chemistry, 95(8):3358–3363, 1991.">45</a>]</span>.
 The charge equilibration occurs at every step. The values 0.0 and 10.0
 are the low and the high cutoffs, respectively, and <span class="math notranslate nohighlight">\(1.0 \text{e} -6\)</span> is a
 tolerance. Finally, <em>maxiter</em> sets an upper limit to the number of attempts to

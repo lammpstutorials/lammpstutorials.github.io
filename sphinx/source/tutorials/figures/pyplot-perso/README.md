@@ -1,7 +1,12 @@
+[![DOI](https://zenodo.org/badge/737122279.svg)](https://zenodo.org/doi/10.5281/zenodo.13341527)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 # Matplotlib Pyplot functions
 
-My own Python class for making [Pyplot](https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html) figures compatible with Latex documents. These functions are used for several of my personal projects, including [LAMMPS tutorials](https://lammpstutorials.github.io) and 
-[NMRforMD](https://nmrformd.readthedocs.io).
+My own Python class for making [Pyplot](https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html)
+figures compatible with Latex documents. These functions are used in my most recent publications, as well as in:
+- [LAMMPS tutorials](https://lammpstutorials.github.io)
+- [NMRforMD](https://nmrformd.readthedocs.io)
 
 ## Examples
 

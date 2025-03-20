@@ -7,7 +7,7 @@
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
         <title>Water adsorption in silica - </title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -305,10 +305,10 @@ in a nanoporous structure.</p>
 <p>If you are completely new to LAMMPS, I recommend that
 you follow this tutorial on a simple <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a> first.</p>
 </div>
-<div class="patreon admonition">
-<p class="admonition-title">Looking for help or have feedback for us?</p>
-<p>Visit the <a class="reference internal" href="../../non-tutorials/contact-me.html#contact-label"><span class="std std-ref">Looking for help?</span></a> page to get in touch with us.</p>
-</div>
+<p>If you find these tutorials useful for your research or simulations, you can
+cite: A Set of Tutorials for the LAMMPS Simulation Package” by Simon Gravelle,
+Jacob R. Gissinger, and Axel Kohlmeyer (2025) <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id3" title="Simon Gravelle, Jacob R. Gissinger, and Axel Kohlmeyer. A set of tutorials for the lammps simulation package. arXiv preprint, 2025. Submitted on 18 Mar 2025. arXiv:2503.14020, doi:10.48550/arXiv.2503.14020.">13</a>]</span>. You
+can access the full paper on <a href="https://doi.org/10.48550/arXiv.2503.14020" target="_blank">arXiv</a>.</p>
 <div class="version docutils container">
 <p>This tutorial is compatible with the 2Aug2023 LAMMPS version.</p>
 </div>
@@ -369,7 +369,7 @@ and copy it within the <em>Potential/</em> folder.</p>
 <p>The <a href="https://pubmed.ncbi.nlm.nih.gov/9993674/" target="_blank">Vashishta</a>
 potential is a bond-angle energy-based potential, it
 deduces the bonds between atoms from their relative
-positions <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id43" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">43</a>]</span>. Therefore, there is no need to
+positions <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id44" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">44</a>]</span>. Therefore, there is no need to
 provide the bond and angle information as we do with classic force fields
 like GROMOS or AMBER. When used with LAMMPS, the <em>Vashishta</em>
 potential requires the use of the <em>metal</em> units system.
@@ -640,7 +640,7 @@ with a virtual reservoir of a given chemical potential
 <span class="math notranslate nohighlight">\(\mu\)</span>, and multiple attempts to insert water
 molecules at random positions are made. Each attempt is
 either accepted or rejected based on energy considerations. Find more details
-in classical textbooks <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id40" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>]</span>.</p>
+in classical textbooks <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id41" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>]</span>.</p>
 </div>
 <section id="using-hydrid-potentials">
 <h3>Using hydrid potentials<a class="headerlink" href="#using-hydrid-potentials" title="Link to this heading">¶</a></h3>
@@ -670,7 +670,7 @@ following lines into it:</p>
 used in this tutorial. From now on, the system will combine water and silica,
 and therefore two force fields are combined: Vashishta for
 SiO, and lj/cut/tip4p/long for TIP4P water model (here
-the TIP4P/2005 model is used <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id46" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">35</a>]</span>).
+the TIP4P/2005 model is used <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id47" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">36</a>]</span>).
 Combining the two force fields is done using the <em>hybrid/overlay</em> pair style.</p>
 </div>
 <div class="info admonition">
@@ -892,7 +892,7 @@ this simulation, you should see the number of molecules
 increasing progressively. When using the pressure argument,
 LAMMPS ignores the value of the chemical potential [here <span class="math notranslate nohighlight">\(\mu = -0.5\,\text{eV}\)</span>,
 which corresponds roughly to ambient conditions (i.e. <span class="math notranslate nohighlight">\(\text{RH} \approx 50\,\%\)</span>)
-<span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id4" title="Simon Gravelle and Jacques Dumais. A multi-scale model for fluid transport through a bio-inspired passive valve. The Journal of Chemical Physics, 2020.">45</a>]</span>.] The large pressure value of 10000 bars was chosen to ensure that
+<span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id5" title="Simon Gravelle and Jacques Dumais. A multi-scale model for fluid transport through a bio-inspired passive valve. The Journal of Chemical Physics, 2020.">46</a>]</span>.] The large pressure value of 10000 bars was chosen to ensure that
 some successful insertions of molecules would occur during the
 extremely short duration of this simulation.</p>
 </div>

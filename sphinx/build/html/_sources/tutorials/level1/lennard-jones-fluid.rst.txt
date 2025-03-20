@@ -40,7 +40,7 @@ Lennard-Jones fluid
     simulations, such as system initialization, energy minimization, integration
     of the equations of motion, and trajectory visualization.
 
-.. include:: ../../non-tutorials/needhelp.rst
+.. include:: ../../non-tutorials/cite.rst
 .. include:: ../../non-tutorials/2Aug2023.rst
 
 My first input

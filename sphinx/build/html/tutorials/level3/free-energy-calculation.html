@@ -7,7 +7,7 @@
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
         <title>Free energy calculation - </title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -292,7 +292,7 @@
 <p>The objective of this tutorial is to measure a free
 energy profile of particles across a barrier potential
 using two methods: free sampling
-and umbrella sampling <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id40" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id26" title="Michael P Allen and Dominic J Tildesley. Computer simulation of liquids. Oxford university press, 2017.">9</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id10" title="Johannes Kästner. Umbrella sampling. Wiley Interdisciplinary Reviews: Computational Molecular Science, 1(6):932–942, 2011.">46</a>]</span>.</p>
+and umbrella sampling <span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id41" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id27" title="Michael P Allen and Dominic J Tildesley. Computer simulation of liquids. Oxford university press, 2017.">9</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id11" title="Johannes Kästner. Umbrella sampling. Wiley Interdisciplinary Reviews: Computational Molecular Science, 1(6):932–942, 2011.">47</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>For simplicity and to reduce computation time, the barrier potential will
@@ -301,16 +301,16 @@ a repulsive area in the middle of the simulation box without the need to
 simulate extra atoms. The procedure is valid for more complex systems and
 can be adapted to many other situations, such as measuring the adsorption
 barrier near an interface, or for calculating a translocation
-barrier through a membrane <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id9" title="Michael A Wilson and Andrew Pohorille. Adsorption and solvation of ethanol at the water liquid- vapor interface: a molecular dynamics study. The Journal of Physical Chemistry B, 101(16):3130–3135, 1997.">47</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id7" title="Dmitrii E Makarov. Computer simulations and theory of protein translocation. Accounts of chemical research, 42(2):281–289, 2009.">48</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id8" title="Simon Gravelle and Lorenzo Botto. Adsorption of single and multiple graphene-oxide nanoparticles at a water–vapor interface. Langmuir, 37(45):13322–13330, 2021.">49</a>]</span>.</p>
+barrier through a membrane <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id10" title="Michael A Wilson and Andrew Pohorille. Adsorption and solvation of ethanol at the water liquid- vapor interface: a molecular dynamics study. The Journal of Physical Chemistry B, 101(16):3130–3135, 1997.">48</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id8" title="Dmitrii E Makarov. Computer simulations and theory of protein translocation. Accounts of chemical research, 42(2):281–289, 2009.">49</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id9" title="Simon Gravelle and Lorenzo Botto. Adsorption of single and multiple graphene-oxide nanoparticles at a water–vapor interface. Langmuir, 37(45):13322–13330, 2021.">50</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you are completely new to LAMMPS, I recommend that
 you follow this tutorial on a simple <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a> first.</p>
 </div>
-<div class="patreon admonition">
-<p class="admonition-title">Looking for help or have feedback for us?</p>
-<p>Visit the <a class="reference internal" href="../../non-tutorials/contact-me.html#contact-label"><span class="std std-ref">Looking for help?</span></a> page to get in touch with us.</p>
-</div>
+<p>If you find these tutorials useful for your research or simulations, you can
+cite: A Set of Tutorials for the LAMMPS Simulation Package” by Simon Gravelle,
+Jacob R. Gissinger, and Axel Kohlmeyer (2025) <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id3" title="Simon Gravelle, Jacob R. Gissinger, and Axel Kohlmeyer. A set of tutorials for the lammps simulation package. arXiv preprint, 2025. Submitted on 18 Mar 2025. arXiv:2503.14020, doi:10.48550/arXiv.2503.14020.">13</a>]</span>. You
+can access the full paper on <a href="https://doi.org/10.48550/arXiv.2503.14020" target="_blank">arXiv</a>.</p>
 <div class="version docutils container">
 <p>This tutorial is compatible with the 2Aug2023 LAMMPS version.</p>
 </div>
@@ -377,7 +377,7 @@ to regularly overcome the energy barrier thanks to the thermal agitation.</p>
 </div>
 <div class="justify docutils container">
 <p>The value of 3.822 for the cut-off was chosen to
-create a WCA, purely repulsive, potential <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id5" title="John D Weeks, David Chandler, and Hans C Andersen. Role of repulsive forces in determining the equilibrium structure of simple liquids. The Journal of chemical physics, 54(12):5237–5247, 1971.">50</a>]</span>. It was calculated
+create a WCA, purely repulsive, potential <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id6" title="John D Weeks, David Chandler, and Hans C Andersen. Role of repulsive forces in determining the equilibrium structure of simple liquids. The Journal of chemical physics, 54(12):5237–5247, 1971.">51</a>]</span>. It was calculated
 as <span class="math notranslate nohighlight">\(2^{1/6} \times 3.405\)</span> where
 <span class="math notranslate nohighlight">\(3.405 = \sigma\)</span>.</p>
 </div>
@@ -617,13 +617,13 @@ to extract free energy profiles, see the next section.</p>
 <div class="justify docutils container">
 <p>Umbrella sampling is a biased molecular dynamics method in which additional forces are added to a chosen atom to
 force it to explore the entire space, including the more unfavorable areas of
-the system <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id40" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id26" title="Michael P Allen and Dominic J Tildesley. Computer simulation of liquids. Oxford university press, 2017.">9</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id10" title="Johannes Kästner. Umbrella sampling. Wiley Interdisciplinary Reviews: Computational Molecular Science, 1(6):932–942, 2011.">46</a>]</span>.</p>
+the system <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id41" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">8</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id27" title="Michael P Allen and Dominic J Tildesley. Computer simulation of liquids. Oxford university press, 2017.">9</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id11" title="Johannes Kästner. Umbrella sampling. Wiley Interdisciplinary Reviews: Computational Molecular Science, 1(6):932–942, 2011.">47</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>To encourage one of the atoms to explore the central region of the box, we apply a potential <span class="math notranslate nohighlight">\(V\)</span> and force it to move
 along the <span class="math notranslate nohighlight">\(x\)</span>-axis. The chosen path is called the axis of reaction. Several simulations (or windows) will be conducted
 with varying parameters for the applied biasing. The results will be analyzed using the weighted histogram analysis
-method (WHAM) <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id6" title="Shankar Kumar, John M Rosenberg, Djamal Bouzida, Robert H Swendsen, and Peter A Kollman. The weighted histogram analysis method for free-energy calculations on biomolecules. i. the method. Journal of computational chemistry, 13(8):1011–1021, 1992.">51</a>]</span>, which allows for the removal of the biasing effect and ultimately deduces
+method (WHAM) <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id7" title="Shankar Kumar, John M Rosenberg, Djamal Bouzida, Robert H Swendsen, and Peter A Kollman. The weighted histogram analysis method for free-energy calculations on biomolecules. i. the method. Journal of computational chemistry, 13(8):1011–1021, 1992.">52</a>]</span>, which allows for the removal of the biasing effect and ultimately deduces
 the unbiased free energy profile.</p>
 </div>
 <section id="lammps-input-script">
@@ -724,7 +724,7 @@ can always increase the duration of the runs for better samplings.</p>
 <h3>WHAM algorithm<a class="headerlink" href="#wham-algorithm" title="Link to this heading">¶</a></h3>
 <div class="justify docutils container">
 <p>To generate the free energy profile from the density distribution,
-let us use the WHAM algorithm as implemented by Alan Grossfield <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id42" title="Alan Grossfield. An implementation of WHAM: the weighted histogram analysis method version 2.0.10. URL: http://membrane.urmc.rochester.edu/content/wham/.">52</a>]</span>.</p>
+let us use the WHAM algorithm as implemented by Alan Grossfield <span id="id7">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id43" title="Alan Grossfield. An implementation of WHAM: the weighted histogram analysis method version 2.0.10. URL: http://membrane.urmc.rochester.edu/content/wham/.">53</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>You can download it from <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a> website, and compile it using:</p>
@@ -756,7 +756,7 @@ contains</p>
 <p>To generate the <em>metadata.txt</em> file, you can run this Python script
 from the <em>BiasedSampling/</em> folder:</p>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
 <span class="n">k</span><span class="o">=</span><span class="mf">1.5</span>
 <span class="n">folder</span><span class="o">=</span><span class="s1">&#39;data-k1.5/&#39;</span>

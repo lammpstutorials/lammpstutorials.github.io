@@ -59,7 +59,10 @@ class PltTools():
                  y_boundaries=None,
                  y_ticks=None,
                  saving_path = None,
+                 saving_format = "png",
                  filename = None,
+                 text_content = None,
+                 text_position = None,
                  *args,
                  **kwargs
                  ):
@@ -109,6 +112,9 @@ class PltTools():
         self.y_ticks=y_ticks
         self.saving_path = saving_path
         self.filename = filename
+        self.saving_format = saving_format
+        self.text_content = text_content
+        self.text_position = text_position
 
         if self.fontsize == 'default':
             self.fontsize = 34
@@ -137,6 +143,7 @@ class PltTools():
         self.data_linewidth = 4
         self.data_color = None
         self.legend = False
+        self.text_content = None
 
     def prepare_figure(self, **args):
 
@@ -245,6 +252,14 @@ class PltTools():
                         linewidth = self.data_linewidth,
                         label = self.data_label,
                         facecolor = np.array([data_color[0], data_color[1], data_color[2], 0.5]))
+        elif self.type == "scatter":
+            self.ax[-1].scatter(self.x,
+                        self.y,
+                        s = self.markersize,
+                        marker = self.marker,
+                        color = data_color,
+                        linewidth = self.data_linewidth,
+                        label = self.data_label)   
         self.cpt_colors += 1
 
         # Convert the axis to log        
@@ -315,6 +330,30 @@ class PltTools():
                     fontdict = self.font,
                     color=self.axis_color
                 )     
+
+    def add_text(self, **args):
+        """Add a labels to each axis of a figure.
+        Four options:
+        - For small letters, use type_label_panel='a'
+        - For large letters, use type_label_panel='A'
+        - Deactivate using type_label_panel=None
+        - Provide a list of special character instead. The list must be the size of 'ax' 
+        """
+        self.update_parameters(**args)
+        if self.text_content is not None:
+            if self.text_position is not None:
+                self.ax[-1].text(
+                    self.text_position[0],
+                    self.text_position[1],
+                    self.text_content,
+                    # transform=self.ax[-1].transAxes + trans,
+                    va="top",
+                    #bbox=dict(facecolor="none", alpha=0.5, edgecolor="none", pad=3.0),
+                    fontdict = self.font,
+                    color=self.axis_color
+                )     
+            else:
+                print("WARNING, text_content specified without text_position ")
 
 
     def complete_panel(self, **args):
@@ -462,10 +501,19 @@ class PltTools():
                         "text.latex.preamble" : r"\usepackage{cmbright}"
                     })
         if self.dark_mode:
+            if self.saving_format == 'pdf':
+                print("dark mode and pdf not supported. saving to png")
             plt.savefig(saving_path + self.filename + "-dm.png",
                         bbox_inches = 'tight', pad_inches = 0.062,
                         transparent=self.transparency, dpi=200)
         else:
-            plt.savefig(saving_path + self.filename + ".png",
-                        bbox_inches = 'tight', pad_inches = 0.062,
-                        transparent=self.transparency, dpi=200)
+            if self.saving_format == 'pdf':
+                if self.transparency:
+                    print("pdf and transparency were chosen")
+                plt.savefig(saving_path + self.filename + ".pdf",
+                            bbox_inches = 'tight', pad_inches = 0.062,
+                            transparent=self.transparency, dpi=200)
+            elif self.saving_format == 'png':
+                plt.savefig(saving_path + self.filename + ".png",
+                            bbox_inches = 'tight', pad_inches = 0.062,
+                            transparent=self.transparency, dpi=200)

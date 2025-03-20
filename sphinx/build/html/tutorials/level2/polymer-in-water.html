@@ -7,7 +7,7 @@
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
         <title>Polymer in water - </title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -297,23 +297,23 @@ hydrophilic polymer (PEG - PolyEthylene Glycol) in a reservoir of water.</p>
 and pressure, the polymer molecule is added and a constant stretching force
 is applied to both ends of the polymer. The evolution of the polymer length
 is measured as a function of time. The GROMOS 54A7 force field
-<span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id33" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">24</a>]</span> is used for the PEG, the SPC/Fw
-model <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id37" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">25</a>]</span> is used for the water, and the long-range
-Coulomb interactions are solved using the PPPM solver <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id27" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">26</a>]</span>.</p>
+<span id="id1">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">25</a>]</span> is used for the PEG, the SPC/Fw
+model <span id="id2">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id38" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">26</a>]</span> is used for the water, and the long-range
+Coulomb interactions are solved using the PPPM solver <span id="id3">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id28" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">27</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>This tutorial was inspired by a <a href="https://doi.org/10.1021/acsnano.6b07071" target="_blank">publication</a> by Liese and coworkers, in which
 molecular dynamics simulations are
-compared with force spectroscopy experiments <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id45" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">27</a>]</span>.</p>
+compared with force spectroscopy experiments <span id="id4">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id46" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">28</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>If you are completely new to LAMMPS, I recommend that
 you follow this tutorial on a simple <a class="reference internal" href="../level1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a> first.</p>
 </div>
-<div class="patreon admonition">
-<p class="admonition-title">Looking for help or have feedback for us?</p>
-<p>Visit the <a class="reference internal" href="../../non-tutorials/contact-me.html#contact-label"><span class="std std-ref">Looking for help?</span></a> page to get in touch with us.</p>
-</div>
+<p>If you find these tutorials useful for your research or simulations, you can
+cite: A Set of Tutorials for the LAMMPS Simulation Package” by Simon Gravelle,
+Jacob R. Gissinger, and Axel Kohlmeyer (2025) <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id3" title="Simon Gravelle, Jacob R. Gissinger, and Axel Kohlmeyer. A set of tutorials for the lammps simulation package. arXiv preprint, 2025. Submitted on 18 Mar 2025. arXiv:2503.14020, doi:10.48550/arXiv.2503.14020.">13</a>]</span>. You
+can access the full paper on <a href="https://doi.org/10.48550/arXiv.2503.14020" target="_blank">arXiv</a>.</p>
 <div class="version docutils container">
 <p>This tutorial is compatible with the 2Aug2023 LAMMPS version.</p>
 </div>
@@ -323,9 +323,9 @@ you follow this tutorial on a simple <a class="reference internal" href="../leve
 <p>In this tutorial, the water reservoir is first prepared in the absence of
 the polymer. A rectangular box of water is created and
 equilibrated at ambient temperature and ambient pressure.
-The SPC/Fw water model is used <span id="id5">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id37" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">25</a>]</span>, which is
+The SPC/Fw water model is used <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id38" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">26</a>]</span>, which is
 a flexible variant of the rigid SPC (simple point charge)
-model <span id="id6">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id36" title="Herman JC Berendsen, James PM Postma, Wilfred F van Gunsteren, and Jan Hermans. Interaction models for water in relation to protein hydration. In Intermolecular forces: proceedings of the fourteenth Jerusalem symposium on quantum chemistry and biochemistry held in jerusalem, israel, april 13–16, 1981, 331–342. Springer, 1981.">28</a>]</span>.</p>
+model <span id="id7">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id37" title="Herman JC Berendsen, James PM Postma, Wilfred F van Gunsteren, and Jan Hermans. Interaction models for water in relation to protein hydration. In Intermolecular forces: proceedings of the fourteenth Jerusalem symposium on quantum chemistry and biochemistry held in jerusalem, israel, april 13–16, 1981, 331–342. Springer, 1981.">29</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>Create a folder named <em>pureH2O/</em>. Inside this folder, create
@@ -392,7 +392,7 @@ atoms outside that cutoff are computed in the reciprocal space.</p>
 <div class="justify docutils container">
 <p>Finally, the <em>kspace</em> command defines the long-range solver for the
 Coulomb interactions. The <em>pppm</em> style refers to
-particle-particle particle-mesh <span id="id7">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id27" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">26</a>]</span>.</p>
+particle-particle particle-mesh <span id="id8">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id28" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">27</a>]</span>.</p>
 </div>
 <div class="info admonition">
 <p class="admonition-title">About PPPM</p>
@@ -402,7 +402,7 @@ between particles into the sum of short-range
 interactions, which are computed by direct
 particle-particle summation, and long-range interactions,
 which are calculated by solving Poisson’s equation using
-periodic boundary conditions (PBCs) <span id="id8">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id27" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">26</a>]</span>.</p>
+periodic boundary conditions (PBCs) <span id="id9">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id28" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">27</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>Then, let us create a 3D simulation box of dimensions <span class="math notranslate nohighlight">\(9 \times 3 \times 3 \; \text{nm}^3\)</span>,
@@ -512,7 +512,7 @@ number (since the minimization stops when one of four criteria is reached).</p>
 <p>Let us use the <em>fix npt</em> to
 control the temperature of the molecules with a Nosé-Hoover thermostat and
 the pressure of the system with a Nosé-Hoover barostat
-<span id="id9">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id19" title="Shuichi Nosé. A unified formulation of the constant temperature molecular dynamics methods. The Journal of chemical physics, 81(1):511–519, 1984.">29</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id18" title="William G Hoover. Canonical dynamics: equilibrium phase-space distributions. Physical review A, 31(3):1695, 1985.">30</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id17" title="Glenn J Martyna, Douglas J Tobias, and Michael L Klein. Constant pressure molecular dynamics algorithms. The Journal of chemical physics, 101(5):4177–4189, 1994.">31</a>]</span>,
+<span id="id10">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id20" title="Shuichi Nosé. A unified formulation of the constant temperature molecular dynamics methods. The Journal of chemical physics, 81(1):511–519, 1984.">30</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id19" title="William G Hoover. Canonical dynamics: equilibrium phase-space distributions. Physical review A, 31(3):1695, 1985.">31</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id18" title="Glenn J Martyna, Douglas J Tobias, and Michael L Klein. Constant pressure molecular dynamics algorithms. The Journal of chemical physics, 101(5):4177–4189, 1994.">32</a>]</span>,
 by adding the following line into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">iso</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1000</span>
@@ -601,7 +601,7 @@ a plateau after <span class="math notranslate nohighlight">\(\approx 10\,\text{p
 <p class="admonition-title">Insufficient simulation duration</p>
 <p>A duration of <span class="math notranslate nohighlight">\(20~\text{ps}\)</span> is not sufficient to reach the actual equilibrium density.
 Increase this duration to at least <span class="math notranslate nohighlight">\(500~\text{ps}\)</span> to obtain a density value that
-is comparable with the values given in Ref. <span id="id10">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id37" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">25</a>]</span>.</p>
+is comparable with the values given in Ref. <span id="id11">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id38" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">26</a>]</span>.</p>
 </div>
 <div class="justify docutils container">
 <p>If needed, you can <a href="../../../../../lammpstutorials-inputs/level2/polymer-in-water/pureH2O/H2O.data" target="_blank">download</a> the water reservoir I have
@@ -616,10 +616,10 @@ include the PEG polymer in the water.</p>
 </div>
 <div class="justify docutils container">
 <p>The PEG molecule topology was downloaded from the <a href="https://atb.uq.edu.au/" target="_blank">ATB</a>
-repository <span id="id11">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id55" title="Alpeshkumar K Malde, Le Zuo, Matthew Breeze, Martin Stroet, David Poger, Pramod C Nair, Chris Oostenbrink, and Alan E Mark. An automated force field topology builder (ATB) and repository: version 1.0. Journal of chemical theory and computation, 7(12):4026–4037, 2011.">32</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id56" title="Chris Oostenbrink, Alessandra Villa, Alan E Mark, and Wilfred F van Gunsteren. A biomolecular force field based on the free enthalpy of hydration and solvation: the GROMOS force-field parameter sets 53A5 and 53A6. Journal of computational chemistry, 25(13):1656–1676, 2004.">33</a>]</span>.
+repository <span id="id12">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id56" title="Alpeshkumar K Malde, Le Zuo, Matthew Breeze, Martin Stroet, David Poger, Pramod C Nair, Chris Oostenbrink, and Alan E Mark. An automated force field topology builder (ATB) and repository: version 1.0. Journal of chemical theory and computation, 7(12):4026–4037, 2011.">33</a>, <a class="reference internal" href="../../non-tutorials/bibliography.html#id57" title="Chris Oostenbrink, Alessandra Villa, Alan E Mark, and Wilfred F van Gunsteren. A biomolecular force field based on the free enthalpy of hydration and solvation: the GROMOS force-field parameter sets 53A5 and 53A6. Journal of computational chemistry, 25(13):1656–1676, 2004.">34</a>]</span>.
 It has a formula <span class="math notranslate nohighlight">\(\text{C}_{28}\text{H}_{58}\text{O}_{15}\)</span>,
 and the parameters are taken from
-the GROMOS 54A7 force field <span id="id12">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id33" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">24</a>]</span>.</p>
+the GROMOS 54A7 force field <span id="id13">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id34" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">25</a>]</span>.</p>
 </div>
 <figure class="align-default">
 <img alt="PEG in vacuum as simulated with LAMMPS" class="only-light" src="../../_images/singlePEG-light.png" />
@@ -814,7 +814,7 @@ adding the following lines into <em>input.lammps</em>:</p>
 <p>Let us also print the end-to-end distance of the PEG,
 here defined as the distance between the groups <em>topull1</em>
 and <em>topull2</em>, as well as the temperature of the system and the gyration
-radius of the molecule <span id="id13">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id16" title="Marshall Fixman. Radius of Gyration of Polymer Chains. The Journal of Chemical Physics, 36(2):306–310, 1962.">34</a>]</span>
+radius of the molecule <span id="id14">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id17" title="Marshall Fixman. Radius of Gyration of Polymer Chains. The Journal of Chemical Physics, 36(2):306–310, 1962.">35</a>]</span>
 by adding the following lines into <em>input.lammps</em>:</p>
 </div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">mytemp</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">temp</span>
@@ -918,7 +918,7 @@ oxygen atoms of the PEG molecule.</p>
 <div class="justify docutils container">
 <p>Note the difference in the structure of the water before and after
 the PEG molecule is stretched. This effect is described in
-the 2017 publication by Liese et al. <span id="id14">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id45" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">27</a>]</span>.</p>
+the 2017 publication by Liese et al. <span id="id15">[<a class="reference internal" href="../../non-tutorials/bibliography.html#id46" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">28</a>]</span>.</p>
 </div>
 </section>
 <section id="add-salt-to-the-system">

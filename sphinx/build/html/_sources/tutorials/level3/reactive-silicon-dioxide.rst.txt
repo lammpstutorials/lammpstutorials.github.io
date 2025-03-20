@@ -36,7 +36,7 @@ Reactive silicon dioxide
 
 .. include:: ../../non-tutorials/recommand-lj.rst
 
-.. include:: ../../non-tutorials/needhelp.rst
+.. include:: ../../non-tutorials/cite.rst
 
 .. include:: ../../non-tutorials/2Aug2023.rst
 
