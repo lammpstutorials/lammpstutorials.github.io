@@ -157,8 +157,10 @@ interacting through a Lennard-Jones (LJ) potential with a cut-off equal
 to :math:`r_c = 4.0` length units :cite:`wang2020lennard,fischer2023history`:
 
 .. math::
-   E_{ij}(r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12}
-   - \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], \quad \text{for} \quad r < r_c,
+    :label: eq_LJ
+
+    E_{ij}(r) = 4 \epsilon_{ij} \left[ \left( \dfrac{\sigma_{ij}}{r} \right)^{12}
+    - \left( \dfrac{\sigma_{ij}}{r} \right)^{6} \right], \quad \text{for} \quad r < r_c,
 
 where :math:`r` is the inter-particle distance, :math:`\epsilon_{ij}` is
 the depth of the potential well that determines the interaction strength, and
@@ -264,7 +266,7 @@ created at random positions within the simulation box, with some in very
 close proximity to each other.  This proximity results in a large
 initial potential energy due to the repulsive branch of the
 Lennard-Jones potential [i.e.,~the term in :math:`1/r^{12}` in
-Eq. INSERT EQUATION].  As the energy minimization progresses, the energy
+Eq. :eq:`eq_LJ`].  As the energy minimization progresses, the energy
 decreases - first rapidly - then more gradually, before plateauing at a
 negative value.  This indicates that the atoms have moved to reasonable
 distances from one another.
