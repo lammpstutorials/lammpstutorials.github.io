@@ -714,13 +714,28 @@ whole.
 Run *improved.md.lmp* and observe the mixing of the two populations  
 over time (see also Fig. fig:evolution-population ADD FIGURE).  From the  
 variables *n1_in* and *n2_in*, you can track the number of atoms  
-in each region as a function of time (Fig. fig:mixing ADD FIGURE).  To view  
+in each region as a function of time (See figure below).  To view  
 their evolution, select the entries *v_n1_in* or *v_n2_in* in the *Data*  
 drop-down menu in the *Charts* window of LAMMPS--GUI.
 
 In addition, as the mixing progresses, the average coordination number  
 between atoms of types 1 and 2 increases from about 0.01 to 0.04  
-(Fig fig:mixing b ADD FIGURE).  This indicates that, over time, more and  
+(See figure below).  This indicates that, over time, more and  
 more particles of type 1 come into contact with particles of type 2, as  
 expected during mixing.  This can be observed using the entry  
 *c_sumcoor12* in the *Charts* drop-down menu.
+
+.. figure:: figures/LJ-mixing-dm.png
+    :class: only-dark
+    :alt: Evolution of the Lennard-Jones fluid mixing
+
+.. figure:: figures/LJ-mixing.png
+    :class: only-light
+    :alt: Evolution of the Lennard-Jones fluid mixing
+
+..  container:: figurelegend
+
+    a) Evolution of the numbers :math:`N_\text{1, in}$` and :math:`N_\text{2, in}` of atoms
+    of types 1 and 2, respectively, within the *cyl_in* region as functions
+    of time :math:`t`.  b) Evolution of the coordination number :math:`C_{1-2}`
+    (compute *sumcoor12*) between atoms of types 1 and 2.
