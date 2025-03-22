@@ -5,12 +5,23 @@ To run a simulation using LAMMPS, you need to write an input script
 containing a series of commands for LAMMPS to execute, similar to Python
 or Bash scripts.  For clarity, the input scripts for this tutorial will
 be divided into five categories, which will be filled out step by step.
-To set up this tutorial, select *Start LAMMPS Tutorial 1* from
-the *Tutorials* menu of LAMMPS--GUI, and follow the
-instructions.  This will select (or create, if needed) a folder, place
-the initial input file *initial.lmp* in it, and open the file in
-the LAMMPS--GUI Editor window.  It should display the following
-content:
+
+.. tabs::
+
+   .. tab:: GUI
+
+        To set up this tutorial, select *Start LAMMPS Tutorial 1* from
+        the *Tutorials* menu of LAMMPS--GUI, and follow the
+        instructions.  This will select (or create, if needed) a folder, place
+        the initial input file *initial.lmp* in it, and open the file in
+        the LAMMPS--GUI Editor window.  It should display the following content:
+
+   .. tab:: NON-GUI
+
+        To set up this tutorial, navigate to the directory
+        where you want to store your files.  Create a folder if needed and
+        place the initial input file, *initial.lmp*, into it. Then, open the 
+        file in a text editor of your choice, and copy the following into it:
 
 .. code-block:: lammps
 
@@ -22,7 +33,8 @@ content:
     # 5) Run
 
 Everything that appears after a hash symbol (#) is a comment
-and ignored by LAMMPS.  LAMMPS-GUI will color such comments in red.
+and ignored by LAMMPS.
+.. LAMMPS-GUI will color such comments in red.
 These five categories are not required in every input script and do not
 necessarily need to be in that exact order.  For instance, the *Settings*
 and the *Visualization* categories could be inverted, or
@@ -44,7 +56,7 @@ or extended spheres with a radius and angular velocities). These commands must b
 executed *before* creating the simulation box or they will cause
 an error. Similarly, many LAMMPS commands may only be
 entered *after* the simulation box is defined. Only a limited
-number of commands may be used in both cases. Update the initial.lmp file
+number of commands may be used in both cases. Update the *initial.lmp* file
 so that the *Initialization* section appears as follows:
 
 .. code-block:: lammps
@@ -87,13 +99,14 @@ slab geometries.
     avoid confusion when sharing input files with other LAMMPS users.
 
 Each LAMMPS command is accompanied by extensive online documentation  
-that details the different options for that command.  From the  
-LAMMPS--GUI editor buffer, you can access the documentation by  
-right-clicking on a line containing a command (e.g., *units lj*)  
-and selecting *View Documentation for `units'*.  This action  
-should prompt your web browser to open the corresponding URL for the  
-online manual.  A screenshot of this context menu is shown in  
-Fig. INCLUDE FIGURE
+that details the different options for that command :cite:`lammps_docs`.
+
+.. From the  
+    LAMMPS--GUI editor buffer, you can access the documentation by  
+    right-clicking on a line containing a command (e.g., *units lj*)  
+    and selecting *View Documentation for `units'*.  This action  
+    should prompt your web browser to open the corresponding URL for the  
+    online manual.
 
 The next step is to create the simulation box and populate it with  
 atoms.  Modify the *System definition* category of  
@@ -108,7 +121,7 @@ atoms.  Modify the *System definition* category of
     create_atoms 2 random 100 12756 simbox overlap 0.3
 
 The first line, *region simbox (...)*, defines a region named  
-*simbox* that is a block (i.e.,~a rectangular cuboid) extending  
+*simbox* that is a block (i.e., a rectangular cuboid) extending  
 from -20 to 20 units along all three spatial dimensions.  The second  
 line, *create_box 2 simbox*, initializes a simulation box based  
 on the region *simbox* and reserves space for two types of atoms.
@@ -205,26 +218,31 @@ The *run 0 post no* command instructs LAMMPS to initialize forces and energy
 without actually running the simulation.  The *post no* option disables
 the post-run summary and statistics output.
 
-You can now run LAMMPS.  The simulation should finish quickly, and with the default
-settings, *lammpsgui* will open two windows: one displaying the console
-output and another with a chart.  The *Output* window will display information from
-the executed commands, including the total energy and pressure at step 0,
-as specified by the thermodynamic data request.  Since no actual simulation
-steps were performed, the *Charts* window will be empty.
+You can now run LAMMPS (basic commands for running LAMMPS
+are provided in Ref. :cite:`lammps_run_basics`).
+The simulation should finish quickly.
 
-Snapshot Image
---------------
+..
+     and with the default
+    settings, *lammpsgui* will open two windows: one displaying the console
+    output and another with a chart.  The *Output* window will display information from
+    the executed commands, including the total energy and pressure at step 0,
+    as specified by the thermodynamic data request.  Since no actual simulation
+    steps were performed, the *Charts* window will be empty.
 
-At this point, you can create a snapshot image of the current system
-using the *Image Viewer* window, which can be accessed by
-clicking the *Create Image* button in the *Run* menu.  The
-image viewer works by instructing LAMMPS to render an image of the
-current system using its internal rendering library via the *dump image*
-command.  The resulting image is then displayed, with various
-buttons available to adjust the view and rendering style.  The image
-shown in Fig. INSERT FIGURE was created this way.  This will always
-capture the current state of the system.  Save the image for future
-comparisons.
+..
+    Snapshot Image
+    --------------
+
+    At this point, you can create a snapshot image of the current system
+    using the *Image Viewer* window, which can be accessed by
+    clicking the *Create Image* button in the *Run* menu.  The
+    image viewer works by instructing LAMMPS to render an image of the
+    current system using its internal rendering library via the *dump image*
+    command.  The resulting image is then displayed, with various
+    buttons available to adjust the view and rendering style.  This will always
+    capture the current state of the system.  Save the image for future
+    comparisons.
 
 Energy minimization
 -------------------
@@ -246,33 +264,36 @@ as the minimizer algorithm cannot find a way to lower the potential
 energy. Note that, except for trivial systems, minimization algorithms will find a
 local minimum rather than the global minimum.
 
-Run the minimization and observe that LAMMPS-GUI captures the output
-and updates the chart in real time (see Fig.~:ref:`fig:chart-log`).  This run executes quickly (depending
-on your computer's capabilities), but LAMMPS-GUI may fail to capture some
-of the thermodynamic data.  In that
-case, use the *Preferences* dialog to reduce the data update
-interval and switch to single-threaded, unaccelerated execution in the
-*Accelerators* tab.  You can repeat the run; each new attempt will start
-fresh, resetting the system and re-executing the script from the beginning.
+..
+    Run the minimization and observe that LAMMPS-GUI captures the output
+    and updates the chart in real time (see Fig. :ref:`fig:chart-log`).  This run executes quickly (depending
+    on your computer's capabilities), but LAMMPS-GUI may fail to capture some
+    of the thermodynamic data.  In that
+    case, use the *Preferences* dialog to reduce the data update
+    interval and switch to single-threaded, unaccelerated execution in the
+    *Accelerators* tab.  You can repeat the run; each new attempt will start
+    fresh, resetting the system and re-executing the script from the beginning.
 
-The potential energy, :math:`U`, decreases from a positive value to a negative value
-(Figs. INSERT FIGURES).  Note that
+Run the minimization.  The potential energy, :math:`U`, decreases
+from a positive value to a negative value
+(as can also be seen in the figure below).  Note that
 during energy minimization, the potential energy equals the total energy
 of the system, :math:`E = U`, since the kinetic energy, :math:`K`, is zero.  The
 initially positive potential energy is expected, as the atoms are
 created at random positions within the simulation box, with some in very
 close proximity to each other.  This proximity results in a large
 initial potential energy due to the repulsive branch of the
-Lennard-Jones potential [i.e.,~the term in :math:`1/r^{12}` in
+Lennard-Jones potential [i.e., the term in :math:`1/r^{12}` in
 Eq. :eq:`eq_LJ`].  As the energy minimization progresses, the energy
 decreases - first rapidly - then more gradually, before plateauing at a
 negative value.  This indicates that the atoms have moved to reasonable
 distances from one another.
 
-Create and save a snapshot image of the simulation state after the
-minimization, and compare it to the initial image.  You should observe
-that the atoms are *clumping together* as they move toward positions
-of lower potential energy.
+..
+    Create and save a snapshot image of the simulation state after the
+    minimization, and compare it to the initial image.  You should observe
+    that the atoms are *clumping together* as they move toward positions
+    of lower potential energy.
 
 Molecular dynamics
 ------------------
@@ -364,8 +385,8 @@ change it to perform statistically independent simulations.  In the
 presence of a thermostat, the MD simulation will be performed in the  
 canonical or NVT ensemble.
 
-Run the simulation again using LAMMPS--GUI.  From the information  
-printed in the *Output* window, one can see that the temperature  
+Run the simulation again using LAMMPS.  From the information  
+printed in the log file, one can see that the temperature  
 starts from 0 but rapidly reaches the requested value and  
 stabilizes itself near :math:`T=1` temperature units.  One can also observe that  
 the potential energy, :math:`U`, rapidly decreases during energy  
@@ -375,6 +396,19 @@ it reaches a plateau value of about -0.25.  The kinetic energy,
 :math:`K`, is equal to zero during energy minimization and then  
 increases rapidly during molecular dynamics until it reaches  
 a plateau value of about 1.5.
+
+..
+    From the information  
+    printed in the *Output* window, one can see that the temperature  
+    starts from 0 but rapidly reaches the requested value and  
+    stabilizes itself near :math:`T=1` temperature units.  One can also observe that  
+    the potential energy, :math:`U`, rapidly decreases during energy  
+    minimization (see the figure below).  After  
+    the molecular dynamics simulation starts, :math:`U` increases until  
+    it reaches a plateau value of about -0.25.  The kinetic energy,  
+    :math:`K`, is equal to zero during energy minimization and then  
+    increases rapidly during molecular dynamics until it reaches  
+    a plateau value of about 1.5.
 
 .. figure:: figures/LJ-energy-dm.png
     :class: only-dark
@@ -536,7 +570,7 @@ stored internally in LAMMPS.
     or *pair_style* is recorded, so those commands do not need to be issued  
     before reading the restart.  Note however that restart files are not expected to be  
     portable across LAMMPS versions or platforms.  Therefore, in these tutorials,  
-    and with the exception of *Tutorial 3*, ADD LINK
+    and with the exception of Tutorial 3, :ref:`all-atoms-label`,
     we primarily use *write_data* to provide you with a reference  
     copy of the data file that works regardless of your LAMMPS version and platform.
 
@@ -573,7 +607,7 @@ lines to *improved.md.lmp*:
     pair_style lj/cut 4.0
     read_data improved.min.data
 
-By visualizing the system (see Fig. fig:improved-min ADD FIGURE), you may
+By visualizing the system, you may
 have noticed that some atoms left their original region during
 minimization.  To start the simulation from a clean slate, with only
 atoms of type 2 inside the cylinder and atoms of type 1 outside the
@@ -712,15 +746,30 @@ whole.
     *flying ice cube syndrome* :cite:`wong2016good`.
 
 Run *improved.md.lmp* and observe the mixing of the two populations  
-over time (see also Fig. fig:evolution-population ADD FIGURE).  From the  
-variables *n1_in* and *n2_in*, you can track the number of atoms  
-in each region as a function of time (See figure below).  To view  
+over time.
+
+.. figure:: figures/mixing-vmd-dark.png
+    :class: only-dark
+    :alt: Evolution of the Lennard-Jones fluid mixing
+
+.. figure:: figures/mixing-vmd-light.png
+    :class: only-light
+    :alt: Evolution of the Lennard-Jones fluid mixing
+
+..  container:: figurelegend
+
+    Evolution of the system during mixing. The
+    three snapshots show respectively the system at :math:`t = 0` (left panel),
+    :math:`t = 75` (middle panel), and :math:`t = 1500` (right panel). The atoms of type
+    1 are represented as small green spheres and the atoms of type 2 as large cyan spheres.
+
+From the  variables *n1_in* and *n2_in*, you can track the number of atoms  
+in each region as a function of time (figure below, panel a).  To view  
 their evolution, select the entries *v_n1_in* or *v_n2_in* in the *Data*  
 drop-down menu in the *Charts* window of LAMMPS--GUI.
-
 In addition, as the mixing progresses, the average coordination number  
 between atoms of types 1 and 2 increases from about 0.01 to 0.04  
-(See figure below).  This indicates that, over time, more and  
+(figure below, panel b).  This indicates that, over time, more and  
 more particles of type 1 come into contact with particles of type 2, as  
 expected during mixing.  This can be observed using the entry  
 *c_sumcoor12* in the *Charts* drop-down menu.
@@ -739,3 +788,36 @@ expected during mixing.  This can be observed using the entry
     of types 1 and 2, respectively, within the *cyl_in* region as functions
     of time :math:`t`.  b) Evolution of the coordination number :math:`C_{1-2}`
     (compute *sumcoor12*) between atoms of types 1 and 2.
+
+Experiments
+-----------
+
+Here are some suggestions for further experiments with this system that  
+may lead to additional insights into how different systems are configured  
+and how various features function:  
+
+- Use a Nosé-Hoover thermostat (*fix nvt*) instead of a Langevin thermostat  
+  (*fix nve* + *fix langevin*).  
+- Omit the energy minimization step before starting the MD simulation using either  
+  the Nosé-Hoover or the Langevin thermostat.  
+- Apply a thermostat to only one type of atoms and observe the  
+  temperature for each type separately.  
+- Append an NVE run (i.e., without any thermostat) and observe the energy levels.  
+
+Another useful experiment is coloring the atoms in the *Slide Show* according
+to an observable, such as their respective coordination numbers. To do this,
+replace the *dump* and *dump_modify* commands with the following lines:
+
+.. code-block:: lammps
+
+    variable coor12 atom (type==1)*(c_coor12)+(type==2)*-1
+    dump viz all image 1000 myimage-*.ppm v_coor12 type &
+    shiny 0.1 box no 0.01 view 0 0 zoom 1.8 fsaa yes size 800 800
+    dump_modify viz adiam 1 1 adiam 2 3 backcolor white &
+    amap -1 2 ca 0.0 4 min royalblue 0 turquoise 1 yellow max red
+
+Run LAMMPS again.  Atoms of type 1 are now colored based on the value
+of *c_coor12*, which is mapped continuously from turquoise to yellow
+and red for atoms with the highest coordination.
+In the definition of the variable *v_coor12*, atoms of type 2 are
+all assigned a value of -1, and will therefore always be colored their default blue.

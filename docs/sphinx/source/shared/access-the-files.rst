@@ -1,6 +1,9 @@
-You can access the input scripts and data files that
-are used in these tutorials from a dedicated |Github_repository_input_folder|.
-This repository also contains the full solutions to the exercises.
+.. admonition:: Cite
+    :class: non-title-info
+
+    You can access the input scripts and data files that
+    are used in these tutorials from a dedicated |Github_repository_input_folder|.
+    This repository also contains the full solutions to the exercises.
 
 .. |Github_repository_input_folder| raw:: html
 

@@ -5,7 +5,8 @@ author = 'See the AUTHORS.rst'
 
 extensions = ['sphinx_togglebutton',
               'sphinx_favicon',
-              'sphinxcontrib.bibtex']
+              'sphinxcontrib.bibtex',
+              'sphinx_tabs.tabs']
 
 templates_path = ['_templates']
 
