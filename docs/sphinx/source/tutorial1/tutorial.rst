@@ -5,23 +5,10 @@ To run a simulation using LAMMPS, you need to write an input script
 containing a series of commands for LAMMPS to execute, similar to Python
 or Bash scripts.  For clarity, the input scripts for this tutorial will
 be divided into five categories, which will be filled out step by step.
-
-.. tabs::
-
-   .. tab:: GUI
-
-        To set up this tutorial, select *Start LAMMPS Tutorial 1* from
-        the *Tutorials* menu of LAMMPS--GUI, and follow the
-        instructions.  This will select (or create, if needed) a folder, place
-        the initial input file *initial.lmp* in it, and open the file in
-        the LAMMPS--GUI Editor window.  It should display the following content:
-
-   .. tab:: NON-GUI
-
-        To set up this tutorial, navigate to the directory
-        where you want to store your files.  Create a folder if needed and
-        place the initial input file, *initial.lmp*, into it. Then, open the 
-        file in a text editor of your choice, and copy the following into it:
+To set up this tutorial, navigate to the directory
+where you want to store your files.  Create a folder if needed and
+place the initial input file, *initial.lmp*, into it. Then, open the 
+file in a text editor of your choice, and copy the following into it:
 
 .. code-block:: lammps
 
@@ -31,6 +18,18 @@ be divided into five categories, which will be filled out step by step.
     # 3) Settings
     # 4) Visualization
     # 5) Run
+
+
+.. admonition:: Optional: follow this tutorial using LAMMPS-GUI
+    :class: gui
+
+    This tutorial can also be followed using LAMMPS graphical
+    user interface (LAMMPS--GUI) :cite:`lammps_gui_docs`.
+    Select *Start LAMMPS Tutorial 1* from
+    the *Tutorials* menu of LAMMPS--GUI, and follow the
+    instructions.  This will select (or create, if needed) a folder, place
+    the initial input file *initial.lmp* in it, and open the file in
+    the LAMMPS--GUI Editor window.
 
 Everything that appears after a hash symbol (#) is a comment
 and ignored by LAMMPS.
@@ -101,8 +100,10 @@ slab geometries.
 Each LAMMPS command is accompanied by extensive online documentation  
 that details the different options for that command :cite:`lammps_docs`.
 
-.. From the  
-    LAMMPS--GUI editor buffer, you can access the documentation by  
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    From the LAMMPS--GUI editor buffer, you can access the documentation by  
     right-clicking on a line containing a command (e.g., *units lj*)  
     and selecting *View Documentation for `units'*.  This action  
     should prompt your web browser to open the corresponding URL for the  
@@ -222,27 +223,24 @@ You can now run LAMMPS (basic commands for running LAMMPS
 are provided in Ref. :cite:`lammps_run_basics`).
 The simulation should finish quickly.
 
-..
-     and with the default
-    settings, *lammpsgui* will open two windows: one displaying the console
-    output and another with a chart.  The *Output* window will display information from
-    the executed commands, including the total energy and pressure at step 0,
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    With the default settings, LAMMPS--GUI will open two windows: one
+    displaying the console output and another with a chart.  The *Output* window
+    will display information from the executed commands, including the
+    total energy and pressure at step 0,
     as specified by the thermodynamic data request.  Since no actual simulation
     steps were performed, the *Charts* window will be empty.
 
-..
-    Snapshot Image
-    --------------
-
-    At this point, you can create a snapshot image of the current system
+    **Snapshot image --** At this point, you can create a snapshot image of the current system
     using the *Image Viewer* window, which can be accessed by
     clicking the *Create Image* button in the *Run* menu.  The
     image viewer works by instructing LAMMPS to render an image of the
     current system using its internal rendering library via the *dump image*
     command.  The resulting image is then displayed, with various
     buttons available to adjust the view and rendering style.  This will always
-    capture the current state of the system.  Save the image for future
-    comparisons.
+    capture the current state of the system.
 
 Energy minimization
 -------------------
@@ -264,9 +262,11 @@ as the minimizer algorithm cannot find a way to lower the potential
 energy. Note that, except for trivial systems, minimization algorithms will find a
 local minimum rather than the global minimum.
 
-..
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
     Run the minimization and observe that LAMMPS-GUI captures the output
-    and updates the chart in real time (see Fig. :ref:`fig:chart-log`).  This run executes quickly (depending
+    and updates the chart in real time.  This run executes quickly (depending
     on your computer's capabilities), but LAMMPS-GUI may fail to capture some
     of the thermodynamic data.  In that
     case, use the *Preferences* dialog to reduce the data update
@@ -397,7 +397,9 @@ it reaches a plateau value of about -0.25.  The kinetic energy,
 increases rapidly during molecular dynamics until it reaches  
 a plateau value of about 1.5.
 
-..
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
     From the information  
     printed in the *Output* window, one can see that the temperature  
     starts from 0 but rapidly reaches the requested value and  
@@ -431,42 +433,59 @@ Trajectory visualization
 
 So far, the simulation has been mostly monitored through the analysis of  
 thermodynamic information.  To better follow the evolution of the system  
-and visualize the trajectories of the atoms, let us use the *dump image*  
-command to create snapshot images during the simulation.  We  
-have already explored the *Image Viewer* window.  Open it again  
-and adjust the visualization to your liking using the available buttons.  
-Now you can copy the commands used to create this visualization to the  
-clipboard by either using the *Ctrl-D* keyboard shortcut or  
-selecting *Copy dump image command* from the *File* menu.  
-This text can be pasted into the *Visualization* section  
-of *PART B* of the *initial.lmp* file.  This may look like  
-the following:
+and visualize the trajectories of the atoms, let us print the positions
+of the atoms in a file at a regular interval.
+
+Add the following command to the *Visualization* section  
+of *PART B* of the *initial.lmp* file:
 
 .. code-block:: lammps
 
-    dump viz all image 100 myimage-*.ppm type type &
-    size 800 800 zoom 1.452 shiny 0.7 fsaa yes &
-    view 80 10 box yes 0.025 axes no 0.0 0.0 &
-    center s 0.483725 0.510373 0.510373
-    dump_modify viz pad 9 boxcolor royalblue &
-    backcolor white adiam 1 1.6 adiam 2 4.8
+    dump mydmp all atom 100 dump.lammpstrj
 
-This command tells LAMMPS to generate NetPBM format images every 100  
-steps.  The two *type* keywords are for *color* and  
-*diameter*, respectively.  Run the *initial.lmp* using  
-LAMMPS again, and a new window named *Slide Show* will pop up.  
-It will show each image created by the *dump image* as it is  
-created. After the simulation is finished (or stopped), the slideshow  
-viewer allows you to animate the trajectory by cycling through the  
-images.  The window also allows you to export the animation to a movie  
-(provided the FFMpeg program is installed) and to bulk delete those  
-image files.
+Run the *initial.lmp* file using LAMMPS again. A file named dump.lammpstrj
+must appear alongside *initial.lmp*. The *.lammpstrj* file can be opened
+using VMD :cite:`vmd_home, humphrey1996vmd` or OVITO :cite:`ovito_home, ovito_paper`.
 
-The rendering of the system can be further adjusted using the many  
-options of the *dump image* command.  For instance, the value for the  
-*shiny* keyword is used to adjust the shininess of the atoms, the  
-*box* keyword adds or removes a representation of the box, and  
-the *view* and *zoom* keywords adjust the camera (and so on).
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    Use the *dump image*  
+    command to create snapshot images during the simulation.  We  
+    have already explored the *Image Viewer* window.  Open it again  
+    and adjust the visualization to your liking using the available buttons.  
+    Now you can copy the commands used to create this visualization to the  
+    clipboard by either using the *Ctrl-D* keyboard shortcut or  
+    selecting *Copy dump image command* from the *File* menu.  
+    This text can be pasted into the *Visualization* section  
+    of *PART B* of the *initial.lmp* file.  This may look like  
+    the following:
+
+    .. code-block:: lammps
+
+        dump viz all image 100 myimage-*.ppm type type &
+            size 800 800 zoom 1.452 shiny 0.7 fsaa yes &
+            view 80 10 box yes 0.025 axes no 0.0 0.0 &
+            center s 0.483725 0.510373 0.510373
+        dump_modify viz pad 9 boxcolor royalblue &
+            backcolor white adiam 1 1.6 adiam 2 4.8
+
+    This command tells LAMMPS to generate NetPBM format images every 100  
+    steps.  The two *type* keywords are for *color* and  
+    *diameter*, respectively.  Run the *initial.lmp* using  
+    LAMMPS again, and a new window named *Slide Show* will pop up.  
+    It will show each image created by the *dump image* as it is  
+    created. After the simulation is finished (or stopped), the slideshow  
+    viewer allows you to animate the trajectory by cycling through the  
+    images.  The window also allows you to export the animation to a movie  
+    (provided the FFMpeg program is installed) and to bulk delete those  
+    image files.
+
+    The rendering of the system can be further adjusted using the many  
+    options of the *dump image* command.  For instance, the value for the  
+    *shiny* keyword is used to adjust the shininess of the atoms, the  
+    *box* keyword adds or removes a representation of the box, and  
+    the *view* and *zoom* keywords adjust the camera (and so on).
 
 Improving the script
 ====================
@@ -542,9 +561,13 @@ the *minimize* command:
 
 Run the *improved.min.lmp* file using LAMMPS--GUI.  At the end  
 of the simulation, a file called *improved.min.data* is created.  
-You can view the contents of this file from LAMMPS--GUI, by  
-right-clicking on the file name in the editor and selecting the entry  
-*View file improved.min.data*.
+
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    You can view the contents of *improved.min.data* from LAMMPS--GUI, by  
+    right-clicking on the file name in the editor and selecting the entry  
+    *View file improved.min.data*.
 
 The created *data* file contains all the information necessary  
 to restart the simulation, such as the number of atoms, the box size,  
@@ -788,36 +811,3 @@ expected during mixing.  This can be observed using the entry
     of types 1 and 2, respectively, within the *cyl_in* region as functions
     of time :math:`t`.  b) Evolution of the coordination number :math:`C_{1-2}`
     (compute *sumcoor12*) between atoms of types 1 and 2.
-
-Experiments
------------
-
-Here are some suggestions for further experiments with this system that  
-may lead to additional insights into how different systems are configured  
-and how various features function:  
-
-- Use a Nosé-Hoover thermostat (*fix nvt*) instead of a Langevin thermostat  
-  (*fix nve* + *fix langevin*).  
-- Omit the energy minimization step before starting the MD simulation using either  
-  the Nosé-Hoover or the Langevin thermostat.  
-- Apply a thermostat to only one type of atoms and observe the  
-  temperature for each type separately.  
-- Append an NVE run (i.e., without any thermostat) and observe the energy levels.  
-
-Another useful experiment is coloring the atoms in the *Slide Show* according
-to an observable, such as their respective coordination numbers. To do this,
-replace the *dump* and *dump_modify* commands with the following lines:
-
-.. code-block:: lammps
-
-    variable coor12 atom (type==1)*(c_coor12)+(type==2)*-1
-    dump viz all image 1000 myimage-*.ppm v_coor12 type &
-    shiny 0.1 box no 0.01 view 0 0 zoom 1.8 fsaa yes size 800 800
-    dump_modify viz adiam 1 1 adiam 2 3 backcolor white &
-    amap -1 2 ca 0.0 4 min royalblue 0 turquoise 1 yellow max red
-
-Run LAMMPS again.  Atoms of type 1 are now colored based on the value
-of *c_coor12*, which is mapped continuously from turquoise to yellow
-and red for atoms with the highest coordination.
-In the definition of the variable *v_coor12*, atoms of type 2 are
-all assigned a value of -1, and will therefore always be colored their default blue.

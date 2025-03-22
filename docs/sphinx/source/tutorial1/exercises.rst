@@ -1,6 +1,41 @@
-
 Going further with exercises
 ============================
+
+Experiments
+-----------
+
+Here are some suggestions for further experiments with this system that  
+may lead to additional insights into how different systems are configured  
+and how various features function:  
+
+- Use a Nosé-Hoover thermostat (*fix nvt*) instead of a Langevin thermostat  
+  (*fix nve* + *fix langevin*).  
+- Omit the energy minimization step before starting the MD simulation using either  
+  the Nosé-Hoover or the Langevin thermostat.  
+- Apply a thermostat to only one type of atoms and observe the  
+  temperature for each type separately.  
+- Append an NVE run (i.e., without any thermostat) and observe the energy levels.  
+
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    An useful experiment is coloring the atoms in the *Slide Show* according
+    to an observable, such as their respective coordination numbers. To do this,
+    replace the *dump* and *dump_modify* commands with the following lines:
+
+    .. code-block:: lammps
+
+        variable coor12 atom (type==1)*(c_coor12)+(type==2)*-1
+        dump viz all image 1000 myimage-*.ppm v_coor12 type &
+        shiny 0.1 box no 0.01 view 0 0 zoom 1.8 fsaa yes size 800 800
+        dump_modify viz adiam 1 1 adiam 2 3 backcolor white &
+        amap -1 2 ca 0.0 4 min royalblue 0 turquoise 1 yellow max red
+
+    Run LAMMPS again.  Atoms of type 1 are now colored based on the value
+    of *c_coor12*, which is mapped continuously from turquoise to yellow
+    and red for atoms with the highest coordination.
+    In the definition of the variable *v_coor12*, atoms of type 2 are
+    all assigned a value of -1, and will therefore always be colored their default blue.
 
 Solve Lost atoms error
 ----------------------
