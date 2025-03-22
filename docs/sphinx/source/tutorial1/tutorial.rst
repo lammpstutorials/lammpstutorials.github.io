@@ -77,7 +77,7 @@ boundaries, different options can be assigned to each dimension, making
 configurations like *boundary p p fm* valid for systems such as  
 slab geometries.
 
-.. admonition:: Test
+.. admonition:: Note
     :class: non-title-info
 
     Strictly speaking, none of the four commands specified in the
@@ -94,8 +94,6 @@ and selecting *View Documentation for `units'*.  This action
 should prompt your web browser to open the corresponding URL for the  
 online manual.  A screenshot of this context menu is shown in  
 Fig. INCLUDE FIGURE
-
-**************************************
 
 The next step is to create the simulation box and populate it with  
 atoms.  Modify the *System definition* category of  
@@ -183,7 +181,7 @@ of type 2, :math:`\epsilon_{22} = 0.5`, and :math:`\sigma_{22} = 3.0`.
     :math:`\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732`.
 
 Single-point energy
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 The system is now fully parameterized, and the input is ready to compute
 forces.  Let us complete the two remaining categories,
@@ -215,21 +213,21 @@ as specified by the thermodynamic data request.  Since no actual simulation
 steps were performed, the *Charts* window will be empty.
 
 Snapshot Image
-^^^^^^^^^^^^^^
+--------------
 
 At this point, you can create a snapshot image of the current system
 using the *Image Viewer* window, which can be accessed by
 clicking the *Create Image* button in the *Run* menu.  The
 image viewer works by instructing LAMMPS to render an image of the
-current system using its internal rendering library via the *dump
-  image* command.  The resulting image is then displayed, with various
+current system using its internal rendering library via the *dump image*
+command.  The resulting image is then displayed, with various
 buttons available to adjust the view and rendering style.  The image
 shown in Fig. INSERT FIGURE was created this way.  This will always
 capture the current state of the system.  Save the image for future
 comparisons.
 
 Energy minimization
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 Now, replace the *run 0 post no* command line with the
 following *minimize* command:
@@ -243,7 +241,7 @@ This tells LAMMPS to perform an energy minimization of the system.
 Specifically, LAMMPS will compute the forces on all atoms and then update their
 positions according to a selected algorithm, aiming to reduce
 the potential energy.  By default, LAMMPS uses the conjugate gradient (CG)
-algorithm~:cite:`hestenes1952methods`.  The simulation will stop as soon
+algorithm :cite:`hestenes1952methods`.  The simulation will stop as soon
 as the minimizer algorithm cannot find a way to lower the potential
 energy. Note that, except for trivial systems, minimization algorithms will find a
 local minimum rather than the global minimum.
@@ -277,7 +275,7 @@ that the atoms are *clumping together* as they move toward positions
 of lower potential energy.
 
 Molecular dynamics
-^^^^^^^^^^^^^^^^^^
+------------------
 
 After energy minimization, any overlapping atoms are displaced, and
 the system is ready for a molecular dynamics simulation.  To continue
@@ -366,22 +364,36 @@ change it to perform statistically independent simulations.  In the
 presence of a thermostat, the MD simulation will be performed in the  
 canonical or NVT ensemble.
 
-INSERT FIGURE
-
 Run the simulation again using LAMMPS--GUI.  From the information  
 printed in the *Output* window, one can see that the temperature  
 starts from 0 but rapidly reaches the requested value and  
 stabilizes itself near :math:`T=1` temperature units.  One can also observe that  
 the potential energy, :math:`U`, rapidly decreases during energy  
-minimization (see also Fig. fig:evolution-energy INSERT FIGURE).  After  
+minimization (see the figure below).  After  
 the molecular dynamics simulation starts, :math:`U` increases until  
 it reaches a plateau value of about -0.25.  The kinetic energy,  
 :math:`K`, is equal to zero during energy minimization and then  
 increases rapidly during molecular dynamics until it reaches  
-a plateau value of about 1.5 (Fig. fig:evolution-energy INSERT FIGURE).
+a plateau value of about 1.5.
+
+.. figure:: figures/LJ-energy-dm.png
+    :class: only-dark
+    :alt: Evolution of the Lennard-Jones fluid energy
+
+.. figure:: figures/LJ-energy.png
+    :class: only-light
+    :alt: Evolution of the Lennard-Jones fluid energy
+
+..  container:: figurelegend
+
+    (a) Potential energy, :math:`U`, of the binary mixture as a function of the
+    step during energy minimization.
+    (b) Potential energy, :math:`U`, as a function of time, :math:`t`, during molecular dynamics in
+    the NVT ensemble.  (c) Kinetic energy, :math:`K`, during energy minimization.
+    (d) Kinetic energy, :math:`K`, during molecular dynamics.
 
 Trajectory visualization
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 So far, the simulation has been mostly monitored through the analysis of  
 thermodynamic information.  To better follow the evolution of the system  
@@ -423,14 +435,14 @@ options of the *dump image* command.  For instance, the value for the
 the *view* and *zoom* keywords adjust the camera (and so on).
 
 Improving the script
---------------------
+====================
 
 Let us improve the input script and perform more advanced operations,
 such as specifying initial positions for the atoms and restarting the
 simulation from a previously saved configuration.
 
 Control the initial atom positions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 Open the *improved.min.lmp*, which was downloaded during the  
 tutorial setup.  This file contains the *Part A* of the  
@@ -529,7 +541,7 @@ stored internally in LAMMPS.
     copy of the data file that works regardless of your LAMMPS version and platform.
 
 Restarting from a saved configuration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------
 
 To continue a simulation from the saved configuration, open the  
 *improved.md.lmp* file, which was downloaded during the tutorial setup.  
