@@ -12,7 +12,9 @@ by maintaining the relative orientations of neighboring atoms.
 The LAMMPS input
 ----------------
 
-After completing the setup, the editor should display the following content:
+Create a folder if needed and
+place the initial input file, *unbreakable.lmp*, into it. Then, open the 
+file in a text editor of your choice, and copy the following into it:
 
 .. code-block:: lammps
 
@@ -31,6 +33,18 @@ After completing the setup, the editor should display the following content:
     include unbreakable.inc
 
     run 0 post no
+
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    Select *Start Tutorial 2* from the *Tutorials*
+    menu of LAMMPS-GUI and follow the instructions. This will select a folder,
+    create one if necessary, and place several files into it.  The initial
+    input file, set up for a single-point energy calculation, will also be
+    loaded into the editor under the name *unbreakable.lmp*.  Additional files
+    are a data file containing the CNT topology and geometry, named
+    *unbreakable.data*, a parameters file named *unbreakable.inc*, as well as
+    the scripts required for the second part of the tutorial.
 
 The chosen unit system is *real* (therefore distances are in
 Ångströms (Å), times in femtoseconds (fs), and energies in kcal/mol), the
