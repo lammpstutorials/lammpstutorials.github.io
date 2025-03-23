@@ -8,7 +8,6 @@ Lennard-Jones fluid
    The very basics of LAMMPS through a simple example
 
 .. include:: introduction.rst
-.. include:: ../../non-tutorials/needhelp.rst
 .. include:: ../shared/versionLAMMPS.rst
 .. include:: ../shared/cite.rst
 .. include:: tutorial.rst
