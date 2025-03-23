@@ -562,4 +562,4 @@ force fields with explicit bonds.
 
 .. |breakable_with_tip| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/breakable-with-tip.lmp" target="_blank">solution/breakable-with-tip.lmp</a>,
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/breakable-with-tip.lmp" target="_blank">breakable-with-tip.lmp</a>,
