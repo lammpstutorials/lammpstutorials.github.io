@@ -438,7 +438,6 @@ printed in the *pull.dat* file, you can create a histogram
 of dihedral angles for a specific type.  For example, the angle :math:`\phi` for dihedrals
 of type 1 (C-C-OE-C) is shown in Fig.~\ref{fig:PEG-distance}\,b.
 
-
 Tip: using external visualization tools
 ---------------------------------------
 

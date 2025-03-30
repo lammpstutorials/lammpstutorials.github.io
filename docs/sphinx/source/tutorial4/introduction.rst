@@ -10,13 +10,18 @@
     :class: only-light
     :align: right
 
-The objective of this tutorial is to simulate an electrolyte nanoconfined
-and sheared by two walls. The density and velocity profiles of the fluid in
-the direction normal to the walls are extracted to highlight the effect of
-confining a fluid on its local properties. 
+The objective of this tutorial is to simulate an electrolyte
+nanoconfined and sheared between two walls.  The density
+and velocity profiles of the fluid in the direction normal to the walls are
+extracted to highlight the effect of confining a fluid on its local properties.
+This tutorial demonstrates key concepts of combining a fluid and a solid in
+the same simulation.  A major difference from the previous tutorial,
+:ref:`all-atom-label`, is that here a rigid four-point
+water model named TIP4P/2005 is used :cite:`abascal2005general`.
 
-This tutorial illustrates some key aspects of
-combining a fluid and a solid in the same simulation.
-A major difference from :ref:`all-atoms-label` is that
-here a rigid four-points water model named TIP4P is used :cite:`abascal2005general`.
-TIP4P is one of the most common water models due to its high accuracy.
+.. admonition:: Note
+    :class: non-title-info
+        
+    Four-point water models such as TIP4P/2005 are widely used as they offer a
+    good compromise between accuracy and computational cost :cite:`kadaoluwa2021systematic`.
+

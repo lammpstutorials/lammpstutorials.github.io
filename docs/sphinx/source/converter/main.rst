@@ -2395,7 +2395,7 @@ kspace_modify slab 3.0
 These lines are used to define the most basic parameters, including the
 atom, bond, and angle styles, as well as interaction
 potential.  Here, *lj/cut/tip4p/long* imposes a Lennard-Jones potential with
-a cut-off at :math:`12\,\text{`\text{\AA{}}:math:`}` and a long-range Coulomb potential.
+a cut-off at :math:`12\,\text{\AA{}}` and a long-range Coulomb potential.
 
 So far, the commands are relatively similar to those in the previous tutorial,
 \hyperref[all-atom-label]{Polymer in water}, with two major differences: the use
@@ -2406,7 +2406,7 @@ except that they are specifically designed for the four-point water model.  As a
 LAMMPS automatically creates a four-point water molecule, assigning type O
 atoms as oxygen and type H atoms as hydrogen.  The fourth massless atom (M) of the
 TIP4P water molecule does not have to be defined explicitly, and the value of
-:math:`0.1546\,\text{`\text{\AA{}}:math:`}` corresponds to the O-M distance of the
+:math:`0.1546\,\text{\AA{}}` corresponds to the O-M distance of the
 TIP4P-2005 water model :cite:`abascal2005general`.  All other atoms in the simulation
 are treated as usual, with long-range Coulomb interactions.  Another novelty, here, is
 the use of *kspace\ modify slab 3.0* that is combined with the non-periodic
@@ -3622,7 +3622,7 @@ and angles of the water molecules are defined; however, these specifications are
 not critical since TIP4P/2005 is a rigid water model.
 
 The water molecule template called \href{\filepath tutorial6/H2O.mol}{\dwlcmd{H2O.mol}}
-must be downloaded and located next to *gcmc.lmp*
+must be downloaded and located next to *gcmc.lmp*.
 
 Before going further, we need to make a few changes to our data file.
 Currently, the *cracking.data* file includes only two atom types, but we require four.
@@ -3779,10 +3779,10 @@ freedom.  Here, 100 insertion and deletion attemps are made every 100 steps.
 
 .. admonition:: Note
     :class: non-title-info
-At a pressure of :math:`p = 100\ \text{bar}`, the chemical potential of water vapor at :math:`T = 300\ \text{K}`
+At a pressure of :math:`p = 100\,\text{bar}`, the chemical potential of water vapor at :math:`T = 300\,\text{K}`
 can be calculated using as :math:`\mu = \mu_0 + RT \ln (\frac{p}{p_0}),` where :math:`\mu_0` is the standard
-chemical potential (typically taken at a pressure :math:`p_0 = 1 \, \text{bar}`), \(R = 8.314\ \text{J/mol·K}\)
-is the gas constant, \(T = 300\ \text{K}\) is the temperature.
+chemical potential (typically taken at a pressure :math:`p_0 = 1 \, \text{bar}`), :math:`R = 8.314\, \text{J/mol·K}`
+is the gas constant, :math:`T = 300\,\text{K}` is the temperature.
 
 
 
@@ -4484,7 +4484,7 @@ read_data mixing.data &
   extra/special/per/atom 25
 
 
-Here, the *read:math:`\ `data* command is used to import the
+Here, the *read\ data* command is used to import the
 previously generated *mixing.data* file.  All other commands
 have been introduced in earlier parts of the tutorial.
 
