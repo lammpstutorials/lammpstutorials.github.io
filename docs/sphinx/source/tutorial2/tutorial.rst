@@ -331,7 +331,7 @@ file, right after the last *run 5000* command:
    run 10000
 
 The chosen velocity for the deformation is :math:`100\,\text{m/s}`, or  
-:math:`0.001\,\text{\AA{}/fs}`.
+:math:`0.001\,\text{Å/fs}`.
 
 Run the simulation using LAMMPS.  As can be seen from the variable :math:`L_\text{cnt}`, the length
 of the CNT increases linearly over time for :math:`t > 5\,\text{ps}`,
@@ -492,7 +492,7 @@ Launch the deformation
 ----------------------
 
 After equilibration, let us set the velocity of the edges equal to
-:math:`75~\text{m/s}` (or :math:`0.75~\text{\AA{}/ps}`) and run for a longer duration than
+:math:`75~\text{m/s}` (or :math:`0.75~\text{Å/ps}`) and run for a longer duration than
 previously.  Add the following lines into *breakable.lmp*:
 
 .. code-block:: lammps
