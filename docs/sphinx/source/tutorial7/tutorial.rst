@@ -118,7 +118,7 @@ frequently overcome the energy barrier due to thermal agitation.
 
     Potential :math:`U` given in Eq.~\eqref{eq:U} (a) and force :math:`F` given in
     Eq.~\eqref{eq:F} (b) as functions of the coordinate :math:`x`. Here,
-    :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
+    :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
 
 We impose the force :math:`F(x)` to the atoms in the simulation
 using the ``fix addforce`` command.  Add the following
@@ -155,7 +155,7 @@ fluctuates around a target value.
     Evolution of the number of atoms :math:`n_\text{center}` in the central
     region ``mymes`` as a function of time :math:`t` during equilibration.  The dark line
     is :math:`n_\text{center} = 22 \exp(-t/160)+5` and serves as a guide for the eyes.
-    Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
+    Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
 
 To ensure that the equilibration time is sufficient, we will track the evolution of
 the number of atoms in the central - energetically unfavorable - region,
@@ -218,7 +218,7 @@ Next, we plot :math:`-R T \ln(\rho/\rho_\mathrm{bulk})` (i.e.~Eq.~\eqref{eq:G} w
 the pressure ratio :math:`p/p_\mathrm{bulk}` is replaced by the density ratio
 :math:`\rho/\rho_\mathrm{bulk}`, assuming the system behaves as an ideal gas) and compare it
 with the imposed potential :math:`U` from Eq.~\eqref{eq:U} (Fig.~\ref{fig:US-density}\,b).
-The reference density, :math:`\rho_\text{bulk} = 0.0009~\text{\AA{}}^{-3}`,
+The reference density, :math:`\rho_\text{bulk} = 0.0009~\text{Å}^{-3}`,
 was estimated by measuring the density of the reservoir from the raw density
 profiles.  The agreement between the MD results and the imposed energy profile
 is excellent, despite some noise in the central part, where fewer data points
@@ -228,7 +228,7 @@ Add US-system-unbiased FIGURE  Snapshot of the system simulated during the free 
 step of \hyperref[umbrella-sampling-label]{Tutorial 7}.
 The atoms density is the lowest in the central
 part of the box, ``mymes``.  Here,
-:math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
+:math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
 
 .. figure:: figures/US-density-dm.png
     :class: only-dark
@@ -243,8 +243,8 @@ part of the box, ``mymes``.  Here,
     a) Fluid density, :math:`\rho`, along the :math:`x` direction. b) Potential, :math:`U`, as a
     function of :math:`x` measured using free sampling (blue disks)
     compared to the imposed potential given in Eq.~\eqref{eq:U} (dark line).
-    Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, :math:`x_0 = 10~\text{\AA{}}`,
-    and the measured reference density in the reservoir is :math:`\rho_\text{bulk} = 0.0009~\text{\AA{}}^{-3}`.
+    Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, :math:`x_0 = 10~\text{Å}`,
+    and the measured reference density in the reservoir is :math:`\rho_\text{bulk} = 0.0009~\text{Å}^{-3}`.
 
 The limits of free sampling
 ---------------------------
@@ -355,7 +355,7 @@ Add FIGURE US-system-biased Snapshot of the system simulated during the umbrella
 step of \hyperref[umbrella-sampling-label]{Tutorial 7}, showing type-1 atoms
 in cyan and the type-2 atom in red.  Only the type-2 atom explores the central part of the box,
 ``mymes``, due to the additional biasing potential :math:`V`. Parmaeters are
-:math:`U_0 = 2.38~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
+:math:`U_0 = 2.38~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
 
 Now, we create a loop with 15 steps and progressively move the center of the
 bias potential by increments of 0.4\,nm.  Add the following lines to **umbrella-sampling.lmp**:
@@ -381,7 +381,7 @@ bias potential by increments of 0.4\,nm.  Add the following lines to **umbrella-
 The ``spring`` command imposes the additional harmonic potential :math:`V` with
 the previously defined spring constant :math:`k`.  The center of the harmonic
 potential, :math:`x_\text{des}`, successively takes values
-from :math:`-28\,\text{\AA}` to :math:`28\,\text{\AA}`.  For each value of :math:`x_\text{des}`,
+from :math:`-28\,\text{Å}` to :math:`28\,\text{Å}`.  For each value of :math:`x_\text{des}`,
 an equilibration step of 40 ps is performed, followed by a step
 of 400 ps during which the position of the particle of
 type 2 along the :math:`x`-axis, :math:`x_\text{ave}`, is saved in data files named **umbrella-sampling.i.dat**,
@@ -402,27 +402,31 @@ To generate the free energy profile from the particle positions saved in
 the **umbrella-sampling.i.dat** files, we use the
 WHAM :cite:`kumar1992weighted,kumar1995multidim` algorithm as implemented
 by Alan Grossfield :cite:`grossfieldimplementation`.  You can download it
-from \href{http://membrane.urmc.rochester.edu/?page_id=126}{Alan
-  Grossfield}'s website.  Make sure you download the WHAM code version
+from |Alan_Grossfield|'s website.  Make sure you download the WHAM code version
 2.1.0 or later which introduces the ``units`` command-line option
 used below. The executable called ``wham`` generated by following
 the instructions from the website must be placed next to
 **umbrella-sampling.lmp**.  To apply the WHAM algorithm to our
 simulation, we need a metadata file containing:
 
+.. |Alan_Grossfield| raw:: html
+
+    <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a>
+
 - the paths to all the data files,
 - the values of :math:`x_\text{des}`,
 - the values of :math:`k`.
 
-Download the
-\href{\filepath tutorial7/umbrella-sampling.meta}{\dwlcmd{umbrella-sampling.meta}}
-file and save it next to **umbrella-sampling.lmp**.  Then, run the
-WHAM algorithm by typing the following command in the terminal:
+Download the |umbrella_sampling_meta| file and save it next to **umbrella-sampling.lmp**.
+Then, run the WHAM algorithm by typing the following command in the terminal:
+
+.. |umbrella_sampling_meta| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial7/umbrella-sampling.meta" target="_blank">umbrella-sampling.meta</a>
 
 .. code-block:: bash
 
-    ./wham units real -30 30 50 1e-8 119.8 0 \
-        umbrella-sampling.meta umbrella-sampling.dat
+    ./wham units real -30 30 50 1e-8 119.8 0 umbrella-sampling.meta umbrella-sampling.dat
 
 where -30 and 30 are the boundaries, 50 is the number of bins, 1e-8 is the tolerance,
 and 119.8 is the temperature in Kelvin.  A file called **umbrella-sampling.dat** is created,
@@ -434,7 +438,6 @@ Achieving similar results through free sampling would require performing extreme
 long and computationally expensive simulations.
 
 Add US-free-energy, The potential, :math:`U`, as a function of :math:`x`, measured using umbrella
-sampling during \hyperref[umbrella-sampling-label]{Tutorial 7} (blue disks),
-is compared to the imposed potential given in Eq.~\eqref{eq:U}
-(dark line).  Parameters are :math:`U_0 = 2.38~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`,
-and :math:`x_0 = 10~\text{\AA{}}`.
+sampling (blue disks), is compared to the imposed potential given in Eq.~\eqref{eq:U}
+(dark line).  Parameters are :math:`U_0 = 2.38~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`,
+and :math:`x_0 = 10~\text{Å}`.

@@ -33,8 +33,12 @@ of the cross coefficients:
 
     \epsilon_{ij} & = & \dfrac{2 \sqrt{\epsilon_i \epsilon_j} \sigma^3_i \sigma^3_j}{\sigma^6_i+\sigma_j^6}.
 
-Let us read the \href{\filepath tutorial8/CNT.data}{\dwlcmd{CNT.data}} file, which
-contains a periodic single-walled CNT.  Add the following line to **mixing.lmp**:
+Let us read the |CNT_data_8| file, which contains a periodic single-walled
+CNT.  Add the following line to **mixing.lmp**:
+
+.. |CNT_data_8| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/CNT.data" target="_blank">CNT.data</a>
 
 .. code-block:: lammps
 
@@ -42,10 +46,12 @@ contains a periodic single-walled CNT.  Add the following line to **mixing.lmp**
 
 The CNT is approximately :math:`1.1~\text{nm}` in diameter and :math:`1.6\,\text{nm}` in length, oriented
 along the :math:`x`-axis. The simulation box is initially 12.0 nm in the two other dimensions before densification,
-making it straightforward to fill the box with styrene.
-To add 200 styrene molecules to the simulation box, we will use the
-\href{\filepath tutorial8/styrene.mol}{\dwlcmd{styrene.mol}} molecule template file.
-Include the following commands to **mixing.lmp**:
+making it straightforward to fill the box with styrene. To add 200 styrene molecules to the simulation box,
+we will use the |styrene_mol_8| molecule template file. Include the following commands to **mixing.lmp**:
+
+.. |styrene_mol_8| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/styrene.mol" target="_blank">styrene.mol</a>
 
 .. code-block:: lammps
 
@@ -144,27 +150,63 @@ serve as edge atoms to connect the rest of a long polymer chain in the simulatio
 There are three reactions to define: (1) the polymerization of two styrene monomers,
 (2) the addition of a styrene monomer to the end of a growing polymer chain, and (3) the
 linking of two polymer chains.  Download the three files associated with each reaction.
-The first reaction uses the prefix `M-M' for the pre-reaction template,
+The first reaction uses the prefix ``M-M`` for the pre-reaction template,
 post-reaction template, and reaction map file:
 
-- \href{\filepath tutorial8/M-M_pre.mol}{\dwlcmd{M-M:math:`\_`pre.mol}},
-- \href{\filepath tutorial8/M-M_post.mol}{\dwlcmd{M-M:math:`\_`post.mol}},
-- \href{\filepath tutorial8/M-M.rxnmap}{\dwlcmd{M-M.rxnmap}}.
+- |M_M_pre_mol_8|,
+- |M_M_post_mol_8|,
+- |M_M_rxnmap_8|.
 
-The second reaction uses the prefix `M-P',
+The second reaction uses the prefix ``M-P``,
 
-- \href{\filepath tutorial8/M-P_pre.mol}{\dwlcmd{M-P:math:`\_`pre.mol}},
-- \href{\filepath tutorial8/M-P_post.mol}{\dwlcmd{M-P:math:`\_`post.mol}},
-- \href{\filepath tutorial8/M-P.rxnmap}{\dwlcmd{M-P.rxnmap}}.
+- |M_P_pre_mol_8|,
+- |M_P_post_mol_8|,
+- |M_P_rxnmap_8|.
 
-The third reaction uses the prefix `P-P',
+The third reaction uses the prefix ``P-P``,
 
-- \href{\filepath tutorial8/P-P_pre.mol}{\dwlcmd{P-P:math:`\_`pre.mol}},
-- \href{\filepath tutorial8/P-P_post.mol}{\dwlcmd{P-P:math:`\_`post.mol}},
-- \href{\filepath tutorial8/P-P.rxnmap}{\dwlcmd{P-P.rxnmap}}.
+- |P_P_pre_mol_8|,
+- |P_P_post_mol_8|,
+- |P_P_rxnmap_8|.
 
 Here, the file names for each reaction use the abbreviation `M' for monomer and `P'
 for polymer.
+
+.. |M_M_pre_mol_8| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-M_pre.mol" target="_blank">M-M_pre.mol</a>
+
+.. |M_M_post_mol_8| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-M_post.mol" target="_blank">M-M_post.mol</a>
+
+.. |M_M_rxnmap_8| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-M.rxnmap" target="_blank">M-M.rxnmap</a>
+
+.. |M_P_pre_mol_8| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-P_pre.mol" target="_blank">M-P_pre.mol</a>
+
+.. |M_P_post_mol_8| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-P_post.mol" target="_blank">M-P_post.mol</a>
+
+.. |M_P_rxnmap_8| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-P.rxnmap" target="_blank">M-P.rxnmap</a>
+
+.. |P_P_pre_mol_8| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/P-P_pre.mol" target="_blank">P-P_pre.mol</a>
+
+.. |P_P_post_mol_8| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/P-P_post.mol" target="_blank">P-P_post.mol</a>
+
+.. |P_P_rxnmap_8| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/P-P.rxnmap" target="_blank">P-P.rxnmap</a>
 
 Simulating the reaction
 -----------------------
@@ -277,9 +319,9 @@ while the number of reactions, :math:`N_r`, increases with time.
 
 ..  container:: figurelegend
 
-    a) Evolution of the system temperature, :math:`T`,
-    as a function of the time, :math:`t`, during the polymerization step.
-    b) Evolution of the three reaction counts, corresponding respectively to
+    a) Evolution of the system temperature, :math:`T`, as a function of
+    the time, :math:`t`, during the polymerization step.  b) Evolution of
+    the three reaction counts, corresponding respectively to
     the polymerization of two styrene monomers (Rxn 1), the  addition of a styrene
     monomer to the end of a growing polymer chain (Rxn 2), and to the linking
     of two polymer chains (Rxn 3).

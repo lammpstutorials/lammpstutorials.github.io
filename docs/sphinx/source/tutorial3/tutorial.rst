@@ -5,9 +5,7 @@ In this tutorial, the water reservoir is first prepared in the absence of the po
 A rectangular box of water is created and equilibrated at ambient temperature and
 pressure.  The SPC/Fw water model is used :cite:`wu2006flexible`, which is
 a flexible variant of the rigid SPC (simple point charge) model :cite:`berendsen1981interaction`.
-To set up this tutorial, select ``Start Tutorial 3`` from the
-``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
-The editor should display the following content corresponding to **water.lmp**:
+Create a file named **water.lmp**, and copy the following lines into it:
 
 .. code-block:: lammps
 
@@ -19,6 +17,13 @@ The editor should display the following content corresponding to **water.lmp**:
     pair_style lj/cut/coul/long 10
     kspace_style ewald 1e-5
     special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 1.0 angle yes
+
+.. admonition:: Optional: follow this tutorial using LAMMPS-GUI
+    :class: gui
+
+    To set up this tutorial, select ``Start Tutorial 3`` from the
+    ``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
+    The editor should display the content corresponding to **water.lmp**.
 
 With the unit style ``real``, masses are in g/mol, distances in Å,
 time in fs, and energies in kcal/mol.  With the ``atom_style full``,
@@ -44,13 +49,17 @@ and 4 dihedral types (only for the polymer).  Copy the following lines into **wa
 .. code-block:: lammps
 
     region box block -30 30 -15 15 -15 15
-    create_box 8 box bond/types 7 angle/types 8 dihedral/types 4 &
-        extra/bond/per/atom 3 extra/angle/per/atom 6 extra/dihedral/per/atom 10 extra/special/per/atom 14
+    create_box 8 box bond/types 7 angle/types 8 dihedral/types 4 extra/bond/per/atom 3 &
+        extra/angle/per/atom 6 extra/dihedral/per/atom 10 extra/special/per/atom 14
 
 The ``extra/x/per/atom`` commands reserve memory for adding bond topology
-data later. We use the file \href{\filepath tutorial3/parameters.inc}{\dwlcmd{parameters.inc}}
+data later. We use the file |parameters_inc_3|
 to set all the parameters (masses, interaction energies, bond equilibrium
 distances, etc).  Thus add to **water.lmp** the line:
+
+.. |parameters_inc_3| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/parameters.inc" target="_blank">parameters.inc</a>
 
 .. code-block:: lammps
 
@@ -89,12 +98,14 @@ of molecules.  Always check the number of created atoms in the **log** file
     Created 2100 atoms
 
 When LAMMPS fails to create the desired number of molecules, a WARNING
-appears.  The molecule template called 
-\href{\filepath tutorial3/water.mol}{\dwlcmd{water.mol}}
-must be downloaded and saved
+appears.  The molecule template called |water_mol_3| must be downloaded and saved
 next to **water.lmp**.  This template contains the necessary
 structural information of a water molecule, such as the number of atoms,
 or the IDs of the atoms that are connected by bonds and angles.
+
+.. |water_mol_3| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/water.mol" target="_blank">water.mol</a>
 
 .. figure:: figures/PEG-density-dm.png
     :class: only-dark
@@ -237,10 +248,13 @@ of the tutorial.  Add the following command to **merge.lmp**:
 
     kspace_style pppm 1e-5
 
-Using the molecule template for the polymer called
-\href{\filepath tutorial3/peg.mol}{\dwlcmd{peg.mol}},
+Using the molecule template for the polymer called |peg_mol_3|,
 let us create a single molecule in the middle of the box by adding the following
 commands to **merge.lmp**:
+
+.. |peg_mol_3| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/peg.mol" target="_blank">peg.mol</a>
 
 .. code-block:: lammps
         
@@ -423,7 +437,7 @@ for an extra 15 ps:
     fix myaf2 topull2 addforce -10 0 0
     run 15000
 
-Each applied force has a magnitude of :math:`10 \text{kcal/mol/\AA{}}`, corresponding to :math:`0.67 \text{nN}`.
+Each applied force has a magnitude of :math:`10 \, \text{kcal/mol/Å}`, corresponding to :math:`0.67 \text{nN}`.
 This value was chosen to be sufficiently large to overcome both the thermal agitation and
 the entropic contributions from the molecules.
 
@@ -445,9 +459,12 @@ OVITO :cite:`humphrey1996vmd, ovito_paper`.  To do so, the IDs and
 positions of the atoms must be regularly written to a file during the
 simulation.  This can be accomplished by adding a ``dump`` command
 to the input file.  For instance, create a duplicate of
-**pull.lmp** and name it
-\href{\filepath tutorial3/solution/pull-with-tip.lmp}{\dwlcmd{pull-with-tip.lmp}}.
+**pull.lmp** and name it |pull_with_tip_lmp_3|.
 Then, replace the existing ``dump`` and ``dump_modify`` commands with:
+
+.. |pull_with_tip_lmp_3| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/pull-with-tip.lmp" target="_blank">pull-with-tip.lmp</a>
 
 .. code-block:: lammps
 

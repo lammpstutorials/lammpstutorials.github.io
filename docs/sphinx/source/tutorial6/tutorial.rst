@@ -44,8 +44,11 @@ is ``Si`` and the second is ``O``:
 
     pair_coeff * * SiO.1990.vashishta Si O
 
-Ensure that the \href{\filepath tutorial6/SiO.1990.vashishta}{\dwlcmd{SiO.1990.vashishta}}
-file is located in the same directory as **generate.lmp**.
+Ensure that the |SiO_1990_vashishta_6| file is located in the same directory as **generate.lmp**.
+
+.. |SiO_1990_vashishta_6| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/SiO.1990.vashishta" target="_blank">SiO.1990.vashishta</a>
 
 FIGURE GCMC-generate Amorphous silica (:math:`\text{SiO}_2`).
 Silicon atoms are
@@ -217,8 +220,12 @@ with ``tip4p/long``.  Finally, the style for the bonds
 and angles of the water molecules are defined; however, these specifications are
 not critical since TIP4P/2005 is a rigid water model.
 
-The water molecule template called \href{\filepath tutorial6/H2O.mol}{\dwlcmd{H2O.mol}}
+The water molecule template called |H2O_mol_6|
 must be downloaded and located next to **gcmc.lmp**.
+
+.. |H2O_mol_6| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/H2O.mol" target="_blank">H2O.mol</a>
 
 Before going further, we need to make a few changes to our data file.
 Currently, the **cracking.data** file includes only two atom types, but we require four.

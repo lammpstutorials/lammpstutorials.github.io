@@ -37,7 +37,7 @@ except that they are specifically designed for the four-point water model.  As a
 LAMMPS automatically creates a four-point water molecule, assigning type O
 atoms as oxygen and type H atoms as hydrogen.  The fourth massless atom (M) of the
 TIP4P water molecule does not have to be defined explicitly, and the value of
-:math:`0.1546\,\text{\AA{}}` corresponds to the O-M distance of the
+:math:`0.1546\,\text{Å}` corresponds to the O-M distance of the
 TIP4P-2005 water model :cite:`abascal2005general`.  All other atoms in the simulation
 are treated as usual, with long-range Coulomb interactions.  Another novelty, here, is
 the use of ``kspace modify slab 3.0`` that is combined with the non-periodic
@@ -51,9 +51,8 @@ Let us create the box and the label maps by adding the following lines to **crea
 
     lattice fcc 4.04
     region box block -3 3 -3 3 -5 5
-    create_box 5 box bond/types 1 angle/types 1 &
-    extra/bond/per/atom 2 extra/angle/per/atom 1 &
-    extra/special/per/atom 2
+    create_box 5 box bond/types 1 angle/types 1 extra/bond/per/atom 2 extra/angle/per/atom 1 &
+        extra/special/per/atom 2
     labelmap atom 1 O 2 H 3 Na+ 4 Cl- 5 WALL
     labelmap bond 1 O-H
     labelmap angle 1 H-O-H
@@ -62,7 +61,7 @@ The ``lattice`` command defines the unit cell.  Here, the face-centered cubic (f
 with a scale factor of 4.04 has been chosen for the future positioning of the atoms
 of the walls.  The ``region`` command defines a geometric region of space.  By choosing
 :math:`\text{xlo}=-3` and :math:`\text{xlo}=3`, and because we have previously chosen a lattice with a scale
-factor of 4.04, the region box extends from :math:`-12.12~\text{\AA{}}` to :math:`12.12~\text{\AA{}}`
+factor of 4.04, the region box extends from :math:`-12.12~\text{Å}` to :math:`12.12~\text{Å}`
 along the :math:`x` direction.  The ``create_box`` command creates a simulation box with
 5 types of atoms: the oxygen and hydrogen of the water molecules, the two ions (:math:`\text{Na}^+`,
 :math:`\text{Cl}^-`), and the atoms from the walls.  The simulation contains 1 type of bond
@@ -87,11 +86,14 @@ following lines to **create.lmp**:
 Atoms will be placed in the positions of the previously defined lattice, thus
 forming fcc solids.
 
-To add the water molecules, the molecule
-template called \href{\filepath tutorial4/water.mol}{\dwlcmd{water.mol}}
+To add the water molecules, the molecule template called |water_mol_4|
 must be located next to **create.lmp**.  The template contains all the
 necessary information concerning the water molecule, such as atom positions,
 bonds, and angles.  Add the following lines to **create.lmp**:
+
+.. |water_mol_4| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial4/water.mol" target="_blank">water.mol</a>
 
 .. code-block:: lammps
 
@@ -138,11 +140,16 @@ lines into **create.lmp**:
     include parameters.inc
     include groups.inc
 
-Both \href{\filepath tutorial4/parameters.inc}{\dwlcmd{parameters.inc}}
-and \href{\filepath tutorial4/groups.inc}{\dwlcmd{groups.inc}} files
-must be located next to **create.lmp**.
+Both |parameters_inc_4| and |groups_inc_4| files
+must be located next to **create.lmp**. The **parameters.inc** file contains the masses, as follows:
 
-The **parameters.inc** file contains the masses, as follows:
+.. |parameters_inc_4| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial4/parameters.inc" target="_blank">parameters.inc</a>
+
+.. |groups_inc_4| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial4/groups.inc" target="_blank">groups.inc</a>
 
 .. code-block:: lammps
 
@@ -182,6 +189,7 @@ to make the walls less hydrophilic, the value of
 :math:`\epsilon_\text{O-WALL}` was reduced.
 
 Finally, the **parameters.inc** file contains the following two lines:
+
 .. code-block:: lammps
 
     bond_coeff O-H 0 0.9572
@@ -189,7 +197,7 @@ Finally, the **parameters.inc** file contains the following two lines:
 
 The ``bond_coeff`` command, used here for the O-H bond of the water
 molecule, sets both the spring constant of the harmonic potential and the
-equilibrium bond distance of :math:`0.9572~\text{\AA{}}`.  The constant can be 0 for a
+equilibrium bond distance of :math:`0.9572~\text{Å}`.  The constant can be 0 for a
 rigid water molecule because the SHAKE algorithm will maintain the rigid
 structure of the water molecule (see below) :cite:`ryckaert1977numerical, andersen1983rattle`.
 Similarly, the ``angle_coeff`` command for the H-O-H angle of the water molecule sets
@@ -208,7 +216,7 @@ several ``group`` commands to selects atoms based on their types:
     group fluid union H2O ions
 
 The **groups.inc** file also defines the ``walltop`` and ``wallbot``
-groups, which contain the WALL atoms located in the :math:`z > 0` and :math:`z < 0` regions, respectively::
+groups, which contain the WALL atoms located in the :math:`z > 0` and :math:`z < 0` regions, respectively:
 
 .. code-block:: lammps
 
@@ -227,7 +235,6 @@ to delete about :math:`15~\%` of the water molecules:
 .. code-block:: lammps
 
     delete_atoms random fraction 0.15 yes H2O NULL 482793 mol yes
-
 
 To create an image of the system, add the following ``dump`` image
 into **create.lmp** (see also Fig.~\ref{fig:NANOSHEAR-system}):
@@ -525,7 +532,7 @@ along :math:`x` (``vx``) within the bins.  Add the following lines to **shearing
 
     run 200000
 
-Here, a bin size of :math:`0.25\,\text{\AA{}}` is used for the density
+Here, a bin size of :math:`0.25\,\text{Å}` is used for the density
 profiles generated by the ``ave/chunk`` commands, and three
 **.dat** files are created for the water, the walls, and the ions,
 respectively.  With values of ``10 15000 200000``, the velocity
@@ -552,7 +559,7 @@ the fluid on the shearing wall, and :math:`\dot{\gamma}` the shear rate
 :cite:`gravelle2021violations`.  Here, the shear rate is
 approximately :math:`\dot{\gamma} = 20 \cdot 10^9\,\text{s}^{-1}` (Fig.~\ref{fig:NANOSHEAR-profiles}),
 the average force on each wall is given by ``f_mysf1[1]`` and ``f_mysf2[1]``
-and is approximately :math:`2.7\,\mathrm{kcal/mol/\AA}` in magnitude.  Using a surface area
+and is approximately :math:`2.7\,\mathrm{kcal/mol/Å}` in magnitude.  Using a surface area
 for the walls of :math:`A = 6 \cdot 10^{-18}\,\text{m}^2`, one obtains an estimate for
 the shear viscosity for the confined fluid of :math:`\eta = 3.1\,\text{mPa.s}` using Eq.~\eqref{eq:eta}.
 

@@ -20,11 +20,15 @@ So far, the input is very similar to what was seen in the previous tutorials.
 Some basic parameters are defined (``units`` and ``atom_style``),
 and a **.data** file is imported by the ``read_data`` command.
 
-The initial topology given by \href{\filepath tutorial5/silica.data}{\dwlcmd{silica.data}}
+The initial topology given by |silica_data_5|
 is a small amorphous silica structure.  This structure was created using a force field called
 Vashishta :cite:`vashishta1990interaction`.  If you open the **silica.data**
 file, you will find in the ``Atoms`` section that all silicon atoms have a
 charge of :math:`q = 1.1\,\text{e}`, and all oxygen atoms have a charge of :math:`q = -0.55\,\text{e}`.
+
+.. |silica_data_5| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/silica.data" target="_blank">silica.data</a>
 
 .. admonition:: Note
     :class: non-title-info
@@ -45,8 +49,7 @@ Next, copy the following three crucial lines into the **relax.lmp** file:
 In this case, the ``pair_style reaxff`` is used without a control file.  The
 ``safezone`` and ``mincap`` keywords are added to prevent
 allocation issues, which sometimes can trigger segmentation faults and
-``bondchk`` errors.  The ``pair_coeff`` command uses the
-\href{\filepath tutorial5/reaxCHOFe.inc}{\dwlcmd{reaxCHOFe.inc}}
+``bondchk`` errors.  The ``pair_coeff`` command uses the |reaxCHOFe_inc_5|
 file, which should have been downloaded during the tutorial set up.  Finally, the
 ``fix qeq/reaxff`` is used to perform charge equilibration :cite:`rappe1991charge`,
 which occurs at every step.  The values 0.0 and 10.0 represent the
@@ -54,6 +57,9 @@ low and the high cutoffs, respectively, and :math:`1.0 \text{e} -6` is the toler
 The ``maxiter`` sets an upper limit to the number of attempts to
 equilibrate the charge.
 
+.. |reaxCHOFe_inc_5| raw:: html
+
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/reaxCHOFe.inc" target="_blank">reaxCHOFe.inc</a>
 
 Next, add the following commands to the **relax.lmp** file to track the
 evolution of the charges during the simulation:
