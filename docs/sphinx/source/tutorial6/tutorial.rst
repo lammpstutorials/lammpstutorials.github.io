@@ -1,9 +1,9 @@
 Generation of the silica block
 ==============================
 
-To begin this tutorial, select *Start Tutorial 6* from the
-*Tutorials* menu of LAMMPS--GUI and follow the instructions.
-The editor should display the following content corresponding to *generate.lmp*:
+To begin this tutorial, select ``Start Tutorial 6`` from the
+``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
+The editor should display the following content corresponding to **generate.lmp**:
 
 .. code-block:: lammps
 
@@ -14,13 +14,13 @@ The editor should display the following content corresponding to *generate.lmp*:
     neighbor 1.0 bin
     neigh_modify delay 1
 
-The main difference from some of the previous tutorials is the use of the *Vashishta*
+The main difference from some of the previous tutorials is the use of the ``Vashishta``
 pair style.  The Vashishta potential implicitly models atomic bonds through
 energy terms dependent on interatomic distances and angles :cite:`vashishta1990interaction`.
 
-Let us create a box for two atom types, *Si*
-of mass 28.0855 g/mol and *O* of mass 15.9994 g/mol.
-Add the following lines to *generate.lmp*:
+Let us create a box for two atom types, ``Si``
+of mass 28.0855 g/mol and ``O`` of mass 15.9994 g/mol.
+Add the following lines to **generate.lmp**:
 
 .. code-block:: lammps
         
@@ -32,35 +32,32 @@ Add the following lines to *generate.lmp*:
     create_atoms Si random 240 5802 box overlap 2.0 maxtry 500
     create_atoms O random 480 1072 box overlap 2.0 maxtry 500
 
-The *create\ atoms* commands are used to place
+The ``create_atoms`` commands are used to place
 240 Si atoms, and 480 atoms, respectively.  This corresponds to
 an initial density of approximately :math:`2 \text{g/cm}^3`, which is close
 to the expected final density of amorphous silica at 300 K.
 
 Now, specify the pair coefficients by indicating that the first atom type
-is *Si* and the second is *O*:
+is ``Si`` and the second is ``O``:
 
 .. code-block:: lammps
 
     pair_coeff * * SiO.1990.vashishta Si O
 
 Ensure that the \href{\filepath tutorial6/SiO.1990.vashishta}{\dwlcmd{SiO.1990.vashishta}}
-file is located in the same directory as *generate.lmp*.
+file is located in the same directory as **generate.lmp**.
 
 FIGURE GCMC-generate Amorphous silica (:math:`\text{SiO}_2`).
 Silicon atoms are
 represented in yellow, and oxygen atoms in red.
 
-Next, add a *dump image* command to *generate.lmp* to follow the
+Next, add a ``dump image`` command to **generate.lmp** to follow the
 evolution of the system with time:
 
 .. code-block:: lammps
 
-    dump viz all image 250 myimage-*.ppm type type &
-    shiny 0.1 box no 0.01 view 180 90 zoom 3.4 size 1700 700
-    dump_modify viz backcolor white &
-    acolor Si yellow adiam Si 2.5 &
-    acolor O red adiam O 2
+    dump viz all image 250 myimage-*.ppm type type shiny 0.1 box no 0.01 view 180 90 zoom 3.4 size 1700 700
+    dump_modify viz backcolor white acolor Si yellow adiam Si 2.5 acolor O red adiam O 2
 
 Let us also print the box volume and system density, alongside the
 temperature and total energy:
@@ -112,18 +109,18 @@ of the silica system.
 b) System density, :math:`\rho`, during the annealing process.  The vertical dashed lines
 mark the transition between the different phases of the simulation.
 
-Run the simulation using LAMMPS.  From the *Charts* window, the temperature
+Run the simulation using LAMMPS.  From the ``Charts`` window, the temperature
 evolution can be observed, showing that it closely follows the desired annealing procedure (Fig.~\ref{fig:GCMC-dimension}\,a).
 The evolution of the box dimensions over time confirms that the box
 deformed during the last stage of the simulation
 (Fig.~\ref{fig:GCMC-dimension}\,b).  After the simulation completes, the final
-LAMMPS topology file called *generate.data*
-will be located next to *generate.lmp* (Fig.~\ref{fig:GCMC-snapshot}).
+LAMMPS topology file called **generate.data**
+will be located next to **generate.lmp** (Fig.~\ref{fig:GCMC-snapshot}).
 
 Cracking the silica
 ===================
 
-Open the *cracking.lmp* file, which must contain the following familiar lines:
+Open the **cracking.lmp** file, which must contain the following familiar lines:
 
 .. code-block:: lammps
 
@@ -138,20 +135,17 @@ Open the *cracking.lmp* file, which must contain the following familiar lines:
 
     pair_coeff * * SiO.1990.vashishta Si O
 
-    dump viz all image 250 myimage-*.ppm type type &
-    shiny 0.1 box no 0.01 view 180 90 zoom 3.4 size 1700 700
-    dump_modify viz backcolor white &
-    acolor Si yellow adiam Si 2.5 &
-    acolor O red adiam O 2
+    dump viz all image 250 myimage-*.ppm type type shiny 0.1 box no 0.01 view 180 90 zoom 3.4 size 1700 700
+    dump_modify viz backcolor white acolor Si yellow adiam Si 2.5 acolor O red adiam O 2
 
     thermo 250
     thermo_style custom step temp etotal vol density
 
 Let us progressively increase the size of the box in the :math:`x` direction,
 forcing the silica to deform and eventually crack.  To achive this,
-the *fix deform* command is used, with a rate
+the ``fix deform`` command is used, with a rate
 of :math:`0.005\,\text{ps}^{-1}`.  Add the following lines to
-the *cracking.lmp* file:
+the **cracking.lmp** file:
 
 .. code-block:: lammps
 
@@ -162,7 +156,7 @@ the *cracking.lmp* file:
 
     write_data cracking.data
 
-The *fix nvt* command is employed to control the temperature of the system.
+The ``fix nvt`` command is employed to control the temperature of the system.
 As observed from the generated images, the atoms
 progressively adjust to the changing box dimensions.  At some point,
 bonds begin to break, leading to the appearance of
@@ -192,7 +186,7 @@ The first particularly of our system is that it combines water and
 silica, which necessitates the use of two force fields: Vashishta (for
 :math:`\text{SiO}_2`), and TIP4P (for water).  Here, the TIP4P/2005 model is
 employed for the water :cite:`abascal2005general`.  Open the
-*gcmc.lmp* file, which should contain the following lines:
+**gcmc.lmp** file, which should contain the following lines:
 
 .. code-block:: lammps
 
@@ -201,27 +195,26 @@ employed for the water :cite:`abascal2005general`.  Open the
     atom_style full
     neighbor 1.0 bin
     neigh_modify delay 1
-    pair_style hybrid/overlay vashishta &
-        lj/cut/tip4p/long OW HW OW-HW HW-OW-HW 0.1546 10
+    pair_style hybrid/overlay vashishta lj/cut/tip4p/long OW HW OW-HW HW-OW-HW 0.1546 10
     kspace_style pppm/tip4p 1.0e-5
     bond_style harmonic
     angle_style harmonic
 
 Combining the two force fields, Vashishta and TIP4P/2005, is achieved
-using the *hybrid/overlay* pair style.  The PPPM
-solver :cite:`luty1996calculating` is specified with the *kspace*
+using the ``hybrid/overlay`` pair style.  The PPPM
+solver :cite:`luty1996calculating` is specified with the ``kspace``
 command, and is used to compute the long-range Coulomb interactions associated
-with *tip4p/long*.  Finally, the style for the bonds
+with ``tip4p/long``.  Finally, the style for the bonds
 and angles of the water molecules are defined; however, these specifications are
 not critical since TIP4P/2005 is a rigid water model.
 
 The water molecule template called \href{\filepath tutorial6/H2O.mol}{\dwlcmd{H2O.mol}}
-must be downloaded and located next to *gcmc.lmp*.
+must be downloaded and located next to **gcmc.lmp**.
 
 Before going further, we need to make a few changes to our data file.
-Currently, the *cracking.data* file includes only two atom types, but we require four.
-Copy the previously generated *cracking.data*, and name the duplicate *cracking-mod.data*.
-Make the following changes to the beginning of *cracking-mod.data*
+Currently, the **cracking.data** file includes only two atom types, but we require four.
+Copy the previously generated **cracking.data**, and name the duplicate **cracking-mod.data**.
+Make the following changes to the beginning of **cracking-mod.data**
 to ensure it matches the following format (with 4 atom types,
 1 bond type, 1 angle type, the proper type labels, and four masses):
 
@@ -268,28 +261,28 @@ to ensure it matches the following format (with 4 atom types,
 
 Doing so, we anticipate that there will be 4 atom types in the simulations,
 with the oxygens and hydrogens of :math:`\text{H}_2\text{O}` having
-types *OW* and *HW*, respectively.  There
-will also be 1 bond type (*OW-HW*) and 1 angle type (*OW-HW-HW*).
-The *extra bond*, *extra angle*, and
-*extra special* lines are here for memory allocation.
+types ``OW`` and ``HW``, respectively.  There
+will also be 1 bond type (``OW-HW``) and 1 angle type (``OW-HW-HW``).
+The ``extra bond``, ``extra angle``, and
+``extra special`` lines are here for memory allocation.
 
-We can now proceed to complete the *gcmc.lmp* file by adding the system definition:
+We can now proceed to complete the **gcmc.lmp** file by adding the system definition:
 
 .. code-block:: lammps
 
     read_data cracking-mod.data
     molecule h2omol H2O.mol
-    create_atoms 0 random 3 3245 NULL mol h2omol 4585 &
-        overlap 2.0 maxtry 50
+    create_atoms 0 random 3 3245 NULL mol h2omol 4585 overlap 2.0 maxtry 50
 
     group SiO type Si O
     group H2O type OW HW
 
-After reading the data file and defining the *h2omol* molecule from the *H2O.txt*
-file, the *create\ atoms* command is used to include three water molecules
-in the system.  Then, add the following *pair_coeff* (and
-*bond_coeff* and *angle_coeff*) commands
-to *gcmc.lmp*:
+After reading the data file and defining the ``h2omol`` molecule from the **H2O.txt**
+file, the ``create_atoms`` command is used to include three water molecules
+in the system.  Then, add the following ``pair_coeff`` (and
+``bond_coeff`` and ``angle_coeff``) commands
+to **gcmc.lmp**:
+
 .. code-block:: lammps
         
     pair_coeff * * vashishta SiO.1990.vashishta Si O NULL NULL
@@ -301,18 +294,18 @@ to *gcmc.lmp*:
     bond_coeff OW-HW 0 0.9572
     angle_coeff HW-OW-HW 0 104.52
 
-The force field Vashishta applies only to *Si* and *O* of :math:`\text{SiO}_2`,
-and not to the *OW* and *HW* of :math:`\text{H}_2\text{O}`, thanks to the *NULL* parameters
-used for atoms of types *OW* and *HW*.  Pair coefficients for the *lj/cut/tip4p/long*
+The force field Vashishta applies only to ``Si`` and ``O`` of :math:`\text{SiO}_2`,
+and not to the ``OW`` and ``HW`` of :math:`\text{H}_2\text{O}`, thanks to the ``NULL`` parameters
+used for atoms of types ``OW`` and ``HW``.  Pair coefficients for the ``lj/cut/tip4p/long``
 potential are defined between O(:math:`\text{H}_2\text{O}`) and between H(:math:`\text{H}_2\text{O}`)
 atoms, as well as between O(:math:`\text{SiO}_2`)-O(:math:`\text{H}_2\text{O}`) and
 Si(:math:`\text{SiO}_2`)-O(:math:`\text{H}_2\text{O}`). Thus,  the fluid-fluid and the
-fluid-solid interactions will be adressed with by the *lj/cut/tip4p/long* potential.
-The *bond\ coeff* and *angle\ coeff* commands set the *OW-HW*
-bond length to 0.9572 Å, and the *HW-OW-HW*
+fluid-solid interactions will be adressed with by the ``lj/cut/tip4p/long`` potential.
+The ``bond_coeff`` and ``angle_coeff`` commands set the ``OW-HW``
+bond length to 0.9572 Å, and the ``HW-OW-HW``
 angle to :math:`104.52^\circ`, respectively :cite:`abascal2005general`.
 
-Add the following lines to *gcmc.lmp* as well:
+Add the following lines to **gcmc.lmp** as well:
 
 .. code-block:: lammps
 
@@ -320,15 +313,14 @@ Add the following lines to *gcmc.lmp* as well:
     group oxygen dynamic all var oxygen
     variable nO equal count(oxygen)
 
-    fix shak H2O shake 1.0e-5 200 0 b OW-HW &
-    a HW-OW-HW mol h2omol
+    fix shak H2O shake 1.0e-5 200 0 b OW-HW a HW-OW-HW mol h2omol
 
 The number of oxygen atoms from water molecules (i.e. the number of molecules)
-is calculated by the *nO* variable.  The SHAKE algorithm is used to
+is calculated by the ``nO`` variable.  The SHAKE algorithm is used to
 maintain the shape of the water molecules over time :cite:`ryckaert1977numerical, andersen1983rattle`.
 
 Finally, let us create images
-of the system using *dump image*:
+of the system using ``dump image``:
 
 .. code-block:: lammps
 
@@ -344,7 +336,7 @@ GCMC simulation
 ---------------
 
 To prepare for the GCMC simulation, let us add the
-following lines into *gcmc.lmp*:
+following lines into **gcmc.lmp**:
 
 .. code-block:: lammps
 
@@ -360,20 +352,18 @@ Two different thermostats are used for :math:`\text{SiO}_2` and :math:`\text{H}_
 respectively.  Using separate thermostats is usually better when the system contains
 two separate species, such as a solid and a liquid.  It is particularly important
 to use two thermostats here because the number of water molecules will fluctuate
-with time.  The *compute_modify* command with the *dynamic yes*
+with time.  The ``compute_modify`` command with the ``dynamic yes``
 option for water is used to specify that the number of molecules will not be constant.
 
-Finally, let us use the *fix gcmc* and perform the grand canonical Monte
-Carlo steps.  Add the following lines into *gcmc.lmp*:
+Finally, let us use the ``fix gcmc`` and perform the grand canonical Monte
+Carlo steps.  Add the following lines into **gcmc.lmp**:
 
 .. code-block:: lammps
         
     variable tfac equal 5.0/3.0
-    fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 &
-    mol h2omol tfac_insert ${tfac} shake shak &
-    full_energy pressure 100
+    fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} shake shak full_energy pressure 100
 
-The *tfac_insert* option ensures the correct estimate for the temperature
+The ``tfac_insert`` option ensures the correct estimate for the temperature
 of the inserted water molecules by taking into account the internal degrees of
 freedom.  Here, 100 insertion and deletion attemps are made every 100 steps.
 
@@ -390,8 +380,7 @@ Finally, let us print some information and run for 25 ps:
 .. code-block:: lammps
 
     thermo 250
-    thermo_style custom step temp etotal v_nO &
-    f_fgcmc[3] f_fgcmc[4] f_fgcmc[5] f_fgcmc[6]
+    thermo_style custom step temp etotal v_nO f_fgcmc[3] f_fgcmc[4] f_fgcmc[5] f_fgcmc[6]
 
     run 25000
 

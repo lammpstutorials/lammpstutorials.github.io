@@ -8,9 +8,9 @@ desired temperature and pressure.
 System generation
 -----------------
 
-To set up this tutorial, select *Start Tutorial 4* from the
-*Tutorials* menu of LAMMPS--GUI and follow the instructions.
-The editor should display the following content corresponding to *create.lmp*:
+To set up this tutorial, select ``Start Tutorial 4`` from the
+``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
+The editor should display the following content corresponding to **create.lmp**:
 
 .. code-block:: lammps
 
@@ -25,13 +25,13 @@ The editor should display the following content corresponding to *create.lmp*:
 
 These lines are used to define the most basic parameters, including the
 atom, bond, and angle styles, as well as interaction
-potential.  Here, *lj/cut/tip4p/long* imposes a Lennard-Jones potential with
+potential.  Here, ``lj/cut/tip4p/long`` imposes a Lennard-Jones potential with
 a cut-off at :math:`12\,\text{Å}` and a long-range Coulomb potential.
 
 So far, the commands are relatively similar to those in the previous tutorial,
 :ref:`all-atom-label`, with two major differences: the use
-of *lj/cut/tip4p/long* instead of *lj/cut/coul/long*, and *pppm/tip4p*
-instead of *pppm*.  When using *lj/cut/tip4p/long* and *pppm/tip4p*,
+of ``lj/cut/tip4p/long`` instead of ``lj/cut/coul/long``, and ``pppm/tip4p``
+instead of ``pppm``.  When using ``lj/cut/tip4p/long`` and ``pppm/tip4p``,
 the interactions resemble the conventional Lennard-Jones and Coulomb interactions,
 except that they are specifically designed for the four-point water model.  As a result,
 LAMMPS automatically creates a four-point water molecule, assigning type O
@@ -40,12 +40,12 @@ TIP4P water molecule does not have to be defined explicitly, and the value of
 :math:`0.1546\,\text{\AA{}}` corresponds to the O-M distance of the
 TIP4P-2005 water model :cite:`abascal2005general`.  All other atoms in the simulation
 are treated as usual, with long-range Coulomb interactions.  Another novelty, here, is
-the use of *kspace modify slab 3.0* that is combined with the non-periodic
-boundaries along the :math:`z` coordinate: *boundary p p f*.  With the *slab*
+the use of ``kspace modify slab 3.0`` that is combined with the non-periodic
+boundaries along the :math:`z` coordinate: ``boundary p p f``.  With the ``slab``
 option, the system is treated as periodical along :math:`z`, but with an empty volume inserted
 between the periodic images of the slab, and the interactions along :math:`z` effectively turned off.
 
-Let us create the box and the label maps by adding the following lines to *create.lmp*:
+Let us create the box and the label maps by adding the following lines to **create.lmp**:
 
 .. code-block:: lammps
 
@@ -58,24 +58,24 @@ Let us create the box and the label maps by adding the following lines to *creat
     labelmap bond 1 O-H
     labelmap angle 1 H-O-H
 
-The *lattice* command defines the unit cell.  Here, the face-centered cubic (fcc) lattice
+The ``lattice`` command defines the unit cell.  Here, the face-centered cubic (fcc) lattice
 with a scale factor of 4.04 has been chosen for the future positioning of the atoms
-of the walls.  The *region* command defines a geometric region of space.  By choosing
+of the walls.  The ``region`` command defines a geometric region of space.  By choosing
 :math:`\text{xlo}=-3` and :math:`\text{xlo}=3`, and because we have previously chosen a lattice with a scale
 factor of 4.04, the region box extends from :math:`-12.12~\text{\AA{}}` to :math:`12.12~\text{\AA{}}`
-along the :math:`x` direction.  The *create_box* command creates a simulation box with
+along the :math:`x` direction.  The ``create_box`` command creates a simulation box with
 5 types of atoms: the oxygen and hydrogen of the water molecules, the two ions (:math:`\text{Na}^+`,
 :math:`\text{Cl}^-`), and the atoms from the walls.  The simulation contains 1 type of bond
 and 1 type of angle (both required by the water molecules).
-The parameters for these bond and angle constraints will be given later.  The *extra (...)*
-keywords are for memory allocation.  Finally, the *labelmap* commands assign
+The parameters for these bond and angle constraints will be given later.  The ``extra (...)``
+keywords are for memory allocation.  Finally, the ``labelmap`` commands assign
 alphanumeric type labels to each numeric atom type, bond type, and angle type.
 
 
 Now, we can add atoms to the system.  First, let us create two sub-regions corresponding
 respectively to the two solid walls, and create a larger region from the union of the
 two regions.  Then, let us create atoms of type WALL within the two regions.  Add the
-following lines to *create.lmp*:
+following lines to **create.lmp**:
 
 .. code-block:: lammps
 
@@ -84,15 +84,14 @@ following lines to *create.lmp*:
     region rwall union 2 rbotwall rtopwall
     create_atoms WALL region rwall
 
-
 Atoms will be placed in the positions of the previously defined lattice, thus
 forming fcc solids.
 
 To add the water molecules, the molecule
 template called \href{\filepath tutorial4/water.mol}{\dwlcmd{water.mol}}
-must be located next to *create.lmp*.  The template contains all the
+must be located next to **create.lmp**.  The template contains all the
 necessary information concerning the water molecule, such as atom positions,
-bonds, and angles.  Add the following lines to *create.lmp*:
+bonds, and angles.  Add the following lines to **create.lmp**:
 
 .. code-block:: lammps
 
@@ -100,18 +99,18 @@ bonds, and angles.  Add the following lines to *create.lmp*:
     molecule h2omol water.mol
     create_atoms 0 region rliquid mol h2omol 482793
 
-Within the last three lines, a *region* named *rliquid* is
-created based on the last defined lattice, *fcc 4.04*.  *rliquid*
-will be used for depositing the water molecules.  The *molecule* command
-opens up the molecule template called *water.mol*, and names the
-associated molecule *h2omol*.  The new molecules are placed on the
-*fcc 4.04* lattice by the *create_atoms* command.  The first
-parameter is 0, meaning that the atom IDs from the *water.mol* file
-will be used.  The number *482793* is a seed that is required by LAMMPS,
+Within the last three lines, a ``region`` named ``rliquid`` is
+created based on the last defined lattice, ``fcc 4.04``.  ``rliquid``
+will be used for depositing the water molecules.  The ``molecule`` command
+opens up the molecule template called **water.mol**, and names the
+associated molecule ``h2omol``.  The new molecules are placed on the
+``fcc 4.04`` lattice by the ``create_atoms`` command.  The first
+parameter is 0, meaning that the atom IDs from the **water.mol** file
+will be used.  The number ``482793`` is a seed that is required by LAMMPS,
 it can be any positive integer.
 
 Finally, let us create 30 ions (15 :math:`\text{Na}^+` and 15 :math:`\text{Cl}^-`) in between
-the water molecules, by adding the following commands to *create.lmp*:
+the water molecules, by adding the following commands to **create.lmp**:
 
 .. code-block:: lammps
 
@@ -120,19 +119,19 @@ the water molecules, by adding the following commands to *create.lmp*:
     set type Na+ charge 1
     set type Cl- charge -1
 
-Each *create_atoms* command will add 15 ions at random positions
-within the *rliquid* region, ensuring that there is no *overlap*
+Each ``create_atoms`` command will add 15 ions at random positions
+within the ``rliquid`` region, ensuring that there is no ``overlap``
 with existing molecules.  Feel free to increase or decrease the salt concentration
 by changing the number of desired ions.  To keep the system charge neutral,
 always insert the same number of :math:`\text{Na}^+` and :math:`\text{Cl}^-`, unless there
 are other charges in the system.  The charges of the newly added ions are specified
-by the two *set* commands.
+by the two ``set`` commands.
 
 Before starting the simulation, we need to define the parameters of the
 simulation: the mass of the 5 atom types (O, H, :math:`\text{Na}^+`, :math:`\text{Cl}^-`,
 and wall), the pairwise interaction parameters (in this case, for the
 Lennard-Jones potential), and the bond and angle parameters.  Copy the following
-lines into *create.lmp*:
+lines into **create.lmp**:
 
 .. code-block:: lammps
 
@@ -141,9 +140,9 @@ lines into *create.lmp*:
 
 Both \href{\filepath tutorial4/parameters.inc}{\dwlcmd{parameters.inc}}
 and \href{\filepath tutorial4/groups.inc}{\dwlcmd{groups.inc}} files
-must be located next to *create.lmp*.
+must be located next to **create.lmp**.
 
-The *parameters.inc* file contains the masses, as follows:
+The **parameters.inc** file contains the masses, as follows:
 
 .. code-block:: lammps
 
@@ -154,8 +153,8 @@ The *parameters.inc* file contains the masses, as follows:
     mass WALL 26.9815
 
 
-Each *mass* command assigns a mass in g/mol to an atom type.
-The *parameters.inc* file also contains the pair coefficients:
+Each ``mass`` command assigns a mass in g/mol to an atom type.
+The **parameters.inc** file also contains the pair coefficients:
 
 .. code-block:: lammps
 
@@ -166,10 +165,10 @@ The *parameters.inc* file also contains the pair coefficients:
     pair_coeff WALL WALL 11.697 2.574
     pair_coeff O WALL 0.4 2.86645
 
-Each *pair_coeff* assigns the depth of the LJ potential (in
+Each ``pair_coeff`` assigns the depth of the LJ potential (in
 kcal/mol), and the distance (in Ångströms) at which the
 particle-particle potential energy is 0.  As noted in previous
-tutorials, with the important exception of *pair\ coeff O WALL*,
+tutorials, with the important exception of ``pair_coeff O WALL``,
 pairwise interactions were only assigned between atoms of identical
 types.  By default, LAMMPS calculates the pair coefficients for the
 interactions between atoms of different types (i and j) by using
@@ -182,23 +181,23 @@ molecules to form dense layers.  As a comparison, the water-water energy
 to make the walls less hydrophilic, the value of
 :math:`\epsilon_\text{O-WALL}` was reduced.
 
-Finally, the *parameters.inc* file contains the following two lines:
+Finally, the **parameters.inc** file contains the following two lines:
 .. code-block:: lammps
 
     bond_coeff O-H 0 0.9572
     angle_coeff H-O-H 0 104.52
 
-The *bond_coeff* command, used here for the O-H bond of the water
+The ``bond_coeff`` command, used here for the O-H bond of the water
 molecule, sets both the spring constant of the harmonic potential and the
 equilibrium bond distance of :math:`0.9572~\text{\AA{}}`.  The constant can be 0 for a
 rigid water molecule because the SHAKE algorithm will maintain the rigid
 structure of the water molecule (see below) :cite:`ryckaert1977numerical, andersen1983rattle`.
-Similarly, the *angle_coeff* command for the H-O-H angle of the water molecule sets
+Similarly, the ``angle_coeff`` command for the H-O-H angle of the water molecule sets
 the force constant of the angular harmonic potential to 0 and the equilibrium
 angle to :math:`104.52^\circ`.
 
-Alongside *parameters.inc*, the *groups.inc* file contains
-several *group* commands to selects atoms based on their types:
+Alongside **parameters.inc**, the **groups.inc** file contains
+several ``group`` commands to selects atoms based on their types:
 
 .. code-block:: lammps
 
@@ -208,7 +207,7 @@ several *group* commands to selects atoms based on their types:
     group ions union Na Cl
     group fluid union H2O ions
 
-The *groups.inc* file also defines the *walltop* and *wallbot*
+The **groups.inc** file also defines the ``walltop`` and ``wallbot``
 groups, which contain the WALL atoms located in the :math:`z > 0` and :math:`z < 0` regions, respectively::
 
 .. code-block:: lammps
@@ -222,7 +221,7 @@ groups, which contain the WALL atoms located in the :math:`z > 0` and :math:`z <
     group wallbot intersect wall bot
 
 Currently, the fluid density between the two walls is slightly too high.  To avoid
-excessive pressure, let us add the following lines into *create.lmp*
+excessive pressure, let us add the following lines into **create.lmp**
 to delete about :math:`15~\%` of the water molecules:
 
 .. code-block:: lammps
@@ -230,21 +229,16 @@ to delete about :math:`15~\%` of the water molecules:
     delete_atoms random fraction 0.15 yes H2O NULL 482793 mol yes
 
 
-To create an image of the system, add the following *dump* image
-into *create.lmp* (see also Fig.~\ref{fig:NANOSHEAR-system}):
+To create an image of the system, add the following ``dump`` image
+into **create.lmp** (see also Fig.~\ref{fig:NANOSHEAR-system}):
 
 .. code-block:: lammps
 
-    dump mydmp all image 200 myimage-*.ppm type type &
-    shiny 0.1 box no 0.01 view 90 0 zoom 1.8
-    dump_modify mydmp backcolor white &
-    acolor O red adiam O 2 &
-    acolor H white adiam H 1 &
-    acolor Na+ blue adiam Na+ 2.5 &
-    acolor Cl- cyan adiam Cl- 3 &
-    acolor WALL gray adiam WALL 3
+    dump mydmp all image 200 myimage-*.ppm type type shiny 0.1 box no 0.01 view 90 0 zoom 1.8
+    dump_modify mydmp backcolor white acolor O red adiam O 2 acolor H white adiam H 1 &
+        acolor Na+ blue adiam Na+ 2.5 acolor Cl- cyan adiam Cl- 3 acolor WALL gray adiam WALL 3
 
-Finally, add the following lines into *create.lmp*:
+Finally, add the following lines into **create.lmp**:
 
 .. code-block:: lammps
 
@@ -252,15 +246,13 @@ Finally, add the following lines into *create.lmp*:
 
     write_data create.data nocoeff
 
-
-The *run 0* command runs the simulation for 0 steps, which is sufficient for
-creating the system and saving its state.  The *write\ data* command
-generates a file called *system.data* containing the information required
+The ``run 0`` command runs the simulation for 0 steps, which is sufficient for
+creating the system and saving its state.  The ``write_data`` command
+generates a file called **system.data** containing the information required
 to restart the simulation from the final configuration produced by this input
-file.  With the *nocoeff* option, the parameters from the force field are
-not included in the *.data* file.  Run the *create.lmp* file using LAMMPS,
-and a file named *create.data* will be created alongside *create.lmp*.
-
+file.  With the ``nocoeff`` option, the parameters from the force field are
+not included in the **.data** file.  Run the **create.lmp** file using LAMMPS,
+and a file named **create.data** will be created alongside **create.lmp**.
 
 ADD FIGURE NANOSHEAR-system -- Side view of the system.  Periodic images are represented in darker colors.
 Water molecules are in red and white, :math:`\text{Na}^+` ions in purple, :math:`\text{Cl}^-`
@@ -273,8 +265,8 @@ Let us move the atoms and place them in more energetically favorable positions
 before starting the actual molecular dynamics simulation.
 
 
-Open the *equilibrate.lmp* file that was downloaded alongside
-*create.lmp* during the tutorial setup.  It contains the following lines:
+Open the **equilibrate.lmp** file that was downloaded alongside
+**create.lmp** during the tutorial setup.  It contains the following lines:
 
 .. code-block:: lammps
 
@@ -292,9 +284,8 @@ Open the *equilibrate.lmp* file that was downloaded alongside
     include parameters.inc
     include groups.inc
 
-
 The only difference from the previous input is that, instead of creating a new
-box and new atoms, we open the previously created *create.data* file.
+box and new atoms, we open the previously created **create.data** file.
 
 Now, let us use the SHAKE algorithm to maintain the shape of the
 water molecules :cite:`ryckaert1977numerical, andersen1983rattle`.
@@ -303,38 +294,33 @@ water molecules :cite:`ryckaert1977numerical, andersen1983rattle`.
 
     fix myshk H2O shake 1.0e-5 200 0 b O-H a H-O-H kbond 2000
 
-Here the SHAKE algorithm applies to the *O-H* bond and the *H-O-H* angle
-of the water molecules.  The *kbond* keyword specifies the force constant that will be
+Here the SHAKE algorithm applies to the ``O-H`` bond and the ``H-O-H`` angle
+of the water molecules.  The ``kbond`` keyword specifies the force constant that will be
 used to apply a restraint force when used during minimization.  This last keyword is important
 here, because the spring constants of the rigid water molecules were set
-to 0 (see the *parameter.inc* file).
+to 0 (see the **parameters.inc** file).
 
 Let us also create images of the system and control
 the printing of thermodynamic outputs by adding the following lines
-to *equilibrate.lmp*:
+to **equilibrate.lmp**:
 
 .. code-block:: lammps
 
-    dump mydmp all image 1 myimage-*.ppm type type &
-        shiny 0.1 box no 0.01 view 90 0 zoom 1.8
-    dump_modify mydmp backcolor white &
-        acolor O red adiam O 2 &
-        acolor H white adiam H 1 &
-        acolor Na+ blue adiam Na+ 2.5 &
-        acolor Cl- cyan adiam Cl- 3 &
-        acolor WALL gray adiam WALL 3
+    dump mydmp all image 1 myimage-*.ppm type type shiny 0.1 box no 0.01 view 90 0 zoom 1.8
+    dump_modify mydmp backcolor white acolor O red adiam O 2 acolor H white adiam H 1 &
+        acolor Na+ blue adiam Na+ 2.5 acolor Cl- cyan adiam Cl- 3 acolor WALL gray adiam WALL 3
 
     thermo 1
     thermo_style custom step temp etotal press
 
-Let us perform an energy minization by adding the following lines to *equilibrate.lmp*:
+Let us perform an energy minization by adding the following lines to **equilibrate.lmp**:
 
 .. code-block:: lammps
 
     minimize 1.0e-6 1.0e-6 1000 1000
     reset_timestep 0
 
-When running the *equilibrate.lmp* file with LAMMPS, you should observe that the
+When running the **equilibrate.lmp** file with LAMMPS, you should observe that the
 total energy of the system is initially very high but rapidly decreases.  From the generated
 images of the system, you will notice that the atoms and molecules are moving to adopt more favorable positions.
 
@@ -343,10 +329,10 @@ System equilibration
 
 Let us equilibrate further the entire system by letting both fluid and piston
 relax at ambient temperature.  Here, the commands are written within the same
-*equilibrate.lmp* file, right after the *reset_timestep* command.
+**equilibrate.lmp** file, right after the ``reset_timestep`` command.
 
 Let us update the positions of all the atoms and use a Nosé-Hoover
-thermostat.  Add the following lines to *equilibrate.lmp*:
+thermostat.  Add the following lines to **equilibrate.lmp**:
 
 .. code-block:: lammps
 
@@ -355,28 +341,23 @@ thermostat.  Add the following lines to *equilibrate.lmp*:
     fix myrct all recenter NULL NULL 0
     timestep 1.0
 
-As mentioned previously, the *fix recenter* does not influence the dynamics,
+As mentioned previously, the ``fix recenter`` does not influence the dynamics,
 but will keep the system in the center of the box, which makes the
-visualization easier.  Then, add the following lines into *equilibrate.lmp*
+visualization easier.  Then, add the following lines into **equilibrate.lmp**
 for the trajectory visualization:
 
 .. code-block:: lammps
 
     undump mydmp
-    dump mydmp all image 250 myimage-*.ppm type type &
-    shiny 0.1 box no 0.01 view 90 0 zoom 1.8
-    dump_modify mydmp backcolor white &
-    acolor O red adiam O 2 &
-    acolor H white adiam H 1 &
-    acolor Na+ blue adiam Na+ 2.5 &
-    acolor Cl- cyan adiam Cl- 3 &
-    acolor WALL gray adiam WALL 3
+    dump mydmp all image 250 myimage-*.ppm type type shiny 0.1 box no 0.01 view 90 0 zoom 1.8
+    dump_modify mydmp backcolor white acolor O red adiam O 2 acolor H white adiam H 1 &
+        acolor Na+ blue adiam Na+ 2.5 acolor Cl- cyan adiam Cl- 3 acolor WALL gray adiam WALL 3
 
-The *undump* command is used to cancel the previous *dump* command.
-Then, a new *dump* command with a larger dumping period is used.
+The ``undump`` command is used to cancel the previous ``dump`` command.
+Then, a new ``dump`` command with a larger dumping period is used.
 
 To monitor the system equilibration, let us print the distance between
-the two walls.  Add the following lines to *equilibrate.lmp*:
+the two walls.  Add the following lines to **equilibrate.lmp**:
 
 .. code-block:: lammps
 
@@ -388,20 +369,20 @@ the two walls.  Add the following lines to *equilibrate.lmp*:
     thermo_style custom step temp etotal press v_deltaz
 
 The first two variables extract the centers of mass of the two walls.  The
-*deltaz* variable is then used to calculate the difference between the two
-variables *walltopz* and *wallbotz*, i.e.~the distance between the
+``deltaz`` variable is then used to calculate the difference between the two
+variables ``walltopz`` and ``wallbotz``, i.e.~the distance between the
 two centers of mass of the walls.
 
-Finally, let us run the simulation for 30~ps by adding a *run* command
-to *equilibrate.lmp*:
+Finally, let us run the simulation for 30~ps by adding a ``run`` command
+to **equilibrate.lmp**:
 
 .. code-block:: lammps
 
     run 30000
 
-write_data equilibrate.data nocoeff
+    write_data equilibrate.data nocoeff
 
-Run the *equilibrate.lmp* file using LAMMPS.  Both the pressure and the distance
+Run the **equilibrate.lmp** file using LAMMPS.  Both the pressure and the distance
 between the two walls show oscillations at the start of the simulation
 but eventually stabilize at their equilibrium values toward
 the end of the simulation (Fig.~\ref{fig:NANOSHEAR-equilibration}).
@@ -427,7 +408,7 @@ Imposed shearing
 
 
 From the equilibrated configuration, let us impose a lateral motion on the two
-walls and shear the electrolyte.  Open the last input file named *shearing.lmp*.
+walls and shear the electrolyte.  Open the last input file named **shearing.lmp**.
 It starts with the following lines:
 
 .. code-block:: lammps
@@ -447,7 +428,7 @@ It starts with the following lines:
     include groups.inc
 
 To address the dynamics of the system, add the following lines to
-*shearing.lmp*:
+**shearing.lmp**:
 
 .. code-block:: lammps
 
@@ -464,15 +445,15 @@ To address the dynamics of the system, add the following lines to
     timestep 1.0
 
 One key difference with the previous input is that, here, two thermostats are used,
-one for the fluid (*mynvt1*) and one for the solid (*mynvt2*).
-The combination of *fix\ modify* with *compute temp* ensures
+one for the fluid (``mynvt1``) and one for the solid (``mynvt2``).
+The combination of ``fix_modify`` with ``compute temp`` ensures
 that the correct temperature values are used by the thermostats.  Using
-*compute* commands for the temperature with *temp/partial 0 1 1* is
+``compute`` commands for the temperature with ``temp/partial 0 1 1`` is
 intended to exclude the :math:`x` coordinate from the thermalization, which is important since a
 large velocity will be imposed along the :math:`x` direction.
 
 Then, let us impose the velocity of the two walls by adding the following
-commands to *shearing.lmp*:
+commands to **shearing.lmp**:
 
 .. code-block:: lammps
 
@@ -481,38 +462,33 @@ commands to *shearing.lmp*:
     velocity wallbot set -2e-4 NULL NULL
     velocity walltop set 2e-4 NULL NULL
 
-The *setforce* commands cancel the forces on *walltop* and
-*wallbot*.  As a result, the atoms in these two groups will not
+The ``setforce`` commands cancel the forces on ``walltop`` and
+``wallbot``.  As a result, the atoms in these two groups will not
 experience any forces from the rest of the system.  Consequently, in the absence of
 external forces, these atoms will conserve the initial velocities imposed by the
-two *velocity* commands.
+two ``velocity`` commands.
 
 Add figure NANOSHEAR-profiles Velocity profiles for water (blue) and walls (orange) along the :math:`z`-axis.
 
 
 Finally, let us generate images of the systems and print the values of the
-forces exerted by the fluid on the walls, as given by *f_mysf1[1]*
-and *f_mysf2[1]*.  Add these lines to *shearing.lmp*:
+forces exerted by the fluid on the walls, as given by ``f_mysf1[1]``
+and ``f_mysf2[1]``.  Add these lines to **shearing.lmp**:
 
 .. code-block:: lammps
 
-    dump mydmp all image 250 myimage-*.ppm type type &
-    shiny 0.1 box no 0.01 view 90 0 zoom 1.8
-    dump_modify mydmp backcolor white &
-    acolor O red adiam O 2 &
-    acolor H white adiam H 1 &
-    acolor Na+ blue adiam Na+ 2.5 &
-    acolor Cl- cyan adiam Cl- 3 &
-    acolor WALL gray adiam WALL 3
+    dump mydmp all image 250 myimage-*.ppm type type shiny 0.1 box no 0.01 view 90 0 zoom 1.8
+    dump_modify mydmp backcolor white acolor O red adiam O 2 acolor H white adiam H 1 &
+        acolor Na+ blue adiam Na+ 2.5 acolor Cl- cyan adiam Cl- 3 acolor WALL gray adiam WALL 3
 
     thermo 250
     thermo_modify temp Tfluid
     thermo_style custom step temp etotal f_mysf1[1] f_mysf2[1]
 
 Let us also extract the density and velocity profiles using
-the *chunk/atom* and *ave/chunk* commands.  These commands are
+the ``chunk/atom`` and ``ave/chunk`` commands.  These commands are
 used to divide the system into bins and return the desired quantities, here the velocity
-along :math:`x` (*vx*) within the bins.  Add the following lines to *shearing.lmp*:
+along :math:`x` (``vx``) within the bins.  Add the following lines to **shearing.lmp**:
 
 .. code-block:: lammps
 
@@ -530,10 +506,10 @@ along :math:`x` (*vx*) within the bins.  Add the following lines to *shearing.lm
     run 200000
 
 Here, a bin size of :math:`0.25\,\text{\AA{}}` is used for the density
-profiles generated by the *ave/chunk* commands, and three
-*.dat* files are created for the water, the walls, and the ions,
-respectively.  With values of *10 15000 200000*, the velocity
-*vx* will be evaluated every 10 steps during the final 150,000
+profiles generated by the ``ave/chunk`` commands, and three
+**.dat** files are created for the water, the walls, and the ions,
+respectively.  With values of ``10 15000 200000``, the velocity
+``vx`` will be evaluated every 10 steps during the final 150,000
 steps of the simulations.  The result will be averaged and printed only
 once at the 200,000 th step.
 
@@ -555,7 +531,7 @@ where :math:`\tau` is the stress applied by
 the fluid on the shearing wall, and :math:`\dot{\gamma}` the shear rate
 :cite:`gravelle2021violations`.  Here, the shear rate is
 approximately :math:`\dot{\gamma} = 20 \cdot 10^9\,\text{s}^{-1}` (Fig.~\ref{fig:NANOSHEAR-profiles}),
-the average force on each wall is given by *f_mysf1[1]* and *f_mysf2[1]*
+the average force on each wall is given by ``f_mysf1[1]`` and ``f_mysf2[1]``
 and is approximately :math:`2.7\,\mathrm{kcal/mol/\AA}` in magnitude.  Using a surface area
 for the walls of :math:`A = 6 \cdot 10^{-18}\,\text{m}^2`, one obtains an estimate for
 the shear viscosity for the confined fluid of :math:`\eta = 3.1\,\text{mPa.s}` using Eq.~\eqref{eq:eta}.

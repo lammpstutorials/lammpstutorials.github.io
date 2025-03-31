@@ -31,9 +31,9 @@ favorable area to explore.
 Basic LAMMPS parameters
 -----------------------
 
-To begin this tutorial, select *Start Tutorial 7* from the
-*Tutorials* menu of LAMMPS--GUI and follow the instructions.
-The editor should display the following content corresponding to *free-energy.lmp*:
+To begin this tutorial, select ``Start Tutorial 7`` from the
+``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
+The editor should display the following content corresponding to **free-energy.lmp**:
 
 .. code-block:: lammps
 
@@ -57,8 +57,8 @@ Here, we begin by defining variables for the Lennard-Jones interaction
 which is a truncated and purely repulsive LJ
 potential :cite:`weeks1971role`.  It was calculated as :math:`2^{1/6} \sigma`.
 The potential is also shifted to be equal to 0 at the cut-off
-using the *pair\ modify* command.  The unit system is
-*real*, in which energy is in kcal/mol, distance in Ångströms, or
+using the ``pair_modify`` command.  The unit system is
+``real``, in which energy is in kcal/mol, distance in Ångströms, or
 time in femtosecond, has been chosen for practical reasons: the WHAM
 algorithm used in the second part of the tutorial automatically assumes
 the energy to be in kcal/mol.
@@ -67,7 +67,7 @@ System creation and settings
 ----------------------------
 
 Let us define the simulation box and randomly add atoms by addying the
-following lines to *free-energy.lmp*:
+following lines to **free-energy.lmp**:
 
 .. code-block:: lammps
 
@@ -112,17 +112,16 @@ Eq.~\eqref{eq:F} (b) as functions of the coordinate :math:`x`. Here,
 
 
 We impose the force :math:`F(x)` to the atoms in the simulation
-using the *fix addforce* command.  Add the following
-lines to *free-energy.lmp*:
+using the ``fix addforce`` command.  Add the following
+lines to **free-energy.lmp**:
+
 .. code-block:: lammps
         
-    variable U atom :math:`{U0}*atan((x+`{x0})/${dlt})&
-        -:math:`{U0}*atan((x-`{x0})/${dlt})
-    variable F atom :math:`{U0}/((x-`{x0})^2/:math:`{dlt}^2+1)/`{dlt}&
-        -:math:`{U0}/((x+`{x0})^2/:math:`{dlt}^2+1)/`{dlt}
+    variable U atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
+    variable F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
     fix myadf all addforce v_F 0.0 0.0 energy v_U
 
-Next, we combine the *fix nve* with a *fix langevin* thermostat:
+Next, we combine the ``fix nve`` with a ``fix langevin`` thermostat:
 
 .. code-block:: lammps
 
@@ -135,28 +134,25 @@ atoms :math:`N`, constant volume :math:`V`, and a temperature :math:`T` that
 fluctuates around a target value.
 
 ADD FIGURE US-density-evolution Evolution of the number of atoms :math:`n_\text{center}` in the central
-region *mymes* as a function of time :math:`t` during equilibration.  The dark line
+region ``mymes`` as a function of time :math:`t` during equilibration.  The dark line
 is :math:`n_\text{center} = 22 \exp(-t/160)+5` and serves as a guide for the eyes.
 Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
 
 To ensure that the equilibration time is sufficient, we will track the evolution of
 the number of atoms in the central - energetically unfavorable - region,
-referred to as *mymes*, using the *n_center* variable:
+referred to as ``mymes``, using the ``n_center`` variable:
 
 .. code-block:: lammps
 
-    region mymes block -:math:`{x0} `{x0} INF INF INF INF
+    region mymes block -${x0} ${x0} INF INF INF INF
     variable n_center equal count(all,mymes)
     thermo_style custom step temp etotal v_n_center
     thermo 10000
 
-    dump viz all image 50000 myimage-*.ppm type type &
-        shiny 0.1 box yes 0.01 view 180 90 zoom 6 &
-        size 1600 500 fsaa yes
-    dump_modify viz backcolor white acolor 1 cyan &
-        adiam 1 3 boxcolor black
+    dump viz all image 50000 myimage-*.ppm type type shiny 0.1 box yes 0.01 view 180 90 zoom 6 size 1600 500 fsaa yes
+    dump_modify viz backcolor white acolor 1 cyan adiam 1 3 boxcolor black
 
-A *dump image* command was also added for system visualization.
+A ``dump image`` command was also added for system visualization.
 
 Finally, let us perform an equilibration of 50000 steps,
 using a timestep of :math:`2\,\text{fs}`, corresponding to a total duration of :math:`100\,\text{ps}`:
@@ -175,8 +171,8 @@ Run and data acquisition
 
 
 Once the system is equilibrated, we will record the density profile of
-the atoms along the :math:`x`-axis using the *ave/chunk* command.
-Add the following line to *free-energy.lmp*:
+the atoms along the :math:`x`-axis using the ``ave/chunk`` command.
+Add the following line to **free-energy.lmp**:
 
 .. code-block:: lammps
 
@@ -185,19 +181,18 @@ Add the following line to *free-energy.lmp*:
     thermo 200000
 
     compute cc1 all chunk/atom bin/1d x 0.0 2.0
-    fix myac all ave/chunk 100 20000 2000000 &
-        cc1 density/number file free-sampling.dat
+    fix myac all ave/chunk 100 20000 2000000 cc1 density/number file free-sampling.dat
 
     run 2000000
 
-The step count is reset to 0 using *reset\ timestep* to synchronize it
-with the output times of *fix density/number*.  Run the simulation using
+The step count is reset to 0 using ``reset_timestep`` to synchronize it
+with the output times of ``fix density/number``.  Run the simulation using
 LAMMPS.
 
 Data analysis
 -------------
 
-Once the simulation is complete, the density profile from *free-sampling.dat*
+Once the simulation is complete, the density profile from **free-sampling.dat**
 shows that the density in the center of the box is
 about two orders of magnitude lower than inside the reservoir (Fig.~\ref{fig:US-density}\,a).
 Next, we plot :math:`-R T \ln(\rho/\rho_\mathrm{bulk})` (i.e.~Eq.~\eqref{eq:G} where
@@ -213,7 +208,7 @@ are available due to the repulsive potential.
 Add US-system-unbiased FIGURE  Snapshot of the system simulated during the free sampling
 step of \hyperref[umbrella-sampling-label]{Tutorial 7}.
 The atoms density is the lowest in the central
-part of the box, *mymes*.  Here,
+part of the box, ``mymes``.  Here,
 :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
 
 ADD US-density FIGURE? a) Fluid density, :math:`\rho`, along the :math:`x` direction.
@@ -253,7 +248,7 @@ unbiased free energy profile.
 LAMMPS input script
 -------------------
 
-Open the file named *umbrella-sampling.lmp*, which should
+Open the file named **umbrella-sampling.lmp**, which should
 contain the following lines:
 
 .. code-block:: lammps
@@ -278,7 +273,7 @@ difference is the introduction of the variable :math:`k`, which will be used for
 the biasing potential.
 
 Let us create a simulation box with two atom types, including a single particle of type 2,
-by adding the following lines to *umbrella-sampling.lmp*:
+by adding the following lines to **umbrella-sampling.lmp**:
 
 .. code-block:: lammps
 
@@ -288,23 +283,21 @@ by adding the following lines to *umbrella-sampling.lmp*:
     create_atoms 1 random 199 34134 myreg overlap 3 maxtry 50
 
 Next, we assign the same mass and LJ parameters to both atom types
-1 and 2, and place the atoms of type 2 into a group named *topull*:
+1 and 2, and place the atoms of type 2 into a group named ``topull``:
 
 .. code-block:: lammps
 
     mass * 39.948
-    pair_coeff * * :math:`{epsilon} `{sigma}
+    pair_coeff * * ${epsilon} ${sigma}
     group topull type 2
 
 Then, the same potential :math:`U` and force :math:`F` are applied to all the atoms,
-together with the same *fix nve* and *fix langevin* commands:
+together with the same ``fix nve`` and ``fix langevin`` commands:
 
 .. code-block:: lammps
 
-    variable U atom :math:`{U0}*atan((x+`{x0})/${dlt})&
-        -:math:`{U0}*atan((x-`{x0})/${dlt})
-    variable F atom :math:`{U0}/((x-`{x0})^2/:math:`{dlt}^2+1)/`{dlt}&
-        -:math:`{U0}/((x+`{x0})^2/:math:`{dlt}^2+1)/`{dlt}
+    variable U atom ${U0}*atan((x+${x0})/${dlt})-${U0}*atan((x-${x0})/${dlt})
+    variable F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
     fix myadf all addforce v_F 0.0 0.0 energy v_U
 
     fix mynve all nve
@@ -317,9 +310,7 @@ umbrella sampling run:
 
     thermo 5000
 
-    dump viz all image 50000 myimage-*.ppm type type &
-        shiny 0.1 box yes 0.01 view 180 90 zoom 6 &
-        size 1600 500 fsaa yes
+    dump viz all image 50000 myimage-*.ppm type type shiny 0.1 box yes 0.01 view 180 90 zoom 6 size 1600 500 fsaa yes
     dump_modify viz backcolor white acolor 1 cyan &
     acolor 2 red adiam 1 3 adiam 2 3 boxcolor black
 
@@ -335,11 +326,11 @@ central part of the box (Fig.~\ref{fig:US-system-biased}).
 Add FIGURE US-system-biased Snapshot of the system simulated during the umbrella sampling
 step of \hyperref[umbrella-sampling-label]{Tutorial 7}, showing type-1 atoms
 in cyan and the type-2 atom in red.  Only the type-2 atom explores the central part of the box,
-*mymes*, due to the additional biasing potential :math:`V`. Parmaeters are
+``mymes``, due to the additional biasing potential :math:`V`. Parmaeters are
 :math:`U_0 = 2.38~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
 
 Now, we create a loop with 15 steps and progressively move the center of the
-bias potential by increments of 0.4\,nm.  Add the following lines to *umbrella-sampling.lmp*:
+bias potential by increments of 0.4\,nm.  Add the following lines to **umbrella-sampling.lmp**:
 
 .. code-block:: lammps
 
@@ -348,26 +339,25 @@ bias potential by increments of 0.4\,nm.  Add the following lines to *umbrella-s
 
     variable xdes equal 4*${a}-32
     variable xave equal xcm(topull,x)
-    fix mytth topull spring tether :math:`{k} `{xdes} 0 0 0
+    fix mytth topull spring tether ${k} ${xdes} 0 0 0
 
     run 20000
 
-    fix myat1 all ave/time 10 10 100 &
-        v_xave v_xdes file umbrella-sampling.${a}.dat
+    fix myat1 all ave/time 10 10 100 v_xave v_xdes file umbrella-sampling.${a}.dat
 
     run 200000
     unfix myat1
     next a
     jump SELF loop
 
-The *spring* command imposes the additional harmonic potential :math:`V` with
+The ``spring`` command imposes the additional harmonic potential :math:`V` with
 the previously defined spring constant :math:`k`.  The center of the harmonic
 potential, :math:`x_\text{des}`, successively takes values
 from :math:`-28\,\text{\AA}` to :math:`28\,\text{\AA}`.  For each value of :math:`x_\text{des}`,
 an equilibration step of 40 ps is performed, followed by a step
 of 400 ps during which the position of the particle of
-type 2 along the :math:`x`-axis, :math:`x_\text{ave}`, is saved in data files named *umbrella-sampling.i.dat*,
-where :math:`i` ranges from 1 to 15.  Run the *umbrella-sampling.lmp* file using LAMMPS.
+type 2 along the :math:`x`-axis, :math:`x_\text{ave}`, is saved in data files named **umbrella-sampling.i.dat**,
+where :math:`i` ranges from 1 to 15.  Run the **umbrella-sampling.lmp** file using LAMMPS.
 
 .. admonition:: Note
     :class: non-title-info
@@ -381,15 +371,15 @@ WHAM algorithm
 --------------
 
 To generate the free energy profile from the particle positions saved in
-the *umbrella-sampling.i.dat* files, we use the
+the **umbrella-sampling.i.dat** files, we use the
 WHAM :cite:`kumar1992weighted,kumar1995multidim` algorithm as implemented
 by Alan Grossfield :cite:`grossfieldimplementation`.  You can download it
 from \href{http://membrane.urmc.rochester.edu/?page_id=126}{Alan
   Grossfield}'s website.  Make sure you download the WHAM code version
-2.1.0 or later which introduces the *units* command-line option
-used below. The executable called *wham* generated by following
+2.1.0 or later which introduces the ``units`` command-line option
+used below. The executable called ``wham`` generated by following
 the instructions from the website must be placed next to
-*umbrella-sampling.lmp*.  To apply the WHAM algorithm to our
+**umbrella-sampling.lmp**.  To apply the WHAM algorithm to our
 simulation, we need a metadata file containing:
 
 - the paths to all the data files,
@@ -398,7 +388,7 @@ simulation, we need a metadata file containing:
 
 Download the
 \href{\filepath tutorial7/umbrella-sampling.meta}{\dwlcmd{umbrella-sampling.meta}}
-file and save it next to *umbrella-sampling.lmp*.  Then, run the
+file and save it next to **umbrella-sampling.lmp**.  Then, run the
 WHAM algorithm by typing the following command in the terminal:
 
 .. code-block:: bash
@@ -407,7 +397,7 @@ WHAM algorithm by typing the following command in the terminal:
         umbrella-sampling.meta umbrella-sampling.dat
 
 where -30 and 30 are the boundaries, 50 is the number of bins, 1e-8 is the tolerance,
-and 119.8 is the temperature in Kelvin.  A file called *umbrella-sampling.dat* is created,
+and 119.8 is the temperature in Kelvin.  A file called **umbrella-sampling.dat** is created,
 containing the free energy profile in kcal/mol.  The resulting PMF can be compared
 with the imposed potential :math:`U`, showing excellent agreement
 (Fig.~\ref{fig:US-freenergy}).  Remarkably, this excellent agreement is achieved despite
