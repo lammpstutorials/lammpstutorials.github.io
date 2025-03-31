@@ -106,10 +106,19 @@ is the Boltzmann constant and :math:`T = 119.8\,\text{K}` is the temperature
 used in this simulation.  Under these conditions, particles are expected to
 frequently overcome the energy barrier due to thermal agitation.
 
-ADD FIGURE US-potential Potential :math:`U` given in Eq.~\eqref{eq:U} (a) and force :math:`F` given in
-Eq.~\eqref{eq:F} (b) as functions of the coordinate :math:`x`. Here,
-:math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
+.. figure:: figures/US-potential-dm.png
+    :class: only-dark
+    :alt: Potential imporsed to the atoms
 
+.. figure:: figures/US-potential.png
+    :class: only-light
+    :alt: Potential imporsed to the atoms
+
+..  container:: figurelegend
+
+    Potential :math:`U` given in Eq.~\eqref{eq:U} (a) and force :math:`F` given in
+    Eq.~\eqref{eq:F} (b) as functions of the coordinate :math:`x`. Here,
+    :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
 
 We impose the force :math:`F(x)` to the atoms in the simulation
 using the ``fix addforce`` command.  Add the following
@@ -133,10 +142,20 @@ in the NVT ensemble, maintaining a constant number of
 atoms :math:`N`, constant volume :math:`V`, and a temperature :math:`T` that
 fluctuates around a target value.
 
-ADD FIGURE US-density-evolution Evolution of the number of atoms :math:`n_\text{center}` in the central
-region ``mymes`` as a function of time :math:`t` during equilibration.  The dark line
-is :math:`n_\text{center} = 22 \exp(-t/160)+5` and serves as a guide for the eyes.
-Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
+.. figure:: figures/US-density-evolution-dm.png
+    :class: only-dark
+    :alt: Evolution of the number of atoms
+
+.. figure:: figures/US-density-evolution.png
+    :class: only-light
+    :alt: Evolution of the number of atoms
+
+..  container:: figurelegend
+
+    Evolution of the number of atoms :math:`n_\text{center}` in the central
+    region ``mymes`` as a function of time :math:`t` during equilibration.  The dark line
+    is :math:`n_\text{center} = 22 \exp(-t/160)+5` and serves as a guide for the eyes.
+    Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
 
 To ensure that the equilibration time is sufficient, we will track the evolution of
 the number of atoms in the central - energetically unfavorable - region,
@@ -211,11 +230,21 @@ The atoms density is the lowest in the central
 part of the box, ``mymes``.  Here,
 :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, and :math:`x_0 = 10~\text{\AA{}}`.
 
-ADD US-density FIGURE? a) Fluid density, :math:`\rho`, along the :math:`x` direction.
-b) Potential, :math:`U`, as a function of :math:`x` measured using free sampling (blue disks)
-compared to the imposed potential given in Eq.~\eqref{eq:U} (dark line).
-Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, :math:`x_0 = 10~\text{\AA{}}`,
-and the measured reference density in the reservoir is :math:`\rho_\text{bulk} = 0.0009~\text{\AA{}}^{-3}`.
+.. figure:: figures/US-density-dm.png
+    :class: only-dark
+    :alt: Density from umbrella sampling simulations
+
+.. figure:: figures/US-density.png
+    :class: only-light
+    :alt: Density from umbrella sampling simulations
+
+..  container:: figurelegend
+
+    a) Fluid density, :math:`\rho`, along the :math:`x` direction. b) Potential, :math:`U`, as a
+    function of :math:`x` measured using free sampling (blue disks)
+    compared to the imposed potential given in Eq.~\eqref{eq:U} (dark line).
+    Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{\AA{}}`, :math:`x_0 = 10~\text{\AA{}}`,
+    and the measured reference density in the reservoir is :math:`\rho_\text{bulk} = 0.0009~\text{\AA{}}^{-3}`.
 
 The limits of free sampling
 ---------------------------
@@ -226,7 +255,6 @@ For example, running the same simulation with :math:`U_0 = 10 \epsilon`,
 corresponding to :math:`U_0 \approx 10 k_\text{B} T`, results in no atoms exploring
 the central part of the simulation box during the simulation.
 In such a case, employing an enhanced sampling method is recommended, as done in the next section.
-
 
 Method 2: Umbrella sampling
 ===========================

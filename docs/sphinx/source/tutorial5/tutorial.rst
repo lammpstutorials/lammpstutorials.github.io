@@ -130,19 +130,38 @@ such as dangling oxygen groups (Fig.~\ref{fig:SIO-slice}).
 Finally, the generated **.histo** files can be used to
 plot the probability distributions, :math:`P(q)` (see Fig.~\ref{fig:SIO-distribution}\,a).
 
-FIGURE SIO-charge a) Average charge per atom of the silicon, :math:`q_\text{Si}`, atoms as
-a function of time, :math:`t`, during equilibration of the :math:`\text{SiO}_2` system.
-b) Volume of the system, :math:`V`, as a function of :math:`t`.
+.. figure:: figures/SIO-charge-dm.png
+    :class: only-dark
+    :alt: Average charge per atom of the silicon
+
+.. figure:: figures/SIO-charge.png
+    :class: only-light
+    :alt: Average charge per atom of the silicon
+
+..  container:: figurelegend
+
+    a) Average charge per atom of the silicon, :math:`q_\text{Si}`, atoms as
+    a function of time, :math:`t`, during equilibration of the :math:`\text{SiO}_2`
+    system.  b) Volume of the system, :math:`V`, as a function of :math:`t`.
 
 FIGURE SIO-slice A slice of the amorphous silica, where atoms are colored by their charges.
 Dangling oxygen groups appear in greenish, bulk Si atoms with a charge of about
 :math:`1.8~\text{e}`  appear in red/orange, and bulk O atoms with a charge of about
 :math:`-0.9~\text{e}` appear in blue.
 
-FIGURE SIO-distribution a) Probability distributions of charge of silicon (positive, blue) and oxygen
-(negative, orange) atoms during the equilibration of the :math:`\text{SiO}_2` system
-from \hyperref[reactive-silicon-dioxide-label]{Tutorial 5}.  b) Same probability distributions
-as in panel (a) after the deformation.
+.. figure:: figures/SIO-distribution-dm.png
+    :class: only-dark
+    :alt: Average charge per atom of the silicon
+
+.. figure:: figures/SIO-distribution.png
+    :class: only-light
+    :alt: Average charge per atom of the silicon
+
+..  container:: figurelegend
+
+    a) Probability distributions of charge of silicon (positive, blue) and oxygen
+    (negative, orange) atoms during the equilibration of the :math:`\text{SiO}_2`
+    system.  b) Same probability distributions as in panel (a) after the deformation.
 
 Deform the structure
 --------------------
@@ -192,12 +211,21 @@ Nosé-Hoover thermostat without a barostat:
 Here, no barostat is used because the change in the box volume will be imposed
 by the ``fix deform``.
 
-ADD FIGURE SIO-deformed-charge a) Average charge per atom of the silicon, :math:`q_\text{Si}`, atoms as
-a function of time, :math:`t`, during deformation of the :math:`\text{SiO}_2` system.
-The break down of the
-silica structure occurs near :math:`t = 11`\,ps.  b) Temperature, :math:`T`, of the
-system as a function of :math:`t`.
+.. figure:: figures/SIO-deformed-charge-dm.png
+    :class: only-dark
+    :alt: Evolution of the pressure and distance for the elecrolyte
 
+.. figure:: figures/SIO-deformed-charge.png
+    :class: only-light
+    :alt: Evolution of the pressure and distance for the elecrolyte
+
+..  container:: figurelegend
+
+    a) Average charge per atom of the silicon, :math:`q_\text{Si}`, atoms as
+    a function of time, :math:`t`, during deformation of the :math:`\text{SiO}_2` system.
+    The break down of the
+    silica structure occurs near :math:`t = 11`\,ps.  b) Temperature, :math:`T`, of the
+    system as a function of :math:`t`.
 
 Let us run for 5000 steps without deformation, then apply the ``fix deform``
 to progressively elongate the box along the :math:`x`-axis during 25000 steps.  Add

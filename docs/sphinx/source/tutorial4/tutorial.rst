@@ -400,8 +400,19 @@ the end of the simulation (Fig.~\ref{fig:NANOSHEAR-equilibration}).
     temperature :cite:`mills1955remeasurement`, one finds that the equilibration
     should be on the order of one nanosecond.
 
-ADD figure NANOSHEAR-equilibration a) Pressure, :math:`p`, of the nanosheared electrolyte system as a function of the
-time, :math:`t`.  b) Distance between the walls, :math:`\Delta z`, as a function of :math:`t`.
+.. figure:: figures/NANOSHEAR-equilibration-dm.png
+    :class: only-dark
+    :alt: Evolution of the pressure and distance for the elecrolyte
+
+.. figure:: figures/NANOSHEAR-equilibration.png
+    :class: only-light
+    :alt: Evolution of the pressure and distance for the elecrolyte
+
+..  container:: figurelegend
+
+    a) Pressure, :math:`p`, of the nanosheared electrolyte system as a function
+    of the time, :math:`t`.  b) Distance between the walls, :math:`\Delta z`, as a
+    function of :math:`t`.
 
 Imposed shearing
 ----------------
@@ -468,8 +479,17 @@ experience any forces from the rest of the system.  Consequently, in the absence
 external forces, these atoms will conserve the initial velocities imposed by the
 two ``velocity`` commands.
 
-Add figure NANOSHEAR-profiles Velocity profiles for water (blue) and walls (orange) along the :math:`z`-axis.
+.. figure:: figures/NANOSHEAR-profiles-dm.png
+    :class: only-dark
+    :alt: Velocity profiles for the elecrolyte
 
+.. figure:: figures/NANOSHEAR-profiles.png
+    :class: only-light
+    :alt: Velocity profiles for the elecrolyte
+
+..  container:: figurelegend
+
+    Velocity profiles for water (blue) and walls (orange) along the :math:`z`-axis.
 
 Finally, let us generate images of the systems and print the values of the
 forces exerted by the fluid on the walls, as given by ``f_mysf1[1]``

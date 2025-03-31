@@ -61,9 +61,9 @@ distances, etc).  Thus add to **water.lmp** the line:
 
     This tutorial uses type labels :cite:`typelabel_paper` to map each
     numeric atom type to a string (see the **parameters.inc** file):
-    \lmpcmdnote{labelmap atom 1 OE 2 C 3 HC 4 H 5 CPos 6 OAlc 7 OW 8 HW}
+    ``labelmap atom 1 OE 2 C 3 HC 4 H 5 CPos 6 OAlc 7 OW 8 HW``
     Therefore, the oxygen and hydrogen atoms of water (respectively types
-    7 and 8) can be referred to as `OW' and `HW', respectively.  Similar
+    7 and 8) can be referred to as ``OW`` and ``HW``, respectively.  Similar
     maps are used for the bond types, angle types, and dihedral types.
 
 Let us create water molecules.  To do so, let us import a molecule template called
@@ -96,9 +96,19 @@ next to **water.lmp**.  This template contains the necessary
 structural information of a water molecule, such as the number of atoms,
 or the IDs of the atoms that are connected by bonds and angles.
 
-INSERT-FIGURE PEG-density a) Temperature, :math:`T`, of the water reservoir from :ref:`all-atom-label`
-as a function of the time, :math:`t`.  The horizontal dashed line is the target temperature of 300\,K.
-b) Evolution of the system density, :math:`\rho`, with :math:`t`
+.. figure:: figures/PEG-density-dm.png
+    :class: only-dark
+    :alt: Evolution of the water reservoir density
+
+.. figure:: figures/PEG-density.png
+    :class: only-light
+    :alt: Evolution of the water reservoir density
+
+..  container:: figurelegend
+
+    a) Temperature, :math:`T`, of the water reservoir as a function of the
+    time, :math:`t`.  The horizontal dashed line is the target temperature
+    of :math:`300 \text{K}`. b) Evolution of the system density, :math:`\rho`, with :math:`t`
 
 Then, let us organize the atoms of types OW and HW of the water
 molecules in a group named ``H2O`` and perform a small energy
@@ -129,7 +139,6 @@ The ``fix npt`` allows us to impose both a temperature of :math:`300\,\text{K}`
 (with a damping constant of :math:`100\,\text{fs}`), and a pressure of 1 atmosphere
 (with a damping constant of :math:`1000\,\text{fs}`).  With the ``iso`` keyword,
 the three dimensions of the box will be re-scaled simultaneously.
-
 
 INSERT FIGURE PEG-water The water reservoir from \hyperref[all-atom-label]{Tutorial 3}
 after equilibration.  Oxygen atoms are in red, and hydrogen atoms are in white. 
@@ -361,11 +370,19 @@ the following lines to **pull.lmp**:
     fix mynvt all nvt temp 300 300 100
     fix myrct PEG recenter 0 0 0 shift all
 
-Add figure PEG-distance - a) Evolution of
-the radius of gyration :math:`R_\text{gyr}` of the PEG molecule
-from \hyperref[all-atom-label]{Tutorial 3}, with the force
-applied starting at :math:`t = 15\,\text{ps}`.  b) Histograms of the dihedral angles of type 1
-in the absence (orange) and in the presence (blue) of the applied force.
+.. figure:: figures/PEG-distance-dm.png
+    :class: only-dark
+    :alt: Evolution of the polymer radius of gyration
+
+.. figure:: figures/PEG-distance.png
+    :class: only-light
+    :alt: Evolution of the polymer radius of gyration
+
+..  container:: figurelegend
+
+    a) Evolution of the radius of gyration :math:`R_\text{gyr}` of the PEG molecule,
+    with the force applied starting at :math:`t = 15\,\text{ps}`.  b) Histograms of
+    the dihedral angles of type 1 in the absence (orange) and in the presence (blue) of the applied force.
 
 To investigate the stretching of the PEG molecule, let us compute its radius of
 gyration :cite:`fixmanRadiusGyrationPolymer1962a` and the angles of its dihedral

@@ -340,12 +340,20 @@ shows a non-linear increase with :math:`t` once the deformation starts, which is
 from the typical dependency of bond energy with bond distance,
 :math:`U_\text{b} = k_\text{b} \left( r - r_0 \right)^2`.
 
-INCLUDE FIGURE CNT-unbreakable-length-energy -- a) Evolution
-of the length :math:`L_\text{cnt}` of the CNT with time.  
-The CNT starts deforming at :math:`t = 5\,\text{ps}`, and :math:`L_\text{cnt-0}` is the  
-CNT initial length.
-b) Evolution of the total energy :math:`E` of the system with time :math:`t`.  
-Here, the potential is OPLS-AA, and the CNT is unbreakable.
+.. figure:: figures/CNT-unbreakable-length-energy-dm.png
+    :class: only-dark
+    :alt: Evolution of the CNT energy
+
+.. figure:: figures/CNT-unbreakable-length-energy.png
+    :class: only-light
+    :alt: Evolution of the CNT energy
+
+..  container:: figurelegend
+
+    a) Evolution of the length :math:`L_\text{cnt}` of the CNT with time.  
+    The CNT starts deforming at :math:`t = 5\,\text{ps}`, and :math:`L_\text{cnt-0}` is the  
+    CNT initial length.  b) Evolution of the total energy :math:`E` of the system with time :math:`t`.  
+    Here, the potential is OPLS-AA, and the CNT is unbreakable.
 
 Importing YAML log file into Python
 -----------------------------------
@@ -522,12 +530,22 @@ curve reveals a linear (elastic) regime where
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/unbreakable-yaml-reader.py" target="_blank">unbreakable-yaml-reader.py</a>
 
-ADD FIGURE CNT-breakable-stress-energy -- a) Evolution of the total energy :math:`E` of the CNT with time :math:`t`.
-b) Stress applied on the CNT during deformation, :math:`F_\text{cnt}/A_\text{cnt}`,
-where :math:`F_\text{cnt}` is the force and :math:`A_\text{cnt}` the CNT surface area,
-as a function of the strain, :math:`\Delta L_\text{cnt} = (L_\text{cnt}-L_\text{cnt-0}/L_\text{cnt-0})`, where
-:math:`L_\text{cnt}` is the CNT length and :math:`L_\text{cnt-0}` the CNT initial length.
-Here, the potential is AIREBO, and the CNT is breakable.
+.. figure:: figures/CNT-breakable-stress-energy-dm.png
+    :class: only-dark
+    :alt: Evolution of the CNT energy
+
+.. figure:: figures/CNT-breakable-stress-energy.png
+    :class: only-light
+    :alt: Evolution of the CNT energy
+
+..  container:: figurelegend
+
+    a) Evolution of the total energy :math:`E` of the CNT with time :math:`t`.  b) Stress applied on the CNT
+    during deformation, :math:`F_\text{cnt}/A_\text{cnt}`,
+    where :math:`F_\text{cnt}` is the force and :math:`A_\text{cnt}` the CNT surface area,
+    as a function of the strain, :math:`\Delta L_\text{cnt} = (L_\text{cnt}-L_\text{cnt-0}/L_\text{cnt-0})`, where
+    :math:`L_\text{cnt}` is the CNT length and :math:`L_\text{cnt-0}` the CNT initial length.
+    Here, the potential is AIREBO, and the CNT is breakable.
 
 Tip: bonds representation with AIREBO
 -------------------------------------

@@ -113,14 +113,23 @@ to the center of the box using ``fix recenter``.
 As the time progresses, the system density,
 :math:`\rho`, gradually converges toward the target value of :math:`0.8`\,g/cm:math:`^3` (Fig.~\ref{fig:evolution-density}\,a).
 Meanwhile, the total energy of the system initially evolves rapidly, reflecting the
-densification process, and then eventually stabilizes (Fig.~\ref{fig:evolution-density}\,b).
-The final state is shown in Fig.~\ref{fig:REACT}.
+densification process, and then eventually stabilizes.
 
-ADD FIGURE REACT-mixing a) Evolution of the density, :math:`\rho`, as a function of the
-time, :math:`t`, during equilibration of the system from \hyperref[bond-react-label]{Tutorial 8}.
-b) Evolution of the total energy, :math:`E`, of the system.
-The vertical dashed lines mark the transition between the different
-phases of the simulation.
+.. figure:: figures/REACT-mixing-dm.png
+    :class: only-dark
+    :alt: Evolution of the density REACTER protocole
+
+.. figure:: figures/REACT-mixing.png
+    :class: only-light
+    :alt: Evolution of the density REACTER protocole
+
+..  container:: figurelegend
+
+    a) Evolution of the density, :math:`\rho`, as a function of the
+    time, :math:`t`, during equilibration of the system. b) Evolution of the total
+    energy, :math:`E`, of the system.
+    The vertical dashed lines mark the transition between the different
+    phases of the simulation.
 
 Reaction templates
 ------------------
@@ -254,14 +263,24 @@ while ensuring that the CNT remains centered in the simulation box:
 Here, the ``thermo custom`` command is used
 to print the cumulative reaction counts from ``fix rxn``.
 Run the simulation using LAMMPS.  As the simulation progresses, polymer chains are
-observed forming (Fig.~\ref{fig:REACT-final}).  During this reaction process, the
-temperature of the system remains well-controlled (Fig.~\ref{fig:evolution-reacting}\,a),
-while the number of reactions, :math:`N_r`, increases with time (Fig.~\ref{fig:evolution-reacting}\,b).
+observed forming.  During this reaction process, the
+temperature of the system remains well-controlled,
+while the number of reactions, :math:`N_r`, increases with time.
 
-ADD REACT-reacting FIGURE a) Evolution of the system temperature, :math:`T`,
-as a function of the time, :math:`t`, during the polymerization step.
-b) Evolution of the three reaction counts, corresponding respectively to
-the polymerization of two styrene monomers (Rxn 1), the  addition of a styrene
-monomer to the end of a growing polymer chain (Rxn 2), and to the linking
-of two polymer chains (Rxn 3).
+.. figure:: figures/REACT-reacting-dm.png
+    :class: only-dark
+    :alt: Evolution of reacting species
+
+.. figure:: figures/REACT-reacting.png
+    :class: only-light
+    :alt: Evolution of reacting species
+
+..  container:: figurelegend
+
+    a) Evolution of the system temperature, :math:`T`,
+    as a function of the time, :math:`t`, during the polymerization step.
+    b) Evolution of the three reaction counts, corresponding respectively to
+    the polymerization of two styrene monomers (Rxn 1), the  addition of a styrene
+    monomer to the end of a growing polymer chain (Rxn 2), and to the linking
+    of two polymer chains (Rxn 3).
 

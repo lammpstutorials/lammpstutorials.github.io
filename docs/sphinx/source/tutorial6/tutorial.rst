@@ -104,10 +104,19 @@ Here, an anisotropic barostat is used.
 Anisotropic barostats adjust the dimensions independently, which is
 generally suitable for a solid phase.
 
-FIGURE GCMC-dimension a) Temperature, :math:`T`, as a function of time, :math:`t`, during the annealing
-of the silica system.
-b) System density, :math:`\rho`, during the annealing process.  The vertical dashed lines
-mark the transition between the different phases of the simulation.
+.. figure:: figures/GCMC-dimension-dm.png
+    :class: only-dark
+    :alt: Temperature and density of the silicon
+
+.. figure:: figures/GCMC-dimension.png
+    :class: only-light
+    :alt: Temperature and density of the silicon
+
+..  container:: figurelegend
+
+    a) Temperature, :math:`T`, as a function of time, :math:`t`, during the annealing
+    of the silica system.  b) System density, :math:`\rho`, during the annealing process.  The vertical dashed lines
+    mark the transition between the different phases of the simulation.
 
 Run the simulation using LAMMPS.  From the ``Charts`` window, the temperature
 evolution can be observed, showing that it closely follows the desired annealing procedure (Fig.~\ref{fig:GCMC-dimension}\,a).
@@ -384,7 +393,17 @@ Finally, let us print some information and run for 25 ps:
 
     run 25000
 
-ADD FIGURE GCMC-number Number of water molecules, :math:`N_\text{H2O}`, as a function of time, :math:`t`.
+.. figure:: figures/GCMC-number-dm.png
+    :class: only-dark
+    :alt: Number of water molecules from GCMC somulations
+
+.. figure:: figures/GCMC-number.png
+    :class: only-light
+    :alt: Number of water molecules from GCMC somulations
+
+..  container:: figurelegend
+
+    Number of water molecules, :math:`N_\text{H2O}`, as a function of time, :math:`t`.
 
 Running this simulation using LAMMPS, one can see that the number of molecules is increasing
 progressively.  When using the pressure argument, LAMMPS ignores the value of the
