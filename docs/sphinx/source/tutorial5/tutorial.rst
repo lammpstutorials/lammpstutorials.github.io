@@ -1,7 +1,6 @@
 Prepare and relax
 =================
 
-
 The first step is to relax the structure with ReaxFF, which which will be achieved using
 molecular dynamics.  To ensure the system equilibrates properly, we will monitor certain
 parameters over time, such as the system volume.  To set up this
@@ -86,11 +85,20 @@ following lines to **relax.lmp**:
 Here, the atoms are colored by their charges ``q``, ranging from royal blue
 (when :math:`q=-1\,\text{e}`) to orange-red (when :math:`q=2\,\text{e}`).
 
-ADD FIGURE SIO-deformed Amorphous silicon oxide after deformation.
-The atoms are colored by their
-charges.  Dangling oxygen groups appear in greenish, bulk Si atoms with a charge of
-about :math:`1.8~\text{e}`  appear in red/orange, and bulk O atoms with a charge of
-about :math:`-0.9 ~ \text{e}` appear in blue.
+.. figure:: figures/silicon-light.png
+    :alt: Amorphous silica colored by charges using VMD
+    :class: only-light
+
+.. figure:: figures/silicon-dark.png
+    :alt: Amorphous silica colored by charges using VMD
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Amorphous silicon oxide. The atoms are colored by their
+    charges.  Dangling oxygen groups appear in greenish, bulk Si atoms with a charge of
+    about :math:`1.8~\text{e}`  appear in red/orange, and bulk O atoms with a charge of
+    about :math:`-0.9 ~ \text{e}` appear in blue.
 
 We can generate histograms of the charges for each atom type using
 ``fix ave/histo`` commands:
@@ -150,10 +158,20 @@ plot the probability distributions, :math:`P(q)` (see Fig.~\ref{fig:SIO-distribu
     a function of time, :math:`t`, during equilibration of the :math:`\text{SiO}_2`
     system.  b) Volume of the system, :math:`V`, as a function of :math:`t`.
 
-FIGURE SIO-slice A slice of the amorphous silica, where atoms are colored by their charges.
-Dangling oxygen groups appear in greenish, bulk Si atoms with a charge of about
-:math:`1.8~\text{e}`  appear in red/orange, and bulk O atoms with a charge of about
-:math:`-0.9~\text{e}` appear in blue.
+.. figure:: figures/deformed-light.png
+    :alt: Amorphous silica colored by charges using VMD
+    :class: only-light
+
+.. figure:: figures/deformed-dark.png
+    :alt: Amorphous silica colored by charges using VMD
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: A slice of the amorphous silica after deformation, where atoms are colored by their charges.
+    Dangling oxygen groups appear in greenish, bulk Si atoms with a charge of about
+    :math:`1.8~\text{e}`  appear in red/orange, and bulk O atoms with a charge of about
+    :math:`-0.9~\text{e}` appear in blue.
 
 .. figure:: figures/SIO-distribution-dm.png
     :class: only-dark

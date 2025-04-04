@@ -261,10 +261,20 @@ file.  With the ``nocoeff`` option, the parameters from the force field are
 not included in the **.data** file.  Run the **create.lmp** file using LAMMPS,
 and a file named **create.data** will be created alongside **create.lmp**.
 
-ADD FIGURE NANOSHEAR-system -- Side view of the system.  Periodic images are represented in darker colors.
-Water molecules are in red and white, :math:`\text{Na}^+` ions in purple, :math:`\text{Cl}^-`
-ions in lime, and wall atoms in gray.  Note the absence of atomic defect at the
-cell boundaries.
+.. figure:: figures/systemcreation-light.png
+    :alt: LAMMPS: electrolyte made of water and salt between walls
+    :class: only-light
+
+.. figure:: figures/systemcreation-dark.png
+    :alt: LAMMPS: electrolyte made of water and salt between walls
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Side view of the system.  Periodic images are represented in darker colors.
+    Water molecules are in red and white, :math:`\text{Na}^+` ions in purple, :math:`\text{Cl}^-`
+    ions in lime, and wall atoms in gray.  Note the absence of atomic defect at the
+    cell boundaries.
 
 \paragraph{Energy minimization}
 
@@ -417,7 +427,7 @@ the end of the simulation (Fig.~\ref{fig:NANOSHEAR-equilibration}).
 
 ..  container:: figurelegend
 
-    a) Pressure, :math:`p`, of the nanosheared electrolyte system as a function
+    Figure: a) Pressure, :math:`p`, of the nanosheared electrolyte system as a function
     of the time, :math:`t`.  b) Distance between the walls, :math:`\Delta z`, as a
     function of :math:`t`.
 
@@ -496,7 +506,7 @@ two ``velocity`` commands.
 
 ..  container:: figurelegend
 
-    Velocity profiles for water (blue) and walls (orange) along the :math:`z`-axis.
+    Figure: Velocity profiles for water (blue) and walls (orange) along the :math:`z`-axis.
 
 Finally, let us generate images of the systems and print the values of the
 forces exerted by the fluid on the walls, as given by ``f_mysf1[1]``

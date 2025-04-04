@@ -117,7 +117,7 @@ or the IDs of the atoms that are connected by bonds and angles.
 
 ..  container:: figurelegend
 
-    a) Temperature, :math:`T`, of the water reservoir as a function of the
+    Figure: a) Temperature, :math:`T`, of the water reservoir as a function of the
     time, :math:`t`.  The horizontal dashed line is the target temperature
     of :math:`300 \text{K}`. b) Evolution of the system density, :math:`\rho`, with :math:`t`
 
@@ -151,8 +151,18 @@ The ``fix npt`` allows us to impose both a temperature of :math:`300\,\text{K}`
 (with a damping constant of :math:`1000\,\text{fs}`).  With the ``iso`` keyword,
 the three dimensions of the box will be re-scaled simultaneously.
 
-INSERT FIGURE PEG-water The water reservoir from \hyperref[all-atom-label]{Tutorial 3}
-after equilibration.  Oxygen atoms are in red, and hydrogen atoms are in white. 
+.. figure:: figures/water-light.png
+    :alt: Water reservoir from molecular dynamics simulations
+    :class: only-light
+
+.. figure:: figures/water-dark.png
+    :alt: Water reservoir from molecular dynamics simulations
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: The water reservoir after equilibration.  Oxygen atoms are in red, and
+    hydrogen atoms are in white. 
 
 Let us output the system into images by adding the following commands to **water.lmp**:
 
@@ -222,11 +232,20 @@ Now that the water reservoir is equilibrated, we can safely add the PEG polymer
 to the water.  The PEG molecule topology was downloaded from the ATB repository
 :cite:`malde2011automated, oostenbrink2004biomolecular`.  It has a formula
 :math:`\text{C}_{16}\text{H}_{34}\text{O}_{9}`, and the parameters are taken from
-the {GROMOS} 54A7 force field :cite:`schmid2011definition` (Fig.~\ref{fig:PEG-in-vacuum}).
+the GROMOS 54A7 force field :cite:`schmid2011definition`.
 
-INSERT FIGURE PEG-in-vacuum
-The PEG molecule from \hyperref[all-atom-label]{Tutorial 3}.
-The carbon atoms are in gray, the oxygen atoms in red, and the hydrogen atoms in white.
+.. figure:: figures/singlePEG-light.png
+    :alt: PEG in vacuum as simulated with LAMMPS
+    :class: only-light
+
+.. figure:: figures/singlePEG-dark.png
+    :alt: PEG in vacuum as simulated with LAMMPS
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: The PEG molecule with carbon atoms in gray, oxygen atoms in red,
+    and hydrogen atoms in white.
 
 Open the file named **merge.lmp** that was downloaded
 alongside **water.lmp** during the tutorial setup.  It only contain one line:
@@ -311,9 +330,20 @@ Let us create images of the systems:
         acolor OAlc darkred adiam OAlc 2.6
     thermo 500
 
-Inlude PEG-solvated figure : The PEG molecule solvated in water.
+.. figure:: figures/solvatedPEG_light.png
+    :alt: PEG in water as simulated with LAMMPS
+    :class: only-light
 
-inally, to perform a short equilibration and save the final state to
+.. figure:: figures/solvatedPEG_dark.png
+    :alt: PEG in water as simulated with LAMMPS
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure : The PEG molecule solvated in water.  Water is represented as a
+    transparent field for clarity.
+
+Finally, to perform a short equilibration and save the final state to
 a **.restart** file, add the following lines to the input:
 
 .. code-block:: lammps
@@ -363,7 +393,17 @@ divides these atoms into two groups, ``end1`` (i.e.,~the OAlc atom to
 the right of the center) and ``end2`` (i.e.,~the OAlc atom to the right
 of the center), for applying force during the stretching process.
 
-Add figure PEG-in-water PEG molecule stretched along the :math:`x` direction in water.
+.. figure:: figures/pulled_peg_light.png
+    :alt: PEG in water as simulated with LAMMPS
+    :class: only-light
+
+.. figure:: figures/pulled_peg_dark.png
+    :alt: PEG in water as simulated with LAMMPS
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: PEG molecule stretched along the :math:`x` direction in water.
 
 Add the following ``dump`` command to create images of the system:
 
@@ -394,7 +434,7 @@ the following lines to **pull.lmp**:
 
 ..  container:: figurelegend
 
-    a) Evolution of the radius of gyration :math:`R_\text{gyr}` of the PEG molecule,
+    Figure: a) Evolution of the radius of gyration :math:`R_\text{gyr}` of the PEG molecule,
     with the force applied starting at :math:`t = 15\,\text{ps}`.  b) Histograms of
     the dihedral angles of type 1 in the absence (orange) and in the presence (blue) of the applied force.
 
