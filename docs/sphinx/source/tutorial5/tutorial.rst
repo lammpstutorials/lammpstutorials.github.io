@@ -3,10 +3,11 @@ Prepare and relax
 
 The first step is to relax the structure with ReaxFF, which which will be achieved using
 molecular dynamics.  To ensure the system equilibrates properly, we will monitor certain
-parameters over time, such as the system volume.  To set up this
-tutorial, select ``Start Tutorial 5`` from the
-``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
-The editor should display the following content corresponding to **relax.lmp**:
+parameters over time, such as the system volume.
+
+Create a folder if needed and
+place the initial input file, **relax.lmp**, into it. Then, open the 
+file in a text editor of your choice, and copy the following into it:
 
 .. code-block:: lammps
 
@@ -14,6 +15,13 @@ The editor should display the following content corresponding to **relax.lmp**:
     atom_style full
 
     read_data silica.data
+
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    To begin this tutorial, select ``Start Tutorial 5`` from the
+    ``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
+    The editor should display the following content corresponding to **relax.lmp**
 
 So far, the input is very similar to what was seen in the previous tutorials.
 Some basic parameters are defined (``units`` and ``atom_style``),
@@ -134,15 +142,13 @@ Run the **relax.lmp** file using LAMMPS.  As seen from **relax.species**,
 only one species is detected, called ``O384Si192``, representing the entire system.
 
 As the simulation progresses, the charge of every atom fluctuates
-because it is adjusting to the local environment of the atom (Fig.~\ref{fig:SIO-charge}\,a).
+because it is adjusting to the local environment of the atom.
 It is also observed that the averaged charges for silicon and oxygen
 atoms fluctuate significantly at the beginning of the simulation, corresponding
 to a rapid change in the system volume, which causes interatomic distances to
-shift quickly (Fig.~\ref{fig:SIO-charge}\,b).  The atoms with the
+shift quickly.  The atoms with the
 most extreme charges are located at structural defects,
-such as dangling oxygen groups (Fig.~\ref{fig:SIO-slice}).
-Finally, the generated **.histo** files can be used to
-plot the probability distributions, :math:`P(q)` (see Fig.~\ref{fig:SIO-distribution}\,a).
+such as dangling oxygen groups.
 
 .. figure:: figures/SIO-charge-dm.png
     :class: only-dark
@@ -154,24 +160,27 @@ plot the probability distributions, :math:`P(q)` (see Fig.~\ref{fig:SIO-distribu
 
 ..  container:: figurelegend
 
-    a) Average charge per atom of the silicon, :math:`q_\text{Si}`, atoms as
+    Figure: a) Average charge per atom of the silicon, :math:`q_\text{Si}`, atoms as
     a function of time, :math:`t`, during equilibration of the :math:`\text{SiO}_2`
     system.  b) Volume of the system, :math:`V`, as a function of :math:`t`.
 
-.. figure:: figures/deformed-light.png
+.. figure:: figures/silicon-light.png
     :alt: Amorphous silica colored by charges using VMD
     :class: only-light
 
-.. figure:: figures/deformed-dark.png
+.. figure:: figures/silicon-dark.png
     :alt: Amorphous silica colored by charges using VMD
     :class: only-dark
 
 ..  container:: figurelegend
 
-    Figure: A slice of the amorphous silica after deformation, where atoms are colored by their charges.
+    Figure: A slice of the amorphous silica, where atoms are colored by their charges.
     Dangling oxygen groups appear in greenish, bulk Si atoms with a charge of about
     :math:`1.8~\text{e}`  appear in red/orange, and bulk O atoms with a charge of about
     :math:`-0.9~\text{e}` appear in blue.
+
+Finally, the generated **.histo** files can be used to
+plot the probability distributions, :math:`P(q)`.
 
 .. figure:: figures/SIO-distribution-dm.png
     :class: only-dark
@@ -183,13 +192,12 @@ plot the probability distributions, :math:`P(q)` (see Fig.~\ref{fig:SIO-distribu
 
 ..  container:: figurelegend
 
-    a) Probability distributions of charge of silicon (positive, blue) and oxygen
+    Figure: a) Probability distributions of charge of silicon (positive, blue) and oxygen
     (negative, orange) atoms during the equilibration of the :math:`\text{SiO}_2`
     system.  b) Same probability distributions as in panel (a) after the deformation.
 
 Deform the structure
 --------------------
-
 
 Let us apply a deformation to the structure to force some :math:`\text{Si}-\text{O}`
 bonds to break (and eventually re-assemble).  Open the **deform.lmp**
@@ -235,22 +243,6 @@ Nosé-Hoover thermostat without a barostat:
 Here, no barostat is used because the change in the box volume will be imposed
 by the ``fix deform``.
 
-.. figure:: figures/SIO-deformed-charge-dm.png
-    :class: only-dark
-    :alt: Evolution of the pressure and distance for the elecrolyte
-
-.. figure:: figures/SIO-deformed-charge.png
-    :class: only-light
-    :alt: Evolution of the pressure and distance for the elecrolyte
-
-..  container:: figurelegend
-
-    a) Average charge per atom of the silicon, :math:`q_\text{Si}`, atoms as
-    a function of time, :math:`t`, during deformation of the :math:`\text{SiO}_2` system.
-    The break down of the
-    silica structure occurs near :math:`t = 11`\,ps.  b) Temperature, :math:`T`, of the
-    system as a function of :math:`t`.
-
 Let us run for 5000 steps without deformation, then apply the ``fix deform``
 to progressively elongate the box along the :math:`x`-axis during 25000 steps.  Add
 the following line to **deform.lmp**:
@@ -268,15 +260,31 @@ the following line to **deform.lmp**:
 Run the **deform.lmp** file using LAMMPS.  During the deformation, the charge
 values progressively evolve until the structure eventually breaks down.  After the
 structure breaks down, the charges equilibrate near new average values that differ
-from the initial averages (Fig.~\ref{fig:SIO-deformed-charge}\,a).  The difference
+from the initial averages.  The difference
 between the initial and the final charges can be explained by the presence of
 defects, as well as new solid/vacuum interfaces, and the fact that surface atoms
-typically have different charges compared to bulk atoms (Fig.~\ref{fig:SIO-deformed}).
+typically have different charges compared to bulk atoms.
 You can also see a sharp increase in temperature during the rupture of
-the material (Fig.~\ref{fig:SIO-deformed-charge}\,b).
+the material.
+
+.. figure:: figures/deformed-charge-dm.png
+    :class: only-dark
+    :alt: Evolution of the pressure and distance for the elecrolyte
+
+.. figure:: figures/deformed-charge.png
+    :class: only-light
+    :alt: Evolution of the pressure and distance for the elecrolyte
+
+..  container:: figurelegend
+
+    a) Average charge per atom of the silicon, :math:`q_\text{Si}`, atoms as
+    a function of time, :math:`t`, during deformation of the :math:`\text{SiO}_2` system.
+    The break down of the
+    silica structure occurs near :math:`t = 11` ps.  b) Temperature, :math:`T`, of the
+    system as a function of :math:`t`.
 
 You can examine the charge distribution after deformation, as well as during
-deformation (Fig.~\ref{fig:SIO-distribution}\,b).  As expected, the final
+deformation.  As expected, the final
 charge distribution slightly differs from the previously calculated one.  If
 no new species were formed during the simulation, the **deform.species** file
 should look like this:
