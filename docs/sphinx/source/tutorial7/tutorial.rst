@@ -15,9 +15,8 @@ The most direct way to calculate a free energy profile is to extract the
 partition function from a classical (i.e.~unbiased) molecular dynamics
 simulation, and then estimate the Gibbs free energy by using
 
-LABEL \label{eq:G}
-
 .. math::
+    :label: eq_G
 
     \Delta G = -RT \ln(p/p_0),
 
@@ -31,9 +30,9 @@ favorable area to explore.
 Basic LAMMPS parameters
 -----------------------
 
-To begin this tutorial, select ``Start Tutorial 7`` from the
-``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
-The editor should display the following content corresponding to **free-energy.lmp**:
+Create a folder if needed and
+place the initial input file, **free-energy.lmp**, into it. Then, open the 
+file in a text editor of your choice, and copy the following into it:
 
 .. code-block:: lammps
 
@@ -49,19 +48,21 @@ The editor should display the following content corresponding to **free-energy.l
     pair_modify shift yes
     boundary p p p
 
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    To begin this tutorial, select ``Start Tutorial 7`` from the
+    ``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
+
 Here, we begin by defining variables for the Lennard-Jones interaction
 :math:`\sigma` and :math:`\epsilon` and for the repulsive potential
 :math:`U`, which are :math:`U_0`, :math:`\delta`, and
-:math:`x_0` [see Eqs.\,(\ref{eq:U}-\ref{eq:F}) below].  The cut-off value of
-3.822 was chosen to create a Weeks-Chandler-Andersen (WCA) potential,
+:math:`x_0` [see Eqs. :eq:`eq_U`-:eq:`eq_F` below].  The cut-off value of
+3.822 Å was chosen to create a Weeks-Chandler-Andersen (WCA) potential,
 which is a truncated and purely repulsive LJ
 potential :cite:`weeks1971role`.  It was calculated as :math:`2^{1/6} \sigma`.
 The potential is also shifted to be equal to 0 at the cut-off
-using the ``pair_modify`` command.  The unit system is
-``real``, in which energy is in kcal/mol, distance in Ångströms, or
-time in femtosecond, has been chosen for practical reasons: the WHAM
-algorithm used in the second part of the tutorial automatically assumes
-the energy to be in kcal/mol.
+using the ``pair_modify`` command.
 
 System creation and settings
 ----------------------------
@@ -76,15 +77,14 @@ following lines to **free-energy.lmp**:
     create_atoms 1 random 200 34134 myreg overlap 3 maxtry 50
 
     mass * 39.95
-    pair_coeff * * :math:`{epsilon} `{sigma}
+    pair_coeff * * ${epsilon} ${sigma}
 
 The variables :math:`U_0`, :math:`\delta`, and :math:`x_0`, defined in the previous subsection, are
 used here to create the repulsive potential, restricting the atoms from exploring
 the center of the box:
 
-LABEL {eq:U}
-
 .. math::
+    :label: eq_U
 
     U = U_0 \left[ \arctan \left( \dfrac{x+x_0}{\delta} \right)
     - \arctan \left(\dfrac{x-x_0}{\delta} \right) \right].
@@ -92,15 +92,14 @@ LABEL {eq:U}
 Taking the derivative of the potential with respect to :math:`x`, we obtain the expression
 for the force that will be imposed on the atoms:
 
-LABEL {eq:F}
-
 .. math::
+    :label: eq_F
 
     F = \dfrac{U_0}{\delta} \left[ \dfrac{1}{(x-x_0)^2/\delta^2+1}
     - \dfrac{1}{(x+x_0)^2/\delta^2+1} \right].
 
-Fig.~\ref{fig:potential} shows the potential :math:`U` and force :math:`F` along the :math:`x`-axis.
-With :math:`U_0 = 1.5 \epsilon = 0.36\,\text{kcal/mol}`, :math:`U_0` is of the same order of magnitude as the
+The figure below shows the potential :math:`U` and force :math:`F` along the :math:`x`-axis.
+With :math:`U_0 = 1.5 \epsilon = 0.36\,\text{kcal/mol},` :math:`U_0` is of the same order of magnitude as the
 thermal energy :math:`k_\text{B} T = 0.24\,\text{kcal/mol}`, where :math:`k_\text{B} = 0.002\,\text{kcal/mol/K}`
 is the Boltzmann constant and :math:`T = 119.8\,\text{K}` is the temperature
 used in this simulation.  Under these conditions, particles are expected to
@@ -116,8 +115,8 @@ frequently overcome the energy barrier due to thermal agitation.
 
 ..  container:: figurelegend
 
-    Potential :math:`U` given in Eq.~\eqref{eq:U} (a) and force :math:`F` given in
-    Eq.~\eqref{eq:F} (b) as functions of the coordinate :math:`x`. Here,
+    Figure: Potential :math:`U` given in Eq. :eq:`eq_U` (a) and force :math:`F` given in
+    Eq. :eq:`eq_F` (b) as functions of the coordinate :math:`x`. Here,
     :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
 
 We impose the force :math:`F(x)` to the atoms in the simulation
@@ -141,21 +140,6 @@ When combining these two commands, the MD simulation operates
 in the NVT ensemble, maintaining a constant number of
 atoms :math:`N`, constant volume :math:`V`, and a temperature :math:`T` that
 fluctuates around a target value.
-
-.. figure:: figures/US-density-evolution-dm.png
-    :class: only-dark
-    :alt: Evolution of the number of atoms
-
-.. figure:: figures/US-density-evolution.png
-    :class: only-light
-    :alt: Evolution of the number of atoms
-
-..  container:: figurelegend
-
-    Evolution of the number of atoms :math:`n_\text{center}` in the central
-    region ``mymes`` as a function of time :math:`t` during equilibration.  The dark line
-    is :math:`n_\text{center} = 22 \exp(-t/160)+5` and serves as a guide for the eyes.
-    Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
 
 To ensure that the equilibration time is sufficient, we will track the evolution of
 the number of atoms in the central - energetically unfavorable - region,
@@ -182,12 +166,25 @@ using a timestep of :math:`2\,\text{fs}`, corresponding to a total duration of :
     run 50000
 
 Run the simulation with LAMMPS.  The number of atoms in the
-central region, :math:`n_\mathrm{center}`, reaches its equilibrium value after approximately :math:`40\,\text{ps}`
-(Fig.~\ref{fig:US-density-evolution}).  A snapshot of the equilibrated system is shown in Fig.~\ref{fig:US-system-unbiased}.
+central region, :math:`n_\mathrm{center}`, reaches its equilibrium value after approximately :math:`40\,\text{ps}`.
+
+.. figure:: figures/US-density-evolution-dm.png
+    :class: only-dark
+    :alt: Evolution of the number of atoms
+
+.. figure:: figures/US-density-evolution.png
+    :class: only-light
+    :alt: Evolution of the number of atoms
+
+..  container:: figurelegend
+
+    Figure: Evolution of the number of atoms :math:`n_\text{center}` in the central
+    region ``mymes`` as a function of time :math:`t` during equilibration.  The dark line
+    is :math:`n_\text{center} = 22 \exp(-t/160)+5` and serves as a guide for the eyes.
+    Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
 
 Run and data acquisition
 ------------------------
-
 
 Once the system is equilibrated, we will record the density profile of
 the atoms along the :math:`x`-axis using the ``ave/chunk`` command.
@@ -208,27 +205,33 @@ The step count is reset to 0 using ``reset_timestep`` to synchronize it
 with the output times of ``fix density/number``.  Run the simulation using
 LAMMPS.
 
+.. figure:: figures/system-dark.png
+    :class: only-dark
+    :alt: Density from umbrella sampling simulations
+
+.. figure:: figures/system-light.png
+    :class: only-light
+    :alt: Density from umbrella sampling simulations
+
+    Figure: Snapshot of the system simulated during the free sampling step of the tutorial.
+    The atoms density is the lowest in the central part of the box, ``mymes``.  Here,
+    :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
+
 Data analysis
 -------------
 
 Once the simulation is complete, the density profile from **free-sampling.dat**
 shows that the density in the center of the box is
-about two orders of magnitude lower than inside the reservoir (Fig.~\ref{fig:US-density}\,a).
-Next, we plot :math:`-R T \ln(\rho/\rho_\mathrm{bulk})` (i.e.~Eq.~\eqref{eq:G} where
+about two orders of magnitude lower than inside the reservoir.
+Next, we plot :math:`-R T \ln(\rho/\rho_\mathrm{bulk})` (i.e. Eq. :eq:`eq_G` where
 the pressure ratio :math:`p/p_\mathrm{bulk}` is replaced by the density ratio
 :math:`\rho/\rho_\mathrm{bulk}`, assuming the system behaves as an ideal gas) and compare it
-with the imposed potential :math:`U` from Eq.~\eqref{eq:U} (Fig.~\ref{fig:US-density}\,b).
+with the imposed potential :math:`U` from Eq. :eq:`eq_U`.
 The reference density, :math:`\rho_\text{bulk} = 0.0009~\text{Å}^{-3}`,
 was estimated by measuring the density of the reservoir from the raw density
 profiles.  The agreement between the MD results and the imposed energy profile
 is excellent, despite some noise in the central part, where fewer data points
 are available due to the repulsive potential.
-
-Add US-system-unbiased FIGURE  Snapshot of the system simulated during the free sampling
-step of \hyperref[umbrella-sampling-label]{Tutorial 7}.
-The atoms density is the lowest in the central
-part of the box, ``mymes``.  Here,
-:math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
 
 .. figure:: figures/US-density-dm.png
     :class: only-dark
@@ -240,9 +243,9 @@ part of the box, ``mymes``.  Here,
 
 ..  container:: figurelegend
 
-    a) Fluid density, :math:`\rho`, along the :math:`x` direction. b) Potential, :math:`U`, as a
-    function of :math:`x` measured using free sampling (blue disks)
-    compared to the imposed potential given in Eq.~\eqref{eq:U} (dark line).
+    Figure: a) Fluid density, :math:`\rho`, along the :math:`x` direction. b) Potential, :math:`U`, as a
+    function of :math:`x` measured using free sampling (disks)
+    compared to the imposed potential given in Eq. :eq:`eq_U` (line).
     Here, :math:`U_0 = 0.36~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, :math:`x_0 = 10~\text{Å}`,
     and the measured reference density in the reservoir is :math:`\rho_\text{bulk} = 0.0009~\text{Å}^{-3}`.
 
@@ -349,16 +352,18 @@ So far, our code resembles that of Method 1, except for the additional particle
 of type 2.  Particles of types 1 and 2 are identical, with the same mass
 and LJ parameters.  However, the particle of type 2 will also
 be exposed to the biasing potential :math:`V`, which forces it to explore the
-central part of the box (Fig.~\ref{fig:US-system-biased}).
+central part of the box.
 
-Add FIGURE US-system-biased Snapshot of the system simulated during the umbrella sampling
-step of \hyperref[umbrella-sampling-label]{Tutorial 7}, showing type-1 atoms
-in cyan and the type-2 atom in red.  Only the type-2 atom explores the central part of the box,
-``mymes``, due to the additional biasing potential :math:`V`. Parmaeters are
-:math:`U_0 = 2.38~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
+.. 
+    TOFIX: Add a figure with one single particle exploring the central part of the system.
+    Add FIGURE US-system-biased Snapshot of the system simulated during the umbrella sampling
+    step of \hyperref[umbrella-sampling-label]{Tutorial 7}, showing type-1 atoms
+    in cyan and the type-2 atom in red.  Only the type-2 atom explores the central part of the box,
+    ``mymes``, due to the additional biasing potential :math:`V`. Parmaeters are
+    :math:`U_0 = 2.38~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
 
 Now, we create a loop with 15 steps and progressively move the center of the
-bias potential by increments of 0.4\,nm.  Add the following lines to **umbrella-sampling.lmp**:
+bias potential by increments of 0.4 nm.  Add the following lines to **umbrella-sampling.lmp**:
 
 .. code-block:: lammps
 
@@ -394,6 +399,7 @@ where :math:`i` ranges from 1 to 15.  Run the **umbrella-sampling.lmp** file usi
     if :math:`k` is too small the particle won't follow the biasing potential,
     and if :math:`k` is too large there will be no overlapping between
     the different windows, leading to poor reconstruction of the free energy profile.
+    See the section :ref:`side-note-k`.
 
 WHAM algorithm
 --------------
@@ -431,13 +437,65 @@ Then, run the WHAM algorithm by typing the following command in the terminal:
 where -30 and 30 are the boundaries, 50 is the number of bins, 1e-8 is the tolerance,
 and 119.8 is the temperature in Kelvin.  A file called **umbrella-sampling.dat** is created,
 containing the free energy profile in kcal/mol.  The resulting PMF can be compared
-with the imposed potential :math:`U`, showing excellent agreement
-(Fig.~\ref{fig:US-freenergy}).  Remarkably, this excellent agreement is achieved despite
+with the imposed potential :math:`U`, showing excellent agreement. 
+
+.. figure:: figures/US-free-energy-dm.png
+    :class: only-dark
+    :alt: Density from umbrella sampling simulations
+
+.. figure:: figures/US-free-energy.png
+    :class: only-light
+    :alt: Density from umbrella sampling simulations
+
+..  container:: figurelegend
+
+    Figure: The potential, :math:`U`, as a function of :math:`x`, measured using umbrella
+    sampling (disks), is compared to the imposed potential given in Eq. :eq:`eq_U`
+    (line).  Parameters are :math:`U_0 = 2.38~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`,
+    and :math:`x_0 = 10~\text{Å}`.
+
+Remarkably, this excellent agreement is achieved despite
 the very short calculation time and the high value for the energy barrier.
 Achieving similar results through free sampling would require performing extremely
 long and computationally expensive simulations.
 
-Add US-free-energy, The potential, :math:`U`, as a function of :math:`x`, measured using umbrella
-sampling (blue disks), is compared to the imposed potential given in Eq.~\eqref{eq:U}
-(dark line).  Parameters are :math:`U_0 = 2.38~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`,
-and :math:`x_0 = 10~\text{Å}`.
+
+.. _side-note-k:
+
+Side note: On the choice of :math:`k`
+-------------------------------------
+
+One difficult part of umbrella sampling is choosing the value of :math:`k`.
+Ideally, you want the biasing potential to be strong enough to force
+the chosen atom or molecule to move along the chosen axis, while also allowing
+fluctuations in its position large enough to ensure some overlap in the
+probability density between neighboring positions. Here, as an illustration,
+three different values of :math:`k` are tested:
+
+- If :math:`k` is too small, the biasing potential is too weak to
+  force the particle to explore the region of interest, making it
+  impossible to reconstruct the PMF (see panel a in the figure below).
+
+- If :math:`k` is "appropriate", the particle explores the entire axis,
+  and the probability distributions are strongly impacted by the
+  potential one wants to probe, as shown in panel b.
+
+- If :math:`k` is too large, the biasing potential dominates over the
+  potential one wants to probe, which reduces the 
+  sensitivity of the method (panel c).
+
+.. figure:: figures/overlap-light.png
+    :alt: Averaged density profile
+    :class: only-light
+
+.. figure:: figures/overlap-dark.png
+    :alt: Averaged density profile
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: Probability density for each run with :math:`k = 0.15\,\text{kcal}/\text{mol}/\mathrm{Å}^2` (a)
+    (a value that is too small to bring the particle into the central region),
+    :math:`k = 1.5\,\text{kcal}/\text{mol}/\mathrm{Å}^2` (b) (a value that allows the particle to explore
+    the entire path), and :math:`k = 15\,\text{kcal}/\text{mol}/\mathrm{Å}^2` (c) (a value so strong that
+    it becomes difficult to perceive the effect of the probed potential).
