@@ -459,7 +459,6 @@ the very short calculation time and the high value for the energy barrier.
 Achieving similar results through free sampling would require performing extremely
 long and computationally expensive simulations.
 
-
 .. _side-note-k:
 
 Side note: On the choice of :math:`k`

@@ -1,9 +1,9 @@
 Generation of the silica block
 ==============================
 
-To begin this tutorial, select ``Start Tutorial 6`` from the
-``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
-The editor should display the following content corresponding to **generate.lmp**:
+Create a folder if needed and
+place the initial input file, **generate.lmp**, into it. Then, open the 
+file in a text editor of your choice, and copy the following into it:
 
 .. code-block:: lammps
 
@@ -13,6 +13,12 @@ The editor should display the following content corresponding to **generate.lmp*
     pair_style vashishta
     neighbor 1.0 bin
     neigh_modify delay 1
+
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    To begin this tutorial, select ``Start Tutorial 6`` from the
+    ``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
 
 The main difference from some of the previous tutorials is the use of the ``Vashishta``
 pair style.  The Vashishta potential implicitly models atomic bonds through
@@ -34,7 +40,7 @@ Add the following lines to **generate.lmp**:
 
 The ``create_atoms`` commands are used to place
 240 Si atoms, and 480 atoms, respectively.  This corresponds to
-an initial density of approximately :math:`2 \text{g/cm}^3`, which is close
+an initial density of approximately :math:`2 \, \text{g/cm}^3`, which is close
 to the expected final density of amorphous silica at 300 K.
 
 Now, specify the pair coefficients by indicating that the first atom type
@@ -50,10 +56,6 @@ Ensure that the |SiO_1990_vashishta_6| file is located in the same directory as 
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/SiO.1990.vashishta" target="_blank">SiO.1990.vashishta</a>
 
-FIGURE GCMC-generate Amorphous silica (:math:`\text{SiO}_2`).
-Silicon atoms are
-represented in yellow, and oxygen atoms in red.
-
 Next, add a ``dump image`` command to **generate.lmp** to follow the
 evolution of the system with time:
 
@@ -61,6 +63,19 @@ evolution of the system with time:
 
     dump viz all image 250 myimage-*.ppm type type shiny 0.1 box no 0.01 view 180 90 zoom 3.4 size 1700 700
     dump_modify viz backcolor white acolor Si yellow adiam Si 2.5 acolor O red adiam O 2
+
+.. figure:: figures/generated-silica-dark.png
+    :class: only-dark
+    :alt: Amorphous silica block
+
+.. figure:: figures/generated-silica-light.png
+    :class: only-light
+    :alt: Amorphous silica block
+
+..  container:: figurelegend
+
+    Figure: Amorphous silica (:math:`\text{SiO}_2`). Silicon atoms are
+    represented in yellow, and oxygen atoms in red.
 
 Let us also print the box volume and system density, alongside the
 temperature and total energy:
@@ -72,7 +87,7 @@ temperature and total energy:
 
 Finally, let us implement the annealing procedure which
 consists of three consecutive runs.  This procedure was inspired
-by Ref.\,\cite{della1992molecular}.  First, to melt the system,
+by Ref. :cite:`della1992molecular`.  First, to melt the system,
 a :math:`10\,\text{ps}` phase at :math:`T = 6000\,\text{K}` is performed:
 
 .. code-block:: lammps
@@ -107,6 +122,12 @@ Here, an anisotropic barostat is used.
 Anisotropic barostats adjust the dimensions independently, which is
 generally suitable for a solid phase.
 
+Run the simulation using LAMMPS.  From the ``Charts`` window, the temperature
+evolution can be observed, showing that it closely follows the desired annealing procedure.
+The evolution of the box dimensions over time confirms that the box deformed during the
+last stage of the simulation.  After the simulation completes, the final LAMMPS topology
+file called **generate.data** will be located next to **generate.lmp**.
+
 .. figure:: figures/GCMC-dimension-dm.png
     :class: only-dark
     :alt: Temperature and density of the silicon
@@ -117,22 +138,14 @@ generally suitable for a solid phase.
 
 ..  container:: figurelegend
 
-    a) Temperature, :math:`T`, as a function of time, :math:`t`, during the annealing
+    Figure: a) Temperature, :math:`T`, as a function of time, :math:`t`, during the annealing
     of the silica system.  b) System density, :math:`\rho`, during the annealing process.  The vertical dashed lines
     mark the transition between the different phases of the simulation.
-
-Run the simulation using LAMMPS.  From the ``Charts`` window, the temperature
-evolution can be observed, showing that it closely follows the desired annealing procedure (Fig.~\ref{fig:GCMC-dimension}\,a).
-The evolution of the box dimensions over time confirms that the box
-deformed during the last stage of the simulation
-(Fig.~\ref{fig:GCMC-dimension}\,b).  After the simulation completes, the final
-LAMMPS topology file called **generate.data**
-will be located next to **generate.lmp** (Fig.~\ref{fig:GCMC-snapshot}).
 
 Cracking the silica
 ===================
 
-Open the **cracking.lmp** file, which must contain the following familiar lines:
+Create a new file called **cracking.lmp**, and copy the following familiar lines:
 
 .. code-block:: lammps
 
@@ -153,6 +166,11 @@ Open the **cracking.lmp** file, which must contain the following familiar lines:
     thermo 250
     thermo_style custom step temp etotal vol density
 
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    Open the **cracking.lmp** file.
+
 Let us progressively increase the size of the box in the :math:`x` direction,
 forcing the silica to deform and eventually crack.  To achive this,
 the ``fix deform`` command is used, with a rate
@@ -172,12 +190,21 @@ The ``fix nvt`` command is employed to control the temperature of the system.
 As observed from the generated images, the atoms
 progressively adjust to the changing box dimensions.  At some point,
 bonds begin to break, leading to the appearance of
-dislocations (Fig.~\ref{fig:GCMC-cracked}).
+dislocations.
 
-ADD GCMC-cracked Block of silica
-after deformation.  Silicon atoms are represented in yellow,
-and oxygen atoms in red.  The crack was induced by the
-imposed deformation of the box along the :math:`x`-axis (i.e.,~the horizontal axis).
+.. figure:: figures/cracked-dark.png
+    :class: only-dark
+    :alt: Amorphous cracked silica block
+
+.. figure:: figures/cracked-light.png
+    :class: only-light
+    :alt: Amorphous cracked silica block
+
+..  container:: figurelegend
+
+    Figure: Block of silica after deformation.  Silicon atoms are represented in yellow,
+    and oxygen atoms in red.  The crack was induced by the
+    imposed deformation of the box along the :math:`x`-axis (i.e., the horizontal axis).
 
 Adding water
 ============
@@ -193,12 +220,12 @@ classical textbooks like Ref. :cite:`frenkel2023understanding`.
 Using hydrid potentials
 -----------------------
 
-
 The first particularly of our system is that it combines water and
 silica, which necessitates the use of two force fields: Vashishta (for
 :math:`\text{SiO}_2`), and TIP4P (for water).  Here, the TIP4P/2005 model is
-employed for the water :cite:`abascal2005general`.  Open the
-**gcmc.lmp** file, which should contain the following lines:
+employed for the water :cite:`abascal2005general`.
+
+Create a new file called **gcmc.lmp**, and copy the following lines into it:
 
 .. code-block:: lammps
 
@@ -211,6 +238,11 @@ employed for the water :cite:`abascal2005general`.  Open the
     kspace_style pppm/tip4p 1.0e-5
     bond_style harmonic
     angle_style harmonic
+
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    Open the **gcmc.lmp** file.
 
 Combining the two force fields, Vashishta and TIP4P/2005, is achieved
 using the ``hybrid/overlay`` pair style.  The PPPM
@@ -293,7 +325,7 @@ We can now proceed to complete the **gcmc.lmp** file by adding the system defini
     group SiO type Si O
     group H2O type OW HW
 
-After reading the data file and defining the ``h2omol`` molecule from the **H2O.txt**
+After reading the data file and defining the ``h2omol`` molecule from the **H2O.mol**
 file, the ``create_atoms`` command is used to include three water molecules
 in the system.  Then, add the following ``pair_coeff`` (and
 ``bond_coeff`` and ``angle_coeff``) commands
@@ -400,6 +432,13 @@ Finally, let us print some information and run for 25 ps:
 
     run 25000
 
+Running this simulation using LAMMPS, one can see that the number of molecules is increasing
+progressively.  When using the pressure argument, LAMMPS ignores the value of the
+chemical potential (here :math:`\mu = -0.5\,\text{eV}`, which corresponds roughly to
+ambient conditions, i.e. to a relative humidity :math:`\text{RH} \approx 50\,\%` :cite:`gravelle2020multi`.)
+The large pressure value of 100 bars was chosen to ensure that some successful
+insertions of molecules would occur during the short duration of this simulation.
+
 .. figure:: figures/GCMC-number-dm.png
     :class: only-dark
     :alt: Number of water molecules from GCMC somulations
@@ -410,24 +449,26 @@ Finally, let us print some information and run for 25 ps:
 
 ..  container:: figurelegend
 
-    Number of water molecules, :math:`N_\text{H2O}`, as a function of time, :math:`t`.
-
-Running this simulation using LAMMPS, one can see that the number of molecules is increasing
-progressively.  When using the pressure argument, LAMMPS ignores the value of the
-chemical potential (here :math:`\mu = -0.5\,\text{eV}`, which corresponds roughly to
-ambient conditions, i.e. to a relative humidity :math:`\text{RH} \approx 50\,\%` :cite:`gravelle2020multi`.)
-The large pressure value of 100\,bars was chosen to ensure that some successful
-insertions of molecules would occur during the short duration of this simulation.
+    Figure: Number of water molecules, :math:`N_\text{H2O}`, as a function of time, :math:`t`.
 
 After a few GCMC steps, the number of molecules starts increasing.  Once the
-crack is filled with water molecules, the total number of molecules reaches a plateau
-(Figs.\,\ref{fig:GCMC-number}-\ref{fig:GCMC-solvated}).  The final number of
+crack is filled with water molecules, the total number of molecules reaches a plateau.  The final number of
 molecules depends on the imposed pressure, temperature, and the interaction
 between water and silica (i.e. its hydrophilicity).  Note that GCMC simulations
 of such dense phases are usually slow to converge due to the very low probability
 of successfully inserting a molecule.  Here, the short simulation duration was
 made possible by the use of a high pressure.
 
-ADD FIGURE GCMC-SOLVATED Snapshot of the silica system after the adsorption of water molecules.
-The oxygen atoms of the water molecules are represented in cyan, the silicon
-atoms in yellow, and the oxygen atoms of the solid in red.
+.. figure:: figures/solvated-dark.png
+    :class: only-dark
+    :alt: Amorphous cracked silica block solvated with water
+
+.. figure:: figures/solvated-light.png
+    :class: only-light
+    :alt: Amorphous cracked silica block solvated with water
+
+..  container:: figurelegend
+
+    Figure: Snapshot of the silica system after the adsorption of water molecules.
+    The oxygen atoms of the water molecules are represented in cyan, the silicon
+    atoms in yellow, and the oxygen atoms of the solid in red.
