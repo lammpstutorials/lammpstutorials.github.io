@@ -8,9 +8,9 @@ desired temperature and pressure.
 System generation
 -----------------
 
-To set up this tutorial, select ``Start Tutorial 4`` from the
-``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
-The editor should display the following content corresponding to **create.lmp**:
+Create a folder if needed and
+place the initial input file, **create.lmp**, into it. Then, open the 
+file in a text editor of your choice, and copy the following into it:
 
 .. code-block:: lammps
 
@@ -23,13 +23,21 @@ The editor should display the following content corresponding to **create.lmp**:
     kspace_style pppm/tip4p 1.0e-5
     kspace_modify slab 3.0
 
+
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    To begin this tutorial, select ``Start Tutorial 4`` from the
+    ``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
+    The editor should display the following content corresponding to **create.lmp**
+
 These lines are used to define the most basic parameters, including the
 atom, bond, and angle styles, as well as interaction
 potential.  Here, ``lj/cut/tip4p/long`` imposes a Lennard-Jones potential with
 a cut-off at :math:`12\,\text{Å}` and a long-range Coulomb potential.
 
 So far, the commands are relatively similar to those in the previous tutorial,
-:ref:`all-atom-label`, with two major differences: the use
+:ref:`all-atoms-label`, with two major differences: the use
 of ``lj/cut/tip4p/long`` instead of ``lj/cut/coul/long``, and ``pppm/tip4p``
 instead of ``pppm``.  When using ``lj/cut/tip4p/long`` and ``pppm/tip4p``,
 the interactions resemble the conventional Lennard-Jones and Coulomb interactions,
@@ -69,7 +77,6 @@ and 1 type of angle (both required by the water molecules).
 The parameters for these bond and angle constraints will be given later.  The ``extra (...)``
 keywords are for memory allocation.  Finally, the ``labelmap`` commands assign
 alphanumeric type labels to each numeric atom type, bond type, and angle type.
-
 
 Now, we can add atoms to the system.  First, let us create two sub-regions corresponding
 respectively to the two solid walls, and create a larger region from the union of the
@@ -237,7 +244,7 @@ to delete about :math:`15~\%` of the water molecules:
     delete_atoms random fraction 0.15 yes H2O NULL 482793 mol yes
 
 To create an image of the system, add the following ``dump`` image
-into **create.lmp** (see also Fig.~\ref{fig:NANOSHEAR-system}):
+into **create.lmp**:
 
 .. code-block:: lammps
 
@@ -272,18 +279,23 @@ and a file named **create.data** will be created alongside **create.lmp**.
 ..  container:: figurelegend
 
     Figure: Side view of the system.  Periodic images are represented in darker colors.
-    Water molecules are in red and white, :math:`\text{Na}^+` ions in purple, :math:`\text{Cl}^-`
+    Water molecules are in red and white, :math:`\text{Na}^+` ions in pink, :math:`\text{Cl}^-`
     ions in lime, and wall atoms in gray.  Note the absence of atomic defect at the
     cell boundaries.
 
-\paragraph{Energy minimization}
+Energy minimization
+-------------------
 
 Let us move the atoms and place them in more energetically favorable positions
 before starting the actual molecular dynamics simulation.
 
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
 
-Open the **equilibrate.lmp** file that was downloaded alongside
-**create.lmp** during the tutorial setup.  It contains the following lines:
+    Open the **equilibrate.lmp** file that was downloaded alongside
+    **create.lmp** during the tutorial setup.
+
+Create a new file, **equilibrate.lmp**, and copy the following into it:
 
 .. code-block:: lammps
 
@@ -390,7 +402,7 @@ The first two variables extract the centers of mass of the two walls.  The
 variables ``walltopz`` and ``wallbotz``, i.e.~the distance between the
 two centers of mass of the walls.
 
-Finally, let us run the simulation for 30~ps by adding a ``run`` command
+Finally, let us run the simulation for 30 ps by adding a ``run`` command
 to **equilibrate.lmp**:
 
 .. code-block:: lammps
@@ -402,7 +414,7 @@ to **equilibrate.lmp**:
 Run the **equilibrate.lmp** file using LAMMPS.  Both the pressure and the distance
 between the two walls show oscillations at the start of the simulation
 but eventually stabilize at their equilibrium values toward
-the end of the simulation (Fig.~\ref{fig:NANOSHEAR-equilibration}).
+the end of the simulation.
 
 .. admonition:: Note
     :class: non-title-info
@@ -434,10 +446,15 @@ the end of the simulation (Fig.~\ref{fig:NANOSHEAR-equilibration}).
 Imposed shearing
 ----------------
 
-
 From the equilibrated configuration, let us impose a lateral motion on the two
-walls and shear the electrolyte.  Open the last input file named **shearing.lmp**.
-It starts with the following lines:
+walls and shear the electrolyte.
+
+.. admonition:: If you are using LAMMPS-GUI
+    :class: gui
+
+    Open the last input file named **shearing.lmp**.
+
+Create a new file, **shearing.lmp**, and copy the following into it:
 
 .. code-block:: lammps
 
@@ -496,18 +513,6 @@ experience any forces from the rest of the system.  Consequently, in the absence
 external forces, these atoms will conserve the initial velocities imposed by the
 two ``velocity`` commands.
 
-.. figure:: figures/NANOSHEAR-profiles-dm.png
-    :class: only-dark
-    :alt: Velocity profiles for the elecrolyte
-
-.. figure:: figures/NANOSHEAR-profiles.png
-    :class: only-light
-    :alt: Velocity profiles for the elecrolyte
-
-..  container:: figurelegend
-
-    Figure: Velocity profiles for water (blue) and walls (orange) along the :math:`z`-axis.
-
 Finally, let us generate images of the systems and print the values of the
 forces exerted by the fluid on the walls, as given by ``f_mysf1[1]``
 and ``f_mysf2[1]``.  Add these lines to **shearing.lmp**:
@@ -551,27 +556,40 @@ steps of the simulations.  The result will be averaged and printed only
 once at the 200,000 th step.
 
 Run the simulation using LAMMPS.  The averaged velocity
-profile for the fluid is plotted in Fig.~\ref{fig:NANOSHEAR-profiles}.
+profile for the fluid is plotted below.
 As expected for such Couette flow geometry, the fluid velocity increases
 linearly along :math:`z`, and is equal to the walls velocities at the fluid-solid
 interfaces (no-slip boundary conditions).
+
+.. figure:: figures/NANOSHEAR-profiles-dm.png
+    :class: only-dark
+    :alt: Velocity profiles for the elecrolyte
+
+.. figure:: figures/NANOSHEAR-profiles.png
+    :class: only-light
+    :alt: Velocity profiles for the elecrolyte
+
+..  container:: figurelegend
+
+    Figure: Velocity profiles for water (blue) and walls (orange) along the :math:`z`-axis.
 
 From the force applied by the fluid on the solid, one can extract the stress
 within the fluid, which enables the measurement of its viscosity :math:`\eta`
 according to
 
-TODO : PUT LABEL
 .. math:: 
+    :label: eq_eta
+
     \eta = \tau / \dot{\gamma}
 
 where :math:`\tau` is the stress applied by
 the fluid on the shearing wall, and :math:`\dot{\gamma}` the shear rate
 :cite:`gravelle2021violations`.  Here, the shear rate is
-approximately :math:`\dot{\gamma} = 20 \cdot 10^9\,\text{s}^{-1}` (Fig.~\ref{fig:NANOSHEAR-profiles}),
+approximately :math:`\dot{\gamma} = 20 \cdot 10^9\,\text{s}^{-1}`,
 the average force on each wall is given by ``f_mysf1[1]`` and ``f_mysf2[1]``
 and is approximately :math:`2.7\,\mathrm{kcal/mol/Å}` in magnitude.  Using a surface area
 for the walls of :math:`A = 6 \cdot 10^{-18}\,\text{m}^2`, one obtains an estimate for
-the shear viscosity for the confined fluid of :math:`\eta = 3.1\,\text{mPa.s}` using Eq.~\eqref{eq:eta}.
+the shear viscosity for the confined fluid of :math:`\eta = 3.1\,\text{mPa.s}` using Eq. :eq:`eq_eta`.
 
 .. admonition:: Note
     :class: non-title-info

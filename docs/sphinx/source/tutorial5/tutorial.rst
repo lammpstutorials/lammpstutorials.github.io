@@ -353,10 +353,6 @@ your case, depending on the location of the crack.  A difference with the previo
 input is that three atom types are specified in the ``pair_coeff`` command, i.e.
 ``Si O H``.
 
-ADD FIGURE SIO-decorated Cracked silicon oxide after the addition of hydrogen atoms.
-The atoms are colored by their charges, with the newly added hydrogen atoms appearing as small
-greenish spheres.
-
 Then, let us adapt some familiar commands to measure the charges of all three
 types of atoms, and output the charge values into log files:
 
@@ -409,5 +405,18 @@ form surface groups (such as hydroxyl (-OH) groups).
     # Timestep   No_Moles No_Specs H20O384Si192
     20000      1        1        1
 
-At the end of the simulation, hydroxyl (-OH) groups can be seen at the interfaces
-(Fig.~\ref{fig:SIO-decorated}).
+At the end of the simulation, hydroxyl (-OH) groups can be seen at the interfaces.
+
+.. figure:: figures/decorated-dark.png
+    :class: only-dark
+    :alt: Cracked silicon oxide after the addition of hydrogen atoms simulated using LAMMPS molecular dynamics
+
+.. figure:: figures/decorated-light.png
+    :class: only-light
+    :alt: Cracked silicon oxide after the addition of hydrogen atoms simulated using LAMMPS molecular dynamics
+
+..  container:: figurelegend
+
+    Cracked silicon oxide after the addition of hydrogen atoms.
+    The atoms are colored by their charges, with the newly added hydrogen atoms appearing as small
+    greenish spheres.

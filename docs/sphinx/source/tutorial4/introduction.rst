@@ -24,4 +24,3 @@ water model named TIP4P/2005 is used :cite:`abascal2005general`.
         
     Four-point water models such as TIP4P/2005 are widely used as they offer a
     good compromise between accuracy and computational cost :cite:`kadaoluwa2021systematic`.
-
