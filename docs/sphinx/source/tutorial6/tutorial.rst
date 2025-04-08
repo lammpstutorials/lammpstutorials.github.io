@@ -1,9 +1,11 @@
 Generation of the silica block
 ==============================
 
-Create a folder if needed and
-place the initial input file, **generate.lmp**, into it. Then, open the 
-file in a text editor of your choice, and copy the following into it:
+To begin this tutorial, if you are using LAMMPS--GUI, select ``Start Tutorial 6``
+from the ``Tutorials`` menu and follow the instructions. Alternatively, if you are
+not using LAMMPS--GUI, create a new folder and add a file named
+**generate.lmp**. Open the file in a text editor and paste in the following
+content:
 
 .. code-block:: lammps
 
@@ -13,12 +15,6 @@ file in a text editor of your choice, and copy the following into it:
     pair_style vashishta
     neighbor 1.0 bin
     neigh_modify delay 1
-
-.. admonition:: If you are using LAMMPS-GUI
-    :class: gui
-
-    To begin this tutorial, select ``Start Tutorial 6`` from the
-    ``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
 
 The main difference from some of the previous tutorials is the use of the ``Vashishta``
 pair style.  The Vashishta potential implicitly models atomic bonds through
