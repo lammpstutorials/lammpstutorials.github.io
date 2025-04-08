@@ -31,9 +31,7 @@ file in a text editor of your choice, and copy the following into it:
     the LAMMPS--GUI Editor window.
 
 Everything that appears after a hash symbol (#) is a comment
-and ignored by LAMMPS.
-.. LAMMPS-GUI will color such comments in red.
-These five categories are not required in every input script an do not
+and ignored by LAMMPS. These five categories are not required in every input script an do not
 necessarily need to be in that exact order.  For instance, the ``Settings``
 and the ``Visualization`` categories could be inverted, or
 the ``Visualization`` category could be omitted.  However, note that

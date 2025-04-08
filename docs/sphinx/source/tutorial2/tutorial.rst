@@ -208,10 +208,6 @@ that starts at :math:`2 \, \text{Å}` from the CNT edges:
 The ``delete_atoms`` command randomly deletes :math:`2\,\%` of the atoms from
 the ``rdel`` group, here about 10 atoms.
 
-ADD FIGURE -- The unbreakable CNT before the removal of atoms (top),
-after the removal of 10 atoms from the *rmid*
-region (middle), and after deformation (bottom).
-
 The molecular dynamics
 ----------------------
 
@@ -242,7 +238,7 @@ The ``fix nve`` commands are applied to the atoms of ``cnt_top`` and
 ``cnt_bot``, respectively, and will ensure that the positions of the atoms  
 from these groups are recalculated at every step.  The ``fix nvt`` does the  
 same for the ``cnt_mid`` group, while also applying a Nosé-Hoover thermostat  
-with desired temperature of 300\,K :cite:`nose1984unified, hoover1985canonical`.  
+with desired temperature of 300 K :cite:`nose1984unified, hoover1985canonical`.  
 To restrain the motion of the atoms at the edges, let us add the following  
 commands to **unbreakable.lmp**:
 
@@ -312,10 +308,20 @@ command in **unbreakable.lmp** with the following lines:
 With the ``thermo_modify`` command, we specify to LAMMPS that the  
 temperature :math:`T_\mathrm{mid}` of the middle group, ``cnt_mid``,  
 must be outputted, instead of the temperature of the entire system.  
-This choice is motivated by the presence of frozen parts with an effective temperature of :math:`0 \text{K}`,  
+This choice is motivated by the presence of frozen parts with an effective temperature of :math:`0~\text{K}`,  
 which makes the average temperature of the entire system less relevant.  
 The ``thermo_modify`` command also imposes the use of the YAML format that can easily be read by  
 Python (see below).
+
+.. figure:: figures/colored-edge-def-dark.png
+    :class: only-dark
+    :alt: Evolution of the CNT energy
+
+.. figure:: figures/colored-edge-def-light.png
+    :class: only-light
+    :alt: Evolution of the CNT energy
+
+    The unbreakable CNT before (top) and after deformation (bottom).
 
 Let us impose a constant velocity deformation on the CNT  
 by combining the ``velocity set`` command with previously defined  

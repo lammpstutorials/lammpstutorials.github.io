@@ -30,9 +30,11 @@ favorable area to explore.
 Basic LAMMPS parameters
 -----------------------
 
-Create a folder if needed and
-place the initial input file, **free-energy.lmp**, into it. Then, open the 
-file in a text editor of your choice, and copy the following into it:
+To begin this tutorial, if you are using LAMMPS--GUI, select ``Start Tutorial 7``
+from the ``Tutorials`` menu and follow the instructions. Alternatively, if you are
+not using LAMMPS--GUI, create a new folder and add a file named
+**free-energy.lmp**. Open the file in a text editor and paste in the following
+content:
 
 .. code-block:: lammps
 
@@ -47,12 +49,6 @@ file in a text editor of your choice, and copy the following into it:
     pair_style lj/cut 3.822
     pair_modify shift yes
     boundary p p p
-
-.. admonition:: If you are using LAMMPS-GUI
-    :class: gui
-
-    To begin this tutorial, select ``Start Tutorial 7`` from the
-    ``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
 
 Here, we begin by defining variables for the Lennard-Jones interaction
 :math:`\sigma` and :math:`\epsilon` and for the repulsive potential
@@ -152,10 +148,18 @@ referred to as ``mymes``, using the ``n_center`` variable:
     thermo_style custom step temp etotal v_n_center
     thermo 10000
 
-    dump viz all image 50000 myimage-*.ppm type type shiny 0.1 box yes 0.01 view 180 90 zoom 6 size 1600 500 fsaa yes
-    dump_modify viz backcolor white acolor 1 cyan adiam 1 3 boxcolor black
+For visualization, use one of the following options: the ``dump image`` command to
+create .ppm images of the system, or the ``dump atom`` command to write a
+VMD-compatible trajectory to a file:
 
-A ``dump image`` command was also added for system visualization.
+.. code-block:: lammps
+
+    # Option 1
+    dump viz1 all image 50000 myimage-*.ppm type type shiny 0.1 box yes 0.01 view 180 90 zoom 6 size 1600 500 fsaa yes
+    dump_modify viz1 backcolor white acolor 1 cyan adiam 1 3 boxcolor black
+
+    # Option 2
+    dump viz2 all atom 50000 free-energy.lammpstrj
 
 Finally, let us perform an equilibration of 50000 steps,
 using a timestep of :math:`2\,\text{fs}`, corresponding to a total duration of :math:`100\,\text{ps}`:
@@ -212,6 +216,8 @@ LAMMPS.
 .. figure:: figures/system-light.png
     :class: only-light
     :alt: Density from umbrella sampling simulations
+
+..  container:: figurelegend
 
     Figure: Snapshot of the system simulated during the free sampling step of the tutorial.
     The atoms density is the lowest in the central part of the box, ``mymes``.  Here,
@@ -279,8 +285,9 @@ unbiased free energy profile.
 LAMMPS input script
 -------------------
 
-Open the file named **umbrella-sampling.lmp**, which should
-contain the following lines:
+If you are using LAMMPS--GUI, open the file named **free-energy.lmp**.  
+Alternatively, if you are not using LAMMPS--GUI, create a new input file  
+and paste in the following content:
 
 .. code-block:: lammps
 
@@ -341,9 +348,12 @@ umbrella sampling run:
 
     thermo 5000
 
-    dump viz all image 50000 myimage-*.ppm type type shiny 0.1 box yes 0.01 view 180 90 zoom 6 size 1600 500 fsaa yes
-    dump_modify viz backcolor white acolor 1 cyan &
-    acolor 2 red adiam 1 3 adiam 2 3 boxcolor black
+    # Option 1
+    dump viz1 all image 50000 myimage-*.ppm type type shiny 0.1 box yes 0.01 view 180 90 zoom 6 size 1600 500 fsaa yes
+    dump_modify viz1 backcolor white acolor 1 cyan acolor 2 red adiam 1 3 adiam 2 3 boxcolor black
+
+    # Option 2
+    dump viz2 all atom 50000 free-energy.lammpstrj
 
     timestep 2.0
     run 50000
