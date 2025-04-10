@@ -12,9 +12,15 @@ by maintaining the relative orientations of neighboring atoms.
 The LAMMPS input
 ----------------
 
-Create a folder if needed and
-place the initial input file, **unbreakable.lmp**, into it. Then, open the 
-file in a text editor of your choice, and copy the following into it:
+To begin this tutorial, if you are using LAMMPS--GUI, select
+``Start Tutorial 2`` from the ``Tutorials`` menu of LAMMPS-GUI
+and follow the instructions. This will select a folder, create one if
+necessary, and place several files into it.  The initial input file,
+set up for a single-point energy calculation, will also be loaded into
+the editor under the name **unbreakable.lmp**.  Additional files
+are a data file containing the CNT topology and geometry, named
+**unbreakable.data**, a parameters file named **unbreakable.inc**, as well as
+the scripts required for the second part of the tutorial. 
 
 .. code-block:: lammps
 
@@ -34,17 +40,12 @@ file in a text editor of your choice, and copy the following into it:
 
     run 0 post no
 
-.. admonition:: If you are using LAMMPS-GUI
+.. admonition:: If you are not using LAMMPS-GUI
     :class: gui
 
-    Select ``Start Tutorial 2`` from the ``Tutorials``
-    menu of LAMMPS-GUI and follow the instructions. This will select a folder,
-    create one if necessary, and place several files into it.  The initial
-    input file, set up for a single-point energy calculation, will also be
-    loaded into the editor under the name **unbreakable.lmp**.  Additional files
-    are a data file containing the CNT topology and geometry, named
-    **unbreakable.data**, a parameters file named **unbreakable.inc**, as well as
-    the scripts required for the second part of the tutorial.
+    Create a folder if needed and
+    place the initial input file, **unbreakable.lmp**, into it. Then, open the 
+    file in a text editor of your choice, and copy the previous lines into it.
 
 The chosen unit system is ``real`` (therefore distances are in
 Ångströms (Å), times in femtoseconds (fs), and energies in kcal/mol), the
@@ -77,12 +78,6 @@ as well as the identity of the atoms that are linked by ``bonds``, ``angles``,
 .. |unbreakable_data| raw:: html
 
    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/unbreakable.data" target="_blank">unbreakable.data</a>
-
-.. admonition:: If you are using LAMMPS-GUI
-    :class: gui
-
-    The **unbreakable.data** file that should have been downloaded next
-    to **unbreakable.lmp** during the tutorial setup.
 
 .. admonition:: Note
     :class: non-title-info
@@ -364,28 +359,25 @@ from the typical dependency of bond energy with bond distance,
 Importing YAML log file into Python
 -----------------------------------
 
-.. admonition:: If you are using LAMMPS-GUI
-    :class: gui
+Let us import the simulation data into Python, and generate a stress-strain curve.
+Here, the stress is defined as :math:`F_\text{cnt}/A_\text{cnt}`,
+where :math:`A_\text{cnt} = \pi r_\text{cnt}^2` is the surface area of the
+CNT, and :math:`r_\text{cnt}=5.2\,\text{Å}` the CNT radius.  The strain is defined
+as :math:`(L_\text{cnt}-L_\text{cnt-0})/L_\text{cnt-0}`, where :math:`L_\text{cnt-0}` is the initial CNT length.
 
-    Let us import the simulation data into Python, and generate a stress-strain curve.
-    Here, the stress is defined as :math:`F_\text{cnt}/A_\text{cnt}`,
-    where :math:`A_\text{cnt} = \pi r_\text{cnt}^2` is the surface area of the
-    CNT, and :math:`r_\text{cnt}=5.2\,\text{Å}` the CNT radius.  The strain is defined
-    as :math:`(L_\text{cnt}-L_\text{cnt-0})/L_\text{cnt-0}`, where :math:`L_\text{cnt-0}` is the initial CNT length.
-
-    Right-click inside the ``Output`` window, and select
-    ``Export YAML data to file``.  Call the output **unbreakable.yaml**, and save
-    it within the same folder as the input files, where a Python script named |yaml_reader| should also
-    be located.  When executed using Python, this .py file first imports
-    the **unbreakable.yaml** file.  Then, a certain pattern is
-    identified and stored as a string character named ``docs``.  The string is
-    then converted into a list, and :math:`F_\text{cnt}` and :math:`L_\text{cnt}`
-    are extracted.  The stress and strain are then calculated, and the result
-    is saved in a data file named **unbreakable.dat** using
-    the NumPy ``savetxt`` function.  ``thermo[0]`` can be used to access the
-    information from the first minimization run, and ``thermo[1]`` to access the
-    information from the second MD run.  The data extracted from
-    the **unbreakable.yaml** file can then be used to plot the stress-strain curve.
+Right-click inside the ``Output`` window, and select
+``Export YAML data to file``.  Call the output **unbreakable.yaml**, and save
+it within the same folder as the input files, where a Python script named |yaml_reader| should also
+be located.  When executed using Python, this .py file first imports
+the **unbreakable.yaml** file.  Then, a certain pattern is
+identified and stored as a string character named ``docs``.  The string is
+then converted into a list, and :math:`F_\text{cnt}` and :math:`L_\text{cnt}`
+are extracted.  The stress and strain are then calculated, and the result
+is saved in a data file named **unbreakable.dat** using
+the NumPy ``savetxt`` function.  ``thermo[0]`` can be used to access the
+information from the first minimization run, and ``thermo[1]`` to access the
+information from the second MD run.  The data extracted from
+the **unbreakable.yaml** file can then be used to plot the stress-strain curve.
 
 .. |yaml_reader| raw:: html
 

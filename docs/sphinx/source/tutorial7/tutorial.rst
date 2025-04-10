@@ -12,7 +12,7 @@ Method 1: Free sampling
 =======================
 
 The most direct way to calculate a free energy profile is to extract the
-partition function from a classical (i.e.~unbiased) molecular dynamics
+partition function from a classical (i.e. unbiased) molecular dynamics
 simulation, and then estimate the Gibbs free energy by using
 
 .. math::

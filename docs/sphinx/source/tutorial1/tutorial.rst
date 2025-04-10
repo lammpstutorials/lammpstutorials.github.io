@@ -5,10 +5,11 @@ To run a simulation using LAMMPS, you need to write an input script
 containing a series of commands for LAMMPS to execute, similar to Python
 or Bash scripts.  For clarity, the input scripts for this tutorial will
 be divided into five categories, which will be filled out step by step.
-To set up this tutorial, navigate to the directory
-where you want to store your files.  Create a folder if needed and
-place the initial input file, **initial.lmp**, into it. Then, open the 
-file in a text editor of your choice, and copy the following into it:
+To set up this tutorial using LAMMPS graphical user interface
+(LAMMPS--GUI) :cite:`lammps_gui_docs`, select ``Start LAMMPS Tutorial 1``
+from the ``Tutorials`` menu and follow the instructions. This will
+select (or create, if needed) a folder, place the initial input
+file **initial.lmp** in it, and open the file in the LAMMPS--GUI Editor window:
 
 .. code-block:: lammps
 
@@ -17,18 +18,15 @@ file in a text editor of your choice, and copy the following into it:
     # 2) System definition
     # 3) Settings
     # 4) Visualization
-    # 5) Run
+    # 5) Run 
 
-.. admonition:: Optional: follow this tutorial using LAMMPS-GUI
+.. admonition:: If you are not using LAMMPS-GUI
     :class: gui
 
-    This tutorial can also be followed using LAMMPS graphical
-    user interface (LAMMPS--GUI) :cite:`lammps_gui_docs`.
-    Select ``Start LAMMPS Tutorial 1`` from
-    the ``Tutorials`` menu of LAMMPS--GUI, and follow the
-    instructions.  This will select (or create, if needed) a folder, place
-    the initial input file **initial.lmp** in it, and open the file in
-    the LAMMPS--GUI Editor window.
+    All tutorials can be followed without using LAMMPS-GUI. To
+    do so, create a new folder and add a file named **initial.lmp**
+    inside it. Open the file in a text editor of your choice and
+    copy the previous lines into it.
 
 Everything that appears after a hash symbol (#) is a comment
 and ignored by LAMMPS. These five categories are not required in every input script an do not
@@ -96,15 +94,11 @@ slab geometries.
 
 Each LAMMPS command is accompanied by extensive online documentation  
 that details the different options for that command :cite:`lammps_docs`.
-
-.. admonition:: If you are using LAMMPS-GUI
-    :class: gui
-
-    From the LAMMPS--GUI editor buffer, you can access the documentation by  
-    right-clicking on a line containing a command (e.g., ``units lj``)  
-    and selecting ``View Documentation for `units'``.  This action  
-    should prompt your web browser to open the corresponding URL for the  
-    online manual.
+From the LAMMPS--GUI editor buffer, you can access the documentation by  
+right-clicking on a line containing a command (e.g., ``units lj``)  
+and selecting ``View Documentation for `units'``.  This action  
+should prompt your web browser to open the corresponding URL for the  
+online manual.
 
 The next step is to create the simulation box and populate it with  
 atoms.  Modify the ``System definition`` category of  
@@ -220,24 +214,21 @@ You can now run LAMMPS (basic commands for running LAMMPS
 are provided in Ref. :cite:`lammps_run_basics`).
 The simulation should finish quickly.
 
-.. admonition:: If you are using LAMMPS-GUI
-    :class: gui
+With the default settings, LAMMPS--GUI will open two windows: one
+displaying the console output and another with a chart.  The ``Output`` window
+will display information from the executed commands, including the
+total energy and pressure at step 0,
+as specified by the thermodynamic data request.  Since no actual simulation
+steps were performed, the ``Charts`` window will be empty.
 
-    With the default settings, LAMMPS--GUI will open two windows: one
-    displaying the console output and another with a chart.  The ``Output`` window
-    will display information from the executed commands, including the
-    total energy and pressure at step 0,
-    as specified by the thermodynamic data request.  Since no actual simulation
-    steps were performed, the ``Charts`` window will be empty.
-
-    **Snapshot image --** At this point, you can create a snapshot image of the current system
-    using the ``Image Viewer`` window, which can be accessed by
-    clicking the ``Create Image`` button in the ``Run`` menu.  The
-    image viewer works by instructing LAMMPS to render an image of the
-    current system using its internal rendering library via the ``dump image``
-    command.  The resulting image is then displayed, with various
-    buttons available to adjust the view and rendering style.  This will always
-    capture the current state of the system.
+**Snapshot image --** At this point, you can create a snapshot image of the current system
+using the ``Image Viewer`` window, which can be accessed by
+clicking the ``Create Image`` button in the ``Run`` menu.  The
+image viewer works by instructing LAMMPS to render an image of the
+current system using its internal rendering library via the ``dump image``
+command.  The resulting image is then displayed, with various
+buttons available to adjust the view and rendering style.  This will always
+capture the current state of the system.
 
 Energy minimization
 -------------------
@@ -259,17 +250,14 @@ as the minimizer algorithm cannot find a way to lower the potential
 energy. Note that, except for trivial systems, minimization algorithms will find a
 local minimum rather than the global minimum.
 
-.. admonition:: If you are using LAMMPS-GUI
-    :class: gui
-
-    Run the minimization and observe that LAMMPS-GUI captures the output
-    and updates the chart in real time.  This run executes quickly (depending
-    on your computer's capabilities), but LAMMPS-GUI may fail to capture some
-    of the thermodynamic data.  In that
-    case, use the ``Preferences`` dialog to reduce the data update
-    interval and switch to single-threaded, unaccelerated execution in the
-    ``Accelerators`` tab.  You can repeat the run; each new attempt will start
-    fresh, resetting the system and re-executing the script from the beginning.
+Run the minimization and observe that LAMMPS-GUI captures the output
+and updates the chart in real time.  This run executes quickly (depending
+on your computer's capabilities), but LAMMPS-GUI may fail to capture some
+of the thermodynamic data.  In that
+case, use the ``Preferences`` dialog to reduce the data update
+interval and switch to single-threaded, unaccelerated execution in the
+``Accelerators`` tab.  You can repeat the run; each new attempt will start
+fresh, resetting the system and re-executing the script from the beginning.
 
 Run the minimization.  The potential energy, :math:`U`, decreases
 from a positive value to a negative value
@@ -286,11 +274,10 @@ decreases - first rapidly - then more gradually, before plateauing at a
 negative value.  This indicates that the atoms have moved to reasonable
 distances from one another.
 
-..
-    Create and save a snapshot image of the simulation state after the
-    minimization, and compare it to the initial image.  You should observe
-    that the atoms are *clumping together* as they move toward positions
-    of lower potential energy.
+Create and save a snapshot image of the simulation state after the
+minimization, and compare it to the initial image.  You should observe
+that the atoms are *clumping together* as they move toward positions
+of lower potential energy.
 
 Molecular dynamics
 ------------------
@@ -394,20 +381,17 @@ it reaches a plateau value of about -0.25.  The kinetic energy,
 increases rapidly during molecular dynamics until it reaches  
 a plateau value of about 1.5.
 
-.. admonition:: If you are using LAMMPS-GUI
-    :class: gui
-
-    From the information  
-    printed in the ``Output`` window, one can see that the temperature  
-    starts from 0 but rapidly reaches the requested value and  
-    stabilizes itself near :math:`T=1` temperature units.  One can also observe that  
-    the potential energy, :math:`U`, rapidly decreases during energy  
-    minimization (see the figure below).  After  
-    the molecular dynamics simulation starts, :math:`U` increases until  
-    it reaches a plateau value of about -0.25.  The kinetic energy,  
-    :math:`K`, is equal to zero during energy minimization and then  
-    increases rapidly during molecular dynamics until it reaches  
-    a plateau value of about 1.5.
+From the information  
+printed in the ``Output`` window, one can see that the temperature  
+starts from 0 but rapidly reaches the requested value and  
+stabilizes itself near :math:`T=1` temperature units.  One can also observe that  
+the potential energy, :math:`U`, rapidly decreases during energy  
+minimization (see the figure below).  After  
+the molecular dynamics simulation starts, :math:`U` increases until  
+it reaches a plateau value of about -0.25.  The kinetic energy,  
+:math:`K`, is equal to zero during energy minimization and then  
+increases rapidly during molecular dynamics until it reaches  
+a plateau value of about 1.5.
 
 .. figure:: figures/LJ-energy-dm.png
     :class: only-dark
@@ -444,42 +428,38 @@ Run the **initial.lmp** file using LAMMPS again. A file named **dump.lammpstrj**
 must appear alongside **initial.lmp**. The **.lammpstrj** file can be opened
 using VMD :cite:`vmd_home, humphrey1996vmd` or OVITO :cite:`ovito_home, ovito_paper`.
 
-.. admonition:: If you are using LAMMPS-GUI
-    :class: gui
+Use the ``dump image`` command to create snapshot images during the simulation.  We  
+have already explored the ``Image Viewer`` window.  Open it again  
+and adjust the visualization to your liking using the available buttons.  
+Now you can copy the commands used to create this visualization to the  
+clipboard by either using the ``Ctrl-D`` keyboard shortcut or  
+selecting ``Copy dump image command`` from the ``File`` menu.  
+This text can be pasted into the ``Visualization`` section  
+of ``PART B`` of the **initial.lmp** file.  This may look like  
+the following:
 
-    Use the ``dump image``  
-    command to create snapshot images during the simulation.  We  
-    have already explored the ``Image Viewer`` window.  Open it again  
-    and adjust the visualization to your liking using the available buttons.  
-    Now you can copy the commands used to create this visualization to the  
-    clipboard by either using the ``Ctrl-D`` keyboard shortcut or  
-    selecting ``Copy dump image command`` from the ``File`` menu.  
-    This text can be pasted into the ``Visualization`` section  
-    of ``PART B`` of the **initial.lmp** file.  This may look like  
-    the following:
+.. code-block:: lammps
 
-    .. code-block:: lammps
+    dump viz all image 100 myimage-*.ppm type type size 800 800 zoom 1.452 shiny 0.7 fsaa yes &
+        view 80 10 box yes 0.025 axes no 0.0 0.0 center s 0.483725 0.510373 0.510373
+    dump_modify viz pad 9 boxcolor royalblue backcolor white adiam 1 1.6 adiam 2 4.8
 
-        dump viz all image 100 myimage-*.ppm type type size 800 800 zoom 1.452 shiny 0.7 fsaa yes &
-            view 80 10 box yes 0.025 axes no 0.0 0.0 center s 0.483725 0.510373 0.510373
-        dump_modify viz pad 9 boxcolor royalblue backcolor white adiam 1 1.6 adiam 2 4.8
+This command tells LAMMPS to generate NetPBM format images every 100  
+steps.  The two ``type`` keywords are for *color* and  
+*diameter*, respectively.  Run the **initial.lmp** using  
+LAMMPS again, and a new window named ``Slide Show`` will pop up.  
+It will show each image created by the ``dump image`` as it is  
+created. After the simulation is finished (or stopped), the slideshow  
+viewer allows you to animate the trajectory by cycling through the  
+images.  The window also allows you to export the animation to a movie  
+(provided the FFMpeg program is installed) and to bulk delete those  
+image files.
 
-    This command tells LAMMPS to generate NetPBM format images every 100  
-    steps.  The two ``type`` keywords are for *color* and  
-    *diameter*, respectively.  Run the **initial.lmp** using  
-    LAMMPS again, and a new window named ``Slide Show`` will pop up.  
-    It will show each image created by the ``dump image`` as it is  
-    created. After the simulation is finished (or stopped), the slideshow  
-    viewer allows you to animate the trajectory by cycling through the  
-    images.  The window also allows you to export the animation to a movie  
-    (provided the FFMpeg program is installed) and to bulk delete those  
-    image files.
-
-    The rendering of the system can be further adjusted using the many  
-    options of the ``dump image`` command.  For instance, the value for the  
-    ``shiny`` keyword is used to adjust the shininess of the atoms, the  
-    ``box`` keyword adds or removes a representation of the box, and  
-    the ``view`` and ``zoom`` keywords adjust the camera (and so on).
+The rendering of the system can be further adjusted using the many  
+options of the ``dump image`` command.  For instance, the value for the  
+``shiny`` keyword is used to adjust the shininess of the atoms, the  
+``box`` keyword adds or removes a representation of the box, and  
+the ``view`` and ``zoom`` keywords adjust the camera (and so on).
 
 Improving the script
 ====================
@@ -556,12 +536,9 @@ the ``minimize`` command:
 Run the **improved.min.lmp** file using LAMMPS--GUI.  At the end  
 of the simulation, a file called **improved.min.data** is created.  
 
-.. admonition:: If you are using LAMMPS-GUI
-    :class: gui
-
-    You can view the contents of **improved.min.data** from LAMMPS--GUI, by  
-    right-clicking on the file name in the editor and selecting the entry  
-    ``View file improved.min.data``.
+You can view the contents of **improved.min.data** from LAMMPS--GUI, by  
+right-clicking on the file name in the editor and selecting the entry  
+``View file improved.min.data``.
 
 The created **.data** file contains all the information necessary  
 to restart the simulation, such as the number of atoms, the box size,  
