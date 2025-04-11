@@ -8,7 +8,7 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
 
     non-tutorials/scope.rst
     non-tutorials/prerequisites.rst
-    non-tutorials/contact-me.rst
+    non-tutorials/contact.rst
 
 .. toctree::
     :maxdepth: 2
@@ -30,8 +30,8 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     non-tutorials/glossary.rst
     non-tutorials/bibliography.rst
     non-tutorials/using-lammps-gui.rst
-    non-tutorials/command-line.rst
     non-tutorials/running-lammps.rst
+    non-tutorials/command-line.rst
 
 Indices and tables
 ==================
