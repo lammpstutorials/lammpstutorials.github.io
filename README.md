@@ -1,10 +1,19 @@
+<!--
+WARNING: DO NOT MODIFY DIRECTLY THE README.md!
+This README.md file was assembled using the sed command from the files listed in
+"files.txt". See the script in "generateREADME.sh". To modify the content of 
+the  README.md, modify the files listed in "files.txt", or add a new file to the
+list in "files.txt".
+-->
+
+
 # LAMMPS tutorials
 
 This is the repository of the [LAMMPS tutorials](https://lammpstutorials.github.io/)
-webpage. All the LAMMPS input scripts and data files can be found in a
-separate repository named [lammpstutorials-inputs](https://github.com/lammpstutorials/lammpstutorials-inputs).
+webpage. All the LAMMPS input scripts and data files can be found in a separate
+repository named [lammpstutorials-inputs](https://github.com/lammpstutorials/lammpstutorials-inputs).
 
-The tutorials are compatible with the 2Aug2023 stable release of LAMMPS.
+The tutorials are compatible with the XXXX2024 release of LAMMPS.
 
 An article is currently is preparation and is [visible here](https://github.com/lammpstutorials/lammpstutorials-article).
 
@@ -51,23 +60,29 @@ The Matplotlib Pyplot functions for the figures are shared [here](https://github
 ### Template ###
 
 The template from the first page has been adapted from [HTML5 UP](https://html5up.net/).
-The other pages use the [Sphinx](https://www.sphinx-doc.org/) generator with the [furo style](https://github.com/pradyunsg/furo).
+The other pages use the [Sphinx](https://www.sphinx-doc.org/) generator with the
+[furo style](https://github.com/pradyunsg/furo).
 
-### About me & Contact ###
 
-I am a computer physicist in soft matter and fluids at interfaces. You can 
-find more information on my [personal webpage](https://simongravelle.github.io/).
 
-See the [contact page](https://lammpstutorials.github.io/sphinx/build/html/non-tutorials/contact-me.html). 
-You can report issues here on Github, or send me an [email](https://simongravelle.github.io/). Your feedback is always appreciated.
+## Authors
 
-### License and Acknowledgments ###
+- [Simon Gravelle](https://github.com/simongravelle) (corr. author),
+  Université Grenoble Alpes, CNRS, LIPhy, 38000 Grenoble, France.
+- [Jacob R. Gissinger](https://www.stevens.edu/profile/jgissing),
+  Stevens Institute of Technology, Hoboken, NJ 07030, USA.
+- [Axel Kohlmeyer](https://sites.google.com/site/akohlmey),
+  Institute for Computational Molecular Science, Temple University, Philadelphia,
+  PA 19122, USA.
 
-All the LAMMPS inputs/data/parameter files and Python scripts are released under the 
-GNU general public license v3.0. Feel free to adapt and/or re-publish them.  
 
-This project has received funding from the European
-Union's Horizon 2020 research and innovation programme
-under the Marie Skłodowska-Curie grant agreement No 101065060.
 
-![Acknowledgments-logos](https://raw.githubusercontent.com/simongravelle/credits/1c44b5ae76a33c5bbbd33a54243365c6abdc24b2/cnrs-uga-liphy-msca.png)
+## Acknowledgements
+
+- Simon Gravelle acknowledges funding from the European Union's Horizon 2020
+  research and innovation programme under the Marie Skłodowska-Curie grant
+  agreement N°101065060.
+- Axel Kohlmeyer acknowledges financial support from Sandia National Laboratories
+  under POs 2149742 and 2407526.
+
+
