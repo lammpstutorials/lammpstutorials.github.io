@@ -129,7 +129,7 @@ for the constraints between 4 atoms.
     us to conveniently reuse the parameter settings  
     in other inputs or switch them with others.  This will become more general  
     when using type labels, which is shown in the next  
-    tutorial :cite:`typelabel_paper`.  
+    tutorial :cite:`gissinger2024type`.  
 
 Prepare the initial state
 -------------------------
@@ -157,7 +157,6 @@ of the first atoms along :math:`x` plus :math:`0.5 \, \text{Å}`.  Then, three r
 corresponding to the following: :math:`x < x_\text{min}` (``rbot``, for region  
 bottom), :math:`x_\text{min} > x > x_\text{max}` (``rmid``, for region middle),  
 and :math:`x > x_\text{max}` (``rtop``, for region top).
-
 
 Finally, let us define 3 groups of atoms corresponding to the atoms
 in each of the 3 regions by adding to **unbreakable.lmp**
@@ -532,7 +531,7 @@ simulation.
 ..  container:: figurelegend
 
     Figure: Figure: CNT with broken bonds.  This image was generated using
-    VMD :cite:`vmd_home,humphrey1996vmd` ``DynamicBonds`` representation.
+    VMD :cite:`humphrey1996vmd` ``DynamicBonds`` representation.
 
 Looking at the evolution of the energy, one can see that the total
 energy :math:`E` is initially increasing with the deformation.  When bonds

@@ -6,7 +6,7 @@ containing a series of commands for LAMMPS to execute, similar to Python
 or Bash scripts.  For clarity, the input scripts for this tutorial will
 be divided into five categories, which will be filled out step by step.
 To set up this tutorial using LAMMPS graphical user interface
-(LAMMPS--GUI) :cite:`lammps_gui_docs`, select ``Start LAMMPS Tutorial 1``
+(LAMMPS--GUI), select ``Start LAMMPS Tutorial 1``
 from the ``Tutorials`` menu and follow the instructions. This will
 select (or create, if needed) a folder, place the initial input
 file **initial.lmp** in it, and open the file in the LAMMPS--GUI Editor window:
@@ -92,13 +92,17 @@ slab geometries.
     explicitly specifying these defaults is considered good practice to
     avoid confusion when sharing input files with other LAMMPS users.
 
-Each LAMMPS command is accompanied by extensive online documentation  
-that details the different options for that command :cite:`lammps_docs`.
+Each LAMMPS command is accompanied by extensive online |lammpsdocs|
+that details the different options for that command.
 From the LAMMPS--GUI editor buffer, you can access the documentation by  
 right-clicking on a line containing a command (e.g., ``units lj``)  
 and selecting ``View Documentation for `units'``.  This action  
 should prompt your web browser to open the corresponding URL for the  
 online manual.
+
+.. |lammpsdocs| raw:: html
+
+    <a href="https://docs.lammps.org" target="_blank">documentation</a>
 
 The next step is to create the simulation box and populate it with  
 atoms.  Modify the ``System definition`` category of  
@@ -211,7 +215,7 @@ without actually running the simulation.  The ``post no`` option disables
 the post-run summary and statistics output.
 
 You can now run LAMMPS (basic commands for running LAMMPS
-are provided in Ref. :cite:`lammps_run_basics`).
+are provided in :ref:`running-lammps-label`.
 The simulation should finish quickly.
 
 With the default settings, LAMMPS--GUI will open two windows: one
@@ -426,7 +430,7 @@ of ``PART B`` of the **initial.lmp** file:
 
 Run the **initial.lmp** file using LAMMPS again. A file named **dump.lammpstrj**
 must appear alongside **initial.lmp**. The **.lammpstrj** file can be opened
-using VMD :cite:`vmd_home, humphrey1996vmd` or OVITO :cite:`ovito_home, ovito_paper`.
+using VMD :cite:`humphrey1996vmd` or OVITO :cite:`stukowski2009visualization`.
 
 Use the ``dump image`` command to create snapshot images during the simulation.  We  
 have already explored the ``Image Viewer`` window.  Open it again  

@@ -68,7 +68,7 @@ distances, etc).  Thus add to **water.lmp** the line:
 .. admonition:: Note
     :class: non-title-info
 
-    This tutorial uses type labels :cite:`typelabel_paper` to map each
+    This tutorial uses type labels :cite:`gissinger2024type` to map each
     numeric atom type to a string (see the **parameters.inc** file):
     ``labelmap atom 1 OE 2 C 3 HC 4 H 5 CPos 6 OAlc 7 OW 8 HW``
     Therefore, the oxygen and hydrogen atoms of water (respectively types
@@ -491,7 +491,7 @@ Tip: using external visualization tools
 ---------------------------------------
 
 Trajectories can be visualized using external tools such as VMD or
-OVITO :cite:`humphrey1996vmd, ovito_paper`.  To do so, the IDs and
+OVITO :cite:`humphrey1996vmd, stukowski2009visualization`.  To do so, the IDs and
 positions of the atoms must be regularly written to a file during the
 simulation.  This can be accomplished by adding a ``dump`` command
 to the input file.  For instance, create a duplicate of

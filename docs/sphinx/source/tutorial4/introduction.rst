@@ -16,7 +16,7 @@ and velocity profiles of the fluid in the direction normal to the walls are
 extracted to highlight the effect of confining a fluid on its local properties.
 This tutorial demonstrates key concepts of combining a fluid and a solid in
 the same simulation.  A major difference from the previous tutorial,
-:ref:`all-atom-label`, is that here a rigid four-point
+:ref:`all-atoms-label`, is that here a rigid four-point
 water model named TIP4P/2005 is used :cite:`abascal2005general`.
 
 .. admonition:: Note
