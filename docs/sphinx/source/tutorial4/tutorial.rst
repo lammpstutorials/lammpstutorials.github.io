@@ -399,7 +399,7 @@ the two walls.  Add the following lines to **equilibrate.lmp**:
 
 The first two variables extract the centers of mass of the two walls.  The
 ``deltaz`` variable is then used to calculate the difference between the two
-variables ``walltopz`` and ``wallbotz``, i.e.~the distance between the
+variables ``walltopz`` and ``wallbotz``, i.e. the distance between the
 two centers of mass of the walls.
 
 Finally, let us run the simulation for 30 ps by adding a ``run`` command

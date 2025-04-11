@@ -403,7 +403,7 @@ a plateau value of about 1.5.
 
 ..  container:: figurelegend
 
-    (a) Potential energy, :math:`U`, of the binary mixture as a function of the
+    Figure: (a) Potential energy, :math:`U`, of the binary mixture as a function of the
     step during energy minimization.
     (b) Potential energy, :math:`U`, as a function of time, :math:`t`, during molecular dynamics in
     the NVT ensemble.  (c) Kinetic energy, :math:`K`, during energy minimization.
@@ -749,7 +749,7 @@ over time.
 
 ..  container:: figurelegend
 
-    Evolution of the system during mixing. The
+    Figure: Evolution of the system during mixing. The
     three snapshots show respectively the system at :math:`t = 0` (left panel),
     :math:`t = 75` (middle panel), and :math:`t = 1500` (right panel). The atoms of type
     1 are represented as small green spheres and the atoms of type 2 as large cyan spheres.
@@ -775,7 +775,7 @@ expected during mixing.  This can be observed using the entry
 
 ..  container:: figurelegend
 
-    a) Evolution of the numbers :math:`N_\text{1, in}$` and :math:`N_\text{2, in}` of atoms
+    Figure: a) Evolution of the numbers :math:`N_\text{1, in}$` and :math:`N_\text{2, in}` of atoms
     of types 1 and 2, respectively, within the ``cyl_in`` region as functions
     of time :math:`t`.  b) Evolution of the coordination number :math:`C_{1-2}`
     (compute ``sumcoor12``) between atoms of types 1 and 2.

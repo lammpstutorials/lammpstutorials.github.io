@@ -308,16 +308,6 @@ which makes the average temperature of the entire system less relevant.
 The ``thermo_modify`` command also imposes the use of the YAML format that can easily be read by  
 Python (see below).
 
-.. figure:: figures/colored-edge-def-dark.png
-    :class: only-dark
-    :alt: Evolution of the CNT energy
-
-.. figure:: figures/colored-edge-def-light.png
-    :class: only-light
-    :alt: Evolution of the CNT energy
-
-    The unbreakable CNT before (top) and after deformation (bottom).
-
 Let us impose a constant velocity deformation on the CNT  
 by combining the ``velocity set`` command with previously defined  
 ``fix setforce``.  Add the following lines in the **unbreakable.lmp**  
@@ -331,12 +321,23 @@ file, right after the last ``run 5000`` command:
    run 10000
 
 The chosen velocity for the deformation is :math:`100\,\text{m/s}`, or  
-:math:`0.001\,\text{Å/fs}`.
-
-Run the simulation using LAMMPS.  As can be seen from the variable :math:`L_\text{cnt}`, the length
+:math:`0.001\,\text{Å/fs}`. Run the simulation using LAMMPS.  As can be seen
+from the variable :math:`L_\text{cnt}`, the length
 of the CNT increases linearly over time for :math:`t > 5\,\text{ps}`,
-as expected from the imposed constant velocity.  What you observe in the :guicmd{Slide Show}
-windows should resemble Fig.~\ref{fig:CNT-unbreakable}.  The total energy of the system
+as expected from the imposed constant velocity.  What you observe in the `Slide Show`
+windows should resemble the figure below.  
+
+.. figure:: figures/colored-edge-def-dark.png
+    :class: only-dark
+    :alt: Evolution of the CNT energy
+
+.. figure:: figures/colored-edge-def-light.png
+    :class: only-light
+    :alt: Evolution of the CNT energy
+
+    The unbreakable CNT before (top) and after deformation (bottom).
+
+The total energy of the system
 shows a non-linear increase with :math:`t` once the deformation starts, which is expected
 from the typical dependency of bond energy with bond distance,
 :math:`U_\text{b} = k_\text{b} \left( r - r_0 \right)^2`.
@@ -351,7 +352,7 @@ from the typical dependency of bond energy with bond distance,
 
 ..  container:: figurelegend
 
-    a) Evolution of the length :math:`L_\text{cnt}` of the CNT with time.  
+    Figure: a) Evolution of the length :math:`L_\text{cnt}` of the CNT with time.  
     The CNT starts deforming at :math:`t = 5\,\text{ps}`, and :math:`L_\text{cnt-0}` is the  
     CNT initial length.  b) Evolution of the total energy :math:`E` of the system with time :math:`t`.  
     Here, the potential is OPLS-AA, and the CNT is unbreakable.
@@ -383,11 +384,21 @@ the **unbreakable.yaml** file can then be used to plot the stress-strain curve.
 
    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/unbreakable-yaml-reader.py" target="_blank">unbreakable-yaml-reader.py</a>
 
-ADD FIGURE CNT-unbreakable-stress-strain -- Stress applied on the CNT during deformation, :math:`F_\text{cnt}/A_\text{cnt}`,
-where :math:`F_\text{cnt}` is the force and :math:`A_\text{cnt}` the CNT surface area,
-as a function of the strain, :math:`\Delta L_\text{cnt} = (L_\text{cnt}-L_\text{cnt-0})/L_\text{cnt-0}`,
-where :math:`L_\text{cnt}` is the CNT length and :math:`L_\text{cnt-0}` the CNT initial length.
-Here, the potential is OPLS-AA, and the CNT is unbreakable.
+.. figure:: figures/CNT-unbreakable-stress-strain-dm.png
+    :class: only-dark
+    :alt: Evolution of the carbon nanotube stress strain as calculated with LAMMPS
+
+.. figure:: figures/CNT-unbreakable-stress-strain.png
+    :class: only-light
+    :alt: Evolution of the carbon nanotube stress strain as calculated with LAMMPS
+
+..  container:: figurelegend
+
+    Figure: Stress applied on the CNT during deformation, :math:`F_\text{cnt}/A_\text{cnt}`,
+    where :math:`F_\text{cnt}` is the force and :math:`A_\text{cnt}` the CNT surface area,
+    as a function of the strain, :math:`\Delta L_\text{cnt} = (L_\text{cnt}-L_\text{cnt-0})/L_\text{cnt-0}`,
+    where :math:`L_\text{cnt}` is the CNT length and :math:`L_\text{cnt-0}` the CNT initial length.
+    Here, the potential is OPLS-AA, and the CNT is unbreakable.
 
 Breakable bonds
 ===============
@@ -510,8 +521,18 @@ previously.  Add the following lines into **breakable.lmp**:
 Run the simulation.  Some bonds are expected to break before the end of the
 simulation.
 
-ADD FIGURE CNT-deformed-breakable -- CNT with broken bonds.  This image was generated using
-VMD :cite:`vmd_home,humphrey1996vmd` ``DynamicBonds`` representation.
+.. figure:: figures/deformed-dark.png
+    :class: only-dark
+    :alt: Carbon nanotube deformed using LAMMPS
+
+.. figure:: figures/deformed-light.png
+    :class: only-light
+    :alt: Carbon nanotube deformed using LAMMPS
+
+..  container:: figurelegend
+
+    Figure: Figure: CNT with broken bonds.  This image was generated using
+    VMD :cite:`vmd_home,humphrey1996vmd` ``DynamicBonds`` representation.
 
 Looking at the evolution of the energy, one can see that the total
 energy :math:`E` is initially increasing with the deformation.  When bonds
@@ -538,7 +559,7 @@ curve reveals a linear (elastic) regime where
 
 ..  container:: figurelegend
 
-    a) Evolution of the total energy :math:`E` of the CNT with time :math:`t`.  b) Stress applied on the CNT
+    Figure: Figure: a) Evolution of the total energy :math:`E` of the CNT with time :math:`t`.  b) Stress applied on the CNT
     during deformation, :math:`F_\text{cnt}/A_\text{cnt}`,
     where :math:`F_\text{cnt}` is the force and :math:`A_\text{cnt}` the CNT surface area,
     as a function of the strain, :math:`\Delta L_\text{cnt} = (L_\text{cnt}-L_\text{cnt-0}/L_\text{cnt-0})`, where

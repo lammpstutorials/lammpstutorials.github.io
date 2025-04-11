@@ -151,19 +151,6 @@ The ``fix npt`` allows us to impose both a temperature of :math:`300\,\text{K}`
 (with a damping constant of :math:`1000\,\text{fs}`).  With the ``iso`` keyword,
 the three dimensions of the box will be re-scaled simultaneously.
 
-.. figure:: figures/water-light.png
-    :alt: Water reservoir from molecular dynamics simulations
-    :class: only-light
-
-.. figure:: figures/water-dark.png
-    :alt: Water reservoir from molecular dynamics simulations
-    :class: only-dark
-
-..  container:: figurelegend
-
-    Figure: The water reservoir after equilibration.  Oxygen atoms are in red, and
-    hydrogen atoms are in white. 
-
 Let us output the system into images by adding the following commands to **water.lmp**:
 
 .. code-block:: lammps
@@ -212,9 +199,20 @@ adding the following lines into **water.lmp**:
 The final state is saved in a binary file named **water.restart**.
 Run the input using LAMMPS.  The system reaches its equilibrium temperature
 after just a few picoseconds, and its equilibrium density after approximately
-10 picoseconds (Fig.~\ref{fig:PEG-density}).  A snapshot of the equilibrated
-system can also be seen in Fig.~\ref{fig:PEG-water}.
+10 picoseconds.
 
+.. figure:: figures/water-light.png
+    :alt: Water reservoir from molecular dynamics simulations
+    :class: only-light
+
+.. figure:: figures/water-dark.png
+    :alt: Water reservoir from molecular dynamics simulations
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: The water reservoir after equilibration.  Oxygen atoms are in red, and
+    hydrogen atoms are in white. 
 
 .. admonition:: Note
     :class: non-title-info
@@ -330,19 +328,6 @@ Let us create images of the systems:
         acolor OAlc darkred adiam OAlc 2.6
     thermo 500
 
-.. figure:: figures/solvatedPEG_light.png
-    :alt: PEG in water as simulated with LAMMPS
-    :class: only-light
-
-.. figure:: figures/solvatedPEG_dark.png
-    :alt: PEG in water as simulated with LAMMPS
-    :class: only-dark
-
-..  container:: figurelegend
-
-    Figure : The PEG molecule solvated in water.  Water is represented as a
-    transparent field for clarity.
-
 Finally, to perform a short equilibration and save the final state to
 a **.restart** file, add the following lines to the input:
 
@@ -358,7 +343,19 @@ sure that the temperature remains close to the
 target value of :math:`300~\text{K}` throughout the entire simulation, and that
 the volume and total energy are almost constant, indicating
 that the system was in a reasonable configuration from the start.
-See a snapshot of the system in Fig.~\ref{fig:PEG-solvated}.
+
+.. figure:: figures/solvatedPEG_light.png
+    :alt: PEG in water as simulated with LAMMPS
+    :class: only-light
+
+.. figure:: figures/solvatedPEG_dark.png
+    :alt: PEG in water as simulated with LAMMPS
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure : The PEG molecule solvated in water.  Water is represented as a
+    transparent field for clarity.
 
 Stretching the PEG molecule
 ===========================
@@ -389,21 +386,9 @@ following lines to **pull.lmp**:
 
 These lines identify the oxygen atoms (type OAlc) at the ends of the PEG
 molecule and calculates their center of mass along the :math:`x`-axis.  It then
-divides these atoms into two groups, ``end1`` (i.e.,~the OAlc atom to
-the right of the center) and ``end2`` (i.e.,~the OAlc atom to the right
+divides these atoms into two groups, ``end1`` (i.e., the OAlc atom to
+the right of the center) and ``end2`` (i.e., the OAlc atom to the right
 of the center), for applying force during the stretching process.
-
-.. figure:: figures/pulled_peg_light.png
-    :alt: PEG in water as simulated with LAMMPS
-    :class: only-light
-
-.. figure:: figures/pulled_peg_dark.png
-    :alt: PEG in water as simulated with LAMMPS
-    :class: only-dark
-
-..  container:: figurelegend
-
-    Figure: PEG molecule stretched along the :math:`x` direction in water.
 
 Add the following ``dump`` command to create images of the system:
 
@@ -423,20 +408,6 @@ the following lines to **pull.lmp**:
     timestep 1.0
     fix mynvt all nvt temp 300 300 100
     fix myrct PEG recenter 0 0 0 shift all
-
-.. figure:: figures/PEG-distance-dm.png
-    :class: only-dark
-    :alt: Evolution of the polymer radius of gyration
-
-.. figure:: figures/PEG-distance.png
-    :class: only-light
-    :alt: Evolution of the polymer radius of gyration
-
-..  container:: figurelegend
-
-    Figure: a) Evolution of the radius of gyration :math:`R_\text{gyr}` of the PEG molecule,
-    with the force applied starting at :math:`t = 15\,\text{ps}`.  b) Histograms of
-    the dihedral angles of type 1 in the absence (orange) and in the presence (blue) of the applied force.
 
 To investigate the stretching of the PEG molecule, let us compute its radius of
 gyration :cite:`fixmanRadiusGyrationPolymer1962a` and the angles of its dihedral
@@ -481,15 +452,40 @@ Each applied force has a magnitude of :math:`10 \, \text{kcal/mol/Å}`, correspo
 This value was chosen to be sufficiently large to overcome both the thermal agitation and
 the entropic contributions from the molecules.
 
+.. figure:: figures/pulled_peg_light.png
+    :alt: PEG in water as simulated with LAMMPS
+    :class: only-light
+
+.. figure:: figures/pulled_peg_dark.png
+    :alt: PEG in water as simulated with LAMMPS
+    :class: only-dark
+
+..  container:: figurelegend
+
+    Figure: PEG molecule stretched along the :math:`x` direction in water.
+
 Run the **pull.lmp** file using LAMMPS.  From the generated images of the system,
-you should observe that the PEG molecule eventually aligns
-in the direction of the applied force (as seen in Fig.~\ref{fig:PEG-in-water}).
-The evolutions of the radius of gyration over
-time indicates that the PEG quickly adjusts to the external force
-(Fig.~\ref{fig:PEG-distance}\,a).  Additionally, from the values of the dihedral angles
+you should observe that the PEG molecule eventually aligns in the direction of
+the applied force. The evolutions of the radius of gyration over
+time indicates that the PEG quickly adjusts to the external force.  Additionally,
+from the values of the dihedral angles
 printed in the **pull.dat** file, you can create a histogram
 of dihedral angles for a specific type.  For example, the angle :math:`\phi` for dihedrals
-of type 1 (C-C-OE-C) is shown in Fig.~\ref{fig:PEG-distance}\,b.
+of type 1 (C-C-OE-C) is shown below.
+
+.. figure:: figures/PEG-distance-dm.png
+    :class: only-dark
+    :alt: Evolution of the polymer radius of gyration
+
+.. figure:: figures/PEG-distance.png
+    :class: only-light
+    :alt: Evolution of the polymer radius of gyration
+
+..  container:: figurelegend
+
+    Figure: a) Evolution of the radius of gyration :math:`R_\text{gyr}` of the PEG molecule,
+    with the force applied starting at :math:`t = 15\,\text{ps}`.  b) Histograms of
+    the dihedral angles of type 1 in the absence (orange) and in the presence (blue) of the applied force.
 
 Tip: using external visualization tools
 ---------------------------------------

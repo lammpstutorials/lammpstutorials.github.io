@@ -277,7 +277,7 @@ the material.
 
 ..  container:: figurelegend
 
-    a) Average charge per atom of the silicon, :math:`q_\text{Si}`, atoms as
+    Figure: a) Average charge per atom of the silicon, :math:`q_\text{Si}`, atoms as
     a function of time, :math:`t`, during deformation of the :math:`\text{SiO}_2` system.
     The break down of the
     silica structure occurs near :math:`t = 11` ps.  b) Temperature, :math:`T`, of the
@@ -417,6 +417,6 @@ At the end of the simulation, hydroxyl (-OH) groups can be seen at the interface
 
 ..  container:: figurelegend
 
-    Cracked silicon oxide after the addition of hydrogen atoms.
+    Figure: Cracked silicon oxide after the addition of hydrogen atoms.
     The atoms are colored by their charges, with the newly added hydrogen atoms appearing as small
     greenish spheres.

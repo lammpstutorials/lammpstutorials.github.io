@@ -131,7 +131,7 @@ densification process, and then eventually stabilizes.
 
 ..  container:: figurelegend
 
-    a) Evolution of the density, :math:`\rho`, as a function of the
+    Figure: a) Evolution of the density, :math:`\rho`, as a function of the
     time, :math:`t`, during equilibration of the system. b) Evolution of the total
     energy, :math:`E`, of the system.
     The vertical dashed lines mark the transition between the different
@@ -319,7 +319,7 @@ while the number of reactions, :math:`N_r`, increases with time.
 
 ..  container:: figurelegend
 
-    a) Evolution of the system temperature, :math:`T`, as a function of
+    Figure: a) Evolution of the system temperature, :math:`T`, as a function of
     the time, :math:`t`, during the polymerization step.  b) Evolution of
     the three reaction counts, corresponding respectively to
     the polymerization of two styrene monomers (Rxn 1), the  addition of a styrene
