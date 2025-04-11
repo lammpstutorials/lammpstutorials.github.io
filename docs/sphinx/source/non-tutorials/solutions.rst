@@ -18,7 +18,7 @@ Fix a broken input
 
 .. |input_broken_solution| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/broken/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/broken/input.lammps" target="_blank">input</a>
 
 ..  code-block:: lammps
 
@@ -82,7 +82,7 @@ Create a demixed dense phase
 
 .. |input_demixed_solution| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/demixion/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/demixion/input.lammps" target="_blank">input</a>
 
 .. container:: justify
 
@@ -129,7 +129,7 @@ From atoms to molecules
     
 .. |input_dumbbell_solution| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/dumbbell/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/dumbbell/input.lammps" target="_blank">input</a>
 
 .. container:: justify
 
@@ -177,7 +177,7 @@ From atoms to molecules
 
 .. |mol_dumbbell_solution| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/dumbbell/dumbell.mol" target="_blank">here</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/dumbbell/dumbell.mol" target="_blank">here</a>
 
 .. container:: justify
 
@@ -187,11 +187,11 @@ From atoms to molecules
     
 .. |input_polymer_solution| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/polymer/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/polymer/input.lammps" target="_blank">input</a>
 
 .. |mol_polymer_solution| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level1/lennard-jones-fluid/exercises/polymer/polymer.mol" target="_blank">molecule template</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/polymer/polymer.mol" target="_blank">molecule template</a>
 
 Pulling on a carbon nanotube
 ============================
@@ -206,11 +206,11 @@ Plot the strain-stress curves
 
 .. |input_stress_strain_solution1| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input for the breakable CNT</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input for the breakable CNT</a>
 
 .. |input_stress_strain_solution2| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input for the unbreakable CNT</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input for the unbreakable CNT</a>
 
 .. container:: justify
 
@@ -276,7 +276,7 @@ Insert gas in the carbon nanotube
 
 .. |input_gas_cnt| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/gas/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/gas/input.lammps" target="_blank">input</a>
 
 .. container:: justify
 
@@ -350,7 +350,7 @@ Make a membrane of CNTs
 
 .. |input_membrane_solution1| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level1/breaking-a-carbon-nanotube/exercises/membrane/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/membrane/input.lammps" target="_blank">input</a>
 
 .. container:: justify
 
@@ -387,7 +387,7 @@ Extract radial distribution function
 
 .. |input_PEG_RDF| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level2/polymer-in-water/exercises/radial-distribution-function/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/radial-distribution-function/input.lammps" target="_blank">input</a>
 
 .. container:: justify
 
@@ -414,15 +414,15 @@ Add salt to the mixture
 
 .. |input_PEG_salt| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level2/polymer-in-water/exercises/salt/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/input.lammps" target="_blank">input</a>
 
 .. |data_PEG_salt| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level2/polymer-in-water/exercises/salt/mix-with-salt.data" target="_blank">data</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/mix-with-salt.data" target="_blank">data</a>
 
 .. |parm_PEG_salt| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level2/polymer-in-water/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a>
     
 .. container:: justify
     
@@ -471,7 +471,7 @@ Evaluate the deformation of the PEG
 
 .. |input_PEG_dihedral| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level2/polymer-in-water/exercises/structurePEG/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/structurePEG/input.lammps" target="_blank">input</a>
 
 .. container:: justify
 
@@ -731,7 +731,7 @@ Mixture adsorption
 
 .. |input_mixture| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/MixtureH2OCO2/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/Exercises/MixtureH2OCO2/input.lammps" target="_blank">input</a>
 
 Adsorb water in ZIF-8 nanopores
 -------------------------------
@@ -745,7 +745,7 @@ Adsorb water in ZIF-8 nanopores
 
 .. |input_zif| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/Exercises/Zif-8/input.lammps" target="_blank">input</a>
 
 .. container:: justify
 
@@ -783,7 +783,7 @@ The binary fluid that won't mix
 
 .. |input_binary_wont_mix| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level3/free-energy-calculation/Exercises/BinaryFluid/input.lammps" target="_blank">input</a>
+    <a href=".../../../../../.dependencies/lammpstutorials-inputs/tutorial7/Exercises/BinaryFluid/input.lammps" target="_blank">input</a>
 
 ..  container:: justify
 
@@ -859,7 +859,7 @@ Surface adsorption of a molecule
 
 .. |input_adsorption_ethanol| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level3/free-energy-calculation/Exercises/MoleculeAdsorption/input.lammps" target="_blank">input</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial7/Exercises/MoleculeAdsorption/input.lammps" target="_blank">input</a>
 
 Reactive silicon dioxide
 ========================
@@ -1091,7 +1091,7 @@ Hydrate the structure
 
 .. |input_reax_water| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/Hydrate/input.lammps" target="_blank">here</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/Hydrate/input.lammps" target="_blank">here</a>
 
 .. container:: justify
 
@@ -1128,11 +1128,11 @@ A slightly acidic bulk solution
 
 .. |input_reax_water_2| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/BulkWater/input.lammps" target="_blank">here</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/BulkWater/input.lammps" target="_blank">here</a>
 
 .. |reaxCHOFe_ff_ex| raw:: html
 
-    <a href="../../../../lammpstutorials-inputs/level3/reactive-silicon-dioxide/Exercices/BulkWater/reaxCHOFe.ff" target="_blank">reaxff force field</a>
+    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/BulkWater/reaxCHOFe.ff" target="_blank">reaxff force field</a>
 
 .. code-block:: lammps
 
