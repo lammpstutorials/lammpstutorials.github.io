@@ -15,6 +15,8 @@ repository named [lammpstutorials-inputs](https://github.com/lammpstutorials/lam
 
 The tutorials are compatible with the XXXX2024 release of LAMMPS.
 
+An article is currently is preparation and is [visible here](https://github.com/lammpstutorials/lammpstutorials-article).
+
 ## About LAMMPS tutorials
 
 The LAMMPStutorials website is made of seven tutorials that are ordered by increasing difficulty.
