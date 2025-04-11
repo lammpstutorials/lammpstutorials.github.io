@@ -1,0 +1,614 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Reactive Molecular Dynamics - </title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b1e702db" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">    </div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">    </span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/scope.html">Scope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/contact.html">Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial1/lennard-jones-fluid.html">Lennard-Jones fluid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial2/breaking-a-carbon-nanotube.html">Pulling on a carbon nanotube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial3/polymer-in-water.html">Polymer in water</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial4/nanosheared-electrolyte.html">Nanosheared electrolyte</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial5/reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial6/water-adsorption-in-silica.html">Water adsorption in silica</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial7/free-energy-calculation.html">Free energy calculation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/solutions.html">Solutions to the exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/glossary.html">LAMMPS Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/using-lammps-gui.html">Using LAMMPS–GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/running-lammps.html">Running LAMMPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/command-line.html">Command line</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/tutorial8/reactive-molecular-dynamics.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="reactive-molecular-dynamics">
+<span id="bond-react-label"></span><h1>Reactive Molecular Dynamics<a class="headerlink" href="#reactive-molecular-dynamics" title="Link to this heading">¶</a></h1>
+<div class="hatnote docutils container">
+<p>Modeling reaction using the REACTER protocol</p>
+</div>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="tutorial8/avatars/avatar_light.webp"><img alt="Lennard Jones atoms simulated with LAMMPS" class="only-light" src="tutorial8/avatars/avatar_light.webp" style="height: 250px;" />
+</a>
+</figure>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="tutorial8/avatars/avatar_dark.webp"><img alt="Lennard Jones atoms simulated with LAMMPS" class="only-dark" src="tutorial8/avatars/avatar_dark.webp" style="height: 250px;" />
+</a>
+</figure>
+<p>The goal of this tutorial is to create a model of a carbon nanotube (CNT) embedded
+in a polymer melt made of polystyrene (PS) (Fig.~ref{fig:REACT}).  The
+REACTER protocol is used to simulate the polymerization of styrene monomers, and the
+polymerization reaction is followed in time <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id63" title="Jacob R. Gissinger, Benjamin D. Jensen, and Kristopher E. Wise. Modeling chemical reactions in classical molecular dynamics simulations. Polymer, 128:211-217, 2017.">56</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id59" title="Jacob R Gissinger, Benjamin D Jensen, and Kristopher E Wise. Reacter: a heuristic method for reactive molecular dynamics. Macromolecules, 53(22):9953–9961, 2020.">57</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id64" title="Jacob R Gissinger, Benjamin D Jensen, and Kristopher E Wise. Molecular modeling of reactive systems with reacter. Computer Physics Communications, 304:109287, 2024.">58</a>]</span>.
+In contrast with AIREBO <a class="reference internal" href="../tutorial2/breaking-a-carbon-nanotube.html#carbon-nanotube-label"><span class="std std-ref">Pulling on a carbon nanotube</span></a>
+and ReaxFF <a class="reference internal" href="../tutorial5/reactive-silicon-dioxide.html#reactive-silicon-dioxide-label"><span class="std std-ref">Reactive silicon dioxide</span></a>, the REACTER
+protocol relies on the use of a <em>classical</em> force field.</p>
+<p>If you are completely new to LAMMPS, we recommend that
+you follow this tutorial on a simple <a class="reference internal" href="../tutorial1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a> first.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Cite</p>
+<p>If you find these tutorials useful, you can
+cite <em>A Set of Tutorials for the LAMMPS Simulation Package</em> by Simon Gravelle,
+Jacob R. Gissinger, and Axel Kohlmeyer (2025) <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id66" title="Simon Gravelle, Jacob R Gissinger, and Axel Kohlmeyer. A set of tutorials for the lammps simulation package. arXiv preprint arXiv:2503.14020, 2025.">14</a>]</span>. You
+can access the full paper on <a href="https://doi.org/10.48550/arXiv.2503.14020" target="_blank">arXiv</a>.</p>
+</div>
+<div class="version docutils container">
+<p>This tutorial is compatible with the 29Aug2024 (update 2) LAMMPS version.</p>
+</div>
+<section id="creating-the-system">
+<h2>Creating the system<a class="headerlink" href="#creating-the-system" title="Link to this heading">¶</a></h2>
+<p>To begin this tutorial, select <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Tutorial</span> <span class="pre">8</span></code> from the
+<code class="docutils literal notranslate"><span class="pre">Tutorials</span></code> menu of LAMMPS–GUI and follow the instructions.
+The editor should display the following content corresponding to <strong>mixing.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+
+<span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="w"> </span><span class="m">1.0e-5</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">class2</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">8.5</span>
+<span class="k">angle_style</span><span class="w"> </span><span class="n">class2</span>
+<span class="k">bond_style</span><span class="w"> </span><span class="n">class2</span>
+<span class="k">dihedral_style</span><span class="w"> </span><span class="n">class2</span>
+<span class="k">improper_style</span><span class="w"> </span><span class="n">class2</span>
+
+<span class="k">pair_modify</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">mix</span><span class="w"> </span><span class="n">sixthpower</span>
+<span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">coul</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">class2</span></code> styles compute a 6/9 Lennard-Jones potential <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id58" title="Huai Sun. Compass: an ab initio force-field optimized for condensed-phase applications overview with details on alkane and benzene compounds. The Journal of Physical Chemistry B, 102(38):7338–7364, 1998.">59</a>]</span>.
+The <code class="docutils literal notranslate"><span class="pre">class2</span></code> bond, angle, dihedral, and improper styles are used as
+well, see the documentation for a description of their respective potentials.
+The <code class="docutils literal notranslate"><span class="pre">mix</span> <span class="pre">sixthpower</span></code> imposes the following mixing rule for the calculation
+of the cross coefficients:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\sigma_{ij} &amp; = &amp; 2^{-1/6} (\sigma^6_i+\sigma_j^6)^{1/6}, ~ \text{and}\\\epsilon_{ij} &amp; = &amp; \dfrac{2 \sqrt{\epsilon_i \epsilon_j} \sigma^3_i \sigma^3_j}{\sigma^6_i+\sigma_j^6}.\end{aligned}\end{align} \]</div>
+</div>
+<p>Let us read the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/CNT.data" target="_blank">CNT.data</a> file, which contains a periodic single-walled
+CNT.  Add the following line to <strong>mixing.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">CNT.data</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">20</span>
+</pre></div>
+</div>
+<p>The CNT is approximately <span class="math notranslate nohighlight">\(1.1~\text{nm}\)</span> in diameter and <span class="math notranslate nohighlight">\(1.6\,\text{nm}\)</span> in length, oriented
+along the <span class="math notranslate nohighlight">\(x\)</span>-axis. The simulation box is initially 12.0 nm in the two other dimensions before densification,
+making it straightforward to fill the box with styrene. To add 200 styrene molecules to the simulation box,
+we will use the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/styrene.mol" target="_blank">styrene.mol</a> molecule template file. Include the following commands to <strong>mixing.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">styrene</span><span class="w"> </span><span class="n">styrene.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">8305</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.75</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">styrene</span><span class="w"> </span><span class="m">7687</span>
+</pre></div>
+</div>
+<p>Finally, let us use the <code class="docutils literal notranslate"><span class="pre">minimize</span></code> command to reduce the potential energy of the system:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>Then, let us densify the system to a target value of <span class="math notranslate nohighlight">\(0.9~\text{g/cm}^3\)</span>
+by manually shrinking the simulation box at a constant rate.  The dimension parallel
+to the CNT axis is maintained fixed because the CNT is periodic in that direction.
+Add the following commands to <strong>mixing.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">530</span><span class="w"> </span><span class="m">9845</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="n">gaussian</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">530</span><span class="w"> </span><span class="m">530</span><span class="w"> </span><span class="m">100</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">mydef</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">deform</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">erate</span><span class="w"> </span><span class="o">-</span><span class="m">0.0001</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">erate</span><span class="w"> </span><span class="o">-</span><span class="m">0.0001</span>
+<span class="k">variable </span><span class="nv nv-Identifier">rho</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">density</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myhal</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">halt</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">v_rho</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0.9</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="n">continue</span>
+
+<span class="k">thermo</span><span class="w"> </span><span class="m">200</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">pe</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span><span class="w"> </span><span class="n">density</span>
+
+<span class="k">run</span><span class="w"> </span><span class="m">9000</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">halt</span></code> command is used to stop the box shrinkage once the
+target density is reached.</p>
+<p>For the next stage of the simulation, we will use <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">image</span></code> to
+output images every 200 steps:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">1.8</span><span class="w"> </span><span class="n">fsaa</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">0.5</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">c1</span><span class="w"> </span><span class="n">deeppink</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">acolor</span><span class="w"> </span><span class="n">c2</span><span class="w"> </span><span class="n">deeppink</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">c3</span><span class="w"> </span><span class="n">deeppink</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">c1</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">adiam</span><span class="w"> </span><span class="n">c2</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">c3</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">hc</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">hc</span><span class="w"> </span><span class="m">0.15</span>
+</pre></div>
+</div>
+<p>For the following <span class="math notranslate nohighlight">\(10~\text{ps}\)</span>, let us equilibrate the densified system
+in the constant-volume ensemble, and write the final state of the
+system in a file named <strong>mixing.data</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">unfix </span><span class="nv nv-Identifier">mydef</span>
+<span class="k">unfix </span><span class="nv nv-Identifier">myhal</span>
+<span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
+
+<span class="k">group </span><span class="nv nv-Identifier">CNT</span><span class="w"> </span><span class="n">molecule</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myrec</span><span class="w"> </span><span class="nv nv-Identifier">CNT</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="n">all</span>
+
+<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+
+<span class="k">write_data </span><span class="nv nv-Identifier">mixing.data</span>
+</pre></div>
+</div>
+<p>For visualization purposes, the atoms from the CNT <code class="docutils literal notranslate"><span class="pre">group</span></code> is moved
+to the center of the box using <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">recenter</span></code>.
+As the time progresses, the system density,
+<span class="math notranslate nohighlight">\(\rho\)</span>, gradually converges toward the target value
+of <span class="math notranslate nohighlight">\(0.8\)</span>,g/cm:math:<cite>^3</cite>.
+Meanwhile, the total energy of the system initially evolves rapidly, reflecting the
+densification process, and then eventually stabilizes.</p>
+<figure class="align-default">
+<img alt="Evolution of the density REACTER protocole" class="only-dark" src="../_images/REACT-mixing-dm.png" />
+</figure>
+<figure class="align-default">
+<img alt="Evolution of the density REACTER protocole" class="only-light" src="../_images/REACT-mixing.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: a) Evolution of the density, <span class="math notranslate nohighlight">\(\rho\)</span>, as a function of the
+time, <span class="math notranslate nohighlight">\(t\)</span>, during equilibration of the system. b) Evolution of the total
+energy, <span class="math notranslate nohighlight">\(E\)</span>, of the system.
+The vertical dashed lines mark the transition between the different
+phases of the simulation.</p>
+</div>
+<section id="reaction-templates">
+<h3>Reaction templates<a class="headerlink" href="#reaction-templates" title="Link to this heading">¶</a></h3>
+<p>The REACTER protocol enables the modeling of chemical reactions using
+classical force fields.  The user must provide a molecule template for the reactants,
+a molecule template for the products, and a <code class="docutils literal notranslate"><span class="pre">reaction</span> <span class="pre">map</span></code> file that
+provides an atom mapping between the two templates.  The reaction map file also includes
+additional information, such as which atoms act as initiators for the reaction and which
+serve as edge atoms to connect the rest of a long polymer chain in the simulation.</p>
+<p>There are three reactions to define: (1) the polymerization of two styrene monomers,
+(2) the addition of a styrene monomer to the end of a growing polymer chain, and (3) the
+linking of two polymer chains.  Download the three files associated with each reaction.
+The first reaction uses the prefix <code class="docutils literal notranslate"><span class="pre">M-M</span></code> for the pre-reaction template,
+post-reaction template, and reaction map file:</p>
+<ul class="simple">
+<li><p><a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-M_pre.mol" target="_blank">M-M_pre.mol</a>,</p></li>
+<li><p><a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-M_post.mol" target="_blank">M-M_post.mol</a>,</p></li>
+<li><p><a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-M.rxnmap" target="_blank">M-M.rxnmap</a>.</p></li>
+</ul>
+<p>The second reaction uses the prefix <code class="docutils literal notranslate"><span class="pre">M-P</span></code>,</p>
+<ul class="simple">
+<li><p><a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-P_pre.mol" target="_blank">M-P_pre.mol</a>,</p></li>
+<li><p><a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-P_post.mol" target="_blank">M-P_post.mol</a>,</p></li>
+<li><p><a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-P.rxnmap" target="_blank">M-P.rxnmap</a>.</p></li>
+</ul>
+<p>The third reaction uses the prefix <code class="docutils literal notranslate"><span class="pre">P-P</span></code>,</p>
+<ul class="simple">
+<li><p><a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/P-P_pre.mol" target="_blank">P-P_pre.mol</a>,</p></li>
+<li><p><a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/P-P_post.mol" target="_blank">P-P_post.mol</a>,</p></li>
+<li><p><a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/P-P.rxnmap" target="_blank">P-P.rxnmap</a>.</p></li>
+</ul>
+<p>Here, the file names for each reaction use the abbreviation <a href="#id4"><span class="problematic" id="id5">`</span></a>M’ for monomer and <a href="#id6"><span class="problematic" id="id7">`</span></a>P’
+for polymer.</p>
+</section>
+<section id="simulating-the-reaction">
+<h3>Simulating the reaction<a class="headerlink" href="#simulating-the-reaction" title="Link to this heading">¶</a></h3>
+<p>The first step, before simulating the reaction, is to import the previously
+generated configuration.  Open the file named <strong>polymerize.lmp</strong>,
+which should contain the following lines:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+
+<span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="w"> </span><span class="m">1.0e-5</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">class2</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">8.5</span>
+<span class="k">angle_style</span><span class="w"> </span><span class="n">class2</span>
+<span class="k">bond_style</span><span class="w"> </span><span class="n">class2</span>
+<span class="k">dihedral_style</span><span class="w"> </span><span class="n">class2</span>
+<span class="k">improper_style</span><span class="w"> </span><span class="n">class2</span>
+
+<span class="k">pair_modify</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">mix</span><span class="w"> </span><span class="n">sixthpower</span>
+<span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">coul</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+
+<span class="k">read_data</span><span class="w"> </span><span class="n">mixing.data</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">5</span><span class="w">  </span><span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">dihedral</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">improper</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">25</span>
+</pre></div>
+</div>
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">read_data</span></code> command is used to import the
+previously generated <strong>mixing.data</strong> file.  All other commands
+have been introduced in earlier parts of the tutorial.</p>
+<p>Then, let us import all six molecules templates using the <code class="docutils literal notranslate"><span class="pre">molecule</span></code> command:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">mol1</span><span class="w"> </span><span class="n">M</span><span class="o">-</span><span class="n">M_pre.mol</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">mol2</span><span class="w"> </span><span class="n">M</span><span class="o">-</span><span class="n">M_post.mol</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">mol3</span><span class="w"> </span><span class="n">M</span><span class="o">-</span><span class="n">P_pre.mol</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">mol4</span><span class="w"> </span><span class="n">M</span><span class="o">-</span><span class="n">P_post.mol</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">mol5</span><span class="w"> </span><span class="n">P</span><span class="o">-</span><span class="n">P_pre.mol</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">mol6</span><span class="w"> </span><span class="n">P</span><span class="o">-</span><span class="n">P_post.mol</span>
+</pre></div>
+</div>
+<p>In order to follow the evolution of the reaction with time, let us generate images
+of the system using <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">image</span></code>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">1.8</span><span class="w"> </span><span class="n">fsaa</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">0.5</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">c1</span><span class="w"> </span><span class="n">deeppink</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">c2</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">c3</span><span class="w"> </span><span class="n">deeppink</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">adiam</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">c1</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">c2</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">c3</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">hc</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">hc</span><span class="w"> </span><span class="m">0.15</span>
+</pre></div>
+</div>
+<p>Let us use <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">bond/react</span></code> by adding the following
+line to <strong>polymerize.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">rxn</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">bond</span><span class="o">/</span><span class="n">react</span><span class="w"> </span><span class="n">stabilization</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">statted_grp</span><span class="w"> </span><span class="m">0.03</span><span class="w"> </span><span class="n">react</span><span class="w"> </span><span class="n">R1</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mol1</span><span class="w"> </span><span class="n">mol2</span><span class="w"> </span><span class="n">M</span><span class="o">-</span><span class="n">M.rxnmap</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">react</span><span class="w"> </span><span class="n">R2</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mol3</span><span class="w"> </span><span class="n">mol4</span><span class="w"> </span><span class="n">M</span><span class="o">-</span><span class="n">P.rxnmap</span><span class="w"> </span><span class="n">react</span><span class="w"> </span><span class="n">R3</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">5.0</span><span class="w"> </span><span class="n">mol5</span><span class="w"> </span><span class="n">mol6</span><span class="w"> </span><span class="n">P</span><span class="o">-</span><span class="n">P.rxnmap</span>
+</pre></div>
+</div>
+<p>With the <code class="docutils literal notranslate"><span class="pre">stabilization</span></code> keyword, the <code class="docutils literal notranslate"><span class="pre">bond/react</span></code> command will
+stabilize the atoms involved in the reaction using the <code class="docutils literal notranslate"><span class="pre">nve/limit</span></code>
+command with a maximum displacement of <span class="math notranslate nohighlight">\(0.03\,\text{Å}\)</span>.  By default,
+each reaction is stabilized for 60 time steps.  Each <code class="docutils literal notranslate"><span class="pre">react</span></code> keyword
+corresponds to a reaction, e.g., a transformation of <code class="docutils literal notranslate"><span class="pre">mol1</span></code> into <code class="docutils literal notranslate"><span class="pre">mol2</span></code>
+based on the atom map <strong>M-M.rxnmap</strong>.  Implementation details about each reaction,
+such as the reaction distance cutoffs and the frequency with which to search for
+reaction sties, are also specified in this command.</p>
+<p>ADD REACT-final FIGURE: Final configuration.
+The atoms from the formed polymer named <code class="docutils literal notranslate"><span class="pre">c1</span></code>, <code class="docutils literal notranslate"><span class="pre">c2</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">c3</span></code> are colored in pink.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>The command <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">bond/react</span></code> creates several groups of atoms that are dynamically updated
+to track which atoms are being stabilized and which atoms are undergoing
+dynamics with the system-wide time integrator (here, <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">nvt</span></code>).
+When reaction stabilization is employed, there should not be a time integrator acting on
+the group <code class="docutils literal notranslate"><span class="pre">all</span></code>.  Instead, the group of atoms not currently
+undergoing stabilization is named by appending <code class="docutils literal notranslate"><span class="pre">_REACT</span></code> to the user-provided prefix.</p>
+</div>
+<p>Add the following commands to <strong>polymerize.lmp</strong> to operate in the NVT ensemble
+while ensuring that the CNT remains centered in the simulation box:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">statted_grp_REACT</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">530</span><span class="w"> </span><span class="m">530</span><span class="w"> </span><span class="m">100</span>
+<span class="k">group </span><span class="nv nv-Identifier">CNT</span><span class="w"> </span><span class="n">molecule</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myrec</span><span class="w"> </span><span class="nv nv-Identifier">CNT</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="n">all</span>
+
+<span class="k">thermo</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">press</span><span class="w"> </span><span class="n">density</span><span class="w"> </span><span class="n">f_rxn[</span><span class="o">*</span><span class="n">]</span>
+
+<span class="k">run</span><span class="w"> </span><span class="m">25000</span>
+</pre></div>
+</div>
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">thermo</span> <span class="pre">custom</span></code> command is used
+to print the cumulative reaction counts from <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">rxn</span></code>.
+Run the simulation using LAMMPS.  As the simulation progresses, polymer chains are
+observed forming.  During this reaction process, the
+temperature of the system remains well-controlled,
+while the number of reactions, <span class="math notranslate nohighlight">\(N_r\)</span>, increases with time.</p>
+<figure class="align-default">
+<img alt="Evolution of reacting species" class="only-dark" src="../_images/REACT-reacting-dm.png" />
+</figure>
+<figure class="align-default">
+<img alt="Evolution of reacting species" class="only-light" src="../_images/REACT-reacting.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: a) Evolution of the system temperature, <span class="math notranslate nohighlight">\(T\)</span>, as a function of
+the time, <span class="math notranslate nohighlight">\(t\)</span>, during the polymerization step.  b) Evolution of
+the three reaction counts, corresponding respectively to
+the polymerization of two styrene monomers (Rxn 1), the  addition of a styrene
+monomer to the end of a growing polymer chain (Rxn 2), and to the linking
+of two polymer chains (Rxn 3).</p>
+</div>
+<div class="non-title-info admonition">
+<p class="admonition-title">Cite</p>
+<p>You can access the input scripts and data files that
+are used in these tutorials from a dedicated <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/" target="_blank">Github repository</a>.
+This repository also contains the full solutions to the exercises.</p>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Reactive Molecular Dynamics</a><ul>
+<li><a class="reference internal" href="#creating-the-system">Creating the system</a><ul>
+<li><a class="reference internal" href="#reaction-templates">Reaction templates</a></li>
+<li><a class="reference internal" href="#simulating-the-reaction">Simulating the reaction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

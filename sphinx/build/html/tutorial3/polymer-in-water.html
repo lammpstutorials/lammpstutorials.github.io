@@ -1,0 +1,885 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Nanosheared electrolyte" href="../tutorial4/nanosheared-electrolyte.html" /><link rel="prev" title="Pulling on a carbon nanotube" href="../tutorial2/breaking-a-carbon-nanotube.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Polymer in water - </title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b1e702db" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">    </div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">    </span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/scope.html">Scope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/contact.html">Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorial1/lennard-jones-fluid.html">Lennard-Jones fluid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial2/breaking-a-carbon-nanotube.html">Pulling on a carbon nanotube</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Polymer in water</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial4/nanosheared-electrolyte.html">Nanosheared electrolyte</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial5/reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial6/water-adsorption-in-silica.html">Water adsorption in silica</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial7/free-energy-calculation.html">Free energy calculation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/solutions.html">Solutions to the exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/glossary.html">LAMMPS Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/using-lammps-gui.html">Using LAMMPS–GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/running-lammps.html">Running LAMMPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/command-line.html">Command line</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/tutorial3/polymer-in-water.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="polymer-in-water">
+<span id="all-atoms-label"></span><h1>Polymer in water<a class="headerlink" href="#polymer-in-water" title="Link to this heading">¶</a></h1>
+<div class="hatnote docutils container">
+<p>Solvating and stretching a small polymer molecule</p>
+</div>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../_images/PEG-dark.webp"><img alt="Movie of a peg polymer molecule in water as simulated with LAMMPS" class="only-dark" src="../_images/PEG-dark.webp" style="height: 250px;" />
+</a>
+</figure>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../_images/PEG-light.webp"><img alt="Movie of a peg polymer molecule in water as simulated with LAMMPS" class="only-light" src="../_images/PEG-light.webp" style="height: 250px;" />
+</a>
+</figure>
+<p>The goal of this tutorial is to use LAMMPS to solvate a small
+hydrophilic polymer (PEG - polyethylene glycol) in a reservoir of water.</p>
+<p>Once the water reservoir is properly equilibrated
+at the desired temperature and pressure, the polymer molecule is added
+and a constant stretching force is applied to both ends of the polymer.
+The evolution of the polymer length is measured as a function of time.
+The GROMOS 54A7 force field <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id41" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">23</a>]</span> is used for the
+PEG, the SPC/Fw model <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id45" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">24</a>]</span> is used for the water, and
+the long-range Coulomb interactions are solved using the PPPM
+solver <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id37" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">25</a>]</span>.</p>
+<p>This tutorial was inspired by a
+publication by Liese and coworkers, in which molecular dynamics
+simulations are compared with force spectroscopy experiments, see
+Ref. <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id51" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">26</a>]</span>.</p>
+<p>If you are completely new to LAMMPS, we recommend that
+you follow this tutorial on a simple <a class="reference internal" href="../tutorial1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a> first.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Cite</p>
+<p>If you find these tutorials useful, you can
+cite <em>A Set of Tutorials for the LAMMPS Simulation Package</em> by Simon Gravelle,
+Jacob R. Gissinger, and Axel Kohlmeyer (2025) <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id66" title="Simon Gravelle, Jacob R Gissinger, and Axel Kohlmeyer. A set of tutorials for the lammps simulation package. arXiv preprint arXiv:2503.14020, 2025.">14</a>]</span>. You
+can access the full paper on <a href="https://doi.org/10.48550/arXiv.2503.14020" target="_blank">arXiv</a>.</p>
+</div>
+<div class="version docutils container">
+<p>This tutorial is compatible with the 29Aug2024 (update 2) LAMMPS version.</p>
+</div>
+<section id="preparing-the-water-reservoir">
+<h2>Preparing the water reservoir<a class="headerlink" href="#preparing-the-water-reservoir" title="Link to this heading">¶</a></h2>
+<p>In this tutorial, the water reservoir is first prepared in the absence of the polymer.
+A rectangular box of water is created and equilibrated at ambient temperature and
+pressure.  The SPC/Fw water model is used <span id="id6">[<a class="reference internal" href="../non-tutorials/bibliography.html#id45" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">24</a>]</span>, which is
+a flexible variant of the rigid SPC (simple point charge) model <span id="id7">[<a class="reference internal" href="../non-tutorials/bibliography.html#id44" title="Herman JC Berendsen, James PM Postma, Wilfred F van Gunsteren, and Jan Hermans. Interaction models for water in relation to protein hydration. In Intermolecular forces: proceedings of the fourteenth Jerusalem symposium on quantum chemistry and biochemistry held in jerusalem, israel, april 13–16, 1981, 331–342. Springer, 1981.">27</a>]</span>.
+Create a file named <strong>water.lmp</strong>, and copy the following lines into it:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">dihedral_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">coul</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">10</span>
+<span class="k">kspace_style</span><span class="w"> </span><span class="n">ewald</span><span class="w"> </span><span class="m">1e-5</span>
+<span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">coul</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">yes</span>
+</pre></div>
+</div>
+<div class="gui admonition">
+<p class="admonition-title">Optional: follow this tutorial using LAMMPS-GUI</p>
+<p>To set up this tutorial, select <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Tutorial</span> <span class="pre">3</span></code> from the
+<code class="docutils literal notranslate"><span class="pre">Tutorials</span></code> menu of LAMMPS–GUI and follow the instructions.
+The editor should display the content corresponding to <strong>water.lmp</strong>.</p>
+</div>
+<p>With the unit style <code class="docutils literal notranslate"><span class="pre">real</span></code>, masses are in g/mol, distances in Å,
+time in fs, and energies in kcal/mol.  With the <code class="docutils literal notranslate"><span class="pre">atom_style</span> <span class="pre">full</span></code>,
+each atom is a dot with a mass and a charge that can be linked
+by bonds, angles, dihedrals, and/or impropers.  The
+<code class="docutils literal notranslate"><span class="pre">bond_style</span></code>, <code class="docutils literal notranslate"><span class="pre">angle_style</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">dihedral_style</span></code> commands define the potentials for the bonds,
+angles, and dihedrals used in the simulation, here <code class="docutils literal notranslate"><span class="pre">harmonic</span></code>.
+With the <code class="docutils literal notranslate"><span class="pre">pair_style</span></code> named <code class="docutils literal notranslate"><span class="pre">lj/cut/coul/long</span></code>, atoms
+interact through both a Lennard-Jones (LJ) potential and Coulomb
+interactions.  The value of <span class="math notranslate nohighlight">\(10\,\text{Å}\)</span> is the cutoff, and the
+<code class="docutils literal notranslate"><span class="pre">ewald</span></code> command defines the long-range solver for the Coulomb
+interactions <span id="id8">[<a class="reference internal" href="../non-tutorials/bibliography.html#id7" title="Paul P Ewald. Die berechnung optischer und elektrostatischer gitterpotentiale. Annalen der physik, 369(3):253–287, 1921.">28</a>]</span>.  Finally, the
+<code class="docutils literal notranslate"><span class="pre">special_bonds</span></code> command, which was already seen in
+<a class="reference internal" href="../tutorial2/breaking-a-carbon-nanotube.html#carbon-nanotube-label"><span class="std std-ref">Pulling on a carbon nanotube</span></a>, sets the LJ and Coulomb
+weighting factors for the interaction between neighboring atoms.</p>
+<p>Let us create a 3D simulation box of dimensions <span class="math notranslate nohighlight">\(6 \times 3 \times 3 \; \text{nm}^3\)</span>,
+and make space for 8 atom types (2 for the water, 6 for the polymer), 7 bond types
+(1 for the water, 6 for the polymer), 8 angle types (1 for the water, 7 for the polymer),
+and 4 dihedral types (only for the polymer).  Copy the following lines into <strong>water.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">30</span><span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span>
+<span class="k">create_box </span><span class="nv nv-Identifier">8</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="n">dihedral</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">dihedral</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">14</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">extra/x/per/atom</span></code> commands reserve memory for adding bond topology
+data later. We use the file <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/parameters.inc" target="_blank">parameters.inc</a>
+to set all the parameters (masses, interaction energies, bond equilibrium
+distances, etc).  Thus add to <strong>water.lmp</strong> the line:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">include</span><span class="w"> </span><span class="n">parameters.inc</span>
+</pre></div>
+</div>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>This tutorial uses type labels <span id="id9">[<a class="reference internal" href="../non-tutorials/bibliography.html#id14" title="Jacob R Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and others. Type label framework for bonded force fields in lammps. The Journal of Physical Chemistry B, 128(13):3282–3297, 2024.">3</a>]</span> to map each
+numeric atom type to a string (see the <strong>parameters.inc</strong> file):
+<code class="docutils literal notranslate"><span class="pre">labelmap</span> <span class="pre">atom</span> <span class="pre">1</span> <span class="pre">OE</span> <span class="pre">2</span> <span class="pre">C</span> <span class="pre">3</span> <span class="pre">HC</span> <span class="pre">4</span> <span class="pre">H</span> <span class="pre">5</span> <span class="pre">CPos</span> <span class="pre">6</span> <span class="pre">OAlc</span> <span class="pre">7</span> <span class="pre">OW</span> <span class="pre">8</span> <span class="pre">HW</span></code>
+Therefore, the oxygen and hydrogen atoms of water (respectively types
+7 and 8) can be referred to as <code class="docutils literal notranslate"><span class="pre">OW</span></code> and <code class="docutils literal notranslate"><span class="pre">HW</span></code>, respectively.  Similar
+maps are used for the bond types, angle types, and dihedral types.</p>
+</div>
+<p>Let us create water molecules.  To do so, let us import a molecule template called
+<strong>water.mol</strong> and then randomly create 700 molecules.  Add the following
+lines into <strong>water.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">water.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">700</span><span class="w"> </span><span class="m">87910</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">454756</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">overlap</span> <span class="pre">1.0</span></code> option of the <code class="docutils literal notranslate"><span class="pre">create_atoms</span></code> command ensures
+that no atoms are placed exactly in the same position, as this would cause the
+simulation to crash.  The <code class="docutils literal notranslate"><span class="pre">maxtry</span> <span class="pre">50</span></code> asks LAMMPS to try at most 50 times
+to insert the molecules, which is useful in case some insertion attempts are
+rejected due to overlap.  In some cases, depending on the system and the values
+of <code class="docutils literal notranslate"><span class="pre">overlap</span></code> and <code class="docutils literal notranslate"><span class="pre">maxtry</span></code>, LAMMPS may not create the desired number
+of molecules.  Always check the number of created atoms in the <strong>log</strong> file
+(or in the <code class="docutils literal notranslate"><span class="pre">Output</span></code> window), where you should see:</p>
+<div class="highlight-bw notranslate"><div class="highlight"><pre><span></span>Created 2100 atoms
+</pre></div>
+</div>
+<p>When LAMMPS fails to create the desired number of molecules, a WARNING
+appears.  The molecule template called <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/water.mol" target="_blank">water.mol</a> must be downloaded and saved
+next to <strong>water.lmp</strong>.  This template contains the necessary
+structural information of a water molecule, such as the number of atoms,
+or the IDs of the atoms that are connected by bonds and angles.</p>
+<figure class="align-default">
+<img alt="Evolution of the water reservoir density" class="only-dark" src="../_images/PEG-density-dm.png" />
+</figure>
+<figure class="align-default">
+<img alt="Evolution of the water reservoir density" class="only-light" src="../_images/PEG-density.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: a) Temperature, <span class="math notranslate nohighlight">\(T\)</span>, of the water reservoir as a function of the
+time, <span class="math notranslate nohighlight">\(t\)</span>.  The horizontal dashed line is the target temperature
+of <span class="math notranslate nohighlight">\(300 \text{K}\)</span>. b) Evolution of the system density, <span class="math notranslate nohighlight">\(\rho\)</span>, with <span class="math notranslate nohighlight">\(t\)</span></p>
+</div>
+<p>Then, let us organize the atoms of types OW and HW of the water
+molecules in a group named <code class="docutils literal notranslate"><span class="pre">H2O</span></code> and perform a small energy
+minimization.  The energy minimization is mandatory here because of the
+small <code class="docutils literal notranslate"><span class="pre">overlap</span></code> value of 1 Å chosen in the <code class="docutils literal notranslate"><span class="pre">create_atoms</span></code>
+command.  Add the following lines into <strong>water.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">HW</span>
+<span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>Resetting the step of the simulation to 0 using the
+<code class="docutils literal notranslate"><span class="pre">reset_timestep</span></code> command is optional.
+It is used here because the number of iterations performed by the <code class="docutils literal notranslate"><span class="pre">minimize</span></code>
+command is usually not a round number, since the minimization stops when one of
+four criteria is reached.  We will use <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">npt</span></code> to control the temperature
+and pressure of the molecules with a Nosé-Hoover thermostat and barostat,
+respectively <span id="id10">[<a class="reference internal" href="../non-tutorials/bibliography.html#id31" title="Shuichi Nosé. A unified formulation of the constant temperature molecular dynamics methods. The Journal of chemical physics, 81(1):511–519, 1984.">21</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id30" title="William G Hoover. Canonical dynamics: equilibrium phase-space distributions. Physical review A, 31(3):1695, 1985.">22</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id29" title="Glenn J Martyna, Douglas J Tobias, and Michael L Klein. Constant pressure molecular dynamics algorithms. The Journal of chemical physics, 101(5):4177–4189, 1994.">29</a>]</span>.
+Add the following line into <strong>water.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">iso</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1000</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">npt</span></code> allows us to impose both a temperature of <span class="math notranslate nohighlight">\(300\,\text{K}\)</span>
+(with a damping constant of <span class="math notranslate nohighlight">\(100\,\text{fs}\)</span>), and a pressure of 1 atmosphere
+(with a damping constant of <span class="math notranslate nohighlight">\(1000\,\text{fs}\)</span>).  With the <code class="docutils literal notranslate"><span class="pre">iso</span></code> keyword,
+the three dimensions of the box will be re-scaled simultaneously.</p>
+<p>Let us output the system into images by adding the following commands to <strong>water.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">250</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">600</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">acolor</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">adiam</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="m">1.5</span>
+</pre></div>
+</div>
+<p>Let us also extract the volume and density every 500 steps:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">myvol</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">vol</span>
+<span class="k">variable </span><span class="nv nv-Identifier">myoxy</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(H2O)</span><span class="o">/</span><span class="m">3</span>
+<span class="k">variable </span><span class="nv nv-Identifier">NA</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">6.022e23</span>
+<span class="k">variable </span><span class="nv nv-Identifier">Atom</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">1e-10</span>
+<span class="k">variable </span><span class="nv nv-Identifier">M</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.018</span>
+<span class="k">variable </span><span class="nv nv-Identifier">rho</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="nv">${myoxy}</span><span class="o">*</span><span class="nv">${M}</span><span class="o">/</span><span class="nv">(v_myvol*${NA}*${Atom}^3)</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">500</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">v_myvol</span><span class="w"> </span><span class="n">v_rho</span>
+</pre></div>
+</div>
+<p>Here, several variables are defined and used for converting the units of the
+density in kg/mol:  The variable <code class="docutils literal notranslate"><span class="pre">myoxy</span></code> represents the number of
+atoms divided by 3,  which corresponds to the number of molecules, <span class="math notranslate nohighlight">\(N_\text{H2O}\)</span>,
+and the variable <code class="docutils literal notranslate"><span class="pre">myrho</span></code> is the density in kg/mol:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\rho = \dfrac{N_\text{H2O}}{V N_\text{A}},\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(V\)</span> is the volume in <span class="math notranslate nohighlight">\(\text{m}^3\)</span>, <span class="math notranslate nohighlight">\(N_\text{A}\)</span> the Avogadro number, and
+<span class="math notranslate nohighlight">\(M = 0.018\)</span>,kg/mol the molar mass of water.</p>
+<p>Finally, let us set the timestep to 1.0 fs, and run the simulation for 15 ps by
+adding the following lines into <strong>water.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">run</span><span class="w"> </span><span class="m">15000</span>
+
+<span class="k">write_restart </span><span class="nv nv-Identifier">water.restart</span>
+</pre></div>
+</div>
+<p>The final state is saved in a binary file named <strong>water.restart</strong>.
+Run the input using LAMMPS.  The system reaches its equilibrium temperature
+after just a few picoseconds, and its equilibrium density after approximately
+10 picoseconds.</p>
+<figure class="align-default">
+<img alt="Water reservoir from molecular dynamics simulations" class="only-light" src="../_images/water-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="Water reservoir from molecular dynamics simulations" class="only-dark" src="../_images/water-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: The water reservoir after equilibration.  Oxygen atoms are in red, and
+hydrogen atoms are in white.</p>
+</div>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>The binary file created by the <code class="docutils literal notranslate"><span class="pre">write_restart</span></code> command contains the
+complete state of the simulation, including atomic positions, velocities, and
+box dimensions (similar to <code class="docutils literal notranslate"><span class="pre">write_data</span></code>), but also the groups,
+the compute, or the <code class="docutils literal notranslate"><span class="pre">atom_style</span></code>.  Use the <code class="docutils literal notranslate"><span class="pre">Inspect</span> <span class="pre">Restart</span></code>
+option of the LAMMPS–GUI to vizualize the content saved in <strong>water.restart</strong>.</p>
+</div>
+</section>
+<section id="solvating-the-peg-in-water">
+<h2>Solvating the PEG in water<a class="headerlink" href="#solvating-the-peg-in-water" title="Link to this heading">¶</a></h2>
+<p>Now that the water reservoir is equilibrated, we can safely add the PEG polymer
+to the water.  The PEG molecule topology was downloaded from the ATB repository
+<span id="id11">[<a class="reference internal" href="../non-tutorials/bibliography.html#id69" title="Alpeshkumar K Malde, Le Zuo, Matthew Breeze, Martin Stroet, David Poger, Pramod C Nair, Chris Oostenbrink, and Alan E Mark. An automated force field topology builder (ATB) and repository: version 1.0. Journal of chemical theory and computation, 7(12):4026–4037, 2011.">30</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id70" title="Chris Oostenbrink, Alessandra Villa, Alan E Mark, and Wilfred F van Gunsteren. A biomolecular force field based on the free enthalpy of hydration and solvation: the GROMOS force-field parameter sets 53A5 and 53A6. Journal of computational chemistry, 25(13):1656–1676, 2004.">31</a>]</span>.  It has a formula
+<span class="math notranslate nohighlight">\(\text{C}_{16}\text{H}_{34}\text{O}_{9}\)</span>, and the parameters are taken from
+the GROMOS 54A7 force field <span id="id12">[<a class="reference internal" href="../non-tutorials/bibliography.html#id41" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">23</a>]</span>.</p>
+<figure class="align-default">
+<img alt="PEG in vacuum as simulated with LAMMPS" class="only-light" src="../_images/singlePEG-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="PEG in vacuum as simulated with LAMMPS" class="only-dark" src="../_images/singlePEG-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: The PEG molecule with carbon atoms in gray, oxygen atoms in red,
+and hydrogen atoms in white.</p>
+</div>
+<p>Open the file named <strong>merge.lmp</strong> that was downloaded
+alongside <strong>water.lmp</strong> during the tutorial setup.  It only contain one line:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_restart</span><span class="w"> </span><span class="n">water.restart</span>
+</pre></div>
+</div>
+<p>Most of the commands that were initially present in <strong>water.lmp</strong>, such as
+the <code class="docutils literal notranslate"><span class="pre">units</span></code> of the <code class="docutils literal notranslate"><span class="pre">atom_style</span></code> commands do not need to be repeated,
+as they were saved within the <strong>.restart</strong> file.  There is also no need to
+re-include the parameters from the <strong>.inc</strong> file.  The <code class="docutils literal notranslate"><span class="pre">kspace_style</span></code>
+command, however, is not saved by the <code class="docutils literal notranslate"><span class="pre">write_restart</span></code> command and must be
+repeated.  Since Ewald summation is not the most efficient choice for such dense
+system, let us use PPPM (for particle-particle particle-mesh) for the rest
+of the tutorial.  Add the following command to <strong>merge.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="w"> </span><span class="m">1e-5</span>
+</pre></div>
+</div>
+<p>Using the molecule template for the polymer called <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/peg.mol" target="_blank">peg.mol</a>,
+let us create a single molecule in the middle of the box by adding the following
+commands to <strong>merge.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">pegmol</span><span class="w"> </span><span class="n">peg.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">pegmol</span><span class="w"> </span><span class="m">454756</span>
+</pre></div>
+</div>
+<p>Let us create a group for the atoms of the PEG (the previously created
+group H2O was saved by the restart and can be omitted):</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">CPos</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">HC</span><span class="w"> </span><span class="n">OAlc</span><span class="w"> </span><span class="n">OE</span>
+</pre></div>
+</div>
+<p>Water molecules that are overlapping with the PEG must be deleted to avoid future
+crashing.  Add the following line into <strong>merge.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">PEG</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
+</pre></div>
+</div>
+<p>Here the value of 2.0 Å for the overlap cutoff was fixed arbitrarily and can
+be chosen through trial and error.  If the cutoff is too small, the simulation will
+crash because atoms that are too close to each other undergo forces
+that can be extremely large.  If the cutoff is too large, too many water
+molecules will unnecessarily be deleted.</p>
+<p>Let us use the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">npt</span></code> to control the temperature, as
+well as the pressure by allowing the box size to be rescaled along the <span class="math notranslate nohighlight">\(x\)</span>-axis:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1000</span>
+</pre></div>
+</div>
+<p>Let us also use the <code class="docutils literal notranslate"><span class="pre">recenter</span></code> command to always keep the PEG at
+the position <span class="math notranslate nohighlight">\((0, 0, 0)\)</span>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="n">all</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">recenter</span></code> command has no impact on the dynamics,
+it simply repositions the frame of reference so that any drift of the
+system is ignored, which can be convenient for visualizing and analyzing
+the system.</p>
+<p>Let us create images of the systems:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">250</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="m">1100</span><span class="w"> </span><span class="m">600</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">3.3</span><span class="w"> </span><span class="n">fsaa</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">0.8</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="m">0.2</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">OE</span><span class="w"> </span><span class="n">darkred</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">OE</span><span class="w"> </span><span class="m">2.6</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">HC</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">HC</span><span class="w"> </span><span class="m">1.4</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">acolor</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="m">1.4</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">CPos</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">CPos</span><span class="w"> </span><span class="m">2.8</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="m">0.2</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">gray</span><span class="w">  </span><span class="n">adiam</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="m">2.8</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">acolor</span><span class="w"> </span><span class="n">OAlc</span><span class="w"> </span><span class="n">darkred</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">OAlc</span><span class="w"> </span><span class="m">2.6</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">500</span>
+</pre></div>
+</div>
+<p>Finally, to perform a short equilibration and save the final state to
+a <strong>.restart</strong> file, add the following lines to the input:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+
+<span class="k">write_restart </span><span class="nv nv-Identifier">merge.restart</span>
+</pre></div>
+</div>
+<p>Run the simulation using LAMMPS.  From the outputs, you can make
+sure that the temperature remains close to the
+target value of <span class="math notranslate nohighlight">\(300~\text{K}\)</span> throughout the entire simulation, and that
+the volume and total energy are almost constant, indicating
+that the system was in a reasonable configuration from the start.</p>
+<figure class="align-default">
+<img alt="PEG in water as simulated with LAMMPS" class="only-light" src="../_images/solvatedPEG_light.png" />
+</figure>
+<figure class="align-default">
+<img alt="PEG in water as simulated with LAMMPS" class="only-dark" src="../_images/solvatedPEG_dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure : The PEG molecule solvated in water.  Water is represented as a
+transparent field for clarity.</p>
+</div>
+</section>
+<section id="stretching-the-peg-molecule">
+<h2>Stretching the PEG molecule<a class="headerlink" href="#stretching-the-peg-molecule" title="Link to this heading">¶</a></h2>
+<p>Here, a constant force is applied to both ends of the PEG molecule until it
+stretches.  Open the file named <strong>pull.lmp</strong>, which
+only contains two lines:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="w"> </span><span class="m">1e-5</span>
+<span class="k">read_restart</span><span class="w"> </span><span class="n">merge.restart</span>
+</pre></div>
+</div>
+<p>Next, we’ll create new atom groups, each containing a single oxygen atom.  The atoms of type OAlc
+correspond to the hydroxyl (alcohol) group oxygen atoms located at the ends
+of the PEG molecule, which we will use to apply the force.  Add the
+following lines to <strong>pull.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">ends</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">OAlc</span>
+<span class="k">variable </span><span class="nv nv-Identifier">xcm</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(ends,x)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">oxies</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">type</span><span class="o">==</span><span class="n">label2type</span><span class="nv">(atom,OAlc)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">end1</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">v_oxies</span><span class="o">*</span><span class="nv">(x&gt;v_xcm)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">end2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">v_oxies</span><span class="o">*</span><span class="nv">(x&lt;v_xcm)</span>
+<span class="k">group </span><span class="nv nv-Identifier">topull1</span><span class="w"> </span><span class="k">variable </span><span class="nv nv-Identifier">end1</span>
+<span class="k">group </span><span class="nv nv-Identifier">topull2</span><span class="w"> </span><span class="k">variable </span><span class="nv nv-Identifier">end2</span>
+</pre></div>
+</div>
+<p>These lines identify the oxygen atoms (type OAlc) at the ends of the PEG
+molecule and calculates their center of mass along the <span class="math notranslate nohighlight">\(x\)</span>-axis.  It then
+divides these atoms into two groups, <code class="docutils literal notranslate"><span class="pre">end1</span></code> (i.e., the OAlc atom to
+the right of the center) and <code class="docutils literal notranslate"><span class="pre">end2</span></code> (i.e., the OAlc atom to the right
+of the center), for applying force during the stretching process.</p>
+<p>Add the following <code class="docutils literal notranslate"><span class="pre">dump</span></code> command to create images of the system:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">250</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">view</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">3.3</span><span class="w"> </span><span class="n">fsaa</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">0.8</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="m">1100</span><span class="w"> </span><span class="m">600</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">OE</span><span class="w"> </span><span class="n">darkred</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">OAlc</span><span class="w"> </span><span class="n">darkred</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">CPos</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">acolor</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">HC</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="m">0.2</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="m">0.2</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="m">2.8</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">CPos</span><span class="w"> </span><span class="m">2.8</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">OAlc</span><span class="w"> </span><span class="m">2.6</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="m">1.4</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">HC</span><span class="w"> </span><span class="m">1.4</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">OE</span><span class="w"> </span><span class="m">2.6</span>
+</pre></div>
+</div>
+<p>Let us use a single Nosé-Hoover thermostat applied to all the atoms,
+and let us keep the PEG in the center of the box, by adding
+the following lines to <strong>pull.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="n">all</span>
+</pre></div>
+</div>
+<p>To investigate the stretching of the PEG molecule, let us compute its radius of
+gyration <span id="id13">[<a class="reference internal" href="../non-tutorials/bibliography.html#id28" title="Marshall Fixman. Radius of Gyration of Polymer Chains. The Journal of Chemical Physics, 36(2):306–310, 1962.">32</a>]</span> and the angles of its dihedral
+constraints using the following commands:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">rgyr</span><span class="w"> </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">gyration</span>
+<span class="k">compute </span><span class="nv nv-Identifier">prop</span><span class="w"> </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">property</span><span class="o">/</span><span class="n">local</span><span class="w"> </span><span class="n">dtype</span>
+<span class="k">compute </span><span class="nv nv-Identifier">dphi</span><span class="w"> </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">dihedral</span><span class="o">/</span><span class="n">local</span><span class="w"> </span><span class="n">phi</span>
+</pre></div>
+</div>
+<p>The radius of gyration can be directly printed with the <code class="docutils literal notranslate"><span class="pre">thermo_style</span></code> command:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">c_rgyr</span>
+<span class="k">thermo</span><span class="w"> </span><span class="m">250</span>
+<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">pull.dat</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="n">c_dphi</span><span class="w"> </span><span class="n">c_prop</span>
+</pre></div>
+</div>
+<p>By contrast with the radius of gyration (compute <code class="docutils literal notranslate"><span class="pre">rgyr</span></code>), the dihedral angle
+<span class="math notranslate nohighlight">\(\phi\)</span> (compute <code class="docutils literal notranslate"><span class="pre">dphi</span></code>) is returned as a vector by the <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">dihedral/local</span></code>
+command and must be written to a file using the <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">local</span></code> command.</p>
+<p>Finally, let us simulate 15 picoseconds without any external force:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">15000</span>
+</pre></div>
+</div>
+<p>This initial run will serve as a benchmark to quantify the changes caused by
+the applied force in later steps.  Next, let us apply a force to the two selected
+oxygen atoms using two <code class="docutils literal notranslate"><span class="pre">addforce</span></code> commands, and then run the simulation
+for an extra 15 ps:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myaf1</span><span class="w"> </span><span class="nv nv-Identifier">topull1</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myaf2</span><span class="w"> </span><span class="nv nv-Identifier">topull2</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="o">-</span><span class="m">10</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="k">run</span><span class="w"> </span><span class="m">15000</span>
+</pre></div>
+</div>
+<p>Each applied force has a magnitude of <span class="math notranslate nohighlight">\(10 \, \text{kcal/mol/Å}\)</span>, corresponding to <span class="math notranslate nohighlight">\(0.67 \text{nN}\)</span>.
+This value was chosen to be sufficiently large to overcome both the thermal agitation and
+the entropic contributions from the molecules.</p>
+<figure class="align-default">
+<img alt="PEG in water as simulated with LAMMPS" class="only-light" src="../_images/pulled_peg_light.png" />
+</figure>
+<figure class="align-default">
+<img alt="PEG in water as simulated with LAMMPS" class="only-dark" src="../_images/pulled_peg_dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: PEG molecule stretched along the <span class="math notranslate nohighlight">\(x\)</span> direction in water.</p>
+</div>
+<p>Run the <strong>pull.lmp</strong> file using LAMMPS.  From the generated images of the system,
+you should observe that the PEG molecule eventually aligns in the direction of
+the applied force. The evolutions of the radius of gyration over
+time indicates that the PEG quickly adjusts to the external force.  Additionally,
+from the values of the dihedral angles
+printed in the <strong>pull.dat</strong> file, you can create a histogram
+of dihedral angles for a specific type.  For example, the angle <span class="math notranslate nohighlight">\(\phi\)</span> for dihedrals
+of type 1 (C-C-OE-C) is shown below.</p>
+<figure class="align-default">
+<img alt="Evolution of the polymer radius of gyration" class="only-dark" src="../_images/PEG-distance-dm.png" />
+</figure>
+<figure class="align-default">
+<img alt="Evolution of the polymer radius of gyration" class="only-light" src="../_images/PEG-distance.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: a) Evolution of the radius of gyration <span class="math notranslate nohighlight">\(R_\text{gyr}\)</span> of the PEG molecule,
+with the force applied starting at <span class="math notranslate nohighlight">\(t = 15\,\text{ps}\)</span>.  b) Histograms of
+the dihedral angles of type 1 in the absence (orange) and in the presence (blue) of the applied force.</p>
+</div>
+<section id="tip-using-external-visualization-tools">
+<h3>Tip: using external visualization tools<a class="headerlink" href="#tip-using-external-visualization-tools" title="Link to this heading">¶</a></h3>
+<p>Trajectories can be visualized using external tools such as VMD or
+OVITO <span id="id14">[<a class="reference internal" href="../non-tutorials/bibliography.html#id10" title="William Humphrey, Andrew Dalke, and Klaus Schulten. VMD: visual molecular dynamics. Journal of molecular graphics, 14(1):33–38, 1996.">12</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id5" title="Alexander Stukowski. Visualization and analysis of atomistic simulation data with ovito–the open visualization tool. Modelling and simulation in materials science and engineering, 18(1):015012, 2009.">13</a>]</span>.  To do so, the IDs and
+positions of the atoms must be regularly written to a file during the
+simulation.  This can be accomplished by adding a <code class="docutils literal notranslate"><span class="pre">dump</span></code> command
+to the input file.  For instance, create a duplicate of
+<strong>pull.lmp</strong> and name it <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/pull-with-tip.lmp" target="_blank">pull-with-tip.lmp</a>.
+Then, replace the existing <code class="docutils literal notranslate"><span class="pre">dump</span></code> and <code class="docutils literal notranslate"><span class="pre">dump_modify</span></code> commands with:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">pull.lammpstrj</span>
+</pre></div>
+</div>
+<p>Running the <strong>pull-with-tip.lmp</strong> file using LAMMPS will generate a trajectory file
+named <strong>pull.lammpstrj</strong>, which can be opened in OVITO or VMD.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>Since the trajectory dump file does not contain information about
+topology and elements, it is usually preferred to first write out a
+data file and import it directly (in the case of OVITO) or convert it
+to a PSF file (for VMD).  This allows the topology to be loaded before
+<em>adding</em> the trajectory file to it.  When using LAMMPS–GUI,
+this process can be automated through the <code class="docutils literal notranslate"><span class="pre">View</span> <span class="pre">in</span> <span class="pre">OVITO</span></code> or
+<code class="docutils literal notranslate"><span class="pre">View</span> <span class="pre">in</span> <span class="pre">VMD</span></code> options in the <code class="docutils literal notranslate"><span class="pre">Run</span></code> menu.  Afterwards
+only the trajectory dump needs to be added.</p>
+</div>
+<div class="non-title-info admonition">
+<p class="admonition-title">Cite</p>
+<p>You can access the input scripts and data files that
+are used in these tutorials from a dedicated <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/" target="_blank">Github repository</a>.
+This repository also contains the full solutions to the exercises.</p>
+</div>
+</section>
+</section>
+<section id="going-further-with-exercises">
+<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">¶</a></h2>
+<section id="extract-the-radial-distribution-function">
+<h3>Extract the radial distribution function<a class="headerlink" href="#extract-the-radial-distribution-function" title="Link to this heading">¶</a></h3>
+<p>Extract the radial distribution functions (RDF or <span class="math notranslate nohighlight">\(g(r)\)</span>)
+between the oxygen atom of the water molecules
+and the oxygen atom from the PEG molecule. Compare the rdf
+before and after the force is applied to the PEG.</p>
+<figure class="align-default">
+<img alt="RDF g(r) for water and peg" class="only-dark" src="../_images/RDF-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="RDF g(r) for water and peg" class="only-light" src="../_images/RDF-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Radial distribution function between the oxygen atoms
+of water, as well as between the oxygen atoms of water and the
+oxygen atoms of the PEG molecule.</p>
+</div>
+<p>Note the difference in the structure of the water before and after
+the PEG molecule is stretched. This effect is described in
+the 2017 publication by Liese et al. <span id="id15">[<a class="reference internal" href="../non-tutorials/bibliography.html#id51" title="Susanne Liese, Manuel Gensler, Stefanie Krysiak, Richard Schwarzl, Andreas Achazi, Beate Paulus, Thorsten Hugel, Jürgen P Rabe, and Roland R Netz. Hydration effects turn a highly stretched polymer from an entropic into an energetic spring. ACS nano, 11(1):702–712, 2017.">26</a>]</span>.</p>
+</section>
+<section id="add-salt-to-the-system">
+<h3>Add salt to the system<a class="headerlink" href="#add-salt-to-the-system" title="Link to this heading">¶</a></h3>
+<p>Realistic systems usually contain ions. Let us add some <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and
+<span class="math notranslate nohighlight">\(\text{Cl}^-\)</span> ions to our current PEG-water system.</p>
+<p>Add some <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and
+<span class="math notranslate nohighlight">\(\text{Cl}^-\)</span> ions to the mixture using the method
+of your choice. <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> ions are
+characterised by their mass <span class="math notranslate nohighlight">\(m = 22.98\,\text{g/mol}\)</span>,
+their charge <span class="math notranslate nohighlight">\(q = +1\,e\)</span>, and Lennard-Jones
+parameters, <span class="math notranslate nohighlight">\(\epsilon = 0.0469\,\text{kcal/mol}\)</span>
+and <span class="math notranslate nohighlight">\(\sigma = 0.243\,\text{nm}\)</span>,
+and <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span> ions by their
+mass <span class="math notranslate nohighlight">\(m = 35.453\,\text{g/mol}\)</span>,
+charge <span class="math notranslate nohighlight">\(q = -1\,e\)</span> and Lennard-Jones
+parameters, <span class="math notranslate nohighlight">\(\epsilon = 0.15\,\text{kcal/mol}\)</span>,
+and <span class="math notranslate nohighlight">\(\sigma = 0.4045\,\text{nm}\)</span>.</p>
+<figure class="align-default">
+<img alt="PEG in a NaCl solution" class="only-dark" src="../_images/salt-exercise-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="PEG in a NaCl solution" class="only-light" src="../_images/salt-exercise-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: A PEG molecule in the electrolyte with <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> ions in
+purple and <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span> ions in cyan.</p>
+</div>
+</section>
+<section id="evaluate-the-deformation-of-the-peg">
+<h3>Evaluate the deformation of the PEG<a class="headerlink" href="#evaluate-the-deformation-of-the-peg" title="Link to this heading">¶</a></h3>
+<p>Once the PEG is fully stretched, its structure differs from the
+unstretched case. The deformation can be probed by extracting the typical
+intra-molecular parameters, such as the typical angles of the dihedrals.</p>
+<p>Extract the histograms of the angular distribution of the PEG dihedrals
+in the absence and the presence of stretching.</p>
+<figure class="align-default">
+<img alt="PEG in a NaCl solution" class="only-dark" src="../_images/dihedral_angle-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="PEG in a NaCl solution" class="only-light" src="../_images/dihedral_angle-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Probability distribution for the dihedral angle <span class="math notranslate nohighlight">\(\phi\)</span>, for a stretched
+and for an unstretched PEG molecule.</p>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../tutorial4/nanosheared-electrolyte.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Nanosheared electrolyte</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../tutorial2/breaking-a-carbon-nanotube.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Pulling on a carbon nanotube</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Polymer in water</a><ul>
+<li><a class="reference internal" href="#preparing-the-water-reservoir">Preparing the water reservoir</a></li>
+<li><a class="reference internal" href="#solvating-the-peg-in-water">Solvating the PEG in water</a></li>
+<li><a class="reference internal" href="#stretching-the-peg-molecule">Stretching the PEG molecule</a><ul>
+<li><a class="reference internal" href="#tip-using-external-visualization-tools">Tip: using external visualization tools</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
+<li><a class="reference internal" href="#extract-the-radial-distribution-function">Extract the radial distribution function</a></li>
+<li><a class="reference internal" href="#add-salt-to-the-system">Add salt to the system</a></li>
+<li><a class="reference internal" href="#evaluate-the-deformation-of-the-peg">Evaluate the deformation of the PEG</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

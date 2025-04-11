@@ -1,0 +1,923 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Reactive silicon dioxide" href="../tutorial5/reactive-silicon-dioxide.html" /><link rel="prev" title="Polymer in water" href="../tutorial3/polymer-in-water.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Nanosheared electrolyte - </title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b1e702db" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">    </div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">    </span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/scope.html">Scope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/contact.html">Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorial1/lennard-jones-fluid.html">Lennard-Jones fluid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial2/breaking-a-carbon-nanotube.html">Pulling on a carbon nanotube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial3/polymer-in-water.html">Polymer in water</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Nanosheared electrolyte</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial5/reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial6/water-adsorption-in-silica.html">Water adsorption in silica</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial7/free-energy-calculation.html">Free energy calculation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/solutions.html">Solutions to the exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/glossary.html">LAMMPS Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/using-lammps-gui.html">Using LAMMPS–GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/running-lammps.html">Running LAMMPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/command-line.html">Command line</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/tutorial4/nanosheared-electrolyte.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="nanosheared-electrolyte">
+<span id="sheared-confined-label"></span><h1>Nanosheared electrolyte<a class="headerlink" href="#nanosheared-electrolyte" title="Link to this heading">¶</a></h1>
+<div class="hatnote docutils container">
+<p>Aqueous NaCl solution sheared by two walls</p>
+</div>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../_images/nanoconfined-electrolyte-dark.png"><img alt="Electrolyte nano-confined in a slit pore" class="only-dark" src="../_images/nanoconfined-electrolyte-dark.png" style="height: 250px;" />
+</a>
+</figure>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../_images/nanoconfined-electrolyte-light.png"><img alt="Electrolyte nano-confined in a slit pore" class="only-light" src="../_images/nanoconfined-electrolyte-light.png" style="height: 250px;" />
+</a>
+</figure>
+<p>The objective of this tutorial is to simulate an electrolyte
+nanoconfined and sheared between two walls.  The density
+and velocity profiles of the fluid in the direction normal to the walls are
+extracted to highlight the effect of confining a fluid on its local properties.
+This tutorial demonstrates key concepts of combining a fluid and a solid in
+the same simulation.  A major difference from the previous tutorial,
+<a class="reference internal" href="../tutorial3/polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a>, is that here a rigid four-point
+water model named TIP4P/2005 is used <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id53" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">4</a>]</span>.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>Four-point water models such as TIP4P/2005 are widely used as they offer a
+good compromise between accuracy and computational cost <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id52" title="Sachini P Kadaoluwa Pathirannahalage, Nastaran Meftahi, Aaron Elbourne, Alessia CG Weiss, Chris F McConville, Agilio Padua, David A Winkler, Margarida Costa Gomes, Tamar L Greaves, Tu C Le, and others. Systematic comparison of the structural and dynamic properties of commonly used water models for molecular dynamics simulations. Journal of Chemical Information and Modeling, 61(9):4521–4536, 2021.">33</a>]</span>.</p>
+</div>
+<p>If you are completely new to LAMMPS, we recommend that
+you follow this tutorial on a simple <a class="reference internal" href="../tutorial1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a> first.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Cite</p>
+<p>If you find these tutorials useful, you can
+cite <em>A Set of Tutorials for the LAMMPS Simulation Package</em> by Simon Gravelle,
+Jacob R. Gissinger, and Axel Kohlmeyer (2025) <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id66" title="Simon Gravelle, Jacob R Gissinger, and Axel Kohlmeyer. A set of tutorials for the lammps simulation package. arXiv preprint arXiv:2503.14020, 2025.">14</a>]</span>. You
+can access the full paper on <a href="https://doi.org/10.48550/arXiv.2503.14020" target="_blank">arXiv</a>.</p>
+</div>
+<div class="version docutils container">
+<p>This tutorial is compatible with the 29Aug2024 (update 2) LAMMPS version.</p>
+</div>
+<section id="system-preparation">
+<h2>System preparation<a class="headerlink" href="#system-preparation" title="Link to this heading">¶</a></h2>
+<p>The fluid and walls must first be generated, followed by equilibration at the
+desired temperature and pressure.</p>
+<section id="system-generation">
+<h3>System generation<a class="headerlink" href="#system-generation" title="Link to this heading">¶</a></h3>
+<p>Create a folder if needed and
+place the initial input file, <strong>create.lmp</strong>, into it. Then, open the
+file in a text editor of your choice, and copy the following into it:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">f</span>
+<span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="n">H</span><span class="o">-</span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
+<span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-5</span>
+<span class="k">kspace_modify</span><span class="w"> </span><span class="n">slab</span><span class="w"> </span><span class="m">3.0</span>
+</pre></div>
+</div>
+<div class="gui admonition">
+<p class="admonition-title">If you are using LAMMPS-GUI</p>
+<p>To begin this tutorial, select <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Tutorial</span> <span class="pre">4</span></code> from the
+<code class="docutils literal notranslate"><span class="pre">Tutorials</span></code> menu of LAMMPS–GUI and follow the instructions.
+The editor should display the following content corresponding to <strong>create.lmp</strong></p>
+</div>
+<p>These lines are used to define the most basic parameters, including the
+atom, bond, and angle styles, as well as interaction
+potential.  Here, <code class="docutils literal notranslate"><span class="pre">lj/cut/tip4p/long</span></code> imposes a Lennard-Jones potential with
+a cut-off at <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span> and a long-range Coulomb potential.</p>
+<p>So far, the commands are relatively similar to those in the previous tutorial,
+<a class="reference internal" href="../tutorial3/polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a>, with two major differences: the use
+of <code class="docutils literal notranslate"><span class="pre">lj/cut/tip4p/long</span></code> instead of <code class="docutils literal notranslate"><span class="pre">lj/cut/coul/long</span></code>, and <code class="docutils literal notranslate"><span class="pre">pppm/tip4p</span></code>
+instead of <code class="docutils literal notranslate"><span class="pre">pppm</span></code>.  When using <code class="docutils literal notranslate"><span class="pre">lj/cut/tip4p/long</span></code> and <code class="docutils literal notranslate"><span class="pre">pppm/tip4p</span></code>,
+the interactions resemble the conventional Lennard-Jones and Coulomb interactions,
+except that they are specifically designed for the four-point water model.  As a result,
+LAMMPS automatically creates a four-point water molecule, assigning type O
+atoms as oxygen and type H atoms as hydrogen.  The fourth massless atom (M) of the
+TIP4P water molecule does not have to be defined explicitly, and the value of
+<span class="math notranslate nohighlight">\(0.1546\,\text{Å}\)</span> corresponds to the O-M distance of the
+TIP4P-2005 water model <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id53" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">4</a>]</span>.  All other atoms in the simulation
+are treated as usual, with long-range Coulomb interactions.  Another novelty, here, is
+the use of <code class="docutils literal notranslate"><span class="pre">kspace</span> <span class="pre">modify</span> <span class="pre">slab</span> <span class="pre">3.0</span></code> that is combined with the non-periodic
+boundaries along the <span class="math notranslate nohighlight">\(z\)</span> coordinate: <code class="docutils literal notranslate"><span class="pre">boundary</span> <span class="pre">p</span> <span class="pre">p</span> <span class="pre">f</span></code>.  With the <code class="docutils literal notranslate"><span class="pre">slab</span></code>
+option, the system is treated as periodical along <span class="math notranslate nohighlight">\(z\)</span>, but with an empty volume inserted
+between the periodic images of the slab, and the interactions along <span class="math notranslate nohighlight">\(z\)</span> effectively turned off.</p>
+<p>Let us create the box and the label maps by adding the following lines to <strong>create.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">lattice</span><span class="w"> </span><span class="n">fcc</span><span class="w"> </span><span class="m">4.04</span>
+<span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">5</span><span class="w"> </span><span class="m">5</span>
+<span class="k">create_box </span><span class="nv nv-Identifier">5</span><span class="w"> </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">angle</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">angle</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">extra</span><span class="o">/</span><span class="n">special</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">2</span>
+<span class="k">labelmap</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">WALL</span>
+<span class="k">labelmap</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">O</span><span class="o">-</span><span class="n">H</span>
+<span class="k">labelmap</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">H</span><span class="o">-</span><span class="n">O</span><span class="o">-</span><span class="n">H</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">lattice</span></code> command defines the unit cell.  Here, the face-centered cubic (fcc) lattice
+with a scale factor of 4.04 has been chosen for the future positioning of the atoms
+of the walls.  The <code class="docutils literal notranslate"><span class="pre">region</span></code> command defines a geometric region of space.  By choosing
+<span class="math notranslate nohighlight">\(\text{xlo}=-3\)</span> and <span class="math notranslate nohighlight">\(\text{xlo}=3\)</span>, and because we have previously chosen a lattice with a scale
+factor of 4.04, the region box extends from <span class="math notranslate nohighlight">\(-12.12~\text{Å}\)</span> to <span class="math notranslate nohighlight">\(12.12~\text{Å}\)</span>
+along the <span class="math notranslate nohighlight">\(x\)</span> direction.  The <code class="docutils literal notranslate"><span class="pre">create_box</span></code> command creates a simulation box with
+5 types of atoms: the oxygen and hydrogen of the water molecules, the two ions (<span class="math notranslate nohighlight">\(\text{Na}^+\)</span>,
+<span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>), and the atoms from the walls.  The simulation contains 1 type of bond
+and 1 type of angle (both required by the water molecules).
+The parameters for these bond and angle constraints will be given later.  The <code class="docutils literal notranslate"><span class="pre">extra</span> <span class="pre">(...)</span></code>
+keywords are for memory allocation.  Finally, the <code class="docutils literal notranslate"><span class="pre">labelmap</span></code> commands assign
+alphanumeric type labels to each numeric atom type, bond type, and angle type.</p>
+<p>Now, we can add atoms to the system.  First, let us create two sub-regions corresponding
+respectively to the two solid walls, and create a larger region from the union of the
+two regions.  Then, let us create atoms of type WALL within the two regions.  Add the
+following lines to <strong>create.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rbotwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">4</span><span class="w"> </span><span class="o">-</span><span class="m">3</span>
+<span class="k">region </span><span class="nv nv-Identifier">rtopwall</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+<span class="k">region </span><span class="nv nv-Identifier">rwall</span><span class="w"> </span><span class="n">union</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">rbotwall</span><span class="w"> </span><span class="n">rtopwall</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rwall</span>
+</pre></div>
+</div>
+<p>Atoms will be placed in the positions of the previously defined lattice, thus
+forming fcc solids.</p>
+<p>To add the water molecules, the molecule template called <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial4/water.mol" target="_blank">water.mol</a>
+must be located next to <strong>create.lmp</strong>.  The template contains all the
+necessary information concerning the water molecule, such as atom positions,
+bonds, and angles.  Add the following lines to <strong>create.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="o">-</span><span class="m">2</span><span class="w"> </span><span class="m">2</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">water.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rliquid</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">482793</span>
+</pre></div>
+</div>
+<p>Within the last three lines, a <code class="docutils literal notranslate"><span class="pre">region</span></code> named <code class="docutils literal notranslate"><span class="pre">rliquid</span></code> is
+created based on the last defined lattice, <code class="docutils literal notranslate"><span class="pre">fcc</span> <span class="pre">4.04</span></code>.  <code class="docutils literal notranslate"><span class="pre">rliquid</span></code>
+will be used for depositing the water molecules.  The <code class="docutils literal notranslate"><span class="pre">molecule</span></code> command
+opens up the molecule template called <strong>water.mol</strong>, and names the
+associated molecule <code class="docutils literal notranslate"><span class="pre">h2omol</span></code>.  The new molecules are placed on the
+<code class="docutils literal notranslate"><span class="pre">fcc</span> <span class="pre">4.04</span></code> lattice by the <code class="docutils literal notranslate"><span class="pre">create_atoms</span></code> command.  The first
+parameter is 0, meaning that the atom IDs from the <strong>water.mol</strong> file
+will be used.  The number <code class="docutils literal notranslate"><span class="pre">482793</span></code> is a seed that is required by LAMMPS,
+it can be any positive integer.</p>
+<p>Finally, let us create 30 ions (15 <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and 15 <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>) in between
+the water molecules, by adding the following commands to <strong>create.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_atoms</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">5802</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">9012</span><span class="w"> </span><span class="n">rliquid</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
+<span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="m">1</span>
+<span class="k">set</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="o">-</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>Each <code class="docutils literal notranslate"><span class="pre">create_atoms</span></code> command will add 15 ions at random positions
+within the <code class="docutils literal notranslate"><span class="pre">rliquid</span></code> region, ensuring that there is no <code class="docutils literal notranslate"><span class="pre">overlap</span></code>
+with existing molecules.  Feel free to increase or decrease the salt concentration
+by changing the number of desired ions.  To keep the system charge neutral,
+always insert the same number of <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> and <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>, unless there
+are other charges in the system.  The charges of the newly added ions are specified
+by the two <code class="docutils literal notranslate"><span class="pre">set</span></code> commands.</p>
+<p>Before starting the simulation, we need to define the parameters of the
+simulation: the mass of the 5 atom types (O, H, <span class="math notranslate nohighlight">\(\text{Na}^+\)</span>, <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>,
+and wall), the pairwise interaction parameters (in this case, for the
+Lennard-Jones potential), and the bond and angle parameters.  Copy the following
+lines into <strong>create.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">include</span><span class="w"> </span><span class="n">parameters.inc</span>
+<span class="k">include</span><span class="w"> </span><span class="n">groups.inc</span>
+</pre></div>
+</div>
+<p>Both <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial4/parameters.inc" target="_blank">parameters.inc</a> and <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial4/groups.inc" target="_blank">groups.inc</a> files
+must be located next to <strong>create.lmp</strong>. The <strong>parameters.inc</strong> file contains the masses, as follows:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="m">15.9994</span>
+<span class="k">mass</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="m">1.008</span>
+<span class="k">mass</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="m">22.990</span>
+<span class="k">mass</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="m">35.453</span>
+<span class="k">mass</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="m">26.9815</span>
+</pre></div>
+</div>
+<p>Each <code class="docutils literal notranslate"><span class="pre">mass</span></code> command assigns a mass in g/mol to an atom type.
+The <strong>parameters.inc</strong> file also contains the pair coefficients:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="m">0.185199</span><span class="w"> </span><span class="m">3.1589</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">1.0</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="m">0.04690</span><span class="w"> </span><span class="m">2.4299</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="m">0.1500</span><span class="w"> </span><span class="m">4.04470</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="m">11.697</span><span class="w"> </span><span class="m">2.574</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="m">0.4</span><span class="w"> </span><span class="m">2.86645</span>
+</pre></div>
+</div>
+<p>Each <code class="docutils literal notranslate"><span class="pre">pair_coeff</span></code> assigns the depth of the LJ potential (in
+kcal/mol), and the distance (in Ångströms) at which the
+particle-particle potential energy is 0.  As noted in previous
+tutorials, with the important exception of <code class="docutils literal notranslate"><span class="pre">pair_coeff</span> <span class="pre">O</span> <span class="pre">WALL</span></code>,
+pairwise interactions were only assigned between atoms of identical
+types.  By default, LAMMPS calculates the pair coefficients for the
+interactions between atoms of different types (i and j) by using
+geometric average: <span class="math notranslate nohighlight">\(\epsilon_{ij} = (\epsilon_{ii} + \epsilon_{jj})/2\)</span>,
+<span class="math notranslate nohighlight">\(\sigma_{ij} = (\sigma_{ii} + \sigma_{jj})/2\)</span>.  However, if the default
+value of <span class="math notranslate nohighlight">\(5.941\,\text{kcal/mol}\)</span> was used for <span class="math notranslate nohighlight">\(\epsilon_\text{1-5}\)</span>,
+the solid walls would be extremely hydrophilic, causing the water
+molecules to form dense layers.  As a comparison, the water-water energy
+<span class="math notranslate nohighlight">\(\epsilon_\text{1-1}\)</span> is only <span class="math notranslate nohighlight">\(0.185199\,\text{kcal/mol}\)</span>.  Therefore,
+to make the walls less hydrophilic, the value of
+<span class="math notranslate nohighlight">\(\epsilon_\text{O-WALL}\)</span> was reduced.</p>
+<p>Finally, the <strong>parameters.inc</strong> file contains the following two lines:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">bond_coeff</span><span class="w"> </span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.9572</span>
+<span class="k">angle_coeff</span><span class="w"> </span><span class="n">H</span><span class="o">-</span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104.52</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">bond_coeff</span></code> command, used here for the O-H bond of the water
+molecule, sets both the spring constant of the harmonic potential and the
+equilibrium bond distance of <span class="math notranslate nohighlight">\(0.9572~\text{Å}\)</span>.  The constant can be 0 for a
+rigid water molecule because the SHAKE algorithm will maintain the rigid
+structure of the water molecule (see below) <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id26" title="Jean-Paul Ryckaert, Giovanni Ciccotti, and Herman JC Berendsen. Numerical integration of the cartesian equations of motion of a system with constraints: molecular dynamics of n-alkanes. Journal of computational physics, 23(3):327–341, 1977.">34</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id27" title="Hans C Andersen. Rattle: a “velocity” version of the shake algorithm for molecular dynamics calculations. Journal of computational Physics, 52(1):24–34, 1983.">35</a>]</span>.
+Similarly, the <code class="docutils literal notranslate"><span class="pre">angle_coeff</span></code> command for the H-O-H angle of the water molecule sets
+the force constant of the angular harmonic potential to 0 and the equilibrium
+angle to <span class="math notranslate nohighlight">\(104.52^\circ\)</span>.</p>
+<p>Alongside <strong>parameters.inc</strong>, the <strong>groups.inc</strong> file contains
+several <code class="docutils literal notranslate"><span class="pre">group</span></code> commands to selects atoms based on their types:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span>
+<span class="k">group </span><span class="nv nv-Identifier">Na</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span>
+<span class="k">group </span><span class="nv nv-Identifier">Cl</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span>
+<span class="k">group </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">union</span><span class="w"> </span><span class="n">Na</span><span class="w"> </span><span class="n">Cl</span>
+<span class="k">group </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">union</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">ions</span>
+</pre></div>
+</div>
+<p>The <strong>groups.inc</strong> file also defines the <code class="docutils literal notranslate"><span class="pre">walltop</span></code> and <code class="docutils literal notranslate"><span class="pre">wallbot</span></code>
+groups, which contain the WALL atoms located in the <span class="math notranslate nohighlight">\(z &gt; 0\)</span> and <span class="math notranslate nohighlight">\(z &lt; 0\)</span> regions, respectively:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">WALL</span>
+<span class="k">region </span><span class="nv nv-Identifier">rtop</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">INF</span>
+<span class="k">region </span><span class="nv nv-Identifier">rbot</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="m">0</span>
+<span class="k">group </span><span class="nv nv-Identifier">top</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rtop</span>
+<span class="k">group </span><span class="nv nv-Identifier">bot</span><span class="w"> </span><span class="k">region </span><span class="nv nv-Identifier">rbot</span>
+<span class="k">group </span><span class="nv nv-Identifier">walltop</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">wall</span><span class="w"> </span><span class="n">top</span>
+<span class="k">group </span><span class="nv nv-Identifier">wallbot</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">wall</span><span class="w"> </span><span class="n">bot</span>
+</pre></div>
+</div>
+<p>Currently, the fluid density between the two walls is slightly too high.  To avoid
+excessive pressure, let us add the following lines into <strong>create.lmp</strong>
+to delete about <span class="math notranslate nohighlight">\(15~\%\)</span> of the water molecules:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">delete_atoms</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="n">fraction</span><span class="w"> </span><span class="m">0.15</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">H2O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">482793</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">yes</span>
+</pre></div>
+</div>
+<p>To create an image of the system, add the following <code class="docutils literal notranslate"><span class="pre">dump</span></code> image
+into <strong>create.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">1.8</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">acolor</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="n">cyan</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="m">3</span>
+</pre></div>
+</div>
+<p>Finally, add the following lines into <strong>create.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">0</span>
+
+<span class="k">write_data </span><span class="nv nv-Identifier">create.data</span><span class="w"> </span><span class="n">nocoeff</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">0</span></code> command runs the simulation for 0 steps, which is sufficient for
+creating the system and saving its state.  The <code class="docutils literal notranslate"><span class="pre">write_data</span></code> command
+generates a file called <strong>system.data</strong> containing the information required
+to restart the simulation from the final configuration produced by this input
+file.  With the <code class="docutils literal notranslate"><span class="pre">nocoeff</span></code> option, the parameters from the force field are
+not included in the <strong>.data</strong> file.  Run the <strong>create.lmp</strong> file using LAMMPS,
+and a file named <strong>create.data</strong> will be created alongside <strong>create.lmp</strong>.</p>
+<figure class="align-default">
+<img alt="LAMMPS: electrolyte made of water and salt between walls" class="only-light" src="../_images/systemcreation-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="LAMMPS: electrolyte made of water and salt between walls" class="only-dark" src="../_images/systemcreation-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Side view of the system.  Periodic images are represented in darker colors.
+Water molecules are in red and white, <span class="math notranslate nohighlight">\(\text{Na}^+\)</span> ions in pink, <span class="math notranslate nohighlight">\(\text{Cl}^-\)</span>
+ions in lime, and wall atoms in gray.  Note the absence of atomic defect at the
+cell boundaries.</p>
+</div>
+</section>
+<section id="energy-minimization">
+<h3>Energy minimization<a class="headerlink" href="#energy-minimization" title="Link to this heading">¶</a></h3>
+<p>Let us move the atoms and place them in more energetically favorable positions
+before starting the actual molecular dynamics simulation.</p>
+<div class="gui admonition">
+<p class="admonition-title">If you are using LAMMPS-GUI</p>
+<p>Open the <strong>equilibrate.lmp</strong> file that was downloaded alongside
+<strong>create.lmp</strong> during the tutorial setup.</p>
+</div>
+<p>Create a new file, <strong>equilibrate.lmp</strong>, and copy the following into it:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">f</span>
+<span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="n">H</span><span class="o">-</span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
+<span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-5</span>
+<span class="k">kspace_modify</span><span class="w"> </span><span class="n">slab</span><span class="w"> </span><span class="m">3.0</span>
+
+<span class="k">read_data</span><span class="w"> </span><span class="n">create.data</span>
+
+<span class="k">include</span><span class="w"> </span><span class="n">parameters.inc</span>
+<span class="k">include</span><span class="w"> </span><span class="n">groups.inc</span>
+</pre></div>
+</div>
+<p>The only difference from the previous input is that, instead of creating a new
+box and new atoms, we open the previously created <strong>create.data</strong> file.</p>
+<p>Now, let us use the SHAKE algorithm to maintain the shape of the
+water molecules <span id="id6">[<a class="reference internal" href="../non-tutorials/bibliography.html#id26" title="Jean-Paul Ryckaert, Giovanni Ciccotti, and Herman JC Berendsen. Numerical integration of the cartesian equations of motion of a system with constraints: molecular dynamics of n-alkanes. Journal of computational physics, 23(3):327–341, 1977.">34</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id27" title="Hans C Andersen. Rattle: a “velocity” version of the shake algorithm for molecular dynamics calculations. Journal of computational Physics, 52(1):24–34, 1983.">35</a>]</span>.</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-5</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">H</span><span class="o">-</span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="n">kbond</span><span class="w"> </span><span class="m">2000</span>
+</pre></div>
+</div>
+<p>Here the SHAKE algorithm applies to the <code class="docutils literal notranslate"><span class="pre">O-H</span></code> bond and the <code class="docutils literal notranslate"><span class="pre">H-O-H</span></code> angle
+of the water molecules.  The <code class="docutils literal notranslate"><span class="pre">kbond</span></code> keyword specifies the force constant that will be
+used to apply a restraint force when used during minimization.  This last keyword is important
+here, because the spring constants of the rigid water molecules were set
+to 0 (see the <strong>parameters.inc</strong> file).</p>
+<p>Let us also create images of the system and control
+the printing of thermodynamic outputs by adding the following lines
+to <strong>equilibrate.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">1.8</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">acolor</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="n">cyan</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="m">3</span>
+
+<span class="k">thermo</span><span class="w"> </span><span class="m">1</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span>
+</pre></div>
+</div>
+<p>Let us perform an energy minization by adding the following lines to <strong>equilibrate.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">1000</span>
+<span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>When running the <strong>equilibrate.lmp</strong> file with LAMMPS, you should observe that the
+total energy of the system is initially very high but rapidly decreases.  From the generated
+images of the system, you will notice that the atoms and molecules are moving to adopt more favorable positions.</p>
+</section>
+<section id="system-equilibration">
+<h3>System equilibration<a class="headerlink" href="#system-equilibration" title="Link to this heading">¶</a></h3>
+<p>Let us equilibrate further the entire system by letting both fluid and piston
+relax at ambient temperature.  Here, the commands are written within the same
+<strong>equilibrate.lmp</strong> file, right after the <code class="docutils literal notranslate"><span class="pre">reset_timestep</span></code> command.</p>
+<p>Let us update the positions of all the atoms and use a Nosé-Hoover
+thermostat.  Add the following lines to <strong>equilibrate.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-5</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">H</span><span class="o">-</span><span class="n">O</span><span class="o">-</span><span class="n">H</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
+</pre></div>
+</div>
+<p>As mentioned previously, the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">recenter</span></code> does not influence the dynamics,
+but will keep the system in the center of the box, which makes the
+visualization easier.  Then, add the following lines into <strong>equilibrate.lmp</strong>
+for the trajectory visualization:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">undump </span><span class="nv nv-Identifier">mydmp</span>
+<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">250</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">1.8</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">acolor</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="n">cyan</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="m">3</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">undump</span></code> command is used to cancel the previous <code class="docutils literal notranslate"><span class="pre">dump</span></code> command.
+Then, a new <code class="docutils literal notranslate"><span class="pre">dump</span></code> command with a larger dumping period is used.</p>
+<p>To monitor the system equilibration, let us print the distance between
+the two walls.  Add the following lines to <strong>equilibrate.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">walltopz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(walltop,z)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">wallbotz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">xcm</span><span class="nv">(wallbot,z)</span>
+<span class="k">variable </span><span class="nv nv-Identifier">deltaz</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">v_walltopz</span><span class="o">-</span><span class="n">v_wallbotz</span>
+
+<span class="k">thermo</span><span class="w"> </span><span class="m">250</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">press</span><span class="w"> </span><span class="n">v_deltaz</span>
+</pre></div>
+</div>
+<p>The first two variables extract the centers of mass of the two walls.  The
+<code class="docutils literal notranslate"><span class="pre">deltaz</span></code> variable is then used to calculate the difference between the two
+variables <code class="docutils literal notranslate"><span class="pre">walltopz</span></code> and <code class="docutils literal notranslate"><span class="pre">wallbotz</span></code>, i.e. the distance between the
+two centers of mass of the walls.</p>
+<p>Finally, let us run the simulation for 30 ps by adding a <code class="docutils literal notranslate"><span class="pre">run</span></code> command
+to <strong>equilibrate.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">run</span><span class="w"> </span><span class="m">30000</span>
+
+<span class="k">write_data </span><span class="nv nv-Identifier">equilibrate.data</span><span class="w"> </span><span class="n">nocoeff</span>
+</pre></div>
+</div>
+<p>Run the <strong>equilibrate.lmp</strong> file using LAMMPS.  Both the pressure and the distance
+between the two walls show oscillations at the start of the simulation
+but eventually stabilize at their equilibrium values toward
+the end of the simulation.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>Note that it is generally recommended to run a longer equilibration.  In this case,
+the slowest process in the system is likely ionic diffusion.
+Therefore, the equilibration period should, in principle, exceed the time required
+for the ions to diffuse across the size of the pore, i.e. <span class="math notranslate nohighlight">\(H_\text{pore}^2/D_\text{ions}\)</span>.
+Using <span class="math notranslate nohighlight">\(H_\text{pore} \approx 1.2~\text{nm}\)</span> as the final pore size
+and <span class="math notranslate nohighlight">\(D_\text{ions} \approx 1.5 \cdot 10^{-9}~\text{m}^2/\text{s}\)</span>
+as the typical diffusion coefficient for sodium chloride in water at room
+temperature <span id="id7">[<a class="reference internal" href="../non-tutorials/bibliography.html#id13" title="Reginald Mills. A remeasurement of the self-diffusion coefficients of sodium ion in aqueous sodium chloride solutions. Journal of the American Chemical Society, 77(23):6116–6119, 1955.">36</a>]</span>, one finds that the equilibration
+should be on the order of one nanosecond.</p>
+</div>
+<figure class="align-default">
+<img alt="Evolution of the pressure and distance for the elecrolyte" class="only-dark" src="../_images/NANOSHEAR-equilibration-dm.png" />
+</figure>
+<figure class="align-default">
+<img alt="Evolution of the pressure and distance for the elecrolyte" class="only-light" src="../_images/NANOSHEAR-equilibration.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: a) Pressure, <span class="math notranslate nohighlight">\(p\)</span>, of the nanosheared electrolyte system as a function
+of the time, <span class="math notranslate nohighlight">\(t\)</span>.  b) Distance between the walls, <span class="math notranslate nohighlight">\(\Delta z\)</span>, as a
+function of <span class="math notranslate nohighlight">\(t\)</span>.</p>
+</div>
+</section>
+<section id="imposed-shearing">
+<h3>Imposed shearing<a class="headerlink" href="#imposed-shearing" title="Link to this heading">¶</a></h3>
+<p>From the equilibrated configuration, let us impose a lateral motion on the two
+walls and shear the electrolyte.</p>
+<div class="gui admonition">
+<p class="admonition-title">If you are using LAMMPS-GUI</p>
+<p>Open the last input file named <strong>shearing.lmp</strong>.</p>
+</div>
+<p>Create a new file, <strong>shearing.lmp</strong>, and copy the following into it:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">f</span>
+<span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="n">H</span><span class="o">-</span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">12.0</span>
+<span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-5</span>
+<span class="k">kspace_modify</span><span class="w"> </span><span class="n">slab</span><span class="w"> </span><span class="m">3.0</span>
+
+<span class="k">read_data</span><span class="w"> </span><span class="n">equilibrate.data</span>
+
+<span class="k">include</span><span class="w"> </span><span class="n">parameters.inc</span>
+<span class="k">include</span><span class="w"> </span><span class="n">groups.inc</span>
+</pre></div>
+</div>
+<p>To address the dynamics of the system, add the following lines to
+<strong>shearing.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">Tfluid</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tfluid</span>
+
+<span class="k">compute </span><span class="nv nv-Identifier">Twall</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt2</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">mynvt2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Twall</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-5</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">H</span><span class="o">-</span><span class="n">O</span><span class="o">-</span><span class="n">H</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
+</pre></div>
+</div>
+<p>One key difference with the previous input is that, here, two thermostats are used,
+one for the fluid (<code class="docutils literal notranslate"><span class="pre">mynvt1</span></code>) and one for the solid (<code class="docutils literal notranslate"><span class="pre">mynvt2</span></code>).
+The combination of <code class="docutils literal notranslate"><span class="pre">fix_modify</span></code> with <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">temp</span></code> ensures
+that the correct temperature values are used by the thermostats.  Using
+<code class="docutils literal notranslate"><span class="pre">compute</span></code> commands for the temperature with <code class="docutils literal notranslate"><span class="pre">temp/partial</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">1</span></code> is
+intended to exclude the <span class="math notranslate nohighlight">\(x\)</span> coordinate from the thermalization, which is important since a
+large velocity will be imposed along the <span class="math notranslate nohighlight">\(x\)</span> direction.</p>
+<p>Then, let us impose the velocity of the two walls by adding the following
+commands to <strong>shearing.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">walltop</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">wallbot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">wallbot</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">-</span><span class="m">2e-4</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="k">velocity </span><span class="nv nv-Identifier">walltop</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="m">2e-4</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">setforce</span></code> commands cancel the forces on <code class="docutils literal notranslate"><span class="pre">walltop</span></code> and
+<code class="docutils literal notranslate"><span class="pre">wallbot</span></code>.  As a result, the atoms in these two groups will not
+experience any forces from the rest of the system.  Consequently, in the absence of
+external forces, these atoms will conserve the initial velocities imposed by the
+two <code class="docutils literal notranslate"><span class="pre">velocity</span></code> commands.</p>
+<p>Finally, let us generate images of the systems and print the values of the
+forces exerted by the fluid on the walls, as given by <code class="docutils literal notranslate"><span class="pre">f_mysf1[1]</span></code>
+and <code class="docutils literal notranslate"><span class="pre">f_mysf2[1]</span></code>.  Add these lines to <strong>shearing.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">250</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">1.8</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">    </span><span class="n">acolor</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">Na</span><span class="o">+</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="n">cyan</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">Cl</span><span class="o">-</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">WALL</span><span class="w"> </span><span class="m">3</span>
+
+<span class="k">thermo</span><span class="w"> </span><span class="m">250</span>
+<span class="k">thermo_modify</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">Tfluid</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">f_mysf1[1]</span><span class="w"> </span><span class="n">f_mysf2[1]</span>
+</pre></div>
+</div>
+<p>Let us also extract the density and velocity profiles using
+the <code class="docutils literal notranslate"><span class="pre">chunk/atom</span></code> and <code class="docutils literal notranslate"><span class="pre">ave/chunk</span></code> commands.  These commands are
+used to divide the system into bins and return the desired quantities, here the velocity
+along <span class="math notranslate nohighlight">\(x\)</span> (<code class="docutils literal notranslate"><span class="pre">vx</span></code>) within the bins.  Add the following lines to <strong>shearing.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">cc1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.25</span>
+<span class="k">compute </span><span class="nv nv-Identifier">cc2</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.25</span>
+<span class="k">compute </span><span class="nv nv-Identifier">cc3</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.25</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">myac1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">cc1</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">shearing</span><span class="o">-</span><span class="n">water.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac2</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">cc2</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">shearing</span><span class="o">-</span><span class="n">wall.dat</span>
+<span class="k">fix </span><span class="nv nv-Identifier">myac3</span><span class="w"> </span><span class="nv nv-Identifier">ions</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">chunk</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">15000</span><span class="w"> </span><span class="m">200000</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">cc3</span><span class="w"> </span><span class="n">density</span><span class="o">/</span><span class="n">mass</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">shearing</span><span class="o">-</span><span class="n">ions.dat</span>
+
+<span class="k">run</span><span class="w"> </span><span class="m">200000</span>
+</pre></div>
+</div>
+<p>Here, a bin size of <span class="math notranslate nohighlight">\(0.25\,\text{Å}\)</span> is used for the density
+profiles generated by the <code class="docutils literal notranslate"><span class="pre">ave/chunk</span></code> commands, and three
+<strong>.dat</strong> files are created for the water, the walls, and the ions,
+respectively.  With values of <code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">15000</span> <span class="pre">200000</span></code>, the velocity
+<code class="docutils literal notranslate"><span class="pre">vx</span></code> will be evaluated every 10 steps during the final 150,000
+steps of the simulations.  The result will be averaged and printed only
+once at the 200,000 th step.</p>
+<p>Run the simulation using LAMMPS.  The averaged velocity
+profile for the fluid is plotted below.
+As expected for such Couette flow geometry, the fluid velocity increases
+linearly along <span class="math notranslate nohighlight">\(z\)</span>, and is equal to the walls velocities at the fluid-solid
+interfaces (no-slip boundary conditions).</p>
+<figure class="align-default">
+<img alt="Velocity profiles for the elecrolyte" class="only-dark" src="../_images/NANOSHEAR-profiles-dm.png" />
+</figure>
+<figure class="align-default">
+<img alt="Velocity profiles for the elecrolyte" class="only-light" src="../_images/NANOSHEAR-profiles.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Velocity profiles for water (blue) and walls (orange) along the <span class="math notranslate nohighlight">\(z\)</span>-axis.</p>
+</div>
+<p>From the force applied by the fluid on the solid, one can extract the stress
+within the fluid, which enables the measurement of its viscosity <span class="math notranslate nohighlight">\(\eta\)</span>
+according to</p>
+<div class="math-wrapper docutils container" id="equation-eq-eta">
+<div class="math notranslate nohighlight" id="equation-eq-eta">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eq-eta" title="Link to this equation">¶</a></span>\[\eta = \tau / \dot{\gamma}\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(\tau\)</span> is the stress applied by
+the fluid on the shearing wall, and <span class="math notranslate nohighlight">\(\dot{\gamma}\)</span> the shear rate
+<span id="id8">[<a class="reference internal" href="../non-tutorials/bibliography.html#id50" title="Simon Gravelle, Catherine Kamal, and Lorenzo Botto. Violations of Jeffery's theory in the dynamics of nanographene in shear flow. Physical Review Fluids, 6(3):034303, 2021.">37</a>]</span>.  Here, the shear rate is
+approximately <span class="math notranslate nohighlight">\(\dot{\gamma} = 20 \cdot 10^9\,\text{s}^{-1}\)</span>,
+the average force on each wall is given by <code class="docutils literal notranslate"><span class="pre">f_mysf1[1]</span></code> and <code class="docutils literal notranslate"><span class="pre">f_mysf2[1]</span></code>
+and is approximately <span class="math notranslate nohighlight">\(2.7\,\mathrm{kcal/mol/Å}\)</span> in magnitude.  Using a surface area
+for the walls of <span class="math notranslate nohighlight">\(A = 6 \cdot 10^{-18}\,\text{m}^2\)</span>, one obtains an estimate for
+the shear viscosity for the confined fluid of <span class="math notranslate nohighlight">\(\eta = 3.1\,\text{mPa.s}\)</span> using Eq. <a class="reference internal" href="tutorial.html#equation-eq-eta">(1)</a>.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>The viscosity calculated at such a high shear rate may differ from the expected
+<em>bulk</em> value.  In general, it is recommended to use a lower value for the
+shear rate.  Note that for lower shear rates, the ratio of noise-to-signal is
+larger, and longer simulations are needed.  Another important point to consider
+is that the viscosity of a fluid next to a solid surface is typically larger
+than in bulk due to interaction with the walls <span id="id9">[<a class="reference internal" href="../non-tutorials/bibliography.html#id25" title="Amanuel Wolde-Kidan and Roland R. Netz. Interplay of Interfacial Viscosity, Specific-Ion, and Impurity Adsorption Determines Zeta Potentials of Phospholipid Membranes. Langmuir, 37(28):8463–8473, 2021.">38</a>]</span>.
+Therefore, one expects the present simulation to yield a viscosity that is slightly
+higher than what would be measured in the absence of walls.</p>
+</div>
+<div class="non-title-info admonition">
+<p class="admonition-title">Cite</p>
+<p>You can access the input scripts and data files that
+are used in these tutorials from a dedicated <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/" target="_blank">Github repository</a>.
+This repository also contains the full solutions to the exercises.</p>
+</div>
+</section>
+</section>
+<section id="going-further-with-exercises">
+<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">¶</a></h2>
+<section id="induce-a-poiseuille-flow">
+<h3>Induce a Poiseuille flow<a class="headerlink" href="#induce-a-poiseuille-flow" title="Link to this heading">¶</a></h3>
+<p>Instead of inducing a shearing of the fluid using the walls,
+induce a net flux of the liquid in the direction tangential
+to the walls. The walls must be kept immobile.</p>
+<p>Extract the velocity profile, and make sure that the
+resulting velocity profile is consistent with the Poiseuille equation,
+which can be derived from the Stokes equation <span class="math notranslate nohighlight">\(\eta \nabla \textbf{v} = - \textbf{f} \rho\)</span>
+where <span class="math notranslate nohighlight">\(f\)</span> is the applied force,
+<span class="math notranslate nohighlight">\(\rho\)</span> is the fluid density,
+<span class="math notranslate nohighlight">\(\eta\)</span> is the fluid viscosity.</p>
+<figure class="align-default">
+<img alt="Velocity of the fluid forming a Poiseuille flow" class="only-light" src="../_images/shearing-poiseuille-light.png" />
+</figure>
+<figure class="align-default">
+<img alt="Velocity of the fluid forming a Poiseuille flow" class="only-dark" src="../_images/shearing-poiseuille-dark.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Velocity profiles of the water molecules along the <em>z</em> axis (disks).
+The line is the Poiseuille equation.</p>
+</div>
+<p>An important step is to choose the proper value for the additional force.</p>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../tutorial5/reactive-silicon-dioxide.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Reactive silicon dioxide</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../tutorial3/polymer-in-water.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Polymer in water</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Nanosheared electrolyte</a><ul>
+<li><a class="reference internal" href="#system-preparation">System preparation</a><ul>
+<li><a class="reference internal" href="#system-generation">System generation</a></li>
+<li><a class="reference internal" href="#energy-minimization">Energy minimization</a></li>
+<li><a class="reference internal" href="#system-equilibration">System equilibration</a></li>
+<li><a class="reference internal" href="#imposed-shearing">Imposed shearing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
+<li><a class="reference internal" href="#induce-a-poiseuille-flow">Induce a Poiseuille flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

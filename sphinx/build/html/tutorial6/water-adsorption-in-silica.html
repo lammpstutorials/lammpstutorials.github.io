@@ -1,0 +1,853 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Free energy calculation" href="../tutorial7/free-energy-calculation.html" /><link rel="prev" title="Reactive silicon dioxide" href="../tutorial5/reactive-silicon-dioxide.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Water adsorption in silica - </title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b1e702db" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">    </div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">    </span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/scope.html">Scope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/contact.html">Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorial1/lennard-jones-fluid.html">Lennard-Jones fluid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial2/breaking-a-carbon-nanotube.html">Pulling on a carbon nanotube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial3/polymer-in-water.html">Polymer in water</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial4/nanosheared-electrolyte.html">Nanosheared electrolyte</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial5/reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Water adsorption in silica</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial7/free-energy-calculation.html">Free energy calculation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/solutions.html">Solutions to the exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/glossary.html">LAMMPS Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/using-lammps-gui.html">Using LAMMPS–GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/running-lammps.html">Running LAMMPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../non-tutorials/command-line.html">Command line</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/tutorial6/water-adsorption-in-silica.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="water-adsorption-in-silica">
+<span id="gcmc-silica-label"></span><h1>Water adsorption in silica<a class="headerlink" href="#water-adsorption-in-silica" title="Link to this heading">¶</a></h1>
+<div class="hatnote docutils container">
+<p>Dealing with a varying number of molecules</p>
+</div>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../_images/avatar-dark.webp"><img alt="Water molecules adsorbed in silica SiO2 porous inorganic material" class="only-dark" src="../_images/avatar-dark.webp" style="height: 250px;" />
+</a>
+</figure>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../_images/avatar-light.webp"><img alt="Water molecules adsorbed in silica SiO2 porous inorganic material" class="only-light" src="../_images/avatar-light.webp" style="height: 250px;" />
+</a>
+</figure>
+<p>The objective of this tutorial is to combine molecular dynamics and
+grand canonical Monte Carlo simulations to compute the adsorption of water
+molecules in cracked silica material.  This tutorial
+illustrates the use of the grand canonical ensemble in molecular simulation, an
+open ensemble where the number of atoms or molecules in the simulation box can vary.
+By employing the grand canonical ensemble, we will set the chemical
+potential of water within a nanoporous <span class="math notranslate nohighlight">\(\text{SiO}_2\)</span> structure.</p>
+<p>If you are completely new to LAMMPS, we recommend that
+you follow this tutorial on a simple <a class="reference internal" href="../tutorial1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a> first.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Cite</p>
+<p>If you find these tutorials useful, you can
+cite <em>A Set of Tutorials for the LAMMPS Simulation Package</em> by Simon Gravelle,
+Jacob R. Gissinger, and Axel Kohlmeyer (2025) <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id66" title="Simon Gravelle, Jacob R Gissinger, and Axel Kohlmeyer. A set of tutorials for the lammps simulation package. arXiv preprint arXiv:2503.14020, 2025.">14</a>]</span>. You
+can access the full paper on <a href="https://doi.org/10.48550/arXiv.2503.14020" target="_blank">arXiv</a>.</p>
+</div>
+<div class="version docutils container">
+<p>This tutorial is compatible with the 29Aug2024 (update 2) LAMMPS version.</p>
+</div>
+<section id="generation-of-the-silica-block">
+<h2>Generation of the silica block<a class="headerlink" href="#generation-of-the-silica-block" title="Link to this heading">¶</a></h2>
+<p>To begin this tutorial, if you are using LAMMPS–GUI, select <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Tutorial</span> <span class="pre">6</span></code>
+from the <code class="docutils literal notranslate"><span class="pre">Tutorials</span></code> menu and follow the instructions. Alternatively, if you are
+not using LAMMPS–GUI, create a new folder and add a file named
+<strong>generate.lmp</strong>. Open the file in a text editor and paste in the following
+content:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">metal</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">vashishta</span>
+<span class="k">neighbor</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">bin</span>
+<span class="k">neigh_modify</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>The main difference from some of the previous tutorials is the use of the <code class="docutils literal notranslate"><span class="pre">Vashishta</span></code>
+pair style.  The Vashishta potential implicitly models atomic bonds through
+energy terms dependent on interatomic distances and angles <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id49" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">40</a>]</span>.</p>
+<p>Let us create a box for two atom types, <code class="docutils literal notranslate"><span class="pre">Si</span></code>
+of mass 28.0855 g/mol and <code class="docutils literal notranslate"><span class="pre">O</span></code> of mass 15.9994 g/mol.
+Add the following lines to <strong>generate.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">box</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">18.0</span><span class="w"> </span><span class="m">18.0</span><span class="w"> </span><span class="o">-</span><span class="m">9.0</span><span class="w"> </span><span class="m">9.0</span><span class="w"> </span><span class="o">-</span><span class="m">9.0</span><span class="w"> </span><span class="m">9.0</span>
+<span class="k">create_box </span><span class="nv nv-Identifier">2</span><span class="w"> </span><span class="nv nv-Identifier">box</span>
+<span class="k">labelmap</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">O</span>
+<span class="k">mass</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="m">28.0855</span>
+<span class="k">mass</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="m">15.9994</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">240</span><span class="w"> </span><span class="m">5802</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">480</span><span class="w"> </span><span class="m">1072</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">500</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">create_atoms</span></code> commands are used to place
+240 Si atoms, and 480 atoms, respectively.  This corresponds to
+an initial density of approximately <span class="math notranslate nohighlight">\(2 \, \text{g/cm}^3\)</span>, which is close
+to the expected final density of amorphous silica at 300 K.</p>
+<p>Now, specify the pair coefficients by indicating that the first atom type
+is <code class="docutils literal notranslate"><span class="pre">Si</span></code> and the second is <code class="docutils literal notranslate"><span class="pre">O</span></code>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
+</pre></div>
+</div>
+<p>Ensure that the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/SiO.1990.vashishta" target="_blank">SiO.1990.vashishta</a> file is located in the same directory as <strong>generate.lmp</strong>.</p>
+<p>Next, add a <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">image</span></code> command to <strong>generate.lmp</strong> to follow the
+evolution of the system with time:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">250</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">3.4</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="m">1700</span><span class="w"> </span><span class="m">700</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">yellow</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="m">2</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<img alt="Amorphous silica block" class="only-dark" src="../_images/generated-silica-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="Amorphous silica block" class="only-light" src="../_images/generated-silica-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Amorphous silica (<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>). Silicon atoms are
+represented in yellow, and oxygen atoms in red.</p>
+</div>
+<p>Let us also print the box volume and system density, alongside the
+temperature and total energy:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">thermo</span><span class="w"> </span><span class="m">250</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="n">density</span>
+</pre></div>
+</div>
+<p>Finally, let us implement the annealing procedure which
+consists of three consecutive runs.  This procedure was inspired
+by Ref. <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id12" title="Raffaele Guido Della Valle and Hans C Andersen. Molecular dynamics simulation of silica liquid and glass. The Journal of chemical physics, 97(4):2682–2689, 1992.">43</a>]</span>.  First, to melt the system,
+a <span class="math notranslate nohighlight">\(10\,\text{ps}\)</span> phase at <span class="math notranslate nohighlight">\(T = 6000\,\text{K}\)</span> is performed:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">8289</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="n">gaussian</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
+<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+</pre></div>
+</div>
+<p>Next, a second phase, during which the system is cooled down from <span class="math notranslate nohighlight">\(T = 6000\,\text{K}\)</span>
+to <span class="math notranslate nohighlight">\(T = 300\,\text{K}\)</span>, is implemented as follows:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">run</span><span class="w"> </span><span class="m">30000</span>
+</pre></div>
+</div>
+<p>In the third step, the system is equilibrated at the final desired
+conditions, <span class="math notranslate nohighlight">\(T = 300\,\text{K}\)</span> and <span class="math notranslate nohighlight">\(p = 1\,\text{atm}\)</span>,
+using an anisotropic pressure coupling:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">unfix </span><span class="nv nv-Identifier">mynvt</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">aniso</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+<span class="k">run</span><span class="w"> </span><span class="m">10000</span>
+
+<span class="k">write_data </span><span class="nv nv-Identifier">generate.data</span>
+</pre></div>
+</div>
+<p>Here, an anisotropic barostat is used.
+Anisotropic barostats adjust the dimensions independently, which is
+generally suitable for a solid phase.</p>
+<p>Run the simulation using LAMMPS.  From the <code class="docutils literal notranslate"><span class="pre">Charts</span></code> window, the temperature
+evolution can be observed, showing that it closely follows the desired annealing procedure.
+The evolution of the box dimensions over time confirms that the box deformed during the
+last stage of the simulation.  After the simulation completes, the final LAMMPS topology
+file called <strong>generate.data</strong> will be located next to <strong>generate.lmp</strong>.</p>
+<figure class="align-default">
+<img alt="Temperature and density of the silicon" class="only-dark" src="../_images/GCMC-dimension-dm.png" />
+</figure>
+<figure class="align-default">
+<img alt="Temperature and density of the silicon" class="only-light" src="../_images/GCMC-dimension.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: a) Temperature, <span class="math notranslate nohighlight">\(T\)</span>, as a function of time, <span class="math notranslate nohighlight">\(t\)</span>, during the annealing
+of the silica system.  b) System density, <span class="math notranslate nohighlight">\(\rho\)</span>, during the annealing process.  The vertical dashed lines
+mark the transition between the different phases of the simulation.</p>
+</div>
+</section>
+<section id="cracking-the-silica">
+<h2>Cracking the silica<a class="headerlink" href="#cracking-the-silica" title="Link to this heading">¶</a></h2>
+<p>Create a new file called <strong>cracking.lmp</strong>, and copy the following familiar lines:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">metal</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">vashishta</span>
+<span class="k">neighbor</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">bin</span>
+<span class="k">neigh_modify</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">1</span>
+
+<span class="k">read_data</span><span class="w"> </span><span class="n">generate.data</span>
+
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
+
+<span class="k">dump </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">250</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">3.4</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="m">1700</span><span class="w"> </span><span class="m">700</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">yellow</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="m">2</span>
+
+<span class="k">thermo</span><span class="w"> </span><span class="m">250</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="n">density</span>
+</pre></div>
+</div>
+<div class="gui admonition">
+<p class="admonition-title">If you are using LAMMPS-GUI</p>
+<p>Open the <strong>cracking.lmp</strong> file.</p>
+</div>
+<p>Let us progressively increase the size of the box in the <span class="math notranslate nohighlight">\(x\)</span> direction,
+forcing the silica to deform and eventually crack.  To achive this,
+the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">deform</span></code> command is used, with a rate
+of <span class="math notranslate nohighlight">\(0.005\,\text{ps}^{-1}\)</span>.  Add the following lines to
+the <strong>cracking.lmp</strong> file:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
+<span class="k">fix </span><span class="nv nv-Identifier">nvt1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mydef</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">deform</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">erate</span><span class="w"> </span><span class="m">0.005</span>
+<span class="k">run</span><span class="w"> </span><span class="m">50000</span>
+
+<span class="k">write_data </span><span class="nv nv-Identifier">cracking.data</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">nvt</span></code> command is employed to control the temperature of the system.
+As observed from the generated images, the atoms
+progressively adjust to the changing box dimensions.  At some point,
+bonds begin to break, leading to the appearance of
+dislocations.</p>
+<figure class="align-default">
+<img alt="Amorphous cracked silica block" class="only-dark" src="../_images/cracked-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="Amorphous cracked silica block" class="only-light" src="../_images/cracked-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Block of silica after deformation.  Silicon atoms are represented in yellow,
+and oxygen atoms in red.  The crack was induced by the
+imposed deformation of the box along the <span class="math notranslate nohighlight">\(x\)</span>-axis (i.e., the horizontal axis).</p>
+</div>
+</section>
+<section id="adding-water">
+<h2>Adding water<a class="headerlink" href="#adding-water" title="Link to this heading">¶</a></h2>
+<p>To add the water molecules to the silica, we will employ the Monte Carlo
+method in the grand canonical ensemble (GCMC).  In short, the system is
+placed into contact with a virtual reservoir of a given chemical
+potential <span class="math notranslate nohighlight">\(\mu\)</span>, and multiple attempts to insert water molecules at
+random positions are made.  Each attempt is either accepted or rejected
+based on energy considerations.  For further details, please refer to
+classical textbooks like Ref. <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id8" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">6</a>]</span>.</p>
+<section id="using-hydrid-potentials">
+<h3>Using hydrid potentials<a class="headerlink" href="#using-hydrid-potentials" title="Link to this heading">¶</a></h3>
+<p>The first particularly of our system is that it combines water and
+silica, which necessitates the use of two force fields: Vashishta (for
+<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>), and TIP4P (for water).  Here, the TIP4P/2005 model is
+employed for the water <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id53" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">4</a>]</span>.</p>
+<p>Create a new file called <strong>gcmc.lmp</strong>, and copy the following lines into it:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">metal</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">neighbor</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">bin</span>
+<span class="k">neigh_modify</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">1</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">hybrid</span><span class="o">/</span><span class="n">overlay</span><span class="w"> </span><span class="n">vashishta</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="n">HW</span><span class="o">-</span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">10</span>
+<span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-5</span>
+<span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
+</pre></div>
+</div>
+<div class="gui admonition">
+<p class="admonition-title">If you are using LAMMPS-GUI</p>
+<p>Open the <strong>gcmc.lmp</strong> file.</p>
+</div>
+<p>Combining the two force fields, Vashishta and TIP4P/2005, is achieved
+using the <code class="docutils literal notranslate"><span class="pre">hybrid/overlay</span></code> pair style.  The PPPM
+solver <span id="id6">[<a class="reference internal" href="../non-tutorials/bibliography.html#id37" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">25</a>]</span> is specified with the <code class="docutils literal notranslate"><span class="pre">kspace</span></code>
+command, and is used to compute the long-range Coulomb interactions associated
+with <code class="docutils literal notranslate"><span class="pre">tip4p/long</span></code>.  Finally, the style for the bonds
+and angles of the water molecules are defined; however, these specifications are
+not critical since TIP4P/2005 is a rigid water model.</p>
+<p>The water molecule template called <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/H2O.mol" target="_blank">H2O.mol</a>
+must be downloaded and located next to <strong>gcmc.lmp</strong>.</p>
+<p>Before going further, we need to make a few changes to our data file.
+Currently, the <strong>cracking.data</strong> file includes only two atom types, but we require four.
+Copy the previously generated <strong>cracking.data</strong>, and name the duplicate <strong>cracking-mod.data</strong>.
+Make the following changes to the beginning of <strong>cracking-mod.data</strong>
+to ensure it matches the following format (with 4 atom types,
+1 bond type, 1 angle type, the proper type labels, and four masses):</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">720</span><span class="w"> </span><span class="n">atoms</span>
+<span class="m">4</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
+<span class="m">1</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">types</span>
+<span class="m">1</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">types</span>
+
+<span class="m">2</span><span class="w"> </span><span class="n">extra</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">atom</span>
+<span class="m">1</span><span class="w"> </span><span class="n">extra</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">atom</span>
+<span class="m">2</span><span class="w"> </span><span class="n">extra</span><span class="w"> </span><span class="n">special</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">atom</span>
+
+<span class="o">-</span><span class="m">22.470320800269317</span><span class="w"> </span><span class="m">22.470320800269317</span><span class="w"> </span><span class="n">xlo</span><span class="w"> </span><span class="n">xhi</span>
+<span class="o">-</span><span class="m">8.579178758211475</span><span class="w"> </span><span class="m">8.579178758211475</span><span class="w"> </span><span class="n">ylo</span><span class="w"> </span><span class="n">yhi</span>
+<span class="o">-</span><span class="m">8.491043517346204</span><span class="w"> </span><span class="m">8.491043517346204</span><span class="w"> </span><span class="n">zlo</span><span class="w"> </span><span class="n">zhi</span>
+
+<span class="n">Atom</span><span class="w"> </span><span class="n">Type</span><span class="w"> </span><span class="n">Labels</span>
+
+<span class="m">1</span><span class="w"> </span><span class="n">Si</span>
+<span class="m">2</span><span class="w"> </span><span class="n">O</span>
+<span class="m">3</span><span class="w"> </span><span class="n">OW</span>
+<span class="m">4</span><span class="w"> </span><span class="n">HW</span>
+
+<span class="n">Bond</span><span class="w"> </span><span class="n">Type</span><span class="w"> </span><span class="n">Labels</span>
+
+<span class="m">1</span><span class="w"> </span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span>
+
+<span class="n">Angle</span><span class="w"> </span><span class="n">Type</span><span class="w"> </span><span class="n">Labels</span>
+
+<span class="m">1</span><span class="w"> </span><span class="n">HW</span><span class="o">-</span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span>
+
+<span class="n">Masses</span>
+
+<span class="m">1</span><span class="w"> </span><span class="m">28.0855</span>
+<span class="m">2</span><span class="w"> </span><span class="m">15.9994</span>
+<span class="m">3</span><span class="w"> </span><span class="m">15.9994</span>
+<span class="m">4</span><span class="w"> </span><span class="m">1.008</span>
+
+<span class="n">Atoms</span><span class="w"> </span><span class="c"># full</span>
+
+<span class="nv">(...)</span>
+</pre></div>
+</div>
+<p>Doing so, we anticipate that there will be 4 atom types in the simulations,
+with the oxygens and hydrogens of <span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span> having
+types <code class="docutils literal notranslate"><span class="pre">OW</span></code> and <code class="docutils literal notranslate"><span class="pre">HW</span></code>, respectively.  There
+will also be 1 bond type (<code class="docutils literal notranslate"><span class="pre">OW-HW</span></code>) and 1 angle type (<code class="docutils literal notranslate"><span class="pre">OW-HW-HW</span></code>).
+The <code class="docutils literal notranslate"><span class="pre">extra</span> <span class="pre">bond</span></code>, <code class="docutils literal notranslate"><span class="pre">extra</span> <span class="pre">angle</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">extra</span> <span class="pre">special</span></code> lines are here for memory allocation.</p>
+<p>We can now proceed to complete the <strong>gcmc.lmp</strong> file by adding the system definition:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">read_data</span><span class="w"> </span><span class="n">cracking</span><span class="o">-</span><span class="n">mod.data</span>
+<span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O.mol</span>
+<span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3245</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">4585</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
+
+<span class="k">group </span><span class="nv nv-Identifier">SiO</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
+<span class="k">group </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">HW</span>
+</pre></div>
+</div>
+<p>After reading the data file and defining the <code class="docutils literal notranslate"><span class="pre">h2omol</span></code> molecule from the <strong>H2O.mol</strong>
+file, the <code class="docutils literal notranslate"><span class="pre">create_atoms</span></code> command is used to include three water molecules
+in the system.  Then, add the following <code class="docutils literal notranslate"><span class="pre">pair_coeff</span></code> (and
+<code class="docutils literal notranslate"><span class="pre">bond_coeff</span></code> and <code class="docutils literal notranslate"><span class="pre">angle_coeff</span></code>) commands
+to <strong>gcmc.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">vashishta</span><span class="w"> </span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0057</span><span class="w"> </span><span class="m">4.42</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0043</span><span class="w"> </span><span class="m">3.12</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.008</span><span class="w"> </span><span class="m">3.1589</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
+<span class="k">bond_coeff</span><span class="w"> </span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.9572</span>
+<span class="k">angle_coeff</span><span class="w"> </span><span class="n">HW</span><span class="o">-</span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104.52</span>
+</pre></div>
+</div>
+<p>The force field Vashishta applies only to <code class="docutils literal notranslate"><span class="pre">Si</span></code> and <code class="docutils literal notranslate"><span class="pre">O</span></code> of <span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>,
+and not to the <code class="docutils literal notranslate"><span class="pre">OW</span></code> and <code class="docutils literal notranslate"><span class="pre">HW</span></code> of <span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>, thanks to the <code class="docutils literal notranslate"><span class="pre">NULL</span></code> parameters
+used for atoms of types <code class="docutils literal notranslate"><span class="pre">OW</span></code> and <code class="docutils literal notranslate"><span class="pre">HW</span></code>.  Pair coefficients for the <code class="docutils literal notranslate"><span class="pre">lj/cut/tip4p/long</span></code>
+potential are defined between O(<span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>) and between H(<span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>)
+atoms, as well as between O(<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>)-O(<span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>) and
+Si(<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>)-O(<span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>). Thus,  the fluid-fluid and the
+fluid-solid interactions will be adressed with by the <code class="docutils literal notranslate"><span class="pre">lj/cut/tip4p/long</span></code> potential.
+The <code class="docutils literal notranslate"><span class="pre">bond_coeff</span></code> and <code class="docutils literal notranslate"><span class="pre">angle_coeff</span></code> commands set the <code class="docutils literal notranslate"><span class="pre">OW-HW</span></code>
+bond length to 0.9572 Å, and the <code class="docutils literal notranslate"><span class="pre">HW-OW-HW</span></code>
+angle to <span class="math notranslate nohighlight">\(104.52^\circ\)</span>, respectively <span id="id7">[<a class="reference internal" href="../non-tutorials/bibliography.html#id53" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">4</a>]</span>.</p>
+<p>Add the following lines to <strong>gcmc.lmp</strong> as well:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">oxygen</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">type</span><span class="o">==</span><span class="n">label2type</span><span class="nv">(atom,OW)</span>
+<span class="k">group </span><span class="nv nv-Identifier">oxygen</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="n">oxygen</span>
+<span class="k">variable </span><span class="nv nv-Identifier">nO</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(oxygen)</span>
+
+<span class="k">fix </span><span class="nv nv-Identifier">shak</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-5</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">HW</span><span class="o">-</span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span>
+</pre></div>
+</div>
+<p>The number of oxygen atoms from water molecules (i.e. the number of molecules)
+is calculated by the <code class="docutils literal notranslate"><span class="pre">nO</span></code> variable.  The SHAKE algorithm is used to
+maintain the shape of the water molecules over time <span id="id8">[<a class="reference internal" href="../non-tutorials/bibliography.html#id26" title="Jean-Paul Ryckaert, Giovanni Ciccotti, and Herman JC Berendsen. Numerical integration of the cartesian equations of motion of a system with constraints: molecular dynamics of n-alkanes. Journal of computational physics, 23(3):327–341, 1977.">34</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id27" title="Hans C Andersen. Rattle: a “velocity” version of the shake algorithm for molecular dynamics calculations. Journal of computational Physics, 52(1):24–34, 1983.">35</a>]</span>.</p>
+<p>Finally, let us create images
+of the system using <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">image</span></code>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">250</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">3.4</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="m">1700</span><span class="w"> </span><span class="m">700</span>
+<span class="k">dump_modify </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">acolor</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">yellow</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">acolor</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">acolor</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">cyan</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">acolor</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+</section>
+<section id="gcmc-simulation">
+<h3>GCMC simulation<a class="headerlink" href="#gcmc-simulation" title="Link to this heading">¶</a></h3>
+<p>To prepare for the GCMC simulation, let us add the
+following lines into <strong>gcmc.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">temp</span>
+<span class="k">compute_modify </span><span class="nv nv-Identifier">thermo_temp</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">compute_modify </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">ctH2O</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt2</span><span class="w"> </span><span class="nv nv-Identifier">SiO</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
+</pre></div>
+</div>
+<p>Two different thermostats are used for <span class="math notranslate nohighlight">\(\text{SiO}_2\)</span> and <span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>,
+respectively.  Using separate thermostats is usually better when the system contains
+two separate species, such as a solid and a liquid.  It is particularly important
+to use two thermostats here because the number of water molecules will fluctuate
+with time.  The <code class="docutils literal notranslate"><span class="pre">compute_modify</span></code> command with the <code class="docutils literal notranslate"><span class="pre">dynamic</span> <span class="pre">yes</span></code>
+option for water is used to specify that the number of molecules will not be constant.</p>
+<p>Finally, let us use the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">gcmc</span></code> and perform the grand canonical Monte
+Carlo steps.  Add the following lines into <strong>gcmc.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">tfac</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5.0</span><span class="o">/</span><span class="m">3.0</span>
+<span class="k">fix </span><span class="nv nv-Identifier">fgcmc</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">gcmc</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">65899</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="o">-</span><span class="m">0.5</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">tfac_insert</span><span class="w"> </span><span class="nv">${tfac}</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="n">shak</span><span class="w"> </span><span class="n">full_energy</span><span class="w"> </span><span class="n">pressure</span><span class="w"> </span><span class="m">100</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">tfac_insert</span></code> option ensures the correct estimate for the temperature
+of the inserted water molecules by taking into account the internal degrees of
+freedom.  Here, 100 insertion and deletion attemps are made every 100 steps.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>At a pressure of <span class="math notranslate nohighlight">\(p = 100\,\text{bar}\)</span>, the chemical potential of water vapor at <span class="math notranslate nohighlight">\(T = 300\,\text{K}\)</span>
+can be calculated using as <span class="math notranslate nohighlight">\(\mu = \mu_0 + RT \ln (\frac{p}{p_0}),\)</span> where <span class="math notranslate nohighlight">\(\mu_0\)</span> is the standard
+chemical potential (typically taken at a pressure <span class="math notranslate nohighlight">\(p_0 = 1 \, \text{bar}\)</span>), <span class="math notranslate nohighlight">\(R = 8.314\, \text{J/mol·K}\)</span>
+is the gas constant, <span class="math notranslate nohighlight">\(T = 300\,\text{K}\)</span> is the temperature.</p>
+</div>
+<p>Finally, let us print some information and run for 25 ps:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">thermo</span><span class="w"> </span><span class="m">250</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">v_nO</span><span class="w"> </span><span class="n">f_fgcmc[3]</span><span class="w"> </span><span class="n">f_fgcmc[4]</span><span class="w"> </span><span class="n">f_fgcmc[5]</span><span class="w"> </span><span class="n">f_fgcmc[6]</span>
+
+<span class="k">run</span><span class="w"> </span><span class="m">25000</span>
+</pre></div>
+</div>
+<p>Running this simulation using LAMMPS, one can see that the number of molecules is increasing
+progressively.  When using the pressure argument, LAMMPS ignores the value of the
+chemical potential (here <span class="math notranslate nohighlight">\(\mu = -0.5\,\text{eV}\)</span>, which corresponds roughly to
+ambient conditions, i.e. to a relative humidity <span class="math notranslate nohighlight">\(\text{RH} \approx 50\,\%\)</span> <span id="id9">[<a class="reference internal" href="../non-tutorials/bibliography.html#id16" title="Simon Gravelle and Jacques Dumais. A multi-scale model for fluid transport through a bio-inspired passive valve. The Journal of Chemical Physics, 2020.">44</a>]</span>.)
+The large pressure value of 100 bars was chosen to ensure that some successful
+insertions of molecules would occur during the short duration of this simulation.</p>
+<figure class="align-default">
+<img alt="Number of water molecules from GCMC somulations" class="only-dark" src="../_images/GCMC-number-dm.png" />
+</figure>
+<figure class="align-default">
+<img alt="Number of water molecules from GCMC somulations" class="only-light" src="../_images/GCMC-number.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Number of water molecules, <span class="math notranslate nohighlight">\(N_\text{H2O}\)</span>, as a function of time, <span class="math notranslate nohighlight">\(t\)</span>.</p>
+</div>
+<p>After a few GCMC steps, the number of molecules starts increasing.  Once the
+crack is filled with water molecules, the total number of molecules reaches a plateau.  The final number of
+molecules depends on the imposed pressure, temperature, and the interaction
+between water and silica (i.e. its hydrophilicity).  Note that GCMC simulations
+of such dense phases are usually slow to converge due to the very low probability
+of successfully inserting a molecule.  Here, the short simulation duration was
+made possible by the use of a high pressure.</p>
+<figure class="align-default">
+<img alt="Amorphous cracked silica block solvated with water" class="only-dark" src="../_images/solvated-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="Amorphous cracked silica block solvated with water" class="only-light" src="../_images/solvated-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Snapshot of the silica system after the adsorption of water molecules.
+The oxygen atoms of the water molecules are represented in cyan, the silicon
+atoms in yellow, and the oxygen atoms of the solid in red.</p>
+</div>
+<div class="non-title-info admonition">
+<p class="admonition-title">Cite</p>
+<p>You can access the input scripts and data files that
+are used in these tutorials from a dedicated <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/" target="_blank">Github repository</a>.
+This repository also contains the full solutions to the exercises.</p>
+</div>
+</section>
+</section>
+<section id="going-further-with-exercises">
+<h2>Going further with exercises<a class="headerlink" href="#going-further-with-exercises" title="Link to this heading">¶</a></h2>
+<section id="mixture-adsorption">
+<h3>Mixture adsorption<a class="headerlink" href="#mixture-adsorption" title="Link to this heading">¶</a></h3>
+<p>Adapt the existing script and insert both <span class="math notranslate nohighlight">\(\text{CO}_2\)</span> molecules
+and water molecules within the silica crack using GCMC.
+Download the <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/MixtureH2OCO2/CO2.mol" target="_blank">CO2 template</a>. The parameters for the
+<span class="math notranslate nohighlight">\(\text{CO}_2\)</span>
+molecule are the following:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0179</span><span class="w"> </span><span class="m">2.625854</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0106</span><span class="w"> </span><span class="m">2.8114421</span>
+<span class="k">bond_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46.121</span><span class="w"> </span><span class="m">1.17</span>
+<span class="k">angle_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2.0918</span><span class="w"> </span><span class="m">180</span>
+</pre></div>
+</div>
+<p>The atom of type 5 is an oxygen of
+mass 15.9994, and the atom of type 6 is a carbon of mass 12.011.</p>
+<figure class="align-default">
+<img alt="silica block adsorbed water and CO2" class="only-dark" src="../_images/H2O-CO2-dark.png" />
+</figure>
+<figure class="align-default">
+<img alt="silica block adsorbed water and CO2" class="only-light" src="../_images/H2O-CO2-light.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Cracked silica with adsorbed water and <span class="math notranslate nohighlight">\(\text{CO}_2\)</span> molecules (in green).</p>
+</div>
+</section>
+<section id="adsorb-water-in-zif-8-nanopores">
+<h3>Adsorb water in ZIF-8 nanopores<a class="headerlink" href="#adsorb-water-in-zif-8-nanopores" title="Link to this heading">¶</a></h3>
+<figure class="align-right">
+<a class="only-dark reference internal image-reference" href="../_images/zif8-dark.png"><img alt="zif-8 with water" class="only-dark" src="../_images/zif8-dark.png" style="height: 250px;" />
+</a>
+</figure>
+<figure class="align-right">
+<a class="only-light reference internal image-reference" href="../_images/zif8-light.png"><img alt="zif-8 with water" class="only-light" src="../_images/zif8-light.png" style="height: 250px;" />
+</a>
+</figure>
+<p>Use the same protocol as the one implemented in this tutorial to add water
+molecules to a Zif-8 nanoporous material. A snapshot of the system with a
+few water molecules is shown on the right.</p>
+<p>Download the initial Zif-8 <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/zif-8.data" target="_blank">structure</a>,
+the <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/parm.lammps" target="_blank">parameters</a> file, and this
+new <a href="../../../../../lammpstutorials-inputs/level3/water-adsorption-in-silica/Exercises/Zif-8/water.mol" target="_blank">water template</a>. The ZIF-8 structure is made
+of 7 atom types (C1, C2, C3, H2, H3, N, Zn), connected
+by bonds, angles, dihedrals, and impropers. It uses the
+same <em>pair_style</em> as water,
+so there is no need to use <em>hybrid pair_style</em>.
+Your <em>input</em> file should start like this:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
+<span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
+<span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
+<span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
+<span class="k">dihedral_style</span><span class="w"> </span><span class="n">charmm</span>
+<span class="k">improper_style</span><span class="w"> </span><span class="n">harmonic</span>
+
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.105</span><span class="w"> </span><span class="m">14.0</span>
+<span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-5</span>
+
+<span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">coul</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.833</span>
+</pre></div>
+</div>
+<p>An important note: here, water occupies the atom types 1 and 2,
+instead of 3 and 4 in the case of SiO2 from the main section
+of the tutorial.</p>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../tutorial7/free-energy-calculation.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Free energy calculation</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../tutorial5/reactive-silicon-dioxide.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Reactive silicon dioxide</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Water adsorption in silica</a><ul>
+<li><a class="reference internal" href="#generation-of-the-silica-block">Generation of the silica block</a></li>
+<li><a class="reference internal" href="#cracking-the-silica">Cracking the silica</a></li>
+<li><a class="reference internal" href="#adding-water">Adding water</a><ul>
+<li><a class="reference internal" href="#using-hydrid-potentials">Using hydrid potentials</a></li>
+<li><a class="reference internal" href="#gcmc-simulation">GCMC simulation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#going-further-with-exercises">Going further with exercises</a><ul>
+<li><a class="reference internal" href="#mixture-adsorption">Mixture adsorption</a></li>
+<li><a class="reference internal" href="#adsorb-water-in-zif-8-nanopores">Adsorb water in ZIF-8 nanopores</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>
