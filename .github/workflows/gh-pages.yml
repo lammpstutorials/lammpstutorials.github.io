@@ -17,16 +17,17 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository (with submodules)
+        uses: actions/checkout@v3
         with:
-          context: .
           submodules: recursive
           fetch-depth: 0
+
       - name: Set up Python
         uses: actions/setup-python@v2.2.1
         with:
-          context: .
           python-version: 3.9
+          
       - name: Install sphinx
         run: |
           pip install sphinx
@@ -36,12 +37,14 @@ jobs:
           pip install sphinx-favicon
           pip install sphinxcontrib.bibtex
           pip install sphinx-tabs
+          
       - name: Build
         run: |
           cd docs/sphinx/
           make clean
           make html
           cp source/index_replace.html build/html/index.html
+          
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
