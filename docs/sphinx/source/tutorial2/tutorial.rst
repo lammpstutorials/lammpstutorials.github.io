@@ -77,7 +77,7 @@ as well as the identity of the atoms that are linked by ``bonds``, ``angles``,
 
 .. |unbreakable_data| raw:: html
 
-   <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/unbreakable.data" target="_blank">unbreakable.data</a>
+   <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/unbreakable.data" target="_blank">unbreakable.data</a>
 
 .. admonition:: Note
     :class: non-title-info
@@ -381,7 +381,7 @@ the **unbreakable.yaml** file can then be used to plot the stress-strain curve.
 
 .. |yaml_reader| raw:: html
 
-   <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/unbreakable-yaml-reader.py" target="_blank">unbreakable-yaml-reader.py</a>
+   <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/unbreakable-yaml-reader.py" target="_blank">unbreakable-yaml-reader.py</a>
 
 .. figure:: figures/CNT-unbreakable-stress-strain-dm.png
     :class: only-dark
@@ -430,11 +430,11 @@ and must be placed next to **breakable.lmp**.
 
 .. |breakable_lmp| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/breakable.lmp" target="_blank">breakable.lmp</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/breakable.lmp" target="_blank">breakable.lmp</a>
 
 .. |CH_airebo| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/CH.airebo" target="_blank">CH.airebo</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/CH.airebo" target="_blank">CH.airebo</a>
 
 .. admonition:: Note
     :class: non-title-info
@@ -458,7 +458,7 @@ the :math:`x`-axis, to allow for larger deformation of the CNT.
 
 .. |breakable_data| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/breakable.data" target="_blank">breakable.data</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/breakable.data" target="_blank">breakable.data</a>
 
 Start the simulation
 --------------------
@@ -546,7 +546,7 @@ curve reveals a linear (elastic) regime where
 
 .. |unbreakable_yaml_reader| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/unbreakable-yaml-reader.py" target="_blank">unbreakable-yaml-reader.py</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/unbreakable-yaml-reader.py" target="_blank">unbreakable-yaml-reader.py</a>
 
 .. figure:: figures/CNT-breakable-stress-energy-dm.png
     :class: only-dark
@@ -597,4 +597,4 @@ force fields with explicit bonds.
 
 .. |breakable_with_tip| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/breakable-with-tip.lmp" target="_blank">breakable-with-tip.lmp</a>,
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/breakable-with-tip.lmp" target="_blank">breakable-with-tip.lmp</a>,

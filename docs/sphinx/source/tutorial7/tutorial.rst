@@ -438,7 +438,7 @@ Then, run the WHAM algorithm by typing the following command in the terminal:
 
 .. |umbrella_sampling_meta| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial7/umbrella-sampling.meta" target="_blank">umbrella-sampling.meta</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial7/umbrella-sampling.meta" target="_blank">umbrella-sampling.meta</a>
 
 .. code-block:: bash
 
