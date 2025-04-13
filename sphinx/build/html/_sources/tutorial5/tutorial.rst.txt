@@ -35,7 +35,7 @@ charge of :math:`q = 1.1\,\text{e}`, and all oxygen atoms have a charge of :math
 
 .. |silica_data_5| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/silica.data" target="_blank">silica.data</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial5/silica.data" target="_blank">silica.data</a>
 
 .. admonition:: Note
     :class: non-title-info
@@ -66,7 +66,7 @@ equilibrate the charge.
 
 .. |reaxCHOFe_inc_5| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/reaxCHOFe.inc" target="_blank">reaxCHOFe.inc</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial5/reaxCHOFe.inc" target="_blank">reaxCHOFe.inc</a>
 
 Next, add the following commands to the **relax.lmp** file to track the
 evolution of the charges during the simulation:

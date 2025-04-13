@@ -363,7 +363,7 @@ convenience when parameterizing the force constants for bonds, angles, and
 so on.  By excluding the non-bonded (Lennard-Jones) interactions for
 these pairs, those interactions do not need to be considered when determining
 the force constants.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">read_data</span></code> command imports the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/unbreakable.data" target="_blank">unbreakable.data</a>
+<p>The <code class="docutils literal notranslate"><span class="pre">read_data</span></code> command imports the <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/unbreakable.data" target="_blank">unbreakable.data</a>
 file that should be downloaded next to <strong>unbreakable.lmp</strong>. This file contains information about the box size, atom positions,
 as well as the identity of the atoms that are linked by <code class="docutils literal notranslate"><span class="pre">bonds</span></code>, <code class="docutils literal notranslate"><span class="pre">angles</span></code>,
 <code class="docutils literal notranslate"><span class="pre">dihedrals</span></code>, and <code class="docutils literal notranslate"><span class="pre">impropers</span></code> interactions. It was created using VMD and TopoTools
@@ -614,7 +614,7 @@ CNT, and <span class="math notranslate nohighlight">\(r_\text{cnt}=5.2\,\text{Å
 as <span class="math notranslate nohighlight">\((L_\text{cnt}-L_\text{cnt-0})/L_\text{cnt-0}\)</span>, where <span class="math notranslate nohighlight">\(L_\text{cnt-0}\)</span> is the initial CNT length.</p>
 <p>Right-click inside the <code class="docutils literal notranslate"><span class="pre">Output</span></code> window, and select
 <code class="docutils literal notranslate"><span class="pre">Export</span> <span class="pre">YAML</span> <span class="pre">data</span> <span class="pre">to</span> <span class="pre">file</span></code>.  Call the output <strong>unbreakable.yaml</strong>, and save
-it within the same folder as the input files, where a Python script named <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/unbreakable-yaml-reader.py" target="_blank">unbreakable-yaml-reader.py</a> should also
+it within the same folder as the input files, where a Python script named <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/unbreakable-yaml-reader.py" target="_blank">unbreakable-yaml-reader.py</a> should also
 be located.  When executed using Python, this .py file first imports
 the <strong>unbreakable.yaml</strong> file.  Then, a certain pattern is
 identified and stored as a string character named <code class="docutils literal notranslate"><span class="pre">docs</span></code>.  The string is
@@ -649,7 +649,7 @@ force field that allows bonds to break if the applied deformation is
 large enough.</p>
 <section id="input-file-initialization">
 <h3>Input file initialization<a class="headerlink" href="#input-file-initialization" title="Link to this heading">¶</a></h3>
-<p>Open the input named <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/breakable.lmp" target="_blank">breakable.lmp</a>
+<p>Open the input named <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/breakable.lmp" target="_blank">breakable.lmp</a>
 that should have been downloaded next to <strong>unbreakable.lmp</strong> during
 the tutorial setup.  There are only a few differences with the previous
 input.  First, the AIREBO force field requires the <code class="docutils literal notranslate"><span class="pre">metal</span></code> units
@@ -661,7 +661,7 @@ AIREBO.  The following commands are setting up the AIREBO force field:</p>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CH.airebo</span><span class="w"> </span><span class="n">C</span>
 </pre></div>
 </div>
-<p>Here, <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/CH.airebo" target="_blank">CH.airebo</a> is the file containing the parameters for AIREBO,
+<p>Here, <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/CH.airebo" target="_blank">CH.airebo</a> is the file containing the parameters for AIREBO,
 and must be placed next to <strong>breakable.lmp</strong>.</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
@@ -673,7 +673,7 @@ the timestep or the time constant of a thermostat, or velocities.</p>
 </div>
 <p>Since bonds, angles, and dihedrals do not need to be explicitly set when
 using AIREBO, some simplification must be made to the <strong>.data</strong>
-file.  The new <strong>.data</strong> file is named <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/breakable.data" target="_blank">breakable.data</a>
+file.  The new <strong>.data</strong> file is named <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/breakable.data" target="_blank">breakable.data</a>
 and must be placed within the same folder as the input file.  Just like
 <strong>unbreakable.data</strong>, the <strong>breakable.data</strong> contains the
 information required for placing the atoms in the box, but no
@@ -748,7 +748,7 @@ VMD <span id="id8">[<a class="reference internal" href="../non-tutorials/bibliog
 energy <span class="math notranslate nohighlight">\(E\)</span> is initially increasing with the deformation.  When bonds
 break, the energy relaxes abruptly, as can be seen near <span class="math notranslate nohighlight">\(t=32~\text{ps}\)</span>.
 Using a similar script as previously,
-i.e., <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/unbreakable-yaml-reader.py" target="_blank">unbreakable-yaml-reader.py</a>, import the data into Python and generate
+i.e., <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/unbreakable-yaml-reader.py" target="_blank">unbreakable-yaml-reader.py</a>, import the data into Python and generate
 the stress-strain curve.  The stress-strain
 curve reveals a linear (elastic) regime where
 <span class="math notranslate nohighlight">\(F_\text{cnt} \propto \Delta L_\text{cnt}\)</span> for
@@ -771,7 +771,7 @@ Here, the potential is AIREBO, and the CNT is breakable.</p>
 </section>
 <section id="tip-bonds-representation-with-airebo">
 <h3>Tip: bonds representation with AIREBO<a class="headerlink" href="#tip-bonds-representation-with-airebo" title="Link to this heading">¶</a></h3>
-<p>In the input file named <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/breakable-with-tip.lmp" target="_blank">breakable-with-tip.lmp</a>,,
+<p>In the input file named <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/breakable-with-tip.lmp" target="_blank">breakable-with-tip.lmp</a>,,
 which is an alternate solution for <strong>breakable.lmp</strong>, a trick is
 used to represent bonds while using AIREBO.  A detailed explanation of
 the script is beyond the scope of the present tutorial.  In short, the

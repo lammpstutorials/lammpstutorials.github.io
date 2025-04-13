@@ -38,7 +38,7 @@ CNT.  Add the following line to **mixing.lmp**:
 
 .. |CNT_data_8| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/CNT.data" target="_blank">CNT.data</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/CNT.data" target="_blank">CNT.data</a>
 
 .. code-block:: lammps
 
@@ -51,7 +51,7 @@ we will use the |styrene_mol_8| molecule template file. Include the following co
 
 .. |styrene_mol_8| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/styrene.mol" target="_blank">styrene.mol</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/styrene.mol" target="_blank">styrene.mol</a>
 
 .. code-block:: lammps
 
@@ -175,39 +175,39 @@ for polymer.
 
 .. |M_M_pre_mol_8| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-M_pre.mol" target="_blank">M-M_pre.mol</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/M-M_pre.mol" target="_blank">M-M_pre.mol</a>
 
 .. |M_M_post_mol_8| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-M_post.mol" target="_blank">M-M_post.mol</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/M-M_post.mol" target="_blank">M-M_post.mol</a>
 
 .. |M_M_rxnmap_8| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-M.rxnmap" target="_blank">M-M.rxnmap</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/M-M.rxnmap" target="_blank">M-M.rxnmap</a>
 
 .. |M_P_pre_mol_8| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-P_pre.mol" target="_blank">M-P_pre.mol</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/M-P_pre.mol" target="_blank">M-P_pre.mol</a>
 
 .. |M_P_post_mol_8| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-P_post.mol" target="_blank">M-P_post.mol</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/M-P_post.mol" target="_blank">M-P_post.mol</a>
 
 .. |M_P_rxnmap_8| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/M-P.rxnmap" target="_blank">M-P.rxnmap</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/M-P.rxnmap" target="_blank">M-P.rxnmap</a>
 
 .. |P_P_pre_mol_8| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/P-P_pre.mol" target="_blank">P-P_pre.mol</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/P-P_pre.mol" target="_blank">P-P_pre.mol</a>
 
 .. |P_P_post_mol_8| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/P-P_post.mol" target="_blank">P-P_post.mol</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/P-P_post.mol" target="_blank">P-P_post.mol</a>
 
 .. |P_P_rxnmap_8| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial8/P-P.rxnmap" target="_blank">P-P.rxnmap</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/P-P.rxnmap" target="_blank">P-P.rxnmap</a>
 
 Simulating the reaction
 -----------------------
