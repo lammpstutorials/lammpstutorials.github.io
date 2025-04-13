@@ -59,7 +59,7 @@ distances, etc).  Thus add to **water.lmp** the line:
 
 .. |parameters_inc_3| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/parameters.inc" target="_blank">parameters.inc</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial3/parameters.inc" target="_blank">parameters.inc</a>
 
 .. code-block:: lammps
 
@@ -105,7 +105,7 @@ or the IDs of the atoms that are connected by bonds and angles.
 
 .. |water_mol_3| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/water.mol" target="_blank">water.mol</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial3/water.mol" target="_blank">water.mol</a>
 
 .. figure:: figures/PEG-density-dm.png
     :class: only-dark
@@ -271,7 +271,7 @@ commands to **merge.lmp**:
 
 .. |peg_mol_3| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/peg.mol" target="_blank">peg.mol</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial3/peg.mol" target="_blank">peg.mol</a>
 
 .. code-block:: lammps
         
@@ -500,7 +500,7 @@ Then, replace the existing ``dump`` and ``dump_modify`` commands with:
 
 .. |pull_with_tip_lmp_3| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/pull-with-tip.lmp" target="_blank">pull-with-tip.lmp</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial3/pull-with-tip.lmp" target="_blank">pull-with-tip.lmp</a>
 
 .. code-block:: lammps
 

@@ -100,7 +100,7 @@ bonds, and angles.  Add the following lines to **create.lmp**:
 
 .. |water_mol_4| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial4/water.mol" target="_blank">water.mol</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial4/water.mol" target="_blank">water.mol</a>
 
 .. code-block:: lammps
 
@@ -152,11 +152,11 @@ must be located next to **create.lmp**. The **parameters.inc** file contains the
 
 .. |parameters_inc_4| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial4/parameters.inc" target="_blank">parameters.inc</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial4/parameters.inc" target="_blank">parameters.inc</a>
 
 .. |groups_inc_4| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial4/groups.inc" target="_blank">groups.inc</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial4/groups.inc" target="_blank">groups.inc</a>
 
 .. code-block:: lammps
 
