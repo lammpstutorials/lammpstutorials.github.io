@@ -21,6 +21,7 @@ lammpstutorials by Simon Gravelle : LAMMPS courses for beginners
     tutorial5/reactive-silicon-dioxide.rst
     tutorial6/water-adsorption-in-silica.rst
     tutorial7/free-energy-calculation.rst
+    tutorial8/reactive-molecular-dynamics.rst
 
 .. toctree::
     :maxdepth: 2

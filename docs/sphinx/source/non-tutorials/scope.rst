@@ -3,7 +3,7 @@
 Scope
 *****
 
-This set of tutorials consists of seven tutorials arranged in order of
+This set of tutorials consists of eight tutorials arranged in order of
 increasing difficulty.  The novelties associated with each tutorial are
 briefly described below.
 
@@ -59,8 +59,7 @@ an energy barrier, this tutorial describes a protocol
 for addressing energy landscapes that are difficult to sample using
 classical MD or MC methods.
 
-..
-    In :ref:`bond-react-label`, a CNT embedded in
-    nylon-6,6 polymer melt is simulated.  The
-    REACTER protocol is used to model the polymerization of nylon, and the formation
-    of water molecules is tracked over time~\cite{gissinger2020reacter}.
+In :ref:`bond-react-label`, a CNT embedded in
+nylon-6,6 polymer melt is simulated.  The
+REACTER protocol is used to model the polymerization of nylon, and the formation
+of water molecules is tracked over time~\cite{gissinger2020reacter}.
