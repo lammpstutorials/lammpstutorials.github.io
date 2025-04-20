@@ -217,6 +217,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../tutorial5/reactive-silicon-dioxide.html">Reactive silicon dioxide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial6/water-adsorption-in-silica.html">Water adsorption in silica</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial7/free-energy-calculation.html">Free energy calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reactive-molecular-dynamics.html">Reactive Molecular Dynamics</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra content</span></p>
 <ul>
@@ -268,9 +269,9 @@
         <article role="main" id="furo-main-content">
           <section id="creating-the-system">
 <h1>Creating the system<a class="headerlink" href="#creating-the-system" title="Link to this heading">¶</a></h1>
-<p>To begin this tutorial, select <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Tutorial</span> <span class="pre">8</span></code> from the
-<code class="docutils literal notranslate"><span class="pre">Tutorials</span></code> menu of LAMMPS–GUI and follow the instructions.
-The editor should display the following content corresponding to <strong>mixing.lmp</strong>:</p>
+<p>To begin this tutorial, select <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Tutorial</span> <span class="pre">8</span></code> from the <code class="docutils literal notranslate"><span class="pre">Tutorials</span></code> menu
+of LAMMPS–GUI and follow the instructions. The editor should display the
+following content corresponding to <strong>mixing.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
@@ -286,14 +287,19 @@ The editor should display the following content corresponding to <strong>mixing.
 <span class="k">special_bonds</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">coul</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">class2</span></code> styles compute a 6/9 Lennard-Jones potential <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id58" title="Huai Sun. Compass: an ab initio force-field optimized for condensed-phase applications overview with details on alkane and benzene compounds. The Journal of Physical Chemistry B, 102(38):7338–7364, 1998.">59</a>]</span>.
+<p>The <code class="docutils literal notranslate"><span class="pre">class2</span></code> styles compute a 6/9 Lennard-Jones potential <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id58" title="Huai Sun. Compass: an ab initio force-field optimized for condensed-phase applications overview with details on alkane and benzene compounds. The Journal of Physical Chemistry B, 102(38):7338–7364, 1998.">58</a>]</span>.
 The <code class="docutils literal notranslate"><span class="pre">class2</span></code> bond, angle, dihedral, and improper styles are used as
 well, see the documentation for a description of their respective potentials.
 The <code class="docutils literal notranslate"><span class="pre">mix</span> <span class="pre">sixthpower</span></code> imposes the following mixing rule for the calculation
 of the cross coefficients:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\sigma_{ij} &amp; = &amp; 2^{-1/6} (\sigma^6_i+\sigma_j^6)^{1/6}, ~ \text{and}\\\epsilon_{ij} &amp; = &amp; \dfrac{2 \sqrt{\epsilon_i \epsilon_j} \sigma^3_i \sigma^3_j}{\sigma^6_i+\sigma_j^6}.\end{aligned}\end{align} \]</div>
+\[\sigma_{ij} = 2^{-1/6} (\sigma^6_i+\sigma_j^6)^{1/6},\]</div>
+</div>
+<p>and</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\epsilon_{ij} = \dfrac{2 \sqrt{\epsilon_i \epsilon_j} \sigma^3_i \sigma^3_j}{\sigma^6_i+\sigma_j^6}.\]</div>
 </div>
 <p>Let us read the <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/CNT.data" target="_blank">CNT.data</a> file, which contains a periodic single-walled
 CNT.  Add the following line to <strong>mixing.lmp</strong>:</p>
@@ -405,7 +411,7 @@ post-reaction template, and reaction map file:</p>
 <li><p><a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/P-P_post.mol" target="_blank">P-P_post.mol</a>,</p></li>
 <li><p><a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/P-P.rxnmap" target="_blank">P-P.rxnmap</a>.</p></li>
 </ul>
-<p>Here, the file names for each reaction use the abbreviation <a href="#id2"><span class="problematic" id="id3">`</span></a>M’ for monomer and <a href="#id4"><span class="problematic" id="id5">`</span></a>P’
+<p>Here, the file names for each reaction use the abbreviation <code class="docutils literal notranslate"><span class="pre">M</span></code> for monomer and <code class="docutils literal notranslate"><span class="pre">P</span></code>
 for polymer.</p>
 </section>
 <section id="simulating-the-reaction">
@@ -463,9 +469,17 @@ corresponds to a reaction, e.g., a transformation of <code class="docutils liter
 based on the atom map <strong>M-M.rxnmap</strong>.  Implementation details about each reaction,
 such as the reaction distance cutoffs and the frequency with which to search for
 reaction sties, are also specified in this command.</p>
-<p>ADD REACT-final FIGURE: Final configuration.
+<figure class="align-default">
+<img alt="Evolution of reacting species" class="only-dark" src="../_images/REACT-composite-dm.png" />
+</figure>
+<figure class="align-default">
+<img alt="Evolution of reacting species" class="only-light" src="../_images/REACT-composite.png" />
+</figure>
+<div class="figurelegend docutils container">
+<p>Figure: Initial (left) and final (right) configuration.
 The atoms from the formed polymer named <code class="docutils literal notranslate"><span class="pre">c1</span></code>, <code class="docutils literal notranslate"><span class="pre">c2</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">c3</span></code> are colored in pink.</p>
+</div>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
 <p>The command <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">bond/react</span></code> creates several groups of atoms that are dynamically updated

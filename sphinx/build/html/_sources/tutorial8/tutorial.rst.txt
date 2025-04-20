@@ -1,9 +1,9 @@
 Creating the system
 ===================
 
-To begin this tutorial, select ``Start Tutorial 8`` from the
-``Tutorials`` menu of LAMMPS--GUI and follow the instructions.
-The editor should display the following content corresponding to **mixing.lmp**:
+To begin this tutorial, select ``Start Tutorial 8`` from the ``Tutorials`` menu
+of LAMMPS--GUI and follow the instructions. The editor should display the
+following content corresponding to **mixing.lmp**:
 
 .. code-block:: lammps
 
@@ -29,9 +29,13 @@ of the cross coefficients:
 
 .. math::
 
-    \sigma_{ij} & = & 2^{-1/6} (\sigma^6_i+\sigma_j^6)^{1/6}, ~ \text{and}
+    \sigma_{ij} = 2^{-1/6} (\sigma^6_i+\sigma_j^6)^{1/6},
 
-    \epsilon_{ij} & = & \dfrac{2 \sqrt{\epsilon_i \epsilon_j} \sigma^3_i \sigma^3_j}{\sigma^6_i+\sigma_j^6}.
+and
+
+.. math::
+
+    \epsilon_{ij} = \dfrac{2 \sqrt{\epsilon_i \epsilon_j} \sigma^3_i \sigma^3_j}{\sigma^6_i+\sigma_j^6}.
 
 Let us read the |CNT_data_8| file, which contains a periodic single-walled
 CNT.  Add the following line to **mixing.lmp**:
@@ -170,7 +174,7 @@ The third reaction uses the prefix ``P-P``,
 - |P_P_post_mol_8|,
 - |P_P_rxnmap_8|.
 
-Here, the file names for each reaction use the abbreviation `M' for monomer and `P'
+Here, the file names for each reaction use the abbreviation ``M`` for monomer and ``P``
 for polymer.
 
 .. |M_M_pre_mol_8| raw:: html
@@ -275,9 +279,19 @@ based on the atom map **M-M.rxnmap**.  Implementation details about each reactio
 such as the reaction distance cutoffs and the frequency with which to search for
 reaction sties, are also specified in this command.
 
-ADD REACT-final FIGURE: Final configuration.
-The atoms from the formed polymer named ``c1``, ``c2``, and
-``c3`` are colored in pink.
+.. figure:: figures/REACT-composite-dm.png
+    :class: only-dark
+    :alt: Evolution of reacting species
+
+.. figure:: figures/REACT-composite.png
+    :class: only-light
+    :alt: Evolution of reacting species
+
+..  container:: figurelegend
+
+    Figure: Initial (left) and final (right) configuration.
+    The atoms from the formed polymer named ``c1``, ``c2``, and
+    ``c3`` are colored in pink.
 
 .. admonition:: Note
     :class: non-title-info
