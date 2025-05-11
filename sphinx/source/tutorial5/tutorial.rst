@@ -27,6 +27,8 @@ So far, the input is very similar to what was seen in the previous tutorials.
 Some basic parameters are defined (``units`` and ``atom_style``),
 and a **.data** file is imported by the ``read_data`` command.
 
+.. include:: ../shared/needhelp.rst
+
 The initial topology given by |silica_data_5|
 is a small amorphous silica structure.  This structure was created using a force field called
 Vashishta :cite:`vashishta1990interaction`.  If you open the **silica.data**

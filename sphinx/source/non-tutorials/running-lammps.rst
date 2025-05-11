@@ -58,7 +58,7 @@ LAMMPS--GUI.  Among other options:
   windows is updated every 10 milliseconds.  Set this to 100 milliseconds or more
   if LAMMPS--GUI consumes too many resources during a run.  The ``Charts update interval``
   controls the time interval between redrawing the plots in the ``Charts`` window, in milliseconds.
--The ``Accelerators`` tab enables you to select an accelerator package
+- The ``Accelerators`` tab enables you to select an accelerator package
   for LAMMPS to use.  Only settings supported by the LAMMPS library and local hardware
   are available.  The ``Number of threads`` field allows you to set the maximum
   number of threads for accelerator packages that utilize threading.

@@ -9,12 +9,10 @@ Lennard Jones fluid
 Fix a broken input
 ------------------
 
-.. container:: justify
-
-    A possibility to make the simulation start without error
-    is to reduce the initial *timestep* value as well as
-    the imposed *temperature*. You can download the
-    working |input_broken_solution| I wrote. These are the main commands:
+A possibility to make the simulation start without error
+is to reduce the initial *timestep* value as well as
+the imposed *temperature*. You can download the
+working |input_broken_solution| I wrote. These are the main commands:
 
 .. |input_broken_solution| raw:: html
 
@@ -25,24 +23,18 @@ Fix a broken input
     fix mylgv all langevin 0.001 0.001 0.001 1530917
     timestep 0.0001
 
-.. container:: justify
+Note that to make sure that the temperature of the particles
+quickly reaches a reasonable value, the *damping* parameter
+of the *fix Langevin* was also reduced to 0.001 (in time units) instead
+of the 0.1 used in the rest of the tutorial.
 
-    Note that to make sure that the temperature of the particles
-    quickly reaches a reasonable value, the *damping* parameter
-    of the *fix Langevin* was also reduced to 0.001 (in time units) instead
-    of the 0.1 used in the rest of the tutorial.
+After the first *run* finishes, the energy of the system 
+should be significantly reduced. Therefore, a second consecutive *run*
+with the original *timestep* and *Langevin* parameters
+can start without triggering the *Lost atoms* error. 
 
-.. container:: justify
-
-    After the first *run* finishes, the energy of the system 
-    should be significantly reduced. Therefore, a second consecutive *run*
-    with the original *timestep* and *Langevin* parameters
-    can start without triggering the *Lost atoms* error. 
-
-.. container:: justify
-
-    In some cases, more than two consecutive *runs* with progressively
-    increasing timestep is necessary:
+In some cases, more than two consecutive *runs* with progressively
+increasing timestep is necessary:
 
 ..  code-block:: lammps
 
@@ -56,12 +48,10 @@ Fix a broken input
     timestep 0.01
     run 10000
 
-.. container:: justify
-
-    An alternative solution was proposed by Joni Suopanki from the University
-    of Oulu in Finland. His solution consists of making the LJ potential
-    softer by using small values for :math:`\sigma_{11}`, as least during the
-    very first steps of the simulation:  
+An alternative solution was proposed by Joni Suopanki from the University
+of Oulu in Finland. His solution consists of making the LJ potential
+softer by using small values for :math:`\sigma_{11}`, as least during the
+very first steps of the simulation:  
 
 ..  code-block:: lammps
 
@@ -75,10 +65,8 @@ Fix a broken input
 Create a demixed dense phase
 ----------------------------
 
-.. container:: justify
-
-    You can download the |input_demixed_solution| I wrote. Note that 
-    I use large numbers of particles: 8000 for each type. 
+You can download the |input_demixed_solution| I wrote. Note that 
+I use large numbers of particles: 8000 for each type. 
 
 .. |input_demixed_solution| raw:: html
 
@@ -95,69 +83,55 @@ Create a demixed dense phase
     pair_coeff 2 2 5.0 1.0
     pair_coeff 1 2 0.05 1.0
 
-.. container:: justify
+Here, both particle types have the same :math:`\sigma` value of 1.0
+so that both particles have the same diameter. There is a large energy
+parameter :math:`\epsilon_{11} = \epsilon_{22} = 5.0` for self-interaction (i.e. interaction 
+between particles of the same type), and a low 
+energy parameter :math:`\epsilon_{12} = 0.05` for interaction between particles
+of different types.
 
-    Here, both particle types have the same :math:`\sigma` value of 1.0
-    so that both particles have the same diameter. There is a large energy
-    parameter :math:`\epsilon_{11} = \epsilon_{22} = 5.0` for self-interaction (i.e. interaction 
-    between particles of the same type), and a low 
-    energy parameter :math:`\epsilon_{12} = 0.05` for interaction between particles
-    of different types.
-
-.. container:: justify
-
-    Finally, to easily adjust the system density and create a liquid-looking
-    phase, the pressure was imposed by replacing *fix nve* by *fix nph*:
+Finally, to easily adjust the system density and create a liquid-looking
+phase, the pressure was imposed by replacing *fix nve* by *fix nph*:
 
 ..  code-block:: lammps
 
     fix mynph all nph iso 1.0 1.0 1.0
 
-.. container:: justify
-
-    With *fix nph* and a pressure of 1, LAMMPS adjusts the box dimensions until the 
-    pressure is close to 1. Here, reaching a pressure of 1 requires reducing
-    the initial box dimensions.
+With *fix nph* and a pressure of 1, LAMMPS adjusts the box dimensions until the 
+pressure is close to 1. Here, reaching a pressure of 1 requires reducing
+the initial box dimensions.
 
 From atoms to molecules
 -----------------------
 
-.. container:: justify
-
-    You can download an example of |input_dumbbell_solution| for simulating
-    dumbell molecules. 
+You can download an example of |input_dumbbell_solution| for simulating
+dumbell molecules. 
     
 .. |input_dumbbell_solution| raw:: html
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/dumbbell/input.lammps" target="_blank">input</a>
 
-.. container:: justify
-
-    The first important change to make to the inputs from the
-    tutorial is the *atom_style*: an *atom_style* that allows for the atoms
-    to be connected by bonds is needed.
-    It is also necessary to specify the *bond_style*,
-    i.e. the type of potential (here harmonic) that will keep the atoms
-    together:
+The first important change to make to the inputs from the
+tutorial is the *atom_style*: an *atom_style* that allows for the atoms
+to be connected by bonds is needed.
+It is also necessary to specify the *bond_style*,
+i.e. the type of potential (here harmonic) that will keep the atoms
+together:
 
 ..  code-block:: lammps
 
     atom_style molecular
     bond_style harmonic
 
-.. container:: justify
-
-    When creating the box, it is necessary to make
-    memory space for the bond:
+When creating the box, it is necessary to make
+memory space for the bond:
 
 ..  code-block:: lammps
 
     create_box 2 simulation_box bond/types 1 extra/bond/per/atom 1
 
-.. container:: justify
-
-    Then, one just needs to import the *molecule template*, and use the template
-    when creating the atoms as follows:
+Then, one just needs to import the *molecule template*, and use the template
+when creating the atoms as follows:
 
 ..  code-block:: lammps
 
@@ -165,11 +139,9 @@ From atoms to molecules
     create_atoms 1 random 500 341341 simulation_box
     create_atoms 0 random 5 678865 simulation_box mol dumbell 8754
 
-.. container:: justify
-
-    You can download the molecule template by clicking |mol_dumbbell_solution|.
-    Finally, some parameters for the bond, namely its rigidity (5) and equilibrium
-    length (2.5) need to be specified:
+You can download the molecule template by clicking |mol_dumbbell_solution|.
+Finally, some parameters for the bond, namely its rigidity (5) and equilibrium
+length (2.5) need to be specified:
 
 ..  code-block:: lammps
 
@@ -179,11 +151,9 @@ From atoms to molecules
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/dumbbell/dumbell.mol" target="_blank">here</a>
 
-.. container:: justify
-
-    For the polymer, the angular potential must be defined to give its
-    rigidity to the polymer. You can download the |input_polymer_solution| and
-    |mol_polymer_solution|.
+For the polymer, the angular potential must be defined to give its
+rigidity to the polymer. You can download the |input_polymer_solution| and
+|mol_polymer_solution|.
     
 .. |input_polymer_solution| raw:: html
 
@@ -199,10 +169,8 @@ Pulling on a carbon nanotube
 Plot the strain-stress curves
 -----------------------------
 
-.. container:: justify
-
-    You can download the |input_stress_strain_solution1|
-    and |input_stress_strain_solution2| I wrote.
+You can download the |input_stress_strain_solution1|
+and |input_stress_strain_solution2| I wrote.
 
 .. |input_stress_strain_solution1| raw:: html
 
@@ -212,33 +180,25 @@ Plot the strain-stress curves
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input for the unbreakable CNT</a>
 
-.. container:: justify
+The stress is calculated as the total force
+induced on the CNT by the pulling divided by the 
+surface area of the CNT. 
 
-    The stress is calculated as the total force
-    induced on the CNT by the pulling divided by the 
-    surface area of the CNT. 
+On a side note, the surface area 
+of a CNT is not a well-defined quantity. Here, I choose to 
+define the area as the perimeter of the CNT multiplied by the 
+effective width of the carbon atoms.
 
-.. container:: justify
-    
-    On a side note, the surface area 
-    of a CNT is not a well-defined quantity. Here, I choose to 
-    define the area as the perimeter of the CNT multiplied by the 
-    effective width of the carbon atoms.
-
-.. container:: justify
-
-    Be careful with units, as the force is either in kcal/mol/Å
-    when the unit is *real*, i.e. for the unbreakable CNT,
-    or in eV/Å when the unit is *metal*, i.e. for the breakable CNT.
+Be careful with units, as the force is either in kcal/mol/Å
+when the unit is *real*, i.e. for the unbreakable CNT,
+or in eV/Å when the unit is *metal*, i.e. for the breakable CNT.
 
 Solve the flying ice cube artifact
 ----------------------------------
 
-.. container:: justify
-
-    The issue occurs because the atoms have a large momentum in the 
-    :math:`x` direction, as can be seen by looking at the net velocity 
-    of the atoms in the *cnt_molecular.data* file.
+The issue occurs because the atoms have a large momentum in the 
+:math:`x` direction, as can be seen by looking at the net velocity 
+of the atoms in the *cnt_molecular.data* file.
 
 ..  code-block:: lammps
 
@@ -249,39 +209,29 @@ Solve the flying ice cube artifact
     25 0.007861090484107148 9.95045322688365e-06 -0.00014277147407215768
     (...)
 
-.. container:: justify
+The Berendsen thermostat is trying to adjust the temperature of the
+system by rescaling the velocity of the atoms, but fails due to the
+large momentum of the system that makes it look like the system is
+warm, since in MD temperature is measured from the kinetic energy.
 
-    The Berendsen thermostat is trying to adjust the temperature of the
-    system by rescaling the velocity of the atoms, but fails due to the
-    large momentum of the system that makes it look like the system is
-    warm, since in MD temperature is measured from the kinetic energy.
+This leads to the system appearing frozen. 
 
-.. container:: justify
-
-    This leads to the system appearing frozen. 
-    
-.. container:: justify
-
-    The solution is to cancel
-    the net momentum of the atoms, for instance by using *fix momentum*,
-    re-setting the velocity with the *velocity create* command,
-    or use a different thermostat.
+The solution is to cancel
+the net momentum of the atoms, for instance by using *fix momentum*,
+re-setting the velocity with the *velocity create* command,
+or use a different thermostat.
 
 Insert gas in the carbon nanotube
 ---------------------------------
 
-.. container:: justify
-
-    You can download the |input_gas_cnt| I wrote.
+You can download the |input_gas_cnt| I wrote.
 
 .. |input_gas_cnt| raw:: html
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/gas/input.lammps" target="_blank">input</a>
 
-.. container:: justify
-
-    The key is to modify the *.data* file
-    to make space for the second atom type 2.
+The key is to modify the *.data* file
+to make space for the second atom type 2.
 
 ..  code-block:: lammps
 
@@ -296,9 +246,7 @@ Insert gas in the carbon nanotube
     1 12.010700 # CA
     2 39.948 # Ar
 
-.. container:: justify
-
-    The *parm.lammps* must contain the second pair coeff:
+The *parm.lammps* must contain the second pair coeff:
 
 ..  code-block:: lammps
 
@@ -306,22 +254,18 @@ Insert gas in the carbon nanotube
     pair_coeff 2 2 0.232 3.3952 
     bond_coeff 1 469 1.4
 
-.. container:: justify
-
-    Combine the *region* and
-    *create_atoms* commands to
-    create the atoms of type 2 within the CNT:
+Combine the *region* and
+*create_atoms* commands to
+create the atoms of type 2 within the CNT:
 
 ..  code-block:: lammps
 
     region inside_CNT cylinder z 0 0 2.5 ${zmin} ${zmax}
     create_atoms 2 random 40 323485 inside_CNT overlap 1.8 maxtry 50
 
-.. container:: justify
-
-    It is good practice to thermalize the CNT separately from the 
-    gas to avoid having a large temperature difference between the two
-    type of atoms. 
+It is good practice to thermalize the CNT separately from the 
+gas to avoid having a large temperature difference between the two
+type of atoms. 
 
 ..  code-block:: lammps
 
@@ -332,10 +276,8 @@ Insert gas in the carbon nanotube
     fix myber2 all temp/berendsen ${T} ${T} 100
     fix_modify myber2 temp tgas
 
-.. container:: justify
-
-    Here I also choose to keep the CNT near its original
-    position, 
+Here I also choose to keep the CNT near its original
+position, 
 
 ..  code-block:: lammps
 
@@ -344,32 +286,24 @@ Insert gas in the carbon nanotube
 Make a membrane of CNTs
 -----------------------
 
-.. container:: justify
-
-    You can download the |input_membrane_solution1| I wrote.
+You can download the |input_membrane_solution1| I wrote.
 
 .. |input_membrane_solution1| raw:: html
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/membrane/input.lammps" target="_blank">input</a>
 
-.. container:: justify
+The CNT can be replicated using the *replicate* command.
+It is recommended to adjust the box size before replicating,
+as done here using the *change_box* command.
 
-    The CNT can be replicated using the *replicate* command.
-    It is recommended to adjust the box size before replicating,
-    as done here using the *change_box* command.
-
-.. container:: justify
-
-    To allow for the deformation of the box along the 
-    *xy* plane, the box has to be changed to triclinic first:
+To allow for the deformation of the box along the 
+*xy* plane, the box has to be changed to triclinic first:
 
 ..  code-block:: lammps
 
     change_box all triclinic
 
-.. container:: justify
-
-    Deformation can be imposed to the system using:
+Deformation can be imposed to the system using:
 
 ..  code-block:: lammps
 
@@ -381,21 +315,17 @@ Polymer in water
 Extract radial distribution function
 ------------------------------------
 
-.. container:: justify
-
-    You can download the |input_PEG_RDF| file I wrote. 
+You can download the |input_PEG_RDF| file I wrote. 
 
 .. |input_PEG_RDF| raw:: html
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/radial-distribution-function/input.lammps" target="_blank">input</a>
 
-.. container:: justify
-
-    I use the *compute rdf* command of LAMMPS
-    to extract the RDF between atoms of type 8 (oxygen from water)
-    and one of the oxygen types from the PEG (1).
-    The 10 first pico seconds are disregarded. Then, once the force
-    is applied to the PEG, a second *fix ave/time* is used.
+I use the *compute rdf* command of LAMMPS
+to extract the RDF between atoms of type 8 (oxygen from water)
+and one of the oxygen types from the PEG (1).
+The 10 first pico seconds are disregarded. Then, once the force
+is applied to the PEG, a second *fix ave/time* is used.
 
 ..  code-block:: lammps
         
@@ -406,11 +336,9 @@ Extract radial distribution function
 Add salt to the mixture
 -----------------------
 
-.. container:: justify
-
-    You can download the |input_PEG_salt|,
-    |data_PEG_salt|,
-    and |parm_PEG_salt| files I wrote. 
+You can download the |input_PEG_salt|,
+|data_PEG_salt|,
+and |parm_PEG_salt| files I wrote. 
 
 .. |input_PEG_salt| raw:: html
 
@@ -424,10 +352,8 @@ Add salt to the mixture
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a>
     
-.. container:: justify
-    
-    It is important to 
-    make space for the two salt atoms by modifying the data file as follows:
+It is important to 
+make space for the two salt atoms by modifying the data file as follows:
 
 ..  code-block:: lammps
 
@@ -435,11 +361,9 @@ Add salt to the mixture
     11 atom types
     (...)
 
-.. container:: justify
-
-    Additional *mass* and *pair_coeff* lines 
-    must also be added to the parm file (be careful to use the 
-    appropriate units):
+Additional *mass* and *pair_coeff* lines 
+must also be added to the parm file (be careful to use the 
+appropriate units):
 
 ..  code-block:: lammps
 
@@ -451,33 +375,25 @@ Add salt to the mixture
     pair_coeff 11 11 0.1500 4.045
     (...)
 
-.. container:: justify
+Finally, here I choose to add the ions using two separate
+*create_atoms* commands with a very small *overlap*
+values, followed by an energy minimization. 
 
-    Finally, here I choose to add the ions using two separate
-    *create_atoms* commands with a very small *overlap*
-    values, followed by an energy minimization. 
-
-.. container:: justify
-
-    Note also the presence of the *set* commands to
-    give a net charge to the ions.
+Note also the presence of the *set* commands to
+give a net charge to the ions.
 
 Evaluate the deformation of the PEG
 -----------------------------------
 
-.. container:: justify
-
-    You can download the |input_PEG_dihedral| file I wrote. 
+You can download the |input_PEG_dihedral| file I wrote. 
 
 .. |input_PEG_dihedral| raw:: html
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/structurePEG/input.lammps" target="_blank">input</a>
 
-.. container:: justify
-
-    The key is to combine the *compute dihedral/local*,
-    which computes the angles of the dihedrals and returns
-    them in a vector, with the *ave/histo* functionalities of LAMMPS:
+The key is to combine the *compute dihedral/local*,
+which computes the angles of the dihedrals and returns
+them in a vector, with the *ave/histo* functionalities of LAMMPS:
 
 ..  code-block:: lammps
 
@@ -485,11 +401,9 @@ Evaluate the deformation of the PEG
     fix myavehisto all ave/histo 10 2000 30000 0 180 500 c_mydihe &
         file initial.histo mode vector
 
-.. container:: justify
-
-    Here I choose to unfix *myavehisto* at the end of the first run,
-    and to re-start it with a different file name during the second phase
-    of the simulation.
+Here I choose to unfix *myavehisto* at the end of the first run,
+and to re-start it with a different file name during the second phase
+of the simulation.
 
 Nanosheared electrolyte
 =======================
@@ -497,16 +411,12 @@ Nanosheared electrolyte
 Induce a Poiseuille flow
 ------------------------
 
-.. container:: justify
+Here, the *input* script written during the last part *Imposed shearing* of the
+tutorial is adapted so that, instead of a shearing induced by the relative motion of the walls,
+the fluid motion is generated by an additional force applied to both water molecules and ions.
 
-    Here, the *input* script written during the last part *Imposed shearing* of the
-    tutorial is adapted so that, instead of a shearing induced by the relative motion of the walls,
-    the fluid motion is generated by an additional force applied to both water molecules and ions.
-    
-.. container:: justify
-
-    To do so, here are the most important commands used to properly
-    thermalize the system:
+To do so, here are the most important commands used to properly
+thermalize the system:
 
 ..  code-block:: lammps
         
@@ -518,44 +428,36 @@ Induce a Poiseuille flow
     fix myber2 wall temp/berendsen 300 300 100
     fix_modify myber2 temp twall
 
-.. container:: justify
-
-    Here, since walls wont move, they can be thermalized in all
-    3 directions and there is
-    no need for recentering. Instead, one can keep the walls 
-    in place by adding springs to every atom:
+Here, since walls wont move, they can be thermalized in all
+3 directions and there is
+no need for recentering. Instead, one can keep the walls 
+in place by adding springs to every atom:
 
 ..  code-block:: lammps
 
     fix myspring wall spring/self 10.0 xyz
 
-.. container:: justify
-
-    Finally, let us apply a force to the fluid group along the :math:`x`
-    direction:
+Finally, let us apply a force to the fluid group along the :math:`x`
+direction:
 
 ..  code-block:: lammps
 
     fix myadf fluid addforce 3e-2 0.0 0.0
 
-.. container:: justify
+The choice of a force equal to :math:`f = 0.03\,\text{kcal/mol/Å}`
+is discussed below.
 
-    The choice of a force equal to :math:`f = 0.03\,\text{kcal/mol/Å}`
-    is discussed below.
+One can have a look at the velocity profiles. The fluid shows the characteristic
+parabolic shape of Poiseuille flow in the case of a non-slip solid surface.
+To obtain smooth-looking data, I ran the simulation for a total duration of :math:`1\,\text{ns}`. 
+To lower the duration of the computation, don't hesitate to
+use a shorter duration like :math:`100\,\text{ps}`.
 
-.. container:: justify
-
-    One can have a look at the velocity profiles. The fluid shows the characteristic
-    parabolic shape of Poiseuille flow in the case of a non-slip solid surface.
-    To obtain smooth-looking data, I ran the simulation for a total duration of :math:`1\,\text{ns}`. 
-    To lower the duration of the computation, don't hesitate to
-    use a shorter duration like :math:`100\,\text{ps}`.
-
-.. figure:: ../tutorials/figures/level2/nanosheared-electrolyte/shearing-poiseuille-light.png
+.. figure:: solutions/shearing-poiseuille-light.png
     :alt: Velocity of the fluid forming a Poiseuille flow
     :class: only-light
 
-.. figure:: ../tutorials/figures/level2/nanosheared-electrolyte/shearing-poiseuille-dark.png
+.. figure:: solutions/shearing-poiseuille-dark.png
     :alt: Velocity of the fluid forming a Poiseuille flow
     :class: only-dark
 
@@ -564,66 +466,54 @@ Induce a Poiseuille flow
     Figure: Velocity profiles of the water molecules along the *z* axis (disks).
     The line is the Poiseuille equation.
     
-.. container:: justify
-
-    The fitting of the velocity profile was made using the following Poiseuille equation,
+The fitting of the velocity profile was made using the following Poiseuille equation,
 
 .. math::
 
     v = - \alpha \dfrac{f \rho}{\eta} \left( \dfrac{z^2}{2} - \dfrac{h^2}{8} \right),
 
-.. container:: justify
+where :math:`\textbf{f}` is the applied force,
+:math:`\rho` is the fluid density,
+:math:`\eta` is the fluid viscosity, and
+:math:`h = 1.2\,\text{nm}` is the pore size. The expression
+for :math:`v` can be derived
+from the Stokes equation :math:`\eta \nabla \textbf{v} = - \textbf{f} \rho`.
+A small correction :math:`\alpha = 0.78` was necessary,
+since using bulk density and bulk viscosity is obviously
+not correct in such nanoconfined pores. More subtle corrections could be applied
+by correcting both density and viscosity based on independent measurements, but this is 
+beyond the scope of the present exercise.
 
-    where :math:`\textbf{f}` is the applied force,
-    :math:`\rho` is the fluid density,
-    :math:`\eta` is the fluid viscosity, and
-    :math:`h = 1.2\,\text{nm}` is the pore size. The expression
-    for :math:`v` can be derived
-    from the Stokes equation :math:`\eta \nabla \textbf{v} = - \textbf{f} \rho`.
-    A small correction :math:`\alpha = 0.78` was necessary,
-    since using bulk density and bulk viscosity is obviously
-    not correct in such nanoconfined pores. More subtle corrections could be applied
-    by correcting both density and viscosity based on independent measurements, but this is 
-    beyond the scope of the present exercise.
+**Choosing the right force**
 
-.. container:: justify
+The first and most important technical difficulty of any
+out-of-equilibrium simulation is to choose the value of the force :math:`f`.
+If the forcing is too large, the system may not be in a linear response regime,
+meaning that the results are forcing-dependent (and likely quite meaningless). If
+the forcing is too small, the motion of the system will be difficult to measure
+due to the low signal-to-noise ratio.
 
-    **Choosing the right force**
-
-.. container:: justify
-
-    The first and most important technical difficulty of any
-    out-of-equilibrium simulation is to choose the value of the force :math:`f`.
-    If the forcing is too large, the system may not be in a linear response regime,
-    meaning that the results are forcing-dependent (and likely quite meaningless). If
-    the forcing is too small, the motion of the system will be difficult to measure
-    due to the low signal-to-noise ratio.
-
-.. container:: justify
-
-    In the present case, one can perform a calibration by running several simulations 
-    with different force values :math:`f`, and then by plotting the velocity of
-    the center of mass :math:`v_\text{cm}` of the fluid as a function of the force.
-    Here, I present the results I have obtained by performing the simulations with 
-    different values of the forcing. :math:`v_\text{cm}` can be extracted by adding the following command
-    to the *input*:
+In the present case, one can perform a calibration by running several simulations 
+with different force values :math:`f`, and then by plotting the velocity of
+the center of mass :math:`v_\text{cm}` of the fluid as a function of the force.
+Here, I present the results I have obtained by performing the simulations with 
+different values of the forcing. :math:`v_\text{cm}` can be extracted by adding the following command
+to the *input*:
 
 ..  code-block:: lammps
 
     variable vcm_fluid equal vcm(fluid,x)
     fix myat1 all ave/time 10 100 1000 v_vcm_fluid file vcm_fluid.dat
 
-.. container:: justify
+The results show that as long as the force is lower
+than about :math:`0.04\,\text{kcal/mol/Å}`, there is reasonable linearity
+between force and fluid velocity.
 
-    The results show that as long as the force is lower
-    than about :math:`0.04\,\text{kcal/mol/Å}`, there is reasonable linearity
-    between force and fluid velocity.
-
-.. figure:: ../tutorials/figures/level2/nanosheared-electrolyte/calibration-force-light.png
+.. figure:: solutions/calibration-force-light.png
     :alt: Velocity of the fluid under imposed force (POISEUILLE FLOW)
     :class: only-light
 
-.. figure:: ../tutorials/figures/level2/nanosheared-electrolyte/calibration-force-dark.png
+.. figure:: solutions/calibration-force-dark.png
     :alt: Velocity of the fluid under imposed force (POISEUILLE FLOW)
     :class: only-dark
 
@@ -638,12 +528,10 @@ Water adsorption in silica
 Mixture adsorption
 ------------------
 
-.. container:: justify
-
-    You can download the |input_mixture| for the combine water and CO2
-    adsorption.
-    One of the first steps is to create both types of molecules
-    before starting the GCMC:
+You can download the |input_mixture| for the combine water and CO2
+adsorption.
+One of the first steps is to create both types of molecules
+before starting the GCMC:
 
 ..  code-block:: lammps
 
@@ -654,10 +542,8 @@ Mixture adsorption
     create_atoms 0 random 5 373823 NULL &
         mol co2mol 989812 overlap 2.0 maxtry 50
 
-.. container:: justify
-
-    One must be careful to properly write the parameters of the system,
-    with all the proper cross coefficients:
+One must be careful to properly write the parameters of the system,
+with all the proper cross coefficients:
 
 ..  code-block:: lammps
 
@@ -677,9 +563,7 @@ Mixture adsorption
     pair_coeff 5 5 lj/cut/tip4p/long 0.0179 2.625854
     pair_coeff 6 6 lj/cut/tip4p/long 0.0106 2.8114421 
 
-.. container:: justify
-
-    Here, I choose to thermalize all species separately:
+Here, I choose to thermalize all species separately:
 
 ..  code-block:: lammps
 
@@ -697,10 +581,8 @@ Mixture adsorption
     fix mynvt3 SiO nvt temp 300 300 0.1
     fix_modify mynvt3 temp ctSiO
 
-.. container:: justify
-
-    Finally, adsorption is made with two separate *fix gcmc* commands
-    placed in a loop: 
+Finally, adsorption is made with two separate *fix gcmc* commands
+placed in a loop: 
 
 ..  code-block:: lammps
 
@@ -722,12 +604,10 @@ Mixture adsorption
     next a
     jump SELF loop
 
-.. container:: justify
-
-    Here I choose to apply the first *fix gcmc* for the :math:`\text{H}_2\text{O}` for 500 steps,
-    then unfix it before starting the second *fix gcmc* for the :math:`\text{CO}_2` for 500 steps as well.
-    Then, thanks to the *jump*, these two fixes are applied successively 30 times each, allowing for the 
-    progressive adsorption of both species.
+Here I choose to apply the first *fix gcmc* for the :math:`\text{H}_2\text{O}` for 500 steps,
+then unfix it before starting the second *fix gcmc* for the :math:`\text{CO}_2` for 500 steps as well.
+Then, thanks to the *jump*, these two fixes are applied successively 30 times each, allowing for the 
+progressive adsorption of both species.
 
 .. |input_mixture| raw:: html
 
@@ -736,34 +616,27 @@ Mixture adsorption
 Adsorb water in ZIF-8 nanopores
 -------------------------------
 
-.. container:: justify
-
-    You can download the |input_zif| for the water adsorption in Zif-8,
-    which you have to place in the same folder as the *zif-8.data*,
-    *parm.lammps*,
-    and *water.mol* files.
+You can download the |input_zif| for the water adsorption in Zif-8,
+which you have to place in the same folder as the *zif-8.data*,
+*parm.lammps*, and *water.mol* files.
 
 .. |input_zif| raw:: html
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/Exercises/Zif-8/input.lammps" target="_blank">input</a>
 
-.. container:: justify
+Apart from the parameters and topology, the *input* is
+quite similar to the one developed in the case of the crack
+silica.
 
-    Apart from the parameters and topology, the *input* is
-    quite similar to the one developed in the case of the crack
-    silica.
+You should observe an increase in the number of molecules with time.
+Run a much longer simulation if you want to saturate the porous material
+with water.
 
-.. container:: justify
-
-    You should observe an increase in the number of molecules with time.
-    Run a much longer simulation if you want to saturate the porous material
-    with water.
-
-.. figure:: ../tutorials/figures/level3/water-adsorption-in-silica/number_evolution_zif-light.png
+.. figure:: solutions/number_evolution_zif-light.png
     :alt: Water molecule in Zif material with GCMC in LAMMPS
     :class: only-light
 
-.. figure:: ../tutorials/figures/level3/water-adsorption-in-silica/number_evolution_zif-dark.png
+.. figure:: solutions/number_evolution_zif-dark.png
     :alt: Water molecule in Zif material with GCMC in LAMMPS
     :class: only-dark
 
@@ -777,22 +650,16 @@ Free energy calculation
 The binary fluid that won't mix
 -------------------------------
 
-..  container:: justify
-
-    You can download the |input_binary_wont_mix| here.
+You can download the |input_binary_wont_mix| here.
 
 .. |input_binary_wont_mix| raw:: html
 
     <a href=".../../../../../.dependencies/lammpstutorials-inputs/tutorial7/Exercises/BinaryFluid/input.lammps" target="_blank">input</a>
 
-..  container:: justify
+The solution chosen here was to create two groups (*t1* and *t2*)
+and apply the two potentials *U1* and *U2* to each group, respectively. 
 
-    The solution chosen here was to create two groups (*t1* and *t2*)
-    and apply the two potentials *U1* and *U2* to each group, respectively. 
-
-..  container:: justify
-
-    To to so, two separate *fix addforce* are used:
+To to so, two separate *fix addforce* are used:
 
 ..  code-block:: lammps
     
@@ -812,50 +679,38 @@ The binary fluid that won't mix
     fix myadf2 t2 addforce v_F2 0.0 0.0 energy v_U2
     fix_modify myadf2 energy yes
 
-..  container:: justify
-
-    60 particles of each type are created, with both types having
-    the same properties:
+60 particles of each type are created, with both types having
+the same properties:
 
 ..  code-block:: lammps
 
     mass * 39.95
     pair_coeff * * ${epsilon} ${sigma}
 
-..  container:: justify
-
-    Feel free to insert some size or mass asymmetry in the mixture, and test how/if
-    it impacts the final potential.
+Feel free to insert some size or mass asymmetry in the mixture, and test how/if
+it impacts the final potential.
 
 Particles under convection
 --------------------------
 
-..  container:: justify
-
-    Add a forcing to all the particles using:
+Add a forcing to all the particles using:
 
 ..  code-block:: lammps
 
     fix myconv all addforce 2e-6 0 0
 
-..  container:: justify
+It is crucial to choose a forcing that is not *too large*, or the simulation may crash. 
+A forcing that is *too weak* won't have any effect on the PMF.  
 
-    It is crucial to choose a forcing that is not *too large*, or the simulation may crash. 
-    A forcing that is *too weak* won't have any effect on the PMF.  
-
-..  container:: justify
-
-    One can see from the result that the measured potential
-    is tilted, which is a consequence of the additional force that makes it easier for 
-    the particles to cross the potential in one of the directions. The barrier is also 
-    reduced compared to the case in the absence of additional forcing. 
+One can see from the result that the measured potential
+is tilted, which is a consequence of the additional force that makes it easier for 
+the particles to cross the potential in one of the directions. The barrier is also 
+reduced compared to the case in the absence of additional forcing. 
 
 Surface adsorption of a molecule
 --------------------------------
 
-..  container:: justify
-
-    You can download the |input_adsorption_ethanol| here.
+You can download the |input_adsorption_ethanol| here.
 
 .. |input_adsorption_ethanol| raw:: html
 
@@ -1059,9 +914,7 @@ Reactive silicon dioxide
 Hydrate the structure
 ---------------------
 
-.. container:: justify
-
-    Create a molecule template named *H2O.mol*: 
+Create a molecule template named *H2O.mol*: 
 
 .. code-block:: lammps
 
@@ -1085,29 +938,23 @@ Hydrate the structure
     2        0.5564
     3        0.5564
 
-.. container:: justify
-
-    Then, download the proposed input |input_reax_water|.
+Then, download the proposed input |input_reax_water|.
 
 .. |input_reax_water| raw:: html
 
     <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/Hydrate/input.lammps" target="_blank">here</a>
 
-.. container:: justify
-
-    As seen in the *input.lammps* file, the molecules are added to the system
-    using the *create_atoms* command:
+As seen in the *input.lammps* file, the molecules are added to the system
+using the *create_atoms* command:
 
 .. code-block:: lammps
 
     molecule h2omol H2O.mol
     create_atoms 0 random 10 805672 NULL overlap 2.6 maxtry 50 mol h2omol 45585
 
-.. container:: justify
-
-    Some water molecules react with the silica structure during the
-    simulation, leading to the formation of :math:`-OH` group at the solid
-    surface:
+Some water molecules react with the silica structure during the
+simulation, leading to the formation of :math:`-OH` group at the solid
+surface:
 
 .. code-block:: lammps
 
@@ -1120,11 +967,9 @@ Hydrate the structure
 A slightly acidic bulk solution
 -------------------------------
 
-.. container:: justify
-
-    Download the input |input_reax_water_2| as
-    well as the |reaxCHOFe_ff_ex|
-    file. In addition, create a molecule template named *H2O.mol*: 
+Download the input |input_reax_water_2| as
+well as the |reaxCHOFe_ff_ex|
+file. In addition, create a molecule template named *H2O.mol*: 
 
 .. |input_reax_water_2| raw:: html
 
@@ -1156,25 +1001,19 @@ A slightly acidic bulk solution
     2        0.5564
     3        0.5564
 
-.. container:: justify
-
-    Within *input.lammps*, water molecules are created first:
+Within *input.lammps*, water molecules are created first:
 
 .. code-block:: lammps
 
     molecule h2omol H2O.mol
     create_atoms 0 box mol h2omol 45585
 
-.. container:: justify
-
-    Then, a few hydrogen atoms (:math:`H^+`) are added randomly to the system
-    to make the solution slightly acidic:
+Then, a few hydrogen atoms (:math:`H^+`) are added randomly to the system
+to make the solution slightly acidic:
 
 .. code-block:: lammps
 
     create_atoms 2 random 1 305672 NULL overlap 0.5 maxtry 200
 
-.. container:: justify
-
-    As the simulation progresses, some :math:`H_3O^+` ions will form thanks to
-    the reactive force field.
+As the simulation progresses, some :math:`H_3O^+` ions will form thanks to
+the reactive force field.

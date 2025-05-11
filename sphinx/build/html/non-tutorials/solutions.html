@@ -273,32 +273,24 @@
 <h2>Lennard Jones fluid<a class="headerlink" href="#lennard-jones-fluid" title="Link to this heading">¶</a></h2>
 <section id="fix-a-broken-input">
 <h3>Fix a broken input<a class="headerlink" href="#fix-a-broken-input" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>A possibility to make the simulation start without error
 is to reduce the initial <em>timestep</em> value as well as
 the imposed <em>temperature</em>. You can download the
 working <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/broken/input.lammps" target="_blank">input</a> I wrote. These are the main commands:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">1530917</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.0001</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Note that to make sure that the temperature of the particles
 quickly reaches a reasonable value, the <em>damping</em> parameter
 of the <em>fix Langevin</em> was also reduced to 0.001 (in time units) instead
 of the 0.1 used in the rest of the tutorial.</p>
-</div>
-<div class="justify docutils container">
 <p>After the first <em>run</em> finishes, the energy of the system
 should be significantly reduced. Therefore, a second consecutive <em>run</em>
 with the original <em>timestep</em> and <em>Langevin</em> parameters
 can start without triggering the <em>Lost atoms</em> error.</p>
-</div>
-<div class="justify docutils container">
 <p>In some cases, more than two consecutive <em>runs</em> with progressively
 increasing timestep is necessary:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">0.0001</span><span class="w"> </span><span class="m">0.0001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">1530917</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.0001</span>
 <span class="k">run</span><span class="w"> </span><span class="m">10000</span>
@@ -310,12 +302,10 @@ increasing timestep is necessary:</p>
 <span class="k">run</span><span class="w"> </span><span class="m">10000</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>An alternative solution was proposed by Joni Suopanki from the University
 of Oulu in Finland. His solution consists of making the LJ potential
 softer by using small values for <span class="math notranslate nohighlight">\(\sigma_{11}\)</span>, as least during the
 very first steps of the simulation:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">0.5</span>
 <span class="k">run</span><span class="w"> </span><span class="m">1</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">0.75</span>
@@ -327,10 +317,8 @@ very first steps of the simulation:</p>
 </section>
 <section id="create-a-demixed-dense-phase">
 <h3>Create a demixed dense phase<a class="headerlink" href="#create-a-demixed-dense-phase" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/demixion/input.lammps" target="_blank">input</a> I wrote. Note that
 I use large numbers of particles: 8000 for each type.</p>
-</div>
 <div class="justify docutils container">
 <p>The key to creating a demixing phase is to find the appropriate Lennard-Jones
 parameters:</p>
@@ -340,108 +328,80 @@ parameters:</p>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.05</span><span class="w"> </span><span class="m">1.0</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Here, both particle types have the same <span class="math notranslate nohighlight">\(\sigma\)</span> value of 1.0
 so that both particles have the same diameter. There is a large energy
 parameter <span class="math notranslate nohighlight">\(\epsilon_{11} = \epsilon_{22} = 5.0\)</span> for self-interaction (i.e. interaction
 between particles of the same type), and a low
 energy parameter <span class="math notranslate nohighlight">\(\epsilon_{12} = 0.05\)</span> for interaction between particles
 of different types.</p>
-</div>
-<div class="justify docutils container">
 <p>Finally, to easily adjust the system density and create a liquid-looking
 phase, the pressure was imposed by replacing <em>fix nve</em> by <em>fix nph</em>:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynph</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nph</span><span class="w"> </span><span class="n">iso</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.0</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>With <em>fix nph</em> and a pressure of 1, LAMMPS adjusts the box dimensions until the
 pressure is close to 1. Here, reaching a pressure of 1 requires reducing
 the initial box dimensions.</p>
-</div>
 </section>
 <section id="from-atoms-to-molecules">
 <h3>From atoms to molecules<a class="headerlink" href="#from-atoms-to-molecules" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download an example of <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/dumbbell/input.lammps" target="_blank">input</a> for simulating
 dumbell molecules.</p>
-</div>
-<div class="justify docutils container">
 <p>The first important change to make to the inputs from the
 tutorial is the <em>atom_style</em>: an <em>atom_style</em> that allows for the atoms
 to be connected by bonds is needed.
 It is also necessary to specify the <em>bond_style</em>,
 i.e. the type of potential (here harmonic) that will keep the atoms
 together:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">atom_style</span><span class="w"> </span><span class="n">molecular</span>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>When creating the box, it is necessary to make
 memory space for the bond:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_box </span><span class="nv nv-Identifier">2</span><span class="w"> </span><span class="nv nv-Identifier">simulation_box</span><span class="w"> </span><span class="n">bond</span><span class="o">/</span><span class="n">types</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">extra</span><span class="o">/</span><span class="n">bond</span><span class="o">/</span><span class="n">per</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Then, one just needs to import the <em>molecule template</em>, and use the template
 when creating the atoms as follows:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">dumbell</span><span class="w"> </span><span class="n">dumbell.mol</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="m">341341</span><span class="w"> </span><span class="n">simulation_box</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">678865</span><span class="w"> </span><span class="n">simulation_box</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">dumbell</span><span class="w"> </span><span class="m">8754</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>You can download the molecule template by clicking <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/dumbbell/dumbell.mol" target="_blank">here</a>.
 Finally, some parameters for the bond, namely its rigidity (5) and equilibrium
 length (2.5) need to be specified:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">2.5</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>For the polymer, the angular potential must be defined to give its
 rigidity to the polymer. You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/polymer/input.lammps" target="_blank">input</a> and
 <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/polymer/polymer.mol" target="_blank">molecule template</a>.</p>
-</div>
 </section>
 </section>
 <section id="pulling-on-a-carbon-nanotube">
 <h2>Pulling on a carbon nanotube<a class="headerlink" href="#pulling-on-a-carbon-nanotube" title="Link to this heading">¶</a></h2>
 <section id="plot-the-strain-stress-curves">
 <h3>Plot the strain-stress curves<a class="headerlink" href="#plot-the-strain-stress-curves" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input for the breakable CNT</a>
 and <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input for the unbreakable CNT</a> I wrote.</p>
-</div>
-<div class="justify docutils container">
 <p>The stress is calculated as the total force
 induced on the CNT by the pulling divided by the
 surface area of the CNT.</p>
-</div>
-<div class="justify docutils container">
 <p>On a side note, the surface area
 of a CNT is not a well-defined quantity. Here, I choose to
 define the area as the perimeter of the CNT multiplied by the
 effective width of the carbon atoms.</p>
-</div>
-<div class="justify docutils container">
 <p>Be careful with units, as the force is either in kcal/mol/Å
 when the unit is <em>real</em>, i.e. for the unbreakable CNT,
 or in eV/Å when the unit is <em>metal</em>, i.e. for the breakable CNT.</p>
-</div>
 </section>
 <section id="solve-the-flying-ice-cube-artifact">
 <h3>Solve the flying ice cube artifact<a class="headerlink" href="#solve-the-flying-ice-cube-artifact" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>The issue occurs because the atoms have a large momentum in the
 <span class="math notranslate nohighlight">\(x\)</span> direction, as can be seen by looking at the net velocity
 of the atoms in the <em>cnt_molecular.data</em> file.</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="n">Velocities</span>
 
 <span class="m">24</span><span class="w"> </span><span class="m">0.007983439029626362</span><span class="w"> </span><span class="o">-</span><span class="m">6.613056392124822e-05</span><span class="w"> </span><span class="m">7.867644943646289e-05</span>
@@ -450,31 +410,21 @@ of the atoms in the <em>cnt_molecular.data</em> file.</p>
 <span class="nv">(...)</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>The Berendsen thermostat is trying to adjust the temperature of the
 system by rescaling the velocity of the atoms, but fails due to the
 large momentum of the system that makes it look like the system is
 warm, since in MD temperature is measured from the kinetic energy.</p>
-</div>
-<div class="justify docutils container">
 <p>This leads to the system appearing frozen.</p>
-</div>
-<div class="justify docutils container">
 <p>The solution is to cancel
 the net momentum of the atoms, for instance by using <em>fix momentum</em>,
 re-setting the velocity with the <em>velocity create</em> command,
 or use a different thermostat.</p>
-</div>
 </section>
 <section id="insert-gas-in-the-carbon-nanotube">
 <h3>Insert gas in the carbon nanotube<a class="headerlink" href="#insert-gas-in-the-carbon-nanotube" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/gas/input.lammps" target="_blank">input</a> I wrote.</p>
-</div>
-<div class="justify docutils container">
 <p>The key is to modify the <em>.data</em> file
 to make space for the second atom type 2.</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">670</span><span class="w"> </span><span class="n">impropers</span>
 <span class="m">2</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
 <span class="m">1</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">types</span>
@@ -487,28 +437,22 @@ to make space for the second atom type 2.</p>
 <span class="m">2</span><span class="w"> </span><span class="m">39.948</span><span class="w"> </span><span class="c"># Ar</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>The <em>parm.lammps</em> must contain the second pair coeff:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.066047</span><span class="w"> </span><span class="m">3.4</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0.232</span><span class="w"> </span><span class="m">3.3952</span>
 <span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">469</span><span class="w"> </span><span class="m">1.4</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Combine the <em>region</em> and
 <em>create_atoms</em> commands to
 create the atoms of type 2 within the CNT:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">inside_CNT</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="nv">${zmin}</span><span class="w"> </span><span class="nv">${zmax}</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="m">323485</span><span class="w"> </span><span class="n">inside_CNT</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.8</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>It is good practice to thermalize the CNT separately from the
 gas to avoid having a large temperature difference between the two
 type of atoms.</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">tcar</span><span class="w"> </span><span class="nv nv-Identifier">carbon_atoms</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="nv">${T}</span><span class="w"> </span><span class="m">100</span>
 <span class="k">fix_modify </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tcar</span>
@@ -517,34 +461,24 @@ type of atoms.</p>
 <span class="k">fix_modify </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">tgas</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Here I also choose to keep the CNT near its original
 position,</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myspr</span><span class="w"> </span><span class="nv nv-Identifier">carbon_atoms</span><span class="w"> </span><span class="n">spring</span><span class="o">/</span><span class="n">self</span><span class="w"> </span><span class="m">5</span>
 </pre></div>
 </div>
 </section>
 <section id="make-a-membrane-of-cnts">
 <h3>Make a membrane of CNTs<a class="headerlink" href="#make-a-membrane-of-cnts" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/membrane/input.lammps" target="_blank">input</a> I wrote.</p>
-</div>
-<div class="justify docutils container">
 <p>The CNT can be replicated using the <em>replicate</em> command.
 It is recommended to adjust the box size before replicating,
 as done here using the <em>change_box</em> command.</p>
-</div>
-<div class="justify docutils container">
 <p>To allow for the deformation of the box along the
 <em>xy</em> plane, the box has to be changed to triclinic first:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">change_box </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">triclinic</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Deformation can be imposed to the system using:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">muyef</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">deform</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">xy</span><span class="w"> </span><span class="n">erate</span><span class="w"> </span><span class="m">5e-5</span>
 </pre></div>
 </div>
@@ -554,16 +488,12 @@ as done here using the <em>change_box</em> command.</p>
 <h2>Polymer in water<a class="headerlink" href="#polymer-in-water" title="Link to this heading">¶</a></h2>
 <section id="extract-radial-distribution-function">
 <h3>Extract radial distribution function<a class="headerlink" href="#extract-radial-distribution-function" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/radial-distribution-function/input.lammps" target="_blank">input</a> file I wrote.</p>
-</div>
-<div class="justify docutils container">
 <p>I use the <em>compute rdf</em> command of LAMMPS
 to extract the RDF between atoms of type 8 (oxygen from water)
 and one of the oxygen types from the PEG (1).
 The 10 first pico seconds are disregarded. Then, once the force
 is applied to the PEG, a second <em>fix ave/time</em> is used.</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">myRDF_PEG_H2O</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">rdf</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="m">10</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">4000</span><span class="w"> </span><span class="m">50000</span><span class="w"> </span><span class="n">c_myRDF_PEG_H2O[</span><span class="o">*</span><span class="n">]</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="w">    </span><span class="n">file</span><span class="w"> </span><span class="n">PEG</span><span class="o">-</span><span class="n">H2O</span><span class="o">-</span><span class="n">initial.dat</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">vector</span>
@@ -572,25 +502,19 @@ is applied to the PEG, a second <em>fix ave/time</em> is used.</p>
 </section>
 <section id="add-salt-to-the-mixture">
 <h3>Add salt to the mixture<a class="headerlink" href="#add-salt-to-the-mixture" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/input.lammps" target="_blank">input</a>,
 <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/mix-with-salt.data" target="_blank">data</a>,
 and <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a> files I wrote.</p>
-</div>
-<div class="justify docutils container">
 <p>It is important to
 make space for the two salt atoms by modifying the data file as follows:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
 <span class="m">11</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">types</span>
 <span class="nv">(...)</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Additional <em>mass</em> and <em>pair_coeff</em> lines
 must also be added to the parm file (be careful to use the
 appropriate units):</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
 <span class="k">mass</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">22.98</span><span class="w"> </span><span class="c"># Na</span>
 <span class="k">mass</span><span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">35.453</span><span class="w"> </span><span class="c"># Cl</span>
@@ -600,51 +524,37 @@ appropriate units):</p>
 <span class="nv">(...)</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Finally, here I choose to add the ions using two separate
 <em>create_atoms</em> commands with a very small <em>overlap</em>
 values, followed by an energy minimization.</p>
-</div>
-<div class="justify docutils container">
 <p>Note also the presence of the <em>set</em> commands to
 give a net charge to the ions.</p>
-</div>
 </section>
 <section id="evaluate-the-deformation-of-the-peg">
 <h3>Evaluate the deformation of the PEG<a class="headerlink" href="#evaluate-the-deformation-of-the-peg" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/structurePEG/input.lammps" target="_blank">input</a> file I wrote.</p>
-</div>
-<div class="justify docutils container">
 <p>The key is to combine the <em>compute dihedral/local</em>,
 which computes the angles of the dihedrals and returns
 them in a vector, with the <em>ave/histo</em> functionalities of LAMMPS:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">mydihe</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">dihedral</span><span class="o">/</span><span class="n">local</span><span class="w"> </span><span class="n">phi</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myavehisto</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">histo</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="m">30000</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="n">c_mydihe</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="w">    </span><span class="n">file</span><span class="w"> </span><span class="n">initial.histo</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">vector</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Here I choose to unfix <em>myavehisto</em> at the end of the first run,
 and to re-start it with a different file name during the second phase
 of the simulation.</p>
-</div>
 </section>
 </section>
 <section id="nanosheared-electrolyte">
 <h2>Nanosheared electrolyte<a class="headerlink" href="#nanosheared-electrolyte" title="Link to this heading">¶</a></h2>
 <section id="induce-a-poiseuille-flow">
 <h3>Induce a Poiseuille flow<a class="headerlink" href="#induce-a-poiseuille-flow" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>Here, the <em>input</em> script written during the last part <em>Imposed shearing</em> of the
 tutorial is adapted so that, instead of a shearing induced by the relative motion of the walls,
 the fluid motion is generated by an additional force applied to both water molecules and ions.</p>
-</div>
-<div class="justify docutils container">
 <p>To do so, here are the most important commands used to properly
 thermalize the system:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">compute </span><span class="nv nv-Identifier">tliq</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">partial</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myber1</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">temp</span><span class="o">/</span><span class="n">berendsen</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
@@ -654,51 +564,40 @@ thermalize the system:</p>
 <span class="k">fix_modify </span><span class="nv nv-Identifier">myber2</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">twall</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Here, since walls wont move, they can be thermalized in all
 3 directions and there is
 no need for recentering. Instead, one can keep the walls
 in place by adding springs to every atom:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myspring</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">spring</span><span class="o">/</span><span class="n">self</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="n">xyz</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Finally, let us apply a force to the fluid group along the <span class="math notranslate nohighlight">\(x\)</span>
 direction:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myadf</span><span class="w"> </span><span class="nv nv-Identifier">fluid</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="m">3e-2</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>The choice of a force equal to <span class="math notranslate nohighlight">\(f = 0.03\,\text{kcal/mol/Å}\)</span>
 is discussed below.</p>
-</div>
-<div class="justify docutils container">
 <p>One can have a look at the velocity profiles. The fluid shows the characteristic
 parabolic shape of Poiseuille flow in the case of a non-slip solid surface.
 To obtain smooth-looking data, I ran the simulation for a total duration of <span class="math notranslate nohighlight">\(1\,\text{ns}\)</span>.
 To lower the duration of the computation, don’t hesitate to
 use a shorter duration like <span class="math notranslate nohighlight">\(100\,\text{ps}\)</span>.</p>
-</div>
 <figure class="align-default">
-<img alt="Velocity of the fluid forming a Poiseuille flow" class="only-light" src="tutorials/figures/level2/nanosheared-electrolyte/shearing-poiseuille-light.png" />
+<img alt="Velocity of the fluid forming a Poiseuille flow" class="only-light" src="../_images/shearing-poiseuille-light.png" />
 </figure>
 <figure class="align-default">
-<img alt="Velocity of the fluid forming a Poiseuille flow" class="only-dark" src="tutorials/figures/level2/nanosheared-electrolyte/shearing-poiseuille-dark.png" />
+<img alt="Velocity of the fluid forming a Poiseuille flow" class="only-dark" src="../_images/shearing-poiseuille-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Velocity profiles of the water molecules along the <em>z</em> axis (disks).
 The line is the Poiseuille equation.</p>
 </div>
-<div class="justify docutils container">
 <p>The fitting of the velocity profile was made using the following Poiseuille equation,</p>
-</div>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[v = - \alpha \dfrac{f \rho}{\eta} \left( \dfrac{z^2}{2} - \dfrac{h^2}{8} \right),\]</div>
 </div>
-<div class="justify docutils container">
 <p>where <span class="math notranslate nohighlight">\(\textbf{f}\)</span> is the applied force,
 <span class="math notranslate nohighlight">\(\rho\)</span> is the fluid density,
 <span class="math notranslate nohighlight">\(\eta\)</span> is the fluid viscosity, and
@@ -710,40 +609,31 @@ since using bulk density and bulk viscosity is obviously
 not correct in such nanoconfined pores. More subtle corrections could be applied
 by correcting both density and viscosity based on independent measurements, but this is
 beyond the scope of the present exercise.</p>
-</div>
-<div class="justify docutils container">
 <p><strong>Choosing the right force</strong></p>
-</div>
-<div class="justify docutils container">
 <p>The first and most important technical difficulty of any
 out-of-equilibrium simulation is to choose the value of the force <span class="math notranslate nohighlight">\(f\)</span>.
 If the forcing is too large, the system may not be in a linear response regime,
 meaning that the results are forcing-dependent (and likely quite meaningless). If
 the forcing is too small, the motion of the system will be difficult to measure
 due to the low signal-to-noise ratio.</p>
-</div>
-<div class="justify docutils container">
 <p>In the present case, one can perform a calibration by running several simulations
 with different force values <span class="math notranslate nohighlight">\(f\)</span>, and then by plotting the velocity of
 the center of mass <span class="math notranslate nohighlight">\(v_\text{cm}\)</span> of the fluid as a function of the force.
 Here, I present the results I have obtained by performing the simulations with
 different values of the forcing. <span class="math notranslate nohighlight">\(v_\text{cm}\)</span> can be extracted by adding the following command
 to the <em>input</em>:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">vcm_fluid</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">vcm</span><span class="nv">(fluid,x)</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myat1</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">time</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_vcm_fluid</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">vcm_fluid.dat</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>The results show that as long as the force is lower
 than about <span class="math notranslate nohighlight">\(0.04\,\text{kcal/mol/Å}\)</span>, there is reasonable linearity
 between force and fluid velocity.</p>
-</div>
 <figure class="align-default">
-<img alt="Velocity of the fluid under imposed force (POISEUILLE FLOW)" class="only-light" src="tutorials/figures/level2/nanosheared-electrolyte/calibration-force-light.png" />
+<img alt="Velocity of the fluid under imposed force (POISEUILLE FLOW)" class="only-light" src="../_images/calibration-force-light.png" />
 </figure>
 <figure class="align-default">
-<img alt="Velocity of the fluid under imposed force (POISEUILLE FLOW)" class="only-dark" src="tutorials/figures/level2/nanosheared-electrolyte/calibration-force-dark.png" />
+<img alt="Velocity of the fluid under imposed force (POISEUILLE FLOW)" class="only-dark" src="../_images/calibration-force-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Ratio between the velocity of the center of mass <span class="math notranslate nohighlight">\(v_\text{cm}\)</span> of the fluid
@@ -755,12 +645,10 @@ and the force <span class="math notranslate nohighlight">\(f\)</span> as a funct
 <h2>Water adsorption in silica<a class="headerlink" href="#water-adsorption-in-silica" title="Link to this heading">¶</a></h2>
 <section id="mixture-adsorption">
 <h3>Mixture adsorption<a class="headerlink" href="#mixture-adsorption" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/Exercises/MixtureH2OCO2/input.lammps" target="_blank">input</a> for the combine water and CO2
 adsorption.
 One of the first steps is to create both types of molecules
 before starting the GCMC:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O.mol</span>
 <span class="k">molecule</span><span class="w"> </span><span class="n">co2mol</span><span class="w"> </span><span class="n">CO2.mol</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">456415</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="o">&amp;</span>
@@ -769,10 +657,8 @@ before starting the GCMC:</p>
 <span class="w">    </span><span class="n">mol</span><span class="w"> </span><span class="n">co2mol</span><span class="w"> </span><span class="m">989812</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>One must be careful to properly write the parameters of the system,
 with all the proper cross coefficients:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">vashishta</span><span class="w"> </span><span class="n">..</span><span class="o">/</span><span class="n">..</span><span class="o">/</span><span class="n">Potential</span><span class="o">/</span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="w">    </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
@@ -790,9 +676,7 @@ with all the proper cross coefficients:</p>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0106</span><span class="w"> </span><span class="m">2.8114421</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Here, I choose to thermalize all species separately:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">temp</span>
 <span class="k">compute_modify </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
@@ -808,10 +692,8 @@ with all the proper cross coefficients:</p>
 <span class="k">fix_modify </span><span class="nv nv-Identifier">mynvt3</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">ctSiO</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Finally, adsorption is made with two separate <em>fix gcmc</em> commands
 placed in a loop:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">label </span><span class="sc">loop</span>
 <span class="k">variable </span><span class="nv nv-Identifier">a</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">30</span>
 
@@ -831,36 +713,27 @@ placed in a loop:</p>
 <span class="k">jump </span><span class="sc">SELF</span><span class="w"> </span><span class="n">loop</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Here I choose to apply the first <em>fix gcmc</em> for the <span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span> for 500 steps,
 then unfix it before starting the second <em>fix gcmc</em> for the <span class="math notranslate nohighlight">\(\text{CO}_2\)</span> for 500 steps as well.
 Then, thanks to the <em>jump</em>, these two fixes are applied successively 30 times each, allowing for the
 progressive adsorption of both species.</p>
-</div>
 </section>
 <section id="adsorb-water-in-zif-8-nanopores">
 <h3>Adsorb water in ZIF-8 nanopores<a class="headerlink" href="#adsorb-water-in-zif-8-nanopores" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/Exercises/Zif-8/input.lammps" target="_blank">input</a> for the water adsorption in Zif-8,
 which you have to place in the same folder as the <em>zif-8.data</em>,
-<em>parm.lammps</em>,
-and <em>water.mol</em> files.</p>
-</div>
-<div class="justify docutils container">
+<em>parm.lammps</em>, and <em>water.mol</em> files.</p>
 <p>Apart from the parameters and topology, the <em>input</em> is
 quite similar to the one developed in the case of the crack
 silica.</p>
-</div>
-<div class="justify docutils container">
 <p>You should observe an increase in the number of molecules with time.
 Run a much longer simulation if you want to saturate the porous material
 with water.</p>
-</div>
 <figure class="align-default">
-<img alt="Water molecule in Zif material with GCMC in LAMMPS" class="only-light" src="tutorials/figures/level3/water-adsorption-in-silica/number_evolution_zif-light.png" />
+<img alt="Water molecule in Zif material with GCMC in LAMMPS" class="only-light" src="../_images/number_evolution_zif-light.png" />
 </figure>
 <figure class="align-default">
-<img alt="Water molecule in Zif material with GCMC in LAMMPS" class="only-dark" src="tutorials/figures/level3/water-adsorption-in-silica/number_evolution_zif-dark.png" />
+<img alt="Water molecule in Zif material with GCMC in LAMMPS" class="only-dark" src="../_images/number_evolution_zif-dark.png" />
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Number of water molecules in Zif-8 during the first <span class="math notranslate nohighlight">\(10\,ps\)</span>.</p>
@@ -871,16 +744,10 @@ with water.</p>
 <h2>Free energy calculation<a class="headerlink" href="#free-energy-calculation" title="Link to this heading">¶</a></h2>
 <section id="the-binary-fluid-that-won-t-mix">
 <h3>The binary fluid that won’t mix<a class="headerlink" href="#the-binary-fluid-that-won-t-mix" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download the <a href=".../../../../../.dependencies/lammpstutorials-inputs/tutorial7/Exercises/BinaryFluid/input.lammps" target="_blank">input</a> here.</p>
-</div>
-<div class="justify docutils container">
 <p>The solution chosen here was to create two groups (<em>t1</em> and <em>t2</em>)
 and apply the two potentials <em>U1</em> and <em>U2</em> to each group, respectively.</p>
-</div>
-<div class="justify docutils container">
 <p>To to so, two separate <em>fix addforce</em> are used:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">group </span><span class="nv nv-Identifier">t1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
 <span class="k">variable </span><span class="nv nv-Identifier">U1</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="w">    </span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
@@ -898,52 +765,38 @@ and apply the two potentials <em>U1</em> and <em>U2</em> to each group, respecti
 <span class="k">fix_modify </span><span class="nv nv-Identifier">myadf2</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">yes</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>60 particles of each type are created, with both types having
 the same properties:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.95</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">${epsilon}</span><span class="w"> </span><span class="nv">${sigma}</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Feel free to insert some size or mass asymmetry in the mixture, and test how/if
 it impacts the final potential.</p>
-</div>
 </section>
 <section id="particles-under-convection">
 <h3>Particles under convection<a class="headerlink" href="#particles-under-convection" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>Add a forcing to all the particles using:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myconv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="m">2e-6</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>It is crucial to choose a forcing that is not <em>too large</em>, or the simulation may crash.
 A forcing that is <em>too weak</em> won’t have any effect on the PMF.</p>
-</div>
-<div class="justify docutils container">
 <p>One can see from the result that the measured potential
 is tilted, which is a consequence of the additional force that makes it easier for
 the particles to cross the potential in one of the directions. The barrier is also
 reduced compared to the case in the absence of additional forcing.</p>
-</div>
 </section>
 <section id="surface-adsorption-of-a-molecule">
 <h3>Surface adsorption of a molecule<a class="headerlink" href="#surface-adsorption-of-a-molecule" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial7/Exercises/MoleculeAdsorption/input.lammps" target="_blank">input</a> here.</p>
-</div>
 </section>
 </section>
 <section id="reactive-silicon-dioxide">
 <h2>Reactive silicon dioxide<a class="headerlink" href="#reactive-silicon-dioxide" title="Link to this heading">¶</a></h2>
 <section id="hydrate-the-structure">
 <h3>Hydrate the structure<a class="headerlink" href="#hydrate-the-structure" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>Create a molecule template named <em>H2O.mol</em>:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">3</span><span class="w"> </span><span class="n">atoms</span>
 
 <span class="n">Coords</span>
@@ -965,22 +818,16 @@ reduced compared to the case in the absence of additional forcing.</p>
 <span class="m">3</span><span class="w">        </span><span class="m">0.5564</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Then, download the proposed input <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/Hydrate/input.lammps" target="_blank">here</a>.</p>
-</div>
-<div class="justify docutils container">
 <p>As seen in the <em>input.lammps</em> file, the molecules are added to the system
 using the <em>create_atoms</em> command:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O.mol</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">805672</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">2.6</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">45585</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Some water molecules react with the silica structure during the
 simulation, leading to the formation of <span class="math notranslate nohighlight">\(-OH\)</span> group at the solid
 surface:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c">#  Timestep No_Moles No_Specs Si192O384H20 OH2</span>
 <span class="w">   </span><span class="m">5</span><span class="w">        </span><span class="m">21</span><span class="w">       </span><span class="m">2</span><span class="w">        </span><span class="m">1</span><span class="w">            </span><span class="m">20</span>
 
@@ -991,11 +838,9 @@ surface:</p>
 </section>
 <section id="a-slightly-acidic-bulk-solution">
 <h3>A slightly acidic bulk solution<a class="headerlink" href="#a-slightly-acidic-bulk-solution" title="Link to this heading">¶</a></h3>
-<div class="justify docutils container">
 <p>Download the input <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/BulkWater/input.lammps" target="_blank">here</a> as
 well as the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/BulkWater/reaxCHOFe.ff" target="_blank">reaxff force field</a>
 file. In addition, create a molecule template named <em>H2O.mol</em>:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">3</span><span class="w"> </span><span class="n">atoms</span>
 
 <span class="n">Coords</span>
@@ -1017,24 +862,18 @@ file. In addition, create a molecule template named <em>H2O.mol</em>:</p>
 <span class="m">3</span><span class="w">        </span><span class="m">0.5564</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Within <em>input.lammps</em>, water molecules are created first:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O.mol</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">45585</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>Then, a few hydrogen atoms (<span class="math notranslate nohighlight">\(H^+\)</span>) are added randomly to the system
 to make the solution slightly acidic:</p>
-</div>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">create_atoms</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">305672</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">200</span>
 </pre></div>
 </div>
-<div class="justify docutils container">
 <p>As the simulation progresses, some <span class="math notranslate nohighlight">\(H_3O^+\)</span> ions will form thanks to
 the reactive force field.</p>
-</div>
 </section>
 </section>
 </section>

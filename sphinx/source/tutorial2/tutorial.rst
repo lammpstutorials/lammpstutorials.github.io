@@ -59,6 +59,8 @@ cutoff) and its cutoff is set to 14 Å, which means that only the
 atoms closer than this distance interact through the Lennard-Jones
 potential.
 
+.. include:: ../shared/needhelp.rst
+
 The ``bond_style``, ``angle_style``, ``dihedral_style``, and ``improper_style``
 commands specify the different potentials used to constrain the relative
 positions of the atoms.  The ``special_bonds`` command sets the weighting factors
