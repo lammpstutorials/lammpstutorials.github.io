@@ -142,6 +142,8 @@ distance of 0.3 units between the randomly placed atoms.  This
 constraint helps avoid close contacts between atoms, which can lead  
 to excessively large forces and simulation instability.
 
+.. include:: ../shared/needhelp.rst
+
 Settings
 --------
 
