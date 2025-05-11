@@ -36,6 +36,8 @@ atom, bond, and angle styles, as well as interaction
 potential.  Here, ``lj/cut/tip4p/long`` imposes a Lennard-Jones potential with
 a cut-off at :math:`12\,\text{Å}` and a long-range Coulomb potential.
 
+.. include:: ../shared/needhelp.rst
+
 So far, the commands are relatively similar to those in the previous tutorial,
 :ref:`all-atoms-label`, with two major differences: the use
 of ``lj/cut/tip4p/long`` instead of ``lj/cut/coul/long``, and ``pppm/tip4p``

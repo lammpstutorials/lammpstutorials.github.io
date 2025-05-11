@@ -27,6 +27,8 @@ that consists of a particles in a box in the presence of a
 position-dependent repulsive force that makes the center of the box a less
 favorable area to explore.
 
+.. include:: ../shared/needhelp.rst
+
 Basic LAMMPS parameters
 -----------------------
 

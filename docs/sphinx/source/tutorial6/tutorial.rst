@@ -20,6 +20,8 @@ The main difference from some of the previous tutorials is the use of the ``Vash
 pair style.  The Vashishta potential implicitly models atomic bonds through
 energy terms dependent on interatomic distances and angles :cite:`vashishta1990interaction`.
 
+.. include:: ../shared/needhelp.rst
+
 Let us create a box for two atom types, ``Si``
 of mass 28.0855 g/mol and ``O`` of mass 15.9994 g/mol.
 Add the following lines to **generate.lmp**:

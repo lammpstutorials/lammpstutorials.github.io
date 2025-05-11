@@ -41,6 +41,8 @@ interactions :cite:`ewald1921berechnung`.  Finally, the
 :ref:`carbon-nanotube-label`, sets the LJ and Coulomb
 weighting factors for the interaction between neighboring atoms.
 
+.. include:: ../shared/needhelp.rst
+
 Let us create a 3D simulation box of dimensions :math:`6 \times 3 \times 3 \; \text{nm}^3`,
 and make space for 8 atom types (2 for the water, 6 for the polymer), 7 bond types
 (1 for the water, 6 for the polymer), 8 angle types (1 for the water, 7 for the polymer),
