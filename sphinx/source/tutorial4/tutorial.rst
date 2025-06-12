@@ -190,7 +190,7 @@ types.  By default, LAMMPS calculates the pair coefficients for the
 interactions between atoms of different types (i and j) by using
 geometric average: :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
 :math:`\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}`.  However, if the default
-value of :math:`5.941\,\text{kcal/mol}` was used for :math:`\epsilon_\text{1-5}`,
+value of :math:`1.472\,\text{kcal/mol}` was used for :math:`\epsilon_\text{1-5}`,
 the solid walls would be extremely hydrophilic, causing the water
 molecules to form dense layers.  As a comparison, the water-water energy
 :math:`\epsilon_\text{1-1}` is only :math:`0.185199\,\text{kcal/mol}`.  Therefore,
