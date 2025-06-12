@@ -188,8 +188,8 @@ tutorials, with the important exception of ``pair_coeff O WALL``,
 pairwise interactions were only assigned between atoms of identical
 types.  By default, LAMMPS calculates the pair coefficients for the
 interactions between atoms of different types (i and j) by using
-geometric average: :math:`\epsilon_{ij} = (\epsilon_{ii} + \epsilon_{jj})/2`,
-:math:`\sigma_{ij} = (\sigma_{ii} + \sigma_{jj})/2`.  However, if the default
+geometric average: :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
+:math:`\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}`.  However, if the default
 value of :math:`5.941\,\text{kcal/mol}` was used for :math:`\epsilon_\text{1-5}`,
 the solid walls would be extremely hydrophilic, causing the water
 molecules to form dense layers.  As a comparison, the water-water energy
