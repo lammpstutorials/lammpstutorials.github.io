@@ -301,7 +301,7 @@ personalized <a href="https://www.patreon.com/molecularsimulations" target="_bla
 <p>To begin this tutorial, if you are using LAMMPS–GUI, select <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Tutorial</span> <span class="pre">7</span></code>
 from the <code class="docutils literal notranslate"><span class="pre">Tutorials</span></code> menu and follow the instructions. Alternatively, if you are
 not using LAMMPS–GUI, create a new folder and add a file named
-<strong>free-energy.lmp</strong>. Open the file in a text editor and paste in the following
+<strong>free-sampling.lmp</strong>. Open the file in a text editor and paste in the following
 content:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">sigma</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">3.405</span>
 <span class="k">variable </span><span class="nv nv-Identifier">epsilon</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.238</span>
@@ -329,7 +329,7 @@ using the <code class="docutils literal notranslate"><span class="pre">pair_modi
 <section id="system-creation-and-settings">
 <h2>System creation and settings<a class="headerlink" href="#system-creation-and-settings" title="Link to this heading">¶</a></h2>
 <p>Let us define the simulation box and randomly add atoms by addying the
-following lines to <strong>free-energy.lmp</strong>:</p>
+following lines to <strong>free-sampling.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">myreg</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="m">50</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="o">-</span><span class="m">15</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-</span><span class="m">50</span><span class="w"> </span><span class="m">50</span>
 <span class="k">create_box </span><span class="nv nv-Identifier">1</span><span class="w"> </span><span class="nv nv-Identifier">myreg</span>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">34134</span><span class="w"> </span><span class="n">myreg</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
@@ -372,7 +372,7 @@ Eq. <a class="reference internal" href="#equation-eq-f">(3)</a> (b) as functions
 </div>
 <p>We impose the force <span class="math notranslate nohighlight">\(F(x)\)</span> to the atoms in the simulation
 using the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">addforce</span></code> command.  Add the following
-lines to <strong>free-energy.lmp</strong>:</p>
+lines to <strong>free-sampling.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">U</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x+${x0})/${dlt})</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">*</span><span class="n">atan</span><span class="nv">((x-${x0})/${dlt})</span>
 <span class="k">variable </span><span class="nv nv-Identifier">F</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x-${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span><span class="o">-</span><span class="nv">${U0}</span><span class="o">/</span><span class="nv">((x+${x0})^2/${dlt}^2+1)</span><span class="o">/</span><span class="nv">${dlt}</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myadf</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U</span>
@@ -404,7 +404,7 @@ VMD-compatible trajectory to a file:</p>
 <span class="k">dump_modify </span><span class="nv nv-Identifier">viz1</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">cyan</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">boxcolor</span><span class="w"> </span><span class="n">black</span>
 
 <span class="c"># Option 2</span>
-<span class="k">dump </span><span class="nv nv-Identifier">viz2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">50000</span><span class="w"> </span><span class="n">free</span><span class="o">-</span><span class="n">energy.lammpstrj</span>
+<span class="k">dump </span><span class="nv nv-Identifier">viz2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">50000</span><span class="w"> </span><span class="n">free</span><span class="o">-</span><span class="n">sampling.lammpstrj</span>
 </pre></div>
 </div>
 <p>Finally, let us perform an equilibration of 50000 steps,
@@ -432,8 +432,9 @@ Here, <span class="math notranslate nohighlight">\(U_0 = 0.36~\text{kcal/mol}\)<
 <h2>Run and data acquisition<a class="headerlink" href="#run-and-data-acquisition" title="Link to this heading">¶</a></h2>
 <p>Once the system is equilibrated, we will record the density profile of
 the atoms along the <span class="math notranslate nohighlight">\(x\)</span>-axis using the <code class="docutils literal notranslate"><span class="pre">ave/chunk</span></code> command.
-Add the following line to <strong>free-energy.lmp</strong>:</p>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
+Add the following line to <strong>free-sampling.lmp</strong>:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># undump viz2 # Uncomment this line if you&#39;re using Option 2</span>
+<span class="k">reset_timestep</span><span class="w"> </span><span class="m">0</span>
 
 <span class="k">thermo</span><span class="w"> </span><span class="m">200000</span>
 
@@ -513,7 +514,7 @@ allows for the removal of the biasing effect and ultimately deduces the
 unbiased free energy profile.</p>
 <section id="lammps-input-script">
 <h2>LAMMPS input script<a class="headerlink" href="#lammps-input-script" title="Link to this heading">¶</a></h2>
-<p>If you are using LAMMPS–GUI, open the file named <strong>free-energy.lmp</strong>.
+<p>If you are using LAMMPS–GUI, open the file named <strong>umbrella-sampling.lmp</strong>.
 Alternatively, if you are not using LAMMPS–GUI, create a new input file
 and paste in the following content:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">sigma</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">3.405</span>
@@ -569,7 +570,7 @@ umbrella sampling run:</p>
 <span class="k">dump_modify </span><span class="nv nv-Identifier">viz1</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">cyan</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">boxcolor</span><span class="w"> </span><span class="n">black</span>
 
 <span class="c"># Option 2</span>
-<span class="k">dump </span><span class="nv nv-Identifier">viz2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">50000</span><span class="w"> </span><span class="n">free</span><span class="o">-</span><span class="n">energy.lammpstrj</span>
+<span class="k">dump </span><span class="nv nv-Identifier">viz2</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">50000</span><span class="w"> </span><span class="n">umbrella</span><span class="o">-</span><span class="n">sampling.lammpstrj</span>
 
 <span class="k">timestep</span><span class="w"> </span><span class="m">2.0</span>
 <span class="k">run</span><span class="w"> </span><span class="m">50000</span>
