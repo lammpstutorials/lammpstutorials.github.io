@@ -7,4 +7,4 @@
 
 .. |Github_repository_input_folder| raw:: html
 
-    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/" target="_blank">Github repository</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/" target="_blank">GitHub repository</a>
