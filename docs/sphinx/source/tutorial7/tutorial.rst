@@ -198,7 +198,7 @@ Add the following line to **free-sampling.lmp**:
 
 .. code-block:: lammps
 
-    undump viz1 # Use 'viz1' or 'viz2' depending on your previous choice
+    # undump viz2 # Uncomment this line if you're using Option 2
     reset_timestep 0
 
     thermo 200000
