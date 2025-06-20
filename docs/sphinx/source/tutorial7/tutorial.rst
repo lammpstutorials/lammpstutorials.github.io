@@ -35,7 +35,7 @@ Basic LAMMPS parameters
 To begin this tutorial, if you are using LAMMPS--GUI, select ``Start Tutorial 7``
 from the ``Tutorials`` menu and follow the instructions. Alternatively, if you are
 not using LAMMPS--GUI, create a new folder and add a file named
-**free-energy.lmp**. Open the file in a text editor and paste in the following
+**free-sampling.lmp**. Open the file in a text editor and paste in the following
 content:
 
 .. code-block:: lammps
@@ -66,7 +66,7 @@ System creation and settings
 ----------------------------
 
 Let us define the simulation box and randomly add atoms by addying the
-following lines to **free-energy.lmp**:
+following lines to **free-sampling.lmp**:
 
 .. code-block:: lammps
 
@@ -119,7 +119,7 @@ frequently overcome the energy barrier due to thermal agitation.
 
 We impose the force :math:`F(x)` to the atoms in the simulation
 using the ``fix addforce`` command.  Add the following
-lines to **free-energy.lmp**:
+lines to **free-sampling.lmp**:
 
 .. code-block:: lammps
         
@@ -161,7 +161,7 @@ VMD-compatible trajectory to a file:
     dump_modify viz1 backcolor white acolor 1 cyan adiam 1 3 boxcolor black
 
     # Option 2
-    dump viz2 all atom 50000 free-energy.lammpstrj
+    dump viz2 all atom 50000 free-sampling.lammpstrj
 
 Finally, let us perform an equilibration of 50000 steps,
 using a timestep of :math:`2\,\text{fs}`, corresponding to a total duration of :math:`100\,\text{ps}`:
@@ -194,10 +194,11 @@ Run and data acquisition
 
 Once the system is equilibrated, we will record the density profile of
 the atoms along the :math:`x`-axis using the ``ave/chunk`` command.
-Add the following line to **free-energy.lmp**:
+Add the following line to **free-sampling.lmp**:
 
 .. code-block:: lammps
 
+    undump viz1 # Use 'viz1' or 'viz2' depending on your previous choice
     reset_timestep 0
 
     thermo 200000
@@ -287,7 +288,7 @@ unbiased free energy profile.
 LAMMPS input script
 -------------------
 
-If you are using LAMMPS--GUI, open the file named **free-energy.lmp**.  
+If you are using LAMMPS--GUI, open the file named **umbrella-sampling.lmp**.  
 Alternatively, if you are not using LAMMPS--GUI, create a new input file  
 and paste in the following content:
 
@@ -355,7 +356,7 @@ umbrella sampling run:
     dump_modify viz1 backcolor white acolor 1 cyan acolor 2 red adiam 1 3 adiam 2 3 boxcolor black
 
     # Option 2
-    dump viz2 all atom 50000 free-energy.lammpstrj
+    dump viz2 all atom 50000 umbrella-sampling.lammpstrj
 
     timestep 2.0
     run 50000
