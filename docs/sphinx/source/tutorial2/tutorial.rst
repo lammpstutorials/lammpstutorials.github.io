@@ -357,6 +357,7 @@ from the typical dependency of bond energy with bond distance,
     The CNT starts deforming at :math:`t = 5\,\text{ps}`, and :math:`L_\text{cnt-0}` is the  
     CNT initial length.  b) Evolution of the total energy :math:`E` of the system with time :math:`t`.  
     Here, the potential is OPLS-AA, and the CNT is unbreakable.
+    The orange line shows the raw data, and the blue line represents a time-averaged curve.
 
 Importing YAML log file into Python
 -----------------------------------

@@ -344,7 +344,7 @@ to **equilibrate.lmp**:
     thermo 1
     thermo_style custom step temp etotal press
 
-Let us perform an energy minization by adding the following lines to **equilibrate.lmp**:
+Let us perform an energy minimization by adding the following lines to **equilibrate.lmp**:
 
 .. code-block:: lammps
 
@@ -443,7 +443,8 @@ the end of the simulation.
 
     Figure: a) Pressure, :math:`p`, of the nanosheared electrolyte system as a function
     of the time, :math:`t`.  b) Distance between the walls, :math:`\Delta z`, as a
-    function of :math:`t`.
+    function of :math:`t`. The orange line shows the raw data, and the blue line
+    represents a time-averaged curve.
 
 Imposed shearing
 ----------------

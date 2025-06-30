@@ -274,7 +274,7 @@ initially positive potential energy is expected, as the atoms are
 created at random positions within the simulation box, with some in very
 close proximity to each other.  This proximity results in a large
 initial potential energy due to the repulsive branch of the
-Lennard-Jones potential [i.e., the term in :math:`1/r^{12}` in
+Lennard-Jones potential [i.e., the term :math:`1/r^{12}` in
 Eq. :eq:`eq_LJ`].  As the energy minimization progresses, the energy
 decreases - first rapidly - then more gradually, before plateauing at a
 negative value.  This indicates that the atoms have moved to reasonable
@@ -311,7 +311,7 @@ command is introduced to specify the thermodynamic information LAMMPS should
 print during ``PART B``.  This adjustment is made because, during
 molecular dynamics, the system exhibits a non-zero temperature :math:`T` (and
 consequently a non-zero kinetic energy :math:`K`, keyword ``ke``), which are useful to monitor.
-The ``pe`` keyword represents the potential energy of the system, :math:`E`, such that
+The ``pe`` keyword represents the potential energy of the system, :math:`U`, such that
 :math:`U + K = E`.
 
 Then, add a second ``Run`` category by including the following

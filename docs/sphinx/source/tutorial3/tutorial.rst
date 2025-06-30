@@ -35,7 +35,7 @@ angles, and dihedrals used in the simulation, here ``harmonic``.
 With the ``pair_style`` named ``lj/cut/coul/long``, atoms
 interact through both a Lennard-Jones (LJ) potential and Coulomb
 interactions.  The value of :math:`10\,\text{Å}` is the cutoff, and the
-``ewald`` command defines the long-range solver for the Coulomb
+``kspace_style`` command defines the long-range solver for the Coulomb
 interactions :cite:`ewald1921berechnung`.  Finally, the
 ``special_bonds`` command, which was already seen in
 :ref:`carbon-nanotube-label`, sets the LJ and Coulomb
@@ -177,16 +177,16 @@ Let us also extract the volume and density every 500 steps:
     thermo_style custom step temp etotal v_myvol v_rho
 
 Here, several variables are defined and used for converting the units of the
-density in kg/mol:  The variable ``myoxy`` represents the number of
+density in :math:`\text{kg/m}^3`:  The variable ``myoxy`` represents the number of
 atoms divided by 3,  which corresponds to the number of molecules, :math:`N_\text{H2O}`,
-and the variable ``myrho`` is the density in kg/mol:  
+and the variable ``myrho`` is the density in :math:`\text{kg/m}^3`.
 
 .. math::
 
-    \rho = \dfrac{N_\text{H2O}}{V N_\text{A}},
+    \rho = \dfrac{N_\text{H2O} M}{V N_\text{A}},
 
 where :math:`V` is the volume in :math:`\text{m}^3`, :math:`N_\text{A}` the Avogadro number, and
-:math:`M = 0.018`\,kg/mol the molar mass of water.
+:math:`M = 0.018 ~ \text{kg/mol}` the molar mass of water.
 
 Finally, let us set the timestep to 1.0 fs, and run the simulation for 15 ps by
 adding the following lines into **water.lmp**:
