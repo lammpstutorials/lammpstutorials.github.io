@@ -218,7 +218,7 @@ classical textbooks like Ref. :cite:`frenkel2023understanding`.
 Using hydrid potentials
 -----------------------
 
-The first particularly of our system is that it combines water and
+The first peculiarity of our system is that it combines water and
 silica, which necessitates the use of two force fields: Vashishta (for
 :math:`\text{SiO}_2`), and TIP4P (for water).  Here, the TIP4P/2005 model is
 employed for the water :cite:`abascal2005general`.

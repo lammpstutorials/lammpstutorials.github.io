@@ -44,7 +44,7 @@ of ``lj/cut/tip4p/long`` instead of ``lj/cut/coul/long``, and ``pppm/tip4p``
 instead of ``pppm``.  When using ``lj/cut/tip4p/long`` and ``pppm/tip4p``,
 the interactions resemble the conventional Lennard-Jones and Coulomb interactions,
 except that they are specifically designed for the four-point water model.  As a result,
-LAMMPS automatically creates a four-point water molecule, assigning type O
+LAMMPS automatically adds the fourth point to the water molecules, assigning type O
 atoms as oxygen and type H atoms as hydrogen.  The fourth massless atom (M) of the
 TIP4P water molecule does not have to be defined explicitly, and the value of
 :math:`0.1546\,\text{Å}` corresponds to the O-M distance of the
@@ -510,8 +510,8 @@ commands to **shearing.lmp**:
     velocity walltop set 2e-4 NULL NULL
 
 The ``setforce`` commands cancel the forces on ``walltop`` and
-``wallbot``.  As a result, the atoms in these two groups will not
-experience any forces from the rest of the system.  Consequently, in the absence of
+``wallbot`` in the :math:`x` direction.  As a result, the atoms in these two groups will not
+experience any forces along :math:`x` from the rest of the system.  Consequently, in the absence of
 external forces, these atoms will conserve the initial velocities imposed by the
 two ``velocity`` commands.
 
