@@ -342,7 +342,9 @@ lines into <strong>water.lmp</strong>:</p>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">700</span><span class="w"> </span><span class="m">87910</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="m">454756</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">maxtry</span><span class="w"> </span><span class="m">50</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">overlap</span> <span class="pre">1.0</span></code> option of the <code class="docutils literal notranslate"><span class="pre">create_atoms</span></code> command ensures
+<p>The first parameter is 0, meaning that the atom IDs from
+the <strong>water.mol</strong> file will be used.
+The <code class="docutils literal notranslate"><span class="pre">overlap</span> <span class="pre">1.0</span></code> option of the <code class="docutils literal notranslate"><span class="pre">create_atoms</span></code> command ensures
 that no atoms are placed exactly in the same position, as this would cause the
 simulation to crash.  The <code class="docutils literal notranslate"><span class="pre">maxtry</span> <span class="pre">50</span></code> asks LAMMPS to try at most 50 times
 to insert the molecules, which is useful in case some insertion attempts are
@@ -383,7 +385,9 @@ command.  Add the following lines into <strong>water.lmp</strong>:</p>
 <code class="docutils literal notranslate"><span class="pre">reset_timestep</span></code> command is optional.
 It is used here because the number of iterations performed by the <code class="docutils literal notranslate"><span class="pre">minimize</span></code>
 command is usually not a round number, since the minimization stops when one of
-four criteria is reached.  We will use <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">npt</span></code> to control the temperature
+four criteria is reached, which can disrupt the intended frequency
+of outputs such as <code class="docutils literal notranslate"><span class="pre">dump</span></code> commands that depend on the timestep count.
+We will use <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">npt</span></code> to control the temperature
 and pressure of the molecules with a Nosé-Hoover thermostat and barostat,
 respectively <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id31" title="Shuichi Nosé. A unified formulation of the constant temperature molecular dynamics methods. The Journal of chemical physics, 81(1):511–519, 1984.">21</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id30" title="William G Hoover. Canonical dynamics: equilibrium phase-space distributions. Physical review A, 31(3):1695, 1985.">22</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id29" title="Glenn J Martyna, Douglas J Tobias, and Michael L Klein. Constant pressure molecular dynamics algorithms. The Journal of chemical physics, 101(5):4177–4189, 1994.">29</a>]</span>.
 Add the following line into <strong>water.lmp</strong>:</p>
