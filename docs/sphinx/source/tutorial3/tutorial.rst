@@ -163,30 +163,15 @@ Let us output the system into images by adding the following commands to **water
     acolor OW red acolor HW white &
     adiam OW 3 adiam HW 1.5
 
-Let us also extract the volume and density every 500 steps:
+Let us also extract the volume and density, among others, every 500 steps:
 
 .. code-block:: lammps
 
-    variable myvol equal vol
-    variable myoxy equal count(H2O)/3
-    variable NA equal 6.022e23
-    variable Atom equal 1e-10
-    variable M equal 0.018
-    variable rho equal ${myoxy}*${M}/(v_myvol*${NA}*${Atom}^3)
     thermo 500
-    thermo_style custom step temp etotal v_myvol v_rho
+    thermo_style custom step temp etotal volume density
 
-Here, several variables are defined and used for converting the units of the
-density in :math:`\text{kg/m}^3`:  The variable ``myoxy`` represents the number of
-atoms divided by 3,  which corresponds to the number of molecules, :math:`N_\text{H2O}`,
-and the variable ``myrho`` is the density in :math:`\text{kg/m}^3`.
-
-.. math::
-
-    \rho = \dfrac{N_\text{H2O} M}{V N_\text{A}},
-
-where :math:`V` is the volume in :math:`\text{m}^3`, :math:`N_\text{A}` the Avogadro number, and
-:math:`M = 0.018 ~ \text{kg/mol}` the molar mass of water.
+With the real units system, the volume is in :math:`Å^3`, and
+the density is in :math:`\text{g/cm}^3`.
 
 Finally, let us set the timestep to 1.0 fs, and run the simulation for 15 ps by
 adding the following lines into **water.lmp**:

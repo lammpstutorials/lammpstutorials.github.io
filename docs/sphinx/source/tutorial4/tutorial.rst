@@ -168,7 +168,6 @@ must be located next to **create.lmp**. The **parameters.inc** file contains the
     mass Cl- 35.453
     mass WALL 26.9815
 
-
 Each ``mass`` command assigns a mass in g/mol to an atom type.
 The **parameters.inc** file also contains the pair coefficients:
 
