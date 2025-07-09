@@ -17,7 +17,7 @@ file **initial.lmp** in it, and open the file in the LAMMPS--GUI Editor window:
     # 1) Initialization
     # 2) System definition
     # 3) Settings
-    # 4) Visualization
+    # 4) Monitoring
     # 5) Run 
 
 .. admonition:: If you are not using LAMMPS-GUI
@@ -31,8 +31,8 @@ file **initial.lmp** in it, and open the file in the LAMMPS--GUI Editor window:
 Everything that appears after a hash symbol (#) is a comment
 and ignored by LAMMPS. These five categories are not required in every input script an do not
 necessarily need to be in that exact order.  For instance, the ``Settings``
-and the ``Visualization`` categories could be inverted, or
-the ``Visualization`` category could be omitted.  However, note that
+and the ``Monitoring`` categories could be inverted, or
+the ``Monitoring`` category could be omitted.  However, note that
 LAMMPS reads input files from top to bottom and processes each command
 *immediately*.  Therefore, the ``Initialization`` and
 ``System definition`` categories must appear at the top of the
@@ -61,6 +61,15 @@ so that the ``Initialization`` section appears as follows:
     atom_style atomic
     boundary p p p
 
+.. admonition:: Note
+    :class: non-title-info
+
+    Strictly speaking, none of the four commands specified in the
+    ``Initialization`` section are mandatory, as they correspond to the
+    default settings for their respective global properties.  However,
+    explicitly specifying these defaults is considered good practice to
+    avoid confusion when sharing input files with other LAMMPS users.
+
 The first line, ``units lj``, specifies the use of *reduced*  
 units, where all quantities are dimensionless.  This unit system is a  
 popular choice for simulations that explore general statistical  
@@ -86,19 +95,20 @@ slab geometries.
 .. admonition:: Note
     :class: non-title-info
 
-    Strictly speaking, none of the four commands specified in the
-    ``Initialization`` section are mandatory, as they correspond to the
-    default settings for their respective global properties.  However,
-    explicitly specifying these defaults is considered good practice to
-    avoid confusion when sharing input files with other LAMMPS users.
+    Each LAMMPS command is accompanied by extensive online |lammpsdocs|
+    that details the different options for that command.
+    From the LAMMPS--GUI editor buffer, you can access the documentation by  
+    right-clicking on a line containing a command (e.g., ``units lj``)  
+    and selecting ``View Documentation for `units'``.  This action  
+    should prompt your web browser to open the corresponding URL for the  
+    online manual.
 
-Each LAMMPS command is accompanied by extensive online |lammpsdocs|
-that details the different options for that command.
-From the LAMMPS--GUI editor buffer, you can access the documentation by  
-right-clicking on a line containing a command (e.g., ``units lj``)  
-and selecting ``View Documentation for `units'``.  This action  
-should prompt your web browser to open the corresponding URL for the  
-online manual.
+.. admonition:: Note
+    :class: non-title-info
+    
+    Most LAMMPS commands have default settings that are applied if no value
+    is explicitly specified.  The defaults for each command are listed at the
+    bottom of its documentation page.
 
 .. |lammpsdocs| raw:: html
 
@@ -121,6 +131,9 @@ The first line, ``region simbox (...)``, defines a region named
 from -20 to 20 units along all three spatial dimensions.  The second  
 line, ``create_box 2 simbox``, initializes a simulation box based  
 on the region ``simbox`` and reserves space for two types of atoms.
+In LAMMPS, an atom *type* represents a group of atoms that
+interact using the same set of force field parameters (here, the Lennard-Jones
+parameters).
 
 .. admonition:: Note
     :class: non-title-info
@@ -132,8 +145,10 @@ on the region ``simbox`` and reserves space for two types of atoms.
     terminate with an error.
 
 The third line, ``create_atoms (...)``, generates 1500 atoms of  
-type 1 at random positions within the ``simbox`` region.  The  
-integer 34134 is a seed for the internal random number generator, which  
+type 1 at random positions within the ``simbox`` region.  Each atom created in
+LAMMPS is automatically assigned a unique atom ID, which serves as a numerical
+identifier to distinguish individual atoms throughout the simulation
+The integer 34134 is a seed for the internal random number generator, which  
 can be changed to produce different sequences of random numbers and,  
 consequently, different initial atom positions.  The fourth line adds  
 100 atoms of type 2.  Both ``create_atoms`` commands use the  
@@ -141,6 +156,13 @@ optional argument ``overlap 0.3``, which enforces a minimum
 distance of 0.3 units between the randomly placed atoms.  This  
 constraint helps avoid close contacts between atoms, which can lead  
 to excessively large forces and simulation instability.
+
+.. admonition:: Note
+    :class: non-title-info
+    
+    Another way to define a system in LAMMPS, besides ``create_atoms``, is to
+    import an existing topology with ``read_data``, as shown
+    in :ref:`carbon-nanotube-label`.
 
 .. include:: ../shared/needhelp.rst
 
@@ -189,19 +211,20 @@ of type 2, :math:`\epsilon_{22} = 0.5`, and :math:`\sigma_{22} = 3.0`.
     types using geometric average: :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
     :math:`\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}`.  In the present case,
     :math:`\epsilon_{12} = \sqrt{1.0 \times 0.5} = 0.707`, and
-    :math:`\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732`.
+    :math:`\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732`. Other rules
+    can be selected using the ``pair_modify`` command.
 
 Single-point energy
 -------------------
 
 The system is now fully parameterized, and the input is ready to compute
 forces.  Let us complete the two remaining categories,
-``Visualization`` and ``Run``, by adding the following lines
+``Monitoring`` and ``Run``, by adding the following lines
 to **initial.lmp**:
 
 .. code-block:: lammps
 
-    # 4) Visualization
+    # 4) Monitoring
     thermo 10
     thermo_style custom step etotal press
     # 5) Run
@@ -215,6 +238,12 @@ defines the specific outputs, which in this case are the step number
 The ``run 0 post no`` command instructs LAMMPS to initialize forces and energy
 without actually running the simulation.  The ``post no`` option disables
 the post-run summary and statistics output.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    The *thermodynamic information* printed by LAMMPS refers to instantaneous values
+    of thermodynamic properties at the specified steps, not cumulative averages.
 
 You can now run LAMMPS (basic commands for running LAMMPS
 are provided in :ref:`running-lammps-label`.
@@ -297,7 +326,7 @@ following lines immediately after the ``minimize`` command:
 .. code-block:: lammps
 
     # PART B - MOLECULAR DYNAMICS
-    # 4) Visualization
+    # 4) Monitoring
     thermo 50
     thermo_style custom step temp etotal pe ke press
 
@@ -423,7 +452,7 @@ thermodynamic information.  To better follow the evolution of the system
 and visualize the trajectories of the atoms, let us print the positions
 of the atoms in a file at a regular interval.
 
-Add the following command to the ``Visualization`` section  
+Add the following command to the ``Monitoring`` section  
 of ``PART B`` of the **initial.lmp** file:
 
 .. code-block:: lammps
@@ -440,7 +469,7 @@ and adjust the visualization to your liking using the available buttons.
 Now you can copy the commands used to create this visualization to the  
 clipboard by either using the ``Ctrl-D`` keyboard shortcut or  
 selecting ``Copy dump image command`` from the ``File`` menu.  
-This text can be pasted into the ``Visualization`` section  
+This text can be pasted into the ``Monitoring`` section  
 of ``PART B`` of the **initial.lmp** file.  This may look like  
 the following:
 
@@ -496,7 +525,7 @@ commands in the ``System definition`` section:
     pair_style lj/cut 4.0
     pair_coeff 1 1 1.0 1.0
     pair_coeff 2 2 0.5 3.0
-    # 4) Visualization
+    # 4) Monitoring
     thermo 10
     thermo_style custom step etotal press
     # 5) Run
@@ -591,7 +620,7 @@ and **improved.min.lmp**:
     boundary p p p
     # 2) System definition
     # 3) Settings
-    # 4) Visualization
+    # 4) Monitoring
     # 5) Run
 
 Since we read most of the information from the data file, we don't need  
@@ -696,7 +725,7 @@ Finally, let us complete the script by adding the following lines to
 
 .. code-block:: lammps
 
-    # 4) Visualization
+    # 4) Monitoring
     thermo 1000
     thermo_style custom step temp pe ke etotal press v_n1_in v_n2_in c_sumcoor12
     dump viz all image 1000 myimage-*.ppm type type shiny 0.1 box no 0.01 view 0 0 zoom 1.8 fsaa yes size 800 800
