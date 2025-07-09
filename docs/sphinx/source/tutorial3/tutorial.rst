@@ -300,10 +300,15 @@ the position :math:`(0, 0, 0)`:
 
     fix myrct PEG recenter 0 0 0 shift all
 
-Note that the ``recenter`` command has no impact on the dynamics,
-it simply repositions the frame of reference so that any drift of the
-system is ignored, which can be convenient for visualizing and analyzing
-the system.
+.. admonition:: Note
+    :class: non-title-info
+
+    Note that the ``recenter`` command has no impact on the dynamics,
+    it simply repositions the frame of reference so that any drift of the
+    system is ignored, which can be convenient for visualizing and analyzing
+    the system. However, be aware that using ``fix recenter`` can sometimes
+    mask underlying issues in the simulation, such as net momentum or the so-called
+    *flying ice cube syndrome* :cite:`wong2016good`.
 
 Let us create images of the systems:
 
