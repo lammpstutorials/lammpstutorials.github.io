@@ -35,6 +35,10 @@ These lines are used to define the most basic parameters, including the
 atom, bond, and angle styles, as well as interaction
 potential.  Here, ``lj/cut/tip4p/long`` imposes a Lennard-Jones potential with
 a cut-off at :math:`12\,\text{Å}` and a long-range Coulomb potential.
+The parameters ``O``, ``H``, ``O-H``, and ``H-O-H`` correspond
+respectively to the oxygens, hydrogens, O-H bonds, and H-O-H angle constraints of
+the water molecules; their definitions, provided by the ``labelmap`` commands,
+will be clarified below.
 
 .. include:: ../shared/needhelp.rst
 
@@ -189,10 +193,10 @@ types.  By default, LAMMPS calculates the pair coefficients for the
 interactions between atoms of different types (i and j) by using
 geometric average: :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
 :math:`\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}`.  However, if the default
-value of :math:`1.472\,\text{kcal/mol}` was used for :math:`\epsilon_\text{1-5}`,
+value of :math:`1.472\,\text{kcal/mol}` was used for :math:`\epsilon_\text{O-WALL}`,
 the solid walls would be extremely hydrophilic, causing the water
 molecules to form dense layers.  As a comparison, the water-water energy
-:math:`\epsilon_\text{1-1}` is only :math:`0.185199\,\text{kcal/mol}`.  Therefore,
+:math:`\epsilon_\text{O-O}` is only :math:`0.185199\,\text{kcal/mol}`.  Therefore,
 to make the walls less hydrophilic, the value of
 :math:`\epsilon_\text{O-WALL}` was reduced.
 

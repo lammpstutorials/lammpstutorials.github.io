@@ -387,8 +387,8 @@ following lines into **gcmc.lmp**:
 .. code-block:: lammps
 
     compute ctH2O H2O temp
-    compute_modify thermo_temp dynamic yes
-    compute_modify ctH2O dynamic yes
+    compute_modify thermo_temp dynamic/dof yes
+    compute_modify ctH2O dynamic/dof yes
     fix mynvt1 H2O nvt temp 300 300 0.1
     fix_modify mynvt1 temp ctH2O
     fix mynvt2 SiO nvt temp 300 300 0.1
@@ -398,7 +398,7 @@ Two different thermostats are used for :math:`\text{SiO}_2` and :math:`\text{H}_
 respectively.  Using separate thermostats is usually better when the system contains
 two separate species, such as a solid and a liquid.  It is particularly important
 to use two thermostats here because the number of water molecules will fluctuate
-with time.  The ``compute_modify`` command with the ``dynamic yes``
+with time.  The ``compute_modify`` command with the ``dynamic/dof yes``
 option for water is used to specify that the number of molecules will not be constant.
 
 Finally, let us use the ``fix gcmc`` and perform the grand canonical Monte

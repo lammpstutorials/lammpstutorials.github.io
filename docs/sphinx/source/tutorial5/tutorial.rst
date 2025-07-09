@@ -62,7 +62,10 @@ allocation issues, which sometimes can trigger segmentation faults and
 file, which should have been downloaded during the tutorial set up.  Finally, the
 ``fix qeq/reaxff`` is used to perform charge equilibration :cite:`rappe1991charge`,
 which occurs at every step.  The values 0.0 and 10.0 represent the
-low and the high cutoffs, respectively, and :math:`1.0 \text{e} -6` is the tolerance.
+low and the high cutoffs, respectively, and :math:`1.0 \text{e} -6` is the tolerance,
+i.e., the precision to which the atomic charges are equilibrated during the
+charge equilibration process.
+
 The ``maxiter`` sets an upper limit to the number of attempts to
 equilibrate the charge.
 

@@ -408,7 +408,6 @@ constraints using the following commands:
 .. code-block:: lammps
         
     compute rgyr PEG gyration
-    compute prop PEG property/local dtype
     compute dphi PEG dihedral/local phi
 
 The radius of gyration can be directly printed with the ``thermo_style`` command:
@@ -417,7 +416,7 @@ The radius of gyration can be directly printed with the ``thermo_style`` command
 
     thermo_style custom step temp etotal c_rgyr
     thermo 250
-    dump mydmp all local 100 pull.dat index c_dphi c_prop
+    dump mydmp all local 100 pull.dat index c_dphi
 
 By contrast with the radius of gyration (compute ``rgyr``), the dihedral angle
 :math:`\phi` (compute ``dphi``) is returned as a vector by the ``compute dihedral/local``
@@ -504,11 +503,13 @@ named **pull.lammpstrj**, which can be opened in OVITO or VMD.
 .. admonition:: Note
     :class: non-title-info
 
-    Since the trajectory dump file does not contain information about
+    Since the default trajectory dump file does not contain information about
     topology and elements, it is usually preferred to first write out a
     data file and import it directly (in the case of OVITO) or convert it
     to a PSF file (for VMD).  This allows the topology to be loaded before
     *adding* the trajectory file to it.  When using LAMMPS--GUI,
     this process can be automated through the ``View in OVITO`` or
     ``View in VMD`` options in the ``Run`` menu.  Afterwards
-    only the trajectory dump needs to be added.
+    only the trajectory dump needs to be added.  Alternatively, the
+    ``dump custom`` command can be combined with ``dump`` command to
+    include element names in the dump file and simplify visualization.

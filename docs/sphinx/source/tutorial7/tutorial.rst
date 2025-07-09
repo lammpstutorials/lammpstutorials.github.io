@@ -48,7 +48,7 @@ content:
 
     units real
     atom_style atomic
-    pair_style lj/cut 3.822
+    pair_style lj/cut $(2^(1/6)*v_sigma)
     pair_modify shift yes
     boundary p p p
 
@@ -56,11 +56,17 @@ Here, we begin by defining variables for the Lennard-Jones interaction
 :math:`\sigma` and :math:`\epsilon` and for the repulsive potential
 :math:`U`, which are :math:`U_0`, :math:`\delta`, and
 :math:`x_0` [see Eqs. :eq:`eq_U`-:eq:`eq_F` below].  The cut-off value of
-3.822 Å was chosen to create a Weeks-Chandler-Andersen (WCA) potential,
-which is a truncated and purely repulsive LJ
-potential :cite:`weeks1971role`.  It was calculated as :math:`2^{1/6} \sigma`.
+:\math:`2^{1/6} \sigma = 3.822` was chosen to create a Weeks-Chandler-Andersen
+(WCA) potential, which is a truncated and purely repulsive LJ potential :cite:`weeks1971role`. 
 The potential is also shifted to be equal to 0 at the cut-off
 using the ``pair_modify`` command.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    The syntax ``$(...)``, where a dollar sign is followed by parentheses, allows
+    you to evaluate a numeric formula immediately, without having to assign it
+    to a named variable first.
 
 System creation and settings
 ----------------------------
@@ -303,7 +309,7 @@ and paste in the following content:
 
     units real
     atom_style atomic
-    pair_style lj/cut 3.822
+    pair_style lj/cut $(2^(1/6)*v_sigma)
     pair_modify shift yes
     boundary p p p
 
