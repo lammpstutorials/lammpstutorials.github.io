@@ -357,6 +357,7 @@ from the typical dependency of bond energy with bond distance,
     The CNT starts deforming at :math:`t = 5\,\text{ps}`, and :math:`L_\text{cnt-0}` is the  
     CNT initial length.  b) Evolution of the total energy :math:`E` of the system with time :math:`t`.  
     Here, the potential is OPLS-AA, and the CNT is unbreakable.
+    The orange line shows the raw data, and the blue line represents a time-averaged curve.
 
 Importing YAML log file into Python
 -----------------------------------
@@ -400,6 +401,7 @@ the **unbreakable.yaml** file can then be used to plot the stress-strain curve.
     as a function of the strain, :math:`\Delta L_\text{cnt} = (L_\text{cnt}-L_\text{cnt-0})/L_\text{cnt-0}`,
     where :math:`L_\text{cnt}` is the CNT length and :math:`L_\text{cnt-0}` the CNT initial length.
     Here, the potential is OPLS-AA, and the CNT is unbreakable.
+    The orange line shows the raw data, and the blue line represents a time-averaged curve.
 
 Breakable bonds
 ===============
@@ -565,7 +567,8 @@ curve reveals a linear (elastic) regime where
     where :math:`F_\text{cnt}` is the force and :math:`A_\text{cnt}` the CNT surface area,
     as a function of the strain, :math:`\Delta L_\text{cnt} = (L_\text{cnt}-L_\text{cnt-0}/L_\text{cnt-0})`, where
     :math:`L_\text{cnt}` is the CNT length and :math:`L_\text{cnt-0}` the CNT initial length.
-    Here, the potential is AIREBO, and the CNT is breakable.
+    Here, the potential is AIREBO, and the CNT is breakable.  The orange line shows
+    the raw data, and the blue line represents a time-averaged curve.
 
 Tip: bonds representation with AIREBO
 -------------------------------------
