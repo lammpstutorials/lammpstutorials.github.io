@@ -215,15 +215,16 @@ random positions are made.  Each attempt is either accepted or rejected
 based on energy considerations.  For further details, please refer to
 classical textbooks like Ref. :cite:`frenkel2023understanding`.
 
-Using hydrid potentials
+Adapting the pair style
 -----------------------
 
-The first particularly of our system is that it combines water and
-silica, which necessitates the use of two force fields: Vashishta (for
-:math:`\text{SiO}_2`), and TIP4P (for water).  Here, the TIP4P/2005 model is
-employed for the water :cite:`abascal2005general`.
-
-Create a new file called **gcmc.lmp**, and copy the following lines into it:
+For this next step, we need to define the parameters for the water molecules and
+the cross-interactions between water and silica. The TIP4P/2005 model is employed
+for the water :cite:`abascal2005general`, while no specific parameters are set
+for the silica itself. The atoms of the silica will remain frozen during this part.
+Only the cross-interactions between water and silica need
+to be defined. Create a new file called **gcmc.lmp**, and copy the following
+lines into it:
 
 .. code-block:: lammps
 
@@ -232,7 +233,7 @@ Create a new file called **gcmc.lmp**, and copy the following lines into it:
     atom_style full
     neighbor 1.0 bin
     neigh_modify delay 1
-    pair_style hybrid/overlay vashishta lj/cut/tip4p/long OW HW OW-HW HW-OW-HW 0.1546 10
+    pair_style lj/cut/tip4p/long OW HW OW-HW HW-OW-HW 0.1546 10
     kspace_style pppm/tip4p 1.0e-5
     bond_style harmonic
     angle_style harmonic
@@ -242,13 +243,19 @@ Create a new file called **gcmc.lmp**, and copy the following lines into it:
 
     Open the **gcmc.lmp** file.
 
-Combining the two force fields, Vashishta and TIP4P/2005, is achieved
-using the ``hybrid/overlay`` pair style.  The PPPM
-solver :cite:`luty1996calculating` is specified with the ``kspace``
+The PPPM solver :cite:`luty1996calculating` is specified with the ``kspace``
 command, and is used to compute the long-range Coulomb interactions associated
 with ``tip4p/long``.  Finally, the style for the bonds
 and angles of the water molecules are defined; however, these specifications are
 not critical since TIP4P/2005 is a rigid water model.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    In practice, it is possible to use both ``vashishta`` and
+    ``lj/cut/tip4p/long`` pair styles by employing the ``pair_style hybrid``
+    command.  However, hybridizing force fields should be done with caution, as there
+    is no guarantee that the resulting force field will produce meaningful results.
 
 The water molecule template called |H2O_mol_6|
 must be downloaded and located next to **gcmc.lmp**.
@@ -331,25 +338,30 @@ to **gcmc.lmp**:
 
 .. code-block:: lammps
         
-    pair_coeff * * vashishta SiO.1990.vashishta Si O NULL NULL
-    pair_coeff * * lj/cut/tip4p/long 0 0
-    pair_coeff Si OW lj/cut/tip4p/long 0.0057 4.42
-    pair_coeff O OW lj/cut/tip4p/long 0.0043 3.12
-    pair_coeff OW OW lj/cut/tip4p/long 0.008 3.1589
-    pair_coeff HW HW lj/cut/tip4p/long 0.0 0.0
+    pair_coeff * * 0 0
+    pair_coeff Si OW 0.0057 4.42
+    pair_coeff O OW 0.0043 3.12
+    pair_coeff OW OW 0.008 3.1589
+    pair_coeff HW HW 0.0 0.0
     bond_coeff OW-HW 0 0.9572
     angle_coeff HW-OW-HW 0 104.52
 
-The force field Vashishta applies only to ``Si`` and ``O`` of :math:`\text{SiO}_2`,
-and not to the ``OW`` and ``HW`` of :math:`\text{H}_2\text{O}`, thanks to the ``NULL`` parameters
-used for atoms of types ``OW`` and ``HW``.  Pair coefficients for the ``lj/cut/tip4p/long``
+Pair coefficients for the ``lj/cut/tip4p/long``
 potential are defined between O(:math:`\text{H}_2\text{O}`) and between H(:math:`\text{H}_2\text{O}`)
 atoms, as well as between O(:math:`\text{SiO}_2`)-O(:math:`\text{H}_2\text{O}`) and
-Si(:math:`\text{SiO}_2`)-O(:math:`\text{H}_2\text{O}`). Thus,  the fluid-fluid and the
+Si(:math:`\text{SiO}_2`)-O(:math:`\text{H}_2\text{O}`).  Thus, the fluid-fluid and the
 fluid-solid interactions will be adressed with by the ``lj/cut/tip4p/long`` potential.
 The ``bond_coeff`` and ``angle_coeff`` commands set the ``OW-HW``
 bond length to 0.9572 Å, and the ``HW-OW-HW``
 angle to :math:`104.52^\circ`, respectively :cite:`abascal2005general`.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    The pair coefficients for interactions between Si(:math:`\text{SiO}_2`)
+    and O(:math:`\text{SiO}_2`) are set by the first command, ``pair_coeff * * 0 0``,
+    which effectively means that they do not interact. This is acceptable here because
+    the silica atoms remain frozen during this part of the tutorial.
 
 Add the following lines to **gcmc.lmp** as well:
 
@@ -389,17 +401,14 @@ following lines into **gcmc.lmp**:
     compute ctH2O H2O temp
     compute_modify thermo_temp dynamic/dof yes
     compute_modify ctH2O dynamic/dof yes
-    fix mynvt1 H2O nvt temp 300 300 0.1
-    fix_modify mynvt1 temp ctH2O
-    fix mynvt2 SiO nvt temp 300 300 0.1
+    fix mynvt H2O nvt temp 300 300 0.1
+    fix_modify mynvt temp ctH2O
     timestep 0.001
 
-Two different thermostats are used for :math:`\text{SiO}_2` and :math:`\text{H}_2\text{O}`,
-respectively.  Using separate thermostats is usually better when the system contains
-two separate species, such as a solid and a liquid.  It is particularly important
-to use two thermostats here because the number of water molecules will fluctuate
-with time.  The ``compute_modify`` command with the ``dynamic/dof yes``
-option for water is used to specify that the number of molecules will not be constant.
+Here, the ``fix nvt`` applies only to the water molecules, so
+the atoms in the silica remain fixed.  The ``compute_modify`` command with
+the ``dynamic/dof yes`` option is used for water to account for the fact
+that the number of molecules is not constant.
 
 Finally, let us use the ``fix gcmc`` and perform the grand canonical Monte
 Carlo steps.  Add the following lines into **gcmc.lmp**:
