@@ -11,17 +11,18 @@
 Method 1: Free sampling
 =======================
 
-The most direct way to calculate a free energy profile is to extract the
-partition function from a classical (i.e. unbiased) molecular dynamics
-simulation, and then estimate the Gibbs free energy by using
+The most direct way to estimate a free energy profile is to sample
+the Boltzmann distribution using a classical (i.e.unbiased) molecular dynamics
+simulation, and compute relative Gibbs free energies from the relative probabilities
+of states using
 
 .. math::
     :label: eq_G
 
-    \Delta G = -RT \ln(p/p_0),
+    \Delta G = -RT \ln(\rho/\rho_0),
 
 where :math:`\Delta G` is the free energy difference, :math:`R` is the gas constant, :math:`T`
-is the temperature, :math:`p` is the pressure, and :math:`p_0` is a reference pressure.
+is the temperature, :math:`\rho` is the density, and :math:`\rho_0` is a reference density.
 As an illustration, let us apply this method to a simple configuration
 that consists of a particles in a box in the presence of a
 position-dependent repulsive force that makes the center of the box a less
@@ -238,9 +239,8 @@ Data analysis
 Once the simulation is complete, the density profile from **free-sampling.dat**
 shows that the density in the center of the box is
 about two orders of magnitude lower than inside the reservoir.
-Next, we plot :math:`-R T \ln(\rho/\rho_\mathrm{bulk})` (i.e. Eq. :eq:`eq_G` where
-the pressure ratio :math:`p/p_\mathrm{bulk}` is replaced by the density ratio
-:math:`\rho/\rho_\mathrm{bulk}`, assuming the system behaves as an ideal gas) and compare it
+Next, we plot :math:`-R T \ln(\rho/\rho_\mathrm{bulk})`, where :math:`\rho/\rho_\mathrm{bulk}`
+is the the density ratio,  and compare it
 with the imposed potential :math:`U` from Eq. :eq:`eq_U`.
 The reference density, :math:`\rho_\text{bulk} = 0.0009~\text{Å}^{-3}`,
 was estimated by measuring the density of the reservoir from the raw density

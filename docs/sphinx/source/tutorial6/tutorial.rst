@@ -37,7 +37,7 @@ Add the following lines to **generate.lmp**:
     create_atoms O random 480 1072 box overlap 2.0 maxtry 500
 
 The ``create_atoms`` commands are used to place
-240 Si atoms, and 480 atoms, respectively.  This corresponds to
+240 Si atoms and 480 O atoms, respectively.  This corresponds to
 an initial density of approximately :math:`2 \, \text{g/cm}^3`, which is close
 to the expected final density of amorphous silica at 300 K.
 
@@ -439,12 +439,14 @@ Finally, let us print some information and run for 25 ps:
 
     run 25000
 
-Running this simulation using LAMMPS, one can see that the number of molecules is increasing
-progressively.  When using the pressure argument, LAMMPS ignores the value of the
-chemical potential (here :math:`\mu = -0.5\,\text{eV}`, which corresponds roughly to
-ambient conditions, i.e. to a relative humidity :math:`\text{RH} \approx 50\,\%` :cite:`gravelle2020multi`.)
-The large pressure value of 100 bars was chosen to ensure that some successful
-insertions of molecules would occur during the short duration of this simulation.
+.. admonition:: Note
+    :class: non-title-info
+        
+    When using the pressure argument, LAMMPS ignores the value of the
+    chemical potential (here :math:`\mu = -0.5\,\text{eV}`, which corresponds roughly to
+    ambient conditions, i.e. to a relative humidity :math:`\text{RH} \approx 50\,\%` :cite:`gravelle2020multi`.)
+    The large pressure value of 100 bars was chosen to ensure that some successful
+    insertions of molecules would occur during the short duration of this simulation.
 
 .. figure:: figures/GCMC-number-dm.png
     :class: only-dark
@@ -458,7 +460,8 @@ insertions of molecules would occur during the short duration of this simulation
 
     Figure: Number of water molecules, :math:`N_\text{H2O}`, as a function of time, :math:`t`.
 
-After a few GCMC steps, the number of molecules starts increasing.  Once the
+Running this simulation using LAMMPS, one can see that
+after a few GCMC steps, the number of molecules starts increasing.  Once the
 crack is filled with water molecules, the total number of molecules reaches a plateau.  The final number of
 molecules depends on the imposed pressure, temperature, and the interaction
 between water and silica (i.e. its hydrophilicity).  Note that GCMC simulations
