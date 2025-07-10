@@ -52,7 +52,7 @@ Next, copy the following three crucial lines into the **relax.lmp** file:
 .. code-block:: lammps
 
     pair_style reaxff NULL safezone 3.0 mincap 150
-    pair_coeff * * reaxCHOFe.inc Si O
+    pair_coeff * * ffield.reax.CHOFe Si O
     fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
 In this case, the ``pair_style reaxff`` is used without a control file.  The
@@ -71,7 +71,7 @@ equilibrate the charge.
 
 .. |reaxCHOFe_inc_5| raw:: html
 
-    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial5/reaxCHOFe.inc" target="_blank">reaxCHOFe.inc</a>
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial5/ffield.reax.CHOFe" target="_blank">ffield.reax.CHOFe</a>
 
 Next, add the following commands to the **relax.lmp** file to track the
 evolution of the charges during the simulation:
@@ -216,7 +216,7 @@ file, which must contain the following lines:
     read_data relax.data
 
     pair_style reaxff NULL safezone 3.0 mincap 150
-    pair_coeff * * reaxCHOFe.inc Si O
+    pair_coeff * * ffield.reax.CHOFe Si O
     fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
     group grpSi type Si
@@ -348,7 +348,7 @@ Open the **decorate.lmp** file, which must contain the following lines:
     displace_atoms all move -12 0 0 # optional
 
     pair_style reaxff NULL safezone 3.0 mincap 150
-    pair_coeff * * reaxCHOFe.inc Si O H
+    pair_coeff * * ffield.reax.CHOFe Si O H
     fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
 The ``displace_atoms`` command is used to move the center of the
