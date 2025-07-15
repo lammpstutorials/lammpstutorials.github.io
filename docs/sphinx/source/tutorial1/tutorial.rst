@@ -354,7 +354,8 @@ lines in ``PART B`` of **initial.lmp**:
     run 50000
 
 The ``fix nve`` command updates the positions and velocities of the
-atoms in the group ``all`` at every step.  The group ``all``
+atoms in the group ``all`` at every step.  More specifically, this command integrates
+Newton's equations of motion using the velocity-Verlet algorithm.  The group ``all``
 is a default group that contains all atoms.  The last two lines specify
 the value of the ``timestep`` and the number of steps for the
 ``run``, respectively, for a total duration of 250 time units.
@@ -362,10 +363,10 @@ the value of the ``timestep`` and the number of steps for the
 .. admonition:: Note
     :class: non-title-info
 
-    Since no other fix commands alter forces or velocities, and periodic
-    boundary conditions are applied in all directions, the MD simulation
-    will be performed in the microcanonical (NVE) ensemble, which
-    maintains a constant number of particles and a fixed box volume.  In
+    Since the only command affecting forces and velocities in the
+    present script is ``fix nve``, and periodic boundary conditions are applied
+    in all directions, the MD simulation will be performed in the microcanonical (NVE) ensemble, which
+    maintains a constant number of particles and a fixed box volume. In
     this ensemble, the system does not exchange energy with anything
     outside the simulation box.
 
@@ -578,7 +579,7 @@ right-clicking on the file name in the editor and selecting the entry
 The created **.data** file contains all the information necessary  
 to restart the simulation, such as the number of atoms, the box size,  
 the masses, and the pair coefficients.  This **.data** file also  
-contains the final positions of the atoms within the ``Atoms``  
+contains the final positions of the atoms, along with their IDs and types, within the ``Atoms``  
 section.  The first five columns of the ``Atoms`` section  
 correspond (from left to right) to the atom indexes (from 1 to the total  
 number of atoms, 1150), the atom types (1 or 2 here), and the positions  
@@ -709,10 +710,22 @@ atoms.  Add the following lines to **improved.md.lmp**:
 
 The ``compute reduce ave`` command is used to average the per-atom  
 coordination number calculated by the ``coord/atom``  
-compute command.  Compute commands are not automatically invoked; they  
+compute command.  Compute commands do not print or output
+anything by themselves, nor are they automatically executed; they  
 require a *consumer* command that references the compute.  In this case, the  
 first compute is referenced by the second, and we reference the second  
 in a ``thermo_style custom`` command (see below).
+
+.. admonition:: Note
+    :class: non-title-info
+
+    LAMMPS ``compute`` commands can produce three kinds of data: scalars (single values), 
+    vectors (one-dimensional arrays), or arrays (two-dimensional tables).  
+    When referencing results of a compute, you can use indices: for example, 
+    ``c\_mycompute`` refers to the entire scalar, vector, or array, and
+    ``c\_mycompute[1]`` refers to its first element (in case of vector or array).  
+    In general, *consumer* commands can only work with certain data types,
+    check the documentation of each command to ensure compatibility.
 
 .. admonition:: Note
     :class: non-title-info
