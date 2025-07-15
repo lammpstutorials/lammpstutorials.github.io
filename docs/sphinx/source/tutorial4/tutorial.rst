@@ -32,7 +32,7 @@ file in a text editor of your choice, and copy the following into it:
     The editor should display the following content corresponding to **create.lmp**
 
 These lines are used to define the most basic parameters, including the
-atom, bond, and angle styles, as well as interaction
+atom, bond, and angle styles, as well as the non-bonded interaction
 potential.  Here, ``lj/cut/tip4p/long`` imposes a Lennard-Jones potential with
 a cut-off at :math:`12\,\text{Å}` and a long-range Coulomb potential.
 The parameters ``O``, ``H``, ``O-H``, and ``H-O-H`` correspond
@@ -217,7 +217,7 @@ the force constant of the angular harmonic potential to 0 and the equilibrium
 angle to :math:`104.52^\circ`.
 
 Alongside **parameters.inc**, the **groups.inc** file contains
-several ``group`` commands to selects atoms based on their types:
+several ``group`` commands to define groups of atoms based on their types:
 
 .. code-block:: lammps
 
@@ -333,6 +333,16 @@ of the water molecules.  The ``kbond`` keyword specifies the force constant that
 used to apply a restraint force when used during minimization.  This last keyword is important
 here, because the spring constants of the rigid water molecules were set
 to 0 (see the **parameters.inc** file).
+
+.. admonition:: Note
+    :class: non-title-info
+
+    LAMMPS provides several ways to maintain molecules rigid during a simulation. 
+    The ``fix shake`` command is appropriate for constraining bond lengths 
+    and angles within small molecules like water. 
+    However, it may fail for linear molecules like :math:`\text{CO}_2` or more complex rigid bodies. 
+    In such cases, the ``fix rigid`` family of commands can be used instead to
+    treat entire molecules or groups of atoms as rigid bodies.
 
 Let us also create images of the system and control
 the printing of thermodynamic outputs by adding the following lines

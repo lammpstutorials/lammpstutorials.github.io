@@ -151,7 +151,8 @@ Add the following line into **water.lmp**:
 The ``fix npt`` allows us to impose both a temperature of :math:`300\,\text{K}`
 (with a damping constant of :math:`100\,\text{fs}`), and a pressure of 1 atmosphere
 (with a damping constant of :math:`1000\,\text{fs}`).  With the ``iso`` keyword,
-the three dimensions of the box will be re-scaled simultaneously.
+the three dimensions of the box will be re-scaled isotropically,
+maintaining the same proportion in all directions.
 
 Let us output the system into images by adding the following commands to **water.lmp**:
 
