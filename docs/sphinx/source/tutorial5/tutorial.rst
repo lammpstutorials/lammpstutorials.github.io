@@ -30,8 +30,9 @@ and a **.data** file is imported by the ``read_data`` command.
 .. include:: ../shared/needhelp.rst
 
 The initial topology given by |silica_data_5|
-is a small amorphous silica structure.  This structure was created using a force field called
-Vashishta :cite:`vashishta1990interaction`.  If you open the **silica.data**
+is a small amorphous silica structure.  This structure was generated in a prior
+simulation using the Vashishta force field :cite:`vashishta1990interaction`.
+If you open the **silica.data**
 file, you will find in the ``Atoms`` section that all silicon atoms have a
 charge of :math:`q = 1.1\,\text{e}`, and all oxygen atoms have a charge of :math:`q = -0.55\,\text{e}`.
 
@@ -65,6 +66,15 @@ which occurs at every step.  The values 0.0 and 10.0 represent the
 low and the high cutoffs, respectively, and :math:`1.0 \text{e} -6` is the tolerance,
 i.e., the precision to which the atomic charges are equilibrated during the
 charge equilibration process.
+
+.. admonition:: Note
+    :class: non-title-info
+        
+    The ``pair_style reaxff`` command optionally accepts a control file,
+    which defines control variables such as
+    global parameters of the ReaxFF potential, as well as performance and output settings. 
+    If no control file is provided, as in this tutorial, LAMMPS uses its default values,
+    which correspond to those in Adri van Duin's original stand-alone ReaxFF code :cite:`van2001reaxff`.
 
 The ``maxiter`` sets an upper limit to the number of attempts to
 equilibrate the charge.
@@ -121,6 +131,13 @@ We can generate histograms of the charges for each atom type using
     fix myhis1 grpSi ave/histo 10 500 5000 -1.5 2.5 1000 v_vq file relax-Si.histo mode vector
     fix myhis2 grpO ave/histo 10 500 5000 -1.5 2.5 1000 v_vq file relax-O.histo mode vector
 
+The ``fix ave/histo`` command samples values
+over a group of atoms and builds a histogram over a specified range divided into
+bins.  In this tutorial, it is used to monitor the charge distributions
+of silicon and oxygen atoms.  The parameters ``10 500 5000`` specify how often
+the histogram is updated and averaged, ``-1.5 2.5`` set the value range, 
+``1000`` is the number of bins, and ``v\_vq`` is the variable being histogrammed.
+
 We can also use the ``fix reaxff/species`` to evaluate what species are
 present within the simulation.  It will be useful later when the system is deformed,
 and bonds are broken:
@@ -142,6 +159,13 @@ density of the system:
     run 5000
 
     write_data relax.data
+
+.. admonition:: Note
+    :class: non-title-info
+
+    With the `aniso` keyword, the three dimensions of the simulation
+    box can change independently.  This is particularly relevant for solids and other
+    systems where anisotropic stresses may develop.
 
 Run the **relax.lmp** file using LAMMPS.  As seen from **relax.species**,
 only one species is detected, called ``O384Si192``, representing the entire system.
@@ -246,7 +270,7 @@ Nosé-Hoover thermostat without a barostat:
     timestep 0.5
 
 Here, no barostat is used because the change in the box volume will be imposed
-by the ``fix deform``.
+by the ``fix deform``, see below.
 
 Let us run for 5000 steps without deformation, then apply the ``fix deform``
 to progressively elongate the box along the :math:`x`-axis during 25000 steps.  Add
@@ -261,6 +285,10 @@ the following line to **deform.lmp**:
     run 25000
 
     write_data deform.data
+
+The ``fix deform`` command applies a continuous deformation
+by elongating the simulation box along the x-axis at a constant engineering
+shear strain rate, specified by ``erate``, of :math:`5 \times 10^{-5}~\text{fs}^{-1}`.
 
 Run the **deform.lmp** file using LAMMPS.  During the deformation, the charge
 values progressively evolve until the structure eventually breaks down.  After the

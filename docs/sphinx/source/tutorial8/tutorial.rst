@@ -24,6 +24,8 @@ following content corresponding to **mixing.lmp**:
 The ``class2`` styles compute a 6/9 Lennard-Jones potential :cite:`sun1998compass`.
 The ``class2`` bond, angle, dihedral, and improper styles are used as
 well, see the documentation for a description of their respective potentials.
+The ``tail yes`` option adds long-range van der Waals tail corrections to the
+energy and pressure.
 The ``mix sixthpower`` imposes the following mixing rule for the calculation
 of the cross coefficients:
 
@@ -278,6 +280,13 @@ corresponds to a reaction, e.g., a transformation of ``mol1`` into ``mol2``
 based on the atom map **M-M.rxnmap**.  Implementation details about each reaction,
 such as the reaction distance cutoffs and the frequency with which to search for
 reaction sties, are also specified in this command.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    The ``fix nve/limit`` command Newton's equations of motion
+    while limiting the maximum displacement of atoms per timestep.  This is
+    useful for preventing atoms from moving too far due to large forces.
 
 .. figure:: figures/REACT-composite-dm.png
     :class: only-dark

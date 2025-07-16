@@ -162,6 +162,13 @@ corresponding to the following: :math:`x < x_\text{min}` (``rbot``, for region
 bottom), :math:`x_\text{min} > x > x_\text{max}` (``rmid``, for region middle),  
 and :math:`x > x_\text{max}` (``rtop``, for region top).
 
+.. admonition:: Note
+    :class: non-title-info
+
+    So far, variables have been referenced dynamically during the run using
+    the ``v_`` prefix, which evaluates the variable as it evolves over time.
+    Here, a dollar sign ($) is used to reference the variable at the time the script is read.
+
 Finally, let us define 3 groups of atoms corresponding to the atoms
 in each of the 3 regions by adding to **unbreakable.lmp**
 just before the ``run 0`` command:

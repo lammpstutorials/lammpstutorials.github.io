@@ -694,6 +694,14 @@ The equal-style ``variables`` are expressions evaluated
 during the run and return a number.  Here, they are defined to count  
 the number of atoms of a specific group within the ``cyl_in`` region.
 
+.. admonition:: Note
+    :class: non-title-info
+        
+    The ``n1_in`` and ``n2_in`` defined above are
+    equal-style variables, which evaluate a numerical expression using the
+    ``count()`` function.  Other common LAMMPS variable types include
+    atom-style, index, and loop.
+
 In addition to counting the atoms in each region, we will also extract  
 the coordination number of type 2 atoms around type 1 atoms.  The  
 coordination number measures the number of type 2 atoms near  
@@ -823,7 +831,7 @@ expected during mixing.  This can be observed using the entry
 
 ..  container:: figurelegend
 
-    Figure: a) Evolution of the numbers :math:`N_\text{1, in}$` and :math:`N_\text{2, in}` of atoms
+    Figure: a) Evolution of the numbers :math:`N_\text{1, in}` and :math:`N_\text{2, in}` of atoms
     of types 1 and 2, respectively, within the ``cyl_in`` region as functions
     of time :math:`t`.  b) Evolution of the coordination number :math:`C_{1-2}`
     (compute ``sumcoor12``) between atoms of types 1 and 2.

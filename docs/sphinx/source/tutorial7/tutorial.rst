@@ -84,6 +84,12 @@ following lines to **free-sampling.lmp**:
     mass * 39.95
     pair_coeff * * ${epsilon} ${sigma}
 
+.. admonition:: Note
+    :class: non-title-info
+
+    In the ``pair_coeff`` command, the first two asterisks
+    ``* *`` indicate that the parameters apply to all atom types in the simulation.
+
 The variables :math:`U_0`, :math:`\delta`, and :math:`x_0`, defined in the previous subsection, are
 used here to create the repulsive potential, restricting the atoms from exploring
 the center of the box:
@@ -215,6 +221,10 @@ Add the following line to **free-sampling.lmp**:
 
     run 2000000
 
+Here, the ``chunk/atom`` command discretizes the simulation
+domain into spatial bins of size 2~\AA{} along the :math:`x` direction,
+and the ``ave/chunk`` command computes and outputs the number density of
+atoms within each bin to the file **free-sampling.dat**.}
 The step count is reset to 0 using ``reset_timestep`` to synchronize it
 with the output times of ``fix density/number``.  Run the simulation using
 LAMMPS.

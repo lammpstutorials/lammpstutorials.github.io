@@ -15,6 +15,6 @@ grand canonical Monte Carlo simulations to compute the adsorption of water
 molecules in cracked silica material.  This tutorial
 illustrates the use of the grand canonical ensemble in molecular simulation, an
 open ensemble where the number of atoms or molecules in the simulation box can vary.
-By employing the grand canonical ensemble, we will set the chemical
-potential of water within a nanoporous :math:`\text{SiO}_2` structure.
+By employing the grand canonical ensemble, we simulate water in a nanoporous
+:math:`\text{SiO}_2` structure at a specified chemical potential.
 

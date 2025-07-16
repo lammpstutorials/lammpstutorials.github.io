@@ -122,7 +122,7 @@ generally suitable for a solid phase.
 
 Run the simulation using LAMMPS.  From the ``Charts`` window, the temperature
 evolution can be observed, showing that it closely follows the desired annealing procedure.
-The evolution of the box dimensions over time confirms that the box deformed during the
+The evolution of the box dimensions over time confirms that the box is deforming during the
 last stage of the simulation.  After the simulation completes, the final LAMMPS topology
 file called **generate.data** will be located next to **generate.lmp**.
 
@@ -184,11 +184,19 @@ the **cracking.lmp** file:
 
     write_data cracking.data
 
-The ``fix nvt`` command is employed to control the temperature of the system.
+The ``fix nvt`` command integrates the Nosé-Hoover equations
+of motion and is employed to control the temperature of the system.
 As observed from the generated images, the atoms
 progressively adjust to the changing box dimensions.  At some point,
 bonds begin to break, leading to the appearance of
 dislocations.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    Although the Nosé-Hoover equations were originally formulated to sample the
+    NVT ensemble, using the ``fix nvt`` command does not guarantee that 
+    a simulation actually samples the NVT ensemble.
 
 .. figure:: figures/cracked-dark.png
     :class: only-dark
@@ -418,9 +426,15 @@ Carlo steps.  Add the following lines into **gcmc.lmp**:
     variable tfac equal 5.0/3.0
     fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} shake shak full_energy pressure 100
 
+The ``fix gcmc`` command performs grand canonical Monte Carlo
+moves to insert, delete, or swap molecules. Here, 100 attempts are made every
+100 steps.  The ``mol h2omol`` keyword specifies the
+molecule type being inserted/deleted, while ``shake shak`` enforces rigid
+molecular constraints during these moves. With the ``pressure 100`` keyword,
+a fictitious reservoir with a pressure of 100 atmospheres is used.
 The ``tfac_insert`` option ensures the correct estimate for the temperature
 of the inserted water molecules by taking into account the internal degrees of
-freedom.  Here, 100 insertion and deletion attemps are made every 100 steps.
+freedom.
 
 .. admonition:: Note
     :class: non-title-info
@@ -438,6 +452,9 @@ Finally, let us print some information and run for 25 ps:
     thermo_style custom step temp etotal v_nO f_fgcmc[3] f_fgcmc[4] f_fgcmc[5] f_fgcmc[6]
 
     run 25000
+
+The ``f_`` keywords extract the Monte Carlo move statistics output by the
+``fix gcmc`` command.
 
 .. admonition:: Note
     :class: non-title-info

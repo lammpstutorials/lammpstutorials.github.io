@@ -371,7 +371,7 @@ images of the system, you will notice that the atoms and molecules are moving to
 System equilibration
 --------------------
 
-Let us equilibrate further the entire system by letting both fluid and piston
+Let us equilibrate further the entire system by letting both fluid and wall
 relax at ambient temperature.  Here, the commands are written within the same
 **equilibrate.lmp** file, right after the ``reset_timestep`` command.
 
@@ -399,6 +399,14 @@ for the trajectory visualization:
 
 The ``undump`` command is used to cancel the previous ``dump`` command.
 Then, a new ``dump`` command with a larger dumping period is used.
+
+.. admonition:: Note
+    :class: non-title-info
+        
+    Just like the ``undump`` command can cancel an active ``dump``, other
+    objects defined in a LAMMPS input script can be cancelled when no longer needed. 
+    For example, you can use ``unfix`` to remove a previously defined ``fix``, and
+    ``uncompute`` to delete a ``compute``.
 
 To monitor the system equilibration, let us print the distance between
 the two walls.  Add the following lines to **equilibrate.lmp**:
@@ -527,7 +535,10 @@ The ``setforce`` commands cancel the forces on ``walltop`` and
 ``wallbot``.  As a result, the atoms in these two groups will not
 experience any forces from the rest of the system.  Consequently, in the absence of
 external forces, these atoms will conserve the initial velocities imposed by the
-two ``velocity`` commands.
+two ``velocity`` commands.  As seen previously, although the
+forces on these atoms are set to zero, the ``fix setforce`` still stores the
+forces acting on the group before cancellation, which can later be extracted
+for analysis (see below).
 
 Finally, let us generate images of the systems and print the values of the
 forces exerted by the fluid on the walls, as given by ``f_mysf1[1]``
@@ -544,8 +555,9 @@ and ``f_mysf2[1]``.  Add these lines to **shearing.lmp**:
     thermo_style custom step temp etotal f_mysf1[1] f_mysf2[1]
 
 Let us also extract the density and velocity profiles using
-the ``chunk/atom`` and ``ave/chunk`` commands.  These commands are
-used to divide the system into bins and return the desired quantities, here the velocity
+the ``chunk/atom`` and ``ave/chunk`` commands.  These
+commands discretize the simulation domain into spatial bins and compute and output
+average properties of the atoms belonging to each bin, here the velocity
 along :math:`x` (``vx``) within the bins.  Add the following lines to **shearing.lmp**:
 
 .. code-block:: lammps
