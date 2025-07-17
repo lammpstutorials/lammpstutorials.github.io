@@ -417,6 +417,14 @@ it reaches a plateau value of about -0.25.  The kinetic energy,
 increases rapidly during molecular dynamics until it reaches  
 a plateau value of about 1.5.
 
+.. admonition:: Note
+    :class: non-title-info
+
+    All simulations presented in these tutorials are deliberately kept 
+    short so they can be executed on a personal computer.  These runs are not intended 
+    to produce statistically meaningful results, and should not be considered suitable 
+    for publication (see for instance Ref. :cite:`grossfield2009quantifying`).
+
 From the information  
 printed in the ``Output`` window, one can see that the temperature  
 starts from 0 but rapidly reaches the requested value and  

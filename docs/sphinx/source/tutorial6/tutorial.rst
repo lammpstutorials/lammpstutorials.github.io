@@ -381,6 +381,14 @@ Add the following lines to **gcmc.lmp** as well:
 
     fix shak H2O shake 1.0e-5 200 0 b OW-HW a HW-OW-HW mol h2omol
 
+.. admonition:: Note
+    :class: non-title-info
+
+    Here, a variable of type *atom* is used.  Such variable 
+    defines a per-atom property, i.e., it evaluates the specified expression 
+    separately for each atom.  This is often used to select atoms based on 
+    their properties or types.
+
 The number of oxygen atoms from water molecules (i.e. the number of molecules)
 is calculated by the ``nO`` variable.  The SHAKE algorithm is used to
 maintain the shape of the water molecules over time :cite:`ryckaert1977numerical, andersen1983rattle`.
