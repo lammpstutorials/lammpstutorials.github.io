@@ -218,18 +218,19 @@ for polymer.
 .. admonition:: Note
     :class: non-title-info
         
-    Molecule templates contain sections that are similar, but not quite the same, as a
-    LAMMPS data file. The data stored in these molecule templates include atom coordinates, partial
-    charges, molecule IDs, atom types, and interaction types for bonds, angles, dihedrals and impropers.
-    The map file contains information about the reaction. The first mandatory section of the map
-    file begins with the keyword “InitiatorIDs” and lists the two atom IDs of the initiator atom
-    pair in the pre-reacted molecule template. The second mandatory section begins with the
-    keyword “Equivalences” and lists a one-to-one correspondence between atom IDs of the pre-
-    and post-reacted templates. Some atoms in the pre-reacted template that are not reacting
-    may have missing topology with respect to the simulation. For example, the pre-reacted
-    template may contain an atom that, in the simulation, is currently connected to the
-    rest of a long polymer chain. These are referred to as edge atoms, and are also specified
-    in the map file in the “EdgeIDs” section.
+    The data stored in molecule templates include atom coordinates,
+    partial charges, molecule IDs, atom types, and interaction types for bonds,
+    angles, dihedrals and impropers.  The map files contain information about
+    the reaction.  The first mandatory section of the map files begins with the
+    keyword “InitiatorIDs” and lists the two atom IDs of the initiator atom pair
+    in the pre-reacted molecule template.  The second mandatory section begins
+    with the keyword “Equivalences” and lists a one-to-one correspondence between
+    atom IDs of the pre- and post-reacted templates.  Some atoms in the pre-reacted
+    template that are not reacting may have missing topology with respect to the
+    simulation.  For example, the pre-reacted template may contain an atom that,
+    in the simulation, is currently connected to the rest of a long polymer
+    chain.  These are referred to as edge atoms, and are also specified in the
+    map file in the “EdgeIDs” section.
 
 Simulating the reaction
 -----------------------
@@ -295,12 +296,12 @@ each reaction is stabilized for 60 time steps.  Each ``react`` keyword
 corresponds to a reaction, e.g., a transformation of ``mol1`` into ``mol2``
 based on the atom map **M-M.rxnmap**.  Implementation details about each reaction,
 such as the reaction distance cutoffs and the frequency with which to search for
-reaction sties, are also specified in this command.
+reaction sites, are also specified in this command.
 
 .. admonition:: Note
     :class: non-title-info
 
-    The ``fix nve/limit`` command Newton's equations of motion
+    The ``fix nve/limit`` command integrates Newton's equations of motion
     while limiting the maximum displacement of atoms per timestep.  This is
     useful for preventing atoms from moving too far due to large forces.
 
