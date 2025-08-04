@@ -40,7 +40,7 @@ Software/system requirements
 ============================
 
 The LAMMPS stable release version 22Jul2025
-and the matching LAMMPS--GUI software version 1.6.12 are required to
+and the matching LAMMPS--GUI software version 1.7.0 are required to
 follow the tutorials, as they include features that were first
 introduced in these versions.  For Linux (x86_64 CPU), macOS (BigSur or
 later), and Windows (10 and 11) you can download a precompiled LAMMPS

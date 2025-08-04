@@ -215,6 +215,22 @@ for polymer.
 
     <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial8/P-P.rxnmap" target="_blank">P-P.rxnmap</a>
 
+.. admonition:: Note
+    :class: non-title-info
+        
+    Molecule templates contain sections that are similar, but not quite the same, as a
+    LAMMPS data file. The data stored in these molecule templates include atom coordinates, partial
+    charges, molecule IDs, atom types, and interaction types for bonds, angles, dihedrals and impropers.
+    The map file contains information about the reaction. The first mandatory section of the map
+    file begins with the keyword “InitiatorIDs” and lists the two atom IDs of the initiator atom
+    pair in the pre-reacted molecule template. The second mandatory section begins with the
+    keyword “Equivalences” and lists a one-to-one correspondence between atom IDs of the pre-
+    and post-reacted templates. Some atoms in the pre-reacted template that are not reacting
+    may have missing topology with respect to the simulation. For example, the pre-reacted
+    template may contain an atom that, in the simulation, is currently connected to the
+    rest of a long polymer chain. These are referred to as edge atoms, and are also specified
+    in the map file in the “EdgeIDs” section.
+
 Simulating the reaction
 -----------------------
 
