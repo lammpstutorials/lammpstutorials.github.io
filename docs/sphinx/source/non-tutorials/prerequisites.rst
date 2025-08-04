@@ -39,7 +39,7 @@ on statistical mechanics and molecular simulations.
 Software/system requirements
 ============================
 
-The LAMMPS stable release version 29Aug2024 (update2)
+The LAMMPS stable release version 22Jul2025
 and the matching LAMMPS--GUI software version 1.6.12 are required to
 follow the tutorials, as they include features that were first
 introduced in these versions.  For Linux (x86_64 CPU), macOS (BigSur or
