@@ -145,9 +145,7 @@ parameters).
     terminate with an error.
 
 The third line, ``create_atoms (...)``, generates 1500 atoms of  
-type 1 at random positions within the ``simbox`` region.  Each atom created in
-LAMMPS is automatically assigned a unique atom ID, which serves as a numerical
-identifier to distinguish individual atoms throughout the simulation
+type 1 at random positions within the ``simbox`` region.
 The integer 34134 is a seed for the internal random number generator, which  
 can be changed to produce different sequences of random numbers and,  
 consequently, different initial atom positions.  The fourth line adds  
@@ -155,14 +153,21 @@ consequently, different initial atom positions.  The fourth line adds
 optional argument ``overlap 0.3``, which enforces a minimum  
 distance of 0.3 units between the randomly placed atoms.  This  
 constraint helps avoid close contacts between atoms, which can lead  
-to excessively large forces and simulation instability.
+to excessively large forces and simulation instability. Each atom created in
+LAMMPS is automatically assigned a unique atom ID, which serves as a numerical
+identifier to distinguish individual atoms throughout the simulation.
+Atom IDs by default have the range from 1 to the total number of atoms,
+but this is not enforced. Deleting atoms, for example, causes *holes* in the list
+of atom IDs.
 
 .. admonition:: Note
     :class: non-title-info
     
-    Another way to define a system in LAMMPS, besides ``create_atoms``, is to
-    import an existing topology with ``read_data``, as shown
-    in :ref:`carbon-nanotube-label`.
+    Another way to define a system in LAMMPS, besides the
+    ``create_atoms`` commands, is to import an existing topology
+    file containing atomic coordinates as well as, optionally, other
+    attributes such as atomic velocities and the force field parameters
+    using the ``read_data`` command, as shown in :ref:`carbon-nanotube-label`.
 
 .. include:: ../shared/needhelp.rst
 
@@ -217,8 +222,7 @@ of type 2, :math:`\epsilon_{22} = 0.5`, and :math:`\sigma_{22} = 3.0`.
 Single-point energy
 -------------------
 
-The system is now fully parameterized, and the input is ready to compute
-forces.  Let us complete the two remaining categories,
+The system is now fully parameterized.  Let us complete the two remaining categories,
 ``Monitoring`` and ``Run``, by adding the following lines
 to **initial.lmp**:
 
