@@ -328,7 +328,7 @@ and a <strong>.data</strong> file is imported by the <code class="docutils liter
 personalized <a href="https://www.patreon.com/molecularsimulations" target="_blank">advice</a> for your project.</p>
 </div>
 <p>The initial topology given by <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial5/silica.data" target="_blank">silica.data</a>
-is a small amorphous silica structure.  This structure was generated in a prior
+corresponds to a small amorphous silica structure.  This structure was generated in a prior
 simulation using the Vashishta force field <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id50" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">41</a>]</span>.
 If you open the <strong>silica.data</strong>
 file, you will find in the <code class="docutils literal notranslate"><span class="pre">Atoms</span></code> section that all silicon atoms have a
@@ -338,7 +338,7 @@ charge of <span class="math notranslate nohighlight">\(q = 1.1\,\text{e}\)</span
 <p>Assigning the same charge to all atoms of the same type is common with many
 force fields, including the force fields used in the previous tutorials.  This
 changes once ReaxFF is used: the charge of each atom will adjust to its local
-environment.</p>
+environment through charge equilibration.</p>
 </div>
 <p>Next, copy the following three crucial lines into the <strong>relax.lmp</strong> file:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_style</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">safezone</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mincap</span><span class="w"> </span><span class="m">150</span>
@@ -346,7 +346,7 @@ environment.</p>
 <span class="k">fix </span><span class="nv nv-Identifier">myqeq</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">qeq</span><span class="o">/</span><span class="n">reaxff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">maxiter</span><span class="w"> </span><span class="m">400</span>
 </pre></div>
 </div>
-<p>In this case, the <code class="docutils literal notranslate"><span class="pre">pair_style</span> <span class="pre">reaxff</span></code> is used without a control file.  The
+<p>In this case, the <code class="docutils literal notranslate"><span class="pre">pair_style</span> <span class="pre">reaxff</span></code> is used without a control file (see note below).  The
 <code class="docutils literal notranslate"><span class="pre">safezone</span></code> and <code class="docutils literal notranslate"><span class="pre">mincap</span></code> keywords are added to prevent
 allocation issues, which sometimes can trigger segmentation faults and
 <code class="docutils literal notranslate"><span class="pre">bondchk</span></code> errors.  The <code class="docutils literal notranslate"><span class="pre">pair_coeff</span></code> command uses the <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial5/ffield.reax.CHOFe" target="_blank">ffield.reax.CHOFe</a>
@@ -375,7 +375,11 @@ evolution of the charges during the simulation:</p>
 <span class="k">variable </span><span class="nv nv-Identifier">vq</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">q</span>
 </pre></div>
 </div>
-<p>To print the averaged charges <code class="docutils literal notranslate"><span class="pre">qSi</span></code> and <code class="docutils literal notranslate"><span class="pre">qO</span></code> using the
+<p>The definition of the equal style variables qSi and qO make
+use of functions pre-defined within LAMMPS that allow
+calculating the total charge of atoms belonging to a group
+(<code class="docutils literal notranslate"><span class="pre">charge()</span></code>) and the total number of atoms in the group
+(<code class="docutils literal notranslate"><span class="pre">count()</span></code>). To print the averaged charges <code class="docutils literal notranslate"><span class="pre">qSi</span></code> and <code class="docutils literal notranslate"><span class="pre">qO</span></code> using the
 <code class="docutils literal notranslate"><span class="pre">thermo_style</span></code> command, and create images of the system.  Add the
 following lines to <strong>relax.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">thermo</span><span class="w"> </span><span class="m">100</span>
@@ -425,7 +429,7 @@ density of the system:</p>
 
 <span class="k">run</span><span class="w"> </span><span class="m">5000</span>
 
-<span class="k">write_data </span><span class="nv nv-Identifier">relax.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">relax.data</span><span class="w"> </span><span class="n">nofix</span>
 </pre></div>
 </div>
 <div class="non-title-info admonition">
@@ -434,7 +438,9 @@ density of the system:</p>
 box can change independently.  This is particularly relevant for solids and other
 systems where anisotropic stresses may develop.</p>
 </div>
-<p>Run the <strong>relax.lmp</strong> file using LAMMPS.  As seen from <strong>relax.species</strong>,
+<p>The <code class="docutils literal notranslate"><span class="pre">write_data</span></code> command is used with the nofix keyword to print a data file
+without extra sections from the <code class="docutils literal notranslate"><span class="pre">reaxff/species</span></code> command.
+Run the <strong>relax.lmp</strong> file using LAMMPS.  As seen from <strong>relax.species</strong>,
 only one species is detected, called <code class="docutils literal notranslate"><span class="pre">O384Si192</span></code>, representing the entire system.</p>
 <p>As the simulation progresses, the charge of every atom fluctuates
 because it is adjusting to the local environment of the atom.
@@ -529,7 +535,7 @@ the following line to <strong>deform.lmp</strong>:</p>
 
 <span class="k">run</span><span class="w"> </span><span class="m">25000</span>
 
-<span class="k">write_data </span><span class="nv nv-Identifier">deform.data</span>
+<span class="k">write_data </span><span class="nv nv-Identifier">deform.data</span><span class="w"> </span><span class="n">nofix</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">deform</span></code> command applies a continuous deformation
@@ -637,10 +643,11 @@ types of atoms, and output the charge values into log files:</p>
 <span class="k">fix </span><span class="nv nv-Identifier">myspec</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">reaxff</span><span class="o">/</span><span class="n">species</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="n">decorate.species</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span>
 </pre></div>
 </div>
-<p>Here, the <span class="math notranslate nohighlight">\(+1 \mathrm{e}{-10}\)</span> was added to the denominator of the <code class="docutils literal notranslate"><span class="pre">variable</span> <span class="pre">qH</span></code>
-to avoid dividing by 0 at the beginning of the simulation.  Finally, let us
-create a loop with 10 steps, and create two hydrogen atoms at random locations at
-every step:</p>
+<p>The commands above are, once again, similar to the ones of the previous script.
+Here, the <span class="math notranslate nohighlight">\(+1 \mathrm{e}{-10}\)</span> was added to the denominator of the <code class="docutils literal notranslate"><span class="pre">variable</span> <span class="pre">qH</span></code>
+to avoid dividing by 0 at the beginning of the simulation, as no hydrogen atoms exists in
+the simulation domain yet.  Finally, let us create a loop with 10 steps, and
+create two hydrogen atoms at random locations at every step:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">300.0</span><span class="w"> </span><span class="m">100</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.5</span>
 

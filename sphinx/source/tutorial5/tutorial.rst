@@ -30,7 +30,7 @@ and a **.data** file is imported by the ``read_data`` command.
 .. include:: ../shared/needhelp.rst
 
 The initial topology given by |silica_data_5|
-is a small amorphous silica structure.  This structure was generated in a prior
+corresponds to a small amorphous silica structure.  This structure was generated in a prior
 simulation using the Vashishta force field :cite:`vashishta1990interaction`.
 If you open the **silica.data**
 file, you will find in the ``Atoms`` section that all silicon atoms have a
@@ -46,7 +46,7 @@ charge of :math:`q = 1.1\,\text{e}`, and all oxygen atoms have a charge of :math
     Assigning the same charge to all atoms of the same type is common with many
     force fields, including the force fields used in the previous tutorials.  This
     changes once ReaxFF is used: the charge of each atom will adjust to its local
-    environment.
+    environment through charge equilibration.
 
 Next, copy the following three crucial lines into the **relax.lmp** file:
 
@@ -56,7 +56,7 @@ Next, copy the following three crucial lines into the **relax.lmp** file:
     pair_coeff * * ffield.reax.CHOFe Si O
     fix myqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff maxiter 400
 
-In this case, the ``pair_style reaxff`` is used without a control file.  The
+In this case, the ``pair_style reaxff`` is used without a control file (see note below).  The
 ``safezone`` and ``mincap`` keywords are added to prevent
 allocation issues, which sometimes can trigger segmentation faults and
 ``bondchk`` errors.  The ``pair_coeff`` command uses the |reaxCHOFe_inc_5|
@@ -94,7 +94,11 @@ evolution of the charges during the simulation:
     variable qO equal charge(grpO)/count(grpO)
     variable vq atom q
 
-To print the averaged charges ``qSi`` and ``qO`` using the
+The definition of the equal style variables qSi and qO make
+use of functions pre-defined within LAMMPS that allow
+calculating the total charge of atoms belonging to a group
+(``charge()``) and the total number of atoms in the group
+(``count()``). To print the averaged charges ``qSi`` and ``qO`` using the
 ``thermo_style`` command, and create images of the system.  Add the
 following lines to **relax.lmp**:
 
@@ -158,7 +162,7 @@ density of the system:
 
     run 5000
 
-    write_data relax.data
+    write_data relax.data nofix
 
 .. admonition:: Note
     :class: non-title-info
@@ -167,6 +171,8 @@ density of the system:
     box can change independently.  This is particularly relevant for solids and other
     systems where anisotropic stresses may develop.
 
+The ``write_data`` command is used with the nofix keyword to print a data file
+without extra sections from the ``reaxff/species`` command.
 Run the **relax.lmp** file using LAMMPS.  As seen from **relax.species**,
 only one species is detected, called ``O384Si192``, representing the entire system.
 
@@ -284,7 +290,7 @@ the following line to **deform.lmp**:
 
     run 25000
 
-    write_data deform.data
+    write_data deform.data nofix
 
 The ``fix deform`` command applies a continuous deformation
 by elongating the simulation box along the x-axis at a constant engineering
@@ -406,10 +412,12 @@ types of atoms, and output the charge values into log files:
 
     fix myspec all reaxff/species 5 1 5 decorate.species element Si O H
 
+
+The commands above are, once again, similar to the ones of the previous script.
 Here, the :math:`+1 \mathrm{e}{-10}` was added to the denominator of the ``variable qH``
-to avoid dividing by 0 at the beginning of the simulation.  Finally, let us
-create a loop with 10 steps, and create two hydrogen atoms at random locations at
-every step:
+to avoid dividing by 0 at the beginning of the simulation, as no hydrogen atoms exists in
+the simulation domain yet.  Finally, let us create a loop with 10 steps, and
+create two hydrogen atoms at random locations at every step:
 
 .. code-block:: lammps
 
