@@ -96,7 +96,10 @@ slab geometries.
     :class: non-title-info
 
     Each LAMMPS command is accompanied by extensive online |lammpsdocs|
-    that details the different options for that command.
+    that lists and discusses the different options for that command.
+    Most LAMMPS commands also have default settings that are applied if no
+    value is explicitly specified. The defaults for each com-
+    mand are listed at the bottom of its documentation page.
     From the LAMMPS--GUI editor buffer, you can access the documentation by  
     right-clicking on a line containing a command (e.g., ``units lj``)  
     and selecting ``View Documentation for `units'``.  This action  

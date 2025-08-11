@@ -4,7 +4,11 @@ Scope
 *****
 
 This set of tutorials consists of eight tutorials arranged in order of
-increasing difficulty.  The novelties associated with each tutorial are
+increasing difficulty.  Although each tutorial can be
+read independently, information introduced in earlier tuto-
+rials is generally not repeated in detail in later ones. For this
+reason, we recommend that beginners follow the tutorials in
+order.  The novelties associated with each tutorial are
 briefly described below.
 
 In :ref:`lennard-jones-label`, the structure of LAMMPS
@@ -48,7 +52,8 @@ reactions by dynamically adjusting atomic interactions
 method that allows the partial charges of atoms to adjust according to
 their local environment.
 
-In :ref:`gcmc-silica-label`, a Monte Carlo simulation in
+In :ref:`gcmc-silica-label`, the adsorption of a fluid in silica pores is
+modeled. To do so, a Monte Carlo simulation in
 the grand canonical ensemble is implemented to demonstrate how LAMMPS
 can be used to simulate an open system that exchanges particles with a
 reservoir.
