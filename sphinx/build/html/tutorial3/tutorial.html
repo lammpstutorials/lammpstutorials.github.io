@@ -305,6 +305,17 @@ interactions <span id="id3">[<a class="reference internal" href="../non-tutorial
 <code class="docutils literal notranslate"><span class="pre">special_bonds</span></code> command, which was already seen in
 <a class="reference internal" href="../tutorial2/breaking-a-carbon-nanotube.html#carbon-nanotube-label"><span class="std std-ref">Pulling on a carbon nanotube</span></a>, sets the LJ and Coulomb
 weighting factors for the interaction between neighboring atoms.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>With Coulomb interactions, additional rules
+apply to the <code class="docutils literal notranslate"><span class="pre">pair_coeff</span></code> command: (a) atom type values
+only matter for assignment of LJ potential parameters; (b) for Coulomb interactions,
+there are no parameters outside the cutoff, and when using a
+<code class="docutils literal notranslate"><span class="pre">coul/long</span></code> pair style, that cutoff can only be set globally
+for all atoms with the <code class="docutils literal notranslate"><span class="pre">pair_style</span></code>  command;  (c) for
+Coulomb interactions, only the per-atom charge and any
+<code class="docutils literal notranslate"><span class="pre">special_bonds</span></code> exclusions are relevant.</p>
+</div>
 <div class="patreon admonition">
 <p class="admonition-title">Struggling with your molecular simulations project?</p>
 <p>Get guidance for your LAMMPS simulations and receive
@@ -679,6 +690,15 @@ this process can be automated through the <code class="docutils literal notransl
 only the trajectory dump needs to be added.  Alternatively, the
 <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">custom</span></code> command can be combined with <code class="docutils literal notranslate"><span class="pre">dump</span></code> command to
 include element names in the dump file and simplify visualization.</p>
+</div>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>Microstates collected during a simulation in the form of a trajectory
+can be analyzed within LAMMPS using the <code class="docutils literal notranslate"><span class="pre">rerun</span></code> command.  This is
+particularly useful, for example, for computing properties not set up in
+the original simulation without having to run it again.  A possible use of
+the <code class="docutils literal notranslate"><span class="pre">rerun</span></code> command is estimating the self-diffusion coefficient
+by using the <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">msd</span></code> command <span id="id11">[<a class="reference internal" href="../non-tutorials/bibliography.html#id9" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">6</a>]</span>.</p>
 </div>
 </section>
 </section>

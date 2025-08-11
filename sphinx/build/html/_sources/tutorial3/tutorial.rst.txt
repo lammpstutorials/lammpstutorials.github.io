@@ -41,6 +41,18 @@ interactions :cite:`ewald1921berechnung`.  Finally, the
 :ref:`carbon-nanotube-label`, sets the LJ and Coulomb
 weighting factors for the interaction between neighboring atoms.
 
+.. admonition:: Note
+    :class: non-title-info
+
+    With Coulomb interactions, additional rules
+    apply to the ``pair_coeff`` command: (a) atom type values
+    only matter for assignment of LJ potential parameters; (b) for Coulomb interactions,
+    there are no parameters outside the cutoff, and when using a
+    ``coul/long`` pair style, that cutoff can only be set globally
+    for all atoms with the ``pair_style``  command;  (c) for
+    Coulomb interactions, only the per-atom charge and any
+    ``special_bonds`` exclusions are relevant.
+
 .. include:: ../shared/needhelp.rst
 
 Let us create a 3D simulation box of dimensions :math:`6 \times 3 \times 3 \; \text{nm}^3`,
@@ -518,3 +530,13 @@ named **pull.lammpstrj**, which can be opened in OVITO or VMD.
     only the trajectory dump needs to be added.  Alternatively, the
     ``dump custom`` command can be combined with ``dump`` command to
     include element names in the dump file and simplify visualization.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    Microstates collected during a simulation in the form of a trajectory
+    can be analyzed within LAMMPS using the ``rerun`` command.  This is
+    particularly useful, for example, for computing properties not set up in
+    the original simulation without having to run it again.  A possible use of
+    the ``rerun`` command is estimating the self-diffusion coefficient
+    by using the ``compute msd`` command :cite:`frenkel2023understanding`.
