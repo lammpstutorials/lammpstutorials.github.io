@@ -4,13 +4,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+        <link rel="prefetch" href="../_static/logo.png" as="image" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2025.07.19 -->
         <title>Method 1: Free sampling - </title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b1e702db" />
     
     
@@ -24,14 +25,14 @@
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
       }
     }
@@ -190,7 +191,6 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
@@ -278,15 +278,16 @@ determining the stability of different molecular configurations.</p>
 </div>
 <section id="method-1-free-sampling">
 <h1>Method 1: Free sampling<a class="headerlink" href="#method-1-free-sampling" title="Link to this heading">¶</a></h1>
-<p>The most direct way to calculate a free energy profile is to extract the
-partition function from a classical (i.e. unbiased) molecular dynamics
-simulation, and then estimate the Gibbs free energy by using</p>
+<p>The most direct way to estimate a free energy profile is to sample
+the Boltzmann distribution using a classical (i.e.unbiased) molecular dynamics
+simulation, and compute relative Gibbs free energies from the relative probabilities
+of states using</p>
 <div class="math-wrapper docutils container" id="equation-eq-g">
 <div class="math notranslate nohighlight" id="equation-eq-g">
-<span class="eqno">(1)<a class="headerlink" href="#equation-eq-g" title="Link to this equation">¶</a></span>\[\Delta G = -RT \ln(p/p_0),\]</div>
+<span class="eqno">(1)<a class="headerlink" href="#equation-eq-g" title="Link to this equation">¶</a></span>\[\Delta G = -RT \ln(\rho/\rho_0),\]</div>
 </div>
 <p>where <span class="math notranslate nohighlight">\(\Delta G\)</span> is the free energy difference, <span class="math notranslate nohighlight">\(R\)</span> is the gas constant, <span class="math notranslate nohighlight">\(T\)</span>
-is the temperature, <span class="math notranslate nohighlight">\(p\)</span> is the pressure, and <span class="math notranslate nohighlight">\(p_0\)</span> is a reference pressure.
+is the temperature, <span class="math notranslate nohighlight">\(\rho\)</span> is the density, and <span class="math notranslate nohighlight">\(\rho_0\)</span> is a reference density.
 As an illustration, let us apply this method to a simple configuration
 that consists of a particles in a box in the presence of a
 position-dependent repulsive force that makes the center of the box a less
@@ -311,7 +312,7 @@ content:</p>
 
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">atomic</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="m">3.822</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="nv">$(2^(1/6)*v_sigma)</span>
 <span class="k">pair_modify</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 </pre></div>
@@ -320,11 +321,16 @@ content:</p>
 <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\epsilon\)</span> and for the repulsive potential
 <span class="math notranslate nohighlight">\(U\)</span>, which are <span class="math notranslate nohighlight">\(U_0\)</span>, <span class="math notranslate nohighlight">\(\delta\)</span>, and
 <span class="math notranslate nohighlight">\(x_0\)</span> [see Eqs. <a class="reference internal" href="#equation-eq-u">(2)</a>-<a class="reference internal" href="#equation-eq-f">(3)</a> below].  The cut-off value of
-3.822 Å was chosen to create a Weeks-Chandler-Andersen (WCA) potential,
-which is a truncated and purely repulsive LJ
-potential <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id17" title="John D Weeks, David Chandler, and Hans C Andersen. Role of repulsive forces in determining the equilibrium structure of simple liquids. The Journal of chemical physics, 54(12):5237–5247, 1971.">51</a>]</span>.  It was calculated as <span class="math notranslate nohighlight">\(2^{1/6} \sigma\)</span>.
+:math:<cite>2^{1/6} sigma = 3.822</cite> was chosen to create a Weeks-Chandler-Andersen
+(WCA) potential, which is a truncated and purely repulsive LJ potential <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id18" title="John D Weeks, David Chandler, and Hans C Andersen. Role of repulsive forces in determining the equilibrium structure of simple liquids. The Journal of chemical physics, 54(12):5237–5247, 1971.">52</a>]</span>.
 The potential is also shifted to be equal to 0 at the cut-off
 using the <code class="docutils literal notranslate"><span class="pre">pair_modify</span></code> command.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>The syntax <code class="docutils literal notranslate"><span class="pre">$(...)</span></code>, where a dollar sign is followed by parentheses, allows
+you to evaluate a numeric formula immediately, without having to assign it
+to a named variable first.</p>
+</div>
 </section>
 <section id="system-creation-and-settings">
 <h2>System creation and settings<a class="headerlink" href="#system-creation-and-settings" title="Link to this heading">¶</a></h2>
@@ -337,6 +343,11 @@ following lines to <strong>free-sampling.lmp</strong>:</p>
 <span class="k">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">39.95</span>
 <span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">${epsilon}</span><span class="w"> </span><span class="nv">${sigma}</span>
 </pre></div>
+</div>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">pair_coeff</span></code> command, the first two asterisks
+<code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">*</span></code> indicate that the parameters apply to all atom types in the simulation.</p>
 </div>
 <p>The variables <span class="math notranslate nohighlight">\(U_0\)</span>, <span class="math notranslate nohighlight">\(\delta\)</span>, and <span class="math notranslate nohighlight">\(x_0\)</span>, defined in the previous subsection, are
 used here to create the repulsive potential, restricting the atoms from exploring
@@ -444,7 +455,11 @@ Add the following line to <strong>free-sampling.lmp</strong>:</p>
 <span class="k">run</span><span class="w"> </span><span class="m">2000000</span>
 </pre></div>
 </div>
-<p>The step count is reset to 0 using <code class="docutils literal notranslate"><span class="pre">reset_timestep</span></code> to synchronize it
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">chunk/atom</span></code> command discretizes the simulation
+domain into spatial bins of size 2~AA{} along the <span class="math notranslate nohighlight">\(x\)</span> direction,
+and the <code class="docutils literal notranslate"><span class="pre">ave/chunk</span></code> command computes and outputs the number density of
+atoms within each bin to the file <strong>free-sampling.dat</strong>.}
+The step count is reset to 0 using <code class="docutils literal notranslate"><span class="pre">reset_timestep</span></code> to synchronize it
 with the output times of <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">density/number</span></code>.  Run the simulation using
 LAMMPS.</p>
 <figure class="align-default">
@@ -464,9 +479,8 @@ The atoms density is the lowest in the central part of the box, <code class="doc
 <p>Once the simulation is complete, the density profile from <strong>free-sampling.dat</strong>
 shows that the density in the center of the box is
 about two orders of magnitude lower than inside the reservoir.
-Next, we plot <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_\mathrm{bulk})\)</span> (i.e. Eq. <a class="reference internal" href="#equation-eq-g">(1)</a> where
-the pressure ratio <span class="math notranslate nohighlight">\(p/p_\mathrm{bulk}\)</span> is replaced by the density ratio
-<span class="math notranslate nohighlight">\(\rho/\rho_\mathrm{bulk}\)</span>, assuming the system behaves as an ideal gas) and compare it
+Next, we plot <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_\mathrm{bulk})\)</span>, where <span class="math notranslate nohighlight">\(\rho/\rho_\mathrm{bulk}\)</span>
+is the the density ratio,  and compare it
 with the imposed potential <span class="math notranslate nohighlight">\(U\)</span> from Eq. <a class="reference internal" href="#equation-eq-u">(2)</a>.
 The reference density, <span class="math notranslate nohighlight">\(\rho_\text{bulk} = 0.0009~\text{Å}^{-3}\)</span>,
 was estimated by measuring the density of the reservoir from the raw density
@@ -502,14 +516,14 @@ In such a case, employing an enhanced sampling method is recommended, as done in
 <p>Umbrella sampling is a biased molecular dynamics method in which
 additional forces are added to a chosen atom to force it to explore the
 more unfavorable areas of the system
-<span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id8" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">6</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id36" title="Michael P Allen and Dominic J Tildesley. Computer simulation of liquids. Oxford university press, 2017.">7</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id22" title="Johannes Kästner. Umbrella sampling. Wiley Interdisciplinary Reviews: Computational Molecular Science, 1(6):932–942, 2011.">45</a>]</span>.
+<span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id9" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">6</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id37" title="Michael P Allen and Dominic J Tildesley. Computer simulation of liquids. Oxford university press, 2017.">7</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id23" title="Johannes Kästner. Umbrella sampling. Wiley Interdisciplinary Reviews: Computational Molecular Science, 1(6):932–942, 2011.">46</a>]</span>.
 Here, to encourage one
 of the atoms to explore the central region of the box, we apply a
 potential <span class="math notranslate nohighlight">\(V\)</span> and force it to move along the <span class="math notranslate nohighlight">\(x\)</span>-axis. The chosen path
 is called the axis of reaction. Several simulations (called windows)
 will be conducted with varying positions for the center of the applied
 biasing. The results will be analyzed using the weighted histogram
-analysis method (WHAM) <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id18" title="Shankar Kumar, John M Rosenberg, Djamal Bouzida, Robert H Swendsen, and Peter A Kollman. The weighted histogram analysis method for free-energy calculations on biomolecules. i. the method. Journal of computational chemistry, 13(8):1011–1021, 1992.">52</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id60" title="Shankar Kumar, John M Rosenberg, Djamal Bouzida, Robert H Swendsen, and Peter A Kollman. Multidimensional free-energy calculations using the weighted histogram analysis method. Journal of Computational Chemistry, 16(11):1339–1350, 1995.">53</a>]</span>, which
+analysis method (WHAM) <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id19" title="Shankar Kumar, John M Rosenberg, Djamal Bouzida, Robert H Swendsen, and Peter A Kollman. The weighted histogram analysis method for free-energy calculations on biomolecules. i. the method. Journal of computational chemistry, 13(8):1011–1021, 1992.">53</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id61" title="Shankar Kumar, John M Rosenberg, Djamal Bouzida, Robert H Swendsen, and Peter A Kollman. Multidimensional free-energy calculations using the weighted histogram analysis method. Journal of Computational Chemistry, 16(11):1339–1350, 1995.">54</a>]</span>, which
 allows for the removal of the biasing effect and ultimately deduces the
 unbiased free energy profile.</p>
 <section id="lammps-input-script">
@@ -526,7 +540,7 @@ and paste in the following content:</p>
 
 <span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">atomic</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="m">3.822</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="w"> </span><span class="nv">$(2^(1/6)*v_sigma)</span>
 <span class="k">pair_modify</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="n">yes</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 </pre></div>
@@ -621,8 +635,8 @@ See the section <a class="reference internal" href="#side-note-k"><span class="s
 <h2>WHAM algorithm<a class="headerlink" href="#wham-algorithm" title="Link to this heading">¶</a></h2>
 <p>To generate the free energy profile from the particle positions saved in
 the <strong>umbrella-sampling.i.dat</strong> files, we use the
-WHAM <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id18" title="Shankar Kumar, John M Rosenberg, Djamal Bouzida, Robert H Swendsen, and Peter A Kollman. The weighted histogram analysis method for free-energy calculations on biomolecules. i. the method. Journal of computational chemistry, 13(8):1011–1021, 1992.">52</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id60" title="Shankar Kumar, John M Rosenberg, Djamal Bouzida, Robert H Swendsen, and Peter A Kollman. Multidimensional free-energy calculations using the weighted histogram analysis method. Journal of Computational Chemistry, 16(11):1339–1350, 1995.">53</a>]</span> algorithm as implemented
-by Alan Grossfield <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id48" title="Alan Grossfield. An implementation of WHAM: the weighted histogram analysis method version 2.0.10. URL: http://membrane.urmc.rochester.edu/content/wham/.">54</a>]</span>.  You can download it
+WHAM <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id19" title="Shankar Kumar, John M Rosenberg, Djamal Bouzida, Robert H Swendsen, and Peter A Kollman. The weighted histogram analysis method for free-energy calculations on biomolecules. i. the method. Journal of computational chemistry, 13(8):1011–1021, 1992.">53</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id61" title="Shankar Kumar, John M Rosenberg, Djamal Bouzida, Robert H Swendsen, and Peter A Kollman. Multidimensional free-energy calculations using the weighted histogram analysis method. Journal of Computational Chemistry, 16(11):1339–1350, 1995.">54</a>]</span> algorithm as implemented
+by Alan Grossfield <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id49" title="Alan Grossfield. An implementation of WHAM: the weighted histogram analysis method version 2.0.10. URL: http://membrane.urmc.rochester.edu/content/wham/.">55</a>]</span>.  You can download it
 from <a href="http://membrane.urmc.rochester.edu/?page_id=126" target="_blank">Alan Grossfield</a>’s website.  Make sure you download the WHAM code version
 2.1.0 or later which introduces the <code class="docutils literal notranslate"><span class="pre">units</span></code> command-line option
 used below. The executable called <code class="docutils literal notranslate"><span class="pre">wham</span></code> generated by following
@@ -754,7 +768,7 @@ it becomes difficult to perceive the effect of the probed potential).</p>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>

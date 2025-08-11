@@ -11,17 +11,18 @@
 Method 1: Free sampling
 =======================
 
-The most direct way to calculate a free energy profile is to extract the
-partition function from a classical (i.e. unbiased) molecular dynamics
-simulation, and then estimate the Gibbs free energy by using
+The most direct way to estimate a free energy profile is to sample
+the Boltzmann distribution using a classical (i.e.unbiased) molecular dynamics
+simulation, and compute relative Gibbs free energies from the relative probabilities
+of states using
 
 .. math::
     :label: eq_G
 
-    \Delta G = -RT \ln(p/p_0),
+    \Delta G = -RT \ln(\rho/\rho_0),
 
 where :math:`\Delta G` is the free energy difference, :math:`R` is the gas constant, :math:`T`
-is the temperature, :math:`p` is the pressure, and :math:`p_0` is a reference pressure.
+is the temperature, :math:`\rho` is the density, and :math:`\rho_0` is a reference density.
 As an illustration, let us apply this method to a simple configuration
 that consists of a particles in a box in the presence of a
 position-dependent repulsive force that makes the center of the box a less
@@ -48,7 +49,7 @@ content:
 
     units real
     atom_style atomic
-    pair_style lj/cut 3.822
+    pair_style lj/cut $(2^(1/6)*v_sigma)
     pair_modify shift yes
     boundary p p p
 
@@ -56,11 +57,17 @@ Here, we begin by defining variables for the Lennard-Jones interaction
 :math:`\sigma` and :math:`\epsilon` and for the repulsive potential
 :math:`U`, which are :math:`U_0`, :math:`\delta`, and
 :math:`x_0` [see Eqs. :eq:`eq_U`-:eq:`eq_F` below].  The cut-off value of
-3.822 Å was chosen to create a Weeks-Chandler-Andersen (WCA) potential,
-which is a truncated and purely repulsive LJ
-potential :cite:`weeks1971role`.  It was calculated as :math:`2^{1/6} \sigma`.
+:\math:`2^{1/6} \sigma = 3.822` was chosen to create a Weeks-Chandler-Andersen
+(WCA) potential, which is a truncated and purely repulsive LJ potential :cite:`weeks1971role`. 
 The potential is also shifted to be equal to 0 at the cut-off
 using the ``pair_modify`` command.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    The syntax ``$(...)``, where a dollar sign is followed by parentheses, allows
+    you to evaluate a numeric formula immediately, without having to assign it
+    to a named variable first.
 
 System creation and settings
 ----------------------------
@@ -76,6 +83,12 @@ following lines to **free-sampling.lmp**:
 
     mass * 39.95
     pair_coeff * * ${epsilon} ${sigma}
+
+.. admonition:: Note
+    :class: non-title-info
+
+    In the ``pair_coeff`` command, the first two asterisks
+    ``* *`` indicate that the parameters apply to all atom types in the simulation.
 
 The variables :math:`U_0`, :math:`\delta`, and :math:`x_0`, defined in the previous subsection, are
 used here to create the repulsive potential, restricting the atoms from exploring
@@ -208,6 +221,10 @@ Add the following line to **free-sampling.lmp**:
 
     run 2000000
 
+Here, the ``chunk/atom`` command discretizes the simulation
+domain into spatial bins of size 2~\AA{} along the :math:`x` direction,
+and the ``ave/chunk`` command computes and outputs the number density of
+atoms within each bin to the file **free-sampling.dat**.}
 The step count is reset to 0 using ``reset_timestep`` to synchronize it
 with the output times of ``fix density/number``.  Run the simulation using
 LAMMPS.
@@ -232,9 +249,8 @@ Data analysis
 Once the simulation is complete, the density profile from **free-sampling.dat**
 shows that the density in the center of the box is
 about two orders of magnitude lower than inside the reservoir.
-Next, we plot :math:`-R T \ln(\rho/\rho_\mathrm{bulk})` (i.e. Eq. :eq:`eq_G` where
-the pressure ratio :math:`p/p_\mathrm{bulk}` is replaced by the density ratio
-:math:`\rho/\rho_\mathrm{bulk}`, assuming the system behaves as an ideal gas) and compare it
+Next, we plot :math:`-R T \ln(\rho/\rho_\mathrm{bulk})`, where :math:`\rho/\rho_\mathrm{bulk}`
+is the the density ratio,  and compare it
 with the imposed potential :math:`U` from Eq. :eq:`eq_U`.
 The reference density, :math:`\rho_\text{bulk} = 0.0009~\text{Å}^{-3}`,
 was estimated by measuring the density of the reservoir from the raw density
@@ -303,7 +319,7 @@ and paste in the following content:
 
     units real
     atom_style atomic
-    pair_style lj/cut 3.822
+    pair_style lj/cut $(2^(1/6)*v_sigma)
     pair_modify shift yes
     boundary p p p
 

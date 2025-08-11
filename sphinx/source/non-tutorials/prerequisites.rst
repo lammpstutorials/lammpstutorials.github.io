@@ -39,8 +39,8 @@ on statistical mechanics and molecular simulations.
 Software/system requirements
 ============================
 
-The LAMMPS stable release version 29Aug2024 (update2)
-and the matching LAMMPS--GUI software version 1.6.12 are required to
+The LAMMPS stable release version 22Jul2025
+and the matching LAMMPS--GUI software version 1.7.0 are required to
 follow the tutorials, as they include features that were first
 introduced in these versions.  For Linux (x86_64 CPU), macOS (BigSur or
 later), and Windows (10 and 11) you can download a precompiled LAMMPS
@@ -87,18 +87,19 @@ About LAMMPS--GUI
 
 LAMMPS--GUI is a graphical text editor, enhanced for editing LAMMPS
 input files and linked to the LAMMPS library, allowing it to run LAMMPS
-directly.  The text editor functions similarly to other graphical
+directly.  The text editor is similar to other graphical
 editors, such as Notepad or Gedit, but offers the following enhancements
-specifically for LAMMPS:
+specifically for running LAMMPS:
 
 - Wizard dialogs to set up these tutorials
 - Auto-completion of LAMMPS commands and options
 - Context-sensitive online help
 - Syntax highlighting for LAMMPS input files
 - Syntax-aware line indentation
+- Editor switches working directory to that of input file
 - Visualization using LAMMPS' built-in renderer
 - Start and stop simulations via mouse or keyboard
-- Monitoring of simulation progress
+- Monitoring of simulation progress and parallelization
 - Dynamic capture of LAMMPS output in a text window
 - Automatic plotting of thermodynamic data during runs
 - Capture of ``dump image`` outputs for animations

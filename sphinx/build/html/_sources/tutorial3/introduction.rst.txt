@@ -26,3 +26,13 @@ This tutorial was inspired by a
 publication by Liese and coworkers, in which molecular dynamics
 simulations are compared with force spectroscopy experiments, see
 Ref. :cite:`liese2017hydration`.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    When mixing different force fields, as is done here with GROMOS 
+    and SPC/Fw, users should exercise caution.  The choices made in these tutorials 
+    prioritize progressive learning of LAMMPS functionality 
+    over strict physical accuracy.  While GROMOS is commonly used with water 
+    models from the SPC family :cite:`oostenbrink2004biomolecular`, 
+    the inter-compatibility of force fields is not generally guaranteed.

@@ -3,7 +3,9 @@ Unbreakable bonds
 
 With most conventional molecular force fields, the chemical bonds between
 atoms are defined at the start of the simulation and remain fixed, regardless
-of the forces applied to the atoms.  These bonds are typically modeled as springs
+of the forces applied to the atoms.  In this tutorial, these bonds are
+explicitly specified in the **.data** file, which is read using the ``read_data`` command (see below).
+Bonds are typically modeled as springs
 with equilibrium distances :math:`r_0` and force constants :math:`k_\text{b}`:
 :math:`U_\text{b} = k_\text{b} \left( r - r_0 \right)^2`.  Additionally, angular and
 dihedral constraints are often imposed to preserve the molecular structure
@@ -48,7 +50,7 @@ the scripts required for the second part of the tutorial.
     file in a text editor of your choice, and copy the previous lines into it.
 
 The chosen unit system is ``real`` (therefore distances are in
-Ångströms (Å), times in femtoseconds (fs), and energies in kcal/mol), the
+Ångströms (Å), times in femtoseconds (fs), and energies in (kcal/mol)), the
 ``atom_style`` is ``molecular`` (therefore atoms are point
 particles that can form bonds with each other), and the boundary
 conditions are fixed.  The boundary conditions do not matter here, as
@@ -64,8 +66,8 @@ potential.
 The ``bond_style``, ``angle_style``, ``dihedral_style``, and ``improper_style``
 commands specify the different potentials used to constrain the relative
 positions of the atoms.  The ``special_bonds`` command sets the weighting factors
-for the Lennard-Jones interactions between atoms directly connected by
-one bond, two bonds, and three bonds, respectively.  This is done for
+for the Lennard-Jones interactions between atoms sitting one,
+two, or three bonds away from each other, respectively. This is done for
 convenience when parameterizing the force constants for bonds, angles, and
 so on.  By excluding the non-bonded (Lennard-Jones) interactions for
 these pairs, those interactions do not need to be considered when determining
@@ -160,6 +162,13 @@ corresponding to the following: :math:`x < x_\text{min}` (``rbot``, for region
 bottom), :math:`x_\text{min} > x > x_\text{max}` (``rmid``, for region middle),  
 and :math:`x > x_\text{max}` (``rtop``, for region top).
 
+.. admonition:: Note
+    :class: non-title-info
+
+    So far, variables have been referenced dynamically during the run using
+    the ``v_`` prefix, which evaluates the variable as it evolves over time.
+    Here, a dollar sign ($) is used to reference the variable at the time the script is read.
+
 Finally, let us define 3 groups of atoms corresponding to the atoms
 in each of the 3 regions by adding to **unbreakable.lmp**
 just before the ``run 0`` command:
@@ -174,7 +183,9 @@ just before the ``run 0`` command:
     set group cnt_mid mol 3
 
 With the three ``set`` commands, we assign unique, otherwise unused
-molecule IDs to atoms in those three groups.  We will use this IDs later to
+molecule IDs to atoms in those three groups.  A molecule ID is an
+integer that groups atoms into a *molecule* for bookkeeping purposes, and can be
+useful for tracking and post-processing.  We will use this IDs later to
 assign different colors to these groups of atoms.
 
 Run the simulation using LAMMPS.  The number of atoms in each group is given in
@@ -235,6 +246,14 @@ The ``fix nve`` commands are applied to the atoms of ``cnt_top`` and
 from these groups are recalculated at every step.  The ``fix nvt`` does the  
 same for the ``cnt_mid`` group, while also applying a Nosé-Hoover thermostat  
 with desired temperature of 300 K :cite:`nose1984unified, hoover1985canonical`.  
+
+.. admonition:: Note
+    :class: non-title-info
+
+    The Nosé-Hoover thermostat only controls the temperature of
+    the atoms belonging to the specified ``cnt_mid`` group.  Atoms outside
+    this group are not affected by the thermostat.
+
 To restrain the motion of the atoms at the edges, let us add the following  
 commands to **unbreakable.lmp**:
 
@@ -248,7 +267,10 @@ commands to **unbreakable.lmp**:
 The two ``setforce`` commands cancel the forces applied on the atoms of the  
 two edges, respectively.  The cancellation of the forces is done at every step,  
 and along all 3 directions of space, :math:`x`, :math:`y`, and :math:`z`, due to the use of  
-``0 0 0``.  The two ``velocity`` commands set the initial velocities  
+``0 0 0``.  Although the forces on these atoms is set to zero,
+the ``fix`` still stores the forces acting on the group before
+cancellation, which can later be extracted for analysis (see below).
+The two ``velocity`` commands set the initial velocities  
 along :math:`x`, :math:`y`, and :math:`z` to 0 for the atoms of ``cnt_top`` and  
 ``cnt_bot``, respectively.  As a consequence of these last four commands,  
 the atoms of the edges will remain immobile during the simulation (or at least  
@@ -357,6 +379,7 @@ from the typical dependency of bond energy with bond distance,
     The CNT starts deforming at :math:`t = 5\,\text{ps}`, and :math:`L_\text{cnt-0}` is the  
     CNT initial length.  b) Evolution of the total energy :math:`E` of the system with time :math:`t`.  
     Here, the potential is OPLS-AA, and the CNT is unbreakable.
+    The orange line shows the raw data, and the blue line represents a time-averaged curve.
 
 Importing YAML log file into Python
 -----------------------------------
@@ -400,6 +423,7 @@ the **unbreakable.yaml** file can then be used to plot the stress-strain curve.
     as a function of the strain, :math:`\Delta L_\text{cnt} = (L_\text{cnt}-L_\text{cnt-0})/L_\text{cnt-0}`,
     where :math:`L_\text{cnt}` is the CNT length and :math:`L_\text{cnt-0}` the CNT initial length.
     Here, the potential is OPLS-AA, and the CNT is unbreakable.
+    The orange line shows the raw data, and the blue line represents a time-averaged curve.
 
 Breakable bonds
 ===============
@@ -565,7 +589,8 @@ curve reveals a linear (elastic) regime where
     where :math:`F_\text{cnt}` is the force and :math:`A_\text{cnt}` the CNT surface area,
     as a function of the strain, :math:`\Delta L_\text{cnt} = (L_\text{cnt}-L_\text{cnt-0}/L_\text{cnt-0})`, where
     :math:`L_\text{cnt}` is the CNT length and :math:`L_\text{cnt-0}` the CNT initial length.
-    Here, the potential is AIREBO, and the CNT is breakable.
+    Here, the potential is AIREBO, and the CNT is breakable.  The orange line shows
+    the raw data, and the blue line represents a time-averaged curve.
 
 Tip: bonds representation with AIREBO
 -------------------------------------

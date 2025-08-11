@@ -32,9 +32,13 @@ file in a text editor of your choice, and copy the following into it:
     The editor should display the following content corresponding to **create.lmp**
 
 These lines are used to define the most basic parameters, including the
-atom, bond, and angle styles, as well as interaction
+atom, bond, and angle styles, as well as the non-bonded interaction
 potential.  Here, ``lj/cut/tip4p/long`` imposes a Lennard-Jones potential with
 a cut-off at :math:`12\,\text{Å}` and a long-range Coulomb potential.
+The parameters ``O``, ``H``, ``O-H``, and ``H-O-H`` correspond
+respectively to the oxygens, hydrogens, O-H bonds, and H-O-H angle constraints of
+the water molecules; their definitions, provided by the ``labelmap`` commands,
+will be clarified below.
 
 .. include:: ../shared/needhelp.rst
 
@@ -168,7 +172,6 @@ must be located next to **create.lmp**. The **parameters.inc** file contains the
     mass Cl- 35.453
     mass WALL 26.9815
 
-
 Each ``mass`` command assigns a mass in g/mol to an atom type.
 The **parameters.inc** file also contains the pair coefficients:
 
@@ -190,10 +193,10 @@ types.  By default, LAMMPS calculates the pair coefficients for the
 interactions between atoms of different types (i and j) by using
 geometric average: :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
 :math:`\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}`.  However, if the default
-value of :math:`1.472\,\text{kcal/mol}` was used for :math:`\epsilon_\text{1-5}`,
+value of :math:`1.472\,\text{kcal/mol}` was used for :math:`\epsilon_\text{O-WALL}`,
 the solid walls would be extremely hydrophilic, causing the water
 molecules to form dense layers.  As a comparison, the water-water energy
-:math:`\epsilon_\text{1-1}` is only :math:`0.185199\,\text{kcal/mol}`.  Therefore,
+:math:`\epsilon_\text{O-O}` is only :math:`0.185199\,\text{kcal/mol}`.  Therefore,
 to make the walls less hydrophilic, the value of
 :math:`\epsilon_\text{O-WALL}` was reduced.
 
@@ -214,7 +217,7 @@ the force constant of the angular harmonic potential to 0 and the equilibrium
 angle to :math:`104.52^\circ`.
 
 Alongside **parameters.inc**, the **groups.inc** file contains
-several ``group`` commands to selects atoms based on their types:
+several ``group`` commands to define groups of atoms based on their types:
 
 .. code-block:: lammps
 
@@ -331,6 +334,16 @@ used to apply a restraint force when used during minimization.  This last keywor
 here, because the spring constants of the rigid water molecules were set
 to 0 (see the **parameters.inc** file).
 
+.. admonition:: Note
+    :class: non-title-info
+
+    LAMMPS provides several ways to maintain molecules rigid during a simulation. 
+    The ``fix shake`` command is appropriate for constraining bond lengths 
+    and angles within small molecules like water. 
+    However, it may fail for linear molecules like :math:`\text{CO}_2` or more complex rigid bodies. 
+    In such cases, the ``fix rigid`` family of commands can be used instead to
+    treat entire molecules or groups of atoms as rigid bodies.
+
 Let us also create images of the system and control
 the printing of thermodynamic outputs by adding the following lines
 to **equilibrate.lmp**:
@@ -344,7 +357,7 @@ to **equilibrate.lmp**:
     thermo 1
     thermo_style custom step temp etotal press
 
-Let us perform an energy minization by adding the following lines to **equilibrate.lmp**:
+Let us perform an energy minimization by adding the following lines to **equilibrate.lmp**:
 
 .. code-block:: lammps
 
@@ -358,7 +371,7 @@ images of the system, you will notice that the atoms and molecules are moving to
 System equilibration
 --------------------
 
-Let us equilibrate further the entire system by letting both fluid and piston
+Let us equilibrate further the entire system by letting both fluid and wall
 relax at ambient temperature.  Here, the commands are written within the same
 **equilibrate.lmp** file, right after the ``reset_timestep`` command.
 
@@ -386,6 +399,14 @@ for the trajectory visualization:
 
 The ``undump`` command is used to cancel the previous ``dump`` command.
 Then, a new ``dump`` command with a larger dumping period is used.
+
+.. admonition:: Note
+    :class: non-title-info
+        
+    Just like the ``undump`` command can cancel an active ``dump``, other
+    objects defined in a LAMMPS input script can be cancelled when no longer needed. 
+    For example, you can use ``unfix`` to remove a previously defined ``fix``, and
+    ``uncompute`` to delete a ``compute``.
 
 To monitor the system equilibration, let us print the distance between
 the two walls.  Add the following lines to **equilibrate.lmp**:
@@ -443,7 +464,8 @@ the end of the simulation.
 
     Figure: a) Pressure, :math:`p`, of the nanosheared electrolyte system as a function
     of the time, :math:`t`.  b) Distance between the walls, :math:`\Delta z`, as a
-    function of :math:`t`.
+    function of :math:`t`. The orange line shows the raw data, and the blue line
+    represents a time-averaged curve.
 
 Imposed shearing
 ----------------
@@ -513,7 +535,10 @@ The ``setforce`` commands cancel the forces on ``walltop`` and
 ``wallbot`` in the :math:`x` direction.  As a result, the atoms in these two groups will not
 experience any forces along :math:`x` from the rest of the system.  Consequently, in the absence of
 external forces, these atoms will conserve the initial velocities imposed by the
-two ``velocity`` commands.
+two ``velocity`` commands.  As seen previously, although the
+forces on these atoms are set to zero, the ``fix setforce`` still stores the
+forces acting on the group before cancellation, which can later be extracted
+for analysis (see below).
 
 Finally, let us generate images of the systems and print the values of the
 forces exerted by the fluid on the walls, as given by ``f_mysf1[1]``
@@ -530,8 +555,9 @@ and ``f_mysf2[1]``.  Add these lines to **shearing.lmp**:
     thermo_style custom step temp etotal f_mysf1[1] f_mysf2[1]
 
 Let us also extract the density and velocity profiles using
-the ``chunk/atom`` and ``ave/chunk`` commands.  These commands are
-used to divide the system into bins and return the desired quantities, here the velocity
+the ``chunk/atom`` and ``ave/chunk`` commands.  These
+commands discretize the simulation domain into spatial bins and compute and output
+average properties of the atoms belonging to each bin, here the velocity
 along :math:`x` (``vx``) within the bins.  Add the following lines to **shearing.lmp**:
 
 .. code-block:: lammps

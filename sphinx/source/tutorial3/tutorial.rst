@@ -35,7 +35,7 @@ angles, and dihedrals used in the simulation, here ``harmonic``.
 With the ``pair_style`` named ``lj/cut/coul/long``, atoms
 interact through both a Lennard-Jones (LJ) potential and Coulomb
 interactions.  The value of :math:`10\,\text{Å}` is the cutoff, and the
-``ewald`` command defines the long-range solver for the Coulomb
+``kspace_style`` command defines the long-range solver for the Coulomb
 interactions :cite:`ewald1921berechnung`.  Finally, the
 ``special_bonds`` command, which was already seen in
 :ref:`carbon-nanotube-label`, sets the LJ and Coulomb
@@ -155,7 +155,8 @@ Add the following line into **water.lmp**:
 The ``fix npt`` allows us to impose both a temperature of :math:`300\,\text{K}`
 (with a damping constant of :math:`100\,\text{fs}`), and a pressure of 1 atmosphere
 (with a damping constant of :math:`1000\,\text{fs}`).  With the ``iso`` keyword,
-the three dimensions of the box will be re-scaled simultaneously.
+the three dimensions of the box will be re-scaled isotropically,
+maintaining the same proportion in all directions.
 
 Let us output the system into images by adding the following commands to **water.lmp**:
 
@@ -167,30 +168,15 @@ Let us output the system into images by adding the following commands to **water
     acolor OW red acolor HW white &
     adiam OW 3 adiam HW 1.5
 
-Let us also extract the volume and density every 500 steps:
+Let us also extract the volume and density, among others, every 500 steps:
 
 .. code-block:: lammps
 
-    variable myvol equal vol
-    variable myoxy equal count(H2O)/3
-    variable NA equal 6.022e23
-    variable Atom equal 1e-10
-    variable M equal 0.018
-    variable rho equal ${myoxy}*${M}/(v_myvol*${NA}*${Atom}^3)
     thermo 500
-    thermo_style custom step temp etotal v_myvol v_rho
+    thermo_style custom step temp etotal volume density
 
-Here, several variables are defined and used for converting the units of the
-density in kg/mol:  The variable ``myoxy`` represents the number of
-atoms divided by 3,  which corresponds to the number of molecules, :math:`N_\text{H2O}`,
-and the variable ``myrho`` is the density in kg/mol:  
-
-.. math::
-
-    \rho = \dfrac{N_\text{H2O}}{V N_\text{A}},
-
-where :math:`V` is the volume in :math:`\text{m}^3`, :math:`N_\text{A}` the Avogadro number, and
-:math:`M = 0.018`\,kg/mol the molar mass of water.
+With the real units system, the volume is in :math:`Å^3`, and
+the density is in :math:`\text{g/cm}^3`.
 
 Finally, let us set the timestep to 1.0 fs, and run the simulation for 15 ps by
 adding the following lines into **water.lmp**:
@@ -319,10 +305,15 @@ the position :math:`(0, 0, 0)`:
 
     fix myrct PEG recenter 0 0 0 shift all
 
-Note that the ``recenter`` command has no impact on the dynamics,
-it simply repositions the frame of reference so that any drift of the
-system is ignored, which can be convenient for visualizing and analyzing
-the system.
+.. admonition:: Note
+    :class: non-title-info
+
+    Note that the ``recenter`` command has no impact on the dynamics,
+    it simply repositions the frame of reference so that any drift of the
+    system is ignored, which can be convenient for visualizing and analyzing
+    the system. However, be aware that using ``fix recenter`` can sometimes
+    mask underlying issues in the simulation, such as net momentum or the so-called
+    *flying ice cube syndrome* :cite:`wong2016good`.
 
 Let us create images of the systems:
 
@@ -422,7 +413,6 @@ constraints using the following commands:
 .. code-block:: lammps
         
     compute rgyr PEG gyration
-    compute prop PEG property/local dtype
     compute dphi PEG dihedral/local phi
 
 The radius of gyration can be directly printed with the ``thermo_style`` command:
@@ -431,7 +421,7 @@ The radius of gyration can be directly printed with the ``thermo_style`` command
 
     thermo_style custom step temp etotal c_rgyr
     thermo 250
-    dump mydmp all local 100 pull.dat index c_dphi c_prop
+    dump mydmp all local 100 pull.dat index c_dphi
 
 By contrast with the radius of gyration (compute ``rgyr``), the dihedral angle
 :math:`\phi` (compute ``dphi``) is returned as a vector by the ``compute dihedral/local``
@@ -518,11 +508,13 @@ named **pull.lammpstrj**, which can be opened in OVITO or VMD.
 .. admonition:: Note
     :class: non-title-info
 
-    Since the trajectory dump file does not contain information about
+    Since the default trajectory dump file does not contain information about
     topology and elements, it is usually preferred to first write out a
     data file and import it directly (in the case of OVITO) or convert it
     to a PSF file (for VMD).  This allows the topology to be loaded before
     *adding* the trajectory file to it.  When using LAMMPS--GUI,
     this process can be automated through the ``View in OVITO`` or
     ``View in VMD`` options in the ``Run`` menu.  Afterwards
-    only the trajectory dump needs to be added.
+    only the trajectory dump needs to be added.  Alternatively, the
+    ``dump custom`` command can be combined with ``dump`` command to
+    include element names in the dump file and simplify visualization.

@@ -17,7 +17,7 @@ file **initial.lmp** in it, and open the file in the LAMMPS--GUI Editor window:
     # 1) Initialization
     # 2) System definition
     # 3) Settings
-    # 4) Visualization
+    # 4) Monitoring
     # 5) Run 
 
 .. admonition:: If you are not using LAMMPS-GUI
@@ -31,8 +31,8 @@ file **initial.lmp** in it, and open the file in the LAMMPS--GUI Editor window:
 Everything that appears after a hash symbol (#) is a comment
 and ignored by LAMMPS. These five categories are not required in every input script an do not
 necessarily need to be in that exact order.  For instance, the ``Settings``
-and the ``Visualization`` categories could be inverted, or
-the ``Visualization`` category could be omitted.  However, note that
+and the ``Monitoring`` categories could be inverted, or
+the ``Monitoring`` category could be omitted.  However, note that
 LAMMPS reads input files from top to bottom and processes each command
 *immediately*.  Therefore, the ``Initialization`` and
 ``System definition`` categories must appear at the top of the
@@ -61,6 +61,15 @@ so that the ``Initialization`` section appears as follows:
     atom_style atomic
     boundary p p p
 
+.. admonition:: Note
+    :class: non-title-info
+
+    Strictly speaking, none of the four commands specified in the
+    ``Initialization`` section are mandatory, as they correspond to the
+    default settings for their respective global properties.  However,
+    explicitly specifying these defaults is considered good practice to
+    avoid confusion when sharing input files with other LAMMPS users.
+
 The first line, ``units lj``, specifies the use of *reduced*  
 units, where all quantities are dimensionless.  This unit system is a  
 popular choice for simulations that explore general statistical  
@@ -86,19 +95,23 @@ slab geometries.
 .. admonition:: Note
     :class: non-title-info
 
-    Strictly speaking, none of the four commands specified in the
-    ``Initialization`` section are mandatory, as they correspond to the
-    default settings for their respective global properties.  However,
-    explicitly specifying these defaults is considered good practice to
-    avoid confusion when sharing input files with other LAMMPS users.
+    Each LAMMPS command is accompanied by extensive online |lammpsdocs|
+    that lists and discusses the different options for that command.
+    Most LAMMPS commands also have default settings that are applied if no
+    value is explicitly specified. The defaults for each com-
+    mand are listed at the bottom of its documentation page.
+    From the LAMMPS--GUI editor buffer, you can access the documentation by  
+    right-clicking on a line containing a command (e.g., ``units lj``)  
+    and selecting ``View Documentation for `units'``.  This action  
+    should prompt your web browser to open the corresponding URL for the  
+    online manual.
 
-Each LAMMPS command is accompanied by extensive online |lammpsdocs|
-that details the different options for that command.
-From the LAMMPS--GUI editor buffer, you can access the documentation by  
-right-clicking on a line containing a command (e.g., ``units lj``)  
-and selecting ``View Documentation for `units'``.  This action  
-should prompt your web browser to open the corresponding URL for the  
-online manual.
+.. admonition:: Note
+    :class: non-title-info
+    
+    Most LAMMPS commands have default settings that are applied if no value
+    is explicitly specified.  The defaults for each command are listed at the
+    bottom of its documentation page.
 
 .. |lammpsdocs| raw:: html
 
@@ -121,6 +134,9 @@ The first line, ``region simbox (...)``, defines a region named
 from -20 to 20 units along all three spatial dimensions.  The second  
 line, ``create_box 2 simbox``, initializes a simulation box based  
 on the region ``simbox`` and reserves space for two types of atoms.
+In LAMMPS, an atom *type* represents a group of atoms that
+interact using the same set of force field parameters (here, the Lennard-Jones
+parameters).
 
 .. admonition:: Note
     :class: non-title-info
@@ -132,15 +148,29 @@ on the region ``simbox`` and reserves space for two types of atoms.
     terminate with an error.
 
 The third line, ``create_atoms (...)``, generates 1500 atoms of  
-type 1 at random positions within the ``simbox`` region.  The  
-integer 34134 is a seed for the internal random number generator, which  
+type 1 at random positions within the ``simbox`` region.
+The integer 34134 is a seed for the internal random number generator, which  
 can be changed to produce different sequences of random numbers and,  
 consequently, different initial atom positions.  The fourth line adds  
 100 atoms of type 2.  Both ``create_atoms`` commands use the  
 optional argument ``overlap 0.3``, which enforces a minimum  
 distance of 0.3 units between the randomly placed atoms.  This  
 constraint helps avoid close contacts between atoms, which can lead  
-to excessively large forces and simulation instability.
+to excessively large forces and simulation instability. Each atom created in
+LAMMPS is automatically assigned a unique atom ID, which serves as a numerical
+identifier to distinguish individual atoms throughout the simulation.
+Atom IDs by default have the range from 1 to the total number of atoms,
+but this is not enforced. Deleting atoms, for example, causes *holes* in the list
+of atom IDs.
+
+.. admonition:: Note
+    :class: non-title-info
+    
+    Another way to define a system in LAMMPS, besides the
+    ``create_atoms`` commands, is to import an existing topology
+    file containing atomic coordinates as well as, optionally, other
+    attributes such as atomic velocities and the force field parameters
+    using the ``read_data`` command, as shown in :ref:`carbon-nanotube-label`.
 
 .. include:: ../shared/needhelp.rst
 
@@ -189,19 +219,19 @@ of type 2, :math:`\epsilon_{22} = 0.5`, and :math:`\sigma_{22} = 3.0`.
     types using geometric average: :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
     :math:`\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}`.  In the present case,
     :math:`\epsilon_{12} = \sqrt{1.0 \times 0.5} = 0.707`, and
-    :math:`\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732`.
+    :math:`\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732`. Other rules
+    can be selected using the ``pair_modify`` command.
 
 Single-point energy
 -------------------
 
-The system is now fully parameterized, and the input is ready to compute
-forces.  Let us complete the two remaining categories,
-``Visualization`` and ``Run``, by adding the following lines
+The system is now fully parameterized.  Let us complete the two remaining categories,
+``Monitoring`` and ``Run``, by adding the following lines
 to **initial.lmp**:
 
 .. code-block:: lammps
 
-    # 4) Visualization
+    # 4) Monitoring
     thermo 10
     thermo_style custom step etotal press
     # 5) Run
@@ -215,6 +245,12 @@ defines the specific outputs, which in this case are the step number
 The ``run 0 post no`` command instructs LAMMPS to initialize forces and energy
 without actually running the simulation.  The ``post no`` option disables
 the post-run summary and statistics output.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    The *thermodynamic information* printed by LAMMPS refers to instantaneous values
+    of thermodynamic properties at the specified steps, not cumulative averages.
 
 You can now run LAMMPS (basic commands for running LAMMPS
 are provided in :ref:`running-lammps-label`.
@@ -274,7 +310,7 @@ initially positive potential energy is expected, as the atoms are
 created at random positions within the simulation box, with some in very
 close proximity to each other.  This proximity results in a large
 initial potential energy due to the repulsive branch of the
-Lennard-Jones potential [i.e., the term in :math:`1/r^{12}` in
+Lennard-Jones potential [i.e., the term :math:`1/r^{12}` in
 Eq. :eq:`eq_LJ`].  As the energy minimization progresses, the energy
 decreases - first rapidly - then more gradually, before plateauing at a
 negative value.  This indicates that the atoms have moved to reasonable
@@ -297,7 +333,7 @@ following lines immediately after the ``minimize`` command:
 .. code-block:: lammps
 
     # PART B - MOLECULAR DYNAMICS
-    # 4) Visualization
+    # 4) Monitoring
     thermo 50
     thermo_style custom step temp etotal pe ke press
 
@@ -311,7 +347,7 @@ command is introduced to specify the thermodynamic information LAMMPS should
 print during ``PART B``.  This adjustment is made because, during
 molecular dynamics, the system exhibits a non-zero temperature :math:`T` (and
 consequently a non-zero kinetic energy :math:`K`, keyword ``ke``), which are useful to monitor.
-The ``pe`` keyword represents the potential energy of the system, :math:`E`, such that
+The ``pe`` keyword represents the potential energy of the system, :math:`U`, such that
 :math:`U + K = E`.
 
 Then, add a second ``Run`` category by including the following
@@ -325,7 +361,8 @@ lines in ``PART B`` of **initial.lmp**:
     run 50000
 
 The ``fix nve`` command updates the positions and velocities of the
-atoms in the group ``all`` at every step.  The group ``all``
+atoms in the group ``all`` at every step.  More specifically, this command integrates
+Newton's equations of motion using the velocity-Verlet algorithm.  The group ``all``
 is a default group that contains all atoms.  The last two lines specify
 the value of the ``timestep`` and the number of steps for the
 ``run``, respectively, for a total duration of 250 time units.
@@ -333,10 +370,10 @@ the value of the ``timestep`` and the number of steps for the
 .. admonition:: Note
     :class: non-title-info
 
-    Since no other fix commands alter forces or velocities, and periodic
-    boundary conditions are applied in all directions, the MD simulation
-    will be performed in the microcanonical (NVE) ensemble, which
-    maintains a constant number of particles and a fixed box volume.  In
+    Since the only command affecting forces and velocities in the
+    present script is ``fix nve``, and periodic boundary conditions are applied
+    in all directions, the MD simulation will be performed in the microcanonical (NVE) ensemble, which
+    maintains a constant number of particles and a fixed box volume. In
     this ensemble, the system does not exchange energy with anything
     outside the simulation box.
 
@@ -387,6 +424,14 @@ it reaches a plateau value of about -0.25.  The kinetic energy,
 increases rapidly during molecular dynamics until it reaches  
 a plateau value of about 1.5.
 
+.. admonition:: Note
+    :class: non-title-info
+
+    All simulations presented in these tutorials are deliberately kept 
+    short so they can be executed on a personal computer.  These runs are not intended 
+    to produce statistically meaningful results, and should not be considered suitable 
+    for publication (see for instance Ref. :cite:`grossfield2009quantifying`).
+
 From the information  
 printed in the ``Output`` window, one can see that the temperature  
 starts from 0 but rapidly reaches the requested value and  
@@ -423,7 +468,7 @@ thermodynamic information.  To better follow the evolution of the system
 and visualize the trajectories of the atoms, let us print the positions
 of the atoms in a file at a regular interval.
 
-Add the following command to the ``Visualization`` section  
+Add the following command to the ``Monitoring`` section  
 of ``PART B`` of the **initial.lmp** file:
 
 .. code-block:: lammps
@@ -440,7 +485,7 @@ and adjust the visualization to your liking using the available buttons.
 Now you can copy the commands used to create this visualization to the  
 clipboard by either using the ``Ctrl-D`` keyboard shortcut or  
 selecting ``Copy dump image command`` from the ``File`` menu.  
-This text can be pasted into the ``Visualization`` section  
+This text can be pasted into the ``Monitoring`` section  
 of ``PART B`` of the **initial.lmp** file.  This may look like  
 the following:
 
@@ -497,7 +542,7 @@ commands in the ``System definition`` section:
     pair_style lj/cut 4.0
     pair_coeff 1 1 1.0 1.0
     pair_coeff 2 2 0.5 3.0
-    # 4) Visualization
+    # 4) Monitoring
     thermo 10
     thermo_style custom step etotal press
     # 5) Run
@@ -550,7 +595,7 @@ right-clicking on the file name in the editor and selecting the entry
 The created **.data** file contains all the information necessary  
 to restart the simulation, such as the number of atoms, the box size,  
 the masses, and the pair coefficients.  This **.data** file also  
-contains the final positions of the atoms within the ``Atoms``  
+contains the final positions of the atoms, along with their IDs and types, within the ``Atoms``  
 section.  The first five columns of the ``Atoms`` section  
 correspond (from left to right) to the atom indexes (from 1 to the total  
 number of atoms, 1150), the atom types (1 or 2 here), and the positions  
@@ -592,7 +637,7 @@ and **improved.min.lmp**:
     boundary p p p
     # 2) System definition
     # 3) Settings
-    # 4) Visualization
+    # 4) Monitoring
     # 5) Run
 
 Since we read most of the information from the data file, we don't need  
@@ -665,6 +710,14 @@ The equal-style ``variables`` are expressions evaluated
 during the run and return a number.  Here, they are defined to count  
 the number of atoms of a specific group within the ``cyl_in`` region.
 
+.. admonition:: Note
+    :class: non-title-info
+        
+    The ``n1_in`` and ``n2_in`` defined above are
+    equal-style variables, which evaluate a numerical expression using the
+    ``count()`` function.  Other common LAMMPS variable types include
+    atom-style, index, and loop.
+
 In addition to counting the atoms in each region, we will also extract  
 the coordination number of type 2 atoms around type 1 atoms.  The  
 coordination number measures the number of type 2 atoms near  
@@ -681,10 +734,22 @@ atoms.  Add the following lines to **improved.md.lmp**:
 
 The ``compute reduce ave`` command is used to average the per-atom  
 coordination number calculated by the ``coord/atom``  
-compute command.  Compute commands are not automatically invoked; they  
+compute command.  Compute commands do not print or output
+anything by themselves, nor are they automatically executed; they  
 require a *consumer* command that references the compute.  In this case, the  
 first compute is referenced by the second, and we reference the second  
 in a ``thermo_style custom`` command (see below).
+
+.. admonition:: Note
+    :class: non-title-info
+
+    LAMMPS ``compute`` commands can produce three kinds of data: scalars (single values), 
+    vectors (one-dimensional arrays), or arrays (two-dimensional tables).  
+    When referencing results of a compute, you can use indices: for example, 
+    ``c\_mycompute`` refers to the entire scalar, vector, or array, and
+    ``c\_mycompute[1]`` refers to its first element (in case of vector or array).  
+    In general, *consumer* commands can only work with certain data types,
+    check the documentation of each command to ensure compatibility.
 
 .. admonition:: Note
     :class: non-title-info
@@ -697,7 +762,7 @@ Finally, let us complete the script by adding the following lines to
 
 .. code-block:: lammps
 
-    # 4) Visualization
+    # 4) Monitoring
     thermo 1000
     thermo_style custom step temp pe ke etotal press v_n1_in v_n2_in c_sumcoor12
     dump viz all image 1000 myimage-*.ppm type type shiny 0.1 box no 0.01 view 0 0 zoom 1.8 fsaa yes size 800 800
@@ -782,7 +847,7 @@ expected during mixing.  This can be observed using the entry
 
 ..  container:: figurelegend
 
-    Figure: a) Evolution of the numbers :math:`N_\text{1, in}$` and :math:`N_\text{2, in}` of atoms
+    Figure: a) Evolution of the numbers :math:`N_\text{1, in}` and :math:`N_\text{2, in}` of atoms
     of types 1 and 2, respectively, within the ``cyl_in`` region as functions
     of time :math:`t`.  b) Evolution of the coordination number :math:`C_{1-2}`
     (compute ``sumcoor12``) between atoms of types 1 and 2.

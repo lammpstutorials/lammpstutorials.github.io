@@ -4,13 +4,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+        <link rel="prefetch" href="../_static/logo.png" as="image" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2025.07.19 -->
         <title>Unbreakable bonds - </title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b1e702db" />
     
     
@@ -24,14 +25,14 @@
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
       }
     }
@@ -190,7 +191,6 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
@@ -271,7 +271,9 @@
 <h1>Unbreakable bonds<a class="headerlink" href="#unbreakable-bonds" title="Link to this heading">¶</a></h1>
 <p>With most conventional molecular force fields, the chemical bonds between
 atoms are defined at the start of the simulation and remain fixed, regardless
-of the forces applied to the atoms.  These bonds are typically modeled as springs
+of the forces applied to the atoms.  In this tutorial, these bonds are
+explicitly specified in the <strong>.data</strong> file, which is read using the <code class="docutils literal notranslate"><span class="pre">read_data</span></code> command (see below).
+Bonds are typically modeled as springs
 with equilibrium distances <span class="math notranslate nohighlight">\(r_0\)</span> and force constants <span class="math notranslate nohighlight">\(k_\text{b}\)</span>:
 <span class="math notranslate nohighlight">\(U_\text{b} = k_\text{b} \left( r - r_0 \right)^2\)</span>.  Additionally, angular and
 dihedral constraints are often imposed to preserve the molecular structure
@@ -311,7 +313,7 @@ place the initial input file, <strong>unbreakable.lmp</strong>, into it. Then, o
 file in a text editor of your choice, and copy the previous lines into it.</p>
 </div>
 <p>The chosen unit system is <code class="docutils literal notranslate"><span class="pre">real</span></code> (therefore distances are in
-Ångströms (Å), times in femtoseconds (fs), and energies in kcal/mol), the
+Ångströms (Å), times in femtoseconds (fs), and energies in (kcal/mol)), the
 <code class="docutils literal notranslate"><span class="pre">atom_style</span></code> is <code class="docutils literal notranslate"><span class="pre">molecular</span></code> (therefore atoms are point
 particles that can form bonds with each other), and the boundary
 conditions are fixed.  The boundary conditions do not matter here, as
@@ -329,8 +331,8 @@ personalized <a href="https://www.patreon.com/molecularsimulations" target="_bla
 <p>The <code class="docutils literal notranslate"><span class="pre">bond_style</span></code>, <code class="docutils literal notranslate"><span class="pre">angle_style</span></code>, <code class="docutils literal notranslate"><span class="pre">dihedral_style</span></code>, and <code class="docutils literal notranslate"><span class="pre">improper_style</span></code>
 commands specify the different potentials used to constrain the relative
 positions of the atoms.  The <code class="docutils literal notranslate"><span class="pre">special_bonds</span></code> command sets the weighting factors
-for the Lennard-Jones interactions between atoms directly connected by
-one bond, two bonds, and three bonds, respectively.  This is done for
+for the Lennard-Jones interactions between atoms sitting one,
+two, or three bonds away from each other, respectively. This is done for
 convenience when parameterizing the force constants for bonds, angles, and
 so on.  By excluding the non-bonded (Lennard-Jones) interactions for
 these pairs, those interactions do not need to be considered when determining
@@ -339,7 +341,7 @@ the force constants.</p>
 file that should be downloaded next to <strong>unbreakable.lmp</strong>. This file contains information about the box size, atom positions,
 as well as the identity of the atoms that are linked by <code class="docutils literal notranslate"><span class="pre">bonds</span></code>, <code class="docutils literal notranslate"><span class="pre">angles</span></code>,
 <code class="docutils literal notranslate"><span class="pre">dihedrals</span></code>, and <code class="docutils literal notranslate"><span class="pre">impropers</span></code> interactions. It was created using VMD and TopoTools
-<span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id47" title="Axel Kohlmeyer and Josh Vermaas. TopoTools: Release 1.9. 2021. URL: https://doi.org/10.5281/zenodo.598373.">20</a>]</span>.</p>
+<span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id48" title="Axel Kohlmeyer and Josh Vermaas. TopoTools: Release 1.9. 2021. URL: https://doi.org/10.5281/zenodo.598373.">21</a>]</span>.</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
 <p>The format details of the different sections in a data file change with different
@@ -354,7 +356,7 @@ atom style does not match what is written in that comment.</p>
 we need to specify the parameters of both the bonded and
 non-bonded potentials.  The parameters we use are taken
 from the OPLS-AA (Optimized Potentials for Liquid Simulations-All-Atom)
-force field <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id55" title="William L. Jorgensen, David S. Maxwell, and Julian Tirado-Rives. Development and Testing of the OPLS All-Atom Force Field on Conformational Energetics and Properties of Organic Liquids. Journal of the American Chemical Society, 118(45):11225–11236, 1996.">1</a>]</span>, and are given
+force field <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id56" title="William L. Jorgensen, David S. Maxwell, and Julian Tirado-Rives. Development and Testing of the OPLS All-Atom Force Field on Conformational Energetics and Properties of Organic Liquids. Journal of the American Chemical Society, 118(45):11225–11236, 1996.">1</a>]</span>, and are given
 in a separate <strong>unbreakable.inc</strong> file (also downloaded during
 the tutorial setup).  This file - that must be placed
 next to <strong>unbreakable.lmp</strong> - contains the following lines:</p>
@@ -385,7 +387,7 @@ incorporate it using the <code class="docutils literal notranslate"><span class=
 us to conveniently reuse the parameter settings
 in other inputs or switch them with others.  This will become more general
 when using type labels, which is shown in the next
-tutorial <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id14" title="Jacob R Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and others. Type label framework for bonded force fields in lammps. The Journal of Physical Chemistry B, 128(13):3282–3297, 2024.">3</a>]</span>.</p>
+tutorial <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id15" title="Jacob R Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and others. Type label framework for bonded force fields in lammps. The Journal of Physical Chemistry B, 128(13):3282–3297, 2024.">3</a>]</span>.</p>
 </div>
 </section>
 <section id="prepare-the-initial-state">
@@ -411,6 +413,12 @@ of the first atoms along <span class="math notranslate nohighlight">\(x\)</span>
 corresponding to the following: <span class="math notranslate nohighlight">\(x &lt; x_\text{min}\)</span> (<code class="docutils literal notranslate"><span class="pre">rbot</span></code>, for region
 bottom), <span class="math notranslate nohighlight">\(x_\text{min} &gt; x &gt; x_\text{max}\)</span> (<code class="docutils literal notranslate"><span class="pre">rmid</span></code>, for region middle),
 and <span class="math notranslate nohighlight">\(x &gt; x_\text{max}\)</span> (<code class="docutils literal notranslate"><span class="pre">rtop</span></code>, for region top).</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>So far, variables have been referenced dynamically during the run using
+the <code class="docutils literal notranslate"><span class="pre">v_</span></code> prefix, which evaluates the variable as it evolves over time.
+Here, a dollar sign ($) is used to reference the variable at the time the script is read.</p>
+</div>
 <p>Finally, let us define 3 groups of atoms corresponding to the atoms
 in each of the 3 regions by adding to <strong>unbreakable.lmp</strong>
 just before the <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">0</span></code> command:</p>
@@ -423,7 +431,9 @@ just before the <code class="docutils literal notranslate"><span class="pre">run
 </pre></div>
 </div>
 <p>With the three <code class="docutils literal notranslate"><span class="pre">set</span></code> commands, we assign unique, otherwise unused
-molecule IDs to atoms in those three groups.  We will use this IDs later to
+molecule IDs to atoms in those three groups.  A molecule ID is an
+integer that groups atoms into a <em>molecule</em> for bookkeeping purposes, and can be
+useful for tracking and post-processing.  We will use this IDs later to
 assign different colors to these groups of atoms.</p>
 <p>Run the simulation using LAMMPS.  The number of atoms in each group is given in
 the <code class="docutils literal notranslate"><span class="pre">Output</span></code> window.  It is an important check to make sure that the number
@@ -472,8 +482,14 @@ lines into <strong>unbreakable.lmp</strong>:</p>
 <code class="docutils literal notranslate"><span class="pre">cnt_bot</span></code>, respectively, and will ensure that the positions of the atoms
 from these groups are recalculated at every step.  The <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">nvt</span></code> does the
 same for the <code class="docutils literal notranslate"><span class="pre">cnt_mid</span></code> group, while also applying a Nosé-Hoover thermostat
-with desired temperature of 300 K <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id31" title="Shuichi Nosé. A unified formulation of the constant temperature molecular dynamics methods. The Journal of chemical physics, 81(1):511–519, 1984.">21</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id30" title="William G Hoover. Canonical dynamics: equilibrium phase-space distributions. Physical review A, 31(3):1695, 1985.">22</a>]</span>.
-To restrain the motion of the atoms at the edges, let us add the following
+with desired temperature of 300 K <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id32" title="Shuichi Nosé. A unified formulation of the constant temperature molecular dynamics methods. The Journal of chemical physics, 81(1):511–519, 1984.">22</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id31" title="William G Hoover. Canonical dynamics: equilibrium phase-space distributions. Physical review A, 31(3):1695, 1985.">23</a>]</span>.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>The Nosé-Hoover thermostat only controls the temperature of
+the atoms belonging to the specified <code class="docutils literal notranslate"><span class="pre">cnt_mid</span></code> group.  Atoms outside
+this group are not affected by the thermostat.</p>
+</div>
+<p>To restrain the motion of the atoms at the edges, let us add the following
 commands to <strong>unbreakable.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">cnt_top</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">cnt_bot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
@@ -484,7 +500,10 @@ commands to <strong>unbreakable.lmp</strong>:</p>
 <p>The two <code class="docutils literal notranslate"><span class="pre">setforce</span></code> commands cancel the forces applied on the atoms of the
 two edges, respectively.  The cancellation of the forces is done at every step,
 and along all 3 directions of space, <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span>, due to the use of
-<code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code>.  The two <code class="docutils literal notranslate"><span class="pre">velocity</span></code> commands set the initial velocities
+<code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code>.  Although the forces on these atoms is set to zero,
+the <code class="docutils literal notranslate"><span class="pre">fix</span></code> still stores the forces acting on the group before
+cancellation, which can later be extracted for analysis (see below).
+The two <code class="docutils literal notranslate"><span class="pre">velocity</span></code> commands set the initial velocities
 along <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> to 0 for the atoms of <code class="docutils literal notranslate"><span class="pre">cnt_top</span></code> and
 <code class="docutils literal notranslate"><span class="pre">cnt_bot</span></code>, respectively.  As a consequence of these last four commands,
 the atoms of the edges will remain immobile during the simulation (or at least
@@ -574,7 +593,8 @@ from the typical dependency of bond energy with bond distance,
 <p>Figure: a) Evolution of the length <span class="math notranslate nohighlight">\(L_\text{cnt}\)</span> of the CNT with time.
 The CNT starts deforming at <span class="math notranslate nohighlight">\(t = 5\,\text{ps}\)</span>, and <span class="math notranslate nohighlight">\(L_\text{cnt-0}\)</span> is the
 CNT initial length.  b) Evolution of the total energy <span class="math notranslate nohighlight">\(E\)</span> of the system with time <span class="math notranslate nohighlight">\(t\)</span>.
-Here, the potential is OPLS-AA, and the CNT is unbreakable.</p>
+Here, the potential is OPLS-AA, and the CNT is unbreakable.
+The orange line shows the raw data, and the blue line represents a time-averaged curve.</p>
 </div>
 </section>
 <section id="importing-yaml-log-file-into-python">
@@ -608,7 +628,8 @@ the <strong>unbreakable.yaml</strong> file can then be used to plot the stress-s
 where <span class="math notranslate nohighlight">\(F_\text{cnt}\)</span> is the force and <span class="math notranslate nohighlight">\(A_\text{cnt}\)</span> the CNT surface area,
 as a function of the strain, <span class="math notranslate nohighlight">\(\Delta L_\text{cnt} = (L_\text{cnt}-L_\text{cnt-0})/L_\text{cnt-0}\)</span>,
 where <span class="math notranslate nohighlight">\(L_\text{cnt}\)</span> is the CNT length and <span class="math notranslate nohighlight">\(L_\text{cnt-0}\)</span> the CNT initial length.
-Here, the potential is OPLS-AA, and the CNT is unbreakable.</p>
+Here, the potential is OPLS-AA, and the CNT is unbreakable.
+The orange line shows the raw data, and the blue line represents a time-averaged curve.</p>
 </div>
 </section>
 </section>
@@ -714,7 +735,7 @@ simulation.</p>
 </figure>
 <div class="figurelegend docutils container">
 <p>Figure: Figure: CNT with broken bonds.  This image was generated using
-VMD <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id10" title="William Humphrey, Andrew Dalke, and Klaus Schulten. VMD: visual molecular dynamics. Journal of molecular graphics, 14(1):33–38, 1996.">12</a>]</span> <code class="docutils literal notranslate"><span class="pre">DynamicBonds</span></code> representation.</p>
+VMD <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id11" title="William Humphrey, Andrew Dalke, and Klaus Schulten. VMD: visual molecular dynamics. Journal of molecular graphics, 14(1):33–38, 1996.">12</a>]</span> <code class="docutils literal notranslate"><span class="pre">DynamicBonds</span></code> representation.</p>
 </div>
 <p>Looking at the evolution of the energy, one can see that the total
 energy <span class="math notranslate nohighlight">\(E\)</span> is initially increasing with the deformation.  When bonds
@@ -738,7 +759,8 @@ during deformation, <span class="math notranslate nohighlight">\(F_\text{cnt}/A_
 where <span class="math notranslate nohighlight">\(F_\text{cnt}\)</span> is the force and <span class="math notranslate nohighlight">\(A_\text{cnt}\)</span> the CNT surface area,
 as a function of the strain, <span class="math notranslate nohighlight">\(\Delta L_\text{cnt} = (L_\text{cnt}-L_\text{cnt-0}/L_\text{cnt-0})\)</span>, where
 <span class="math notranslate nohighlight">\(L_\text{cnt}\)</span> is the CNT length and <span class="math notranslate nohighlight">\(L_\text{cnt-0}\)</span> the CNT initial length.
-Here, the potential is AIREBO, and the CNT is breakable.</p>
+Here, the potential is AIREBO, and the CNT is breakable.  The orange line shows
+the raw data, and the blue line represents a time-averaged curve.</p>
 </div>
 </section>
 <section id="tip-bonds-representation-with-airebo">
@@ -829,7 +851,7 @@ force fields with explicit bonds.</p>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>

@@ -4,13 +4,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+        <link rel="prefetch" href="../_static/logo.png" as="image" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2025.07.19 -->
         <title>&lt;no title&gt; - </title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b1e702db" />
     
     
@@ -24,14 +25,14 @@
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
       }
     }
@@ -190,7 +191,6 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
@@ -278,7 +278,7 @@
 <p>The objective of this tutorial is to measure the free energy profile of
 particles through a barrier potential using two methods: free sampling
 and umbrella sampling
-<span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id8" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">6</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id36" title="Michael P Allen and Dominic J Tildesley. Computer simulation of liquids. Oxford university press, 2017.">7</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id22" title="Johannes Kästner. Umbrella sampling. Wiley Interdisciplinary Reviews: Computational Molecular Science, 1(6):932–942, 2011.">45</a>]</span>.
+<span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id9" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">6</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id37" title="Michael P Allen and Dominic J Tildesley. Computer simulation of liquids. Oxford university press, 2017.">7</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id23" title="Johannes Kästner. Umbrella sampling. Wiley Interdisciplinary Reviews: Computational Molecular Science, 1(6):932–942, 2011.">46</a>]</span>.
 To simplify the
 process and minimize computation time, the barrier potential will be
 imposed on the atoms using an additional force, mimicking the presence
@@ -287,7 +287,7 @@ to simulate additional atoms.  The procedure is valid for more complex
 systems and can be adapted to many other situations, such as measuring
 adsorption barriers near an interface or calculating translocation
 barriers through a membrane
-<span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id21" title="Michael A Wilson and Andrew Pohorille. Adsorption and solvation of ethanol at the water liquid- vapor interface: a molecular dynamics study. The Journal of Physical Chemistry B, 101(16):3130–3135, 1997.">46</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id19" title="Dmitrii E Makarov. Computer simulations and theory of protein translocation. Accounts of chemical research, 42(2):281–289, 2009.">47</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id20" title="Simon Gravelle and Lorenzo Botto. Adsorption of single and multiple graphene-oxide nanoparticles at a water–vapor interface. Langmuir, 37(45):13322–13330, 2021.">48</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id62" title="Philip Loche, Douwe J Bonthuis, and Roland R Netz. Molecular dynamics simulations of the evaporation of hydrated ions from aqueous solution. Communications Chemistry, 5(1):55, 2022.">49</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id61" title="Ardalan Hayatifar, Simon Gravelle, Beatriz D Moreno, Valerie A Schoepfer, and Matthew BJ Lindsay. Probing atomic-scale processes at the ferrihydrite-water interface with reactive molecular dynamics. Geochemical Transactions, 25(1):10, 2024.">50</a>]</span>.</p>
+<span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id22" title="Michael A Wilson and Andrew Pohorille. Adsorption and solvation of ethanol at the water liquid- vapor interface: a molecular dynamics study. The Journal of Physical Chemistry B, 101(16):3130–3135, 1997.">47</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id20" title="Dmitrii E Makarov. Computer simulations and theory of protein translocation. Accounts of chemical research, 42(2):281–289, 2009.">48</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id21" title="Simon Gravelle and Lorenzo Botto. Adsorption of single and multiple graphene-oxide nanoparticles at a water–vapor interface. Langmuir, 37(45):13322–13330, 2021.">49</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id63" title="Philip Loche, Douwe J Bonthuis, and Roland R Netz. Molecular dynamics simulations of the evaporation of hydrated ions from aqueous solution. Communications Chemistry, 5(1):55, 2022.">50</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id62" title="Ardalan Hayatifar, Simon Gravelle, Beatriz D Moreno, Valerie A Schoepfer, and Matthew BJ Lindsay. Probing atomic-scale processes at the ferrihydrite-water interface with reactive molecular dynamics. Geochemical Transactions, 25(1):10, 2024.">51</a>]</span>.</p>
 
         </article>
       </div>
@@ -319,7 +319,7 @@ barriers through a membrane
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>

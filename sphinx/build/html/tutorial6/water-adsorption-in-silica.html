@@ -4,13 +4,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Free energy calculation" href="../tutorial7/free-energy-calculation.html" /><link rel="prev" title="Reactive silicon dioxide" href="../tutorial5/reactive-silicon-dioxide.html" />
+        <link rel="prefetch" href="../_static/logo.png" as="image" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2025.07.19 -->
         <title>Water adsorption in silica - </title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b1e702db" />
     
     
@@ -24,14 +25,14 @@
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
       }
     }
@@ -190,7 +191,6 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
@@ -285,19 +285,19 @@ grand canonical Monte Carlo simulations to compute the adsorption of water
 molecules in cracked silica material.  This tutorial
 illustrates the use of the grand canonical ensemble in molecular simulation, an
 open ensemble where the number of atoms or molecules in the simulation box can vary.
-By employing the grand canonical ensemble, we will set the chemical
-potential of water within a nanoporous <span class="math notranslate nohighlight">\(\text{SiO}_2\)</span> structure.</p>
+By employing the grand canonical ensemble, we simulate water in a nanoporous
+<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span> structure at a specified chemical potential.</p>
 <p>If you are completely new to LAMMPS, we recommend that
 you follow this tutorial on a simple <a class="reference internal" href="../tutorial1/lennard-jones-fluid.html#lennard-jones-label"><span class="std std-ref">Lennard-Jones fluid</span></a> first.</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Cite</p>
 <p>If you find these tutorials useful, you can
 cite <em>A Set of Tutorials for the LAMMPS Simulation Package</em> by Simon Gravelle,
-Jacob R. Gissinger, and Axel Kohlmeyer (2025) <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id66" title="Simon Gravelle, Jacob R Gissinger, and Axel Kohlmeyer. A set of tutorials for the lammps simulation package. arXiv preprint arXiv:2503.14020, 2025.">14</a>]</span>. You
+Jacob R. Gissinger, and Axel Kohlmeyer (2025) <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id67" title="Simon Gravelle, Jacob R Gissinger, and Axel Kohlmeyer. A set of tutorials for the lammps simulation package. arXiv preprint arXiv:2503.14020, 2025.">14</a>]</span>. You
 can access the full paper on <a href="https://doi.org/10.48550/arXiv.2503.14020" target="_blank">arXiv</a>.</p>
 </div>
 <div class="version docutils container">
-<p>This tutorial is compatible with the 29Aug2024 (update 2) LAMMPS version.</p>
+<p>This tutorial is compatible with the 22Jul2025 LAMMPS version.</p>
 </div>
 <section id="generation-of-the-silica-block">
 <h2>Generation of the silica block<a class="headerlink" href="#generation-of-the-silica-block" title="Link to this heading">¶</a></h2>
@@ -316,7 +316,7 @@ content:</p>
 </div>
 <p>The main difference from some of the previous tutorials is the use of the <code class="docutils literal notranslate"><span class="pre">Vashishta</span></code>
 pair style.  The Vashishta potential implicitly models atomic bonds through
-energy terms dependent on interatomic distances and angles <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id49" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">40</a>]</span>.</p>
+energy terms dependent on interatomic distances and angles <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id50" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">41</a>]</span>.</p>
 <div class="patreon admonition">
 <p class="admonition-title">Struggling with your molecular simulations project?</p>
 <p>Get guidance for your LAMMPS simulations and receive
@@ -335,7 +335,7 @@ Add the following lines to <strong>generate.lmp</strong>:</p>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">create_atoms</span></code> commands are used to place
-240 Si atoms, and 480 atoms, respectively.  This corresponds to
+240 Si atoms and 480 O atoms, respectively.  This corresponds to
 an initial density of approximately <span class="math notranslate nohighlight">\(2 \, \text{g/cm}^3\)</span>, which is close
 to the expected final density of amorphous silica at 300 K.</p>
 <p>Now, specify the pair coefficients by indicating that the first atom type
@@ -368,7 +368,7 @@ temperature and total energy:</p>
 </div>
 <p>Finally, let us implement the annealing procedure which
 consists of three consecutive runs.  This procedure was inspired
-by Ref. <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id12" title="Raffaele Guido Della Valle and Hans C Andersen. Molecular dynamics simulation of silica liquid and glass. The Journal of chemical physics, 97(4):2682–2689, 1992.">43</a>]</span>.  First, to melt the system,
+by Ref. <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id13" title="Raffaele Guido Della Valle and Hans C Andersen. Molecular dynamics simulation of silica liquid and glass. The Journal of chemical physics, 97(4):2682–2689, 1992.">44</a>]</span>.  First, to melt the system,
 a <span class="math notranslate nohighlight">\(10\,\text{ps}\)</span> phase at <span class="math notranslate nohighlight">\(T = 6000\,\text{K}\)</span> is performed:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">velocity </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">8289</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="n">gaussian</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">6000</span><span class="w"> </span><span class="m">0.1</span>
@@ -398,7 +398,7 @@ Anisotropic barostats adjust the dimensions independently, which is
 generally suitable for a solid phase.</p>
 <p>Run the simulation using LAMMPS.  From the <code class="docutils literal notranslate"><span class="pre">Charts</span></code> window, the temperature
 evolution can be observed, showing that it closely follows the desired annealing procedure.
-The evolution of the box dimensions over time confirms that the box deformed during the
+The evolution of the box dimensions over time confirms that the box is deforming during the
 last stage of the simulation.  After the simulation completes, the final LAMMPS topology
 file called <strong>generate.data</strong> will be located next to <strong>generate.lmp</strong>.</p>
 <figure class="align-default">
@@ -451,11 +451,18 @@ the <strong>cracking.lmp</strong> file:</p>
 <span class="k">write_data </span><span class="nv nv-Identifier">cracking.data</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">nvt</span></code> command is employed to control the temperature of the system.
+<p>The <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">nvt</span></code> command integrates the Nosé-Hoover equations
+of motion and is employed to control the temperature of the system.
 As observed from the generated images, the atoms
 progressively adjust to the changing box dimensions.  At some point,
 bonds begin to break, leading to the appearance of
 dislocations.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>Although the Nosé-Hoover equations were originally formulated to sample the
+NVT ensemble, using the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">nvt</span></code> command does not guarantee that
+a simulation actually samples the NVT ensemble.</p>
+</div>
 <figure class="align-default">
 <img alt="Amorphous cracked silica block" class="only-dark" src="../_images/cracked-dark.png" />
 </figure>
@@ -476,20 +483,24 @@ placed into contact with a virtual reservoir of a given chemical
 potential <span class="math notranslate nohighlight">\(\mu\)</span>, and multiple attempts to insert water molecules at
 random positions are made.  Each attempt is either accepted or rejected
 based on energy considerations.  For further details, please refer to
-classical textbooks like Ref. <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id8" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">6</a>]</span>.</p>
-<section id="using-hydrid-potentials">
-<h3>Using hydrid potentials<a class="headerlink" href="#using-hydrid-potentials" title="Link to this heading">¶</a></h3>
-<p>The first peculiarity of our system is that it combines water and
-silica, which necessitates the use of two force fields: Vashishta (for
-<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>), and TIP4P (for water).  Here, the TIP4P/2005 model is
-employed for the water <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id53" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">4</a>]</span>.</p>
+classical textbooks like Ref. <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id9" title="Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Elsevier, 2023.">6</a>]</span>.</p>
+<section id="adapting-the-pair-style">
+<h3>Adapting the pair style<a class="headerlink" href="#adapting-the-pair-style" title="Link to this heading">¶</a></h3>
+<p>For this next step, we need to specify the force field used to
+model the interactions in the system. The TIP4P/2005 model is employed
+for the water <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id54" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">4</a>]</span>, while no interaction within
+silica is defined, as it will be seen farther below. This is be-
+cause atoms of the silica will remain frozen during this part of the simulation.
+Only the cross-interactions between water and silica need
+to be defined. Create a new file called <strong>gcmc.lmp</strong>, and copy the following
+lines into it:</p>
 <p>Create a new file called <strong>gcmc.lmp</strong>, and copy the following lines into it:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">metal</span>
 <span class="k">boundary</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">p</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
 <span class="k">neighbor</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="n">bin</span>
 <span class="k">neigh_modify</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="m">1</span>
-<span class="k">pair_style</span><span class="w"> </span><span class="n">hybrid</span><span class="o">/</span><span class="n">overlay</span><span class="w"> </span><span class="n">vashishta</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="n">HW</span><span class="o">-</span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">10</span>
+<span class="k">pair_style</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="n">HW</span><span class="o">-</span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="m">0.1546</span><span class="w"> </span><span class="m">10</span>
 <span class="k">kspace_style</span><span class="w"> </span><span class="n">pppm</span><span class="o">/</span><span class="n">tip4p</span><span class="w"> </span><span class="m">1.0e-5</span>
 <span class="k">bond_style</span><span class="w"> </span><span class="n">harmonic</span>
 <span class="k">angle_style</span><span class="w"> </span><span class="n">harmonic</span>
@@ -499,13 +510,18 @@ employed for the water <span id="id5">[<a class="reference internal" href="../no
 <p class="admonition-title">If you are using LAMMPS-GUI</p>
 <p>Open the <strong>gcmc.lmp</strong> file.</p>
 </div>
-<p>Combining the two force fields, Vashishta and TIP4P/2005, is achieved
-using the <code class="docutils literal notranslate"><span class="pre">hybrid/overlay</span></code> pair style.  The PPPM
-solver <span id="id6">[<a class="reference internal" href="../non-tutorials/bibliography.html#id37" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">25</a>]</span> is specified with the <code class="docutils literal notranslate"><span class="pre">kspace</span></code>
+<p>The PPPM solver <span id="id6">[<a class="reference internal" href="../non-tutorials/bibliography.html#id38" title="Brock A Luty and Wilfred F van Gunsteren. Calculating electrostatic interactions using the particle-particle particle-mesh method with nonperiodic long-range interactions. The Journal of Physical Chemistry, 100(7):2581–2587, 1996.">26</a>]</span> is specified with the <code class="docutils literal notranslate"><span class="pre">kspace</span></code>
 command, and is used to compute the long-range Coulomb interactions associated
 with <code class="docutils literal notranslate"><span class="pre">tip4p/long</span></code>.  Finally, the style for the bonds
 and angles of the water molecules are defined; however, these specifications are
 not critical since TIP4P/2005 is a rigid water model.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>In practice, it is possible to use both <code class="docutils literal notranslate"><span class="pre">vashishta</span></code> and
+<code class="docutils literal notranslate"><span class="pre">lj/cut/tip4p/long</span></code> pair styles by employing the <code class="docutils literal notranslate"><span class="pre">pair_style</span> <span class="pre">hybrid</span></code>
+command.  However, hybridizing force fields should be done with caution, as there
+is no guarantee that the resulting force field will produce meaningful results.</p>
+</div>
 <p>The water molecule template called <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial6/H2O.mol" target="_blank">H2O.mol</a>
 must be downloaded and located next to <strong>gcmc.lmp</strong>.</p>
 <p>Before going further, we need to make a few changes to our data file.
@@ -574,26 +590,30 @@ file, the <code class="docutils literal notranslate"><span class="pre">create_at
 in the system.  Then, add the following <code class="docutils literal notranslate"><span class="pre">pair_coeff</span></code> (and
 <code class="docutils literal notranslate"><span class="pre">bond_coeff</span></code> and <code class="docutils literal notranslate"><span class="pre">angle_coeff</span></code>) commands
 to <strong>gcmc.lmp</strong>:</p>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">vashishta</span><span class="w"> </span><span class="n">SiO.1990.vashishta</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0057</span><span class="w"> </span><span class="m">4.42</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0043</span><span class="w"> </span><span class="m">3.12</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.008</span><span class="w"> </span><span class="m">3.1589</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">lj</span><span class="o">/</span><span class="n">cut</span><span class="o">/</span><span class="n">tip4p</span><span class="o">/</span><span class="n">long</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="m">0.0057</span><span class="w"> </span><span class="m">4.42</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="m">0.0043</span><span class="w"> </span><span class="m">3.12</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="m">0.008</span><span class="w"> </span><span class="m">3.1589</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span>
 <span class="k">bond_coeff</span><span class="w"> </span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0.9572</span>
 <span class="k">angle_coeff</span><span class="w"> </span><span class="n">HW</span><span class="o">-</span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">104.52</span>
 </pre></div>
 </div>
-<p>The force field Vashishta applies only to <code class="docutils literal notranslate"><span class="pre">Si</span></code> and <code class="docutils literal notranslate"><span class="pre">O</span></code> of <span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>,
-and not to the <code class="docutils literal notranslate"><span class="pre">OW</span></code> and <code class="docutils literal notranslate"><span class="pre">HW</span></code> of <span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>, thanks to the <code class="docutils literal notranslate"><span class="pre">NULL</span></code> parameters
-used for atoms of types <code class="docutils literal notranslate"><span class="pre">OW</span></code> and <code class="docutils literal notranslate"><span class="pre">HW</span></code>.  Pair coefficients for the <code class="docutils literal notranslate"><span class="pre">lj/cut/tip4p/long</span></code>
+<p>Pair coefficients for the <code class="docutils literal notranslate"><span class="pre">lj/cut/tip4p/long</span></code>
 potential are defined between O(<span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>) and between H(<span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>)
 atoms, as well as between O(<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>)-O(<span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>) and
-Si(<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>)-O(<span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>). Thus,  the fluid-fluid and the
+Si(<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>)-O(<span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>).  Thus, the fluid-fluid and the
 fluid-solid interactions will be adressed with by the <code class="docutils literal notranslate"><span class="pre">lj/cut/tip4p/long</span></code> potential.
 The <code class="docutils literal notranslate"><span class="pre">bond_coeff</span></code> and <code class="docutils literal notranslate"><span class="pre">angle_coeff</span></code> commands set the <code class="docutils literal notranslate"><span class="pre">OW-HW</span></code>
 bond length to 0.9572 Å, and the <code class="docutils literal notranslate"><span class="pre">HW-OW-HW</span></code>
-angle to <span class="math notranslate nohighlight">\(104.52^\circ\)</span>, respectively <span id="id7">[<a class="reference internal" href="../non-tutorials/bibliography.html#id53" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">4</a>]</span>.</p>
+angle to <span class="math notranslate nohighlight">\(104.52^\circ\)</span>, respectively <span id="id7">[<a class="reference internal" href="../non-tutorials/bibliography.html#id54" title="Jose LF Abascal and Carlos Vega. A general purpose model for the condensed phases of water: TIP4P/2005. The Journal of chemical physics, 2005.">4</a>]</span>.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>The pair coefficients for interactions between Si(<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>)
+and O(<span class="math notranslate nohighlight">\(\text{SiO}_2\)</span>) are set by the first command, <code class="docutils literal notranslate"><span class="pre">pair_coeff</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">0</span> <span class="pre">0</span></code>,
+which effectively means that they do not interact. This is acceptable here because
+the silica atoms remain frozen during this part of the tutorial.</p>
+</div>
 <p>Add the following lines to <strong>gcmc.lmp</strong> as well:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">oxygen</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="n">type</span><span class="o">==</span><span class="n">label2type</span><span class="nv">(atom,OW)</span>
 <span class="k">group </span><span class="nv nv-Identifier">oxygen</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="n">oxygen</span>
@@ -602,9 +622,16 @@ angle to <span class="math notranslate nohighlight">\(104.52^\circ\)</span>, res
 <span class="k">fix </span><span class="nv nv-Identifier">shak</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-5</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">HW</span><span class="o">-</span><span class="n">OW</span><span class="o">-</span><span class="n">HW</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span>
 </pre></div>
 </div>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>Here, a variable of type <em>atom</em> is used.  Such variable
+defines a per-atom property, i.e., it evaluates the specified expression
+separately for each atom.  This is often used to select atoms based on
+their properties or types.</p>
+</div>
 <p>The number of oxygen atoms from water molecules (i.e. the number of molecules)
 is calculated by the <code class="docutils literal notranslate"><span class="pre">nO</span></code> variable.  The SHAKE algorithm is used to
-maintain the shape of the water molecules over time <span id="id8">[<a class="reference internal" href="../non-tutorials/bibliography.html#id26" title="Jean-Paul Ryckaert, Giovanni Ciccotti, and Herman JC Berendsen. Numerical integration of the cartesian equations of motion of a system with constraints: molecular dynamics of n-alkanes. Journal of computational physics, 23(3):327–341, 1977.">34</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id27" title="Hans C Andersen. Rattle: a “velocity” version of the shake algorithm for molecular dynamics calculations. Journal of computational Physics, 52(1):24–34, 1983.">35</a>]</span>.</p>
+maintain the shape of the water molecules over time <span id="id8">[<a class="reference internal" href="../non-tutorials/bibliography.html#id27" title="Jean-Paul Ryckaert, Giovanni Ciccotti, and Herman JC Berendsen. Numerical integration of the cartesian equations of motion of a system with constraints: molecular dynamics of n-alkanes. Journal of computational physics, 23(3):327–341, 1977.">35</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id28" title="Hans C Andersen. Rattle: a “velocity” version of the shake algorithm for molecular dynamics calculations. Journal of computational Physics, 52(1):24–34, 1983.">36</a>]</span>.</p>
 <p>Finally, let us create images
 of the system using <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">image</span></code>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">250</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">&amp;</span>
@@ -622,29 +649,32 @@ of the system using <code class="docutils literal notranslate"><span class="pre"
 <p>To prepare for the GCMC simulation, let us add the
 following lines into <strong>gcmc.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">temp</span>
-<span class="k">compute_modify </span><span class="nv nv-Identifier">thermo_temp</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
-<span class="k">compute_modify </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">yes</span>
-<span class="k">fix </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
-<span class="k">fix_modify </span><span class="nv nv-Identifier">mynvt1</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">ctH2O</span>
-<span class="k">fix </span><span class="nv nv-Identifier">mynvt2</span><span class="w"> </span><span class="nv nv-Identifier">SiO</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">compute_modify </span><span class="nv nv-Identifier">thermo_temp</span><span class="w"> </span><span class="n">dynamic</span><span class="o">/</span><span class="n">dof</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">compute_modify </span><span class="nv nv-Identifier">ctH2O</span><span class="w"> </span><span class="n">dynamic</span><span class="o">/</span><span class="n">dof</span><span class="w"> </span><span class="n">yes</span>
+<span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">0.1</span>
+<span class="k">fix_modify </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">ctH2O</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.001</span>
 </pre></div>
 </div>
-<p>Two different thermostats are used for <span class="math notranslate nohighlight">\(\text{SiO}_2\)</span> and <span class="math notranslate nohighlight">\(\text{H}_2\text{O}\)</span>,
-respectively.  Using separate thermostats is usually better when the system contains
-two separate species, such as a solid and a liquid.  It is particularly important
-to use two thermostats here because the number of water molecules will fluctuate
-with time.  The <code class="docutils literal notranslate"><span class="pre">compute_modify</span></code> command with the <code class="docutils literal notranslate"><span class="pre">dynamic</span> <span class="pre">yes</span></code>
-option for water is used to specify that the number of molecules will not be constant.</p>
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">nvt</span></code> applies only to the water molecules, so
+the atoms in the silica remain fixed.  The <code class="docutils literal notranslate"><span class="pre">compute_modify</span></code> command with
+the <code class="docutils literal notranslate"><span class="pre">dynamic/dof</span> <span class="pre">yes</span></code> option is used for water to account for the fact
+that the number of molecules is not constant.</p>
 <p>Finally, let us use the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">gcmc</span></code> and perform the grand canonical Monte
 Carlo steps.  Add the following lines into <strong>gcmc.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">tfac</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">5.0</span><span class="o">/</span><span class="m">3.0</span>
 <span class="k">fix </span><span class="nv nv-Identifier">fgcmc</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">gcmc</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">65899</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="o">-</span><span class="m">0.5</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">tfac_insert</span><span class="w"> </span><span class="nv">${tfac}</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="n">shak</span><span class="w"> </span><span class="n">full_energy</span><span class="w"> </span><span class="n">pressure</span><span class="w"> </span><span class="m">100</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">tfac_insert</span></code> option ensures the correct estimate for the temperature
+<p>The <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">gcmc</span></code> command performs grand canonical Monte Carlo
+moves to insert, delete, or swap molecules. Here, 100 attempts are made every
+100 steps.  The <code class="docutils literal notranslate"><span class="pre">mol</span> <span class="pre">h2omol</span></code> keyword specifies the
+molecule type being inserted/deleted, while <code class="docutils literal notranslate"><span class="pre">shake</span> <span class="pre">shak</span></code> enforces rigid
+molecular constraints during these moves. With the <code class="docutils literal notranslate"><span class="pre">pressure</span> <span class="pre">100</span></code> keyword,
+a fictitious reservoir with a pressure of 100 atmospheres is used.
+The <code class="docutils literal notranslate"><span class="pre">tfac_insert</span></code> option ensures the correct estimate for the temperature
 of the inserted water molecules by taking into account the internal degrees of
-freedom.  Here, 100 insertion and deletion attemps are made every 100 steps.</p>
+freedom.</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
 <p>At a pressure of <span class="math notranslate nohighlight">\(p = 100\,\text{bar}\)</span>, the chemical potential of water vapor at <span class="math notranslate nohighlight">\(T = 300\,\text{K}\)</span>
@@ -659,12 +689,16 @@ is the gas constant, <span class="math notranslate nohighlight">\(T = 300\,\text
 <span class="k">run</span><span class="w"> </span><span class="m">25000</span>
 </pre></div>
 </div>
-<p>Running this simulation using LAMMPS, one can see that the number of molecules is increasing
-progressively.  When using the pressure argument, LAMMPS ignores the value of the
+<p>The <code class="docutils literal notranslate"><span class="pre">f_</span></code> keywords extract the Monte Carlo move statistics output by the
+<code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">gcmc</span></code> command.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>When using the pressure argument, LAMMPS ignores the value of the
 chemical potential (here <span class="math notranslate nohighlight">\(\mu = -0.5\,\text{eV}\)</span>, which corresponds roughly to
-ambient conditions, i.e. to a relative humidity <span class="math notranslate nohighlight">\(\text{RH} \approx 50\,\%\)</span> <span id="id9">[<a class="reference internal" href="../non-tutorials/bibliography.html#id16" title="Simon Gravelle and Jacques Dumais. A multi-scale model for fluid transport through a bio-inspired passive valve. The Journal of Chemical Physics, 2020.">44</a>]</span>.)
+ambient conditions, i.e. to a relative humidity <span class="math notranslate nohighlight">\(\text{RH} \approx 50\,\%\)</span> <span id="id9">[<a class="reference internal" href="../non-tutorials/bibliography.html#id17" title="Simon Gravelle and Jacques Dumais. A multi-scale model for fluid transport through a bio-inspired passive valve. The Journal of Chemical Physics, 2020.">45</a>]</span>.)
 The large pressure value of 100 bars was chosen to ensure that some successful
 insertions of molecules would occur during the short duration of this simulation.</p>
+</div>
 <figure class="align-default">
 <img alt="Number of water molecules from GCMC somulations" class="only-dark" src="../_images/GCMC-number-dm.png" />
 </figure>
@@ -674,7 +708,8 @@ insertions of molecules would occur during the short duration of this simulation
 <div class="figurelegend docutils container">
 <p>Figure: Number of water molecules, <span class="math notranslate nohighlight">\(N_\text{H2O}\)</span>, as a function of time, <span class="math notranslate nohighlight">\(t\)</span>.</p>
 </div>
-<p>After a few GCMC steps, the number of molecules starts increasing.  Once the
+<p>Running this simulation using LAMMPS, one can see that
+after a few GCMC steps, the number of molecules starts increasing.  Once the
 crack is filled with water molecules, the total number of molecules reaches a plateau.  The final number of
 molecules depends on the imposed pressure, temperature, and the interaction
 between water and silica (i.e. its hydrophilicity).  Note that GCMC simulations
@@ -824,7 +859,7 @@ of the tutorial.</p>
 <li><a class="reference internal" href="#generation-of-the-silica-block">Generation of the silica block</a></li>
 <li><a class="reference internal" href="#cracking-the-silica">Cracking the silica</a></li>
 <li><a class="reference internal" href="#adding-water">Adding water</a><ul>
-<li><a class="reference internal" href="#using-hydrid-potentials">Using hydrid potentials</a></li>
+<li><a class="reference internal" href="#adapting-the-pair-style">Adapting the pair style</a></li>
 <li><a class="reference internal" href="#gcmc-simulation">GCMC simulation</a></li>
 </ul>
 </li>
@@ -847,7 +882,7 @@ of the tutorial.</p>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>

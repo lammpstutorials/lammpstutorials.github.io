@@ -29,7 +29,7 @@ installer package.
 Installing the Linux .tar.gz Package
 ------------------------------------
 
-Download the archive (e.g., LAMMPS-Linux-x86_64-GUI-29Aug2024_update2.tar.gz)
+Download the archive (e.g., LAMMPS-Linux-x86_64-GUI-22Jul2025.tar.gz)
 and unpack it.  This will create a folder named LAMMPS--GUI containing the
 included commands, which can be launched directly using ``./lammps-gui`` or
 ``./lmp``, for example.  Adding this folder to the PATH environment
@@ -41,12 +41,12 @@ Installing the Linux Flatpak Bundle
 
 You have to have Flatpak support installed on Linux machine to be able
 to use the Flatpak bundle.  Download the bundle file
-(e.g., LAMMPS-Linux-x86_64-GUI-29Aug2024_update2.flatpak) and then
+(e.g., LAMMPS-Linux-x86_64-GUI-22Jul2025.flatpak) and then
 install it using the following command:
 
 .. code-block:: bash
 
-    flatpak install --user LAMMPS-Linux-x86_64-GUI-29Aug2024_update2.flatpak
+    flatpak install --user LAMMPS-Linux-x86_64-GUI-22Jul2025.flatpak
 
 This will integrate LAMMPS--GUI into your desktop environment
 (e.g., GNOME, KDE, XFCE) where it should appear in the ``Applications``
@@ -70,7 +70,7 @@ Installing the macOS Application Bundle
 ---------------------------------------
 
 After downloading the macOS app bundle image file
-(e.g., LAMMPS-macOS-multiarch-GUI-29Aug2024_update2.dmg), double-click
+(e.g., LAMMPS-macOS-multiarch-GUI-22Jul2025.dmg), double-click
 on it.  In the dialog that opens drag the LAMMPS--GUI app bundle into
 the Applications folder.  To enable command-line access, follow the
 instructions in the **README.txt** file.  These macOS app-bundles contain
@@ -87,7 +87,7 @@ Installing the Windows package
 ------------------------------
 
 Download the LAMMPS--GUI installer for Windows
-(e.g., LAMMPS-Win10-64bit-GUI-29Aug2024_update2.exe).  Windows may warn
+(e.g., LAMMPS-Win10-64bit-GUI-22Jul2025.exe).  Windows may warn
 you that the file is from an unknown developer and was downloaded from
 the internet.  This happens because neither the installer nor the
 LAMMPS--GUI application (or any other included applications) have been

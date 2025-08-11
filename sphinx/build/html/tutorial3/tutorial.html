@@ -4,13 +4,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+        <link rel="prefetch" href="../_static/logo.png" as="image" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2025.07.19 -->
         <title>Preparing the water reservoir - </title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b1e702db" />
     
     
@@ -24,14 +25,14 @@
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
       }
     }
@@ -190,7 +191,6 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
@@ -271,8 +271,8 @@
 <h1>Preparing the water reservoir<a class="headerlink" href="#preparing-the-water-reservoir" title="Link to this heading">¶</a></h1>
 <p>In this tutorial, the water reservoir is first prepared in the absence of the polymer.
 A rectangular box of water is created and equilibrated at ambient temperature and
-pressure.  The SPC/Fw water model is used <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id45" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">24</a>]</span>, which is
-a flexible variant of the rigid SPC (simple point charge) model <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id44" title="Herman JC Berendsen, James PM Postma, Wilfred F van Gunsteren, and Jan Hermans. Interaction models for water in relation to protein hydration. In Intermolecular forces: proceedings of the fourteenth Jerusalem symposium on quantum chemistry and biochemistry held in jerusalem, israel, april 13–16, 1981, 331–342. Springer, 1981.">27</a>]</span>.
+pressure.  The SPC/Fw water model is used <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id46" title="Yujie Wu, Harald L Tepper, and Gregory A Voth. Flexible simple point-charge water model with improved liquid-state properties. The Journal of chemical physics, 2006.">25</a>]</span>, which is
+a flexible variant of the rigid SPC (simple point charge) model <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id45" title="Herman JC Berendsen, James PM Postma, Wilfred F van Gunsteren, and Jan Hermans. Interaction models for water in relation to protein hydration. In Intermolecular forces: proceedings of the fourteenth Jerusalem symposium on quantum chemistry and biochemistry held in jerusalem, israel, april 13–16, 1981, 331–342. Springer, 1981.">29</a>]</span>.
 Create a file named <strong>water.lmp</strong>, and copy the following lines into it:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">units</span><span class="w"> </span><span class="n">real</span>
 <span class="k">atom_style</span><span class="w"> </span><span class="n">full</span>
@@ -300,8 +300,8 @@ angles, and dihedrals used in the simulation, here <code class="docutils literal
 With the <code class="docutils literal notranslate"><span class="pre">pair_style</span></code> named <code class="docutils literal notranslate"><span class="pre">lj/cut/coul/long</span></code>, atoms
 interact through both a Lennard-Jones (LJ) potential and Coulomb
 interactions.  The value of <span class="math notranslate nohighlight">\(10\,\text{Å}\)</span> is the cutoff, and the
-<code class="docutils literal notranslate"><span class="pre">ewald</span></code> command defines the long-range solver for the Coulomb
-interactions <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id7" title="Paul P Ewald. Die berechnung optischer und elektrostatischer gitterpotentiale. Annalen der physik, 369(3):253–287, 1921.">28</a>]</span>.  Finally, the
+<code class="docutils literal notranslate"><span class="pre">kspace_style</span></code> command defines the long-range solver for the Coulomb
+interactions <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id8" title="Paul P Ewald. Die berechnung optischer und elektrostatischer gitterpotentiale. Annalen der physik, 369(3):253–287, 1921.">30</a>]</span>.  Finally, the
 <code class="docutils literal notranslate"><span class="pre">special_bonds</span></code> command, which was already seen in
 <a class="reference internal" href="../tutorial2/breaking-a-carbon-nanotube.html#carbon-nanotube-label"><span class="std std-ref">Pulling on a carbon nanotube</span></a>, sets the LJ and Coulomb
 weighting factors for the interaction between neighboring atoms.</p>
@@ -328,7 +328,7 @@ distances, etc).  Thus add to <strong>water.lmp</strong> the line:</p>
 </div>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
-<p>This tutorial uses type labels <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id14" title="Jacob R Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and others. Type label framework for bonded force fields in lammps. The Journal of Physical Chemistry B, 128(13):3282–3297, 2024.">3</a>]</span> to map each
+<p>This tutorial uses type labels <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id15" title="Jacob R Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and others. Type label framework for bonded force fields in lammps. The Journal of Physical Chemistry B, 128(13):3282–3297, 2024.">3</a>]</span> to map each
 numeric atom type to a string (see the <strong>parameters.inc</strong> file):
 <code class="docutils literal notranslate"><span class="pre">labelmap</span> <span class="pre">atom</span> <span class="pre">1</span> <span class="pre">OE</span> <span class="pre">2</span> <span class="pre">C</span> <span class="pre">3</span> <span class="pre">HC</span> <span class="pre">4</span> <span class="pre">H</span> <span class="pre">5</span> <span class="pre">CPos</span> <span class="pre">6</span> <span class="pre">OAlc</span> <span class="pre">7</span> <span class="pre">OW</span> <span class="pre">8</span> <span class="pre">HW</span></code>
 Therefore, the oxygen and hydrogen atoms of water (respectively types
@@ -389,7 +389,7 @@ four criteria is reached, which can disrupt the intended frequency
 of outputs such as <code class="docutils literal notranslate"><span class="pre">dump</span></code> commands that depend on the timestep count.
 We will use <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">npt</span></code> to control the temperature
 and pressure of the molecules with a Nosé-Hoover thermostat and barostat,
-respectively <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id31" title="Shuichi Nosé. A unified formulation of the constant temperature molecular dynamics methods. The Journal of chemical physics, 81(1):511–519, 1984.">21</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id30" title="William G Hoover. Canonical dynamics: equilibrium phase-space distributions. Physical review A, 31(3):1695, 1985.">22</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id29" title="Glenn J Martyna, Douglas J Tobias, and Michael L Klein. Constant pressure molecular dynamics algorithms. The Journal of chemical physics, 101(5):4177–4189, 1994.">29</a>]</span>.
+respectively <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id32" title="Shuichi Nosé. A unified formulation of the constant temperature molecular dynamics methods. The Journal of chemical physics, 81(1):511–519, 1984.">22</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id31" title="William G Hoover. Canonical dynamics: equilibrium phase-space distributions. Physical review A, 31(3):1695, 1985.">23</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id30" title="Glenn J Martyna, Douglas J Tobias, and Michael L Klein. Constant pressure molecular dynamics algorithms. The Journal of chemical physics, 101(5):4177–4189, 1994.">31</a>]</span>.
 Add the following line into <strong>water.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynpt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">npt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">iso</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1000</span>
 </pre></div>
@@ -397,7 +397,8 @@ Add the following line into <strong>water.lmp</strong>:</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">npt</span></code> allows us to impose both a temperature of <span class="math notranslate nohighlight">\(300\,\text{K}\)</span>
 (with a damping constant of <span class="math notranslate nohighlight">\(100\,\text{fs}\)</span>), and a pressure of 1 atmosphere
 (with a damping constant of <span class="math notranslate nohighlight">\(1000\,\text{fs}\)</span>).  With the <code class="docutils literal notranslate"><span class="pre">iso</span></code> keyword,
-the three dimensions of the box will be re-scaled simultaneously.</p>
+the three dimensions of the box will be re-scaled isotropically,
+maintaining the same proportion in all directions.</p>
 <p>Let us output the system into images by adding the following commands to <strong>water.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">250</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">&amp;</span>
 <span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">600</span>
@@ -406,27 +407,13 @@ the three dimensions of the box will be re-scaled simultaneously.</p>
 <span class="n">adiam</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">HW</span><span class="w"> </span><span class="m">1.5</span>
 </pre></div>
 </div>
-<p>Let us also extract the volume and density every 500 steps:</p>
-<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">myvol</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">vol</span>
-<span class="k">variable </span><span class="nv nv-Identifier">myoxy</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">count</span><span class="nv">(H2O)</span><span class="o">/</span><span class="m">3</span>
-<span class="k">variable </span><span class="nv nv-Identifier">NA</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">6.022e23</span>
-<span class="k">variable </span><span class="nv nv-Identifier">Atom</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">1e-10</span>
-<span class="k">variable </span><span class="nv nv-Identifier">M</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="m">0.018</span>
-<span class="k">variable </span><span class="nv nv-Identifier">rho</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="nv">${myoxy}</span><span class="o">*</span><span class="nv">${M}</span><span class="o">/</span><span class="nv">(v_myvol*${NA}*${Atom}^3)</span>
-<span class="k">thermo</span><span class="w"> </span><span class="m">500</span>
-<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">v_myvol</span><span class="w"> </span><span class="n">v_rho</span>
+<p>Let us also extract the volume and density, among others, every 500 steps:</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">thermo</span><span class="w"> </span><span class="m">500</span>
+<span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">volume</span><span class="w"> </span><span class="n">density</span>
 </pre></div>
 </div>
-<p>Here, several variables are defined and used for converting the units of the
-density in kg/mol:  The variable <code class="docutils literal notranslate"><span class="pre">myoxy</span></code> represents the number of
-atoms divided by 3,  which corresponds to the number of molecules, <span class="math notranslate nohighlight">\(N_\text{H2O}\)</span>,
-and the variable <code class="docutils literal notranslate"><span class="pre">myrho</span></code> is the density in kg/mol:</p>
-<div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\rho = \dfrac{N_\text{H2O}}{V N_\text{A}},\]</div>
-</div>
-<p>where <span class="math notranslate nohighlight">\(V\)</span> is the volume in <span class="math notranslate nohighlight">\(\text{m}^3\)</span>, <span class="math notranslate nohighlight">\(N_\text{A}\)</span> the Avogadro number, and
-<span class="math notranslate nohighlight">\(M = 0.018\)</span>,kg/mol the molar mass of water.</p>
+<p>With the real units system, the volume is in <span class="math notranslate nohighlight">\(Å^3\)</span>, and
+the density is in <span class="math notranslate nohighlight">\(\text{g/cm}^3\)</span>.</p>
 <p>Finally, let us set the timestep to 1.0 fs, and run the simulation for 15 ps by
 adding the following lines into <strong>water.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">timestep</span><span class="w"> </span><span class="m">1.0</span>
@@ -462,9 +449,9 @@ option of the LAMMPS–GUI to vizualize the content saved in <strong>water.resta
 <h1>Solvating the PEG in water<a class="headerlink" href="#solvating-the-peg-in-water" title="Link to this heading">¶</a></h1>
 <p>Now that the water reservoir is equilibrated, we can safely add the PEG polymer
 to the water.  The PEG molecule topology was downloaded from the ATB repository
-<span id="id6">[<a class="reference internal" href="../non-tutorials/bibliography.html#id69" title="Alpeshkumar K Malde, Le Zuo, Matthew Breeze, Martin Stroet, David Poger, Pramod C Nair, Chris Oostenbrink, and Alan E Mark. An automated force field topology builder (ATB) and repository: version 1.0. Journal of chemical theory and computation, 7(12):4026–4037, 2011.">30</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id70" title="Chris Oostenbrink, Alessandra Villa, Alan E Mark, and Wilfred F van Gunsteren. A biomolecular force field based on the free enthalpy of hydration and solvation: the GROMOS force-field parameter sets 53A5 and 53A6. Journal of computational chemistry, 25(13):1656–1676, 2004.">31</a>]</span>.  It has a formula
+<span id="id6">[<a class="reference internal" href="../non-tutorials/bibliography.html#id71" title="Chris Oostenbrink, Alessandra Villa, Alan E Mark, and Wilfred F van Gunsteren. A biomolecular force field based on the free enthalpy of hydration and solvation: the GROMOS force-field parameter sets 53A5 and 53A6. Journal of computational chemistry, 25(13):1656–1676, 2004.">28</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id70" title="Alpeshkumar K Malde, Le Zuo, Matthew Breeze, Martin Stroet, David Poger, Pramod C Nair, Chris Oostenbrink, and Alan E Mark. An automated force field topology builder (ATB) and repository: version 1.0. Journal of chemical theory and computation, 7(12):4026–4037, 2011.">32</a>]</span>.  It has a formula
 <span class="math notranslate nohighlight">\(\text{C}_{16}\text{H}_{34}\text{O}_{9}\)</span>, and the parameters are taken from
-the GROMOS 54A7 force field <span id="id7">[<a class="reference internal" href="../non-tutorials/bibliography.html#id41" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">23</a>]</span>.</p>
+the GROMOS 54A7 force field <span id="id7">[<a class="reference internal" href="../non-tutorials/bibliography.html#id42" title="Nathan Schmid, Andreas P Eichenberger, Alexandra Choutko, Sereina Riniker, Moritz Winger, Alan E Mark, and Wilfred F van Gunsteren. Definition and testing of the gromos force-field versions 54a7 and 54b7. European biophysics journal, 40:843–856, 2011.">24</a>]</span>.</p>
 <figure class="align-default">
 <img alt="PEG in vacuum as simulated with LAMMPS" class="only-light" src="../_images/singlePEG-light.png" />
 </figure>
@@ -523,10 +510,15 @@ the position <span class="math notranslate nohighlight">\((0, 0, 0)\)</span>:</p
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="n">all</span>
 </pre></div>
 </div>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
 <p>Note that the <code class="docutils literal notranslate"><span class="pre">recenter</span></code> command has no impact on the dynamics,
 it simply repositions the frame of reference so that any drift of the
 system is ignored, which can be convenient for visualizing and analyzing
-the system.</p>
+the system. However, be aware that using <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">recenter</span></code> can sometimes
+mask underlying issues in the simulation, such as net momentum or the so-called
+<em>flying ice cube syndrome</em> <span id="id8">[<a class="reference internal" href="../non-tutorials/bibliography.html#id35" title="Jirasak Wong-Ekkabut and Mikko Karttunen. The good, the bad and the user in soft matter simulations. Biochimica et Biophysica Acta (BBA)-Biomembranes, 1858(10):2529–2538, 2016.">20</a>]</span>.</p>
+</div>
 <p>Let us create images of the systems:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">dump </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="m">250</span><span class="w"> </span><span class="n">myimage</span><span class="o">-*</span><span class="n">.ppm</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="m">1100</span><span class="w"> </span><span class="m">600</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">shiny</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="m">3.3</span><span class="w"> </span><span class="n">fsaa</span><span class="w"> </span><span class="n">yes</span><span class="w"> </span><span class="n">bond</span><span class="w"> </span><span class="n">atom</span><span class="w"> </span><span class="m">0.8</span>
 <span class="k">dump_modify </span><span class="nv nv-Identifier">viz</span><span class="w"> </span><span class="n">backcolor</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">OW</span><span class="w"> </span><span class="m">0.2</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">OE</span><span class="w"> </span><span class="n">darkred</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">OE</span><span class="w"> </span><span class="m">2.6</span><span class="w"> </span><span class="n">acolor</span><span class="w"> </span><span class="n">HC</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="n">adiam</span><span class="w"> </span><span class="n">HC</span><span class="w"> </span><span class="m">1.4</span><span class="w"> </span><span class="o">&amp;</span>
@@ -602,17 +594,16 @@ the following lines to <strong>pull.lmp</strong>:</p>
 </pre></div>
 </div>
 <p>To investigate the stretching of the PEG molecule, let us compute its radius of
-gyration <span id="id8">[<a class="reference internal" href="../non-tutorials/bibliography.html#id28" title="Marshall Fixman. Radius of Gyration of Polymer Chains. The Journal of Chemical Physics, 36(2):306–310, 1962.">32</a>]</span> and the angles of its dihedral
+gyration <span id="id9">[<a class="reference internal" href="../non-tutorials/bibliography.html#id29" title="Marshall Fixman. Radius of Gyration of Polymer Chains. The Journal of Chemical Physics, 36(2):306–310, 1962.">33</a>]</span> and the angles of its dihedral
 constraints using the following commands:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">rgyr</span><span class="w"> </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">gyration</span>
-<span class="k">compute </span><span class="nv nv-Identifier">prop</span><span class="w"> </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">property</span><span class="o">/</span><span class="n">local</span><span class="w"> </span><span class="n">dtype</span>
 <span class="k">compute </span><span class="nv nv-Identifier">dphi</span><span class="w"> </span><span class="nv nv-Identifier">PEG</span><span class="w"> </span><span class="n">dihedral</span><span class="o">/</span><span class="n">local</span><span class="w"> </span><span class="n">phi</span>
 </pre></div>
 </div>
 <p>The radius of gyration can be directly printed with the <code class="docutils literal notranslate"><span class="pre">thermo_style</span></code> command:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">thermo_style</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">etotal</span><span class="w"> </span><span class="n">c_rgyr</span>
 <span class="k">thermo</span><span class="w"> </span><span class="m">250</span>
-<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">pull.dat</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="n">c_dphi</span><span class="w"> </span><span class="n">c_prop</span>
+<span class="k">dump </span><span class="nv nv-Identifier">mydmp</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="n">pull.dat</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="n">c_dphi</span>
 </pre></div>
 </div>
 <p>By contrast with the radius of gyration (compute <code class="docutils literal notranslate"><span class="pre">rgyr</span></code>), the dihedral angle
@@ -665,7 +656,7 @@ the dihedral angles of type 1 in the absence (orange) and in the presence (blue)
 <section id="tip-using-external-visualization-tools">
 <h2>Tip: using external visualization tools<a class="headerlink" href="#tip-using-external-visualization-tools" title="Link to this heading">¶</a></h2>
 <p>Trajectories can be visualized using external tools such as VMD or
-OVITO <span id="id9">[<a class="reference internal" href="../non-tutorials/bibliography.html#id10" title="William Humphrey, Andrew Dalke, and Klaus Schulten. VMD: visual molecular dynamics. Journal of molecular graphics, 14(1):33–38, 1996.">12</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id5" title="Alexander Stukowski. Visualization and analysis of atomistic simulation data with ovito–the open visualization tool. Modelling and simulation in materials science and engineering, 18(1):015012, 2009.">13</a>]</span>.  To do so, the IDs and
+OVITO <span id="id10">[<a class="reference internal" href="../non-tutorials/bibliography.html#id11" title="William Humphrey, Andrew Dalke, and Klaus Schulten. VMD: visual molecular dynamics. Journal of molecular graphics, 14(1):33–38, 1996.">12</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id6" title="Alexander Stukowski. Visualization and analysis of atomistic simulation data with ovito–the open visualization tool. Modelling and simulation in materials science and engineering, 18(1):015012, 2009.">13</a>]</span>.  To do so, the IDs and
 positions of the atoms must be regularly written to a file during the
 simulation.  This can be accomplished by adding a <code class="docutils literal notranslate"><span class="pre">dump</span></code> command
 to the input file.  For instance, create a duplicate of
@@ -678,14 +669,16 @@ Then, replace the existing <code class="docutils literal notranslate"><span clas
 named <strong>pull.lammpstrj</strong>, which can be opened in OVITO or VMD.</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
-<p>Since the trajectory dump file does not contain information about
+<p>Since the default trajectory dump file does not contain information about
 topology and elements, it is usually preferred to first write out a
 data file and import it directly (in the case of OVITO) or convert it
 to a PSF file (for VMD).  This allows the topology to be loaded before
 <em>adding</em> the trajectory file to it.  When using LAMMPS–GUI,
 this process can be automated through the <code class="docutils literal notranslate"><span class="pre">View</span> <span class="pre">in</span> <span class="pre">OVITO</span></code> or
 <code class="docutils literal notranslate"><span class="pre">View</span> <span class="pre">in</span> <span class="pre">VMD</span></code> options in the <code class="docutils literal notranslate"><span class="pre">Run</span></code> menu.  Afterwards
-only the trajectory dump needs to be added.</p>
+only the trajectory dump needs to be added.  Alternatively, the
+<code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">custom</span></code> command can be combined with <code class="docutils literal notranslate"><span class="pre">dump</span></code> command to
+include element names in the dump file and simplify visualization.</p>
 </div>
 </section>
 </section>
@@ -720,7 +713,7 @@ only the trajectory dump needs to be added.</p>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>

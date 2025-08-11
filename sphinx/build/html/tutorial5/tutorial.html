@@ -4,13 +4,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+        <link rel="prefetch" href="../_static/logo.png" as="image" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2025.07.19 -->
         <title>Prepare and relax - </title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b1e702db" />
     
     
@@ -24,14 +25,14 @@
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   
       }
     }
@@ -190,7 +191,6 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
@@ -296,8 +296,9 @@ and a <strong>.data</strong> file is imported by the <code class="docutils liter
 personalized <a href="https://www.patreon.com/molecularsimulations" target="_blank">advice</a> for your project.</p>
 </div>
 <p>The initial topology given by <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial5/silica.data" target="_blank">silica.data</a>
-is a small amorphous silica structure.  This structure was created using a force field called
-Vashishta <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id49" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">40</a>]</span>.  If you open the <strong>silica.data</strong>
+is a small amorphous silica structure.  This structure was generated in a prior
+simulation using the Vashishta force field <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id50" title="P Vashishta, Rajiv K Kalia, José P Rino, and Ingvar Ebbsjö. Interaction potential for SiO2: a molecular-dynamics study of structural correlations. Physical Review B, 41(17):12197, 1990.">41</a>]</span>.
+If you open the <strong>silica.data</strong>
 file, you will find in the <code class="docutils literal notranslate"><span class="pre">Atoms</span></code> section that all silicon atoms have a
 charge of <span class="math notranslate nohighlight">\(q = 1.1\,\text{e}\)</span>, and all oxygen atoms have a charge of <span class="math notranslate nohighlight">\(q = -0.55\,\text{e}\)</span>.</p>
 <div class="non-title-info admonition">
@@ -309,19 +310,29 @@ environment.</p>
 </div>
 <p>Next, copy the following three crucial lines into the <strong>relax.lmp</strong> file:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">pair_style</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">safezone</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mincap</span><span class="w"> </span><span class="m">150</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">reaxCHOFe.inc</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ffield.reax.CHOFe</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myqeq</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">qeq</span><span class="o">/</span><span class="n">reaxff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">maxiter</span><span class="w"> </span><span class="m">400</span>
 </pre></div>
 </div>
 <p>In this case, the <code class="docutils literal notranslate"><span class="pre">pair_style</span> <span class="pre">reaxff</span></code> is used without a control file.  The
 <code class="docutils literal notranslate"><span class="pre">safezone</span></code> and <code class="docutils literal notranslate"><span class="pre">mincap</span></code> keywords are added to prevent
 allocation issues, which sometimes can trigger segmentation faults and
-<code class="docutils literal notranslate"><span class="pre">bondchk</span></code> errors.  The <code class="docutils literal notranslate"><span class="pre">pair_coeff</span></code> command uses the <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial5/reaxCHOFe.inc" target="_blank">reaxCHOFe.inc</a>
+<code class="docutils literal notranslate"><span class="pre">bondchk</span></code> errors.  The <code class="docutils literal notranslate"><span class="pre">pair_coeff</span></code> command uses the <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial5/ffield.reax.CHOFe" target="_blank">ffield.reax.CHOFe</a>
 file, which should have been downloaded during the tutorial set up.  Finally, the
-<code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">qeq/reaxff</span></code> is used to perform charge equilibration <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id24" title="Anthony K Rappe and William A Goddard III. Charge equilibration for molecular dynamics simulations. The Journal of Physical Chemistry, 95(8):3358–3363, 1991.">41</a>]</span>,
+<code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">qeq/reaxff</span></code> is used to perform charge equilibration <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id25" title="Anthony K Rappe and William A Goddard III. Charge equilibration for molecular dynamics simulations. The Journal of Physical Chemistry, 95(8):3358–3363, 1991.">42</a>]</span>,
 which occurs at every step.  The values 0.0 and 10.0 represent the
-low and the high cutoffs, respectively, and <span class="math notranslate nohighlight">\(1.0 \text{e} -6\)</span> is the tolerance.
-The <code class="docutils literal notranslate"><span class="pre">maxiter</span></code> sets an upper limit to the number of attempts to
+low and the high cutoffs, respectively, and <span class="math notranslate nohighlight">\(1.0 \text{e} -6\)</span> is the tolerance,
+i.e., the precision to which the atomic charges are equilibrated during the
+charge equilibration process.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pair_style</span> <span class="pre">reaxff</span></code> command optionally accepts a control file,
+which defines control variables such as
+global parameters of the ReaxFF potential, as well as performance and output settings.
+If no control file is provided, as in this tutorial, LAMMPS uses its default values,
+which correspond to those in Adri van Duin’s original stand-alone ReaxFF code <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id69" title="Adri CT van Duin, Siddharth Dasgupta, Francois Lorant, and William A Goddard. ReaxFF: a reactive force field for hydrocarbons. The Journal of Physical Chemistry A, 105(41):9396–9409, 2001.">5</a>]</span>.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">maxiter</span></code> sets an upper limit to the number of attempts to
 equilibrate the charge.</p>
 <p>Next, add the following commands to the <strong>relax.lmp</strong> file to track the
 evolution of the charges during the simulation:</p>
@@ -361,6 +372,12 @@ about <span class="math notranslate nohighlight">\(-0.9 ~ \text{e}\)</span> appe
 <span class="k">fix </span><span class="nv nv-Identifier">myhis2</span><span class="w"> </span><span class="nv nv-Identifier">grpO</span><span class="w"> </span><span class="n">ave</span><span class="o">/</span><span class="n">histo</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="o">-</span><span class="m">1.5</span><span class="w"> </span><span class="m">2.5</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="n">v_vq</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">relax</span><span class="o">-</span><span class="n">O.histo</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">vector</span>
 </pre></div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">ave/histo</span></code> command samples values
+over a group of atoms and builds a histogram over a specified range divided into
+bins.  In this tutorial, it is used to monitor the charge distributions
+of silicon and oxygen atoms.  The parameters <code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">500</span> <span class="pre">5000</span></code> specify how often
+the histogram is updated and averaged, <code class="docutils literal notranslate"><span class="pre">-1.5</span> <span class="pre">2.5</span></code> set the value range,
+<code class="docutils literal notranslate"><span class="pre">1000</span></code> is the number of bins, and <code class="docutils literal notranslate"><span class="pre">v\_vq</span></code> is the variable being histogrammed.</p>
 <p>We can also use the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">reaxff/species</span></code> to evaluate what species are
 present within the simulation.  It will be useful later when the system is deformed,
 and bonds are broken:</p>
@@ -378,6 +395,12 @@ density of the system:</p>
 
 <span class="k">write_data </span><span class="nv nv-Identifier">relax.data</span>
 </pre></div>
+</div>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>With the <cite>aniso</cite> keyword, the three dimensions of the simulation
+box can change independently.  This is particularly relevant for solids and other
+systems where anisotropic stresses may develop.</p>
 </div>
 <p>Run the <strong>relax.lmp</strong> file using LAMMPS.  As seen from <strong>relax.species</strong>,
 only one species is detected, called <code class="docutils literal notranslate"><span class="pre">O384Si192</span></code>, representing the entire system.</p>
@@ -436,7 +459,7 @@ file, which must contain the following lines:</p>
 <span class="k">read_data</span><span class="w"> </span><span class="n">relax.data</span>
 
 <span class="k">pair_style</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">safezone</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mincap</span><span class="w"> </span><span class="m">150</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">reaxCHOFe.inc</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ffield.reax.CHOFe</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myqeq</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">qeq</span><span class="o">/</span><span class="n">reaxff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">maxiter</span><span class="w"> </span><span class="m">400</span>
 
 <span class="k">group </span><span class="nv nv-Identifier">grpSi</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">Si</span>
@@ -464,7 +487,7 @@ Nosé-Hoover thermostat without a barostat:</p>
 </pre></div>
 </div>
 <p>Here, no barostat is used because the change in the box volume will be imposed
-by the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">deform</span></code>.</p>
+by the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">deform</span></code>, see below.</p>
 <p>Let us run for 5000 steps without deformation, then apply the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">deform</span></code>
 to progressively elongate the box along the <span class="math notranslate nohighlight">\(x\)</span>-axis during 25000 steps.  Add
 the following line to <strong>deform.lmp</strong>:</p>
@@ -477,6 +500,9 @@ the following line to <strong>deform.lmp</strong>:</p>
 <span class="k">write_data </span><span class="nv nv-Identifier">deform.data</span>
 </pre></div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">deform</span></code> command applies a continuous deformation
+by elongating the simulation box along the x-axis at a constant engineering
+shear strain rate, specified by <code class="docutils literal notranslate"><span class="pre">erate</span></code>, of <span class="math notranslate nohighlight">\(5 \times 10^{-5}~\text{fs}^{-1}\)</span>.</p>
 <p>Run the <strong>deform.lmp</strong> file using LAMMPS.  During the deformation, the charge
 values progressively evolve until the structure eventually breaks down.  After the
 structure breaks down, the charges equilibrate near new average values that differ
@@ -517,7 +543,7 @@ a new column <code class="docutils literal notranslate"><span class="pre">O2</sp
 <section id="decorate-the-surface">
 <h2>Decorate the surface<a class="headerlink" href="#decorate-the-surface" title="Link to this heading">¶</a></h2>
 <p>Under ambient conditions, some of the surface <span class="math notranslate nohighlight">\(\text{SiO}_2\)</span> atoms become chemically
-passivated by forming covalent bonds with hydrogen (H) atoms <span id="id3">[<a class="reference internal" href="../non-tutorials/bibliography.html#id15" title="Marialore Sulpizi, Marie-Pierre Gaigeot, and Michiel Sprik. The silica–water interface: how the silanols determine the surface acidity and modulate the water properties. Journal of chemical theory and computation, 8(3):1037–1047, 2012.">42</a>]</span>.
+passivated by forming covalent bonds with hydrogen (H) atoms <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id16" title="Marialore Sulpizi, Marie-Pierre Gaigeot, and Michiel Sprik. The silica–water interface: how the silanols determine the surface acidity and modulate the water properties. Journal of chemical theory and computation, 8(3):1037–1047, 2012.">43</a>]</span>.
 We will add hydrogen atoms randomly to the cracked silica and observe how the
 system evolves.  To do so, we first need to modify the previously generated data
 file <strong>deform.data</strong> and make space for a third atom type.
@@ -551,7 +577,7 @@ first lines of <strong>deform-mod.data</strong> as follows:</p>
 <span class="k">displace_atoms </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="o">-</span><span class="m">12</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c"># optional</span>
 
 <span class="k">pair_style</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">safezone</span><span class="w"> </span><span class="m">3.0</span><span class="w"> </span><span class="n">mincap</span><span class="w"> </span><span class="m">150</span>
-<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">reaxCHOFe.inc</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span>
+<span class="k">pair_coeff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ffield.reax.CHOFe</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">H</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myqeq</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">qeq</span><span class="o">/</span><span class="n">reaxff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">10.0</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="n">reaxff</span><span class="w"> </span><span class="n">maxiter</span><span class="w"> </span><span class="m">400</span>
 </pre></div>
 </div>
@@ -672,7 +698,7 @@ greenish spheres.</p>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
