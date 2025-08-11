@@ -760,8 +760,8 @@ in a ``thermo_style custom`` command (see below).
     LAMMPS ``compute`` commands can produce
     a wide variety of data and one can identify the category from the
     name of the compute style: global data (no suffix), local data
-    (/local suffix), per-atom data (/atom suffix), per-chunk data
-    (/chunk suffix), per-gridpoint data (/grid suffix).  In the example
+    (local suffix), per-atom data (atom suffix), per-chunk data
+    (chunk suffix), per-gridpoint data (grid suffix).  In the example
     above, the ``compute coord/atom`` produces per-atom data, which
     is used as input for ``compute reduce`` which returns global
     data.  For global data three kinds of data exists: scalars (single

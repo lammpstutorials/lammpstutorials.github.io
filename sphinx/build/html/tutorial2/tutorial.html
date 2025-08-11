@@ -273,11 +273,11 @@
 atoms are defined at the start of the simulation and remain fixed, regardless
 of the forces applied to the atoms.  In this tutorial, these bonds are
 explicitly specified in the <strong>.data</strong> file, which is read using the <code class="docutils literal notranslate"><span class="pre">read_data</span></code> command (see below).
-Bonds are typically modeled as springs
-with equilibrium distances <span class="math notranslate nohighlight">\(r_0\)</span> and force constants <span class="math notranslate nohighlight">\(k_\text{b}\)</span>:
-<span class="math notranslate nohighlight">\(U_\text{b} = k_\text{b} \left( r - r_0 \right)^2\)</span>.  Additionally, angular and
-dihedral constraints are often imposed to preserve the molecular structure
-by maintaining the relative orientations of neighboring atoms.</p>
+Bonds are typically modeled as springs following Hooke’s law
+with equilibrium distances <span class="math notranslate nohighlight">\(r_0\)</span>, force constants <span class="math notranslate nohighlight">\(k_\text{b}\)</span>,
+and bond potential energy <span class="math notranslate nohighlight">\(U_\text{b} = k_\text{b} \left( r - r_0 \right)^2\)</span>.
+Additionally, angular and dihedral constraints are often imposed to preserve the
+molecular structure by maintaining the relative orientations of neighboring atoms.</p>
 <section id="the-lammps-input">
 <h2>The LAMMPS input<a class="headerlink" href="#the-lammps-input" title="Link to this heading">¶</a></h2>
 <p>To begin this tutorial, if you are using LAMMPS–GUI, select
@@ -342,6 +342,14 @@ file that should be downloaded next to <strong>unbreakable.lmp</strong>. This fi
 as well as the identity of the atoms that are linked by <code class="docutils literal notranslate"><span class="pre">bonds</span></code>, <code class="docutils literal notranslate"><span class="pre">angles</span></code>,
 <code class="docutils literal notranslate"><span class="pre">dihedrals</span></code>, and <code class="docutils literal notranslate"><span class="pre">impropers</span></code> interactions. It was created using VMD and TopoTools
 <span id="id1">[<a class="reference internal" href="../non-tutorials/bibliography.html#id48" title="Axel Kohlmeyer and Josh Vermaas. TopoTools: Release 1.9. 2021. URL: https://doi.org/10.5281/zenodo.598373.">21</a>]</span>.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>Bonds, angles, dihedrals, and impropers in LAMMPS are assigned types and IDs, just like atoms.
+The ID uniquely identifies each interaction instance, while the type determines which parameters
+(from the <code class="docutils literal notranslate"><span class="pre">bond_coeff</span></code>, <code class="docutils literal notranslate"><span class="pre">angle_coeff</span></code>, etc. commands) are applied.
+In this tutorial, these types and IDs are specified in the <code class="docutils literal notranslate"><span class="pre">.data</span></code> file and
+read by the <code class="docutils literal notranslate"><span class="pre">read_data</span></code> command.</p>
+</div>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
 <p>The format details of the different sections in a data file change with different
@@ -468,9 +476,9 @@ by adding the following commands to <strong>unbreakable.lmp</strong>:</p>
 </div>
 <p>Re-setting the atom IDs is necessary before using the <code class="docutils literal notranslate"><span class="pre">velocity</span></code> command
 when atoms were deleted, which is done here with the <code class="docutils literal notranslate"><span class="pre">reset_atoms</span></code> command.
-The <code class="docutils literal notranslate"><span class="pre">velocity</span></code> command gives initial velocities to the atoms of the middle
-group <code class="docutils literal notranslate"><span class="pre">cnt_mid</span></code>, ensuring an initial temperature of <span class="math notranslate nohighlight">\(T = 300\,\text{K}\)</span>
-for these atoms.</p>
+The <code class="docutils literal notranslate"><span class="pre">velocity</span></code> command assigns random initial velocities to the atoms of the middle
+group <code class="docutils literal notranslate"><span class="pre">cnt_mid</span></code> from a uniform distribution, ensuring an initial temperature
+of <span class="math notranslate nohighlight">\(T = 300\,\text{K}\)</span> for these atoms.</p>
 <p>Let us specify the thermalization and the dynamics of the system.  Add the following
 lines into <strong>unbreakable.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve1</span><span class="w"> </span><span class="nv nv-Identifier">cnt_top</span><span class="w"> </span><span class="n">nve</span>
@@ -485,11 +493,10 @@ same for the <code class="docutils literal notranslate"><span class="pre">cnt_mi
 with desired temperature of 300 K <span id="id4">[<a class="reference internal" href="../non-tutorials/bibliography.html#id32" title="Shuichi Nosé. A unified formulation of the constant temperature molecular dynamics methods. The Journal of chemical physics, 81(1):511–519, 1984.">22</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id31" title="William G Hoover. Canonical dynamics: equilibrium phase-space distributions. Physical review A, 31(3):1695, 1985.">23</a>]</span>.</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
-<p>The Nosé-Hoover thermostat only controls the temperature of
-the atoms belonging to the specified <code class="docutils literal notranslate"><span class="pre">cnt_mid</span></code> group.  Atoms outside
-this group are not affected by the thermostat.</p>
+<p>The Nosé-Hoover thermostat only controls the temperature of the atoms
+belonging to the specified <code class="docutils literal notranslate"><span class="pre">cnt_mid</span></code> group. Atoms outside this group are not affected.</p>
 </div>
-<p>To restrain the motion of the atoms at the edges, let us add the following
+<p>To immobilize the motion of the atoms at the edges, let us add the following
 commands to <strong>unbreakable.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mysf1</span><span class="w"> </span><span class="nv nv-Identifier">cnt_top</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mysf2</span><span class="w"> </span><span class="nv nv-Identifier">cnt_bot</span><span class="w"> </span><span class="n">setforce</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
@@ -510,11 +517,12 @@ the atoms of the edges will remain immobile during the simulation (or at least
 they would if no other command was applied to them).</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">velocity</span> <span class="pre">set</span></code> command imposes the velocity of a group of atoms at the start of a run but does
-not enforce the velocity during the entire simulation.  When <code class="docutils literal notranslate"><span class="pre">velocity</span> <span class="pre">set</span></code> is used in combination with
+<p>The <code class="docutils literal notranslate"><span class="pre">velocity</span> <span class="pre">set</span></code> command adjusts the velocities of a
+group of atoms immediately but has no effect <em>during</em>
+the simulation.  When <code class="docutils literal notranslate"><span class="pre">velocity</span> <span class="pre">set</span></code> is used in combination with
 <code class="docutils literal notranslate"><span class="pre">setforce</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code>, as is the case here, the atoms won’t feel any force during the entire simulation.
 According to the Newton equation, no force means no acceleration, meaning that the initial velocity
-will persist during the entire simulation, thus producing a constant velocity motion.</p>
+will persist during the entire simulation, thus producing a constant velocity motion or no motion at all.</p>
 </div>
 </section>
 <section id="outputs">
@@ -656,6 +664,22 @@ AIREBO.  The following commands are setting up the AIREBO force field:</p>
 </div>
 <p>Here, <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/CH.airebo" target="_blank">CH.airebo</a> is the file containing the parameters for AIREBO,
 and must be placed next to <strong>breakable.lmp</strong>.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>The AIREBO force field is a many-body
+potential, where interactions are not only between pairs of atoms,
+but also triples and quadruples representing angle and dihedral
+interactions.  This means that there are different rules for the
+<code class="docutils literal notranslate"><span class="pre">pair_coeff</span></code> command: there must be only one command that
+covers all permutations of atom types by using two ‘*’ wildcards.
+After the potential file follows a list of elements.  These element
+names are used to look up the parameter sets in the potential file.
+There must be a list with as many elements as atom types following
+the filename.  In our system, there is only one atom type (1), which is
+mapped to the element ‘C’ in the <code class="docutils literal notranslate"><span class="pre">pair_coeff</span></code> command.
+Which elements are supported is determined by the contents of the
+potential file.</p>
+</div>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
 <p>With <code class="docutils literal notranslate"><span class="pre">metal</span></code> units, time values are in units of picoseconds
