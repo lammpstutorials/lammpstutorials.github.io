@@ -412,7 +412,6 @@ types of atoms, and output the charge values into log files:
 
     fix myspec all reaxff/species 5 1 5 decorate.species element Si O H
 
-
 The commands above are, once again, similar to the ones of the previous script.
 Here, the :math:`+1 \mathrm{e}{-10}` was added to the denominator of the ``variable qH``
 to avoid dividing by 0 at the beginning of the simulation, as no hydrogen atoms exists in

@@ -36,12 +36,13 @@ Add the following lines to **generate.lmp**:
     create_atoms Si random 240 5802 box overlap 2.0 maxtry 500
     create_atoms O random 480 1072 box overlap 2.0 maxtry 500
 
-The ``create_atoms`` commands are used to place
+In line with what is done in previous tutorials, the 
+``create_atoms`` commands are used to place
 240 Si atoms and 480 O atoms, respectively.  This corresponds to
 an initial density of approximately :math:`2 \, \text{g/cm}^3`, which is close
 to the expected final density of amorphous silica at 300 K.
 
-Now, specify the pair coefficients by indicating that the first atom type
+Now, specify the potential parameters by indicating that the first atom type
 is ``Si`` and the second is ``O``:
 
 .. code-block:: lammps
@@ -103,6 +104,9 @@ to :math:`T = 300\,\text{K}`, is implemented as follows:
     fix mynvt all nvt temp 6000 300 0.1
     run 30000
 
+In this case, the initial and final target temperatures set for
+the Nosé-Hoover thermostat is different, causing it to evolve
+linearly within the number of timesteps evoked in the ``run`` command.
 In the third step, the system is equilibrated at the final desired
 conditions, :math:`T = 300\,\text{K}` and :math:`p = 1\,\text{atm}`,
 using an anisotropic pressure coupling:
@@ -116,15 +120,16 @@ using an anisotropic pressure coupling:
 
     write_data generate.data
 
-Here, an anisotropic barostat is used.
-Anisotropic barostats adjust the dimensions independently, which is
+Here, an anisotropic barostat is used. As previously mentioned,
+anisotropic barostats adjust the dimensions independently, which is
 generally suitable for a solid phase.
 
 Run the simulation using LAMMPS.  From the ``Charts`` window, the temperature
 evolution can be observed, showing that it closely follows the desired annealing procedure.
 The evolution of the box dimensions over time confirms that the box is deforming during the
-last stage of the simulation.  After the simulation completes, the final LAMMPS topology
-file called **generate.data** will be located next to **generate.lmp**.
+last stage of the simulation.  After the simulation completes, the final
+microstate attained during the dynamics and the system topology will be written to a LAMMPS data
+file called **generate.data** which will be located next to **generate.lmp**.
 
 .. figure:: figures/GCMC-dimension-dm.png
     :class: only-dark
@@ -184,7 +189,7 @@ the **cracking.lmp** file:
 
     write_data cracking.data
 
-The ``fix nvt`` command integrates the Nosé-Hoover equations
+As discussed, the ``fix nvt`` command integrates the Nosé-Hoover equations
 of motion and is employed to control the temperature of the system.
 As observed from the generated images, the atoms
 progressively adjust to the changing box dimensions.  At some point,
@@ -217,11 +222,12 @@ Adding water
 
 To add the water molecules to the silica, we will employ the Monte Carlo
 method in the grand canonical ensemble (GCMC).  In short, the system is
-placed into contact with a virtual reservoir of a given chemical
-potential :math:`\mu`, and multiple attempts to insert water molecules at
-random positions are made.  Each attempt is either accepted or rejected
-based on energy considerations.  For further details, please refer to
-classical textbooks like Ref. :cite:`frenkel2023understanding`.
+placed into contact with a virtual reservoir containing pure water at a given
+thermodynamic state, and multiple attempts to insert water molecules at
+random positions are made.  In the grand
+canonical ensemble, each attempt is either accepted or rejected
+based on internal energy and chemical potential considerations.  For further
+details, please refer to classical textbooks like Ref. :cite:`frenkel2023understanding`.
 
 Adapting the pair style
 -----------------------
@@ -229,8 +235,8 @@ Adapting the pair style
 For this next step, we need to specify the force field used to
 model the interactions in the system. The TIP4P/2005 model is employed
 for the water :cite:`abascal2005general`, while no interaction within
-silica is defined, as it will be seen farther below. This is be-
-cause atoms of the silica will remain frozen during this part of the simulation.
+silica is defined, as it will be seen farther below. This is because atoms of
+the silica will remain frozen during this part of the simulation.
 Only the cross-interactions between water and silica need
 to be defined. Create a new file called **gcmc.lmp**, and copy the following
 lines into it:
@@ -344,8 +350,8 @@ We can now proceed to complete the **gcmc.lmp** file by adding the system defini
 After reading the data file and defining the ``h2omol`` molecule from the **H2O.mol**
 file, the ``create_atoms`` command is used to include three water molecules
 in the system.  Then, add the following ``pair_coeff`` (and
-``bond_coeff`` and ``angle_coeff``) commands
-to **gcmc.lmp**:
+``bond_coeff`` and ``angle_coeff``) commands to **gcmc.lmp**
+in order to set the potential parameters:
 
 .. code-block:: lammps
         
@@ -357,7 +363,7 @@ to **gcmc.lmp**:
     bond_coeff OW-HW 0 0.9572
     angle_coeff HW-OW-HW 0 104.52
 
-Pair coefficients for the ``lj/cut/tip4p/long``
+Pair coefficients for the ``lj/cut/tip4p/long`` pair style
 potential are defined between O(:math:`\text{H}_2\text{O}`) and between H(:math:`\text{H}_2\text{O}`)
 atoms, as well as between O(:math:`\text{SiO}_2`)-O(:math:`\text{H}_2\text{O}`) and
 Si(:math:`\text{SiO}_2`)-O(:math:`\text{H}_2\text{O}`).  Thus, the fluid-fluid and the
@@ -393,8 +399,9 @@ Add the following lines to **gcmc.lmp** as well:
     their properties or types.
 
 The number of oxygen atoms from water molecules (i.e. the number of molecules)
-is calculated by the ``nO`` variable.  The SHAKE algorithm is used to
-maintain the shape of the water molecules over time :cite:`ryckaert1977numerical, andersen1983rattle`.
+is calculated by the ``nO`` variable.  As already discussed in other tutorials,
+the SHAKE algorithm is used to maintain the shape of the water molecules
+over time :cite:`ryckaert1977numerical, andersen1983rattle`.
 
 Finally, let us create images
 of the system using ``dump image``:
