@@ -16,4 +16,6 @@ protocol is used to simulate the polymerization of styrene monomers, and the
 polymerization reaction is tracked over time :cite:`gissinger2017polymer,
 gissinger2020reacter, gissinger2024molecular`. In contrast to AIREBO
 :ref:`carbon-nanotube-label` and ReaxFF :ref:`reactive-silicon-dioxide-label`,
-the REACTER protocol relies on the use of a *classical* force field.
+the REACTER protocol relies on the use of a *classical* force field
+that does not inherently model bond formation or breaking, but instead couples
+with an external algorithm to simulate polymerization reactions.

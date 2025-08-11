@@ -37,7 +37,7 @@ Add the following lines to **generate.lmp**:
     create_atoms O random 480 1072 box overlap 2.0 maxtry 500
 
 The ``create_atoms`` commands are used to place
-240 Si atoms, and 480 atoms, respectively.  This corresponds to
+240 Si atoms and 480 O atoms, respectively.  This corresponds to
 an initial density of approximately :math:`2 \, \text{g/cm}^3`, which is close
 to the expected final density of amorphous silica at 300 K.
 
@@ -122,7 +122,7 @@ generally suitable for a solid phase.
 
 Run the simulation using LAMMPS.  From the ``Charts`` window, the temperature
 evolution can be observed, showing that it closely follows the desired annealing procedure.
-The evolution of the box dimensions over time confirms that the box deformed during the
+The evolution of the box dimensions over time confirms that the box is deforming during the
 last stage of the simulation.  After the simulation completes, the final LAMMPS topology
 file called **generate.data** will be located next to **generate.lmp**.
 
@@ -184,11 +184,19 @@ the **cracking.lmp** file:
 
     write_data cracking.data
 
-The ``fix nvt`` command is employed to control the temperature of the system.
+The ``fix nvt`` command integrates the Nosé-Hoover equations
+of motion and is employed to control the temperature of the system.
 As observed from the generated images, the atoms
 progressively adjust to the changing box dimensions.  At some point,
 bonds begin to break, leading to the appearance of
 dislocations.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    Although the Nosé-Hoover equations were originally formulated to sample the
+    NVT ensemble, using the ``fix nvt`` command does not guarantee that 
+    a simulation actually samples the NVT ensemble.
 
 .. figure:: figures/cracked-dark.png
     :class: only-dark
@@ -215,13 +223,17 @@ random positions are made.  Each attempt is either accepted or rejected
 based on energy considerations.  For further details, please refer to
 classical textbooks like Ref. :cite:`frenkel2023understanding`.
 
-Using hydrid potentials
+Adapting the pair style
 -----------------------
 
-The first peculiarity of our system is that it combines water and
-silica, which necessitates the use of two force fields: Vashishta (for
-:math:`\text{SiO}_2`), and TIP4P (for water).  Here, the TIP4P/2005 model is
-employed for the water :cite:`abascal2005general`.
+For this next step, we need to specify the force field used to
+model the interactions in the system. The TIP4P/2005 model is employed
+for the water :cite:`abascal2005general`, while no interaction within
+silica is defined, as it will be seen farther below. This is be-
+cause atoms of the silica will remain frozen during this part of the simulation.
+Only the cross-interactions between water and silica need
+to be defined. Create a new file called **gcmc.lmp**, and copy the following
+lines into it:
 
 Create a new file called **gcmc.lmp**, and copy the following lines into it:
 
@@ -232,7 +244,7 @@ Create a new file called **gcmc.lmp**, and copy the following lines into it:
     atom_style full
     neighbor 1.0 bin
     neigh_modify delay 1
-    pair_style hybrid/overlay vashishta lj/cut/tip4p/long OW HW OW-HW HW-OW-HW 0.1546 10
+    pair_style lj/cut/tip4p/long OW HW OW-HW HW-OW-HW 0.1546 10
     kspace_style pppm/tip4p 1.0e-5
     bond_style harmonic
     angle_style harmonic
@@ -242,13 +254,19 @@ Create a new file called **gcmc.lmp**, and copy the following lines into it:
 
     Open the **gcmc.lmp** file.
 
-Combining the two force fields, Vashishta and TIP4P/2005, is achieved
-using the ``hybrid/overlay`` pair style.  The PPPM
-solver :cite:`luty1996calculating` is specified with the ``kspace``
+The PPPM solver :cite:`luty1996calculating` is specified with the ``kspace``
 command, and is used to compute the long-range Coulomb interactions associated
 with ``tip4p/long``.  Finally, the style for the bonds
 and angles of the water molecules are defined; however, these specifications are
 not critical since TIP4P/2005 is a rigid water model.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    In practice, it is possible to use both ``vashishta`` and
+    ``lj/cut/tip4p/long`` pair styles by employing the ``pair_style hybrid``
+    command.  However, hybridizing force fields should be done with caution, as there
+    is no guarantee that the resulting force field will produce meaningful results.
 
 The water molecule template called |H2O_mol_6|
 must be downloaded and located next to **gcmc.lmp**.
@@ -331,25 +349,30 @@ to **gcmc.lmp**:
 
 .. code-block:: lammps
         
-    pair_coeff * * vashishta SiO.1990.vashishta Si O NULL NULL
-    pair_coeff * * lj/cut/tip4p/long 0 0
-    pair_coeff Si OW lj/cut/tip4p/long 0.0057 4.42
-    pair_coeff O OW lj/cut/tip4p/long 0.0043 3.12
-    pair_coeff OW OW lj/cut/tip4p/long 0.008 3.1589
-    pair_coeff HW HW lj/cut/tip4p/long 0.0 0.0
+    pair_coeff * * 0 0
+    pair_coeff Si OW 0.0057 4.42
+    pair_coeff O OW 0.0043 3.12
+    pair_coeff OW OW 0.008 3.1589
+    pair_coeff HW HW 0.0 0.0
     bond_coeff OW-HW 0 0.9572
     angle_coeff HW-OW-HW 0 104.52
 
-The force field Vashishta applies only to ``Si`` and ``O`` of :math:`\text{SiO}_2`,
-and not to the ``OW`` and ``HW`` of :math:`\text{H}_2\text{O}`, thanks to the ``NULL`` parameters
-used for atoms of types ``OW`` and ``HW``.  Pair coefficients for the ``lj/cut/tip4p/long``
+Pair coefficients for the ``lj/cut/tip4p/long``
 potential are defined between O(:math:`\text{H}_2\text{O}`) and between H(:math:`\text{H}_2\text{O}`)
 atoms, as well as between O(:math:`\text{SiO}_2`)-O(:math:`\text{H}_2\text{O}`) and
-Si(:math:`\text{SiO}_2`)-O(:math:`\text{H}_2\text{O}`). Thus,  the fluid-fluid and the
+Si(:math:`\text{SiO}_2`)-O(:math:`\text{H}_2\text{O}`).  Thus, the fluid-fluid and the
 fluid-solid interactions will be adressed with by the ``lj/cut/tip4p/long`` potential.
 The ``bond_coeff`` and ``angle_coeff`` commands set the ``OW-HW``
 bond length to 0.9572 Å, and the ``HW-OW-HW``
 angle to :math:`104.52^\circ`, respectively :cite:`abascal2005general`.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    The pair coefficients for interactions between Si(:math:`\text{SiO}_2`)
+    and O(:math:`\text{SiO}_2`) are set by the first command, ``pair_coeff * * 0 0``,
+    which effectively means that they do not interact. This is acceptable here because
+    the silica atoms remain frozen during this part of the tutorial.
 
 Add the following lines to **gcmc.lmp** as well:
 
@@ -360,6 +383,14 @@ Add the following lines to **gcmc.lmp** as well:
     variable nO equal count(oxygen)
 
     fix shak H2O shake 1.0e-5 200 0 b OW-HW a HW-OW-HW mol h2omol
+
+.. admonition:: Note
+    :class: non-title-info
+
+    Here, a variable of type *atom* is used.  Such variable 
+    defines a per-atom property, i.e., it evaluates the specified expression 
+    separately for each atom.  This is often used to select atoms based on 
+    their properties or types.
 
 The number of oxygen atoms from water molecules (i.e. the number of molecules)
 is calculated by the ``nO`` variable.  The SHAKE algorithm is used to
@@ -387,19 +418,16 @@ following lines into **gcmc.lmp**:
 .. code-block:: lammps
 
     compute ctH2O H2O temp
-    compute_modify thermo_temp dynamic yes
-    compute_modify ctH2O dynamic yes
-    fix mynvt1 H2O nvt temp 300 300 0.1
-    fix_modify mynvt1 temp ctH2O
-    fix mynvt2 SiO nvt temp 300 300 0.1
+    compute_modify thermo_temp dynamic/dof yes
+    compute_modify ctH2O dynamic/dof yes
+    fix mynvt H2O nvt temp 300 300 0.1
+    fix_modify mynvt temp ctH2O
     timestep 0.001
 
-Two different thermostats are used for :math:`\text{SiO}_2` and :math:`\text{H}_2\text{O}`,
-respectively.  Using separate thermostats is usually better when the system contains
-two separate species, such as a solid and a liquid.  It is particularly important
-to use two thermostats here because the number of water molecules will fluctuate
-with time.  The ``compute_modify`` command with the ``dynamic yes``
-option for water is used to specify that the number of molecules will not be constant.
+Here, the ``fix nvt`` applies only to the water molecules, so
+the atoms in the silica remain fixed.  The ``compute_modify`` command with
+the ``dynamic/dof yes`` option is used for water to account for the fact
+that the number of molecules is not constant.
 
 Finally, let us use the ``fix gcmc`` and perform the grand canonical Monte
 Carlo steps.  Add the following lines into **gcmc.lmp**:
@@ -409,9 +437,15 @@ Carlo steps.  Add the following lines into **gcmc.lmp**:
     variable tfac equal 5.0/3.0
     fix fgcmc H2O gcmc 100 100 0 0 65899 300 -0.5 0.1 mol h2omol tfac_insert ${tfac} shake shak full_energy pressure 100
 
+The ``fix gcmc`` command performs grand canonical Monte Carlo
+moves to insert, delete, or swap molecules. Here, 100 attempts are made every
+100 steps.  The ``mol h2omol`` keyword specifies the
+molecule type being inserted/deleted, while ``shake shak`` enforces rigid
+molecular constraints during these moves. With the ``pressure 100`` keyword,
+a fictitious reservoir with a pressure of 100 atmospheres is used.
 The ``tfac_insert`` option ensures the correct estimate for the temperature
 of the inserted water molecules by taking into account the internal degrees of
-freedom.  Here, 100 insertion and deletion attemps are made every 100 steps.
+freedom.
 
 .. admonition:: Note
     :class: non-title-info
@@ -430,12 +464,17 @@ Finally, let us print some information and run for 25 ps:
 
     run 25000
 
-Running this simulation using LAMMPS, one can see that the number of molecules is increasing
-progressively.  When using the pressure argument, LAMMPS ignores the value of the
-chemical potential (here :math:`\mu = -0.5\,\text{eV}`, which corresponds roughly to
-ambient conditions, i.e. to a relative humidity :math:`\text{RH} \approx 50\,\%` :cite:`gravelle2020multi`.)
-The large pressure value of 100 bars was chosen to ensure that some successful
-insertions of molecules would occur during the short duration of this simulation.
+The ``f_`` keywords extract the Monte Carlo move statistics output by the
+``fix gcmc`` command.
+
+.. admonition:: Note
+    :class: non-title-info
+        
+    When using the pressure argument, LAMMPS ignores the value of the
+    chemical potential (here :math:`\mu = -0.5\,\text{eV}`, which corresponds roughly to
+    ambient conditions, i.e. to a relative humidity :math:`\text{RH} \approx 50\,\%` :cite:`gravelle2020multi`.)
+    The large pressure value of 100 bars was chosen to ensure that some successful
+    insertions of molecules would occur during the short duration of this simulation.
 
 .. figure:: figures/GCMC-number-dm.png
     :class: only-dark
@@ -449,7 +488,8 @@ insertions of molecules would occur during the short duration of this simulation
 
     Figure: Number of water molecules, :math:`N_\text{H2O}`, as a function of time, :math:`t`.
 
-After a few GCMC steps, the number of molecules starts increasing.  Once the
+Running this simulation using LAMMPS, one can see that
+after a few GCMC steps, the number of molecules starts increasing.  Once the
 crack is filled with water molecules, the total number of molecules reaches a plateau.  The final number of
 molecules depends on the imposed pressure, temperature, and the interaction
 between water and silica (i.e. its hydrophilicity).  Note that GCMC simulations
