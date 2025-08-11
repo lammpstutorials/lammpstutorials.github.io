@@ -117,6 +117,9 @@ slab geometries.
 
     <a href="https://docs.lammps.org" target="_blank">documentation</a>
 
+System definition
+-----------------
+
 The next step is to create the simulation box and populate it with  
 atoms.  Modify the ``System definition`` category of  
 **initial.lmp** as shown below:
@@ -134,14 +137,18 @@ The first line, ``region simbox (...)``, defines a region named
 from -20 to 20 units along all three spatial dimensions.  The second  
 line, ``create_box 2 simbox``, initializes a simulation box based  
 on the region ``simbox`` and reserves space for two types of atoms.
-In LAMMPS, an atom *type* represents a group of atoms that
-interact using the same set of force field parameters (here, the Lennard-Jones
-parameters).
+In LAMMPS, every atom is assigned an atom type property. This property selects which force
+field parameters (here, the Lennard-Jones parameters, :math:`\epsilon_{ij}`
+and  :math:`\sigma_{ij}`) are applied to each pair of atoms via the pair_coeff
+command (see below). We discuss in :ref:`carbon-nanotube-label` how this applies to
+many-body pair styles, and in :ref:`all-atoms-label` how this applies to
+Coulomb interactions.
 
 .. admonition:: Note
     :class: non-title-info
 
-    From this point on, any command referencing an atom type larger than 2
+    From this point on, the number of atom types is *locked
+    in*, and any command referencing an atom type larger than 2
     will trigger an error.  While it is possible to allocate more atom
     types than needed, you must assign a mass and provide force field
     parameters for each atom type.  Failing to do so will cause LAMMPS to
@@ -154,14 +161,15 @@ can be changed to produce different sequences of random numbers and,
 consequently, different initial atom positions.  The fourth line adds  
 100 atoms of type 2.  Both ``create_atoms`` commands use the  
 optional argument ``overlap 0.3``, which enforces a minimum  
-distance of 0.3 units between the randomly placed atoms.  This  
+distance of 0.3 length units between the randomly placed atoms.  This  
 constraint helps avoid close contacts between atoms, which can lead  
-to excessively large forces and simulation instability. Each atom created in
-LAMMPS is automatically assigned a unique atom ID, which serves as a numerical
-identifier to distinguish individual atoms throughout the simulation.
-Atom IDs by default have the range from 1 to the total number of atoms,
-but this is not enforced. Deleting atoms, for example, causes *holes* in the list
-of atom IDs.
+to excessively large forces and simulation instability. 
+Each created atom in LAMMPS is automatically
+assigned a unique atom ID, which serves as a numerical
+identifier to distinguish individual atoms throughout the
+simulation. Atom IDs by default have the range from 1 to
+the total number of atoms, but this is not enforced.Deleting atoms, for example,
+causes *holes* in the list of atom IDs.
 
 .. admonition:: Note
     :class: non-title-info
@@ -204,10 +212,10 @@ to :math:`r_c = 4.0` length units :cite:`wang2020lennard,fischer2023history`:
 where :math:`r` is the inter-particle distance, :math:`\epsilon_{ij}` is
 the depth of the potential well that determines the interaction strength, and
 :math:`\sigma_{ij}` is the distance at which the potential energy equals zero.
-The indexes :math:`i` and :math:`j` refer to pairs of particle types.
+The indices :math:`i` and :math:`j` refer to pairs atoms with the corresponding atom types.
 The fourth line, ``pair_coeff 1 1 1.0 1.0``, specifies the
 Lennard-Jones coefficients for interactions between pairs of atoms
-of type 1: the energy parameter :math:`\epsilon_{11} = 1.0` and
+that both have atom type 1: the energy parameter :math:`\epsilon_{11} = 1.0` and
 the distance parameter :math:`\sigma_{11} = 1.0`.  Similarly, the last line
 sets the Lennard-Jones coefficients for interactions between atoms
 of type 2, :math:`\epsilon_{22} = 0.5`, and :math:`\sigma_{22} = 3.0`.
@@ -215,8 +223,8 @@ of type 2, :math:`\epsilon_{22} = 0.5`, and :math:`\sigma_{22} = 3.0`.
 .. admonition:: Note
     :class: non-title-info
 
-    By default, LAMMPS calculates the cross coefficients for different atom
-    types using geometric average: :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
+    By default, LAMMPS calculates the mixed force field coefficients for different
+    atom types using geometric averages: :math:`\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}`,
     :math:`\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}`.  In the present case,
     :math:`\epsilon_{12} = \sqrt{1.0 \times 0.5} = 0.707`, and
     :math:`\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732`. Other rules
@@ -249,11 +257,16 @@ the post-run summary and statistics output.
 .. admonition:: Note
     :class: non-title-info
 
-    The *thermodynamic information* printed by LAMMPS refers to instantaneous values
-    of thermodynamic properties at the specified steps, not cumulative averages.
+    The *thermodynamic information* printed by LAMMPS
+    using ``thermo_style custom`` keywords refers to instanta-
+    neous values of the specified thermodynamic properties
+    at each output step, not cumulative averages. However,
+    LAMMPS also allows to reference a wide variety of custom data from
+    compute styles, fix styles, and variables.
+    These can be used for on-the-fly analysis, including cumulative and sliding-window averages.
 
 You can now run LAMMPS (basic commands for running LAMMPS
-are provided in :ref:`running-lammps-label`.
+are provided in :ref:`running-lammps-label`).
 The simulation should finish quickly.
 
 With the default settings, LAMMPS--GUI will open two windows: one
@@ -283,18 +296,19 @@ following ``minimize`` command:
     # 5) Run
     minimize 1.0e-6 1.0e-6 1000 10000
 
-This tells LAMMPS to perform an energy minimization of the system.
+This tells LAMMPS to perform an iterative energy minimization of the system.
 Specifically, LAMMPS will compute the forces on all atoms and then update their
 positions according to a selected algorithm, aiming to reduce
 the potential energy.  By default, LAMMPS uses the conjugate gradient (CG)
 algorithm :cite:`hestenes1952methods`.  The simulation will stop as soon
-as the minimizer algorithm cannot find a way to lower the potential
-energy. Note that, except for trivial systems, minimization algorithms will find a
+as one of the four minimizer criteria is met. LAMMPS will then report which stopping criterion
+was satisfied, along with selected system properties at both the initial
+and final steps.  Note that, except for trivial systems, minimization algorithms will find a
 local minimum rather than the global minimum.
 
 Run the minimization and observe that LAMMPS-GUI captures the output
 and updates the chart in real time.  This run executes quickly (depending
-on your computer's capabilities), but LAMMPS-GUI may fail to capture some
+on your computer's capabilities), and thus LAMMPS-GUI may fail to capture some
 of the thermodynamic data.  In that
 case, use the ``Preferences`` dialog to reduce the data update
 interval and switch to single-threaded, unaccelerated execution in the
@@ -377,14 +391,14 @@ the value of the ``timestep`` and the number of steps for the
     this ensemble, the system does not exchange energy with anything
     outside the simulation box.
 
-Run the simulation using LAMMPS.  Initially, there is no equilibrium
-between potential and kinetic energy, as the potential energy
+Run the simulation using LAMMPS.  Initially, the system is
+not equilibrated, as the potential energy
 decreases while the kinetic energy increases.  After approximately
 40000 steps, the values for both kinetic and potential energy
 plateau, indicating that the system has reached equilibrium, with
 the total energy fluctuating around a certain constant value.
 
-Now, we change the ``Run`` section to (note the smaller number of  
+Now, we change the second ``Run`` section to (note the smaller number of  
 MD steps):  
 
 .. code-block:: lammps
@@ -658,7 +672,7 @@ have noticed that some atoms left their original region during
 minimization.  To start the simulation from a clean slate, with only
 atoms of type 2 inside the cylinder and atoms of type 1 outside the
 cylinder, let us delete the misplaced atoms by adding the following
-commands to **improved.md.lmp**:
+commands to the ``System definition`` category to **improved.md.lmp**:
 
 .. code-block:: lammps
 
@@ -743,13 +757,26 @@ in a ``thermo_style custom`` command (see below).
 .. admonition:: Note
     :class: non-title-info
 
-    LAMMPS ``compute`` commands can produce three kinds of data: scalars (single values), 
-    vectors (one-dimensional arrays), or arrays (two-dimensional tables).  
-    When referencing results of a compute, you can use indices: for example, 
-    ``c\_mycompute`` refers to the entire scalar, vector, or array, and
-    ``c\_mycompute[1]`` refers to its first element (in case of vector or array).  
-    In general, *consumer* commands can only work with certain data types,
-    check the documentation of each command to ensure compatibility.
+    LAMMPS ``compute`` commands can produce
+    a wide variety of data and one can identify the category from the
+    name of the compute style: global data (no suffix), local data
+    (/local suffix), per-atom data (/atom suffix), per-chunk data
+    (/chunk suffix), per-gridpoint data (/grid suffix).  In the example
+    above, the ``compute coord/atom`` produces per-atom data, which
+    is used as input for ``compute reduce`` which returns global
+    data.  For global data three kinds of data exists: scalars (single
+    values), vectors (one-dimensional arrays), or arrays
+    (two-dimensional tables).  When referencing results of a compute,
+    you can use indices: for example, ``c_mycompute`` refers to
+    the entire scalar, vector, or array, and ``c_mycompute[1]``
+    refers to its first element (in case of vector or array).  In some
+    cases also wildcards like "*" can be used to, for instance, refer to all elements
+    of a vector instead of having specify all elements individually.
+    In general, *consumer* commands (fix styles or dump styles,
+    variables, or other compute styles) can only work with certain data
+    types or need to have keywords set to select which data to use.
+    You need to check the documentation of each command to ensure
+    compatibility.
 
 .. admonition:: Note
     :class: non-title-info

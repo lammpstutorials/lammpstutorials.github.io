@@ -370,6 +370,9 @@ online manual.</p>
 is explicitly specified.  The defaults for each command are listed at the
 bottom of its documentation page.</p>
 </div>
+</section>
+<section id="system-definition">
+<h2>System definition<a class="headerlink" href="#system-definition" title="Link to this heading">¶</a></h2>
 <p>The next step is to create the simulation box and populate it with
 atoms.  Modify the <code class="docutils literal notranslate"><span class="pre">System</span> <span class="pre">definition</span></code> category of
 <strong>initial.lmp</strong> as shown below:</p>
@@ -385,12 +388,16 @@ atoms.  Modify the <code class="docutils literal notranslate"><span class="pre">
 from -20 to 20 units along all three spatial dimensions.  The second
 line, <code class="docutils literal notranslate"><span class="pre">create_box</span> <span class="pre">2</span> <span class="pre">simbox</span></code>, initializes a simulation box based
 on the region <code class="docutils literal notranslate"><span class="pre">simbox</span></code> and reserves space for two types of atoms.
-In LAMMPS, an atom <em>type</em> represents a group of atoms that
-interact using the same set of force field parameters (here, the Lennard-Jones
-parameters).</p>
+In LAMMPS, every atom is assigned an atom type property. This property selects which force
+field parameters (here, the Lennard-Jones parameters, <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>
+and  <span class="math notranslate nohighlight">\(\sigma_{ij}\)</span>) are applied to each pair of atoms via the pair_coeff
+command (see below). We discuss in <a class="reference internal" href="../tutorial2/breaking-a-carbon-nanotube.html#carbon-nanotube-label"><span class="std std-ref">Pulling on a carbon nanotube</span></a> how this applies to
+many-body pair styles, and in <a class="reference internal" href="../tutorial3/polymer-in-water.html#all-atoms-label"><span class="std std-ref">Polymer in water</span></a> how this applies to
+Coulomb interactions.</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
-<p>From this point on, any command referencing an atom type larger than 2
+<p>From this point on, the number of atom types is <em>locked
+in</em>, and any command referencing an atom type larger than 2
 will trigger an error.  While it is possible to allocate more atom
 types than needed, you must assign a mass and provide force field
 parameters for each atom type.  Failing to do so will cause LAMMPS to
@@ -403,14 +410,15 @@ can be changed to produce different sequences of random numbers and,
 consequently, different initial atom positions.  The fourth line adds
 100 atoms of type 2.  Both <code class="docutils literal notranslate"><span class="pre">create_atoms</span></code> commands use the
 optional argument <code class="docutils literal notranslate"><span class="pre">overlap</span> <span class="pre">0.3</span></code>, which enforces a minimum
-distance of 0.3 units between the randomly placed atoms.  This
+distance of 0.3 length units between the randomly placed atoms.  This
 constraint helps avoid close contacts between atoms, which can lead
-to excessively large forces and simulation instability. Each atom created in
-LAMMPS is automatically assigned a unique atom ID, which serves as a numerical
-identifier to distinguish individual atoms throughout the simulation.
-Atom IDs by default have the range from 1 to the total number of atoms,
-but this is not enforced. Deleting atoms, for example, causes <em>holes</em> in the list
-of atom IDs.</p>
+to excessively large forces and simulation instability.
+Each created atom in LAMMPS is automatically
+assigned a unique atom ID, which serves as a numerical
+identifier to distinguish individual atoms throughout the
+simulation. Atom IDs by default have the range from 1 to
+the total number of atoms, but this is not enforced.Deleting atoms, for example,
+causes <em>holes</em> in the list of atom IDs.</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
 <p>Another way to define a system in LAMMPS, besides the
@@ -450,17 +458,17 @@ to <span class="math notranslate nohighlight">\(r_c = 4.0\)</span> length units 
 <p>where <span class="math notranslate nohighlight">\(r\)</span> is the inter-particle distance, <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> is
 the depth of the potential well that determines the interaction strength, and
 <span class="math notranslate nohighlight">\(\sigma_{ij}\)</span> is the distance at which the potential energy equals zero.
-The indexes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> refer to pairs of particle types.
+The indices <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> refer to pairs atoms with the corresponding atom types.
 The fourth line, <code class="docutils literal notranslate"><span class="pre">pair_coeff</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1.0</span> <span class="pre">1.0</span></code>, specifies the
 Lennard-Jones coefficients for interactions between pairs of atoms
-of type 1: the energy parameter <span class="math notranslate nohighlight">\(\epsilon_{11} = 1.0\)</span> and
+that both have atom type 1: the energy parameter <span class="math notranslate nohighlight">\(\epsilon_{11} = 1.0\)</span> and
 the distance parameter <span class="math notranslate nohighlight">\(\sigma_{11} = 1.0\)</span>.  Similarly, the last line
 sets the Lennard-Jones coefficients for interactions between atoms
 of type 2, <span class="math notranslate nohighlight">\(\epsilon_{22} = 0.5\)</span>, and <span class="math notranslate nohighlight">\(\sigma_{22} = 3.0\)</span>.</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
-<p>By default, LAMMPS calculates the cross coefficients for different atom
-types using geometric average: <span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\)</span>,
+<p>By default, LAMMPS calculates the mixed force field coefficients for different
+atom types using geometric averages: <span class="math notranslate nohighlight">\(\epsilon_{ij} = \sqrt{\epsilon_{ii} \epsilon_{jj}}\)</span>,
 <span class="math notranslate nohighlight">\(\sigma_{ij} = \sqrt{\sigma_{ii} \sigma_{jj}}\)</span>.  In the present case,
 <span class="math notranslate nohighlight">\(\epsilon_{12} = \sqrt{1.0 \times 0.5} = 0.707\)</span>, and
 <span class="math notranslate nohighlight">\(\sigma_{12} = \sqrt{1.0 \times 3.0} = 1.732\)</span>. Other rules
@@ -489,11 +497,16 @@ without actually running the simulation.  The <code class="docutils literal notr
 the post-run summary and statistics output.</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
-<p>The <em>thermodynamic information</em> printed by LAMMPS refers to instantaneous values
-of thermodynamic properties at the specified steps, not cumulative averages.</p>
+<p>The <em>thermodynamic information</em> printed by LAMMPS
+using <code class="docutils literal notranslate"><span class="pre">thermo_style</span> <span class="pre">custom</span></code> keywords refers to instanta-
+neous values of the specified thermodynamic properties
+at each output step, not cumulative averages. However,
+LAMMPS also allows to reference a wide variety of custom data from
+compute styles, fix styles, and variables.
+These can be used for on-the-fly analysis, including cumulative and sliding-window averages.</p>
 </div>
 <p>You can now run LAMMPS (basic commands for running LAMMPS
-are provided in <a class="reference internal" href="../non-tutorials/running-lammps.html#running-lammps-label"><span class="std std-ref">Running LAMMPS</span></a>.
+are provided in <a class="reference internal" href="../non-tutorials/running-lammps.html#running-lammps-label"><span class="std std-ref">Running LAMMPS</span></a>).
 The simulation should finish quickly.</p>
 <p>With the default settings, LAMMPS–GUI will open two windows: one
 displaying the console output and another with a chart.  The <code class="docutils literal notranslate"><span class="pre">Output</span></code> window
@@ -518,17 +531,18 @@ following <code class="docutils literal notranslate"><span class="pre">minimize<
 <span class="k">minimize</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">1.0e-6</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">10000</span>
 </pre></div>
 </div>
-<p>This tells LAMMPS to perform an energy minimization of the system.
+<p>This tells LAMMPS to perform an iterative energy minimization of the system.
 Specifically, LAMMPS will compute the forces on all atoms and then update their
 positions according to a selected algorithm, aiming to reduce
 the potential energy.  By default, LAMMPS uses the conjugate gradient (CG)
 algorithm <span id="id2">[<a class="reference internal" href="../non-tutorials/bibliography.html#id4" title="Magnus Rudolph Hestenes, Eduard Stiefel, and others. Methods of conjugate gradients for solving linear systems. Volume 49. NBS Washington, DC, 1952.">17</a>]</span>.  The simulation will stop as soon
-as the minimizer algorithm cannot find a way to lower the potential
-energy. Note that, except for trivial systems, minimization algorithms will find a
+as one of the four minimizer criteria is met. LAMMPS will then report which stopping criterion
+was satisfied, along with selected system properties at both the initial
+and final steps.  Note that, except for trivial systems, minimization algorithms will find a
 local minimum rather than the global minimum.</p>
 <p>Run the minimization and observe that LAMMPS-GUI captures the output
 and updates the chart in real time.  This run executes quickly (depending
-on your computer’s capabilities), but LAMMPS-GUI may fail to capture some
+on your computer’s capabilities), and thus LAMMPS-GUI may fail to capture some
 of the thermodynamic data.  In that
 case, use the <code class="docutils literal notranslate"><span class="pre">Preferences</span></code> dialog to reduce the data update
 interval and switch to single-threaded, unaccelerated execution in the
@@ -601,13 +615,13 @@ maintains a constant number of particles and a fixed box volume. In
 this ensemble, the system does not exchange energy with anything
 outside the simulation box.</p>
 </div>
-<p>Run the simulation using LAMMPS.  Initially, there is no equilibrium
-between potential and kinetic energy, as the potential energy
+<p>Run the simulation using LAMMPS.  Initially, the system is
+not equilibrated, as the potential energy
 decreases while the kinetic energy increases.  After approximately
 40000 steps, the values for both kinetic and potential energy
 plateau, indicating that the system has reached equilibrium, with
 the total energy fluctuating around a certain constant value.</p>
-<p>Now, we change the <code class="docutils literal notranslate"><span class="pre">Run</span></code> section to (note the smaller number of
+<p>Now, we change the second <code class="docutils literal notranslate"><span class="pre">Run</span></code> section to (note the smaller number of
 MD steps):</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="c"># 5) Run</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
@@ -848,7 +862,7 @@ have noticed that some atoms left their original region during
 minimization.  To start the simulation from a clean slate, with only
 atoms of type 2 inside the cylinder and atoms of type 1 outside the
 cylinder, let us delete the misplaced atoms by adding the following
-commands to <strong>improved.md.lmp</strong>:</p>
+commands to the <code class="docutils literal notranslate"><span class="pre">System</span> <span class="pre">definition</span></code> category to <strong>improved.md.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">region </span><span class="nv nv-Identifier">cyl_in</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">in</span>
 <span class="k">region </span><span class="nv nv-Identifier">cyl_out</span><span class="w"> </span><span class="n">cylinder</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="n">out</span>
 <span class="k">group </span><span class="nv nv-Identifier">grp_t1</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="m">1</span>
@@ -920,13 +934,26 @@ first compute is referenced by the second, and we reference the second
 in a <code class="docutils literal notranslate"><span class="pre">thermo_style</span> <span class="pre">custom</span></code> command (see below).</p>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
-<p>LAMMPS <code class="docutils literal notranslate"><span class="pre">compute</span></code> commands can produce three kinds of data: scalars (single values),
-vectors (one-dimensional arrays), or arrays (two-dimensional tables).
-When referencing results of a compute, you can use indices: for example,
-<code class="docutils literal notranslate"><span class="pre">c\_mycompute</span></code> refers to the entire scalar, vector, or array, and
-<code class="docutils literal notranslate"><span class="pre">c\_mycompute[1]</span></code> refers to its first element (in case of vector or array).
-In general, <em>consumer</em> commands can only work with certain data types,
-check the documentation of each command to ensure compatibility.</p>
+<p>LAMMPS <code class="docutils literal notranslate"><span class="pre">compute</span></code> commands can produce
+a wide variety of data and one can identify the category from the
+name of the compute style: global data (no suffix), local data
+(/local suffix), per-atom data (/atom suffix), per-chunk data
+(/chunk suffix), per-gridpoint data (/grid suffix).  In the example
+above, the <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">coord/atom</span></code> produces per-atom data, which
+is used as input for <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">reduce</span></code> which returns global
+data.  For global data three kinds of data exists: scalars (single
+values), vectors (one-dimensional arrays), or arrays
+(two-dimensional tables).  When referencing results of a compute,
+you can use indices: for example, <code class="docutils literal notranslate"><span class="pre">c_mycompute</span></code> refers to
+the entire scalar, vector, or array, and <code class="docutils literal notranslate"><span class="pre">c_mycompute[1]</span></code>
+refers to its first element (in case of vector or array).  In some
+cases also wildcards like “*” can be used to, for instance, refer to all elements
+of a vector instead of having specify all elements individually.
+In general, <em>consumer</em> commands (fix styles or dump styles,
+variables, or other compute styles) can only work with certain data
+types or need to have keywords set to select which data to use.
+You need to check the documentation of each command to ensure
+compatibility.</p>
 </div>
 <div class="non-title-info admonition">
 <p class="admonition-title">Note</p>
@@ -1051,6 +1078,7 @@ of time <span class="math notranslate nohighlight">\(t\)</span>.  b) Evolution o
             <ul>
 <li><a class="reference internal" href="#">My first input</a><ul>
 <li><a class="reference internal" href="#initialization">Initialization</a></li>
+<li><a class="reference internal" href="#system-definition">System definition</a></li>
 <li><a class="reference internal" href="#settings">Settings</a></li>
 <li><a class="reference internal" href="#single-point-energy">Single-point energy</a></li>
 <li><a class="reference internal" href="#energy-minimization">Energy minimization</a></li>
