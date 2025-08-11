@@ -331,8 +331,9 @@ file in a text editor of your choice, and copy the following into it:</p>
 The editor should display the following content corresponding to <strong>create.lmp</strong></p>
 </div>
 <p>These lines are used to define the most basic parameters, including the
-atom, bond, and angle styles, as well as the non-bonded interaction
-potential.  Here, <code class="docutils literal notranslate"><span class="pre">lj/cut/tip4p/long</span></code> imposes a Lennard-Jones potential with
+atom style, the forms of the non-bonded,
+bond, and angle potentials, as well as other specifics of
+the non-bonded interactions.  Here, <code class="docutils literal notranslate"><span class="pre">lj/cut/tip4p/long</span></code> imposes a Lennard-Jones potential with
 a cut-off at <span class="math notranslate nohighlight">\(12\,\text{Å}\)</span> and a long-range Coulomb potential.
 The parameters <code class="docutils literal notranslate"><span class="pre">O</span></code>, <code class="docutils literal notranslate"><span class="pre">H</span></code>, <code class="docutils literal notranslate"><span class="pre">O-H</span></code>, and <code class="docutils literal notranslate"><span class="pre">H-O-H</span></code> correspond
 respectively to the oxygens, hydrogens, O-H bonds, and H-O-H angle constraints of
@@ -380,7 +381,8 @@ along the <span class="math notranslate nohighlight">\(x\)</span> direction.  Th
 and 1 type of angle (both required by the water molecules).
 The parameters for these bond and angle constraints will be given later.  The <code class="docutils literal notranslate"><span class="pre">extra</span> <span class="pre">(...)</span></code>
 keywords are for memory allocation.  Finally, the <code class="docutils literal notranslate"><span class="pre">labelmap</span></code> commands assign
-alphanumeric type labels to each numeric atom type, bond type, and angle type.</p>
+alphanumeric type labels to each numeric atom type, bond type, and angle type, concepts
+already introduced in previous tutorials.</p>
 <p>Now, we can add atoms to the system.  First, let us create two sub-regions corresponding
 respectively to the two solid walls, and create a larger region from the union of the
 two regions.  Then, let us create atoms of type WALL within the two regions.  Add the
@@ -404,7 +406,7 @@ bonds, and angles.  Add the following lines to <strong>create.lmp</strong>:</p>
 </div>
 <p>Within the last three lines, a <code class="docutils literal notranslate"><span class="pre">region</span></code> named <code class="docutils literal notranslate"><span class="pre">rliquid</span></code> is
 created based on the last defined lattice, <code class="docutils literal notranslate"><span class="pre">fcc</span> <span class="pre">4.04</span></code>.  <code class="docutils literal notranslate"><span class="pre">rliquid</span></code>
-will be used for depositing the water molecules.  The <code class="docutils literal notranslate"><span class="pre">molecule</span></code> command
+will be used for introducing the water molecules.  The <code class="docutils literal notranslate"><span class="pre">molecule</span></code> command
 opens up the molecule template called <strong>water.mol</strong>, and names the
 associated molecule <code class="docutils literal notranslate"><span class="pre">h2omol</span></code>.  The new molecules are placed on the
 <code class="docutils literal notranslate"><span class="pre">fcc</span> <span class="pre">4.04</span></code> lattice by the <code class="docutils literal notranslate"><span class="pre">create_atoms</span></code> command.  The first
@@ -476,8 +478,9 @@ to make the walls less hydrophilic, the value of
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">bond_coeff</span></code> command, used here for the O-H bond of the water
 molecule, sets both the spring constant of the harmonic potential and the
-equilibrium bond distance of <span class="math notranslate nohighlight">\(0.9572~\text{Å}\)</span>.  The constant can be 0 for a
-rigid water molecule because the SHAKE algorithm will maintain the rigid
+equilibrium bond distance of <span class="math notranslate nohighlight">\(0.9572~\text{Å}\)</span>.  The force constant can be 0 for a
+rigid water molecule because the SHAKE algorithm which, will be used
+in the input at a later step, will constrain the intramolecular
 structure of the water molecule (see below) <span id="id5">[<a class="reference internal" href="../non-tutorials/bibliography.html#id27" title="Jean-Paul Ryckaert, Giovanni Ciccotti, and Herman JC Berendsen. Numerical integration of the cartesian equations of motion of a system with constraints: molecular dynamics of n-alkanes. Journal of computational physics, 23(3):327–341, 1977.">35</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id28" title="Hans C Andersen. Rattle: a “velocity” version of the shake algorithm for molecular dynamics calculations. Journal of computational Physics, 52(1):24–34, 1983.">36</a>]</span>.
 Similarly, the <code class="docutils literal notranslate"><span class="pre">angle_coeff</span></code> command for the H-O-H angle of the water molecule sets
 the force constant of the angular harmonic potential to 0 and the equilibrium
@@ -521,8 +524,8 @@ into <strong>create.lmp</strong>:</p>
 <span class="k">write_data </span><span class="nv nv-Identifier">create.data</span><span class="w"> </span><span class="n">nocoeff</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">0</span></code> command runs the simulation for 0 steps, which is sufficient for
-creating the system and saving its state.  The <code class="docutils literal notranslate"><span class="pre">write_data</span></code> command
+<p>The <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">0</span></code> command initializes the simulation, which is required for cleanly
+saving the state, but it does not advance positions or velocities. The <code class="docutils literal notranslate"><span class="pre">write_data</span></code> command
 generates a file called <strong>system.data</strong> containing the information required
 to restart the simulation from the final configuration produced by this input
 file.  With the <code class="docutils literal notranslate"><span class="pre">nocoeff</span></code> option, the parameters from the force field are
@@ -569,7 +572,8 @@ before starting the actual molecular dynamics simulation.</p>
 <p>The only difference from the previous input is that, instead of creating a new
 box and new atoms, we open the previously created <strong>create.data</strong> file.</p>
 <p>Now, let us use the SHAKE algorithm to maintain the shape of the
-water molecules <span id="id6">[<a class="reference internal" href="../non-tutorials/bibliography.html#id27" title="Jean-Paul Ryckaert, Giovanni Ciccotti, and Herman JC Berendsen. Numerical integration of the cartesian equations of motion of a system with constraints: molecular dynamics of n-alkanes. Journal of computational physics, 23(3):327–341, 1977.">35</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id28" title="Hans C Andersen. Rattle: a “velocity” version of the shake algorithm for molecular dynamics calculations. Journal of computational Physics, 52(1):24–34, 1983.">36</a>]</span>.</p>
+water molecules <span id="id6">[<a class="reference internal" href="../non-tutorials/bibliography.html#id27" title="Jean-Paul Ryckaert, Giovanni Ciccotti, and Herman JC Berendsen. Numerical integration of the cartesian equations of motion of a system with constraints: molecular dynamics of n-alkanes. Journal of computational physics, 23(3):327–341, 1977.">35</a>, <a class="reference internal" href="../non-tutorials/bibliography.html#id28" title="Hans C Andersen. Rattle: a “velocity” version of the shake algorithm for molecular dynamics calculations. Journal of computational Physics, 52(1):24–34, 1983.">36</a>]</span>
+by adding the following line to the script.</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-5</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">H</span><span class="o">-</span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="n">kbond</span><span class="w"> </span><span class="m">2000</span>
 </pre></div>
 </div>
@@ -612,8 +616,8 @@ images of the system, you will notice that the atoms and molecules are moving to
 <p>Let us equilibrate further the entire system by letting both fluid and wall
 relax at ambient temperature.  Here, the commands are written within the same
 <strong>equilibrate.lmp</strong> file, right after the <code class="docutils literal notranslate"><span class="pre">reset_timestep</span></code> command.</p>
-<p>Let us update the positions of all the atoms and use a Nosé-Hoover
-thermostat.  Add the following lines to <strong>equilibrate.lmp</strong>:</p>
+<p>Let us do a molecular dynamics simulation using
+the Nosé-Hoover thermostat.  Add the following lines to <strong>equilibrate.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynvt</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nvt</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="m">100</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myshk</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">shake</span><span class="w"> </span><span class="m">1.0e-5</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">O</span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">H</span><span class="o">-</span><span class="n">O</span><span class="o">-</span><span class="n">H</span>
 <span class="k">fix </span><span class="nv nv-Identifier">myrct</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">recenter</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="n">NULL</span><span class="w"> </span><span class="m">0</span>
@@ -764,9 +768,10 @@ and <code class="docutils literal notranslate"><span class="pre">f_mysf2[1]</spa
 </pre></div>
 </div>
 <p>Let us also extract the density and velocity profiles using
-the <code class="docutils literal notranslate"><span class="pre">chunk/atom</span></code> and <code class="docutils literal notranslate"><span class="pre">ave/chunk</span></code> commands.  These
-commands discretize the simulation domain into spatial bins and compute and output
-average properties of the atoms belonging to each bin, here the velocity
+the <code class="docutils literal notranslate"><span class="pre">chunk/atom</span></code> and <code class="docutils literal notranslate"><span class="pre">ave/chunk</span></code> commands.  When deployed as
+below, these commands discretize the simulation domain
+into spatial bins and compute and output average proper-
+ties of the atoms belonging to each bin, here the velocity
 along <span class="math notranslate nohighlight">\(x\)</span> (<code class="docutils literal notranslate"><span class="pre">vx</span></code>) within the bins.  Add the following lines to <strong>shearing.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">compute </span><span class="nv nv-Identifier">cc1</span><span class="w"> </span><span class="nv nv-Identifier">H2O</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.25</span>
 <span class="k">compute </span><span class="nv nv-Identifier">cc2</span><span class="w"> </span><span class="nv nv-Identifier">wall</span><span class="w"> </span><span class="n">chunk</span><span class="o">/</span><span class="n">atom</span><span class="w"> </span><span class="n">bin</span><span class="o">/</span><span class="m">1</span><span class="n">d</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.25</span>

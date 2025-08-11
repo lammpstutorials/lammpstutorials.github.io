@@ -23,7 +23,6 @@ file in a text editor of your choice, and copy the following into it:
     kspace_style pppm/tip4p 1.0e-5
     kspace_modify slab 3.0
 
-
 .. admonition:: If you are using LAMMPS-GUI
     :class: gui
 
@@ -32,8 +31,9 @@ file in a text editor of your choice, and copy the following into it:
     The editor should display the following content corresponding to **create.lmp**
 
 These lines are used to define the most basic parameters, including the
-atom, bond, and angle styles, as well as the non-bonded interaction
-potential.  Here, ``lj/cut/tip4p/long`` imposes a Lennard-Jones potential with
+atom style, the forms of the non-bonded,
+bond, and angle potentials, as well as other specifics of
+the non-bonded interactions.  Here, ``lj/cut/tip4p/long`` imposes a Lennard-Jones potential with
 a cut-off at :math:`12\,\text{Å}` and a long-range Coulomb potential.
 The parameters ``O``, ``H``, ``O-H``, and ``H-O-H`` correspond
 respectively to the oxygens, hydrogens, O-H bonds, and H-O-H angle constraints of
@@ -82,7 +82,8 @@ along the :math:`x` direction.  The ``create_box`` command creates a simulation 
 and 1 type of angle (both required by the water molecules).
 The parameters for these bond and angle constraints will be given later.  The ``extra (...)``
 keywords are for memory allocation.  Finally, the ``labelmap`` commands assign
-alphanumeric type labels to each numeric atom type, bond type, and angle type.
+alphanumeric type labels to each numeric atom type, bond type, and angle type, concepts
+already introduced in previous tutorials.
 
 Now, we can add atoms to the system.  First, let us create two sub-regions corresponding
 respectively to the two solid walls, and create a larger region from the union of the
@@ -116,7 +117,7 @@ bonds, and angles.  Add the following lines to **create.lmp**:
 
 Within the last three lines, a ``region`` named ``rliquid`` is
 created based on the last defined lattice, ``fcc 4.04``.  ``rliquid``
-will be used for depositing the water molecules.  The ``molecule`` command
+will be used for introducing the water molecules.  The ``molecule`` command
 opens up the molecule template called **water.mol**, and names the
 associated molecule ``h2omol``.  The new molecules are placed on the
 ``fcc 4.04`` lattice by the ``create_atoms`` command.  The first
@@ -209,8 +210,9 @@ Finally, the **parameters.inc** file contains the following two lines:
 
 The ``bond_coeff`` command, used here for the O-H bond of the water
 molecule, sets both the spring constant of the harmonic potential and the
-equilibrium bond distance of :math:`0.9572~\text{Å}`.  The constant can be 0 for a
-rigid water molecule because the SHAKE algorithm will maintain the rigid
+equilibrium bond distance of :math:`0.9572~\text{Å}`.  The force constant can be 0 for a
+rigid water molecule because the SHAKE algorithm which, will be used
+in the input at a later step, will constrain the intramolecular
 structure of the water molecule (see below) :cite:`ryckaert1977numerical, andersen1983rattle`.
 Similarly, the ``angle_coeff`` command for the H-O-H angle of the water molecule sets
 the force constant of the angular harmonic potential to 0 and the equilibrium
@@ -265,8 +267,8 @@ Finally, add the following lines into **create.lmp**:
 
     write_data create.data nocoeff
 
-The ``run 0`` command runs the simulation for 0 steps, which is sufficient for
-creating the system and saving its state.  The ``write_data`` command
+The ``run 0`` command initializes the simulation, which is required for cleanly
+saving the state, but it does not advance positions or velocities. The ``write_data`` command
 generates a file called **system.data** containing the information required
 to restart the simulation from the final configuration produced by this input
 file.  With the ``nocoeff`` option, the parameters from the force field are
@@ -322,7 +324,8 @@ The only difference from the previous input is that, instead of creating a new
 box and new atoms, we open the previously created **create.data** file.
 
 Now, let us use the SHAKE algorithm to maintain the shape of the
-water molecules :cite:`ryckaert1977numerical, andersen1983rattle`.
+water molecules :cite:`ryckaert1977numerical, andersen1983rattle`
+by adding the following line to the script.
 
 .. code-block:: lammps
 
@@ -375,8 +378,8 @@ Let us equilibrate further the entire system by letting both fluid and wall
 relax at ambient temperature.  Here, the commands are written within the same
 **equilibrate.lmp** file, right after the ``reset_timestep`` command.
 
-Let us update the positions of all the atoms and use a Nosé-Hoover
-thermostat.  Add the following lines to **equilibrate.lmp**:
+Let us do a molecular dynamics simulation using
+the Nosé-Hoover thermostat.  Add the following lines to **equilibrate.lmp**:
 
 .. code-block:: lammps
 
@@ -555,9 +558,10 @@ and ``f_mysf2[1]``.  Add these lines to **shearing.lmp**:
     thermo_style custom step temp etotal f_mysf1[1] f_mysf2[1]
 
 Let us also extract the density and velocity profiles using
-the ``chunk/atom`` and ``ave/chunk`` commands.  These
-commands discretize the simulation domain into spatial bins and compute and output
-average properties of the atoms belonging to each bin, here the velocity
+the ``chunk/atom`` and ``ave/chunk`` commands.  When deployed as
+below, these commands discretize the simulation domain
+into spatial bins and compute and output average proper-
+ties of the atoms belonging to each bin, here the velocity
 along :math:`x` (``vx``) within the bins.  Add the following lines to **shearing.lmp**:
 
 .. code-block:: lammps
