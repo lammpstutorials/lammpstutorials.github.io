@@ -5,11 +5,11 @@ With most conventional molecular force fields, the chemical bonds between
 atoms are defined at the start of the simulation and remain fixed, regardless
 of the forces applied to the atoms.  In this tutorial, these bonds are
 explicitly specified in the **.data** file, which is read using the ``read_data`` command (see below).
-Bonds are typically modeled as springs
-with equilibrium distances :math:`r_0` and force constants :math:`k_\text{b}`:
-:math:`U_\text{b} = k_\text{b} \left( r - r_0 \right)^2`.  Additionally, angular and
-dihedral constraints are often imposed to preserve the molecular structure
-by maintaining the relative orientations of neighboring atoms.
+Bonds are typically modeled as springs following Hooke's law
+with equilibrium distances :math:`r_0`, force constants :math:`k_\text{b}`,
+and bond potential energy :math:`U_\text{b} = k_\text{b} \left( r - r_0 \right)^2`.
+Additionally, angular and dihedral constraints are often imposed to preserve the
+molecular structure by maintaining the relative orientations of neighboring atoms.
 
 The LAMMPS input
 ----------------
@@ -78,6 +78,15 @@ file that should be downloaded next to **unbreakable.lmp**. This file contains i
 as well as the identity of the atoms that are linked by ``bonds``, ``angles``,
 ``dihedrals``, and ``impropers`` interactions. It was created using VMD and TopoTools
 :cite:`kohlmeyer2017topotools`.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    Bonds, angles, dihedrals, and impropers in LAMMPS are assigned types and IDs, just like atoms.
+    The ID uniquely identifies each interaction instance, while the type determines which parameters
+    (from the ``bond_coeff``, ``angle_coeff``, etc. commands) are applied.
+    In this tutorial, these types and IDs are specified in the ``.data`` file and
+    read by the ``read_data`` command.
 
 .. |unbreakable_data| raw:: html
 
@@ -228,9 +237,9 @@ by adding the following commands to **unbreakable.lmp**:
 
 Re-setting the atom IDs is necessary before using the ``velocity`` command  
 when atoms were deleted, which is done here with the ``reset_atoms`` command.  
-The ``velocity`` command gives initial velocities to the atoms of the middle  
-group ``cnt_mid``, ensuring an initial temperature of :math:`T = 300\,\text{K}`  
-for these atoms.
+The ``velocity`` command assigns random initial velocities to the atoms of the middle  
+group ``cnt_mid`` from a uniform distribution, ensuring an initial temperature
+of :math:`T = 300\,\text{K}` for these atoms.
 
 Let us specify the thermalization and the dynamics of the system.  Add the following
 lines into **unbreakable.lmp**:
@@ -250,11 +259,10 @@ with desired temperature of 300 K :cite:`nose1984unified, hoover1985canonical`.
 .. admonition:: Note
     :class: non-title-info
 
-    The Nosé-Hoover thermostat only controls the temperature of
-    the atoms belonging to the specified ``cnt_mid`` group.  Atoms outside
-    this group are not affected by the thermostat.
+    The Nosé-Hoover thermostat only controls the temperature of the atoms
+    belonging to the specified ``cnt_mid`` group. Atoms outside this group are not affected.
 
-To restrain the motion of the atoms at the edges, let us add the following  
+To immobilize the motion of the atoms at the edges, let us add the following  
 commands to **unbreakable.lmp**:
 
 .. code-block:: lammps
@@ -279,11 +287,12 @@ they would if no other command was applied to them).
 .. admonition:: Note
     :class: non-title-info
 
-    The ``velocity set`` command imposes the velocity of a group of atoms at the start of a run but does  
-    not enforce the velocity during the entire simulation.  When ``velocity set`` is used in combination with  
+    The ``velocity set`` command adjusts the velocities of a
+    group of atoms immediately but has no effect *during*
+    the simulation.  When ``velocity set`` is used in combination with  
     ``setforce 0 0 0``, as is the case here, the atoms won't feel any force during the entire simulation.  
     According to the Newton equation, no force means no acceleration, meaning that the initial velocity  
-    will persist during the entire simulation, thus producing a constant velocity motion.
+    will persist during the entire simulation, thus producing a constant velocity motion or no motion at all.
 
 Outputs
 -------
@@ -461,6 +470,23 @@ and must be placed next to **breakable.lmp**.
 .. |CH_airebo| raw:: html
 
     <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial2/CH.airebo" target="_blank">CH.airebo</a>
+
+.. admonition:: Note
+    :class: non-title-info
+
+    The AIREBO force field is a many-body
+    potential, where interactions are not only between pairs of atoms,
+    but also triples and quadruples representing angle and dihedral
+    interactions.  This means that there are different rules for the
+    ``pair_coeff`` command: there must be only one command that
+    covers all permutations of atom types by using two '*' wildcards.
+    After the potential file follows a list of elements.  These element
+    names are used to look up the parameter sets in the potential file.
+    There must be a list with as many elements as atom types following
+    the filename.  In our system, there is only one atom type (1), which is
+    mapped to the element 'C' in the ``pair_coeff`` command.
+    Which elements are supported is determined by the contents of the
+    potential file.
 
 .. admonition:: Note
     :class: non-title-info

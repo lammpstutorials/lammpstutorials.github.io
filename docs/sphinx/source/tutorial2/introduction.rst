@@ -16,7 +16,7 @@ by imposing a constant velocity on the edge atoms.  To illustrate the
 difference between conventional and reactive force fields, this tutorial
 is divided into two parts: in the first part, a conventional molecular
 force field (called OPLS-AA :cite:`jorgensenDevelopmentTestingOPLS1996`)
-is used and the form of the bonded potential ensure that the bonds between the
-atoms of the CNT are unbreakable.  In
-the second part, a reactive force field (called AIREBO :cite:`stuart2000reactive`)
+is used and the functional form of the bonded potential ensures that the
+bonds between the atoms of the CNT are unbreakable.  In
+the second part, a reactive, many-body, force field (called AIREBO :cite:`stuart2000reactive`)
 is used, which allows chemical bonds to break under large strain.
