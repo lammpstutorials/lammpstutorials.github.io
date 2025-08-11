@@ -86,6 +86,8 @@ lines into **water.lmp**:
     molecule h2omol water.mol
     create_atoms 0 random 700 87910 NULL mol h2omol 454756 overlap 1.0 maxtry 50
 
+The first parameter is 0, meaning that the atom IDs from
+the **water.mol** file will be used.
 The ``overlap 1.0`` option of the ``create_atoms`` command ensures
 that no atoms are placed exactly in the same position, as this would cause the
 simulation to crash.  The ``maxtry 50`` asks LAMMPS to try at most 50 times
@@ -139,7 +141,9 @@ Resetting the step of the simulation to 0 using the
 ``reset_timestep`` command is optional.
 It is used here because the number of iterations performed by the ``minimize``
 command is usually not a round number, since the minimization stops when one of
-four criteria is reached.  We will use ``fix npt`` to control the temperature
+four criteria is reached, which can disrupt the intended frequency
+of outputs such as ``dump`` commands that depend on the timestep count.
+We will use ``fix npt`` to control the temperature
 and pressure of the molecules with a Nosé-Hoover thermostat and barostat,
 respectively :cite:`nose1984unified, hoover1985canonical, martyna1994constant`.
 Add the following line into **water.lmp**:

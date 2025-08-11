@@ -124,7 +124,7 @@ For visualization purposes, the atoms from the CNT ``group`` is moved
 to the center of the box using ``fix recenter``.
 As the time progresses, the system density,
 :math:`\rho`, gradually converges toward the target value
-of :math:`0.8`\,g/cm:math:`^3`.
+of :math:`0.9`\,g/cm:math:`^3`.
 Meanwhile, the total energy of the system initially evolves rapidly, reflecting the
 densification process, and then eventually stabilizes.
 

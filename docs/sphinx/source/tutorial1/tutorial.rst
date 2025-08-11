@@ -495,7 +495,8 @@ the following:
         view 80 10 box yes 0.025 axes no 0.0 0.0 center s 0.483725 0.510373 0.510373
     dump_modify viz pad 9 boxcolor royalblue backcolor white adiam 1 1.6 adiam 2 4.8
 
-This command tells LAMMPS to generate NetPBM format images every 100  
+The $\&$ is used to continue the command on a new line.
+These commands tell LAMMPS to generate NetPBM format images every 100  
 steps.  The two ``type`` keywords are for *color* and  
 *diameter*, respectively.  Run the **initial.lmp** using  
 LAMMPS again, and a new window named ``Slide Show`` will pop up.  

@@ -388,7 +388,7 @@ central part of the box.
     Add FIGURE US-system-biased Snapshot of the system simulated during the umbrella sampling
     step of \hyperref[umbrella-sampling-label]{Tutorial 7}, showing type-1 atoms
     in cyan and the type-2 atom in red.  Only the type-2 atom explores the central part of the box,
-    ``mymes``, due to the additional biasing potential :math:`V`. Parmaeters are
+    ``mymes``, due to the additional biasing potential :math:`V`. Parameters are
     :math:`U_0 = 2.38~\text{kcal/mol}`, :math:`\delta = 1.0~\text{Å}`, and :math:`x_0 = 10~\text{Å}`.
 
 Now, we create a loop with 15 steps and progressively move the center of the
@@ -396,7 +396,7 @@ bias potential by increments of 0.4 nm.  Add the following lines to **umbrella-s
 
 .. code-block:: lammps
 
-    variable a loop 25
+    variable a loop 15
     label loop
 
     variable xdes equal 4*${a}-32

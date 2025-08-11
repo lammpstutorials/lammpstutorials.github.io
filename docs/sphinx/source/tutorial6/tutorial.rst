@@ -226,13 +226,16 @@ classical textbooks like Ref. :cite:`frenkel2023understanding`.
 Adapting the pair style
 -----------------------
 
-For this next step, we need to define the parameters for the water molecules and
-the cross-interactions between water and silica. The TIP4P/2005 model is employed
-for the water :cite:`abascal2005general`, while no specific parameters are set
-for the silica itself. The atoms of the silica will remain frozen during this part.
+For this next step, we need to specify the force field used to
+model the interactions in the system. The TIP4P/2005 model is employed
+for the water :cite:`abascal2005general`, while no interaction within
+silica is defined, as it will be seen farther below. This is be-
+cause atoms of the silica will remain frozen during this part of the simulation.
 Only the cross-interactions between water and silica need
 to be defined. Create a new file called **gcmc.lmp**, and copy the following
 lines into it:
+
+Create a new file called **gcmc.lmp**, and copy the following lines into it:
 
 .. code-block:: lammps
 
