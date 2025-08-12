@@ -28,8 +28,8 @@ measured.  This tutorial also demonstrates the use of an external tool
 to visualize breaking bonds, and show the possibility to import
 LAMMPS-generated YAML log files into Python.
 
-In :ref:`all-atoms-label`, two components\textemdash liquid water
-(flexible three-point model) and a polymer molecule\textemdash are merged and
+In :ref:`all-atoms-label`, two component - liquid water
+(flexible three-point model) and a polymer molecule - are merged and
 equilibrated.  A long-range solver is used to handle the electrostatic
 interactions accurately, and the system is equilibrated in the
 isothermal-isobaric (NPT) ensemble; then, a stretching force is applied

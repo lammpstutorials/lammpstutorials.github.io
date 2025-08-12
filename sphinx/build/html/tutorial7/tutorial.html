@@ -389,7 +389,9 @@ lines to <strong>free-sampling.lmp</strong>:</p>
 <span class="k">fix </span><span class="nv nv-Identifier">myadf</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">addforce</span><span class="w"> </span><span class="n">v_F</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="m">0.0</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="n">v_U</span>
 </pre></div>
 </div>
-<p>Next, we combine the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">nve</span></code> with a <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">langevin</span></code> thermostat:</p>
+<p>Next, we use the Newtonian equations of motion with
+a Langevin thermostat by combining the <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">nve</span></code> with a
+<code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">langevin</span></code> command:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mynve</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">nve</span>
 <span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">119.8</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="m">30917</span>
 </pre></div>
@@ -398,6 +400,12 @@ lines to <strong>free-sampling.lmp</strong>:</p>
 in the NVT ensemble, maintaining a constant number of
 atoms <span class="math notranslate nohighlight">\(N\)</span>, constant volume <span class="math notranslate nohighlight">\(V\)</span>, and a temperature <span class="math notranslate nohighlight">\(T\)</span> that
 fluctuates around a target value.</p>
+<div class="non-title-info admonition">
+<p class="admonition-title">Note</p>
+<p>LAMMPS documentation suggests using damping constants for thermostats that
+are approximately 100 times the timestep value.  In this case, a value of
+500 is used, resulting in a relatively weak coupling to the thermostat.</p>
+</div>
 <p>To ensure that the equilibration time is sufficient, we will track the evolution of
 the number of atoms in the central - energetically unfavorable - region,
 referred to as <code class="docutils literal notranslate"><span class="pre">mymes</span></code>, using the <code class="docutils literal notranslate"><span class="pre">n_center</span></code> variable:</p>
@@ -458,7 +466,7 @@ Add the following line to <strong>free-sampling.lmp</strong>:</p>
 <p>Here, the <code class="docutils literal notranslate"><span class="pre">chunk/atom</span></code> command discretizes the simulation
 domain into spatial bins of size 2~AA{} along the <span class="math notranslate nohighlight">\(x\)</span> direction,
 and the <code class="docutils literal notranslate"><span class="pre">ave/chunk</span></code> command computes and outputs the number density of
-atoms within each bin to the file <strong>free-sampling.dat</strong>.}
+atoms within each bin to the file <strong>free-sampling.dat</strong>.
 The step count is reset to 0 using <code class="docutils literal notranslate"><span class="pre">reset_timestep</span></code> to synchronize it
 with the output times of <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">density/number</span></code>.  Run the simulation using
 LAMMPS.</p>
@@ -483,7 +491,7 @@ Next, we plot <span class="math notranslate nohighlight">\(-R T \ln(\rho/\rho_\m
 is the the density ratio,  and compare it
 with the imposed potential <span class="math notranslate nohighlight">\(U\)</span> from Eq. <a class="reference internal" href="#equation-eq-u">(2)</a>.
 The reference density, <span class="math notranslate nohighlight">\(\rho_\text{bulk} = 0.0009~\text{Å}^{-3}\)</span>,
-was estimated by measuring the density of the reservoir from the raw density
+was estimated by measuring the density of the reservoir from the density
 profiles.  The agreement between the MD results and the imposed energy profile
 is excellent, despite some noise in the central part, where fewer data points
 are available due to the repulsive potential.</p>
@@ -504,8 +512,8 @@ and the measured reference density in the reservoir is <span class="math notrans
 <section id="the-limits-of-free-sampling">
 <h2>The limits of free sampling<a class="headerlink" href="#the-limits-of-free-sampling" title="Link to this heading">¶</a></h2>
 <p>Increasing the value of <span class="math notranslate nohighlight">\(U_0\)</span> reduces the average number of atoms in the central
-region, making it difficult to achieve a high-resolution free energy profile.
-For example, running the same simulation with <span class="math notranslate nohighlight">\(U_0 = 10 \epsilon\)</span>,
+region, making it difficult to achieve a high-resolution free energy profile
+within reasonable simulation times.  For example, running the same simulation with <span class="math notranslate nohighlight">\(U_0 = 10 \epsilon\)</span>,
 corresponding to <span class="math notranslate nohighlight">\(U_0 \approx 10 k_\text{B} T\)</span>, results in no atoms exploring
 the central part of the simulation box during the simulation.
 In such a case, employing an enhanced sampling method is recommended, as done in the next section.</p>
@@ -594,7 +602,7 @@ umbrella sampling run:</p>
 of type 2.  Particles of types 1 and 2 are identical, with the same mass
 and LJ parameters.  However, the particle of type 2 will also
 be exposed to the biasing potential <span class="math notranslate nohighlight">\(V\)</span>, which forces it to explore the
-central part of the box.</p>
+central part of the box, thus justifying the definition of two atom types.</p>
 <p>Now, we create a loop with 15 steps and progressively move the center of the
 bias potential by increments of 0.4 nm.  Add the following lines to <strong>umbrella-sampling.lmp</strong>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">variable </span><span class="nv nv-Identifier">a</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="m">15</span>
@@ -614,9 +622,13 @@ bias potential by increments of 0.4 nm.  Add the following lines to <strong>umbr
 <span class="k">jump </span><span class="sc">SELF</span><span class="w"> </span><span class="n">loop</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">spring</span></code> command imposes the additional harmonic potential <span class="math notranslate nohighlight">\(V\)</span> with
-the previously defined spring constant <span class="math notranslate nohighlight">\(k\)</span>.  The center of the harmonic
-potential, <span class="math notranslate nohighlight">\(x_\text{des}\)</span>, successively takes values
+<p>The definition of a variable of loop style serves the same purpose as in
+<a class="reference internal" href="../tutorial5/reactive-silicon-dioxide.html#reactive-silicon-dioxide-label"><span class="std std-ref">Reactive silicon dioxide</span></a>, and we highlight here the particular
+utility of using its value to distinguish the files written by the
+fix <code class="docutils literal notranslate"><span class="pre">ave_time</span></code> command for the different bias potentials.
+The <code class="docutils literal notranslate"><span class="pre">spring</span></code> command imposes the additional harmonic potential <span class="math notranslate nohighlight">\(V\)</span> with
+the previously defined spring constant <span class="math notranslate nohighlight">\(k\)</span> to the atoms in the group <code class="docutils literal notranslate"><span class="pre">pull</span></code>.
+The center of the harmonic potential, <span class="math notranslate nohighlight">\(x_\text{des}\)</span>, successively takes values
 from <span class="math notranslate nohighlight">\(-28\,\text{Å}\)</span> to <span class="math notranslate nohighlight">\(28\,\text{Å}\)</span>.  For each value of <span class="math notranslate nohighlight">\(x_\text{des}\)</span>,
 an equilibration step of 40 ps is performed, followed by a step
 of 400 ps during which the position of the particle of

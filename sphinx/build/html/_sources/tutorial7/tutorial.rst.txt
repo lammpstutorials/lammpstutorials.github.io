@@ -140,7 +140,9 @@ lines to **free-sampling.lmp**:
     variable F atom ${U0}/((x-${x0})^2/${dlt}^2+1)/${dlt}-${U0}/((x+${x0})^2/${dlt}^2+1)/${dlt}
     fix myadf all addforce v_F 0.0 0.0 energy v_U
 
-Next, we combine the ``fix nve`` with a ``fix langevin`` thermostat:
+Next, we use the Newtonian equations of motion with
+a Langevin thermostat by combining the ``fix nve`` with a
+``fix langevin`` command:
 
 .. code-block:: lammps
 
@@ -151,6 +153,13 @@ When combining these two commands, the MD simulation operates
 in the NVT ensemble, maintaining a constant number of
 atoms :math:`N`, constant volume :math:`V`, and a temperature :math:`T` that
 fluctuates around a target value.
+
+.. admonition:: Note
+    :class: non-title-info
+
+    LAMMPS documentation suggests using damping constants for thermostats that
+    are approximately 100 times the timestep value.  In this case, a value of
+    500 is used, resulting in a relatively weak coupling to the thermostat.
 
 To ensure that the equilibration time is sufficient, we will track the evolution of
 the number of atoms in the central - energetically unfavorable - region,
@@ -224,7 +233,7 @@ Add the following line to **free-sampling.lmp**:
 Here, the ``chunk/atom`` command discretizes the simulation
 domain into spatial bins of size 2~\AA{} along the :math:`x` direction,
 and the ``ave/chunk`` command computes and outputs the number density of
-atoms within each bin to the file **free-sampling.dat**.}
+atoms within each bin to the file **free-sampling.dat**.
 The step count is reset to 0 using ``reset_timestep`` to synchronize it
 with the output times of ``fix density/number``.  Run the simulation using
 LAMMPS.
@@ -253,7 +262,7 @@ Next, we plot :math:`-R T \ln(\rho/\rho_\mathrm{bulk})`, where :math:`\rho/\rho_
 is the the density ratio,  and compare it
 with the imposed potential :math:`U` from Eq. :eq:`eq_U`.
 The reference density, :math:`\rho_\text{bulk} = 0.0009~\text{Å}^{-3}`,
-was estimated by measuring the density of the reservoir from the raw density
+was estimated by measuring the density of the reservoir from the density
 profiles.  The agreement between the MD results and the imposed energy profile
 is excellent, despite some noise in the central part, where fewer data points
 are available due to the repulsive potential.
@@ -278,8 +287,8 @@ The limits of free sampling
 ---------------------------
 
 Increasing the value of :math:`U_0` reduces the average number of atoms in the central
-region, making it difficult to achieve a high-resolution free energy profile.
-For example, running the same simulation with :math:`U_0 = 10 \epsilon`,
+region, making it difficult to achieve a high-resolution free energy profile
+within reasonable simulation times.  For example, running the same simulation with :math:`U_0 = 10 \epsilon`,
 corresponding to :math:`U_0 \approx 10 k_\text{B} T`, results in no atoms exploring
 the central part of the simulation box during the simulation.
 In such a case, employing an enhanced sampling method is recommended, as done in the next section.
@@ -381,7 +390,7 @@ So far, our code resembles that of Method 1, except for the additional particle
 of type 2.  Particles of types 1 and 2 are identical, with the same mass
 and LJ parameters.  However, the particle of type 2 will also
 be exposed to the biasing potential :math:`V`, which forces it to explore the
-central part of the box.
+central part of the box, thus justifying the definition of two atom types.
 
 .. 
     TOFIX: Add a figure with one single particle exploring the central part of the system.
@@ -412,9 +421,13 @@ bias potential by increments of 0.4 nm.  Add the following lines to **umbrella-s
     next a
     jump SELF loop
 
+The definition of a variable of loop style serves the same purpose as in
+:ref:`reactive-silicon-dioxide-label`, and we highlight here the particular
+utility of using its value to distinguish the files written by the
+fix ``ave_time`` command for the different bias potentials.
 The ``spring`` command imposes the additional harmonic potential :math:`V` with
-the previously defined spring constant :math:`k`.  The center of the harmonic
-potential, :math:`x_\text{des}`, successively takes values
+the previously defined spring constant :math:`k` to the atoms in the group ``pull``.
+The center of the harmonic potential, :math:`x_\text{des}`, successively takes values
 from :math:`-28\,\text{Å}` to :math:`28\,\text{Å}`.  For each value of :math:`x_\text{des}`,
 an equilibration step of 40 ps is performed, followed by a step
 of 400 ps during which the position of the particle of
