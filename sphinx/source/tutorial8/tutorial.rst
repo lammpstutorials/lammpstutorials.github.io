@@ -23,10 +23,9 @@ following content corresponding to **mixing.lmp**:
 
 The ``class2`` styles compute a 6/9 Lennard-Jones potential :cite:`sun1998compass`.
 The ``class2`` bond, angle, dihedral, and improper styles are used as
-well, see the documentation for a description of their respective potentials.
+well, see the documentation for a description the respective potential form they, each, prescribe.
 The ``tail yes`` option adds long-range van der Waals tail corrections to the
-energy and pressure.
-The ``mix sixthpower`` imposes the following mixing rule for the calculation
+energy and pressure.  The ``mix sixthpower`` imposes the following mixing rule for the calculation
 of the cross coefficients:
 
 .. math::
@@ -71,8 +70,10 @@ Finally, let us use the ``minimize`` command to reduce the potential energy of t
     minimize 1.0e-4 1.0e-6 100 1000
     reset_timestep 0
 
+These commands were covered in earlier tutorials and should already be familiar.
+
 Then, let us densify the system to a target value of :math:`0.9~\text{g/cm}^3`
-by manually shrinking the simulation box at a constant rate.  The dimension parallel
+by imposing the shrinking of the simulation box at a constant rate.  The dimension parallel
 to the CNT axis is maintained fixed because the CNT is periodic in that direction.
 Add the following commands to **mixing.lmp**:
 
@@ -91,7 +92,8 @@ Add the following commands to **mixing.lmp**:
     run 9000
 
 The ``fix halt`` command is used to stop the box shrinkage once the
-target density is reached.
+target density is reached, and the other commands
+should be familiar from previous tutorials.
 
 For the next stage of the simulation, we will use ``dump image`` to
 output images every 200 steps:
@@ -120,7 +122,7 @@ system in a file named **mixing.data**:
 
     write_data mixing.data
 
-For visualization purposes, the atoms from the CNT ``group`` is moved
+For visualization purposes, the atoms of the CNT ``group`` are moved
 to the center of the box using ``fix recenter``.
 As the time progresses, the system density,
 :math:`\rho`, gradually converges toward the target value
@@ -291,7 +293,10 @@ line to **polymerize.lmp**:
 
 With the ``stabilization`` keyword, the ``bond/react`` command will
 stabilize the atoms involved in the reaction using the ``nve/limit``
-command with a maximum displacement of :math:`0.03\,\text{Å}`.  By default,
+command with a maximum displacement of :math:`0.03\,\text{Å}`.  
+The ``fix nve/limit`` command functions similar to
+``fix nve``, but restricts how far atoms can move in a single
+time step, even with very large forces. By default,
 each reaction is stabilized for 60 time steps.  Each ``react`` keyword
 corresponds to a reaction, e.g., a transformation of ``mol1`` into ``mol2``
 based on the atom map **M-M.rxnmap**.  Implementation details about each reaction,
@@ -329,8 +334,9 @@ reaction sites, are also specified in this command.
     the group ``all``.  Instead, the group of atoms not currently
     undergoing stabilization is named by appending ``_REACT`` to the user-provided prefix.
 
-Add the following commands to **polymerize.lmp** to operate in the NVT ensemble
-while ensuring that the CNT remains centered in the simulation box:
+Add the following commands to **polymerize.lmp** to carry out the dynamics
+using a Nosé-Hoover thermostat while ensuring that the CNT remains centered in
+the simulation box:
 
 .. code-block:: lammps
 
@@ -344,11 +350,11 @@ while ensuring that the CNT remains centered in the simulation box:
     run 25000
 
 Here, the ``thermo custom`` command is used
-to print the cumulative reaction counts from ``fix rxn``.
-Run the simulation using LAMMPS.  As the simulation progresses, polymer chains are
-observed forming.  During this reaction process, the
-temperature of the system remains well-controlled,
-while the number of reactions, :math:`N_r`, increases with time.
+to print the cumulative reaction counts which are calculated by ``fix rxn``
+and thus can be extracted from it.  Run the simulation using LAMMPS.  As the
+simulation progresses, polymer chains are observed forming.  During this reaction
+process, the temperature of the system remains well-controlled, while the number
+of reactions, :math:`N_r`, increases with time.
 
 .. figure:: figures/REACT-reacting-dm.png
     :class: only-dark
