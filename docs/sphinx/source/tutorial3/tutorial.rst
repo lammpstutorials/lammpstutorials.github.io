@@ -185,7 +185,7 @@ Let us also extract the volume and density, among others, every 500 steps:
 .. code-block:: lammps
 
     thermo 500
-    thermo_style custom step temp etotal volume density
+    thermo_style custom step temp etotal vol density
 
 With the real units system, the volume is in :math:`Å^3`, and
 the density is in :math:`\text{g/cm}^3`.
