@@ -90,8 +90,12 @@ distances, etc).  Thus add to **water.lmp** the line:
     maps are used for the bond types, angle types, and dihedral types.
 
 Let us create water molecules.  To do so, let us import a molecule template called
-**water.mol** and then randomly create 700 molecules.  Add the following
+|water_mol_tutorial3| and then randomly create 700 molecules.  Add the following
 lines into **water.lmp**:
+
+.. |water_mol_tutorial3| raw:: html
+
+    <a href="https://raw.githubusercontent.com/lammpstutorials/lammpstutorials-inputs/refs/heads/main/tutorial3/water.mol" target="_blank">water.mol</a>
 
 .. code-block:: lammps
 
