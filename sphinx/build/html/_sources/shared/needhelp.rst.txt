@@ -1,4 +1,4 @@
-.. admonition:: Struggling with your molecular simulations project?
+.. admonition:: Looking for help with your project ?
    :class: patreon
 
    Get guidance for your LAMMPS simulations and receive
