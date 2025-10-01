@@ -63,12 +63,12 @@ The other pages use the [Sphinx](https://www.sphinx-doc.org/) generator with the
 
 ## The article
 
-The official article can be found on [LiveCoMS](https://livecomsjournal.org/index.php/livecoms/article/view/v6i1e3037),  
-and the source of the article on [GitHub](https://github.com/lammpstutorials/lammpstutorials-article).  
+The official article can be found on [LiveCoMS](https://livecomsjournal.org/index.php/livecoms/article/view/v6i1e3037),
+and the source of the article on [GitHub](https://github.com/lammpstutorials/lammpstutorials-article).
 If you use this work, please cite:
 
 > **A Set of Tutorials for the LAMMPS Simulation Package [Article v1.0]**
-> by Simon Gravelle, Cecilia M. S. Alvares, Jacob R. Gissinger, and Axel Kohlmeyer,  
+> by Simon Gravelle, Cecilia M. S. Alvares, Jacob R. Gissinger, and Axel Kohlmeyer,
 > published in *Living Journal of Computational Molecular Science (LiveCoMS)*, 6(1), 3037 (2025).
 
 ```bibtex
@@ -101,9 +101,10 @@ If you use this work, please cite:
 
 ## Acknowledgements
 
-Simon Gravelle acknowledges funding from the European Union's Horizon 2020
-research and innovation programme under the Marie Skłodowska-Curie grant
-agreement N°101065060. Axel Kohlmeyer acknowledges financial support from
-Sandia National Laboratories under POs 2149742 and 2407526.
+- Simon Gravelle acknowledges funding from the European Union's Horizon 2020
+  research and innovation programme under the Marie Skłodowska-Curie grant
+  agreement N°101065060.
+- Axel Kohlmeyer acknowledges financial support from Sandia National Laboratories
+  under POs 2149742 and 2407526.
 
 
