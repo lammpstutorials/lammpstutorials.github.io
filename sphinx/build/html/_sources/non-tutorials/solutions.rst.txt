@@ -16,7 +16,7 @@ working |input_broken_solution| I wrote. These are the main commands:
 
 .. |input_broken_solution| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/broken/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/broken/input.lammps" target="_blank">input</a>
 
 ..  code-block:: lammps
 
@@ -70,7 +70,7 @@ I use large numbers of particles: 8000 for each type.
 
 .. |input_demixed_solution| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/demixion/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/demixion/input.lammps" target="_blank">input</a>
 
 .. container:: justify
 
@@ -109,7 +109,7 @@ dumbell molecules.
     
 .. |input_dumbbell_solution| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/dumbbell/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/dumbbell/input.lammps" target="_blank">input</a>
 
 The first important change to make to the inputs from the
 tutorial is the *atom_style*: an *atom_style* that allows for the atoms
@@ -149,7 +149,7 @@ length (2.5) need to be specified:
 
 .. |mol_dumbbell_solution| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/dumbbell/dumbell.mol" target="_blank">here</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/dumbbell/dumbell.mol" target="_blank">here</a>
 
 For the polymer, the angular potential must be defined to give its
 rigidity to the polymer. You can download the |input_polymer_solution| and
@@ -157,11 +157,11 @@ rigidity to the polymer. You can download the |input_polymer_solution| and
     
 .. |input_polymer_solution| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/polymer/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/polymer/input.lammps" target="_blank">input</a>
 
 .. |mol_polymer_solution| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/polymer/polymer.mol" target="_blank">molecule template</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/polymer/polymer.mol" target="_blank">molecule template</a>
 
 Pulling on a carbon nanotube
 ============================
@@ -174,11 +174,11 @@ and |input_stress_strain_solution2| I wrote.
 
 .. |input_stress_strain_solution1| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input for the breakable CNT</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial2/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input for the breakable CNT</a>
 
 .. |input_stress_strain_solution2| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input for the unbreakable CNT</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial2/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input for the unbreakable CNT</a>
 
 The stress is calculated as the total force
 induced on the CNT by the pulling divided by the 
@@ -228,7 +228,7 @@ You can download the |input_gas_cnt| I wrote.
 
 .. |input_gas_cnt| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/gas/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial2/exercises/gas/input.lammps" target="_blank">input</a>
 
 The key is to modify the *.data* file
 to make space for the second atom type 2.
@@ -290,7 +290,7 @@ You can download the |input_membrane_solution1| I wrote.
 
 .. |input_membrane_solution1| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/membrane/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial2/exercises/membrane/input.lammps" target="_blank">input</a>
 
 The CNT can be replicated using the *replicate* command.
 It is recommended to adjust the box size before replicating,
@@ -319,7 +319,7 @@ You can download the |input_PEG_RDF| file I wrote.
 
 .. |input_PEG_RDF| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/radial-distribution-function/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial3/exercises/radial-distribution-function/input.lammps" target="_blank">input</a>
 
 I use the *compute rdf* command of LAMMPS
 to extract the RDF between atoms of type 8 (oxygen from water)
@@ -342,15 +342,15 @@ and |parm_PEG_salt| files I wrote.
 
 .. |input_PEG_salt| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial3/exercises/salt/input.lammps" target="_blank">input</a>
 
 .. |data_PEG_salt| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/mix-with-salt.data" target="_blank">data</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial3/exercises/salt/mix-with-salt.data" target="_blank">data</a>
 
 .. |parm_PEG_salt| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial3/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a>
     
 It is important to 
 make space for the two salt atoms by modifying the data file as follows:
@@ -389,7 +389,7 @@ You can download the |input_PEG_dihedral| file I wrote.
 
 .. |input_PEG_dihedral| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/structurePEG/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial3/exercises/structurePEG/input.lammps" target="_blank">input</a>
 
 The key is to combine the *compute dihedral/local*,
 which computes the angles of the dihedrals and returns
@@ -611,7 +611,7 @@ progressive adsorption of both species.
 
 .. |input_mixture| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/Exercises/MixtureH2OCO2/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial6/Exercises/MixtureH2OCO2/input.lammps" target="_blank">input</a>
 
 Adsorb water in ZIF-8 nanopores
 -------------------------------
@@ -622,7 +622,7 @@ which you have to place in the same folder as the *zif-8.data*,
 
 .. |input_zif| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/Exercises/Zif-8/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial6/Exercises/Zif-8/input.lammps" target="_blank">input</a>
 
 Apart from the parameters and topology, the *input* is
 quite similar to the one developed in the case of the crack
@@ -654,7 +654,7 @@ You can download the |input_binary_wont_mix| here.
 
 .. |input_binary_wont_mix| raw:: html
 
-    <a href=".../../../../../.dependencies/lammpstutorials-inputs/tutorial7/Exercises/BinaryFluid/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial7/Exercises/BinaryFluid/input.lammps" target="_blank">input</a>
 
 The solution chosen here was to create two groups (*t1* and *t2*)
 and apply the two potentials *U1* and *U2* to each group, respectively. 
@@ -714,7 +714,7 @@ You can download the |input_adsorption_ethanol| here.
 
 .. |input_adsorption_ethanol| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial7/Exercises/MoleculeAdsorption/input.lammps" target="_blank">input</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial7/Exercises/MoleculeAdsorption/input.lammps" target="_blank">input</a>
 
 Reactive silicon dioxide
 ========================
@@ -942,7 +942,7 @@ Then, download the proposed input |input_reax_water|.
 
 .. |input_reax_water| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/Hydrate/input.lammps" target="_blank">here</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial5/Exercices/Hydrate/input.lammps" target="_blank">here</a>
 
 As seen in the *input.lammps* file, the molecules are added to the system
 using the *create_atoms* command:
@@ -973,11 +973,11 @@ file. In addition, create a molecule template named *H2O.mol*:
 
 .. |input_reax_water_2| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/BulkWater/input.lammps" target="_blank">here</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial5/Exercices/BulkWater/input.lammps" target="_blank">here</a>
 
 .. |reaxCHOFe_ff_ex| raw:: html
 
-    <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/BulkWater/reaxCHOFe.ff" target="_blank">reaxff force field</a>
+    <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial5/Exercices/BulkWater/reaxCHOFe.ff" target="_blank">reaxff force field</a>
 
 .. code-block:: lammps
 

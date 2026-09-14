@@ -6,11 +6,11 @@
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="LAMMPS Glossary" href="glossary.html"><link rel="prev" title="Reactive Molecular Dynamics" href="../tutorial8/reactive-molecular-dynamics.html">
         <link rel="prefetch" href="../_static/logo.png" as="image">
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2025.09.25 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2025.12.19 -->
         <title>Solutions to the exercises - </title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b1e702db" />
     
@@ -267,7 +267,7 @@
 <p>A possibility to make the simulation start without error
 is to reduce the initial <em>timestep</em> value as well as
 the imposed <em>temperature</em>. You can download the
-working <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/broken/input.lammps" target="_blank">input</a> I wrote. These are the main commands:</p>
+working <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/broken/input.lammps" target="_blank">input</a> I wrote. These are the main commands:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">fix </span><span class="nv nv-Identifier">mylgv</span><span class="w"> </span><span class="nv nv-Identifier">all</span><span class="w"> </span><span class="n">langevin</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="m">1530917</span>
 <span class="k">timestep</span><span class="w"> </span><span class="m">0.0001</span>
 </pre></div>
@@ -308,7 +308,7 @@ very first steps of the simulation:</p>
 </section>
 <section id="create-a-demixed-dense-phase">
 <h3>Create a demixed dense phase<a class="headerlink" href="#create-a-demixed-dense-phase" title="Link to this heading">¶</a></h3>
-<p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/demixion/input.lammps" target="_blank">input</a> I wrote. Note that
+<p>You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/demixion/input.lammps" target="_blank">input</a> I wrote. Note that
 I use large numbers of particles: 8000 for each type.</p>
 <div class="justify docutils container">
 <p>The key to creating a demixing phase is to find the appropriate Lennard-Jones
@@ -336,7 +336,7 @@ the initial box dimensions.</p>
 </section>
 <section id="from-atoms-to-molecules">
 <h3>From atoms to molecules<a class="headerlink" href="#from-atoms-to-molecules" title="Link to this heading">¶</a></h3>
-<p>You can download an example of <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/dumbbell/input.lammps" target="_blank">input</a> for simulating
+<p>You can download an example of <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/dumbbell/input.lammps" target="_blank">input</a> for simulating
 dumbell molecules.</p>
 <p>The first important change to make to the inputs from the
 tutorial is the <em>atom_style</em>: an <em>atom_style</em> that allows for the atoms
@@ -360,23 +360,23 @@ when creating the atoms as follows:</p>
 <span class="k">create_atoms</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">678865</span><span class="w"> </span><span class="n">simulation_box</span><span class="w"> </span><span class="n">mol</span><span class="w"> </span><span class="n">dumbell</span><span class="w"> </span><span class="m">8754</span>
 </pre></div>
 </div>
-<p>You can download the molecule template by clicking <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/dumbbell/dumbell.mol" target="_blank">here</a>.
+<p>You can download the molecule template by clicking <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/dumbbell/dumbell.mol" target="_blank">here</a>.
 Finally, some parameters for the bond, namely its rigidity (5) and equilibrium
 length (2.5) need to be specified:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">bond_coeff</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">2.5</span>
 </pre></div>
 </div>
 <p>For the polymer, the angular potential must be defined to give its
-rigidity to the polymer. You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/polymer/input.lammps" target="_blank">input</a> and
-<a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial1/exercises/polymer/polymer.mol" target="_blank">molecule template</a>.</p>
+rigidity to the polymer. You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/polymer/input.lammps" target="_blank">input</a> and
+<a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial1/exercises/polymer/polymer.mol" target="_blank">molecule template</a>.</p>
 </section>
 </section>
 <section id="pulling-on-a-carbon-nanotube">
 <h2>Pulling on a carbon nanotube<a class="headerlink" href="#pulling-on-a-carbon-nanotube" title="Link to this heading">¶</a></h2>
 <section id="plot-the-strain-stress-curves">
 <h3>Plot the strain-stress curves<a class="headerlink" href="#plot-the-strain-stress-curves" title="Link to this heading">¶</a></h3>
-<p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input for the breakable CNT</a>
-and <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input for the unbreakable CNT</a> I wrote.</p>
+<p>You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial2/exercises/stress-strain/breakable-bonds/input.lammps" target="_blank">input for the breakable CNT</a>
+and <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial2/exercises/stress-strain/unbreakable-bonds/input.lammps" target="_blank">input for the unbreakable CNT</a> I wrote.</p>
 <p>The stress is calculated as the total force
 induced on the CNT by the pulling divided by the
 surface area of the CNT.</p>
@@ -413,7 +413,7 @@ or use a different thermostat.</p>
 </section>
 <section id="insert-gas-in-the-carbon-nanotube">
 <h3>Insert gas in the carbon nanotube<a class="headerlink" href="#insert-gas-in-the-carbon-nanotube" title="Link to this heading">¶</a></h3>
-<p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/gas/input.lammps" target="_blank">input</a> I wrote.</p>
+<p>You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial2/exercises/gas/input.lammps" target="_blank">input</a> I wrote.</p>
 <p>The key is to modify the <em>.data</em> file
 to make space for the second atom type 2.</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">670</span><span class="w"> </span><span class="n">impropers</span>
@@ -460,7 +460,7 @@ position,</p>
 </section>
 <section id="make-a-membrane-of-cnts">
 <h3>Make a membrane of CNTs<a class="headerlink" href="#make-a-membrane-of-cnts" title="Link to this heading">¶</a></h3>
-<p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial2/exercises/membrane/input.lammps" target="_blank">input</a> I wrote.</p>
+<p>You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial2/exercises/membrane/input.lammps" target="_blank">input</a> I wrote.</p>
 <p>The CNT can be replicated using the <em>replicate</em> command.
 It is recommended to adjust the box size before replicating,
 as done here using the <em>change_box</em> command.</p>
@@ -479,7 +479,7 @@ as done here using the <em>change_box</em> command.</p>
 <h2>Polymer in water<a class="headerlink" href="#polymer-in-water" title="Link to this heading">¶</a></h2>
 <section id="extract-radial-distribution-function">
 <h3>Extract radial distribution function<a class="headerlink" href="#extract-radial-distribution-function" title="Link to this heading">¶</a></h3>
-<p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/radial-distribution-function/input.lammps" target="_blank">input</a> file I wrote.</p>
+<p>You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial3/exercises/radial-distribution-function/input.lammps" target="_blank">input</a> file I wrote.</p>
 <p>I use the <em>compute rdf</em> command of LAMMPS
 to extract the RDF between atoms of type 8 (oxygen from water)
 and one of the oxygen types from the PEG (1).
@@ -493,9 +493,9 @@ is applied to the PEG, a second <em>fix ave/time</em> is used.</p>
 </section>
 <section id="add-salt-to-the-mixture">
 <h3>Add salt to the mixture<a class="headerlink" href="#add-salt-to-the-mixture" title="Link to this heading">¶</a></h3>
-<p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/input.lammps" target="_blank">input</a>,
-<a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/mix-with-salt.data" target="_blank">data</a>,
-and <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a> files I wrote.</p>
+<p>You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial3/exercises/salt/input.lammps" target="_blank">input</a>,
+<a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial3/exercises/salt/mix-with-salt.data" target="_blank">data</a>,
+and <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial3/exercises/salt/PARM-with-salt.lammps" target="_blank">parm</a> files I wrote.</p>
 <p>It is important to
 make space for the two salt atoms by modifying the data file as follows:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="nv">(...)</span>
@@ -523,7 +523,7 @@ give a net charge to the ions.</p>
 </section>
 <section id="evaluate-the-deformation-of-the-peg">
 <h3>Evaluate the deformation of the PEG<a class="headerlink" href="#evaluate-the-deformation-of-the-peg" title="Link to this heading">¶</a></h3>
-<p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial3/exercises/structurePEG/input.lammps" target="_blank">input</a> file I wrote.</p>
+<p>You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial3/exercises/structurePEG/input.lammps" target="_blank">input</a> file I wrote.</p>
 <p>The key is to combine the <em>compute dihedral/local</em>,
 which computes the angles of the dihedrals and returns
 them in a vector, with the <em>ave/histo</em> functionalities of LAMMPS:</p>
@@ -636,7 +636,7 @@ and the force <span class="math notranslate nohighlight">\(f\)</span> as a funct
 <h2>Water adsorption in silica<a class="headerlink" href="#water-adsorption-in-silica" title="Link to this heading">¶</a></h2>
 <section id="mixture-adsorption">
 <h3>Mixture adsorption<a class="headerlink" href="#mixture-adsorption" title="Link to this heading">¶</a></h3>
-<p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/Exercises/MixtureH2OCO2/input.lammps" target="_blank">input</a> for the combine water and CO2
+<p>You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial6/Exercises/MixtureH2OCO2/input.lammps" target="_blank">input</a> for the combine water and CO2
 adsorption.
 One of the first steps is to create both types of molecules
 before starting the GCMC:</p>
@@ -711,7 +711,7 @@ progressive adsorption of both species.</p>
 </section>
 <section id="adsorb-water-in-zif-8-nanopores">
 <h3>Adsorb water in ZIF-8 nanopores<a class="headerlink" href="#adsorb-water-in-zif-8-nanopores" title="Link to this heading">¶</a></h3>
-<p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial6/Exercises/Zif-8/input.lammps" target="_blank">input</a> for the water adsorption in Zif-8,
+<p>You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial6/Exercises/Zif-8/input.lammps" target="_blank">input</a> for the water adsorption in Zif-8,
 which you have to place in the same folder as the <em>zif-8.data</em>,
 <em>parm.lammps</em>, and <em>water.mol</em> files.</p>
 <p>Apart from the parameters and topology, the <em>input</em> is
@@ -735,7 +735,7 @@ with water.</p>
 <h2>Free energy calculation<a class="headerlink" href="#free-energy-calculation" title="Link to this heading">¶</a></h2>
 <section id="the-binary-fluid-that-won-t-mix">
 <h3>The binary fluid that won’t mix<a class="headerlink" href="#the-binary-fluid-that-won-t-mix" title="Link to this heading">¶</a></h3>
-<p>You can download the <a href=".../../../../../.dependencies/lammpstutorials-inputs/tutorial7/Exercises/BinaryFluid/input.lammps" target="_blank">input</a> here.</p>
+<p>You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial7/Exercises/BinaryFluid/input.lammps" target="_blank">input</a> here.</p>
 <p>The solution chosen here was to create two groups (<em>t1</em> and <em>t2</em>)
 and apply the two potentials <em>U1</em> and <em>U2</em> to each group, respectively.</p>
 <p>To to so, two separate <em>fix addforce</em> are used:</p>
@@ -780,7 +780,7 @@ reduced compared to the case in the absence of additional forcing.</p>
 </section>
 <section id="surface-adsorption-of-a-molecule">
 <h3>Surface adsorption of a molecule<a class="headerlink" href="#surface-adsorption-of-a-molecule" title="Link to this heading">¶</a></h3>
-<p>You can download the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial7/Exercises/MoleculeAdsorption/input.lammps" target="_blank">input</a> here.</p>
+<p>You can download the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial7/Exercises/MoleculeAdsorption/input.lammps" target="_blank">input</a> here.</p>
 </section>
 </section>
 <section id="reactive-silicon-dioxide">
@@ -809,7 +809,7 @@ reduced compared to the case in the absence of additional forcing.</p>
 <span class="m">3</span><span class="w">        </span><span class="m">0.5564</span>
 </pre></div>
 </div>
-<p>Then, download the proposed input <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/Hydrate/input.lammps" target="_blank">here</a>.</p>
+<p>Then, download the proposed input <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial5/Exercices/Hydrate/input.lammps" target="_blank">here</a>.</p>
 <p>As seen in the <em>input.lammps</em> file, the molecules are added to the system
 using the <em>create_atoms</em> command:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="k">molecule</span><span class="w"> </span><span class="n">h2omol</span><span class="w"> </span><span class="n">H2O.mol</span>
@@ -829,8 +829,8 @@ surface:</p>
 </section>
 <section id="a-slightly-acidic-bulk-solution">
 <h3>A slightly acidic bulk solution<a class="headerlink" href="#a-slightly-acidic-bulk-solution" title="Link to this heading">¶</a></h3>
-<p>Download the input <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/BulkWater/input.lammps" target="_blank">here</a> as
-well as the <a href="../../../../../.dependencies/lammpstutorials-inputs/tutorial5/Exercices/BulkWater/reaxCHOFe.ff" target="_blank">reaxff force field</a>
+<p>Download the input <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial5/Exercices/BulkWater/input.lammps" target="_blank">here</a> as
+well as the <a href="https://github.com/lammpstutorials/lammpstutorials-inputs/tree/main/tutorial5/Exercices/BulkWater/reaxCHOFe.ff" target="_blank">reaxff force field</a>
 file. In addition, create a molecule template named <em>H2O.mol</em>:</p>
 <div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span><span class="m">3</span><span class="w"> </span><span class="n">atoms</span>
 
@@ -978,7 +978,7 @@ the reactive force field.</p>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
